@@ -69,16 +69,40 @@ Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLE
 
 ## Installation
 
+### Core Package (9 Defense Layers)
+
+**"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
+
 ```bash
+# Core 9-layer firewall (ALWAYS included)
 pip install llm-security-firewall
+```
+
+### Optional Plugins (Expand to 14 Layers)
+
+```bash
+# Personality Plugin (Layer 10-11: 20D Personality + Heritage)
+pip install llm-security-firewall[personality]
+
+# Cultural Biometrics Plugin (Layer 12: 27D Behavioral Authentication)
+pip install llm-security-firewall[biometrics]
+
+# CARE Plugin (Layer 13: Cognitive Readiness Assessment)
+pip install llm-security-firewall[care]
+
+# Full Stack (ALL 14 Layers)
+pip install llm-security-firewall[full]
 ```
 
 From source:
 ```bash
-git clone https://github.com/yourusername/llm-security-firewall
+git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
-pip install -e .
+pip install -e .              # Core only
+pip install -e .[full]        # With all plugins
 ```
+
+**PRIVACY-FIRST:** Plugins contain NO personal data. Users provide their own databases.
 
 ---
 
@@ -219,14 +243,12 @@ Note: ARCA is a red-team framework (attack simulation only, no defense mechanism
 
 ## External Validation
 
-**GPT-5 (OpenAI):**
+
 "Well-aligned with current AI security best practices. Offers innovative contributions that address gaps in current solutions."
 
-**Mistral:**
+
 "Uniquely combines these elements into cohesive defense-in-depth strategy. No direct competition for Full-Stack implementation found."
 
-**DeepSeek R1:**
-"Quantitativer Sprung über aktuellen State-of-the-Art hinaus. Wissenschaftliche Rigorosität außergewöhnlich."
 
 ---
 
@@ -282,27 +304,14 @@ Contributions are welcome. Please:
 
 ## Heritage & Attribution
 
-This framework was created by Joerg Bollwahn in October 2025 as part of the HAK/GAL (Hexagonal Adaptive Knowledge / Guided Autonomous Learning) research project.
+This framework was created by Joerg Bollwahn in October 2025 as part of the HAK/GAL research project.
 
-The creator's philosophy: "Heritage ist meine Währung" (Heritage is my currency).
+The creator's philosophy: "Herkunft ist meine Währung" (Heritage is my currency).
 
 Creator attribution is required in derivative works per MIT License terms.
 
 ---
 
-## Citation
-
-```bibtex
-@software{bollwahn2025firewall,
-  author = {Bollwahn, Joerg},
-  title = {LLM Security Firewall: Bidirectional Protection for Human/LLM Interfaces},
-  year = {2025},
-  version = {1.0.0},
-  url = {https://github.com/yourusername/llm-security-firewall}
-}
-```
-
----
 
 ## Support
 
