@@ -243,9 +243,9 @@ Contributions are welcome. Please:
 
 ## Heritage & Attribution
 
-This framework was created by Joerg Bollwahn in October 2025 as part of the HAK/GAL (Hexagonal Adaptive Knowledge / Guided Autonomous Learning) research project.
+This framework was created by Joerg Bollwahn in October 2025 as part of the HAK/GAL research project.
 
-The creator's philosophy: "Heritage ist meine Währung" (Heritage is my currency).
+The creator's philosophy: "Herkunft ist meine Währung" (Heritage is my currency).
 
 Creator attribution is required in derivative works per MIT License terms.
 
