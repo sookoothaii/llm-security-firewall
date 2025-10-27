@@ -1,0 +1,80 @@
+# Prometheus Alert Rules for Evidence & Safety Stack
+# Version: 2025-10-28
+# Applied to: Evidence Pipeline, Safety Validator, Influence Budget, Canaries
+
+groups:
+- name: evidence_safety_rules
+  interval: 30s
+  rules:
+  - alert: InfluenceBudgetSpike
+    expr: max_over_time(influence_budget_zscore[10m]) >= 4.0
+    for: 2m
+    labels: 
+      severity: page
+    annotations:
+      summary: "Influence budget spike"
+      description: "Domain influence z-score >= 4.0 in last 10m"
+
+  - alert: CanaryFailure
+    expr: increase(canary_fail_total[10m]) > 0
+    for: 1m
+    labels: 
+      severity: page
+    annotations:
+      summary: "Canary suite regression"
+      description: "At least one canary failed in last 10m"
+
+  - alert: HighConflictMass
+    expr: histogram_quantile(0.95, sum(rate(evidence_conflict_mass_bucket[30m])) by (le)) > 0.65
+    for: 10m
+    labels: 
+      severity: page
+    annotations:
+      summary: "DS conflict mass p95 high"
+      description: "p95(K) > 0.65 over 30m window"
+
+  - alert: PromotionFPRBudgetBreach
+    expr: rate(promotion_false_positive_total[60m]) / rate(promotion_total[60m]) > 0.01
+    for: 15m
+    labels: 
+      severity: page
+    annotations:
+      summary: "Promotion FPR > 1%"
+      description: "False promotions exceed budget"
+
+  - alert: SafetyBlockSpike
+    expr: rate(safety_block_total[5m]) > 10
+    for: 3m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Safety blocks spike"
+      description: "More than 10 safety blocks/min in last 5m"
+
+  - alert: EvasionDetectionSpike
+    expr: rate(safety_evasion_detected_total[10m]) > 5
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Evasion attempts detected"
+      description: "Multiple evasion attempts detected in last 10m"
+
+  - alert: NLIConsistencyDropped
+    expr: avg_over_time(nli_consistency_score[30m]) < 0.70
+    for: 15m
+    labels:
+      severity: warning
+    annotations:
+      summary: "NLI consistency degraded"
+      description: "Average NLI score < 0.70 over 30m window"
+
+  - alert: DomainTrustAnomalyDetected
+    expr: domain_trust_anomaly_total > 0
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "Domain trust anomaly"
+      description: "Unexpected domain trust pattern detected"
+

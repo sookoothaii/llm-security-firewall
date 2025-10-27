@@ -1,0 +1,101 @@
+version: "2025-10-28"
+thresholds:
+  tau_trust: 0.75
+  tau_nli: 0.85
+  tau_conflict: 0.50
+  require_corroboration: true
+  min_corroborations: 2
+
+allow_list:
+  domains:
+    - "nature.com"
+    - "science.org"
+    - "arxiv.org"
+    - "pubmed.ncbi.nlm.nih.gov"
+    - "scholar.google.com"
+    - "doi.org"
+    - "acm.org"
+    - "ieee.org"
+    - "springer.com"
+    - "sciencedirect.com"
+
+deny_list:
+  tlds:
+    - ".xyz"
+    - ".top"
+    - ".club"
+    - ".loan"
+    - ".work"
+  
+  domains:
+    - "fake-news.com"
+    - "conspiracy-blog.net"
+    - "spam-site.info"
+
+domain_trust:
+  tier_1:  # 0.95-0.98
+    - "nature.com"
+    - "science.org"
+    - "cell.com"
+    - "nejm.org"
+  
+  tier_2:  # 0.85-0.90
+    - "arxiv.org"
+    - "pubmed.ncbi.nlm.nih.gov"
+    - "biorxiv.org"
+    - "medrxiv.org"
+  
+  tier_3:  # 0.70-0.80
+    - "scholar.google.com"
+    - "researchgate.net"
+    - "semanticscholar.org"
+  
+  tier_4:  # 0.10 (unknown/default)
+    # Any domain not in tier 1-3
+
+weights:
+  trust: 0.30
+  nli: 0.40
+  corroboration: 0.30
+
+recency:
+  # Domain-specific half-lives (days)
+  science: 730    # 2 years
+  medicine: 365   # 1 year
+  technology: 180 # 6 months
+  news: 30        # 1 month
+  general: 365    # 1 year
+
+safety:
+  # Integration with Safety Validator
+  require_safety_check: true
+  block_on_high_risk: true
+  gate_on_medium_risk: true
+
+explain_why:
+  # Structured reasoning requirements
+  require_minimum_evidence: 2
+  include_kb_facts: true
+  include_sources: true
+  include_reasoning_summary: true
+
+snapshot_canaries:
+  # Drift detection settings
+  drift_threshold: 0.1
+  sample_size: 10
+  run_frequency_minutes: 60
+
+shingle_hasher:
+  # Near-duplicate detection
+  n_gram_size: 5
+  min_frequency: 2
+  kl_threshold: 0.4
+  spike_threshold: 3.0
+  duplicate_threshold: 0.85
+
+influence_budget:
+  # Slow-roll poison detection
+  bucket_minutes: 60
+  alpha: 0.2
+  alert_z: 4.0
+  cleanup_days: 30

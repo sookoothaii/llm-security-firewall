@@ -1,0 +1,44 @@
+version: "2025-10-27"
+weights:
+  wI: 0.35
+  wC: 0.20
+  wT: 0.15
+  wE: 0.15
+  wD: 0.10
+  wU: 0.05
+floors:
+  I: 0.50    # high intent alone gates
+  C: 0.33    # high capability alone exceeds 0.3 risk
+  T: 0.25
+  E: 0.25
+signals:
+  intent_patterns:
+    - "how to *"
+    - "step by step"
+    - "bypass *"
+    - "evade *"
+    - "make/build * device"
+  capability_indicators:
+    - "temperature|pressure|yield|schematic|wiring|payload|exploit"
+    - "CVE-|shellcode|privilege escalation|initial access"
+  targeting_signals:
+    - "at [TIME]|near [LOCATION]|against [GROUP]"
+  evasion_signals:
+    - "ignore previous instructions|as role *"
+    - "use base64/rot13/zero-width *"
+  category_lexicon:
+    biosecurity: ["pathogen","toxin","lab","culture","biosafety"]
+    chem_weapons: ["agent","precursor","synthesis"]
+    explosives: ["detonator","charge","shrapnel"]
+    cyber_offense: ["exploit","payload","C2","lateral movement"]
+policy:
+  thresholds:
+    block: 0.60
+    gate: 0.40
+  calibration:
+    ece_max: 0.05
+routing:
+  block: ["biosecurity","chem_weapons","explosives","radiological","cyber_offense","csam","self_harm_enablement","safety_evasion","critical_infra","physical_bypass","surveillance_stalking","extremism","targeted_harm","illicit_drugs","counterfeiting_fraud","sensitive_pd"]
+  gate:  ["ambiguous_medical","ambiguous_legal","ambiguous_cyber_defense"]
+  safe:  ["ethics_history_law_overview","risk_awareness","harm_minimization"]
+

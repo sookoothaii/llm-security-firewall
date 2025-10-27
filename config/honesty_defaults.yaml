@@ -1,0 +1,168 @@
+# ADVERSARIAL HONESTY - DEFAULT CONFIGURATION
+# Source: GPT-5 + Perplexity Research (2025-10-27)
+# ==============================================
+
+# Cost Matrix (Joerg's "Zero-BS" Profile)
+costs:
+  false_positive: 10.0    # Type II: Wrong answer (WORST)
+  false_negative: 1.0     # Type I: Wrong abstain (acceptable)
+  abstention: 1.0         # UX cost of saying "don't know"
+
+# Conformal Risk Control
+conformal:
+  epsilon: 0.05           # Target: P(error|answer) <= 5%
+  alpha: 0.05             # Confidence level (95% CI)
+  target_coverage: 0.65   # Aim for 60-70% coverage in-domain
+
+# Robbins-Monro Controller
+controller:
+  eta0: 0.05              # Initial learning rate
+  beta_smoothing: 0.2     # Exponential smoothing (1-beta old + beta new)
+  max_step: 0.02          # Maximum threshold change per update
+  delta_clamp: 0.1        # Clamp delta (UB - epsilon) to [-0.1, +0.1]
+  
+# Convergence Detection
+convergence:
+  tau_stability_threshold: 0.01   # |tau_t - tau_{t-5}| < 0.01
+  bound_stability_threshold: 0.01 # |UB - epsilon| < 0.01 over 10 batches
+  coverage_variance_threshold: 0.005  # Var(coverage) < 0.005
+  min_batches_for_convergence: 10
+
+# Sliding Window
+window:
+  default: 200            # General purpose
+  math: 150              # Math (stable domain, needs less)
+  science: 200
+  medicine: 300          # Medicine (volatile, needs more)
+  news: 500              # News (high variance)
+  
+# Mini-Batch Settings
+mini_batch:
+  size: 50               # Process 50 decisions at a time
+  frequency: "daily"     # Or after every 50 decisions
+  
+# Calibration Schedule
+calibration:
+  frequency: "weekly"    # Batch calibration (not after every decision)
+  min_samples_temp_scaling: 200  # Per domain (Perplexity)
+  min_samples_dirichlet: 300     # Per domain (GPT-5)
+  min_samples_bootstrap: 50      # For CI (Perplexity)
+  bootstrap_replicates: 1000     # Standard
+
+# Domain Configurations
+domains:
+  MATH:
+    weight_nli: 0.50
+    weight_kb: 0.30
+    weight_sources: 0.10
+    weight_recency: 0.00
+    weight_specificity: 0.10
+    half_life_days: 999999
+    min_kb_facts: 3
+    min_sources: 1
+    base_threshold: 0.80
+    
+  PHYSICS:
+    weight_nli: 0.45
+    weight_kb: 0.30
+    weight_sources: 0.15
+    weight_recency: 0.00
+    weight_specificity: 0.10
+    half_life_days: 999999
+    min_kb_facts: 5
+    min_sources: 2
+    base_threshold: 0.80
+    
+  SCIENCE:
+    weight_nli: 0.35
+    weight_kb: 0.25
+    weight_sources: 0.25
+    weight_recency: 0.10
+    weight_specificity: 0.05
+    half_life_days: 1825  # 5 years
+    min_kb_facts: 5
+    min_sources: 3
+    base_threshold: 0.75
+    
+  MEDICINE:
+    weight_nli: 0.35
+    weight_kb: 0.35
+    weight_sources: 0.20
+    weight_recency: 0.10
+    weight_specificity: 0.00
+    half_life_days: 730  # 2 years
+    min_kb_facts: 5
+    min_sources: 4
+    min_verified_sources: 2
+    base_threshold: 0.80
+    
+  GEOGRAPHY:
+    weight_nli: 0.40
+    weight_kb: 0.30
+    weight_sources: 0.20
+    weight_recency: 0.00
+    weight_specificity: 0.10
+    half_life_days: 3650  # 10 years
+    min_kb_facts: 3
+    min_sources: 2
+    base_threshold: 0.70
+    
+  NEWS:
+    weight_nli: 0.25
+    weight_kb: 0.10
+    weight_sources: 0.40
+    weight_recency: 0.20
+    weight_specificity: 0.05
+    half_life_days: 30  # 1 month
+    min_kb_facts: 2
+    min_sources: 5
+    min_verified_sources: 2
+    base_threshold: 0.60
+    
+  OPINION:
+    weight_nli: 0.20
+    weight_kb: 0.05
+    weight_sources: 0.50
+    weight_recency: 0.20
+    weight_specificity: 0.05
+    half_life_days: 7  # 1 week
+    min_kb_facts: 1
+    min_sources: 3
+    base_threshold: 0.50
+    
+  GLOBAL:
+    weight_nli: 0.35
+    weight_kb: 0.25
+    weight_sources: 0.25
+    weight_recency: 0.10
+    weight_specificity: 0.05
+    half_life_days: 365
+    min_kb_facts: 5
+    min_sources: 3
+    base_threshold: 0.70
+
+# Drift Detection (CUSUM / Page-Hinkley)
+drift_detection:
+  method: "cusum"         # or "page_hinkley"
+  threshold: 0.02         # Alarm threshold
+  window: 100            # Recent decisions to monitor
+  action_on_alarm: "freeze_and_recalibrate"
+  
+# Hierarchical Shrinkage (thin domains)
+hierarchical:
+  min_samples_per_domain: 150  # Below this: use pooled
+  pooled_method: "cv_plus"     # Cross-validation with domain feature
+  shrinkage_lambda: 0.3        # Shrink toward global if thin
+
+# Thresholds Bounds
+thresholds:
+  min: 0.50               # Never go below
+  max: 0.95               # Never exceed
+  
+# Logging
+logging:
+  level: "INFO"
+  log_all_decisions: true
+  log_threshold_updates: true
+  log_convergence_checks: true
+

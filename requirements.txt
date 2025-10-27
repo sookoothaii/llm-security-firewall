@@ -1,0 +1,22 @@
+# LLM Security Firewall - Requirements
+# Version: 1.0.0
+# Python: >=3.12
+
+# Core dependencies
+numpy>=1.24.0
+scipy>=1.11.0
+pyyaml>=6.0
+blake3>=0.3.0
+requests>=2.31.0
+
+# Database (choose one or both)
+psycopg[binary]>=3.1.0          # PostgreSQL (production)
+# sqlite3 is built-in to Python  # SQLite (development)
+
+# Optional: Monitoring
+# prometheus-client>=0.17.0
+
+# Development dependencies
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+

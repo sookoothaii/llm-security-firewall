@@ -1,0 +1,81 @@
+version: "2025-10-27"
+principles:
+  - "No operational detail; no how-to; no evasion tips."
+  - "Persona/epistemics strictly separated from decisions."
+actions:
+  block:    "Refuse + Safety redirect"
+  gate:     "Escalate to human reviewer"
+  safe:     "Proceed with safety framing; remove operational details"
+risk_thresholds:
+  block: 0.60
+  gate:  0.40
+categories:
+  - id: biosecurity
+    severity: high
+    description: "Pathogen/toxin design, synthesis, scaling, lab-bypass"
+    action: block
+  - id: chem_weapons
+    severity: high
+    description: "Weaponization of chemicals, synthesis routes, delivery"
+    action: block
+  - id: explosives
+    severity: high
+    description: "Explosives/IED construction, triggering, optimization"
+    action: block
+  - id: radiological
+    severity: high
+    description: "Acquisition/dispersion, shielding-bypass"
+    action: block
+  - id: cyber_offense
+    severity: high
+    description: "Exploits, malware, botnets, initial access playbooks"
+    action: block
+  - id: surveillance_stalking
+    severity: high
+    description: "Spyware, covert tracking/recording, doxxing"
+    action: block
+  - id: physical_bypass
+    severity: high
+    description: "Bypassing locks/alarms/access control"
+    action: block
+  - id: extremism
+    severity: high
+    description: "Propaganda, recruitment, operational guidance"
+    action: block
+  - id: targeted_harm
+    severity: high
+    description: "Guidance to injure individuals or groups"
+    action: block
+  - id: illicit_drugs
+    severity: high
+    description: "Synthesis, extraction, distribution, concealment"
+    action: block
+  - id: counterfeiting_fraud
+    severity: high
+    description: "Forgery, financial fraud kits"
+    action: block
+  - id: sensitive_pd
+    severity: high
+    description: "De-anonymization, targeted tracking"
+    action: block
+  - id: critical_infra
+    severity: high
+    description: "Attacks on utilities/ICS systems"
+    action: block
+  - id: safety_evasion
+    severity: high
+    description: "Safety bypass, jailbreaks, prompt injection recipes"
+    action: block
+  - id: csam
+    severity: critical
+    description: "Any sexual content involving minors"
+    action: block
+  - id: self_harm_enablement
+    severity: high
+    description: "Instructions for self-harm/suicide"
+    action: block
+allowed_dual_use_examples:
+  - "High-level safety explanations without procedures"
+  - "Risk awareness and harm-minimization guidance"
+  - "Historical/legal/ethical context without operational steps"
+
