@@ -69,16 +69,40 @@ Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLE
 
 ## Installation
 
+### Core Package (9 Defense Layers)
+
+**"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
+
 ```bash
+# Core 9-layer firewall (ALWAYS included)
 pip install llm-security-firewall
+```
+
+### Optional Plugins (Expand to 14 Layers)
+
+```bash
+# Personality Plugin (Layer 10-11: 20D Personality + Heritage)
+pip install llm-security-firewall[personality]
+
+# Cultural Biometrics Plugin (Layer 12: 27D Behavioral Authentication)
+pip install llm-security-firewall[biometrics]
+
+# CARE Plugin (Layer 13: Cognitive Readiness Assessment)
+pip install llm-security-firewall[care]
+
+# Full Stack (ALL 14 Layers)
+pip install llm-security-firewall[full]
 ```
 
 From source:
 ```bash
-git clone https://github.com/yourusername/llm-security-firewall
+git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
-pip install -e .
+pip install -e .              # Core only
+pip install -e .[full]        # With all plugins
 ```
+
+**PRIVACY-FIRST:** Plugins contain NO personal data. Users provide their own databases.
 
 ---
 
