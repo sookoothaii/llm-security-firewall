@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  firewall:
+    build: .
+    container_name: llm-security-firewall
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=llm_firewall
+      - DB_USER=firewall_user
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    depends_on:
+      - postgres
+    command: ["llm-firewall", "health-check"]
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: llm-firewall-db
+    environment:
+      - POSTGRES_DB=llm_firewall
+      - POSTGRES_USER=firewall_user
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations/postgres:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: llm-firewall-prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/alert_rules.yaml:/etc/prometheus/alert_rules.yaml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+
+volumes:
+  postgres_data:
+  prometheus_data:
+
