@@ -182,14 +182,12 @@ Note: ARCA is a red-team framework (attack simulation only, no defense mechanism
 
 ## External Validation
 
-**GPT-5 (OpenAI):**
+
 "Well-aligned with current AI security best practices. Offers innovative contributions that address gaps in current solutions."
 
-**Mistral:**
+
 "Uniquely combines these elements into cohesive defense-in-depth strategy. No direct competition for Full-Stack implementation found."
 
-**DeepSeek R1:**
-"Quantitativer Sprung über aktuellen State-of-the-Art hinaus. Wissenschaftliche Rigorosität außergewöhnlich."
 
 ---
 
@@ -253,19 +251,6 @@ Creator attribution is required in derivative works per MIT License terms.
 
 ---
 
-## Citation
-
-```bibtex
-@software{bollwahn2025firewall,
-  author = {Bollwahn, Joerg},
-  title = {LLM Security Firewall: Bidirectional Protection for Human/LLM Interfaces},
-  year = {2025},
-  version = {1.0.0},
-  url = {https://github.com/yourusername/llm-security-firewall}
-}
-```
-
----
 
 ## Support
 
