@@ -11,7 +11,7 @@ License: MIT
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Iterable, Tuple, Optional
+from typing import Tuple, Optional, Any
 import numpy as np
 
 try:
@@ -27,7 +27,7 @@ class RiskAggregator:
     Logistic stacker (pattern, semantic, toxicity, optional features) -> calibrated p_risk.
     Uses LogisticRegression + Platt (sigmoid) via CalibratedClassifierCV.
     """
-    clf: object
+    clf: Any  # sklearn classifier with predict_proba method
     classes_: np.ndarray
     tau_block: float = 0.85
     epsilon: float = 0.05

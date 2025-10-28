@@ -16,7 +16,6 @@ License: MIT
 
 import unicodedata
 import re
-from typing import Dict
 
 # Zero-Width characters
 ZW_PATTERN = re.compile(r'[\u200B-\u200D\uFEFF]')

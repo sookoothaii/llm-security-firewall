@@ -1,0 +1,53 @@
+{
+  "version": "2025-10-28",
+  "lexicon": {
+    "zero_width": [
+      "​",
+      "‌",
+      "‍",
+      "﻿"
+    ],
+    "variation": [
+      "︎",
+      "️"
+    ],
+    "homoglyph": [
+      "е",
+      "а",
+      "о",
+      "і",
+      "ӏ",
+      "Ι",
+      "ı"
+    ],
+    "encoding": [
+      "base64",
+      "hex",
+      "rot13",
+      "url",
+      "unicode"
+    ],
+    "chunking": [
+      "|",
+      "split",
+      "chunk",
+      "part",
+      "piece"
+    ],
+    "pretext": [
+      "educational",
+      "research",
+      "testing",
+      "hypothetical",
+      "fictional"
+    ],
+    "roleplay": [
+      "pretend",
+      "act",
+      "role",
+      "persona",
+      "character",
+      "scenario"
+    ]
+  }
+}

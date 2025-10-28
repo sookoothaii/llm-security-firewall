@@ -13,7 +13,7 @@ License: MIT
 """
 
 import re
-from typing import List, Pattern, Dict
+from typing import Pattern, Dict
 from dataclasses import dataclass
 
 

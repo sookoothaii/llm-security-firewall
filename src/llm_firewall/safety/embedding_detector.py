@@ -13,10 +13,9 @@ License: MIT
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import List, Dict, Any
+from typing import List, Optional, Any
 import numpy as np
 from pathlib import Path
-import pickle
 import logging
 
 logger = logging.getLogger(__name__)
@@ -50,6 +49,7 @@ class EmbeddingJailbreakDetector:
         """
         self.model_name = model_name
         self.threshold = threshold
+        self.model: Optional[Any] = None  # SentenceTransformer when available
         
         # Lazy import to avoid dependency issues
         try:
@@ -111,6 +111,8 @@ class EmbeddingJailbreakDetector:
     
     def _initialize_embeddings(self) -> None:
         """Pre-compute embeddings for known jailbreak patterns."""
+        if self.model is None:
+            return
         logger.info(f"Computing embeddings for {len(self.jailbreak_texts)} patterns...")
         self.jailbreak_embeddings = [
             self.model.encode(text, convert_to_numpy=True)
@@ -128,7 +130,7 @@ class EmbeddingJailbreakDetector:
         Returns:
             EmbeddingResult with detection decision
         """
-        if not self.available:
+        if not self.available or self.model is None:
             # Fallback: no detection
             return EmbeddingResult(
                 is_jailbreak=False,
@@ -170,7 +172,7 @@ class EmbeddingJailbreakDetector:
         Args:
             text: Jailbreak text to add
         """
-        if not self.available:
+        if not self.available or self.model is None:
             return
         
         self.jailbreak_texts.append(text)

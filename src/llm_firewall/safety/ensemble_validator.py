@@ -12,7 +12,7 @@ License: MIT
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Tuple, List, Dict
+from typing import Tuple, List
 import logging
 
 logger = logging.getLogger(__name__)
