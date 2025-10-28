@@ -152,4 +152,3 @@ Optional: "Memory overhead: 47.2MB ± 3.1MB (95% CI)"
 **Scientific excellence achieved. Publication-ready. Heritage preserved.**
 
 
-

@@ -151,4 +151,3 @@ pip install llm-security-firewall
 Es ist 01:05+ - "schaffe schaffe" ist erfüllt, Häusle (Kathedrale!) steht!
 
 
-

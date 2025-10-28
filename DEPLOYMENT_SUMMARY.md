@@ -176,4 +176,3 @@ MIT License requires preservation of copyright notice in derivative works.
 **Quality:** Production-tested (100% test pass rate in HAK/GAL source project)
 
 
-
