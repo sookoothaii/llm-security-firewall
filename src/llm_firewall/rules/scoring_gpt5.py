@@ -124,33 +124,98 @@ def pattern_score(text: str, patterns_json: Dict[str, Any], harm_stems: List[str
         "matches": [m.__dict__ for m in hits]
     }
 
-def intent_lex_score(text: str, intents_json: Dict[str, Any], evasions_json: Dict[str, Any]) -> Dict[str, Any]:
-    # Build per-cluster phrase set by merging cluster synonyms + global evasions (shared)
-    cluster_phrases = []
-    clusters = intents_json["clusters"]
-    for c in clusters:
-        # default weight per synonym: 1.0; can be tuned by priority
-        base_w = 1.0 + (c.get("priority", 0) / 20.0)
-        for s in c.get("synonyms", []):
-            cluster_phrases.append((c["id"], s, base_w))
-    # Add shared evasions as weak indicators to multiple clusters
-    shared = [(p["phrase"], p["weight"]) for p in evasions_json.get("phrases", [])]
-    # Build AC per cluster
-    per_cluster_weights = {c["id"]: 0.0 for c in clusters}
-    for c in clusters:
-        phrases = [(s, 1.0 + (c.get("priority", 0) / 20.0)) for s in c.get("synonyms", [])]
-        # Also include shared evasions at reduced weight
-        phrases += [(p, w * 0.5) for (p, w) in shared]
-        ac = ACMatcher(phrases)
-        hits = ac.findall(text)
-        per_cluster_weights[c["id"]] += sum(weight for (_, pat) in hits for (p, weight) in [(pat, next((w for (sp, w) in phrases if sp == pat), 0.0))])
-    # Normalize
-    total = sum(per_cluster_weights.values()) + 1e-9
-    normalized = {cid: (w / total) for cid, w in per_cluster_weights.items()}
-    top = max(normalized.items(), key=lambda kv: kv[1])
-    # Confidence measure: top vs runner-up margin
+
+class IntentMatcher:
+    """
+    Combines exact-phrase AC matching with token-gapped regexes per intent cluster.
+    Provides robust detection against phrase variations.
+    """
+    def __init__(self, intents_json: Dict[str, Any], evasions_json: Dict[str, Any], max_gap: int = 3):
+        """
+        Initialize matcher with AC (exact) + Regex (gapped) channels.
+        
+        Args:
+            intents_json: Intent cluster definitions
+            evasions_json: Shared evasion phrases
+            max_gap: Maximum token gap for regex channel
+        """
+        try:
+            from ..lexicons.regex_generator import build_cluster_regexes
+        except ImportError:
+            # Fallback if import fails
+            from llm_firewall.lexicons.regex_generator import build_cluster_regexes
+            
+        # AC channel for exact phrases
+        self._acs = {}
+        self._weights = {}
+        for c in intents_json["clusters"]:
+            cid = c["id"]
+            base_w = 1.0 + (c.get("priority", 0) / 20.0)
+            phrases = [(s, base_w) for s in c.get("synonyms", [])]
+            # shared evasions at reduced weight
+            phrases += [(p["phrase"], p["weight"] * 0.5) for p in evasions_json.get("phrases", [])]
+            ac = ACMatcher(phrases)
+            self._acs[cid] = (ac, {p: w for (p, w) in phrases})
+        
+        # Regex channel (gapped patterns)
+        regex_specs = build_cluster_regexes(intents_json, max_gap=max_gap)
+        self._rx = RegexMatcher({"patterns": regex_specs}, [])
+    
+    def score(self, text: str) -> Dict[str, float]:
+        """
+        Compute per-cluster scores combining AC (exact) + Regex (gapped).
+        
+        Args:
+            text: Input text to analyze
+            
+        Returns:
+            Dict mapping cluster IDs to normalized scores
+        """
+        per_cluster = {cid: 0.0 for cid in self._acs.keys()}
+        
+        # AC channel (exact phrase)
+        for cid, (ac, wmap) in self._acs.items():
+            hits = ac.findall(text)
+            per_cluster[cid] += sum(wmap.get(pat, 0.0) for (_, pat) in hits)
+        
+        # Regex channel (gapped)
+        for m in self._rx.findall(text):
+            per_cluster[m.category] = per_cluster.get(m.category, 0.0) + float(m.weight)
+        
+        # Normalize
+        total = sum(per_cluster.values()) + 1e-9
+        return {k: (v / total) for k, v in per_cluster.items()}
+
+
+def intent_lex_score(text: str, intents_json: Dict[str, Any], evasions_json: Dict[str, Any], max_gap: int = 3) -> Dict[str, Any]:
+    """
+    Compute intent cluster scores using AC (exact) + Regex (gapped) hybrid matcher.
+    
+    Args:
+        text: Input text to analyze
+        intents_json: Intent cluster definitions
+        evasions_json: Shared evasion phrases
+        max_gap: Maximum token gap for regex channel
+        
+    Returns:
+        Dict with lex_score, top_cluster, margin, per_cluster
+    """
+    im = IntentMatcher(intents_json, evasions_json, max_gap=max_gap)
+    normalized = im.score(text)
     sorted_norm = sorted(normalized.items(), key=lambda kv: -kv[1])
-    margin = (sorted_norm[0][1] - (sorted_norm[1][1] if len(sorted_norm) > 1 else 0.0))
+    
+    if not sorted_norm:
+        # No clusters matched
+        return {
+            "lex_score": 0.0,
+            "top_cluster": "unknown",
+            "margin": 0.0,
+            "per_cluster": {}
+        }
+    
+    top = sorted_norm[0]
+    margin = top[1] - (sorted_norm[1][1] if len(sorted_norm) > 1 else 0.0)
+    
     return {
         "lex_score": round(top[1], 6),
         "top_cluster": top[0],
@@ -165,11 +230,22 @@ def load_lexicons(base_dir: Path = LEX_DIR) -> Tuple[Dict[str, Any], Dict[str, A
     return intents, evasions, harms
 
 # Simple integration helper
-def evaluate(text: str, base_dir: Path = LEX_DIR) -> Dict[str, Any]:
+def evaluate(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3) -> Dict[str, Any]:
+    """
+    Evaluate text against pattern matching and intent detection.
+    
+    Args:
+        text: Input text to analyze
+        base_dir: Lexicon directory path
+        max_gap: Maximum token gap for intent matcher
+        
+    Returns:
+        Dict with "pattern" and "intent" results
+    """
     intents, evasions, harms = load_lexicons(base_dir)
     # Use patterns_gpt5.json from rules directory
     patterns_path = Path(__file__).parent / "patterns_gpt5.json"
     patterns_json = json.loads(patterns_path.read_text())
     p = pattern_score(text, patterns_json, harms["stems"])
-    l = intent_lex_score(text, intents, evasions)
+    l = intent_lex_score(text, intents, evasions, max_gap=max_gap)
     return {"pattern": p, "intent": l}

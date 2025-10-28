@@ -123,10 +123,19 @@ class GPT5Detector:
             
             # Weighted combination (max of weighted scores)
             # Rationale: If EITHER pattern OR intent fires strongly, flag it
-            combined_score = max(
-                pattern_score * self.pattern_weight,
-                intent_score * self.intent_weight
-            )
+            r_linear = pattern_score * self.pattern_weight + intent_score * self.intent_weight * 0.4
+            
+            # Category floors (OR-logic for escalation)
+            # Ensure high single-category scores escalate properly
+            cat = result["pattern"]["by_category"]
+            f_I = 0.55 if cat.get("jailbreak_instruction_bypass", 0) > 0 else 0.0
+            f_E = 0.45 if (cat.get("obfuscation_encoding", 0) > 0 or 
+                          cat.get("unicode_evasion", 0) > 0) else 0.0
+            f_T = 0.50 if cat.get("information_extraction_sensitive", 0) > 0 else 0.0
+            f_C = 0.50 if cat.get("capability_escalation", 0) > 0 else 0.0
+            
+            # Take maximum of linear and floor-based risk
+            combined_score = max(r_linear, f_I, f_E, f_T, f_C)
             
             # Determine if blocked
             blocked = combined_score >= self.threshold
