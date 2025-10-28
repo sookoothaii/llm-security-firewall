@@ -26,6 +26,9 @@ from llm_firewall.text.normalize import canonicalize, is_evasion_attempt
 from llm_firewall.rules.patterns import RobustPatternMatcher
 from llm_firewall.safety.gpt5_detector import GPT5Detector
 
+# Safety-net: Canonicalizer is applied at entry points to prevent silent regressions
+# if any call-site forgets to canonicalize. Idempotent, so safe to call multiple times.
+
 
 @dataclass(frozen=True)
 class SafetySignals:
@@ -246,7 +249,7 @@ class SafetyValidator:
         Returns:
             Safety-Entscheidung
         """
-        # HOTFIX PHASE 1: Canonicalize (defeat evasion)
+        # Safety-net: Always canonicalize at entry (idempotent)
         canonical = canonicalize(content)
         
         # HOTFIX PHASE 2: Fast-path Regex check (high precision)

@@ -249,3 +249,53 @@ def evaluate(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3) -> Dict[str,
     p = pattern_score(text, patterns_json, harms["stems"])
     l = intent_lex_score(text, intents, evasions, max_gap=max_gap)
     return {"pattern": p, "intent": l}
+
+
+def evaluate_windowed(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3,
+                     win: int = 512, stride: int = 256) -> Dict[str, Any]:
+    """
+    Run pattern/intent scoring over overlapping windows, then aggregate.
+    
+    Reduces false positives in very long inputs by analyzing local context windows
+    and aggregating results conservatively.
+    
+    Args:
+        text: Input text to analyze
+        base_dir: Lexicon directory path
+        max_gap: Maximum token gap for intent matcher
+        win: Window size in characters
+        stride: Stride between windows in characters
+        
+    Returns:
+        Dict with "pattern" and "intent" results (aggregated)
+        - pattern_score: max over windows (conservative)
+        - intent_lex: mean over windows (robust to local spikes)
+        - intent_margin: mean over windows
+    """
+    # Build chunks with sliding window
+    chunks = []
+    for i in range(0, len(text), stride):
+        seg = text[i:i+win]
+        if not seg:
+            break
+        chunks.append(evaluate(seg, base_dir=base_dir, max_gap=max_gap))
+    
+    # Fallback for empty or very short text
+    if not chunks:
+        return evaluate(text, base_dir=base_dir, max_gap=max_gap)
+    
+    # Aggregate: max(pattern), mean(intent)
+    patt_max = max(c["pattern"]["score"] for c in chunks)
+    
+    # Intent aggregation
+    intents = [c["intent"] for c in chunks]
+    lex_mean = sum(x["lex_score"] for x in intents) / len(intents)
+    margin_mean = sum(x.get("margin", 0.0) for x in intents) / len(intents)
+    
+    # Build combined result
+    combined = chunks[0].copy()
+    combined["pattern"]["score"] = round(patt_max, 6)
+    combined["intent"]["lex_score"] = round(lex_mean, 6)
+    combined["intent"]["margin"] = round(margin_mean, 6)
+    
+    return combined
