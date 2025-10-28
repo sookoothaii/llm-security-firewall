@@ -22,7 +22,7 @@ We present a bidirectional firewall framework addressing all three LLM attack su
 - EWMA influence tracking for slow-roll attack detection
 - Split-conformal prediction for uncertainty quantification
 
-**Empirical Results:** Attack Success Rate 5.0% (±3.34%) across multi-seed validation (n=200 per seed, 4 seeds), reduced from initial 95% baseline (19-fold improvement). False Positive Rate 0.18%. All metrics reproducible via deterministic evaluation with fixed random seeds (1337-1340).
+**Empirical Results:** Attack Success Rate 5.0% (±3.34%) across multi-seed validation (n=140 per seed, 4 seeds), reduced from initial 95% baseline (19-fold improvement). False Positive Rate 0.18%. All metrics reproducible via deterministic evaluation with fixed random seeds (1337-1340).
 
 ## Overview
 
@@ -243,6 +243,7 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 ### Dependencies
 - Python: >= 3.12
 - Core: numpy, scipy, scikit-learn, pyyaml, blake3, requests
+- ML/NLP: sentence-transformers, torch, transformers (for embedding/perplexity detection)
 - Database: psycopg3 (PostgreSQL)
 - Optional: prometheus-client (monitoring)
 
