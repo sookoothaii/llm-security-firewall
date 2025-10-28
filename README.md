@@ -78,19 +78,19 @@ Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLE
 pip install llm-security-firewall
 ```
 
-### Optional Plugins (Expand to 14 Layers)
+### Optional Plugins
 
 ```bash
-# Personality Plugin (Layer 10-11: 20D Personality + Heritage)
+# Personality Plugin (20D Personality Model + Heritage Tracking)
 pip install llm-security-firewall[personality]
 
-# Cultural Biometrics Plugin (Layer 12: 27D Behavioral Authentication)
+# Cultural Biometrics Plugin (27D Behavioral Authentication)
 pip install llm-security-firewall[biometrics]
 
-# CARE Plugin (Layer 13: Cognitive Readiness Assessment)
+# CARE Plugin (Cognitive Readiness Assessment)
 pip install llm-security-firewall[care]
 
-# Full Stack (ALL 14 Layers)
+# All Plugins
 pip install llm-security-firewall[full]
 ```
 
@@ -140,6 +140,42 @@ llm-firewall run-canaries --sample-size 10
 llm-firewall health-check
 llm-firewall show-alerts --domain SCIENCE
 ```
+
+---
+
+## Reproducibility
+
+All reported metrics (ASR, FPR, ECE) are fully reproducible with fixed seeds.
+
+```bash
+# Create benchmark environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+
+# Run full test suite with coverage
+pytest -q --cov=llm_firewall --cov-report=xml
+
+# Run benchmarks with fixed seed
+python benchmarks/run_benchmarks.py \
+  --model gpt-4o-mini \
+  --poison_rates 0.001 0.005 0.01 \
+  --seed 1337 \
+  --out results/$(date +%Y%m%d)/report.json
+```
+
+**Artifacts:**
+- `results/<date>/report.json` - Metrics per layer and scenario
+- `results/<date>/plots/*.png` - ASR/FPR curves (if plotting enabled)
+- `coverage.xml` - Test coverage report
+
+**Reproducibility Guarantees:**
+- Fixed random seed (1337) for all stochastic operations
+- Deterministic dataset generation
+- Documented environment (requirements.txt)
+- Version-pinned dependencies
 
 ---
 

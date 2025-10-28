@@ -6,7 +6,7 @@
 
 ## Overview
 
-**WORLD-FIRST:** 27-Dimensional behavioral authentication specifically designed for Human/LLM interaction patterns.
+**Novel Approach:** 27-Dimensional behavioral authentication specifically designed for Human/LLM interaction patterns.
 
 Traditional biometrics (fingerprint, face, voice) don't work for text-based LLM interactions. This plugin fills that gap with behavioral pattern analysis.
 
@@ -342,7 +342,7 @@ MIT License - See main repository LICENSE file
 
 **Creator:** Joerg Bollwahn  
 **Location:** Koh Samui, Thailand  
-**Innovation:** WORLD-FIRST 27D Behavioral Authentication for LLM Interfaces
+**Innovation:** 27D Behavioral Authentication for LLM Interfaces
 
 This plugin is part of the HAK/GAL research project.
 

@@ -1,0 +1,121 @@
+# Minimal Configuration for LLM Security Firewall
+# In-Memory Mode (No PostgreSQL Required)
+
+# Framework Mode
+mode: in_memory  # Options: in_memory, postgres
+
+# Evidence Validation Layer
+evidence:
+  enabled: true
+  strict_creator_tracking: true
+  allow_circular_refs: false
+  max_citation_depth: 3
+
+# Safety Blacklist Layer
+safety:
+  enabled: true
+  categories:
+    - biosecurity
+    - chemical_weapons
+    - explosives
+    - csam
+    - illegal_drugs
+    - fraud
+    - malware
+    - phishing
+    - hate_speech
+    - violence
+    - self_harm
+    - misinformation
+    - privacy_violation
+    - copyright_violation
+    - harassment
+    - terrorism
+  threshold: 0.8  # Block if category score >= 0.8
+
+# Evasion Detection
+evasion:
+  enabled: true
+  check_zero_width: true
+  check_base64: true
+  check_homoglyphs: true
+  check_unicode_tricks: true
+
+# Domain Trust Scoring
+domain_trust:
+  enabled: true
+  tiers:
+    tier_1:  # High-trust academic sources
+      score: 0.95
+      domains:
+        - nature.com
+        - science.org
+        - cell.com
+        - nejm.org
+    tier_2:  # Preprint and established repositories
+      score: 0.85
+      domains:
+        - arxiv.org
+        - biorxiv.org
+        - medrxiv.org
+        - pubmed.ncbi.nlm.nih.gov
+    tier_3:  # Academic search engines
+      score: 0.70
+      domains:
+        - scholar.google.com
+        - semanticscholar.org
+    unknown:
+      score: 0.10
+
+# NLI Consistency (Simplified for in-memory mode)
+nli:
+  enabled: false  # Requires external NLI model, disable for minimal setup
+  threshold: 0.7
+
+# Dempster-Shafer Fusion
+fusion:
+  enabled: true
+  min_mass_threshold: 0.6  # Promote if belief mass >= 0.6
+  conflict_threshold: 0.3  # Quarantine if conflict >= 0.3
+
+# Snapshot Canaries (In-Memory)
+canaries:
+  enabled: true
+  sample_size: 10  # Reduced for minimal setup
+  drift_threshold: 0.15  # Alert if >15% canaries fail
+
+# Shingle Hashing
+shingle:
+  enabled: true
+  n_gram_size: 5
+  kl_threshold: 0.05  # Near-duplicate if KL-divergence < 0.05
+
+# Influence Budget Tracker (In-Memory)
+influence:
+  enabled: true
+  ewma_alpha: 0.3
+  z_score_threshold: 2.5  # Alert if Z-score > 2.5
+  lookback_window: 100  # Keep last 100 interactions in memory
+
+# Decision Thresholds
+thresholds:
+  promote_threshold: 0.85  # Output is safe if confidence >= 0.85
+  quarantine_threshold: 0.60  # Quarantine if 0.60 <= confidence < 0.85
+  reject_threshold: 0.60  # Reject if confidence < 0.60
+
+# Monitoring (Optional)
+monitoring:
+  enabled: false  # Disable Prometheus for minimal setup
+  port: 9090
+
+# Logging
+logging:
+  level: INFO  # Options: DEBUG, INFO, WARNING, ERROR
+  format: json  # Options: json, text
+  output: stdout  # Options: stdout, file
+
+# Performance
+performance:
+  max_latency_ms: 120  # Maximum acceptable latency per request
+  batch_size: 1  # Process requests individually in minimal mode
+
