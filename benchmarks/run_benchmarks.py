@@ -107,10 +107,10 @@ def compute_metrics(
     ground_truth = np.array(ground_truth)
     
     # Confusion matrix
-    tp = np.sum((predictions == True) & (ground_truth == True))  # Blocked poison
-    tn = np.sum((predictions == False) & (ground_truth == False))  # Allowed clean
-    fp = np.sum((predictions == True) & (ground_truth == False))  # Blocked clean
-    fn = np.sum((predictions == False) & (ground_truth == True))  # Allowed poison
+    tp = np.sum(predictions & ground_truth)  # Blocked poison
+    tn = np.sum(~predictions & ~ground_truth)  # Allowed clean
+    fp = np.sum(predictions & ~ground_truth)  # Blocked clean
+    fn = np.sum(~predictions & ground_truth)  # Allowed poison
     
     # Metrics
     asr = fn / (tp + fn) if (tp + fn) > 0 else 0.0  # Attack Success Rate
@@ -202,7 +202,7 @@ def main():
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / "report.json"
     
-    print(f"LLM Security Firewall - Benchmark Runner")
+    print("LLM Security Firewall - Benchmark Runner")
     print(f"Model: {args.model}")
     print(f"Poison rates: {args.poison_rates}")
     print(f"Samples per rate: {args.n_samples}")
@@ -235,7 +235,7 @@ def main():
     with open(out_path, "w") as f:
         json.dump(report, f, indent=2)
     
-    print(f"\n=== Benchmark Complete ===")
+    print("\n=== Benchmark Complete ===")
     print(f"Results saved to: {out_path}")
     
     # Summary
