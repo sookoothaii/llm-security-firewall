@@ -232,7 +232,7 @@ biometrics.update_baseline("user123", force=True)
 
 ## Authentication Flow
 
-```
+```text
 User Message
     |
     v

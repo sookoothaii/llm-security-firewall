@@ -135,8 +135,7 @@ pip install blake3
 
 ## Support
 
-- GitHub Issues: https://github.com/sookoothaii/llm-security-firewall/issues
+- GitHub Issues: [llm-security-firewall/issues](https://github.com/sookoothaii/llm-security-firewall/issues)
 - Documentation: `/docs`
 - Examples: `/examples`
-
 

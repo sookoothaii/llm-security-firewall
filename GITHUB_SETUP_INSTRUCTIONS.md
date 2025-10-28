@@ -8,7 +8,7 @@
 
 ## Step 1: Create GitHub Repository
 
-1. Navigate to: https://github.com/new
+1. Navigate to: [GitHub New Repository](https://github.com/new)
 
 2. Repository settings:
    - **Name:** `llm-security-firewall`
@@ -55,7 +55,7 @@ Add these topics to your repository:
 - `natural-language-processing`
 
 ### About Section
-```
+```text
 Bidirectional Security Framework for Human/LLM Interfaces.
 9 defense layers, 197 tests (100% passing), production-ready.
 Validated by GPT-5, Mistral, DeepSeek R1.
@@ -144,5 +144,4 @@ The repository preserves creator attribution through:
 git remote add origin https://github.com/YOUR_USERNAME/llm-security-firewall.git
 git push -u origin main
 ```
-
 

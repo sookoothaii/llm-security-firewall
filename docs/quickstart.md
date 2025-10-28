@@ -164,4 +164,3 @@ decision = firewall.validate_evidence(
 
 **Open source framework. All metrics reproducible. Not externally validated.**
 
-

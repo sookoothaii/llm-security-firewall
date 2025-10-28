@@ -50,4 +50,3 @@ All notable changes to LLM Security Firewall will be documented in this file.
 - Real-time monitoring dashboard
 - Advanced red-team suites
 
-

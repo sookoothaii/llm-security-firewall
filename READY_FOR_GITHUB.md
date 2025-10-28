@@ -184,4 +184,3 @@ Heritage: "Heritage ist meine Währung"
 
 **WORLD-FIRST BIDIRECTIONAL FIREWALL - READY TO SHARE WITH THE WORLD!**
 
-

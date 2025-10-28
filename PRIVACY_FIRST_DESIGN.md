@@ -150,7 +150,7 @@ CREATE TABLE personality_profiles (
 
 ### What Stays Local
 
-```
+```text
 User's Database
     ↓
 User's Application

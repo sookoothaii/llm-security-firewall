@@ -124,13 +124,13 @@ jobs:
           MD031: false
           MD032: false
           MD033: false
-          MD034: false
           MD036: false
-          MD040: false
           MD041: false
           MD050: false
+          MD034: true
+          MD040: true
           MD012:
-            maximum: 3
+            maximum: 2
         globs:
           - "**/*.md"
         ignores:

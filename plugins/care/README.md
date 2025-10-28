@@ -172,7 +172,7 @@ print(f"Model ready: {stats['model_ready']}")
 
 ## Readiness Levels
 
-```
+```text
 Score >= 0.6    READY      Good time for research
 Score 0.4-0.6   MARGINAL   Pattern suggests moderate success
 Score < 0.4     NOT_READY  Pattern suggests low success

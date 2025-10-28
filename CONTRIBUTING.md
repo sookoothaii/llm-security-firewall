@@ -75,7 +75,7 @@ def test_new_feature():
 
 Follow conventional commits format:
 
-```
+```text
 <type>(<scope>): <description>
 
 [optional body]
@@ -93,7 +93,7 @@ Types:
 - `chore`: Maintenance tasks
 
 Example:
-```
+```text
 feat(evidence): add BLAKE3 hashing for content verification
 
 Implements BLAKE3-based content hashing to replace SHA-256 for
@@ -224,7 +224,7 @@ Be respectful, constructive, and professional in all interactions. See CODE_OF_C
 
 - Open a GitHub Discussion for general questions
 - Open a GitHub Issue for bugs/feature requests
-- Email security@sookoothaii.github.io for security concerns
+- Email [security@sookoothaii.github.io](mailto:security@sookoothaii.github.io) for security concerns
 
 ## License
 

@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability in this project, please report it responsibly:
 
-- **Email:** security@sookoothaii.github.io
+- **Email:** [security@sookoothaii.github.io](mailto:security@sookoothaii.github.io)
 - **Include:**
   - Steps to reproduce the issue
   - Potential impact assessment
@@ -75,7 +75,7 @@ We follow responsible disclosure practices:
 
 ## Contact
 
-For security concerns, contact: security@sookoothaii.github.io
+For security concerns, contact: [security@sookoothaii.github.io](mailto:security@sookoothaii.github.io)
 
 For general questions, use GitHub Issues.
 

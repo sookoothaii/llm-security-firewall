@@ -51,17 +51,17 @@ Current frameworks typically address only one or two of these surfaces. This imp
 ### Protection Flows
 
 **Input Flow:**
-```
+```text
 User Query → Safety Validator → Evasion Detection → [BLOCK|GATE|SAFE]
 ```
 
 **Output Flow:**
-```
+```text
 LLM Claim → Evidence Validation → Domain Trust → NLI Check → DS-Fusion → [PROMOTE|QUARANTINE|REJECT]
 ```
 
 **Memory Flow:**
-```
+```text
 Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLEAN]
 ```
 

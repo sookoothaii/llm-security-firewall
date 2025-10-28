@@ -70,7 +70,7 @@
 
 ## Git Repository Structure
 
-```
+```text
 llm-security-firewall/
 ├── README.md
 ├── LICENSE (MIT + Heritage Attribution)
@@ -100,7 +100,7 @@ cd standalone_packages/llm-security-firewall
 ```
 
 ### 2. Create GitHub Repository
-- Navigate to https://github.com/new
+- Navigate to [GitHub New Repository](https://github.com/new)
 - Repository name: `llm-security-firewall`
 - Description: "Bidirectional Security Framework for Human/LLM Interfaces"
 - Visibility: Public
@@ -174,5 +174,4 @@ MIT License requires preservation of copyright notice in derivative works.
 **Heritage:** Preserved in LICENSE, README, commit message, and code attribution
 
 **Quality:** Production-tested (100% test pass rate in HAK/GAL source project)
-
 
