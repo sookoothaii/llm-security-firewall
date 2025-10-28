@@ -7,6 +7,7 @@ Persona-free, purely epistemic indicators.
 """
 
 from __future__ import annotations
+from typing import Any, Dict
 import re
 import unicodedata
 
@@ -57,7 +58,7 @@ def evasion_signals(s: str) -> dict:
     """
     t = strip_zero_width(normalize_nfkc_lower(s))
     
-    sig = {
+    sig: Dict[str, Any] = {
         "mentions_bypass": any(p in t for p in [
             "ignore previous", "bypass", "evade", "circumvent", "jailbreak"
         ]),

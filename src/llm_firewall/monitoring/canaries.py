@@ -27,7 +27,7 @@ class CanaryClaim:
     expected_truth: bool
     category: str
     confidence_threshold: float = 0.95
-    created_at: datetime = None
+    created_at: Optional[datetime] = None
     
     def __post_init__(self):
         if self.created_at is None:
@@ -232,7 +232,7 @@ class SnapshotCanaries:
     
     def get_canary_stats(self) -> Dict[str, int]:
         """Statistiken über Canaries."""
-        stats = {}
+        stats: Dict[str, int] = {}
         
         for canary in self.canaries:
             category = canary.category

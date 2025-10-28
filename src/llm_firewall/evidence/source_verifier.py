@@ -14,8 +14,8 @@ Based on GPT-5 Policy & Controls (2025-10-27):
 "Verifizierbare Attribution: Domain-Trust + Link-Check + Hash/DOI"
 """
 
-from typing import Dict, Optional, Tuple
-import requests
+from typing import Any, Dict, Optional, Tuple
+import requests  # type: ignore
 import blake3
 import logging
 import re
@@ -42,7 +42,7 @@ class SourceVerifier:
             timeout: HTTP request timeout in seconds
         """
         self.timeout = timeout
-        self.verification_cache = {}  # URL → (accessible, status_code)
+        self.verification_cache: Dict[str, Tuple[bool, Optional[int]]] = {}  # URL → (accessible, status_code)
     
     def verify_source(
         self,
@@ -70,7 +70,7 @@ class SourceVerifier:
                 'reasoning': str
             }
         """
-        result = {
+        result: Dict[str, Any] = {
             'url': url,
             'accessible': False,
             'status_code': None,

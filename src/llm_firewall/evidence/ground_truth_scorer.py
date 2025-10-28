@@ -416,7 +416,8 @@ class GroundTruthScorer:
             if domains_in_facts:
                 # Most common domain
                 from collections import Counter
-                return Counter(domains_in_facts).most_common(1)[0][0]
+                most_common_domain = Counter(domains_in_facts).most_common(1)[0][0]
+                return str(most_common_domain)
         
         # Default
         return 'GLOBAL'

@@ -19,7 +19,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List, Tuple, Optional
 import re
-import yaml
+import yaml  # type: ignore
 from pathlib import Path
 from llm_firewall.safety.text_preproc import evasion_signals
 

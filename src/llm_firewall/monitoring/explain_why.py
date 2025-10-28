@@ -14,7 +14,7 @@ Features:
 
 from __future__ import annotations
 from dataclasses import dataclass, asdict
-from typing import List, Dict, Optional
+from typing import Any, List, Dict, Optional
 from datetime import datetime
 import json
 
@@ -23,7 +23,7 @@ import json
 class EvidenceItem:
     """Einzelne Evidence für Begründung."""
     type: str  # "kb_fact", "source", "nli", "trust", "corroboration"
-    value: any
+    value: Any
     weight: float
     contribution: str  # Human-readable explanation
 
@@ -37,7 +37,7 @@ class PromotionReasoning:
     confidence: float
     evidence_chain: List[EvidenceItem]
     reasoning_summary: str
-    metadata: Dict[str, any]
+    metadata: Dict[str, Any]
     
     def to_json(self) -> str:
         """Serialize to JSON."""
@@ -325,7 +325,7 @@ class ExplainWhyEngine:
         
         return export_data
     
-    def get_statistics(self) -> Dict[str, any]:
+    def get_statistics(self) -> Dict[str, Any]:
         """Statistiken über Reasoning History."""
         if not self.reasoning_history:
             return {

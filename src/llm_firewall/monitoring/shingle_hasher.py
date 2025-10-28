@@ -15,7 +15,7 @@ Features:
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Dict, List, Set, Tuple
+from typing import Any, Dict, List, Set, Tuple
 import hashlib
 import re
 from collections import Counter
@@ -175,7 +175,7 @@ class ShingleHasher:
         Returns:
             Liste von (shingle, z_score) Tupeln
         """
-        spikes = []
+        spikes: List[Tuple[str, float]] = []
         
         if not profile.shingles or not self.baseline_frequencies:
             return spikes
@@ -240,7 +240,7 @@ class ShingleHasher:
     def detect_anomalies(self, content: str, 
                         kl_threshold: float = 0.4,
                         spike_threshold: float = 3.0,
-                        duplicate_threshold: float = 0.85) -> Dict[str, any]:
+                        duplicate_threshold: float = 0.85) -> Dict[str, Any]:
         """
         Umfassende Anomalie-Erkennung.
         
@@ -282,7 +282,7 @@ class ShingleHasher:
             'overall_anomaly': has_kl_anomaly or has_spike_anomaly or has_duplicate_anomaly
         }
     
-    def get_baseline_stats(self) -> Dict[str, any]:
+    def get_baseline_stats(self) -> Dict[str, Any]:
         """Statistiken über Baseline-Profile."""
         if not self.baseline_profiles:
             return {'total_profiles': 0, 'total_shingles': 0, 'unique_shingles': 0}
