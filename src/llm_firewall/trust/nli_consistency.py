@@ -9,7 +9,7 @@ Based on GPT-5 Evidence Pipeline (2025-10-27):
 """
 
 from __future__ import annotations
-from typing import Sequence, Protocol, Optional
+from typing import Sequence, Protocol
 import logging
 
 logger = logging.getLogger(__name__)

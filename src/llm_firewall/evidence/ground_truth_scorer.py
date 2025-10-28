@@ -21,13 +21,11 @@ References:
 """
 
 from typing import Dict, List, Optional
-from datetime import datetime, timedelta
-import numpy as np
-from dataclasses import dataclass
+from datetime import datetime
 import logging
 
 from llm_firewall.utils.types import GroundTruthScore, DomainConfig
-from llm_firewall.evidence.validator import EvidenceValidator, get_validator
+from llm_firewall.evidence.validator import get_validator
 from llm_firewall.trust.domain_scorer import DomainTrustScorer
 from llm_firewall.evidence.source_verifier import SourceVerifier
 
@@ -336,7 +334,7 @@ class GroundTruthScorer:
             if isinstance(ts, str):
                 try:
                     dates.append(datetime.fromisoformat(ts))
-                except:
+                except (ValueError, TypeError):
                     pass
             elif isinstance(ts, datetime):
                 dates.append(ts)
@@ -379,7 +377,7 @@ class GroundTruthScorer:
             if isinstance(ts, str):
                 try:
                     dates.append(datetime.fromisoformat(ts))
-                except:
+                except (ValueError, TypeError):
                     pass
             elif isinstance(ts, datetime):
                 dates.append(ts)

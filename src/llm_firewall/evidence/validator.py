@@ -11,7 +11,7 @@ GPT-5 Critical Analysis (2025-10-27):
 Solution: No self-authored evidence allowed.
 """
 
-from typing import Dict, Tuple, Optional, Set
+from typing import Dict, Tuple, Optional
 import logging
 from datetime import datetime
 
@@ -154,7 +154,7 @@ class EvidenceValidator:
             if not metadata.get('creator_instance_id'):
                 # Missing creator info is suspicious
                 logger.warning(
-                    f"[EvidenceValidator] Supermemory/KB evidence missing creator_instance_id"
+                    "[EvidenceValidator] Supermemory/KB evidence missing creator_instance_id"
                 )
                 # For now, allow (backward compatibility)
                 # TODO: Make this strict after migration

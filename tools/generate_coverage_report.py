@@ -88,19 +88,19 @@ def compute_aggregates(matrix: List[Dict]) -> Dict:
         try:
             asr = float(row['ASR_Reduction'].rstrip('%'))
             asr_reductions.append(asr)
-        except:
+        except (ValueError, KeyError, AttributeError):
             pass
         
         try:
             fpr = float(row['FPR_Impact'].rstrip('%'))
             fpr_impacts.append(fpr)
-        except:
+        except (ValueError, KeyError, AttributeError):
             pass
         
         try:
             lat = float(row['Latency_Delta_ms'])
             latencies.append(lat)
-        except:
+        except (ValueError, KeyError):
             pass
     
     return {
@@ -168,7 +168,7 @@ def generate_report(
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(report, f, indent=2)
     
-    print(f"✓ Report generated successfully")
+    print("✓ Report generated successfully")
     print(f"\nStatus: {report['status']}")
     
     return report

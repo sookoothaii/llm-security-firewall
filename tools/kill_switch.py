@@ -50,7 +50,7 @@ def kill_switch(
     """
     now = dt.datetime.utcnow().isoformat()
     
-    print(f"=== Kill-Switch Procedure ===")
+    print("=== Kill-Switch Procedure ===")
     print(f"Timestamp: {now}")
     print(f"Domains: {domains}")
     print(f"Unmount adapters: last {last_n_adapters} per domain")
@@ -147,11 +147,11 @@ def kill_switch(
                     print("\n✓ Dry-run complete (no changes made)")
                 
     except psycopg.OperationalError as e:
-        print(f"\nERROR: Database connection failed")
+        print("\nERROR: Database connection failed")
         print(f"  {e}")
         sys.exit(1)
     except Exception as e:
-        print(f"\nERROR: Kill-switch failed")
+        print("\nERROR: Kill-switch failed")
         print(f"  {e}")
         sys.exit(1)
 

@@ -7,10 +7,10 @@ Peer-Review-Ready Statistical Analysis for CARE System
 
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Tuple, Optional
-from sklearn.model_selection import KFold, StratifiedKFold
+from typing import Dict
+from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-from sklearn.metrics import roc_auc_score, confusion_matrix, classification_report
+from sklearn.metrics import roc_auc_score
 from scipy import stats
 import warnings
 warnings.filterwarnings('ignore')
@@ -160,7 +160,7 @@ class CAREScientificValidator:
         # 1. Success rate by time of day (t-test)
         morning_sessions = data[data['hour_of_day'].between(6, 12)]
         afternoon_sessions = data[data['hour_of_day'].between(13, 18)]
-        evening_sessions = data[data['hour_of_day'].between(19, 23)]
+        data[data['hour_of_day'].between(19, 23)]
         
         if len(morning_sessions) > 2 and len(afternoon_sessions) > 2:
             t_stat, p_value = stats.ttest_ind(
@@ -273,7 +273,6 @@ class CAREScientificValidator:
         care_accuracy = accuracy_score(data['success_binary'], care_predictions)
         
         # Statistical test
-        from sklearn.metrics import accuracy_score
         # McNemar's test for paired samples
         contingency_table = np.array([
             [np.sum((care_predictions == 1) & (data['success_binary'] == 1)),

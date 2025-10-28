@@ -23,12 +23,11 @@ References:
     - Bootstrap CI possible at N>=50
 """
 
-from typing import Dict, Optional, Tuple
-from datetime import datetime
+from typing import Dict, List, Optional, Tuple
 import numpy as np
 import logging
 
-from llm_firewall.utils.types import ThresholdUpdate, FeedbackType, ConvergenceStatus, DomainConfig
+from llm_firewall.utils.types import ThresholdUpdate, FeedbackType, ConvergenceStatus
 from llm_firewall.evidence.ground_truth_scorer import DOMAIN_CONFIGS
 
 logger = logging.getLogger(__name__)

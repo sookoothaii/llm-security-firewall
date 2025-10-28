@@ -30,7 +30,7 @@ References:
 """
 
 import numpy as np
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 from scipy.stats import beta
 import logging
 

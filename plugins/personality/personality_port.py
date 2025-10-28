@@ -6,7 +6,7 @@ This is the PORT interface for personality functionality.
 """
 
 from abc import ABC, abstractmethod
-from typing import Dict, Optional, List
+from typing import Optional, List
 from dataclasses import dataclass
 
 

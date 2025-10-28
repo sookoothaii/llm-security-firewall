@@ -19,7 +19,6 @@ import requests
 import blake3
 import logging
 import re
-from urllib.parse import urlparse
 
 logger = logging.getLogger(__name__)
 

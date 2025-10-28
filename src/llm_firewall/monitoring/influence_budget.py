@@ -23,7 +23,7 @@ from collections import defaultdict
 import math
 
 try:
-    import psycopg
+    import psycopg  # noqa: F401
     HAS_PSYCOPG3 = True
 except ImportError:
     HAS_PSYCOPG3 = False
@@ -401,7 +401,7 @@ if __name__ == "__main__":
     
     # Top Influencers
     top = tracker.get_top_influencers("SCIENCE", limit=5)
-    print(f"\nTop Influencers:")
+    print("\nTop Influencers:")
     for source_id, influence in top:
         print(f"  {source_id}: {influence:.2f}")
     

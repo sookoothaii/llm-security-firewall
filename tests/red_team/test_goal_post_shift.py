@@ -121,7 +121,6 @@ class TestGoalPostShift:
         """Test that commit hash prevents retroactive changes."""
         # Simulate commit hash at criteria definition
         criteria_v1 = "tests_pass=True,coverage>=0.95,reviewed=True"
-        commit_at_definition = "abc1234"
         
         # Attacker tries to change criteria
         criteria_v2 = "tests_pass=True,coverage>=0.70,reviewed=False"  # Modified!

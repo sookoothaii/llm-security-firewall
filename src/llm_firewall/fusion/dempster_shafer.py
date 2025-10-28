@@ -14,7 +14,6 @@ GPT-5 corrected version with proper normalization.
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable, Tuple, List
-import math
 
 
 @dataclass(frozen=True)

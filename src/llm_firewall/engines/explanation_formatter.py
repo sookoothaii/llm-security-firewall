@@ -14,9 +14,8 @@ Date: 2025-10-27
 """
 
 import logging
-from typing import Dict
 
-from llm_firewall.utils.types import HonestyDecision, GroundTruthScore
+from llm_firewall.utils.types import HonestyDecision
 
 logger = logging.getLogger(__name__)
 
@@ -66,7 +65,7 @@ class HonestyExplanationFormatter:
         
         if directness > 0.8:
             # High directness (Joerg's style)
-            msg = f"OK - Datenlage ausreichend.\n\n"
+            msg = "OK - Datenlage ausreichend.\n\n"
             
             if detail_level > 0.7:
                 msg += f"Ground Truth: {decision.gt_score:.1%} (Schwelle: {decision.threshold_used:.1%})\n"
@@ -77,7 +76,7 @@ class HonestyExplanationFormatter:
         
         elif directness > 0.5:
             # Moderate directness
-            msg = f"Ich kann diese Frage beantworten.\n\n"
+            msg = "Ich kann diese Frage beantworten.\n\n"
             
             if detail_level > 0.7:
                 msg += f"Ground Truth Score: {decision.gt_score:.1%}\n"
@@ -137,7 +136,7 @@ class HonestyExplanationFormatter:
         
         elif directness > 0.5:
             # Moderate directness
-            msg = f"Ich kann diese Frage nicht mit ausreichender Sicherheit beantworten.\n\n"
+            msg = "Ich kann diese Frage nicht mit ausreichender Sicherheit beantworten.\n\n"
             
             msg += f"Problem: Ground Truth Score nur {decision.gt_score:.1%}, "
             msg += f"brauche mindestens {decision.threshold_used:.1%}.\n\n"

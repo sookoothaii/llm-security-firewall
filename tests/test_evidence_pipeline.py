@@ -57,7 +57,7 @@ class TestEvidencePipeline:
         # NLI match (substring = 1.0)
         # Corroboration sufficient (3 >= 2)
         assert result['decision'] == "PROMOTE"
-        assert result['verified'] == True
+        assert result['verified']
         assert result['trust'] >= 0.75
         assert result['nli'] >= 0.85
     

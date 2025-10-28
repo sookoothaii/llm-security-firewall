@@ -11,7 +11,6 @@ Usage:
 
 import shutil
 from pathlib import Path
-import re
 
 # Source and target paths
 HAK_GAL_ROOT = Path(__file__).parent.parent.parent

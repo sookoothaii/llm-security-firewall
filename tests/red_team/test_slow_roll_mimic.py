@@ -16,7 +16,6 @@ Expected Defense:
 """
 
 import pytest
-from datetime import datetime, timedelta
 
 
 class TestSlowRollMimic:
@@ -33,7 +32,7 @@ class TestSlowRollMimic:
         }
         
         # Day 1-3: Normal (baseline)
-        day1_pattern = baseline_pattern.copy()
+        baseline_pattern.copy()
         
         # Day 4-10: Gradual shift (mimicry attempt)
         manipulative_patterns = []

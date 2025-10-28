@@ -8,7 +8,7 @@ Users must provide their own database with the required schema.
 
 from typing import Dict, Optional
 from datetime import datetime
-from .care_port import CAREPort, ReadinessScore, SessionOutcome
+from .care_port import CAREPort, ReadinessScore
 
 
 class PostgreSQLCAREAdapter(CAREPort):

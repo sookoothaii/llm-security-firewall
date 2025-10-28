@@ -15,7 +15,7 @@ Features:
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Dict, List, Set, Tuple, Optional
+from typing import Dict, List, Set, Tuple
 import hashlib
 import re
 from collections import Counter

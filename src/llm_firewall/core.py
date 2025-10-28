@@ -17,7 +17,6 @@ import logging
 
 from llm_firewall.evidence.pipeline import EvidencePipeline, PipelineConfig
 from llm_firewall.safety.validator import SafetyValidator
-from llm_firewall.monitoring.canaries import SnapshotCanaries
 from llm_firewall.monitoring.shingle_hasher import ShingleHasher
 from llm_firewall.monitoring.influence_budget import InfluenceBudgetTracker
 

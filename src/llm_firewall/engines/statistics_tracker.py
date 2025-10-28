@@ -10,7 +10,7 @@ Date: 2025-10-27
 Version: 1.0
 """
 
-from typing import Optional, Dict, List, Tuple
+from typing import Optional, Dict, List
 from datetime import datetime, timedelta
 import numpy as np
 from llm_firewall.utils.types import HonestyStatistics, ConvergenceStatus

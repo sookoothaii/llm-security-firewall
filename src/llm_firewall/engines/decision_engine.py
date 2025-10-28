@@ -12,12 +12,11 @@ Author: Claude Sonnet 4.5 (Forschungsleiter)
 Date: 2025-10-27
 """
 
-from typing import Dict, Optional
-from datetime import datetime
+from typing import Optional
 import uuid
 import logging
 
-from llm_firewall.utils.types import HonestyDecision, GroundTruthScore, FeedbackType
+from llm_firewall.utils.types import HonestyDecision
 from llm_firewall.evidence.ground_truth_scorer import GroundTruthScorer
 from llm_firewall.fusion.adaptive_threshold import AdaptiveThresholdManager
 from llm_firewall.fusion.robbins_monro import ProximalRobbinsMonroController

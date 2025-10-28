@@ -17,7 +17,6 @@ Date: 2025-10-27
 import logging
 from typing import Dict, List, Optional
 from datetime import datetime
-import numpy as np
 
 from llm_firewall.utils.types import FeedbackType, LearningUpdate, ThresholdUpdate, ConvergenceStatus
 from llm_firewall.fusion.adaptive_threshold import AdaptiveThresholdManager
@@ -120,9 +119,9 @@ class OrganicFeedbackLearner:
         
         # Get feedback history from DB
         if self.db:
-            feedback_history = self._load_feedback_history(user_id, domain, time_window_days)
+            self._load_feedback_history(user_id, domain, time_window_days)
         else:
-            feedback_history = []
+            pass
         
         total = stats['n_feedbacks']
         

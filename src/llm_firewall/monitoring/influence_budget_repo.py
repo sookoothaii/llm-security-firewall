@@ -9,6 +9,7 @@ Uses psycopg3 for atomic writes to influence_budget_rollup table.
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timedelta
+from typing import Dict, List, Optional
 
 try:
     import psycopg

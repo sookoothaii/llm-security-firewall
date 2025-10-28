@@ -10,7 +10,7 @@ Persona/Epistemik separation: No personality variables here.
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Sequence, Optional, Dict, List
+from typing import Sequence, Optional, Dict
 import logging
 
 from llm_firewall.trust.content_hasher import blake3_hex

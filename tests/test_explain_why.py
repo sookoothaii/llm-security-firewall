@@ -139,7 +139,7 @@ class TestExplainWhyEngine:
     
     def test_get_reasoning_by_id(self):
         """Test Abruf by ID."""
-        reasoning = self.engine.create_reasoning(
+        self.engine.create_reasoning(
             decision_id="test_006",
             decision="PROMOTE",
             confidence=0.90,

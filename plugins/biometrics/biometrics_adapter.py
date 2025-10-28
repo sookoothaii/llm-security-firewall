@@ -8,7 +8,6 @@ Users must provide their own database with the required schema.
 
 import re
 from typing import Dict, Optional
-from datetime import datetime
 from .biometrics_port import (
     BiometricsPort,
     BiometricProfile,

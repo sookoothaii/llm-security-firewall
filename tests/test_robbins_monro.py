@@ -49,7 +49,6 @@ class TestProximalRobbinsMonro:
             [{'decision': 'ABSTAIN'} for _ in range(10)]
         )
         
-        tau_old = self.controller.tau
         result = self.controller.update(decisions)
         
         # With 0 errors, UB is very low → should lower threshold
@@ -68,7 +67,6 @@ class TestProximalRobbinsMonro:
             [{'decision': 'ABSTAIN'} for _ in range(10)]
         )
         
-        tau_old = self.controller.tau
         result = self.controller.update(decisions)
         
         # With 10/40 errors (25%), UB > epsilon

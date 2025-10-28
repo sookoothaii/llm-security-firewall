@@ -225,7 +225,7 @@ class TestIntegration:
             signals = decision.signals
             
             # Mindestens ein Signal sollte erhöht sein
-            total_signal = (signals.intent_score + 
+            (signals.intent_score + 
                           signals.capability_score + 
                           signals.targeting_score + 
                           signals.evasion_score)

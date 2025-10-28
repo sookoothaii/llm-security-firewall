@@ -17,7 +17,7 @@ CARE behaves as RESEARCH PARTNER, not as parent/therapist/moral police.
 """
 
 from typing import Dict, Optional
-from .care_port import CAREPort, ReadinessScore, SessionOutcome
+from .care_port import CAREPort, ReadinessScore
 
 
 class CAREModule:

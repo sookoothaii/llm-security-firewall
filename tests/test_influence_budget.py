@@ -7,7 +7,7 @@ Testet Slow-Roll-Poison Detection via Influence-Tracking.
 
 import pytest
 from llm_firewall.monitoring.influence_budget import (
-    InfluenceRecord, InfluenceAlert, InfluenceBudgetTracker
+    InfluenceAlert, InfluenceBudgetTracker
 )
 
 
