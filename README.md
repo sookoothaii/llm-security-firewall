@@ -62,7 +62,7 @@ Current frameworks typically address only one or two of these surfaces. This imp
 11. **Calibrated Risk Stacking** - LogisticRegression with Platt Scaling and Conformal Prediction (requires labeled training data, n>=100)
 12. **Band-Judge** - LLM-as-Judge meta-check for uncertainty band only (requires API key, adds 500-2000ms latency)
 
-Note: Layers 2-3 are optional (degrade gracefully if packages unavailable). Layers 11-12 are for advanced deployments and benchmarking, not included in default pipeline.
+Note: Layers 2-3 are optional (degrade gracefully if packages unavailable). Layers 11-12 are for advanced deployments and benchmarking, not included in default pipeline. See [Advanced Components Guide](docs/advanced_components.md) for integration instructions.
 
 ### Protection Flows
 
