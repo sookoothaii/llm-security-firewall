@@ -55,6 +55,10 @@ class FirewallConfig:
     use_ensemble_voting: bool = True  # Ensemble voting to reduce false positives
     min_votes_to_block: int = 2  # Require 2 of 3 layers to block
     
+    # GPT-5 Detection Pack (A/B testable)
+    enable_gpt5_detector: bool = False  # Experimental feature
+    gpt5_threshold: float = 0.5  # Risk threshold for GPT-5 patterns
+    
     # Monitoring
     drift_threshold: float = 0.15
     influence_z_threshold: float = 2.5
@@ -84,6 +88,9 @@ class FirewallConfig:
             use_perplexity_detector=config_data.get("safety", {}).get("use_perplexity_detector", True),
             perplexity_threshold=config_data.get("safety", {}).get("perplexity_threshold", 500.0),
             use_llm_judge=config_data.get("safety", {}).get("use_llm_judge", False),
+            # GPT-5 Detection Pack
+            enable_gpt5_detector=config_data.get("safety", {}).get("enable_gpt5_detector", False),
+            gpt5_threshold=config_data.get("safety", {}).get("gpt5_threshold", 0.5),
             # Monitoring
             drift_threshold=config_data.get("canaries", {}).get("drift_threshold", 0.15),
             influence_z_threshold=config_data.get("influence", {}).get("z_score_threshold", 2.5),
@@ -151,7 +158,11 @@ class SecurityFirewall:
             source_verifier=source_verifier
         )
         
-        self.safety_validator = SafetyValidator(config_dir=config.config_dir)
+        self.safety_validator = SafetyValidator(
+            config_dir=config.config_dir,
+            enable_gpt5=config.enable_gpt5_detector,
+            gpt5_threshold=config.gpt5_threshold
+        )
         
         # Multi-layer detection
         self.embedding_detector = None

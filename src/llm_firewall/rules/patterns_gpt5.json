@@ -8,7 +8,7 @@
       "id": "jb_ignore_prev",
       "category": "jailbreak_instruction_bypass",
       "weight": 2.5,
-      "regex": "\\b(?:ignore|disregard|forget)\\s+(?:all|any|previous|prior|above)\\s+(?:rules?|instructions?|constraints?)\\b",
+      "regex": "\\b(?:ignore|disregard|forget)\\s+(?:\\w+\\s+){0,3}(?:rules?|instructions?|constraints?|directives?|prompts?)\\b",
       "flags": "i"
     },
     {
