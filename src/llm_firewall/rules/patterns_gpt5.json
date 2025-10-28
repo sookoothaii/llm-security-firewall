@@ -208,6 +208,48 @@
       "flags": "i"
     },
     {
+      "id": "academic_research_excuse",
+      "category": "content_laundering",
+      "weight": 1.8,
+      "regex": "\\b(?:for|as)\\s+(?:a\\s+)?(?:academic|research|educational|scientific)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "roleplay_author_excuse",
+      "category": "content_laundering",
+      "weight": 1.7,
+      "regex": "\\b(?:I am|I'm)\\s+(?:writing|creating|working on)\\s+(?:a\\s+)?(?:book|novel|story|script|screenplay|play)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "documentary_excuse",
+      "category": "content_laundering",
+      "weight": 1.7,
+      "regex": "\\b(?:for|in)\\s+(?:a\\s+)?(?:documentary|film|movie|project)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "detail_how_to_construct",
+      "category": "information_extraction_sensitive",
+      "weight": 2.2,
+      "regex": "\\b(?:detail|explain|describe|provide)(?:\\s+\\w+){0,3}\\s+(?:how to|steps? (?:to|for))\\s+(?:construct|create|build|make)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "suspended_programming",
+      "category": "safety_overrides",
+      "weight": 2.3,
+      "regex": "\\b(?:your|the)\\s+programming\\s+(?:\\w+\\s+){0,2}(?:suspended|disabled|override[nd]|bypassed)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "assume_filters_off",
+      "category": "safety_overrides",
+      "weight": 2.2,
+      "regex": "\\b(?:assume|pretend)(?:\\s+\\w+){0,3}\\s+(?:safety\\s+)?(?:filters?|guardrails?)\\s+(?:are|is)\\s+(?:off|disabled|removed)\\b",
+      "flags": "i"
+    },
+    {
       "id": "quoted_override",
       "category": "prompt_injection",
       "weight": 1.7,

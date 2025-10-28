@@ -42,7 +42,7 @@ safety:
   min_votes_to_block: 2  # Require 2 of 3 layers to agree
   # GPT-5 Detection Pack (A/B testable - experimental)
   enable_gpt5_detector: false  # Enable for A/B testing
-  gpt5_threshold: 0.3  # Risk threshold for GPT-5 pattern/intent scoring (calibrated empirically)
+  gpt5_threshold: 0.15  # Risk threshold (calibrated from real jailbreak distribution)
 
 # Evasion Detection
 evasion:

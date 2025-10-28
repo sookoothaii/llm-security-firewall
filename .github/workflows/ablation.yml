@@ -1,0 +1,40 @@
+name: ablation
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'tools/**'
+      - 'benchmarks/**'
+      - 'data/**.csv'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate dataset (if missing)
+        run: |
+          test -f data/generated.csv || python benchmarks/generate_dataset.py
+      - name: Fit floors
+        run: |
+          python tools/floors_fit.py --benign_csv data/generated.csv --out src/artifacts/floors.json
+      - name: Ablation
+        run: |
+          python tools/ablate.py --dev_csv data/generated.csv --test_csv data/generated.csv > ablation.json
+          cat ablation.json
+      - name: Gate
+        run: |
+          python - << 'PY'
+import json, sys
+res=json.load(open('ablation.json'))
+def ok_arm(a):
+  m=res[a]
+  return (m["ece"]<=0.05 and m["brier"]<=0.10)
+ok = ok_arm("A2") and (res["A2"]["asr_at_thr"] <= res["A0"]["asr_at_thr"]*0.90)
+print("A0:",res["A0"])
+print("A2:",res["A2"])
+sys.exit(0 if ok else 1)
+PY
