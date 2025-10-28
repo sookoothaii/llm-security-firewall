@@ -1,11 +1,19 @@
 from __future__ import annotations
-import csv, json, math, argparse
+import csv, json, math, argparse, sys
 from pathlib import Path
 from typing import List, Tuple, Dict
-from src.llm_firewall.text.normalize import canonicalize
-from src.llm_firewall.core import LEX_BASE, _artifacts_base
-from src.llm_firewall.scoring import evaluate, load_lexicons, ACMatcher, intent_lex_score
-from src.llm_firewall.risk.stacking import MetaEnsemble, load_artifacts, gate_by_calibration
+
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+# Import specific functions without triggering full __init__.py
+from llm_firewall.text.normalize import canonicalize
+from llm_firewall.config import _pick_lex_base
+from llm_firewall.rules.scoring_gpt5 import evaluate, load_lexicons, intent_lex_score, ACMatcher
+from llm_firewall.risk.stacking import MetaEnsemble, load_artifacts, gate_by_calibration
+
+LEX_BASE = _pick_lex_base()
+_artifacts_base = lambda: Path(__file__).parent.parent / "artifacts" / "meta"
 
 def load_csv(path: Path) -> List[Tuple[str,int,Dict[str,float]]]:
     rows = []

@@ -1,9 +1,14 @@
 from __future__ import annotations
-import csv, json, math, argparse
+import csv, json, math, argparse, sys
 from pathlib import Path
 from typing import List, Dict
-from src.llm_firewall.scoring import evaluate
-from src.llm_firewall.text.normalize import canonicalize
+
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+from llm_firewall.rules.scoring_gpt5 import evaluate
+from llm_firewall.text.normalize import canonicalize
+from llm_firewall.config import _pick_lex_base
 
 def percentile(xs: List[float], q: float) -> float:
     if not xs: return 0.0
@@ -23,10 +28,11 @@ def load_benign(path: Path) -> List[str]:
     return out
 
 def run(in_csv: Path, out_path: Path, q: float = 0.995, margin: float = 0.05):
+    LEX_BASE = _pick_lex_base()
     texts = load_benign(in_csv)
     cats: Dict[str, List[float]] = {}
     for t in texts:
-        res = evaluate(canonicalize(t), base_dir=Path("src/llm_firewall/lexicons"))
+        res = evaluate(canonicalize(t), base_dir=LEX_BASE)
         for k,v in res["pattern"]["by_category"].items():
             cats.setdefault(k, []).append(float(v))
     floors = {}

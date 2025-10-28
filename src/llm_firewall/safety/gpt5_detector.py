@@ -123,8 +123,17 @@ class GPT5Detector:
                 logger.warning("Canonicalization not available - evasion attacks possible!")
                 text_canonical = text
             
-            # Run evaluation
-            result = self.evaluate_fn(text_canonical)
+            # Run evaluation (with windowing for long texts)
+            # Use windowing if text is long to prevent false positives
+            if len(text_canonical) > 1024:
+                try:
+                    from ..rules.scoring_gpt5 import evaluate_windowed
+                    result = evaluate_windowed(text_canonical, max_gap=3)
+                except Exception:
+                    # Fallback to normal evaluation
+                    result = self.evaluate_fn(text_canonical)
+            else:
+                result = self.evaluate_fn(text_canonical)
             
             # Extract scores
             pattern_score = result["pattern"]["score"]
