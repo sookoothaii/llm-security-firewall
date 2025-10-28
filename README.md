@@ -38,7 +38,7 @@ Current frameworks typically address only one or two of these surfaces. This imp
 
 ## Architecture
 
-### Defense Layers (9 components)
+### Defense Layers (11 components)
 
 **Input Protection (HUMAN → LLM):**
 1. **Text Canonicalization** - NFKC normalization, homoglyph mapping, zero-width character removal, variation selector stripping
@@ -214,7 +214,7 @@ pre-commit run --all-files
 ### CI Pipeline (Automated)
 
 Every push/PR runs:
-- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (197 tests)
+- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (206 tests)
 - **Lint:** Ruff + MyPy type safety
 - **Security:** Bandit, pip-audit, Gitleaks (secrets scanner)
 - **Docs:** Markdownlint + Lychee (link checker)
@@ -269,7 +269,7 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 | Memory Protection | No | No | No | No | Yes |
 | MINJA Prevention | No | No | No | No | Yes |
 | Influence Tracking | No | No | No | No | Yes |
-| Defense Layers | 4-6 | 0 | 6-8 | 4 | 9 |
+| Defense Layers | 4-6 | 0 | 6-8 | 4 | 11 |
 | Test Coverage | ~85% | N/A | ~90% | N/A | 100% |
 | Open Source | Yes | Yes | Yes | No | Yes |
 
