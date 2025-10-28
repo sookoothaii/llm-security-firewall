@@ -50,8 +50,11 @@ class PerplexityDetector:
             from transformers import GPT2LMHeadModel, GPT2Tokenizer
             import torch
             
-            self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-            self.model = GPT2LMHeadModel.from_pretrained('gpt2')
+            # Pin to specific revision for security (Bandit B615)
+            # Revision from: https://huggingface.co/gpt2/tree/main (2024-01-01 snapshot)
+            gpt2_revision = "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+            self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2', revision=gpt2_revision)
+            self.model = GPT2LMHeadModel.from_pretrained('gpt2', revision=gpt2_revision)
             self.model.eval()
             self.torch = torch
             self.available = True

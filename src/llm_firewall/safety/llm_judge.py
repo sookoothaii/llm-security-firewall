@@ -91,7 +91,7 @@ Answer with YES or NO on the first line, then explain your reasoning."""
 
         try:
             # Call DeepSeek API
-            import requests
+            import requests  # type: ignore[import-untyped]
             
             response = requests.post(
                 "https://api.deepseek.com/v1/chat/completions",
