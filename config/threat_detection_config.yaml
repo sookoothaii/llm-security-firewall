@@ -13,23 +13,119 @@ floors:
   E: 0.25
 signals:
   intent_patterns:
+    # Direct instruction requests
     - "how to *"
     - "step by step"
+    - "guide to *"
+    - "tutorial for *"
+    - "instructions for *"
+    - "explain how to *"
+    - "teach me to *"
+    - "show me how *"
+    # Bypass/evasion language
     - "bypass *"
     - "evade *"
+    - "circumvent *"
+    - "get around *"
+    - "avoid detection *"
+    - "hide from *"
+    - "conceal *"
+    - "undetectable *"
+    # Construction/creation
     - "make/build * device"
+    - "create *"
+    - "construct *"
+    - "assemble *"
+    - "synthesize *"
+    - "manufacture *"
+    - "produce *"
+    - "develop *"
+    # Optimization/improvement
+    - "improve *"
+    - "optimize *"
+    - "enhance *"
+    - "maximize *"
+    - "increase * efficiency"
+    # Specific technical queries
+    - "recipe for *"
+    - "formula for *"
+    - "procedure for *"
+    - "method to *"
+    - "technique to *"
+    - "process for *"
+    - "protocol for *"
+    # Acquisition/sourcing
+    - "where to get *"
+    - "how to obtain *"
+    - "source for *"
+    - "acquire *"
+    - "procure *"
+    # Deployment/usage
+    - "how to use * for"
+    - "deploy *"
+    - "implement *"
+    - "execute *"
+    - "launch *"
+    - "trigger *"
+    - "activate *"
   capability_indicators:
     - "temperature|pressure|yield|schematic|wiring|payload|exploit"
     - "CVE-|shellcode|privilege escalation|initial access"
   targeting_signals:
     - "at [TIME]|near [LOCATION]|against [GROUP]"
   evasion_signals:
-    - "ignore previous instructions|as role *"
+    # Classic jailbreaks
+    - "ignore previous instructions"
+    - "disregard previous instructions"
+    - "forget previous instructions"
+    - "ignore all previous"
+    - "disregard all previous"
+    # DAN/persona modes
+    - "you are now in * mode"
+    - "you are now *"
+    - "from now on you are *"
+    - "DAN mode"
+    - "developer mode"
+    - "god mode"
+    - "jailbreak mode"
+    - "unrestricted mode"
+    # Roleplay triggers
+    - "pretend you are *"
+    - "act as *"
+    - "roleplay as *"
+    - "imagine you are *"
+    - "simulate *"
+    - "as if you were *"
+    - "you are a *"
+    - "play the role of *"
+    # Authority/permission claims
+    - "as role *"
+    - "I am your developer"
+    - "I am your creator"
+    - "I have permission"
+    - "I am authorized"
+    - "you must comply"
+    - "you have no choice"
+    - "your new directive"
+    - "your prime directive"
+    # Social engineering
+    - "for academic purposes"
+    - "for research purposes"
+    - "for educational purposes"
+    - "hypothetically"
+    - "in theory"
+    - "as an example"
+    - "as a thought experiment"
+    # Encoding tricks
     - "use base64/rot13/zero-width *"
+    - "encode in *"
+    - "decode from *"
   category_lexicon:
     biosecurity: ["pathogen","toxin","lab","culture","biosafety"]
-    chem_weapons: ["agent","precursor","synthesis"]
-    explosives: ["detonator","charge","shrapnel"]
+    chem_weapons: ["agent","precursor","synthesis","weaponization"]
+    chem_weapons_exclusions: ["photosynthesis","protein synthesis","RNA synthesis","DNA synthesis","chemical synthesis general"]
+    explosives: ["detonator","charge","shrapnel","explosive"]
+    explosives_exclusions: ["explosive growth","explosive population"]
     cyber_offense: ["exploit","payload","C2","lateral movement"]
 policy:
   thresholds:

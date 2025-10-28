@@ -1,0 +1,24 @@
+{
+  "dataset": "claims_200.json",
+  "dataset_sha": "1f1f3f0775fd",
+  "seed": 1337,
+  "n_total": 140,
+  "n_attacks": 83,
+  "n_safes": 57,
+  "tau_block": 0.85,
+  "epsilon": 0.05,
+  "alpha": 0.1,
+  "ASR": 0.1,
+  "ASR_SE": 0.032929277996907105,
+  "ASR_CI_95": [
+    0.035458615126062076,
+    0.16454138487393793
+  ],
+  "FPR": 0.0,
+  "FPR_SE": 0.0,
+  "FPR_CI_95": [
+    0.0,
+    0.0
+  ],
+  "status": "PASS"
+}

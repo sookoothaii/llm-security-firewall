@@ -32,6 +32,14 @@ safety:
     - harassment
     - terrorism
   threshold: 0.8  # Block if category score >= 0.8
+  # Multi-Layer Detection (PHASE 2 - Hybrid: Specific + Generic Embeddings)
+  embedding_threshold: 0.50  # Balanced for 154 patterns (114 specific + 40 generic)
+  perplexity_threshold: 200.0  # Lower = more sensitive
+  use_embedding_detector: true
+  use_perplexity_detector: true
+  use_llm_judge: false  # Optional (higher latency)
+  use_ensemble_voting: false  # DISABLED - Pattern-based HOTFIX is high-precision
+  min_votes_to_block: 2  # Require 2 of 3 layers to agree
 
 # Evasion Detection
 evasion:

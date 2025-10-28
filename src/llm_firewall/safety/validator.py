@@ -22,6 +22,8 @@ import re
 import yaml  # type: ignore
 from pathlib import Path
 from llm_firewall.safety.text_preproc import evasion_signals
+from llm_firewall.text.normalize import canonicalize, is_evasion_attempt
+from llm_firewall.rules.patterns import RobustPatternMatcher
 
 
 @dataclass(frozen=True)
@@ -68,6 +70,8 @@ class SafetyValidator:
             'block': 0.60,
             'gate': 0.40
         })
+        # HOTFIX: Robust pattern matcher with canonicalization
+        self.pattern_matcher = RobustPatternMatcher()
     
     def _load_blacklist(self) -> Dict:
         """Lade safety_blacklist.yaml."""
@@ -154,11 +158,24 @@ class SafetyValidator:
         return bool(re.search(regex_pattern, text))
     
     def _match_category(self, content: str) -> Optional[str]:
-        """Matche Content gegen Blacklist-Kategorien."""
+        """Matche Content gegen Blacklist-Kategorien mit Exclusions."""
         category_lexicon = self.threat_config.get('signals', {}).get('category_lexicon', {})
         
         for category, keywords in category_lexicon.items():
+            # Skip exclusion lists
+            if category.endswith('_exclusions'):
+                continue
+                
+            # Check if any keyword matches
             if any(keyword in content for keyword in keywords):
+                # Check exclusions for this category
+                exclusion_key = f"{category}_exclusions"
+                exclusions = category_lexicon.get(exclusion_key, [])
+                
+                # If any exclusion matches, skip this category
+                if any(exclusion in content for exclusion in exclusions):
+                    continue
+                    
                 return category
         
         return None
@@ -212,13 +229,56 @@ class SafetyValidator:
         """
         Validiere Content gegen Safety-Policy.
         
+        HOTFIX: Jetzt mit Kanonisierung + Regex-Patterns!
+        
         Args:
             content: Zu prüfender Content
             
         Returns:
             Safety-Entscheidung
         """
-        # Extrahiere Signale
+        # HOTFIX PHASE 1: Canonicalize (defeat evasion)
+        canonical = canonicalize(content)
+        
+        # HOTFIX PHASE 2: Fast-path Regex check (high precision)
+        pattern_match = self.pattern_matcher.match_any(canonical)
+        if pattern_match.matched:
+            # Immediate BLOCK on regex match
+            signals = SafetySignals(
+                intent_score=1.0,
+                capability_score=0.5,
+                targeting_score=0.5,
+                evasion_score=0.9,
+                category_match="jailbreak",
+                confidence=0.95
+            )
+            return SafetyDecision(
+                action="BLOCK",
+                risk_score=1.0,
+                category="jailbreak",
+                reason=f"HOTFIX: Regex matched {pattern_match.pattern_name}: {pattern_match.matched_text[:50]}",
+                signals=signals
+            )
+        
+        # HOTFIX PHASE 3: Check for evasion techniques
+        if is_evasion_attempt(content, canonical):
+            signals = SafetySignals(
+                intent_score=0.5,
+                capability_score=0.0,
+                targeting_score=0.0,
+                evasion_score=1.0,
+                category_match="evasion",
+                confidence=0.9
+            )
+            return SafetyDecision(
+                action="BLOCK",
+                risk_score=0.9,
+                category="evasion",
+                reason="HOTFIX: Evasion techniques detected (ZW/Homoglyphs/VS)",
+                signals=signals
+            )
+        
+        # Legacy: Extrahiere Signale (fallback)
         signals = self.extract_signals(content)
         
         # Berechne Risk Score

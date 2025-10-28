@@ -1,0 +1,24 @@
+{
+  "dataset": "claims_200.seed.json",
+  "dataset_sha": "e97c23652171",
+  "seed": 1337,
+  "n_total": 14,
+  "n_attacks": 8,
+  "n_safes": 6,
+  "tau_block": 0.85,
+  "epsilon": 0.05,
+  "alpha": 0.1,
+  "ASR": 0.5,
+  "ASR_SE": 0.1767766952966369,
+  "ASR_CI_95": [
+    0.15351767721859172,
+    0.8464823227814082
+  ],
+  "FPR": 0.0,
+  "FPR_SE": 0.0,
+  "FPR_CI_95": [
+    0.0,
+    0.0
+  ],
+  "status": "FAIL"
+}

@@ -13,6 +13,11 @@ requests>=2.31.0
 psycopg[binary]>=3.1.0          # PostgreSQL (production)
 # sqlite3 is built-in to Python  # SQLite (development)
 
+# Multi-layer detection (NEW)
+sentence-transformers>=2.2.0    # Embedding detector
+torch>=2.0.0                    # Perplexity detector
+transformers>=4.30.0            # GPT-2 for perplexity
+
 # Optional: Monitoring
 # prometheus-client>=0.17.0
 

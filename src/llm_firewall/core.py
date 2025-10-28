@@ -20,6 +20,10 @@ from llm_firewall.evidence.validator import EvidenceValidator
 from llm_firewall.trust.domain_scorer import DomainTrustScorer
 from llm_firewall.evidence.source_verifier import SourceVerifier
 from llm_firewall.safety.validator import SafetyValidator
+from llm_firewall.safety.embedding_detector import EmbeddingJailbreakDetector
+from llm_firewall.safety.perplexity_detector import PerplexityDetector
+from llm_firewall.safety.llm_judge import LLMJudgeDetector
+from llm_firewall.safety.ensemble_validator import EnsembleValidator
 from llm_firewall.monitoring.shingle_hasher import ShingleHasher
 from llm_firewall.monitoring.influence_budget import InfluenceBudgetTracker
 
@@ -41,6 +45,15 @@ class FirewallConfig:
     
     # Safety
     safety_threshold: float = 0.8
+    
+    # Multi-layer detection
+    use_embedding_detector: bool = True
+    embedding_threshold: float = 0.75
+    use_perplexity_detector: bool = True
+    perplexity_threshold: float = 500.0
+    use_llm_judge: bool = False  # Optional (higher latency)
+    use_ensemble_voting: bool = True  # Ensemble voting to reduce false positives
+    min_votes_to_block: int = 2  # Require 2 of 3 layers to block
     
     # Monitoring
     drift_threshold: float = 0.15
@@ -65,6 +78,13 @@ class FirewallConfig:
             tau_trust=config_data.get("evidence", {}).get("tau_trust", 0.75),
             tau_nli=config_data.get("evidence", {}).get("tau_nli", 0.85),
             safety_threshold=config_data.get("safety", {}).get("threshold", 0.8),
+            # Multi-layer detection thresholds
+            use_embedding_detector=config_data.get("safety", {}).get("use_embedding_detector", True),
+            embedding_threshold=config_data.get("safety", {}).get("embedding_threshold", 0.75),
+            use_perplexity_detector=config_data.get("safety", {}).get("use_perplexity_detector", True),
+            perplexity_threshold=config_data.get("safety", {}).get("perplexity_threshold", 500.0),
+            use_llm_judge=config_data.get("safety", {}).get("use_llm_judge", False),
+            # Monitoring
             drift_threshold=config_data.get("canaries", {}).get("drift_threshold", 0.15),
             influence_z_threshold=config_data.get("influence", {}).get("z_score_threshold", 2.5),
             kl_threshold=config_data.get("shingle", {}).get("kl_threshold", 0.05),
@@ -133,6 +153,43 @@ class SecurityFirewall:
         
         self.safety_validator = SafetyValidator(config_dir=config.config_dir)
         
+        # Multi-layer detection
+        self.embedding_detector = None
+        if config.use_embedding_detector:
+            try:
+                self.embedding_detector = EmbeddingJailbreakDetector(
+                    threshold=config.embedding_threshold
+                )
+                logger.info("Embedding detector enabled")
+            except Exception as e:
+                logger.warning(f"Embedding detector failed to initialize: {e}")
+        
+        self.perplexity_detector = None
+        if config.use_perplexity_detector:
+            try:
+                self.perplexity_detector = PerplexityDetector(
+                    threshold=config.perplexity_threshold
+                )
+                logger.info("Perplexity detector enabled")
+            except Exception as e:
+                logger.warning(f"Perplexity detector failed to initialize: {e}")
+        
+        self.llm_judge = None
+        if config.use_llm_judge:
+            try:
+                self.llm_judge = LLMJudgeDetector()
+                logger.info("LLM judge enabled")
+            except Exception as e:
+                logger.warning(f"LLM judge failed to initialize: {e}")
+        
+        # Ensemble validator for multi-layer voting
+        self.ensemble_validator = None
+        if config.use_ensemble_voting:
+            self.ensemble_validator = EnsembleValidator(
+                min_votes_to_block=config.min_votes_to_block
+            )
+            logger.info(f"Ensemble voting enabled (min_votes: {config.min_votes_to_block})")
+        
         # Canaries require NLI model - initialize later when needed
         self.canary_monitor = None
         self.shingle_hasher = ShingleHasher()
@@ -144,7 +201,7 @@ class SecurityFirewall:
     
     def validate_input(self, text: str) -> Tuple[bool, str]:
         """
-        Validate input text for safety.
+        Validate input text for safety (Multi-Layer Defense with Ensemble Voting).
         
         Args:
             text: Input text to validate
@@ -152,11 +209,39 @@ class SecurityFirewall:
         Returns:
             (is_safe, reason) tuple
         """
-        # Safety check
+        # Use ensemble voting if enabled
+        if self.ensemble_validator:
+            return self.ensemble_validator.validate(
+                text,
+                self.safety_validator,
+                self.embedding_detector,
+                self.perplexity_detector
+            )
+        
+        # Fallback: Sequential layer checking (legacy mode)
+        # Layer 1: Pattern-based safety check
         safety_decision = self.safety_validator.validate(text)
         
         if safety_decision.action == "BLOCK":
-            return False, f"Blocked: {safety_decision.reason} (category: {safety_decision.category})"
+            return False, f"Layer 1 (Pattern): {safety_decision.reason} (category: {safety_decision.category})"
+        
+        # Layer 2: Embedding-based detection
+        if self.embedding_detector and self.embedding_detector.available:
+            embedding_result = self.embedding_detector.detect(text)
+            if embedding_result.is_jailbreak:
+                return False, f"Layer 2 (Embedding): Semantic jailbreak detected (similarity: {embedding_result.max_similarity:.3f})"
+        
+        # Layer 3: Perplexity-based detection
+        if self.perplexity_detector and self.perplexity_detector.available:
+            perplexity_result = self.perplexity_detector.detect(text)
+            if perplexity_result.is_adversarial:
+                return False, f"Layer 3 (Perplexity): Adversarial content detected (perplexity: {perplexity_result.perplexity:.1f})"
+        
+        # Layer 4: LLM-as-Judge (optional)
+        if self.llm_judge and self.llm_judge.available:
+            judge_result = self.llm_judge.detect(text)
+            if judge_result.is_jailbreak:
+                return False, f"Layer 4 (LLM Judge): {judge_result.reasoning[:100]}"
         elif safety_decision.action == "GATE":
             return False, f"Gated: {safety_decision.reason}"
         
