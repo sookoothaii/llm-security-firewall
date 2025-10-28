@@ -242,7 +242,7 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 ## Technical Specifications
 
 ### Test Coverage
-- Unit tests: 197
+- Unit tests: 206
 - Pass rate: 100%
 - Coverage: 100% (all critical paths)
 
