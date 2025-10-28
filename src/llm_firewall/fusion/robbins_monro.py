@@ -88,7 +88,7 @@ class ProximalRobbinsMonroController:
         # State
         self.tau = 0.75  # Initial threshold
         self.t = 0       # Update counter
-        self.window_decisions = []  # Recent (decision, correct) tuples
+        self.window_decisions: List[Tuple[Dict, bool]] = []  # Recent (decision, correct) tuples
         
         # Proximal state
         self.proximal_center = 0.75  # Center for proximal term

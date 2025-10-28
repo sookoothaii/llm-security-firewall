@@ -12,11 +12,11 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
 try:
-    import psycopg
+    import psycopg  # type: ignore
     HAS_PSYCOPG3 = True
 except ImportError:
     HAS_PSYCOPG3 = False
-    psycopg = None
+    psycopg = None  # type: ignore
 
 
 @dataclass(frozen=True)

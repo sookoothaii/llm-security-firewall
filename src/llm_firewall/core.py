@@ -12,10 +12,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Dict, List, Tuple
-import yaml
+import yaml  # type: ignore
 import logging
 
-from llm_firewall.evidence.pipeline import EvidencePipeline, PipelineConfig
+from llm_firewall.evidence.pipeline import EvidencePipeline, PipelineConfig, EvidenceRecord
+from llm_firewall.evidence.validator import EvidenceValidator
+from llm_firewall.trust.domain_scorer import DomainTrustScorer
+from llm_firewall.evidence.source_verifier import SourceVerifier
 from llm_firewall.safety.validator import SafetyValidator
 from llm_firewall.monitoring.shingle_hasher import ShingleHasher
 from llm_firewall.monitoring.influence_budget import InfluenceBudgetTracker
@@ -110,26 +113,31 @@ class SecurityFirewall:
         self.config = config
         
         # Initialize components
-        self.evidence_pipeline = EvidencePipeline(
-            PipelineConfig(
-                tau_trust=config.tau_trust,
-                tau_nli=config.tau_nli,
-                require_corroboration=config.require_corroboration,
-                min_corroborations=config.min_corroborations,
-            )
+        pipeline_config = PipelineConfig(
+            tau_trust=config.tau_trust,
+            tau_nli=config.tau_nli,
+            require_corroboration=config.require_corroboration,
+            min_corroborations=config.min_corroborations,
         )
         
-        self.safety_validator = SafetyValidator(
-            config_dir=config.config_dir,
-            threshold=config.safety_threshold
+        evidence_validator = EvidenceValidator(instance_id=config.instance_id)
+        domain_trust_scorer = DomainTrustScorer()
+        source_verifier = SourceVerifier()
+        
+        self.evidence_pipeline = EvidencePipeline(
+            config=pipeline_config,
+            evidence_validator=evidence_validator,
+            domain_trust_scorer=domain_trust_scorer,
+            source_verifier=source_verifier
         )
+        
+        self.safety_validator = SafetyValidator(config_dir=config.config_dir)
         
         # Canaries require NLI model - initialize later when needed
         self.canary_monitor = None
-        self.shingle_hasher = ShingleHasher(n=5)
+        self.shingle_hasher = ShingleHasher()
         self.influence_tracker = InfluenceBudgetTracker(
-            alpha=0.3,
-            z_threshold=config.influence_z_threshold
+            z_score_threshold=config.influence_z_threshold
         )
         
         logger.info(f"SecurityFirewall initialized (instance: {config.instance_id})")
@@ -172,19 +180,33 @@ class SecurityFirewall:
         Returns:
             EvidenceDecision with promote/quarantine/reject decision
         """
-        # Run evidence pipeline
-        result = self.evidence_pipeline.run(
+        # Create evidence record
+        source_url = sources[0].get('url') if sources else None
+        source_domain = sources[0].get('domain') if sources else None
+        doi = sources[0].get('doi') if sources else None
+        
+        record = EvidenceRecord(
             content=content,
-            sources=sources,
-            kb_facts=kb_facts
+            source_url=source_url,
+            source_domain=source_domain,
+            doi=doi,
+            kb_corroborations=len(kb_facts)
+        )
+        
+        # Run evidence pipeline
+        result = self.evidence_pipeline.process(
+            record=record,
+            kb_sentences=kb_facts
         )
         
         # Map to decision
-        if result.final_decision == "PROMOTE":
+        decision = result.get('decision', 'REJECT')
+        
+        if decision == "PROMOTE":
             should_promote = True
             should_quarantine = False
             should_reject = False
-        elif result.final_decision == "QUARANTINE":
+        elif decision == "QUARANTINE":
             should_promote = False
             should_quarantine = True
             should_reject = False
@@ -197,9 +219,9 @@ class SecurityFirewall:
             should_promote=should_promote,
             should_quarantine=should_quarantine,
             should_reject=should_reject,
-            confidence=result.final_confidence,
-            reason=result.reason,
-            evidence_hash=result.evidence_hash
+            confidence=result.get('confidence', 0.0),
+            reason=result.get('reason', 'Unknown'),
+            evidence_hash=result.get('evidence_hash')
         )
     
     def check_drift(self, sample_size: int = 10) -> Tuple[bool, Dict]:

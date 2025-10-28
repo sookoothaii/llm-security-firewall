@@ -10,7 +10,7 @@ Date: 2025-10-27
 Version: 1.0
 """
 
-from typing import Optional, Dict, List
+from typing import Any, Optional, Dict, List
 from datetime import datetime, timedelta
 import numpy as np
 from llm_firewall.utils.types import HonestyStatistics, ConvergenceStatus
@@ -113,7 +113,7 @@ class HonestyStatisticsTracker:
             FROM honesty_decisions
             WHERE user_id = %s
         """
-        params = [user_id]
+        params: List[Any] = [user_id]
         
         if cutoff:
             query += " AND timestamp >= %s"
@@ -125,7 +125,7 @@ class HonestyStatisticsTracker:
         
         query += " ORDER BY timestamp ASC"
         
-        cursor = self.db.cursor()
+        cursor = self.db.cursor()  # type: ignore
         cursor.execute(query, params)
         
         columns = [desc[0] for desc in cursor.description]
@@ -138,7 +138,7 @@ class HonestyStatisticsTracker:
         self,
         user_id: str,
         domain: Optional[str]
-    ) -> Dict[str, float]:
+    ) -> Dict[str, Dict[str, float]]:
         """Fetch current thresholds per domain."""
         if self.db is None:
             return {}  # Testing mode
@@ -148,13 +148,13 @@ class HonestyStatisticsTracker:
             FROM honesty_thresholds
             WHERE user_id = %s
         """
-        params = [user_id]
+        params: List[Any] = [user_id]
         
         if domain:
             query += " AND domain = %s"
             params.append(domain)
         
-        cursor = self.db.cursor()
+        cursor = self.db.cursor()  # type: ignore
         cursor.execute(query, params)
         
         thresholds = {row[0]: {'threshold': row[1], 'variance': row[2]} 

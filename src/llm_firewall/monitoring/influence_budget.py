@@ -17,7 +17,7 @@ Features:
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Dict, List, Tuple, Optional
+from typing import Any, Dict, List, Tuple, Optional
 from datetime import datetime, timedelta
 from collections import defaultdict
 import math
@@ -276,7 +276,7 @@ class InfluenceBudgetTracker:
         cutoff_time = datetime.now() - window
         
         # Aggregiere per Source
-        source_influences = defaultdict(float)
+        source_influences: Dict[str, float] = defaultdict(float)
         
         for record in self.influence_records:
             if record.domain == domain and record.timestamp >= cutoff_time:
@@ -319,7 +319,7 @@ class InfluenceBudgetTracker:
         
         return alerts
     
-    def get_statistics(self, domain: Optional[str] = None) -> Dict[str, any]:
+    def get_statistics(self, domain: Optional[str] = None) -> Dict[str, Any]:
         """Statistiken über Influence-Budget."""
         records = self.influence_records
         
@@ -347,7 +347,7 @@ class InfluenceBudgetTracker:
             'unique_sources': unique_sources,
             'total_influence': total_influence,
             'avg_influence': avg_influence,
-            'baseline': self.baseline_statistics.get(domain, {})
+            'baseline': self.baseline_statistics.get(domain or 'default', {})
         }
     
     def reset_alerts(self):
