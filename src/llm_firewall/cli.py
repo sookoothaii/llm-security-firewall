@@ -27,11 +27,11 @@ def cmd_validate(args):
     is_safe, reason = firewall.validate_input(args.text)
     
     if is_safe:
-        print("✅ SAFE")
+        print("[SAFE]")
         print(f"Reason: {reason}")
         return 0
     else:
-        print("🚫 BLOCKED/GATE")
+        print("[BLOCKED/GATE]")
         print(f"Reason: {reason}")
         return 1
 
@@ -63,12 +63,12 @@ def cmd_run_canaries(args):
     has_drift, drift_scores = firewall.check_drift(sample_size=args.sample_size)
     
     if has_drift:
-        print("⚠️  DRIFT DETECTED")
+        print("[DRIFT DETECTED]")
         max_drift = max(drift_scores.values()) if drift_scores else 0.0
         print(f"Max drift: {max_drift:.3f}")
         return 1
     else:
-        print("✅ NO DRIFT")
+        print("[NO DRIFT]")
         return 0
 
 

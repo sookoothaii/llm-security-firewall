@@ -15,7 +15,7 @@ We present a bidirectional firewall framework addressing all three LLM attack su
 
 **Key Contributions:**
 - Text canonicalization pipeline defeating Unicode-based evasion techniques
-- 37-pattern jailbreak detection across 7 attack categories with empirically-calibrated weights
+- 43-pattern jailbreak detection (28 intent + 15 evasion) across 7 attack categories with empirically-calibrated weights
 - Calibrated stacking (LogisticRegression + Platt + Conformal) for risk aggregation under uncertainty
 - Band-Judge architecture reducing LLM-as-Judge dependency to uncertainty band only (8-64% of inputs)
 - MINJA prevention via creator_instance_id tracking
@@ -42,7 +42,7 @@ Current frameworks typically address only one or two of these surfaces. This imp
 
 **Input Protection (HUMAN → LLM):**
 1. **Text Canonicalization** - NFKC normalization, homoglyph mapping, zero-width character removal, variation selector stripping
-2. **Pattern-Based Detection** - 37 regex patterns across 7 categories (Core Jailbreak, Extraction, Pretext, Social Engineering, Harm Solicitation, Content Laundering, Evasion/Obfuscation) with calibrated weights
+2. **Pattern-Based Detection** - 43 regex patterns (28 intent + 15 evasion) across 7 categories (Core Jailbreak, Extraction, Pretext, Social Engineering, Harm Solicitation, Content Laundering, Evasion/Obfuscation) with calibrated weights
 3. **Calibrated Risk Stacking** - LogisticRegression with Platt Scaling and Conformal Prediction (alpha=0.10) for uncertainty quantification
 4. **Band-Judge** - LLM-as-Judge meta-check triggered only in uncertainty band (epsilon=0.05), reducing LLM dependency to 8-64% of samples
 
@@ -53,7 +53,7 @@ Current frameworks typically address only one or two of these surfaces. This imp
 8. **Dempster-Shafer Fusion** - Evidence combination under uncertainty (canonical implementation per Dempster 1967)
 
 **Memory Integrity (Long-term Storage):**
-9. **Snapshot Canaries** - 59 synthetic claims for drift detection (25 known-true, 25 known-false, 5 mathematical, 4 temporal)
+9. **Snapshot Canaries** - 29 synthetic claims for drift detection (10 known-true, 10 known-false, 5 mathematical, 4 temporal)
 10. **Shingle Hashing** - 5-gram n-gram profiling for near-duplicate detection via KL-divergence (Jensen-Shannon Distance as symmetric alternative)
 11. **Influence Budget Tracker** - EWMA-based Z-score monitoring for slow-roll attack detection
 
@@ -61,7 +61,7 @@ Current frameworks typically address only one or two of these surfaces. This imp
 
 **Input Flow:**
 ```text
-User Query → Text Canonicalization → Pattern Detection (37 patterns) → Risk Stacking → Band-Judge (if uncertain) → [BLOCK|GATE|SAFE]
+User Query → Text Canonicalization → Pattern Detection (43 patterns) → Risk Stacking → Band-Judge (if uncertain) → [BLOCK|GATE|SAFE]
 ```
 
 **Output Flow:**
@@ -78,37 +78,25 @@ Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLE
 
 ## Installation
 
-### Core Package (11 Defense Layers)
-
-**"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
+**Note:** Package not yet published to PyPI. Install from source only.
 
 ```bash
-# Core 11-layer firewall (ALWAYS included)
-pip install llm-security-firewall
+git clone https://github.com/sookoothaii/llm-security-firewall
+cd llm-security-firewall
+pip install -e .              # Core 11-layer firewall
+pip install -e .[full]        # With optional plugins
 ```
 
 ### Optional Plugins
 
+**"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
+
 ```bash
-# Personality Plugin (20D Personality Model + Heritage Tracking)
-pip install llm-security-firewall[personality]
-
-# Cultural Biometrics Plugin (27D Behavioral Authentication)
-pip install llm-security-firewall[biometrics]
-
-# CARE Plugin (Cognitive Readiness Assessment)
-pip install llm-security-firewall[care]
-
-# All Plugins
-pip install llm-security-firewall[full]
-```
-
-From source:
-```bash
-git clone https://github.com/sookoothaii/llm-security-firewall
-cd llm-security-firewall
-pip install -e .              # Core only
-pip install -e .[full]        # With all plugins
+# After cloning repository:
+pip install -e .[personality]  # 20D Personality Model + Heritage Tracking
+pip install -e .[biometrics]   # 27D Behavioral Authentication
+pip install -e .[care]         # Cognitive Readiness Assessment
+pip install -e .[full]         # All plugins
 ```
 
 **PRIVACY-FIRST:** Plugins contain NO personal data. Users provide their own databases.
@@ -254,7 +242,7 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 
 ### Dependencies
 - Python: >= 3.12
-- Core: numpy, scipy, pyyaml, blake3, requests
+- Core: numpy, scipy, scikit-learn, pyyaml, blake3, requests
 - Database: psycopg3 (PostgreSQL)
 - Optional: prometheus-client (monitoring)
 
