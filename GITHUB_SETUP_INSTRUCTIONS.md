@@ -133,7 +133,7 @@ The repository preserves creator attribution through:
 
 ### Future Versions
 - v1.1: SQLite adapter, enhanced examples, API documentation
-- v2.0: Full 14-layer stack (Personality, Cultural Biometrics, CARE)
+- v2.0: Core + All Plugins (Personality, Cultural Biometrics, CARE)
 
 ---
 

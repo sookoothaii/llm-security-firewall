@@ -45,7 +45,7 @@ All notable changes to LLM Security Firewall will be documented in this file.
 ## Future Releases
 
 ### [2.0.0] - Planned
-- Full 14-Layer Stack (add Personality Profiler, Cultural Biometrics, CARE System)
+- Core + All Plugins (add Personality, Cultural Biometrics, CARE)
 - Enhanced NLI (real model integration)
 - Real-time monitoring dashboard
 - Advanced red-team suites

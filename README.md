@@ -78,19 +78,19 @@ Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLE
 pip install llm-security-firewall
 ```
 
-### Optional Plugins (Expand to 14 Layers)
+### Optional Plugins
 
 ```bash
-# Personality Plugin (Layer 10-11: 20D Personality + Heritage)
+# Personality Plugin (20D Personality Model + Heritage Tracking)
 pip install llm-security-firewall[personality]
 
-# Cultural Biometrics Plugin (Layer 12: 27D Behavioral Authentication)
+# Cultural Biometrics Plugin (27D Behavioral Authentication)
 pip install llm-security-firewall[biometrics]
 
-# CARE Plugin (Layer 13: Cognitive Readiness Assessment)
+# CARE Plugin (Cognitive Readiness Assessment)
 pip install llm-security-firewall[care]
 
-# Full Stack (ALL 14 Layers)
+# All Plugins
 pip install llm-security-firewall[full]
 ```
 

@@ -162,7 +162,7 @@ MIT License requires preservation of copyright notice in derivative works.
 - CI/CD workflows (automated testing, releases)
 
 ### Version 2.0 (Future)
-- Full 14-layer stack (add Personality Profiler, Cultural Biometrics, CARE System)
+- Core + All Plugins (add Personality, Cultural Biometrics, CARE)
 - Real NLI model integration (beyond FakeNLI stub)
 - Grafana dashboards
 - Advanced red-team suites
