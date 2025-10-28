@@ -5,7 +5,7 @@
 **Creator:** Joerg Bollwahn  
 **Version:** 1.0.0  
 **License:** MIT  
-**Status:** Development (206/206 tests passing, not peer-reviewed)
+**Status:** Development (224/224 tests passing + 2 skipped + 1 xfail, not peer-reviewed)
 
 ---
 
