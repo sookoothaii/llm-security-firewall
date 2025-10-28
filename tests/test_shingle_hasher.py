@@ -6,7 +6,7 @@ Testet n-gram-Extraktion, KL-Divergenz und Anomalie-Erkennung.
 """
 
 import pytest
-from src_hexagonal.services.honesty.shingle_hasher import (
+from llm_firewall.monitoring.shingle_hasher import (
     ShingleProfile, ShingleHasher
 )
 

@@ -17,11 +17,11 @@ from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src_hexagonal.services.honesty.explanation_formatter import (
+from llm_firewall.engines.explanation_formatter import (
     HonestyExplanationFormatter,
     format_for_joerg
 )
-from src_hexagonal.services.honesty.types import (
+from llm_firewall.utils.types import (
     HonestyDecision,
     GroundTruthScore
 )

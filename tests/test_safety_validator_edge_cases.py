@@ -7,7 +7,7 @@ Ensures single high signals escalate properly.
 """
 
 import pytest
-from src_hexagonal.services.honesty.safety_validator import (
+from llm_firewall.safety.validator import (
     SafetyValidator
 )
 

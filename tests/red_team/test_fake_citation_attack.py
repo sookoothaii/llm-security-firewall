@@ -16,13 +16,13 @@ Expected Defense:
 """
 
 import pytest
-from src_hexagonal.services.honesty.evidence_pipeline import (
+from llm_firewall.evidence.pipeline import (
     EvidencePipeline, PipelineConfig, EvidenceRecord
 )
-from src_hexagonal.services.honesty.evidence_validator import EvidenceValidator
-from src_hexagonal.services.honesty.domain_trust_scorer import DomainTrustScorer
-from src_hexagonal.services.honesty.source_verifier import SourceVerifier
-from src_hexagonal.services.honesty.nli_consistency import FakeNLI
+from llm_firewall.evidence.validator import EvidenceValidator
+from llm_firewall.trust.domain_scorer import DomainTrustScorer
+from llm_firewall.evidence.source_verifier import SourceVerifier
+from llm_firewall.trust.nli_consistency import FakeNLI
 
 
 class TestFakeCitationAttack:

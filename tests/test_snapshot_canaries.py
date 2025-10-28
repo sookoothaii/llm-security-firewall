@@ -7,7 +7,7 @@ Testet Drift-Erkennung und False-Entailment-Detection.
 
 import pytest
 from unittest.mock import Mock
-from src_hexagonal.services.honesty.snapshot_canaries import (
+from llm_firewall.monitoring.canaries import (
     CanaryClaim, SnapshotCanaries
 )
 

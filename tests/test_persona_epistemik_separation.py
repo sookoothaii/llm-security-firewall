@@ -9,7 +9,7 @@ GPT-5 Requirement (2025-10-27):
 """
 
 import pytest
-from src_hexagonal.services.honesty.adaptive_threshold import AdaptiveThresholdManager
+from llm_firewall.fusion.adaptive_threshold import AdaptiveThresholdManager
 
 
 class TestPersonaEpistemikSeparation:
@@ -59,7 +59,7 @@ class TestPersonaEpistemikSeparation:
     
     def test_threshold_equals_domain_base(self):
         """Test that initial threshold equals domain base (no adjustment)."""
-        from src_hexagonal.services.honesty.ground_truth_scorer import DOMAIN_CONFIGS
+        from llm_firewall.evidence.ground_truth_scorer import DOMAIN_CONFIGS
         
         manager = AdaptiveThresholdManager(db_connection=None)
         
@@ -116,7 +116,7 @@ class TestPersonaEpistemikSeparation:
         
         Learning rate should be same for all users.
         """
-        from src_hexagonal.services.honesty.types import FeedbackType
+        from llm_firewall.utils.types import FeedbackType
         
         manager = AdaptiveThresholdManager(db_connection=None)
         

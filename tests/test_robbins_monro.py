@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src_hexagonal.services.honesty.robbins_monro_controller import (
+from llm_firewall.fusion.robbins_monro import (
     ProximalRobbinsMonroController
 )
 

@@ -6,7 +6,7 @@ Testet structured reasoning chains für Promotions.
 """
 
 import pytest
-from src_hexagonal.services.honesty.explain_why import (
+from llm_firewall.monitoring.explain_why import (
     EvidenceItem, PromotionReasoning, ExplainWhyEngine
 )
 

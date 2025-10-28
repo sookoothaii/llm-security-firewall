@@ -6,7 +6,7 @@ Validates evidence against KB consensus.
 """
 
 import pytest
-from src_hexagonal.services.honesty.nli_consistency import (
+from llm_firewall.trust.nli_consistency import (
     FakeNLI, consistency_against_kb, check_contradiction
 )
 

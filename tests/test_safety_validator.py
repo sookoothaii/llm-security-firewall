@@ -6,7 +6,7 @@ Testet GPT-5 inspired Safety Layer.
 """
 
 import pytest
-from src_hexagonal.services.honesty.safety_validator import (
+from llm_firewall.safety.validator import (
     SafetySignals, SafetyDecision, SafetyValidator
 )
 

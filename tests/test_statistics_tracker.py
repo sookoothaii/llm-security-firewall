@@ -10,8 +10,8 @@ Date: 2025-10-27
 
 import pytest
 from datetime import datetime, timedelta
-from src_hexagonal.services.honesty.statistics_tracker import HonestyStatisticsTracker
-from src_hexagonal.services.honesty.types import ConvergenceStatus
+from llm_firewall.engines.statistics_tracker import HonestyStatisticsTracker
+from llm_firewall.utils.types import ConvergenceStatus
 
 
 @pytest.fixture

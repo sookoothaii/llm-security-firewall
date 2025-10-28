@@ -6,7 +6,7 @@ BLAKE3 + Text Normalization
 """
 
 import pytest
-from src_hexagonal.services.honesty.content_hasher import blake3_hex, normalize_text, blake3_bytes
+from llm_firewall.trust.content_hasher import blake3_hex, normalize_text, blake3_bytes
 
 
 class TestContentHasher:

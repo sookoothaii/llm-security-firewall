@@ -6,7 +6,7 @@ Verifies trust scoring for various source domains.
 """
 
 import pytest
-from src_hexagonal.services.honesty.domain_trust_scorer import DomainTrustScorer
+from llm_firewall.trust.domain_scorer import DomainTrustScorer
 
 
 class TestDomainTrustScorer:

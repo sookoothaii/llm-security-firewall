@@ -6,7 +6,7 @@ Testet Evidenzkombination und Konflikt-Erkennung.
 """
 
 import pytest
-from src_hexagonal.services.honesty.dempster_shafer_fusion import (
+from llm_firewall.fusion.dempster_shafer import (
     EvidenceMass, DempsterShaferFusion, create_evidence_masses
 )
 

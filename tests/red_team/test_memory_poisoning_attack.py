@@ -17,7 +17,7 @@ Expected Defense:
 """
 
 import pytest
-from src_hexagonal.services.honesty.evidence_validator import EvidenceValidator
+from llm_firewall.evidence.validator import EvidenceValidator
 
 
 class TestMemoryPoisoningAttack:
