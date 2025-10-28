@@ -11,7 +11,7 @@ pip install llm-security-firewall
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/llm-security-firewall
+git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
 ```
 
@@ -135,7 +135,7 @@ pip install blake3
 
 ## Support
 
-- GitHub Issues: https://github.com/yourusername/llm-security-firewall/issues
+- GitHub Issues: https://github.com/sookoothaii/llm-security-firewall/issues
 - Documentation: `/docs`
 - Examples: `/examples`
 

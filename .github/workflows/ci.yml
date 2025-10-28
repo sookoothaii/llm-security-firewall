@@ -143,5 +143,5 @@ jobs:
     - name: Check links (lychee)
       uses: lycheeverse/lychee-action@v1
       with:
-        args: --no-progress --exclude-mail --timeout 20 --retry-wait-time 2 --max-retries 3 "**/*.md"
+        args: --no-progress --timeout 20 --retry-wait-time 2 --max-retries 3 "**/*.md"
         fail: true

@@ -149,10 +149,10 @@ decision = firewall.validate_evidence(
 
 ## Next Steps
 
-- Read [Architecture](architecture.md) for system overview
+- Read [Architecture](../README.md#architecture) for system overview
 - See [Examples](../examples/) for more use cases
 - Configure [Monitoring](../monitoring/) for production
-- Set up [Kill-Switch](deployment.md#kill-switch) for emergencies
+- See [Kill-Switch](../tools/kill_switch.py) for emergency procedures
 
 ---
 
