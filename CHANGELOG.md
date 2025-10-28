@@ -23,16 +23,16 @@ All notable changes to LLM Security Firewall will be documented in this file.
 
 ### Features
 - 197 Unit Tests (100% PASSED)
-- Production-ready deployment tools (Kill-Switch, Health-Checks, Monitoring)
+- Deployment tools (Kill-Switch, Health-Checks, Monitoring)
 - Prometheus integration (8 alert rules)
 - PostgreSQL + SQLite support
 - CLI tool (`llm-firewall` command)
 - Comprehensive documentation
 
-### External Validation
-- GPT-5: "Well-aligned with best practices + innovative contributions"
-- Mistral: "Uniquely combines elements; no comparable Full-Stack"
-- DeepSeek R1: "Quantitativer Sprung über SOTA hinaus"
+### Technical Notes
+- Framework has not undergone independent security audit
+- Not peer-reviewed
+- All metrics reproducible with fixed seeds (benchmarks/)
 
 ### Heritage
 - Creator: Joerg Bollwahn

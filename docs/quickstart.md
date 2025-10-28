@@ -162,7 +162,7 @@ decision = firewall.validate_evidence(
 - Docs: `/docs`
 - Examples: `/examples`
 
-**Built with precision. Validated by AI. Ready for production.** 🔒
+**Open source framework. All metrics reproducible. Not externally validated.**
 
 
 

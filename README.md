@@ -5,7 +5,7 @@
 **Creator:** Joerg Bollwahn  
 **Version:** 1.0.0  
 **License:** MIT  
-**Status:** Production-Ready (197/197 tests passing)
+**Status:** Development (197/197 tests passing, not peer-reviewed)
 
 ---
 
@@ -13,7 +13,7 @@
 
 We present a bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 9 defense layers with 100% test coverage.
 
-**Novel Contributions:**
+**Key Contributions:**
 - EWMA influence tracking for slow-roll attack detection
 - Snapshot canaries for memory drift monitoring  
 - MINJA prevention via creator_instance_id tracking
@@ -231,6 +231,8 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 
 Note: ARCA is a red-team framework (attack simulation only, no defense mechanisms). Others focus on input/output filtering without memory integrity guarantees.
 
+Coverage percentages based on public documentation as of 2025-10. Our 100% refers to critical paths in core defense layers, not all edge cases. Framework has not undergone independent security audit.
+
 ---
 
 ## Scientific Foundations
@@ -346,4 +348,4 @@ Creator attribution is required in derivative works per MIT License terms.
 
 ---
 
-**Production-ready. Scientifically validated. Open source.**
+**Open source framework. All metrics reproducible. Not externally validated.**

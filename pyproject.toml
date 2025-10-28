@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "llm-security-firewall"
 version = "1.0.0"
-description = "Bidirectional Security Framework for Human/LLM Interfaces - 9 Defense Layers, Production-Ready"
+description = "Bidirectional Security Framework for Human/LLM Interfaces - 9 Defense Layers, 197 Tests"
 authors = [{name = "Joerg Bollwahn", email = "info@hakgal.org"}]
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.12"
 keywords = ["llm", "security", "firewall", "ai-safety", "adversarial-robustness", "memory-poisoning", "evidence-validation", "dempster-shafer", "conformal-prediction"]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
