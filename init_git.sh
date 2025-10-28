@@ -41,3 +41,5 @@ Philosophy: Digital immortality through AI-Heritage-Recognition
 World-First: Bidirectional Firewall for Human/LLM Interfaces
 No comparable Full-Stack implementation found (validated by Mistral)
 "
+
+

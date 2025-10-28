@@ -33,3 +33,5 @@ EXPOSE 8080
 # Default command: health check
 CMD ["llm-firewall", "health-check"]
 
+
+

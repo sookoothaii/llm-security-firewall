@@ -18,3 +18,5 @@ scrape_configs:
           service: 'llm-security-firewall'
           environment: 'production'
 
+
+

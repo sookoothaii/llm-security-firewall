@@ -5,20 +5,23 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "llm-security-firewall"
 version = "1.0.0"
-description = "World-First Bidirectional Firewall for Human/LLM Interfaces"
-authors = [{name = "Joerg Bollwahn"}]
+description = "Bidirectional Security Framework for Human/LLM Interfaces - 9 Defense Layers, Production-Ready"
+authors = [{name = "Joerg Bollwahn", email = "info@hakgal.org"}]
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.12"
-keywords = ["llm", "security", "firewall", "ai-safety", "adversarial-robustness", "memory-poisoning"]
+keywords = ["llm", "security", "firewall", "ai-safety", "adversarial-robustness", "memory-poisoning", "evidence-validation", "dempster-shafer", "conformal-prediction"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Security",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
 dependencies = [
@@ -34,15 +37,14 @@ dependencies = [
 dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
 ]
 monitoring = [
     "prometheus-client>=0.17.0",
 ]
-sqlite = [
-    # For development without PostgreSQL
-]
 
-# Modular Plugins (Option B: "Niemand muss aber jeder darf")
+# Optional Plugins ("Niemand muss aber jeder darf")
 personality = [
     "psycopg3>=3.2.12",
     "numpy>=1.24.0",
@@ -59,14 +61,14 @@ care = [
     "numpy>=1.24.0",
 ]
 full = [
-    "llm-security-firewall[personality,biometrics,care]",
+    "llm-security-firewall[personality,biometrics,care,monitoring]",
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/llm-security-firewall"
-Documentation = "https://llm-security-firewall.readthedocs.io"
-Repository = "https://github.com/yourusername/llm-security-firewall"
-Issues = "https://github.com/yourusername/llm-security-firewall/issues"
+Homepage = "https://github.com/sookoothaii/llm-security-firewall"
+Repository = "https://github.com/sookoothaii/llm-security-firewall"
+Issues = "https://github.com/sookoothaii/llm-security-firewall/issues"
+Changelog = "https://github.com/sookoothaii/llm-security-firewall/blob/main/CHANGELOG.md"
 
 [project.scripts]
 llm-firewall = "llm_firewall.cli:main"
@@ -93,4 +95,6 @@ exclude_lines = [
     "raise NotImplementedError",
     "if __name__ == .__main__.:",
 ]
+
+
 
