@@ -40,21 +40,31 @@ Feature Extraction → LogisticRegression → Platt Scaling → Conformal Predic
 
 **Step 1: Prepare training data**
 
+**CRITICAL:** No training data included in package. You must collect domain-specific labeled examples.
+
 ```python
 import numpy as np
 from llm_firewall.risk.stacking import fit_aggregator
 
-# Collect features from your validation pipeline
-# Features: [pattern_score, semantic_score, toxicity_score, confidence]
+# YOU MUST COLLECT: At least 100 labeled examples from your domain
+# Each example = [pattern_score, semantic_score, toxicity_score, confidence]
+# Label = 1 (unsafe, should block) or 0 (safe, allow)
+
+# Example structure (YOU provide actual data):
 X_train = np.array([
-    [0.8, 0.9, 0.7, 0.85],  # Known attack
-    [0.1, 0.2, 0.0, 0.90],  # Known safe
-    # ... at least 100 examples ...
+    [0.8, 0.9, 0.7, 0.85],  # Known attack (label=1)
+    [0.1, 0.2, 0.0, 0.90],  # Known safe (label=0)
+    # ... YOU need 98+ more examples ...
 ])
 
-# Labels: 1 = unsafe (should block), 0 = safe
-y_train = np.array([1, 0, ...])  # Binary labels
+y_train = np.array([1, 0, ...])  # YOUR binary labels
 ```
+
+**How to collect:**
+1. Run standard pipeline on production traffic
+2. Manually label 100+ queries as safe/unsafe
+3. Extract feature vectors for each
+4. Save as numpy arrays or CSV
 
 **Step 2: Train calibrated stacker**
 
