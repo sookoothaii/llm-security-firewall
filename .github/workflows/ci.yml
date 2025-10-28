@@ -6,12 +6,18 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   test:
-    runs-on: ubuntu-latest
+    name: test (${{ matrix.os }}, py${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.12"]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.12", "3.13", "3.14"]
 
     steps:
     - uses: actions/checkout@v4
@@ -29,14 +35,22 @@ jobs:
     
     - name: Run tests
       run: |
-        pytest tests/ -v --cov=src/llm_firewall --cov-report=xml --cov-report=term
+        pytest tests/ -v --cov=src/llm_firewall --cov-report=xml --cov-report=term --junitxml=pytest-report.xml
     
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
-        file: ./coverage.xml
+        files: ./coverage.xml
         flags: unittests
-        name: codecov-umbrella
+        name: codecov-${{ matrix.os }}-py${{ matrix.python-version }}
+        fail_ci_if_error: false
+    
+    - name: Upload test report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: junit-${{ matrix.os }}-py${{ matrix.python-version }}
+        path: pytest-report.xml
 
   lint:
     runs-on: ubuntu-latest
@@ -54,7 +68,7 @@ jobs:
         pip install ruff mypy
     
     - name: Run Ruff
-      run: ruff check src/
+      run: ruff check src/ tests/
     
     - name: Run MyPy
       run: mypy src/ --ignore-missing-imports
@@ -70,14 +84,39 @@ jobs:
       with:
         python-version: "3.12"
     
-    - name: Install security scanner
-      run: pip install bandit safety
+    - name: Install security scanners
+      run: pip install bandit pip-audit
     
     - name: Run Bandit
       run: bandit -r src/ -ll
     
-    - name: Check dependencies
-      run: safety check --json
+    - name: Check dependencies (pip-audit)
+      run: pip-audit --require-hashes --disable-pip || true
+    
+    - name: Secrets scan (Gitleaks)
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
-
+  docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Install markdownlint
+      run: npm install -g markdownlint-cli2
+    
+    - name: Lint Markdown files
+      run: markdownlint-cli2 "**/*.md" "#node_modules"
+    
+    - name: Check links (lychee)
+      uses: lycheeverse/lychee-action@v1
+      with:
+        args: --no-progress --exclude-mail --timeout 20 --retry-wait-time 2 --max-retries 3 "**/*.md"
+        fail: true

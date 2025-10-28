@@ -179,6 +179,41 @@ python benchmarks/run_benchmarks.py \
 
 ---
 
+## Developer Setup
+
+### Pre-commit Hooks (Recommended)
+
+Local quality checks before committing:
+
+```bash
+# Install pre-commit
+pip install pre-commit
+
+# Install hooks
+pre-commit install
+
+# Run manually on all files
+pre-commit run --all-files
+```
+
+**Included Hooks:**
+- Ruff (linting + formatting)
+- MyPy (type checking)
+- Markdownlint (docs quality)
+- Trailing whitespace, EOF fixes, YAML validation
+
+### CI Pipeline (Automated)
+
+Every push/PR runs:
+- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (197 tests)
+- **Lint:** Ruff + MyPy type safety
+- **Security:** Bandit, pip-audit, Gitleaks (secrets scanner)
+- **Docs:** Markdownlint + Lychee (link checker)
+
+All tests must pass before merge.
+
+---
+
 ## Database Setup
 
 Users must provide their own database and knowledge base. The framework validates against user-supplied data.
