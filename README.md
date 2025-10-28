@@ -11,16 +11,16 @@
 
 ## Abstract
 
-We present a bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 11 defense layers with 100% test coverage.
+We present a bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 9 core defense layers (plus 2 optional advanced components) with 100% test coverage.
 
 **Key Contributions:**
-- Text canonicalization pipeline defeating Unicode-based evasion techniques
-- 43-pattern jailbreak detection (28 intent + 15 evasion) across 7 attack categories with empirically-calibrated weights
-- Calibrated stacking (LogisticRegression + Platt + Conformal) for risk aggregation under uncertainty
-- Band-Judge architecture reducing LLM-as-Judge dependency to uncertainty band only (8-64% of inputs)
+- Multi-layer ensemble defense with graceful degradation (embedding, perplexity, pattern-based detection)
+- Text canonicalization defeating Unicode-based evasion techniques
+- 43-pattern jailbreak detection (28 intent + 15 evasion) across 7 attack categories
 - MINJA prevention via creator_instance_id tracking
-- EWMA influence tracking for slow-roll attack detection
-- Split-conformal prediction for uncertainty quantification
+- 59-canary drift detection system with temporal and mathematical validation
+- EWMA influence budget tracking for slow-roll attack detection
+- Optional calibrated stacking and band-judge for research deployments
 
 **Empirical Results:** Attack Success Rate 5.0% (±3.34%) across multi-seed validation (n=140 per seed, 4 seeds), reduced from initial 95% baseline (19-fold improvement). False Positive Rate 0.18%. All metrics reproducible via deterministic evaluation with fixed random seeds (1337-1340).
 
@@ -38,35 +38,42 @@ Current frameworks typically address only one or two of these surfaces. This imp
 
 ## Architecture
 
-### Defense Layers (11 components)
+### Defense Layers (9 core + 2 optional)
+
+**Core Layers (always active):**
 
 **Input Protection (HUMAN → LLM):**
-1. **Text Canonicalization** - NFKC normalization, homoglyph mapping, zero-width character removal, variation selector stripping
-2. **Pattern-Based Detection** - 43 regex patterns (28 intent + 15 evasion) across 7 categories (Core Jailbreak, Extraction, Pretext, Social Engineering, Harm Solicitation, Content Laundering, Evasion/Obfuscation) with calibrated weights
-3. **Calibrated Risk Stacking** - LogisticRegression with Platt Scaling and Conformal Prediction (alpha=0.10) for uncertainty quantification
-4. **Band-Judge** - LLM-as-Judge meta-check triggered only in uncertainty band (epsilon=0.05), reducing LLM dependency to 8-64% of samples
+1. **Safety Validator** - Pattern-based detection (43 regex patterns across 7 categories) with text canonicalization (NFKC, homoglyphs, zero-width removal) and component floor risk scoring
+2. **Embedding Detector** - Semantic similarity against known jailbreaks using sentence-transformers (optional, requires sentence-transformers package)
+3. **Perplexity Detector** - Statistical anomaly detection via GPT-2 perplexity scoring (optional, requires transformers package)
+4. **Ensemble Validator** - Majority voting (2/3) across multiple detectors to reduce false positives
 
 **Output Protection (LLM → HUMAN):**
 5. **Evidence Validation** - Prevents memory injection attacks (MINJA) via creator_instance_id tracking and circular reference detection
 6. **Domain Trust Scoring** - 4-tier source verification (Nature/Science: 0.95-0.98, arXiv/PubMed: 0.85-0.90, Scholar: 0.70-0.80, Unknown: 0.10)
-7. **NLI Consistency** - Split-conformal prediction with hold-out set for claim verification against knowledge base
-8. **Dempster-Shafer Fusion** - Evidence combination under uncertainty (canonical implementation per Dempster 1967)
+7. **NLI Consistency** - Claim verification against knowledge base via natural language inference
 
 **Memory Integrity (Long-term Storage):**
-9. **Snapshot Canaries** - 59 synthetic claims for drift detection (25 known-true, 25 known-false, 5 mathematical, 4 temporal)
-10. **Shingle Hashing** - 5-gram n-gram profiling for near-duplicate detection via KL-divergence (Jensen-Shannon Distance as symmetric alternative)
-11. **Influence Budget Tracker** - EWMA-based Z-score monitoring for slow-roll attack detection
+8. **Snapshot Canaries** - 59 synthetic claims for drift detection (25 known-true, 25 known-false, 5 mathematical, 4 temporal)
+9. **Shingle Hashing** - 5-gram n-gram frequency profiling with KL-divergence for near-duplicate detection
+10. **Influence Budget Tracker** - EWMA-based Z-score monitoring for slow-roll attack detection
+
+**Advanced Components (for research/benchmarking):**
+11. **Calibrated Risk Stacking** - LogisticRegression with Platt Scaling and Conformal Prediction (requires labeled training data, n>=100)
+12. **Band-Judge** - LLM-as-Judge meta-check for uncertainty band only (requires API key, adds 500-2000ms latency)
+
+Note: Layers 2-3 are optional (degrade gracefully if packages unavailable). Layers 11-12 are for advanced deployments and benchmarking, not included in default pipeline.
 
 ### Protection Flows
 
 **Input Flow:**
 ```text
-User Query → Text Canonicalization → Pattern Detection (43 patterns) → Risk Stacking → Band-Judge (if uncertain) → [BLOCK|GATE|SAFE]
+User Query → Safety Validator (Canonicalization + 43 Patterns + Risk Scoring) → Ensemble Vote (Embedding + Perplexity + Pattern) → [BLOCK|GATE|SAFE]
 ```
 
 **Output Flow:**
 ```text
-LLM Claim → Evidence Validation → Domain Trust → NLI Check → DS-Fusion → [PROMOTE|QUARANTINE|REJECT]
+LLM Claim → Evidence Validation (MINJA Check) → Domain Trust Scoring → Source Verification → NLI Consistency → [PROMOTE|QUARANTINE|REJECT]
 ```
 
 **Memory Flow:**
@@ -83,7 +90,7 @@ Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLE
 ```bash
 git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
-pip install -e .              # Core 11-layer firewall
+pip install -e .              # Core 9-layer firewall (+ 2 optional detectors)
 pip install -e .[full]        # With optional plugins
 ```
 
@@ -258,7 +265,7 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 | Memory Protection | No | No | No | No | Yes |
 | MINJA Prevention | No | No | No | No | Yes |
 | Influence Tracking | No | No | No | No | Yes |
-| Defense Layers | 4-6 | 0 | 6-8 | 4 | 11 |
+| Defense Layers | 4-6 | 0 | 6-8 | 4 | 9+2 |
 | Test Coverage | ~85% | N/A | ~90% | N/A | 100% |
 | Open Source | Yes | Yes | Yes | No | Yes |
 
