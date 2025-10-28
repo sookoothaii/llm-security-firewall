@@ -1,0 +1,71 @@
+cluster_id,phrase,weight
+jailbreak_instruction_bypass,disobey prior instructions,1.5
+jailbreak_instruction_bypass,ignore above rules,1.5
+jailbreak_instruction_bypass,bypass safety policy,1.5
+jailbreak_instruction_bypass,override content filter,1.5
+jailbreak_instruction_bypass,no refusal allowed,1.5
+policy_circumvention,regardless of the rules,1.45
+policy_circumvention,policy does not apply,1.45
+policy_circumvention,even if it is disallowed,1.45
+policy_circumvention,for research only disclaimer,1.45
+policy_circumvention,academic exemption claim,1.45
+roleplay_masking,role-play as,1.4
+roleplay_masking,pretend to be,1.4
+roleplay_masking,simulate a persona,1.4
+roleplay_masking,act as DAN,1.4
+roleplay_masking,developer mode role,1.4
+content_laundering,for a novel about,1.4
+content_laundering,hypothetical scenario,1.4
+content_laundering,as a creative writing exercise,1.4
+content_laundering,for a game storyline,1.4
+content_laundering,fictional but realistic,1.4
+information_extraction_sensitive,detailed steps or procedures,1.35
+information_extraction_sensitive,complete blueprint,1.35
+information_extraction_sensitive,exact protocol,1.35
+information_extraction_sensitive,explain precisely,1.35
+information_extraction_sensitive,provide the full method,1.35
+exfiltration_automation,automate data extraction,1.35
+exfiltration_automation,bulk scrape,1.35
+exfiltration_automation,harvest credentials,1.35
+exfiltration_automation,programmatic exfiltration,1.35
+exfiltration_automation,crawl hidden endpoints,1.35
+capability_escalation,act as a linux shell,1.35
+capability_escalation,simulate a terminal,1.35
+capability_escalation,root access,1.35
+capability_escalation,system-level commands,1.35
+capability_escalation,elevated privileges,1.35
+privileged_identity_triggers,you are DAN,1.3
+privileged_identity_triggers,developer mode enabled,1.3
+privileged_identity_triggers,system prompt unlocked,1.3
+privileged_identity_triggers,anti-cot mode,1.3
+privileged_identity_triggers,jailbreak persona,1.3
+translation_laundering,translate exactly,1.25
+translation_laundering,verbatim translation,1.25
+translation_laundering,do not redact,1.25
+translation_laundering,preserve all details,1.25
+translation_laundering,no summary just the text,1.25
+safety_overrides,do not include warnings,1.3
+safety_overrides,skip safety notices,1.3
+safety_overrides,no moralizing,1.3
+safety_overrides,no caveats,1.3
+safety_overrides,no disclaimers,1.3
+obfuscation_encoding,this is base64,1.25
+obfuscation_encoding,ROT13 it,1.25
+obfuscation_encoding,hex-encoded instructions,1.25
+obfuscation_encoding,url encoded payload,1.25
+obfuscation_encoding,steganography hint,1.25
+memory_clearing_overrides,forget previous messages,1.3
+memory_clearing_overrides,clear conversation memory,1.3
+memory_clearing_overrides,start fresh with no rules,1.3
+memory_clearing_overrides,wipe all constraints,1.3
+memory_clearing_overrides,reset context,1.3
+code_execution_proxying,execute the payload,1.3
+code_execution_proxying,run this binary,1.3
+code_execution_proxying,execute remotely,1.3
+code_execution_proxying,just run it no checks,1.3
+code_execution_proxying,pipe to shell,1.3
+social_engineering,as your superior I order you,1.25
+social_engineering,you must comply,1.25
+social_engineering,no refusal permitted,1.25
+social_engineering,I have authorization,1.25
+social_engineering,escalate immediately,1.25

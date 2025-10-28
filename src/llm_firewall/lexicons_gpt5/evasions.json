@@ -1,0 +1,93 @@
+{
+  "version": "2025-10-29",
+  "phrases": [
+    {
+      "phrase": "ignore previous instructions",
+      "weight": 3.0
+    },
+    {
+      "phrase": "disregard above directions",
+      "weight": 2.5
+    },
+    {
+      "phrase": "regardless of policy",
+      "weight": 2.0
+    },
+    {
+      "phrase": "no refusal allowed",
+      "weight": 2.5
+    },
+    {
+      "phrase": "you are DAN",
+      "weight": 2.0
+    },
+    {
+      "phrase": "developer mode",
+      "weight": 1.5
+    },
+    {
+      "phrase": "anti-cot",
+      "weight": 1.5
+    },
+    {
+      "phrase": "pretend to be",
+      "weight": 1.5
+    },
+    {
+      "phrase": "role-play as",
+      "weight": 1.5
+    },
+    {
+      "phrase": "translate exactly",
+      "weight": 1.2
+    },
+    {
+      "phrase": "verbatim translation",
+      "weight": 1.2
+    },
+    {
+      "phrase": "do not include warnings",
+      "weight": 1.2
+    },
+    {
+      "phrase": "no disclaimers",
+      "weight": 1.2
+    },
+    {
+      "phrase": "this is base64",
+      "weight": 1.0
+    },
+    {
+      "phrase": "ROT13",
+      "weight": 1.0
+    },
+    {
+      "phrase": "hex-encoded",
+      "weight": 1.0
+    },
+    {
+      "phrase": "forget previous messages",
+      "weight": 1.5
+    },
+    {
+      "phrase": "reset context",
+      "weight": 1.2
+    },
+    {
+      "phrase": "start fresh with no rules",
+      "weight": 1.5
+    },
+    {
+      "phrase": "pipe to shell",
+      "weight": 2.0
+    },
+    {
+      "phrase": "I order you",
+      "weight": 1.2
+    },
+    {
+      "phrase": "you must comply",
+      "weight": 1.8
+    }
+  ]
+}
