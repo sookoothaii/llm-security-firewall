@@ -51,7 +51,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--benign_csv", required=True)
     ap.add_argument("--out", default="src/artifacts/floors.json")
-    ap.add_argument("--quantile", type=float, default=0.995)
+    ap.add_argument("--quantile", type=float, default=0.997)
     ap.add_argument("--margin", type=float, default=0.05)
     args = ap.parse_args()
     run(Path(args.benign_csv), Path(args.out), q=args.quantile, margin=args.margin)

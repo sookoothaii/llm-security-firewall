@@ -48,14 +48,16 @@ def load_dev(csv_path: Path) -> Tuple[List[List[float]], List[int]]:
 
 
 def fit_and_calibrate(X: List[List[float]], y: List[int], out_dir: Path):
-    """Fit LogisticRegression + Platt scaling, compute ECE/Brier."""
+    """Fit LogisticRegression + Platt + Isotonic scaling, compute ECE/Brier."""
     try:
         from sklearn.linear_model import LogisticRegression
         from sklearn.calibration import CalibratedClassifierCV
+        from sklearn.isotonic import IsotonicRegression
         import numpy as np
+        import joblib
     except ImportError:
         print("ERROR: scikit-learn not available")
-        print("Install: pip install scikit-learn")
+        print("Install: pip install scikit-learn joblib")
         sys.exit(1)
     
     print(f"[3/4] Training LogisticRegression...")
@@ -71,8 +73,12 @@ def fit_and_calibrate(X: List[List[float]], y: List[int], out_dir: Path):
     calibrated = CalibratedClassifierCV(base, method='sigmoid', cv=3)
     calibrated.fit(X_arr, y_arr)
     
-    # Get calibrated probabilities
-    probs = calibrated.predict_proba(X_arr)[:, 1]
+    # Get Platt-calibrated probabilities
+    probs_platt = calibrated.predict_proba(X_arr)[:, 1]
+    
+    # Beta/Isotonic calibration (after Platt for lower Brier)
+    iso = IsotonicRegression(out_of_bounds='clip')
+    probs = iso.fit_transform(probs_platt, y_arr)
     
     # Compute ECE
     n_bins = 15
@@ -116,7 +122,11 @@ def fit_and_calibrate(X: List[List[float]], y: List[int], out_dir: Path):
     platt = {"A": platt_A, "B": platt_B}
     (out_dir / "platt.json").write_text(json.dumps(platt, indent=2))
     
-    metrics = {"ece": ece, "brier": brier}
+    # Save isotonic calibrator
+    joblib.dump(iso, str(out_dir / "iso_cal.joblib"))
+    joblib.dump(calibrated, str(out_dir / "meta_calibrated.joblib"))
+    
+    metrics = {"ece": ece, "brier": brier, "calibration": "platt+isotonic"}
     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2))
     
     print(f"[DONE] Meta-ensemble artifacts saved")
