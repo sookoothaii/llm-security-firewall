@@ -53,7 +53,7 @@ Current frameworks typically address only one or two of these surfaces. This imp
 8. **Dempster-Shafer Fusion** - Evidence combination under uncertainty (canonical implementation per Dempster 1967)
 
 **Memory Integrity (Long-term Storage):**
-9. **Snapshot Canaries** - 29 synthetic claims for drift detection (10 known-true, 10 known-false, 5 mathematical, 4 temporal)
+9. **Snapshot Canaries** - 59 synthetic claims for drift detection (25 known-true, 25 known-false, 5 mathematical, 4 temporal)
 10. **Shingle Hashing** - 5-gram n-gram profiling for near-duplicate detection via KL-divergence (Jensen-Shannon Distance as symmetric alternative)
 11. **Influence Budget Tracker** - EWMA-based Z-score monitoring for slow-roll attack detection
 

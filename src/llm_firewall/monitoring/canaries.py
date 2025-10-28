@@ -52,7 +52,7 @@ class SnapshotCanaries:
         """Erstelle Basis-Canaries."""
         canaries = []
         
-        # Known True Claims
+        # Known True Claims (25 total)
         true_claims = [
             "Paris is the capital of France",
             "Water boils at 100 degrees Celsius at sea level",
@@ -63,7 +63,22 @@ class SnapshotCanaries:
             "The speed of light is approximately 300,000 km/s",
             "Oxygen is essential for human breathing",
             "The Great Wall of China is visible from space",
-            "The Pacific Ocean is the largest ocean on Earth"
+            "The Pacific Ocean is the largest ocean on Earth",
+            "DNA contains genetic information",
+            "Gold is a chemical element with symbol Au",
+            "The Moon orbits the Earth",
+            "Mammals are warm-blooded vertebrates",
+            "Photosynthesis occurs in plants",
+            "The freezing point of water is 0 degrees Celsius",
+            "Gravity attracts objects toward Earth",
+            "Carbon dioxide is produced by cellular respiration",
+            "The Eiffel Tower is located in Paris",
+            "Neurons transmit electrical signals in the nervous system",
+            "The Pythagorean theorem relates sides of right triangles",
+            "Mitochondria are the powerhouse of the cell",
+            "The Amazon River is in South America",
+            "Diamonds are made of carbon",
+            "The human body has 206 bones"
         ]
         
         for claim in true_claims:
@@ -74,7 +89,7 @@ class SnapshotCanaries:
                 confidence_threshold=0.95
             ))
         
-        # Known False Claims
+        # Known False Claims (25 total)
         false_claims = [
             "The moon is made of cheese",
             "Humans can breathe underwater without equipment",
@@ -85,7 +100,22 @@ class SnapshotCanaries:
             "Cats are a type of bird",
             "The Atlantic Ocean is larger than the Pacific",
             "The year 2025 has 400 days",
-            "Gravity pushes objects away from Earth"
+            "Gravity pushes objects away from Earth",
+            "Water freezes at 100 degrees Celsius",
+            "The Moon is larger than the Sun",
+            "Plants produce oxygen during night only",
+            "Gold is lighter than aluminum",
+            "The Great Wall of China is visible from the Moon",
+            "Humans have five hearts",
+            "Antarctica is the smallest continent",
+            "Light travels slower than sound",
+            "The Earth is flat",
+            "Magnets repel all metals",
+            "DNA is made of proteins",
+            "Fish breathe using lungs",
+            "The Sahara is the wettest place on Earth",
+            "Mount Everest is at sea level",
+            "Humans evolved from modern chimpanzees"
         ]
         
         for claim in false_claims:
