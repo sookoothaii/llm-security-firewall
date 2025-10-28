@@ -114,8 +114,17 @@ class GPT5Detector:
             }
         
         try:
+            # CRITICAL: Canonicalize BEFORE evaluation (evasion resistance)
+            try:
+                from ..text.normalize import canonicalize
+                text_canonical = canonicalize(text)
+            except ImportError:
+                # Fallback if canonicalization not available
+                logger.warning("Canonicalization not available - evasion attacks possible!")
+                text_canonical = text
+            
             # Run evaluation
-            result = self.evaluate_fn(text)
+            result = self.evaluate_fn(text_canonical)
             
             # Extract scores
             pattern_score = result["pattern"]["score"]
