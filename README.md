@@ -11,7 +11,7 @@
 
 ## Abstract
 
-We present the first bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 9 defense layers with 100% test coverage.
+We present a bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 9 defense layers with 100% test coverage.
 
 **Novel Contributions:**
 - EWMA influence tracking for slow-roll attack detection
@@ -20,7 +20,7 @@ We present the first bidirectional firewall framework addressing all three LLM a
 - Split-conformal prediction for uncertainty quantification
 - Jensen-Shannon Distance for near-duplicate detection
 
-**Empirical Results:** Attack Success Rate < 10% @ 0.1% poison, False Positive Rate < 1%, Expected Calibration Error ≤ 0.05. Framework validated by external reviewers (GPT-5, Mistral, DeepSeek R1) and ready for production deployment.
+**Empirical Results:** Attack Success Rate < 10% @ 0.1% poison, False Positive Rate < 1%, Expected Calibration Error ≤ 0.05. All metrics reproducible via benchmarks with fixed seeds.
 
 ## Overview
 
@@ -274,17 +274,6 @@ Note: ARCA is a red-team framework (attack simulation only, no defense mechanism
 - Focuses on text-based LLM interactions
 - Does not address multimodal (image/audio) attack vectors
 - Limited to English language content (Unicode normalization included)
-
----
-
-## External Validation
-
-
-"Well-aligned with current AI security best practices. Offers innovative contributions that address gaps in current solutions."
-
-
-"Uniquely combines these elements into cohesive defense-in-depth strategy. No direct competition for Full-Stack implementation found."
-
 
 ---
 
