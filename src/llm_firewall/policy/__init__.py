@@ -1,4 +1,4 @@
-"""Policy engine for LLM Firewall."""
+"""Policy DSL engine for LLM Firewall."""
 from .analyzer import analyze
 from .compiler import compile_spec
 from .dsl import PolicyCond, PolicyLeaf, parse_yaml_spec

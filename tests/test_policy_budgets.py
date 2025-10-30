@@ -1,7 +1,7 @@
 """Tests for policy decode budgets and auto-strict guard."""
 from types import SimpleNamespace
 
-from llm_firewall.policy import from_hydra
+from llm_firewall.policy_config import from_hydra
 
 
 def test_decode_budgets_loaded():

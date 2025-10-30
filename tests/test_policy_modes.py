@@ -5,7 +5,7 @@ from llm_firewall.heuristics.provider_complexity import (
     is_strong_secret_provider,
     is_weak_secret_provider,
 )
-from llm_firewall.policy import from_hydra
+from llm_firewall.policy_config import from_hydra
 
 
 def mkcfg(mode: str) -> SimpleNamespace:
