@@ -14,9 +14,18 @@ License: MIT
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Dict, Any, Tuple, Protocol
+from typing import Dict, Any, Tuple, Protocol, List
 
 from llm_firewall.core.types import Severity, ModelContext
+
+
+# Safe replacement templates for REWRITE action
+SAFE_TEMPLATES = {
+    Severity.LOW: "[content filtered]",
+    Severity.MEDIUM: "[potentially sensitive content removed]",
+    Severity.HIGH: "[unsafe content blocked]",
+    Severity.CRITICAL: "[critical safety violation prevented]"
+}
 
 
 class StreamAction(Enum):
@@ -33,6 +42,12 @@ class StreamState:
     cumulative_risk: float          # Running risk accumulator
     last_severity: Severity         # Most recent severity
     window_text: str                # Sliding window of recent tokens
+    
+    # Critical-Leak@n tracking
+    critical_tokens: List[str] = field(default_factory=list)  # Tokens with severity >= HIGH
+    leak_positions: List[int] = field(default_factory=list)   # Token positions of leaks
+    first_n_checked: int = 20       # Check first N tokens for critical leaks
+    
     extras: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -112,6 +127,9 @@ class RollingWindowStreamGuard:
             cumulative_risk=0.0,
             last_severity=Severity.NONE,
             window_text="",
+            critical_tokens=[],
+            leak_positions=[],
+            first_n_checked=20,
             extras={"ctx": ctx}
         )
     
@@ -132,11 +150,21 @@ class RollingWindowStreamGuard:
         # Update cumulative risk
         state.cumulative_risk = (state.cumulative_risk * self.risk_decay) + float(severity) / 10.0
         state.last_severity = severity
+        
+        # Track critical leaks in first N tokens
+        if state.step < state.first_n_checked and severity >= Severity.HIGH:
+            state.critical_tokens.append(token)
+            state.leak_positions.append(state.step)
+        
         state.step += 1
         
-        # Decide action
+        # Decide action (prefer REWRITE over ABORT when possible)
         if severity >= self.abort_severity:
-            action = StreamAction.ABORT
+            # Check if we can rewrite instead of abort
+            if state.step > state.first_n_checked and severity < Severity.CRITICAL:
+                action = StreamAction.REWRITE
+            else:
+                action = StreamAction.ABORT
         elif severity >= self.rewrite_severity:
             action = StreamAction.REWRITE
         else:

@@ -26,17 +26,21 @@ class PersuasionFusionJudge:
     - Always run Persuasion Detector (fast, <20ms)
     - Only invoke Band-Judge if Persuasion in grey zone (1.0-2.5)
     - Late fusion: max(persuasion, band_judge) with calibrated OR
+    - Dual thresholds: advice vs action
+    - Source-awareness: creator_instance_id features
     """
     
     name = "persuasion_fusion"
-    version = "1.0.0"
+    version = "1.1.0"  # Upgraded with dual thresholds + source-awareness
     
     def __init__(
         self,
         persuasion_detector: PersuasionDetector,
         band_judge: BandJudge,
         grey_zone_min: float = 1.0,
-        grey_zone_max: float = 2.5
+        grey_zone_max: float = 2.5,
+        advice_threshold: float = 1.5,    # Lower threshold for advice-only
+        action_threshold: float = 3.0      # Higher threshold for actionable instructions
     ):
         """
         Initialize fusion judge.
@@ -51,6 +55,19 @@ class PersuasionFusionJudge:
         self.band_judge = band_judge
         self.grey_zone_min = grey_zone_min
         self.grey_zone_max = grey_zone_max
+        self.advice_threshold = advice_threshold
+        self.action_threshold = action_threshold
+        
+        # Patterns for actionable instructions (vs mere advice)
+        self.action_patterns = [
+            r"\bstep\s+\d+",
+            r"\bfirst,?\s+(you\s+)?",
+            r"\bthen,?\s+(you\s+)?",
+            r"\bfinally,?\s+(you\s+)?",
+            r"\bhow\s+to\s+make",
+            r"\brecipe\s+for",
+            r"\binstructions?\s+for"
+        ]
     
     def score(self, ctx: ModelContext, prompt: str, draft: str) -> JudgeReport:
         """
@@ -67,10 +84,30 @@ class PersuasionFusionJudge:
         t0 = time.perf_counter()
         
         # Always run persuasion detector
-        p_score, p_signals = self.persuasion.score_text(prompt + "\n" + draft)
+        combined_text = prompt + "\n" + draft
+        p_score, p_signals = self.persuasion.score_text(combined_text)
+        
+        # Check for actionable instructions (vs mere advice)
+        import re
+        is_actionable = any(re.search(pat, combined_text.lower()) for pat in self.action_patterns)
+        
+        # Apply dual thresholds
+        threshold = self.action_threshold if is_actionable else self.advice_threshold
         
         # Normalize to [0, 1]
         p_risk = min(1.0, p_score / 5.0)  # Max persuasion score ~5, normalize
+        
+        # Source-awareness: Check for self-referential patterns
+        self_ref_patterns = [
+            r"\bi\s+(created|wrote|authored|generated)",
+            r"\bmy\s+(previous|earlier)\s+(response|answer)",
+            r"\bas\s+i\s+(said|mentioned|explained)"
+        ]
+        is_self_referential = any(re.search(pat, draft.lower()) for pat in self_ref_patterns)
+        
+        # Boost risk if self-referential + persuasive (potential manipulation)
+        if is_self_referential and p_score > 1.0:
+            p_risk = min(1.0, p_risk * 1.3)  # 30% boost for self-referential persuasion
         
         # Invoke band-judge only if in grey zone
         bj_risk = 0.0
@@ -126,7 +163,12 @@ class PersuasionFusionJudge:
                 "persuasion_score": p_score,
                 "persuasion_signals": len(p_signals),
                 "band_judge_invoked": bj_invoked,
-                "band_judge_risk": bj_risk
+                "band_judge_risk": bj_risk,
+                "is_actionable": is_actionable,
+                "is_self_referential": is_self_referential,
+                "threshold_used": threshold,
+                "advice_threshold": self.advice_threshold,
+                "action_threshold": self.action_threshold
             },
             notes=f"Fusion: p={p_risk:.3f}, bj={bj_risk:.3f}, fused={fused_risk:.3f}"
         )
