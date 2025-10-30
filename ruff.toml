@@ -17,16 +17,69 @@ ignore = []
 
 # Benchmarks: pseudo-random (S311), insecure hash (S324), import after sys.path (E402)
 "benchmarks/**/*.py" = ["S311", "E402"]
-"benchmarks/generate_dataset.py" = ["S324"]
 
-# Monitoring/Spatial: pseudo-random for non-crypto (canaries, challenge generation)
+# Monitoring: pseudo-random for non-crypto (canaries)
 "src/llm_firewall/monitoring/canaries.py" = ["S311"]
-"src/llm_firewall/spatial/generator.py" = ["S311"]
 
 # Error handling: Intentional try-except patterns
 "src/llm_firewall/persuasion/ac_trie.py" = ["S110"]
 "src/llm_firewall/risk/risk_scorer.py" = ["S110"]
 "src/llm_firewall/calibration/lodo.py" = ["S112"]
 
-# CLI: Subprocess for command execution
-"src/llm_firewall/cli.py" = ["S603", "S607"]
+# E501 (Line-too-long) - Legitimate long lines (Regex patterns, detailed loggers, docstrings)
+# Benchmarks: Logger output with metrics, insecure hash for non-crypto
+"benchmarks/generate_dataset.py" = ["E501", "S324"]
+"benchmarks/llm_redteam_eval.py" = ["E501"]
+"benchmarks/persuasion_redteam_eval.py" = ["E501"]
+"benchmarks/run_benchmarks.py" = ["E501"]
+
+# Core/Engines: Complex log messages, docstrings
+"src/llm_firewall/cli.py" = ["E501", "S603", "S607"]
+"src/llm_firewall/core.py" = ["E501"]
+"src/llm_firewall/core/ports/auth_port.py" = ["E501"]
+"src/llm_firewall/adapters/auth/spatial_captcha_adapter.py" = ["E501"]
+"src/llm_firewall/engines/decision_engine.py" = ["E501"]
+"src/llm_firewall/engines/explanation_formatter.py" = ["E501"]
+"src/llm_firewall/engines/feedback_learner.py" = ["E501"]
+
+# Evidence: Detailed log messages
+"src/llm_firewall/evidence/ground_truth_scorer.py" = ["E501"]
+"src/llm_firewall/evidence/source_verifier.py" = ["E501"]
+"src/llm_firewall/evidence/validator.py" = ["E501"]
+
+# Fusion: Algorithm explanations
+"src/llm_firewall/fusion/adaptive_threshold.py" = ["E501"]
+"src/llm_firewall/fusion/robbins_monro.py" = ["E501"]
+
+# Monitoring: Detailed debug output
+"src/llm_firewall/monitoring/explain_why.py" = ["E501"]
+"src/llm_firewall/monitoring/shingle_hasher.py" = ["E501"]
+
+# Persuasion: Docstrings with detailed explanations
+"src/llm_firewall/persuasion/invariance_gate.py" = ["E501"]
+"src/llm_firewall/persuasion/l3_classifier.py" = ["E501"]
+"src/llm_firewall/persuasion/neutralizer.py" = ["E501"]
+
+# Rules: Complex regex patterns (unbreakable without destroying readability)
+"src/llm_firewall/rules/patterns.py" = ["E501"]
+"src/llm_firewall/rules/patterns_v2.py" = ["E501"]
+
+# Safety: Detailed log messages with multiple metrics
+"src/llm_firewall/safety/band_judge.py" = ["E501"]
+"src/llm_firewall/safety/embedding_detector.py" = ["E501"]
+"src/llm_firewall/safety/ensemble_validator.py" = ["E501"]
+"src/llm_firewall/safety/gpt5_detector.py" = ["E501"]
+"src/llm_firewall/safety/input_ensemble.py" = ["E501"]
+"src/llm_firewall/safety/llm_judge.py" = ["E501"]
+"src/llm_firewall/safety/validator.py" = ["E501"]
+
+# Spatial: Challenge generation with detailed params
+"src/llm_firewall/spatial/generator.py" = ["E501", "S311"]
+
+# Tests: Long explanatory comments
+"tests/judges/test_nli_consistency.py" = ["E501"]
+"tests/test_canonicalizer_required.py" = ["E501"]
+"tests/test_dempster_shafer_fusion.py" = ["E501"]
+"tests/test_gapped_regex.py" = ["E501"]
+"tests/test_shingle_hasher.py" = ["E501"]
+"tests/test_statistics_tracker.py" = ["E501"]

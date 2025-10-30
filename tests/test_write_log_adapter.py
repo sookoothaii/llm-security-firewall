@@ -19,8 +19,10 @@ from src.llm_firewall.adapters.write_log_adapter import (
     WriteLogEntry,
 )
 
-# Skip DB tests if PostgreSQL not available
-SKIP_DB = os.getenv("SKIP_DB_TESTS", "0") == "1"
+# Skip DB tests if PostgreSQL not available or password not set
+SKIP_DB = (
+    os.getenv("SKIP_DB_TESTS", "0") == "1" or not os.getenv("HAKGAL_DB_PASSWORD")
+)
 
 # Test connection params (adjust for your environment)
 # Set HAKGAL_DB_PASSWORD env var or skip DB tests
