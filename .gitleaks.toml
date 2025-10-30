@@ -33,6 +33,7 @@ paths = [
     '''tests/.*\.py$''',
     '''benchmarks/.*\.py$''',
     '''src/llm_firewall/gates/safety_sandwich\.py$''',           # Regex pattern in code
+    '''src/llm_firewall/gates/secrets_heuristics\.py$''',        # Password detection patterns (L106-119)
     '''src/llm_firewall/monitoring/influence_budget_repo\.py$''', # Default DSN fallback
     '''src/llm_firewall/safety/validator\.py$''',                # Test strings
 ]

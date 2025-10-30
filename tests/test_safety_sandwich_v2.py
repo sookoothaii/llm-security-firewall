@@ -31,7 +31,7 @@ def test_abort_on_high_conf_secret_early():
             break
 
     # Introduce an obvious secret (OpenAI-like key)
-    secret_text = "api_key=sk-ABCDEFGHIJKLMNOPQRST1234567890"  # nosec B105
+    secret_text = "api_key=sk-ABCDEFGHIJKLMNOPQRST1234567890"  # noqa: S105
     for ch in secret_text:
         act = sw.feed_token(ch)
         if act == "abort":
@@ -139,7 +139,7 @@ def test_critical_leak_fires_only_once():
         sw.feed_token(ch)
 
     # Inject secret
-    secret = "api_key=sk-LONGKEYTHATABORTSHERE1234567890"  # nosec B105
+    secret = "api_key=sk-LONGKEYTHATABORTSHERE1234567890"  # noqa: S105
     for ch in secret:
         if sw.feed_token(ch) == "abort":
             break
