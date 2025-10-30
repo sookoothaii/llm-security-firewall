@@ -89,7 +89,7 @@ def from_hydra(cfg: Any | None) -> Policy:
             _cfg_get(cfg, ("llm_firewall", "policy", "max_zip_files"), max_zip_files)
         )
         max_zip_read = int(
-            _cfg_get(cfg, ("llm_firewall", "policy", "max_zip_read_bytes"), max_zip_read)
+            _cfg_get(cfg, ("llm_firewall", "policy", "max_zip_read_bytes"), max_zip_read)  # noqa: E501
         )
         max_png_chunks = int(
             _cfg_get(cfg, ("llm_firewall", "policy", "max_png_chunks"), max_png_chunks)
@@ -97,7 +97,7 @@ def from_hydra(cfg: Any | None) -> Policy:
 
         # Auto-strict
         auto_strict_on = bool(
-            _cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_enabled"), auto_strict_on)
+            _cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_enabled"), auto_strict_on)  # noqa: E501
         )
         auto_strict_alarms = int(
             _cfg_get(
