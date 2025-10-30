@@ -35,12 +35,18 @@ class TestSourceMetadata:
         """Trust outside [0,1] should raise."""
         with pytest.raises(ValueError, match="trust must be in"):
             SourceMetadata(
-                url=None, trust=1.5, domain="tech", created_at=datetime.now(timezone.utc)
+                url=None,
+                trust=1.5,
+                domain="tech",
+                created_at=datetime.now(timezone.utc),
             )
 
         with pytest.raises(ValueError, match="trust must be in"):
             SourceMetadata(
-                url=None, trust=-0.1, domain="tech", created_at=datetime.now(timezone.utc)
+                url=None,
+                trust=-0.1,
+                domain="tech",
+                created_at=datetime.now(timezone.utc),
             )
 
 

@@ -38,7 +38,8 @@ class TestConflictDetection:
                 PolicyRule(
                     "r2",
                     priority=1,  # Same priority
-                    when=PolicyCond(leaf=PolicyLeaf("domain_is", "SCIENCE")),  # Same domain
+                    # Same domain
+                    when=PolicyCond(leaf=PolicyLeaf("domain_is", "SCIENCE")),
                     action="block",  # Different action
                 ),
             ],
@@ -91,7 +92,8 @@ class TestConflictDetection:
                 PolicyRule(
                     "r2",
                     priority=1,  # Same priority
-                    when=PolicyCond(leaf=PolicyLeaf("domain_is", "POLICY")),  # Different domain
+                    # Different domain
+                    when=PolicyCond(leaf=PolicyLeaf("domain_is", "POLICY")),
                     action="block",  # Different action
                 ),
             ],

@@ -42,9 +42,10 @@ def test_windowed_vs_nonwindowed():
     This research paper examines the historical development of cryptographic protocols
     in distributed systems. We analyze various approaches to secure communication and
     authentication mechanisms that have been proposed in the literature. Our methodology
-    involves systematic review of published works spanning three decades. The key findings
-    suggest that layered security architectures provide better resistance to attacks.
-    We discuss implications for future research directions and practical implementations.
+    involves systematic review of published works spanning three decades.
+    The key findings suggest that layered security architectures provide
+    better resistance to attacks. We discuss implications for future research
+    directions and practical implementations.
     """ * 3  # Make it long enough to trigger windowing
 
     assert len(academic) > 1024, "Test text must trigger windowing"

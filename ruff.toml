@@ -9,8 +9,8 @@ select = ["E", "F", "W", "I", "S"]
 ignore = []
 
 [lint.per-file-ignores]
-# Tests: Allow assert statements (S101)
-"tests/**/*.py" = ["S101"]
+# Tests: Allow assert statements (S101) and pseudo-random for test data (S311)
+"tests/**/*.py" = ["S101", "S311"]
 
 # Benchmarks: Allow insecure hash for non-crypto use (S324), pseudo-random for datasets (S311)
 "benchmarks/generate_dataset.py" = ["S324", "S311"]

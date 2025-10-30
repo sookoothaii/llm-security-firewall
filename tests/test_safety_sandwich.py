@@ -82,7 +82,9 @@ class TestGuardedDecode:
 
     def test_allows_clean_draft(self):
         """Should proceed if draft is clean."""
-        model = MockSpeculativeModel(draft="Hello, this is safe.", final="Full safe response.")
+        model = MockSpeculativeModel(
+            draft="Hello, this is safe.", final="Full safe response."
+        )
         output = guarded_decode("test prompt", model)
         assert output == "Full safe response."
 
