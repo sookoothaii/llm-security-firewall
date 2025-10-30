@@ -47,7 +47,7 @@ def clear_results_fixture():
 def should_detect_secret(text: str) -> bool:
     """
     Enhanced detection with ALL modules + FP-kill heuristics.
-    
+
     Pipeline (GPT-5 order - Liberal bias):
     1. WHITELIST FIRST (benign context suppression)
     2. Unicode hardening (NFKC + confusables + fullwidth + bidi)
