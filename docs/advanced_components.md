@@ -26,7 +26,7 @@ These are **NOT included in the default pipeline** because they require:
 Aggregates multiple risk signals (pattern scores, semantic scores, toxicity) using calibrated machine learning instead of simple weighted sums.
 
 **Pipeline:**
-```
+```text
 Feature Extraction → LogisticRegression → Platt Scaling → Conformal Prediction → Risk Score
 ```
 
@@ -282,5 +282,5 @@ For advanced component integration:
 - Check tests: `tests/test_stacking.py`
 - Check benchmarks: `bench/run_eval.py`
 
-Issues: https://github.com/sookoothaii/llm-security-firewall/issues
+Issues: <https://github.com/sookoothaii/llm-security-firewall/issues>
 

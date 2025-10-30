@@ -69,7 +69,7 @@ python tools/ablate.py \
 
 **Prod-Freigabe NUR wenn ALLE erfüllt:**
 
-```
+```text
 ✓ ΔASR@50 ≤ -10% (A2 vs A0)
 ✓ ECE ≤ 0.05
 ✓ Brier ≤ 0.10
@@ -115,7 +115,4 @@ export LLMFW_RISK_THRESHOLD=0.35    # Override threshold (from calibration)
 **"floors.json not found"**
 - Run floors_fit.py first
 - Check artifacts/ directory created
-
-
-
 

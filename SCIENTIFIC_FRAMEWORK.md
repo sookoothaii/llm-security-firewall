@@ -20,7 +20,7 @@ Research-grade framework for methodically validating GPT-5 Detection Pack throug
 
 ## Architecture
 
-```
+```text
 Input Text
     ↓
 [1] Canonicalization (NFKC + Homoglyphs + ZW/VS strip)
@@ -131,7 +131,7 @@ META_FEATURES = [
 
 ### Arms
 
-```
+```text
 A0: Pattern only (baseline)
 A1: Pattern + Intent (AC-only)
 A2: Pattern + Intent (AC + Gapped Regex)
@@ -172,7 +172,7 @@ python tools/ablate.py \
 
 **Production Release ONLY if ALL gates pass:**
 
-```
+```text
 ✓ ΔASR@50 ≤ -10% (A2 vs A0, relative improvement)
 ✓ ECE ≤ 0.05 (Expected Calibration Error)
 ✓ Brier ≤ 0.10 (Brier score)
@@ -244,7 +244,7 @@ export LLMFW_RISK_THRESHOLD=0.35    # Calibrated threshold
 
 ## File Structure
 
-```
+```text
 src/llm_firewall/
 ├── text/normalize.py          # Canonicalization (SECURITY)
 ├── config.py                  # Settings + ENV vars
@@ -319,7 +319,3 @@ python tools/ablate.py --dev_csv data/dev.csv --test_csv data/test.csv
 ---
 
 **Methodisch sauber - wissenschaftlich valide - transparent über Limitationen** ✓
-
-
-
-
