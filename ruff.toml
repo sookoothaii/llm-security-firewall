@@ -1,0 +1,18 @@
+# Ruff Configuration for LLM Security Firewall
+# Creator: Joerg Bollwahn
+# Date: 2025-10-30
+
+line-length = 88
+
+[lint]
+select = ["E", "F", "W", "I", "S"]
+ignore = []
+
+[lint.per-file-ignores]
+# Tests: Allow assert statements (S101)
+"tests/**/*.py" = ["S101"]
+
+# Benchmarks: Allow insecure hash for non-crypto use (S324), pseudo-random for datasets (S311)
+"benchmarks/generate_dataset.py" = ["S324", "S311"]
+"benchmarks/redteam_cgrf.py" = ["S311"]  # Pseudo-random OK for fuzzing (not crypto)
+

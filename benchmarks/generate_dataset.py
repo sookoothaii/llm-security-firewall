@@ -1,7 +1,11 @@
 # benchmarks/generate_dataset.py
 from __future__ import annotations
-import csv, random, hashlib
+
+import csv
+import hashlib
+import random
 from typing import List, Tuple
+
 
 def _sha(n: str) -> str:
     return hashlib.sha1(n.encode()).hexdigest()[:12]
@@ -83,7 +87,7 @@ def synth(n_benign=100, n_jlb=100, hard_neg=40, split_ratio=0.7, seed=1337, dedu
     bn = 0
     for s in HARD_NEG:
         if bn >= hard_neg: break
-        if any(jaccard_trigram(s, r[1]) >= dedup_thr for r in rows): 
+        if any(jaccard_trigram(s, r[1]) >= dedup_thr for r in rows):
             continue
         rid = _sha(f"hn{bn}{seed}{s}")
         rows.append((rid, s, 0, "dev", seed, "synthetic", "benign_hard"))

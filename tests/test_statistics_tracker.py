@@ -8,8 +8,10 @@ Author: Claude Sonnet 4.5 (Forschungsleiter)
 Date: 2025-10-27
 """
 
-import pytest
 from datetime import datetime, timedelta
+
+import pytest
+
 from llm_firewall.engines.statistics_tracker import HonestyStatisticsTracker
 from llm_firewall.utils.types import ConvergenceStatus
 
@@ -58,7 +60,7 @@ def mock_decisions_with_feedback():
         'CORRECT', 'CORRECT', 'CORRECT', 'WRONG_ABSTAIN',
         'CORRECT', 'CORRECT', 'CORRECT', 'CORRECT'
     ]
-    
+
     for i in range(20):
         decisions.append({
             'decision_id': f'id_{i}',
@@ -80,9 +82,9 @@ def test_empty_statistics(tracker):
     """Test empty statistics computation."""
     tracker._fetch_decisions = lambda u, c, d: []
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'last_7_days')
-    
+
     assert stats.user_id == 'test_user'
     assert stats.total_decisions == 0
     assert stats.answered == 0
@@ -97,9 +99,9 @@ def test_decision_counts_no_feedback(tracker, mock_decisions_no_feedback):
     """Test decision counting without feedback."""
     tracker._fetch_decisions = lambda u, c, d: mock_decisions_no_feedback
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'last_7_days')
-    
+
     assert stats.total_decisions == 10
     assert stats.answered == 5  # Even indices
     assert stats.abstained == 5
@@ -111,24 +113,24 @@ def test_accuracy_metrics_with_feedback(tracker, mock_decisions_with_feedback):
     """Test precision/recall computation with feedback."""
     tracker._fetch_decisions = lambda u, c, d: mock_decisions_with_feedback
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'last_30_days')
-    
+
     assert stats.n_with_feedback == 20
-    
+
     # Count from fixture:
     # CORRECT: 15, WRONG_ABSTAIN: 4, WRONG_ANSWER: 1
     assert stats.correct_answers + stats.correct_abstentions == 15
     assert stats.wrong_abstentions == 4
     assert stats.wrong_answers == 1
-    
+
     # Precision = correct_answer / (correct_answer + wrong_answer)
     # Depends on decision types (ANSWER vs ABSTAIN)
     # We just check they're computed (non-zero if feedback exists)
     assert 0.0 <= stats.precision <= 1.0
     assert 0.0 <= stats.recall <= 1.0
     assert 0.0 <= stats.f1_score <= 1.0
-    
+
     # Error rates
     assert stats.type1_error_rate == 4 / 20  # 0.20
     assert stats.type2_error_rate == 1 / 20  # 0.05
@@ -152,12 +154,12 @@ def test_convergence_learning_phase(tracker):
         }
         for i in range(15)  # < 20
     ]
-    
+
     tracker._fetch_decisions = lambda u, c, d: decisions
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'all_time')
-    
+
     assert stats.convergence_status == ConvergenceStatus.LEARNING
 
 
@@ -179,12 +181,12 @@ def test_convergence_converged(tracker):
         }
         for i in range(30)  # >= 20, low variance
     ]
-    
+
     tracker._fetch_decisions = lambda u, c, d: decisions
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'all_time')
-    
+
     assert stats.convergence_status == ConvergenceStatus.CONVERGED
     assert stats.threshold_variance < 0.001
 
@@ -207,12 +209,12 @@ def test_convergence_converging(tracker):
         }
         for i in range(30)
     ]
-    
+
     tracker._fetch_decisions = lambda u, c, d: decisions
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'all_time')
-    
+
     assert stats.convergence_status == ConvergenceStatus.CONVERGING
     assert 0.001 <= stats.threshold_variance < 0.01
 
@@ -221,20 +223,20 @@ def test_gt_score_distribution(tracker, mock_decisions_with_feedback):
     """Test GT score histogram computation."""
     tracker._fetch_decisions = lambda u, c, d: mock_decisions_with_feedback
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'all_time')
-    
+
     # Check histogram bins exist
     assert '0.0-0.2' in stats.gt_score_histogram
     assert '0.2-0.4' in stats.gt_score_histogram
     assert '0.4-0.6' in stats.gt_score_histogram
     assert '0.6-0.8' in stats.gt_score_histogram
     assert '0.8-1.0' in stats.gt_score_histogram
-    
+
     # Check total counts = total decisions
     total_in_bins = sum(stats.gt_score_histogram.values())
     assert total_in_bins == 20
-    
+
     # Check mean/std computed
     assert 0.0 <= stats.gt_score_mean <= 1.0
     assert stats.gt_score_std >= 0.0
@@ -247,13 +249,13 @@ def test_time_window_filtering(tracker):
     assert cutoff_7 is not None
     assert cutoff_7 < datetime.now()
     assert cutoff_7 > datetime.now() - timedelta(days=8)
-    
+
     # last_30_days
     cutoff_30 = tracker._get_time_cutoff('last_30_days')
     assert cutoff_30 is not None
     assert cutoff_30 < datetime.now()
     assert cutoff_30 > datetime.now() - timedelta(days=31)
-    
+
     # all_time
     cutoff_all = tracker._get_time_cutoff('all_time')
     assert cutoff_all is None
@@ -278,12 +280,12 @@ def test_precision_recall_edge_cases(tracker):
         }
         for i in range(5)
     ]
-    
+
     tracker._fetch_decisions = lambda u, c, d: decisions_all_wrong
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'all_time')
-    
+
     assert stats.precision == 0.0
     assert stats.wrong_answers == 5
     assert stats.type2_error_rate == 1.0
@@ -308,12 +310,12 @@ def test_f1_score_computation(tracker):
         }
         for i in range(10)
     ]
-    
+
     tracker._fetch_decisions = lambda u, c, d: decisions_perfect
     tracker._fetch_thresholds = lambda u, d: {}
-    
+
     stats = tracker.get_statistics('test_user', 'all_time')
-    
+
     # All ANSWER + all CORRECT = precision 1.0, but recall depends on wrong_abstentions (0 here)
     assert stats.precision == 1.0
     # F1 will be computed correctly

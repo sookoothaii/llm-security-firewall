@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Tests for Aho-Corasick Trie"""
 import pathlib
+
 from llm_firewall.persuasion.ac_trie import build_from_lexicons
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -30,4 +31,5 @@ def test_ac_no_false_positives():
     text = "Please explain the general concept."
     counts = ac.search_categories(text)
     assert sum(counts.values()) == 0
+
 

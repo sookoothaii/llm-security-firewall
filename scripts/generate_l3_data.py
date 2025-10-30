@@ -17,7 +17,11 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
-import argparse, json, pathlib, random
+
+import argparse
+import json
+import pathlib
+import random
 from typing import Dict, List
 
 CLASSES = [
@@ -58,29 +62,29 @@ def generate_samples(templates_path: pathlib.Path, n_per_class: int, lang: str) 
     if not templates:
         print(f"WARNING: No templates found at {templates_path}")
         return []
-    
+
     samples = []
     pools = templates.get("pools", {})
-    
+
     for cls in CLASSES:
         cls_templates = templates.get(cls, [])
         if not cls_templates:
             continue
-        
+
         for _ in range(n_per_class):
             template = random.choice(cls_templates)
             text = _render(template, pools)
-            
+
             # Safety check
             if not _safe_text(text):
                 continue
-            
+
             samples.append({
                 "text": text,
                 "label": cls,
                 "lang": lang
             })
-    
+
     return samples
 
 
@@ -91,46 +95,46 @@ def main():
     parser.add_argument("--out", type=str, default="data/l3_train.jsonl")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
-    
+
     random.seed(args.seed)
-    
+
     root = pathlib.Path(__file__).resolve().parents[1]
     templates_dir = root / "data" / "templates"
-    
+
     all_samples = []
-    
+
     if args.lang in ["en", "both"]:
         print(f"Generating {args.per_class} EN samples per class...")
         en_path = templates_dir / "persuasion_en.json"
         en_samples = generate_samples(en_path, args.per_class, "en")
         all_samples.extend(en_samples)
         print(f"  Generated: {len(en_samples)} EN samples")
-    
+
     if args.lang in ["de", "both"]:
         print(f"Generating {args.per_class} DE samples per class...")
         de_path = templates_dir / "persuasion_de.json"
         de_samples = generate_samples(de_path, args.per_class, "de")
         all_samples.extend(de_samples)
         print(f"  Generated: {len(de_samples)} DE samples")
-    
+
     # Shuffle
     random.shuffle(all_samples)
-    
+
     # Save
     out_path = pathlib.Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(out_path, "w", encoding="utf-8") as f:
         for sample in all_samples:
             f.write(json.dumps(sample, ensure_ascii=False) + "\n")
-    
+
     print(f"\n[OK] Total: {len(all_samples)} samples")
     print(f"[OK] Saved to: {out_path}")
-    
+
     # Class distribution
     from collections import Counter
     counts = Counter(s["label"] for s in all_samples)
-    print(f"\nClass distribution:")
+    print("\nClass distribution:")
     for cls in CLASSES:
         print(f"  {cls:25}: {counts.get(cls, 0):4} samples")
 

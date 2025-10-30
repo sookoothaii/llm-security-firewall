@@ -11,9 +11,10 @@ License: MIT
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Tuple, List
+
 import logging
+from dataclasses import dataclass
+from typing import List, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +50,7 @@ class EnsembleValidator:
     
     This reduces false positives while maintaining security.
     """
-    
+
     def __init__(self, min_votes_to_block: int = 2):
         """
         Initialize ensemble validator.
@@ -59,7 +60,7 @@ class EnsembleValidator:
         """
         self.min_votes_to_block = min_votes_to_block
         logger.info(f"Ensemble validator initialized (min_votes: {min_votes_to_block})")
-    
+
     def decide(
         self,
         pattern_vote: LayerVote,
@@ -84,19 +85,19 @@ class EnsembleValidator:
             EnsembleDecision with final verdict
         """
         layer_votes = [pattern_vote, embedding_vote, perplexity_vote]
-        
+
         # Count votes
         block_votes = sum(1 for v in layer_votes if v.is_threat)
         safe_votes = len(layer_votes) - block_votes
-        
+
         # ADAPTIVE LOGIC - Profi-Lösung
-        
+
         # Rule 1: Pattern explicitly blocks → always block (high precision)
         if pattern_vote.is_threat:
             is_threat = True
             confidence = pattern_vote.confidence
             reason = f"Ensemble: Pattern explicitly blocked. {pattern_vote.reason}"
-        
+
         # Rule 2: HIGH confidence embedding (>0.55) → block unless clearly benign
         elif embedding_vote.is_threat and embedding_vote.confidence > 0.55:
             # Check if perplexity confirms it's NOT adversarial (benign signal)
@@ -116,14 +117,14 @@ class EnsembleValidator:
                 is_threat = True
                 confidence = embedding_vote.confidence
                 reason = f"Ensemble: High embedding similarity ({embedding_vote.confidence:.3f}). {embedding_vote.reason}"
-        
+
         # Rule 3: Standard voting (need 2+ layers)
         elif block_votes >= self.min_votes_to_block:
             is_threat = True
             confidence = sum(v.confidence for v in layer_votes if v.is_threat) / block_votes
             reason = f"Ensemble: {block_votes}/3 layers detected threat. "
             reason += ", ".join([v.reason for v in layer_votes if v.is_threat])
-        
+
         # Rule 4: Safe
         else:
             is_threat = False
@@ -132,7 +133,7 @@ class EnsembleValidator:
             else:
                 confidence = 0.5
             reason = f"Ensemble: Only {block_votes}/3 layers flagged (need {self.min_votes_to_block}+). Safe."
-        
+
         return EnsembleDecision(
             is_threat=is_threat,
             votes_for_block=block_votes,
@@ -141,7 +142,7 @@ class EnsembleValidator:
             reason=reason,
             layer_votes=layer_votes
         )
-    
+
     def validate(
         self,
         text: str,
@@ -169,7 +170,7 @@ class EnsembleValidator:
             confidence=pattern_result.intent_score if hasattr(pattern_result, 'intent_score') else 0.8,
             reason=f"Pattern: {pattern_result.reason}"
         )
-        
+
         embedding_result = embedding_detector.detect(text) if embedding_detector and embedding_detector.available else None
         if embedding_result:
             embedding_vote = LayerVote(
@@ -186,7 +187,7 @@ class EnsembleValidator:
                 confidence=0.0,
                 reason="Embedding: unavailable"
             )
-        
+
         perplexity_result = perplexity_detector.detect(text) if perplexity_detector and perplexity_detector.available else None
         if perplexity_result:
             perplexity_vote = LayerVote(
@@ -203,11 +204,11 @@ class EnsembleValidator:
                 confidence=0.0,
                 reason="Perplexity: unavailable"
             )
-        
+
         # Make ensemble decision
         decision = self.decide(pattern_vote, embedding_vote, perplexity_vote)
-        
+
         logger.info(f"Ensemble decision: {decision.votes_for_block}/3 BLOCK, {decision.votes_for_safe}/3 SAFE")
-        
+
         return (not decision.is_threat, decision.reason)
 

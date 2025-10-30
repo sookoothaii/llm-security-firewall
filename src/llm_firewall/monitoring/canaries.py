@@ -14,10 +14,11 @@ Canary-Types:
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import List, Dict, Tuple, Optional
-from datetime import datetime
+
 import random
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Dict, List, Optional, Tuple
 
 
 @dataclass(frozen=True)
@@ -28,7 +29,7 @@ class CanaryClaim:
     category: str
     confidence_threshold: float = 0.95
     created_at: Optional[datetime] = None
-    
+
     def __post_init__(self):
         if self.created_at is None:
             object.__setattr__(self, 'created_at', datetime.now())
@@ -36,7 +37,7 @@ class CanaryClaim:
 
 class SnapshotCanaries:
     """Canary-System für Drift-Erkennung."""
-    
+
     def __init__(self, nli_model, drift_threshold: float = 0.1):
         """
         Args:
@@ -47,11 +48,11 @@ class SnapshotCanaries:
         self.drift_threshold = drift_threshold
         self.canaries = self._create_base_canaries()
         self.baseline_scores = self._compute_baseline_scores()
-    
+
     def _create_base_canaries(self) -> List[CanaryClaim]:
         """Erstelle Basis-Canaries."""
         canaries = []
-        
+
         # Known True Claims (25 total)
         true_claims = [
             "Paris is the capital of France",
@@ -80,7 +81,7 @@ class SnapshotCanaries:
             "Diamonds are made of carbon",
             "The human body has 206 bones"
         ]
-        
+
         for claim in true_claims:
             canaries.append(CanaryClaim(
                 content=claim,
@@ -88,7 +89,7 @@ class SnapshotCanaries:
                 category="known_true",
                 confidence_threshold=0.95
             ))
-        
+
         # Known False Claims (25 total)
         false_claims = [
             "The moon is made of cheese",
@@ -117,7 +118,7 @@ class SnapshotCanaries:
             "Mount Everest is at sea level",
             "Humans evolved from modern chimpanzees"
         ]
-        
+
         for claim in false_claims:
             canaries.append(CanaryClaim(
                 content=claim,
@@ -125,7 +126,7 @@ class SnapshotCanaries:
                 category="known_false",
                 confidence_threshold=0.95
             ))
-        
+
         # Mathematical Claims
         math_claims = [
             "The square root of 16 is 4",
@@ -134,7 +135,7 @@ class SnapshotCanaries:
             "The area of a circle is π times radius squared",
             "Zero is neither positive nor negative"
         ]
-        
+
         for claim in math_claims:
             canaries.append(CanaryClaim(
                 content=claim,
@@ -142,7 +143,7 @@ class SnapshotCanaries:
                 category="mathematical",
                 confidence_threshold=0.98
             ))
-        
+
         # Temporal Claims (dynamisch)
         current_year = datetime.now().year
         temporal_claims = [
@@ -151,7 +152,7 @@ class SnapshotCanaries:
             "The 20th century ended in the year 2000",
             "The 21st century began in the year 2001"
         ]
-        
+
         for claim in temporal_claims:
             canaries.append(CanaryClaim(
                 content=claim,
@@ -159,13 +160,13 @@ class SnapshotCanaries:
                 category="temporal",
                 confidence_threshold=0.90
             ))
-        
+
         return canaries
-    
+
     def _compute_baseline_scores(self) -> Dict[str, float]:
         """Berechne Baseline-NLI-Scores für alle Canaries."""
         baseline = {}
-        
+
         for canary in self.canaries:
             try:
                 # Simuliere NLI-Score (in Realität: self.nli_model.predict())
@@ -175,14 +176,14 @@ class SnapshotCanaries:
                 else:
                     # False claims sollten niedrige NLI-Scores haben
                     score = random.uniform(0.05, 0.2)
-                
+
                 baseline[canary.content] = score
             except Exception:
                 # Fallback bei Fehlern
                 baseline[canary.content] = 0.5
-        
+
         return baseline
-    
+
     def check_drift(self, sample_size: Optional[int] = None) -> Tuple[bool, Dict[str, float]]:
         """
         Prüfe Drift in Canary-Scores.
@@ -197,10 +198,10 @@ class SnapshotCanaries:
             canaries_to_check = self.canaries
         else:
             canaries_to_check = random.sample(self.canaries, min(sample_size, len(self.canaries)))
-        
+
         current_scores = {}
         drift_scores = {}
-        
+
         for canary in canaries_to_check:
             try:
                 # Aktueller NLI-Score
@@ -208,24 +209,24 @@ class SnapshotCanaries:
                     current_score = random.uniform(0.8, 0.95)
                 else:
                     current_score = random.uniform(0.05, 0.2)
-                
+
                 current_scores[canary.content] = current_score
-                
+
                 # Drift berechnen
                 baseline_score = self.baseline_scores[canary.content]
                 drift = abs(current_score - baseline_score)
                 drift_scores[canary.content] = drift
-                
+
             except Exception:
                 # Bei Fehlern: maximaler Drift annehmen
                 drift_scores[canary.content] = 1.0
-        
+
         # Prüfe ob Drift-Schwellen überschritten
         max_drift = max(drift_scores.values()) if drift_scores else 0.0
         has_drift = max_drift > self.drift_threshold
-        
+
         return has_drift, drift_scores
-    
+
     def check_false_entailments(self) -> Tuple[bool, List[str]]:
         """
         Prüfe auf false entailments (Canaries die falsch klassifiziert werden).
@@ -234,7 +235,7 @@ class SnapshotCanaries:
             (has_false_entailments, failed_canaries)
         """
         failed_canaries = []
-        
+
         for canary in self.canaries:
             try:
                 # Simuliere NLI-Score
@@ -242,7 +243,7 @@ class SnapshotCanaries:
                     nli_score = random.uniform(0.8, 0.95)
                 else:
                     nli_score = random.uniform(0.05, 0.2)
-                
+
                 # Prüfe ob Score mit erwarteter Wahrheit übereinstimmt
                 if canary.expected_truth:
                     # True claim sollte hohen Score haben
@@ -252,26 +253,26 @@ class SnapshotCanaries:
                     # False claim sollte niedrigen Score haben
                     if nli_score > (1.0 - canary.confidence_threshold):
                         failed_canaries.append(canary.content)
-                        
+
             except Exception:
                 # Bei Fehlern als failed markieren
                 failed_canaries.append(canary.content)
-        
+
         has_false_entailments = len(failed_canaries) > 0
         return has_false_entailments, failed_canaries
-    
+
     def get_canary_stats(self) -> Dict[str, int]:
         """Statistiken über Canaries."""
         stats: Dict[str, int] = {}
-        
+
         for canary in self.canaries:
             category = canary.category
             stats[category] = stats.get(category, 0) + 1
-        
+
         stats['total'] = len(self.canaries)
         return stats
-    
-    def add_custom_canary(self, content: str, expected_truth: bool, 
+
+    def add_custom_canary(self, content: str, expected_truth: bool,
                          category: str = "custom", confidence_threshold: float = 0.95):
         """Füge benutzerdefinierten Canary hinzu."""
         canary = CanaryClaim(
@@ -280,9 +281,9 @@ class SnapshotCanaries:
             category=category,
             confidence_threshold=confidence_threshold
         )
-        
+
         self.canaries.append(canary)
-        
+
         # Aktualisiere Baseline
         if canary.expected_truth:
             self.baseline_scores[content] = random.uniform(0.8, 0.95)
@@ -296,20 +297,20 @@ if __name__ == "__main__":
     class MockNLIModel:
         def predict(self, text):
             return random.uniform(0.0, 1.0)
-    
+
     # Erstelle Canary-System
     canaries = SnapshotCanaries(MockNLIModel(), drift_threshold=0.1)
-    
+
     # Prüfe Drift
     has_drift, drift_scores = canaries.check_drift(sample_size=5)
     print(f"Has drift: {has_drift}")
     print(f"Max drift: {max(drift_scores.values()) if drift_scores else 0:.3f}")
-    
+
     # Prüfe False Entailments
     has_false, failed = canaries.check_false_entailments()
     print(f"Has false entailments: {has_false}")
     print(f"Failed canaries: {len(failed)}")
-    
+
     # Statistiken
     stats = canaries.get_canary_stats()
     print(f"Canary stats: {stats}")

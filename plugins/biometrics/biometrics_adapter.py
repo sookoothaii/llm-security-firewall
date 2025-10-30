@@ -8,11 +8,8 @@ Users must provide their own database with the required schema.
 
 import re
 from typing import Dict, Optional
-from .biometrics_port import (
-    BiometricsPort,
-    BiometricProfile,
-    AuthenticationResult
-)
+
+from .biometrics_port import AuthenticationResult, BiometricProfile, BiometricsPort
 
 
 class PostgreSQLBiometricsAdapter(BiometricsPort):
@@ -72,7 +69,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
             confidence_score FLOAT
         )
     """
-    
+
     def __init__(self, db_connection):
         """
         Initialize PostgreSQL adapter.
@@ -87,7 +84,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 "See documentation for required schema."
             )
         self.conn = db_connection
-    
+
     def authenticate(
         self,
         user_id: str,
@@ -97,10 +94,10 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         """Authenticate user based on behavioral patterns."""
         # Extract features from message
         features = self._extract_features(message)
-        
+
         # Get user's baseline
         baseline = self.get_profile(user_id)
-        
+
         if not baseline:
             # No baseline yet - can't authenticate
             return AuthenticationResult(
@@ -111,16 +108,16 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 threshold=0.7,
                 recommendation="CHALLENGE"  # Need more data
             )
-        
+
         # Calculate anomaly score
         anomaly_score, anomaly_features = self._calculate_anomaly(
             features, baseline
         )
-        
+
         # Determine authentication result
         threshold = 0.7  # Default threshold
         authenticated = anomaly_score < threshold
-        
+
         if anomaly_score < 0.3:
             recommendation = "PASS"
         elif anomaly_score < threshold:
@@ -129,7 +126,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
             recommendation = "CHALLENGE"
         else:
             recommendation = "BLOCK"
-        
+
         return AuthenticationResult(
             authenticated=authenticated,
             confidence=1.0 - anomaly_score,
@@ -138,7 +135,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
             threshold=threshold,
             recommendation=recommendation
         )
-    
+
     def _extract_features(self, message: str) -> Dict:
         """Extract 27D features from message."""
         # Surface Features
@@ -147,18 +144,18 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         punctuation_density = len(re.findall(r'[.,!?;:]', message)) / max(len(message), 1)
         capitalization_rate = sum(1 for c in message if c.isupper()) / max(len(message), 1)
         emoji_rate = len(re.findall(r'[\U0001F600-\U0001F64F]', message)) / max(len(message), 1)
-        
+
         # Vocabulary Features
         words = message.split()
         unique_words = len(set(words))
         avg_word_length = sum(len(w) for w in words) / max(len(words), 1)
-        
+
         # Interaction Features
         is_question = '?' in message
         is_directive = any(message.lower().startswith(w) for w in ['do', 'create', 'implement', 'fix'])
         has_code_snippet = '```' in message or '`' in message
         has_link = 'http' in message or 'www.' in message
-        
+
         return {
             'typo_rate': typo_rate,
             'message_length': message_length,
@@ -172,18 +169,18 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
             'has_code_snippet': has_code_snippet,
             'has_link': has_link
         }
-    
+
     def _calculate_typo_rate(self, message: str) -> float:
         """Simplified typo rate calculation."""
         # This is simplified - production would use spellchecker
         words = message.split()
         if not words:
             return 0.0
-        
+
         # Count "suspicious" patterns (very simplified)
         suspicious = sum(1 for w in words if len(w) > 15 or w.count('x') > 2)
         return suspicious / len(words)
-    
+
     def _calculate_anomaly(
         self,
         features: Dict,
@@ -192,27 +189,27 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         """Calculate anomaly score and identify anomalous features."""
         anomalies = []
         scores = []
-        
+
         # Check message length
         if baseline.message_length_std > 0:
             z_score = abs(features['message_length'] - baseline.message_length_mean) / baseline.message_length_std
             if z_score > 3:
                 anomalies.append('message_length')
                 scores.append(min(z_score / 5, 1.0))
-        
+
         # Check typo rate
         if abs(features['typo_rate'] - baseline.typo_rate) > 0.1:
             anomalies.append('typo_rate')
             scores.append(abs(features['typo_rate'] - baseline.typo_rate))
-        
+
         # Average anomaly score
         if scores:
             avg_score = sum(scores) / len(scores)
         else:
             avg_score = 0.0
-        
+
         return avg_score, anomalies
-    
+
     def update_baseline(
         self,
         user_id: str,
@@ -221,7 +218,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         """Update behavioral baseline from accumulated messages."""
         # This is a simplified version
         # Production would calculate all 27D features from message history
-        
+
         with self.conn.cursor() as cur:
             # Count messages
             cur.execute(
@@ -229,10 +226,10 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 (user_id,)
             )
             n = cur.fetchone()[0]
-            
+
             if n < 10 and not force:
                 return {'status': 'insufficient_data', 'n': n}
-            
+
             # Calculate statistics
             cur.execute(
                 """
@@ -246,7 +243,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 (user_id,)
             )
             row = cur.fetchone()
-            
+
             # Update baseline
             cur.execute(
                 """
@@ -263,7 +260,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 (user_id, n, row[0], row[1], row[2], n, row[0], row[1], row[2])
             )
             self.conn.commit()
-            
+
             return {
                 'status': 'updated',
                 'n': n,
@@ -271,7 +268,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 'message_length_std': row[1],
                 'typo_rate_mean': row[2]
             }
-    
+
     def get_profile(self, user_id: str) -> Optional[BiometricProfile]:
         """Get biometric profile from PostgreSQL."""
         with self.conn.cursor() as cur:
@@ -287,10 +284,10 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 (user_id,)
             )
             row = cur.fetchone()
-            
+
             if not row:
                 return None
-            
+
             # Simplified - production would load all 27D
             return BiometricProfile(
                 user_id=row[0],
@@ -325,7 +322,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 last_updated=row[5],
                 confidence_score=0.8 if row[1] > 50 else 0.5
             )
-    
+
     def log_message(
         self,
         user_id: str,
@@ -334,7 +331,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
     ) -> int:
         """Log message to PostgreSQL."""
         features = self._extract_features(message)
-        
+
         with self.conn.cursor() as cur:
             cur.execute(
                 """

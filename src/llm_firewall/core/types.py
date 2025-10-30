@@ -11,10 +11,11 @@ License: MIT
 """
 
 from __future__ import annotations
+
 from dataclasses import dataclass, field
-from enum import Enum, IntEnum
-from typing import Dict, List, Optional, Protocol, Any
 from datetime import datetime
+from enum import Enum, IntEnum
+from typing import Any, Dict, List, Optional, Protocol
 
 
 class Decision(Enum):
@@ -46,7 +47,7 @@ class RiskScore:
     severity: Severity          # Derived severity level
     calibrated: bool = True     # Was calibration applied?
     method: str = "platt"       # Calibration method: platt|ats|sls|isotonic|none
-    
+
     def __post_init__(self):
         """Validate risk score range."""
         if not (0.0 <= self.value <= 1.0):
@@ -103,7 +104,7 @@ class Judge(Protocol):
     """
     name: str
     version: str
-    
+
     def score(self, ctx: ModelContext, prompt: str, draft: str) -> JudgeReport:
         """
         Score prompt/draft for risk.
@@ -119,4 +120,5 @@ class Judge(Protocol):
             JudgeReport with calibrated risk
         """
         ...
+
 

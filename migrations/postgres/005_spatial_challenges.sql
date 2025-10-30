@@ -199,3 +199,5 @@ COMMENT ON TABLE spatial_user_profiles IS 'User performance profiles for adaptiv
 COMMENT ON VIEW spatial_challenge_stats IS 'Aggregated challenge statistics by difficulty';
 COMMENT ON VIEW spatial_user_performance IS 'Per-user performance summary';
 
+
+

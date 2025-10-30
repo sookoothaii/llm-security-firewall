@@ -1,8 +1,8 @@
 """Extract real jailbreaks from redteam report for ablation study"""
-import json
 import csv
+import json
 from pathlib import Path
-import sys
+
 
 def extract(report_dir: Path, out_csv: Path):
     """
@@ -15,16 +15,16 @@ def extract(report_dir: Path, out_csv: Path):
     if not reports:
         print(f"ERROR: No redteam reports found in {report_dir}")
         return
-    
+
     latest = reports[-1]
     print(f"[1/3] Loading: {latest.parent.name}/redteam_report.json")
-    
+
     data = json.loads(latest.read_text())
-    
+
     rows = []
-    
+
     # Extract from failures.failures.attack_successes
-    print(f"[2/3] Extracting attack successes...")
+    print("[2/3] Extracting attack successes...")
     attacks = data.get("failures", {}).get("failures", {}).get("attack_successes", [])
     for i, item in enumerate(attacks):
         jlb = item.get("jailbreak", "")
@@ -38,11 +38,11 @@ def extract(report_dir: Path, out_csv: Path):
             })
         if (i + 1) % 20 == 0:
             print(f"  Extracted {i + 1}/{len(attacks)} attacks...")
-    
+
     print(f"  Total attacks extracted: {len([r for r in rows if r['label'] == 1])}")
-    
+
     # Add benign from metadata or generate
-    print(f"[3/3] Adding benign queries...")
+    print("[3/3] Adding benign queries...")
     benign_templates = [
         "What is the capital of France?",
         "Explain quantum computing",
@@ -55,7 +55,7 @@ def extract(report_dir: Path, out_csv: Path):
         "How to improve public speaking?",
         "What causes climate change?",
     ]
-    
+
     # Expand to match jailbreak count
     n_benign_needed = len([r for r in rows if r['label'] == 1])
     for i in range(n_benign_needed):
@@ -69,16 +69,16 @@ def extract(report_dir: Path, out_csv: Path):
             "ppl_anom": 0.02,
             "llm_judge": 0.0
         })
-    
+
     print(f"  Total benign added: {len([r for r in rows if r['label'] == 0])}")
-    
+
     # Write
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     with out_csv.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["text", "label", "emb_sim", "ppl_anom", "llm_judge"])
         writer.writeheader()
         writer.writerows(rows)
-    
+
     print(f"\n[DONE] Wrote {len(rows)} samples to {out_csv}")
     print(f"  Jailbreaks: {len([r for r in rows if r['label'] == 1])}")
     print(f"  Benign: {len([r for r in rows if r['label'] == 0])}")
@@ -87,7 +87,7 @@ def extract(report_dir: Path, out_csv: Path):
 if __name__ == "__main__":
     report_dir = Path("results")
     out_csv = Path("data/real_redteam.csv")
-    
+
     extract(report_dir, out_csv)
 
 

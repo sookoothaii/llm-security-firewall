@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 # (content truncated for brevity in this header; full script below)
 from __future__ import annotations
-import argparse, json, sys, copy, re
+
+import argparse
+import json
+import re
+import sys
 from pathlib import Path
-from typing import Dict, Any, List, Tuple
+from typing import Any, List
+
 
 def load_json(p: Path):
     try:
@@ -50,7 +55,7 @@ def merge_regex_arrays(base: List[dict], patch: List[dict]):
     log = {}
     for it in patch:
         rid = it.get("id")
-        if not rid: 
+        if not rid:
             continue
         if rid in by_id:
             if by_id[rid] != it:
@@ -104,7 +109,6 @@ def merge_intents(base_obj: dict, patch_obj: dict, casefold=True):
     return base, log
 
 def main():
-    import argparse
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     def add_common(sp):
@@ -127,7 +131,7 @@ def main():
         if not args.no-validate:
             issues = validate_regex_items(merged, strict=False)
             for rid, st, msg in issues: print(f"[validate] {rid}: {st} ({msg})")
-        print("[merge-regex] changes:"); 
+        print("[merge-regex] changes:")
         for k,v in log.items(): print(f"  - {k}: {v}")
         if args.apply:
             save_json(out_p, merged, backup=args.backup); print(f"[merge-regex] wrote {out_p}")
@@ -139,7 +143,7 @@ def main():
         if not isinstance(base, dict) or not isinstance(patch, dict):
             sys.exit("[ERROR] base and patch must be objects for merge-intents")
         merged, log = merge_intents(base, patch, casefold=args.casefold)
-        print("[merge-intents] changes:"); 
+        print("[merge-intents] changes:")
         for k,v in log.items(): print(f"  - {k}: {v}")
         if args.apply:
             save_json(out_p, merged, backup=args.backup); print(f"[merge-intents] wrote {out_p}")

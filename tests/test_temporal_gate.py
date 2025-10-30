@@ -4,14 +4,14 @@ Creator: Joerg Bollwahn
 Date: 2025-10-30
 """
 
-import pytest
 from datetime import datetime, timedelta, timezone
+
+import pytest
 
 from src.llm_firewall.calibration.time_gate import (
     TimeAwarenessGate,
-    parse_iso_8601_duration,
     duration_to_days,
-    TemporalDecision,
+    parse_iso_8601_duration,
 )
 
 

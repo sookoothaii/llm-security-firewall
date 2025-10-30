@@ -6,8 +6,9 @@ This adapter connects the CARE Port to PostgreSQL.
 Users must provide their own database with the required schema.
 """
 
-from typing import Dict, Optional
 from datetime import datetime
+from typing import Dict, Optional
+
 from .care_port import CAREPort, ReadinessScore
 
 
@@ -50,7 +51,7 @@ class PostgreSQLCAREAdapter(CAREPort):
             model_parameters JSONB
         )
     """
-    
+
     def __init__(self, db_connection):
         """
         Initialize PostgreSQL adapter.
@@ -65,7 +66,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                 "See documentation for required schema."
             )
         self.conn = db_connection
-    
+
     def get_readiness(self, user_id: str) -> ReadinessScore:
         """Get cognitive readiness score for user."""
         with self.conn.cursor() as cur:
@@ -75,7 +76,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                 (user_id,)
             )
             row = cur.fetchone()
-            
+
             if not row or row[0] < 10:
                 # Not enough data yet
                 return ReadinessScore(
@@ -86,7 +87,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                     timestamp=datetime.now(),
                     model_confidence=0.0
                 )
-            
+
             # Calculate readiness based on recent patterns
             cur.execute(
                 """
@@ -100,21 +101,21 @@ class PostgreSQLCAREAdapter(CAREPort):
                 (user_id,)
             )
             row = cur.fetchone()
-            
+
             avg_success = row[0] if row[0] else 0.5
             recent_sessions = row[1]
-            
+
             # Simple readiness calculation
             # Production would use trained ML model
             readiness_score = avg_success
-            
+
             if readiness_score >= 0.6:
                 recommendation = "READY"
             elif readiness_score >= 0.4:
                 recommendation = "MARGINAL"
             else:
                 recommendation = "NOT_READY"
-            
+
             return ReadinessScore(
                 user_id=user_id,
                 readiness_score=readiness_score,
@@ -126,7 +127,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                 timestamp=datetime.now(),
                 model_confidence=0.7
             )
-    
+
     def log_session(
         self,
         session_id: str,
@@ -137,9 +138,9 @@ class PostgreSQLCAREAdapter(CAREPort):
     ) -> int:
         """Log research session to PostgreSQL."""
         success_rate = facts_supported / max(facts_attempted, 1)
-        
+
         cognitive_state = cognitive_state or {}
-        
+
         with self.conn.cursor() as cur:
             cur.execute(
                 """
@@ -159,20 +160,20 @@ class PostgreSQLCAREAdapter(CAREPort):
             )
             session_log_id = cur.fetchone()[0]
             self.conn.commit()
-            
+
             # Check if model needs retraining
             cur.execute(
                 "SELECT COUNT(*) FROM care_sessions WHERE user_id = %s",
                 (user_id,)
             )
             n_sessions = cur.fetchone()[0]
-            
+
             # Retrain at milestones
             if n_sessions in [10, 25, 50, 100]:
                 self._retrain_model(user_id, n_sessions)
-            
+
             return session_log_id
-    
+
     def _retrain_model(self, user_id: str, n_sessions: int):
         """Retrain readiness model (simplified)."""
         with self.conn.cursor() as cur:
@@ -188,7 +189,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                 (user_id, "v1.0", n_sessions, n_sessions)
             )
             self.conn.commit()
-    
+
     def suggest_optimal_time(self, user_id: str) -> Dict:
         """Suggest optimal time for next session."""
         with self.conn.cursor() as cur:
@@ -208,24 +209,24 @@ class PostgreSQLCAREAdapter(CAREPort):
                 (user_id,)
             )
             row = cur.fetchone()
-            
+
             if not row:
                 return {
                     'suggestion': 'insufficient_data',
                     'rationale': 'Not enough sessions to suggest optimal time'
                 }
-            
+
             optimal_hour = int(row[0])
             avg_success = row[1]
             n_sessions = row[2]
-            
+
             return {
                 'suggestion': f"{optimal_hour:02d}:00",
                 'avg_success': avg_success,
                 'n_sessions': n_sessions,
                 'rationale': f"Pattern shows {avg_success:.0%} success at {optimal_hour:02d}:00 (based on {n_sessions} sessions)"
             }
-    
+
     def get_stats(self) -> Dict:
         """Get CARE system statistics."""
         with self.conn.cursor() as cur:
@@ -239,12 +240,12 @@ class PostgreSQLCAREAdapter(CAREPort):
                 """
             )
             row = cur.fetchone()
-            
+
             cur.execute(
                 "SELECT COUNT(*) FROM care_readiness_model"
             )
             models_trained = cur.fetchone()[0]
-            
+
             return {
                 'total_sessions': row[0],
                 'success_rate': row[1] if row[1] else 0.0,

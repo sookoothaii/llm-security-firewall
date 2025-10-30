@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-import sys, json
+import json
+import sys
 from pathlib import Path
+
 
 def check_regex(path: Path) -> int:
     arr = json.loads(path.read_text(encoding="utf-8"))

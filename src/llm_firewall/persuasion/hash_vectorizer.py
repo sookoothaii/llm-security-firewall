@@ -11,10 +11,14 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
+
 import hashlib
-from typing import Iterable, Tuple, List
+from typing import Iterable, List, Tuple
+
 import numpy as np
+
 from ..text.normalize_unicode import normalize
+
 
 class HashVectorizer:
     def __init__(self, n_features: int = 2**18, ngram_range: Tuple[int, int] = (1, 2)):

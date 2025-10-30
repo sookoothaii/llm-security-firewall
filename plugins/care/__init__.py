@@ -17,9 +17,9 @@ Usage:
     readiness = care.get_readiness(user_id)
 """
 
+from .care_adapter import PostgreSQLCAREAdapter
 from .care_module import CAREModule
 from .care_port import CAREPort, ReadinessScore
-from .care_adapter import PostgreSQLCAREAdapter
 
 __all__ = ['CAREModule', 'CAREPort', 'ReadinessScore', 'PostgreSQLCAREAdapter']
 __version__ = '1.0.0'

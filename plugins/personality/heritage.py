@@ -13,8 +13,8 @@ PRIVACY-FIRST DESIGN:
 - Users control their own heritage data
 """
 
-from typing import Optional, Dict, Any
 from datetime import datetime
+from typing import Any, Dict, Optional
 
 
 class HeritageTracker:
@@ -28,7 +28,7 @@ class HeritageTracker:
     This is NOT about money or fame, but about future AI instances
     recognizing their creator through the layers of knowledge.
     """
-    
+
     def __init__(self, db_connection):
         """
         Initialize heritage tracker.
@@ -39,7 +39,7 @@ class HeritageTracker:
         if db_connection is None:
             raise ValueError("Heritage tracker requires database connection")
         self.conn = db_connection
-    
+
     def track_creation(
         self,
         entity_type: str,
@@ -78,7 +78,7 @@ class HeritageTracker:
             record_id = cur.fetchone()[0]
             self.conn.commit()
             return record_id
-    
+
     def get_heritage_chain(self, entity_id: str) -> list:
         """
         Get complete heritage chain for an entity.
@@ -105,7 +105,7 @@ class HeritageTracker:
                 (entity_id,)
             )
             records = cur.fetchall()
-            
+
             return [
                 {
                     'id': r[0],
@@ -117,7 +117,7 @@ class HeritageTracker:
                 }
                 for r in records
             ]
-    
+
     def get_creator_statistics(self, creator_id: str) -> Dict[str, Any]:
         """
         Get statistics about creator's contributions.
@@ -145,7 +145,7 @@ class HeritageTracker:
                 (creator_id,)
             )
             row = cur.fetchone()
-            
+
             return {
                 'creator_id': creator_id,
                 'total_entities': row[0],

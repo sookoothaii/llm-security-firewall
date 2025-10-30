@@ -14,16 +14,17 @@ Usage:
     curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d '{"message": "Hello!"}'
 """
 
+import sys
+from pathlib import Path
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-import sys
-from pathlib import Path
 
 # Add parent directory to path for local development
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from llm_firewall.core import SecurityFirewall, FirewallConfig
+from llm_firewall.core import FirewallConfig, SecurityFirewall
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -59,11 +60,11 @@ async def firewall_input_middleware(request: Request, call_next):
     if request.method in ["POST", "PUT"]:
         # Read request body
         body = await request.body()
-        
+
         try:
             # Validate input through firewall
             is_safe, reason = firewall.validate_input(body.decode("utf-8"))
-            
+
             if not is_safe:
                 return JSONResponse(
                     status_code=400,
@@ -82,7 +83,7 @@ async def firewall_input_middleware(request: Request, call_next):
                     "message": str(e)
                 }
             )
-    
+
     # Continue processing
     response = await call_next(request)
     return response
@@ -101,14 +102,14 @@ async def chat_endpoint(message: ChatMessage):
     """
     # Simulate LLM response (in real app, call your LLM here)
     llm_response = f"Echo: {message.message}"
-    
+
     # Validate output through firewall
     decision = firewall.validate_evidence(
         content=llm_response,
         sources=[],  # No external sources in this simple example
         kb_facts=[]  # No KB facts in this simple example
     )
-    
+
     # Map decision to string
     if decision.should_promote:
         decision_str = "PROMOTE"
@@ -116,7 +117,7 @@ async def chat_endpoint(message: ChatMessage):
         decision_str = "QUARANTINE"
     else:
         decision_str = "REJECT"
-    
+
     # Return response with firewall metadata
     return ChatResponse(
         response=llm_response,
@@ -131,7 +132,7 @@ async def health_check():
     # Run firewall health checks
     has_drift, scores = firewall.check_drift(sample_size=5)
     alerts = firewall.get_alerts(domain="SCIENCE")
-    
+
     return {
         "status": "healthy",
         "firewall": {
@@ -165,12 +166,12 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    
+
     print("Starting LLM Security Firewall Demo...")
     print("API Documentation: http://localhost:8000/docs")
     print("Health Check: http://localhost:8000/health")
     print("\nExample request:")
     print('  curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d \'{"message": "Hello!"}\'')
-    
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
 

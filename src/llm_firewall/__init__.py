@@ -15,10 +15,10 @@ __author__ = "Joerg Bollwahn"
 # Core imports (graceful degradation if not available)
 try:
     from llm_firewall.core import (
-        SecurityFirewall,
-        FirewallConfig,
-        ValidationResult,
         EvidenceDecision,
+        FirewallConfig,
+        SecurityFirewall,
+        ValidationResult,
     )
     __all__ = [
         "SecurityFirewall",

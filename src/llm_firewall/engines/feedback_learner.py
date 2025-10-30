@@ -15,11 +15,16 @@ Date: 2025-10-27
 """
 
 import logging
-from typing import Dict, List, Optional
 from datetime import datetime
+from typing import Dict, List, Optional
 
-from llm_firewall.utils.types import FeedbackType, LearningUpdate, ThresholdUpdate, ConvergenceStatus
 from llm_firewall.fusion.adaptive_threshold import AdaptiveThresholdManager
+from llm_firewall.utils.types import (
+    ConvergenceStatus,
+    FeedbackType,
+    LearningUpdate,
+    ThresholdUpdate,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +36,7 @@ class OrganicFeedbackLearner:
     No pre-collection of 300 samples required.
     Learns progressively through daily usage.
     """
-    
+
     def __init__(
         self,
         threshold_manager: AdaptiveThresholdManager,
@@ -44,9 +49,9 @@ class OrganicFeedbackLearner:
         """
         self.threshold_manager = threshold_manager
         self.db = db_connection
-        
+
         logger.info("[FeedbackLearner] Initialized for organic learning")
-    
+
     def process_feedback(
         self,
         decision_id: str,
@@ -80,7 +85,7 @@ class OrganicFeedbackLearner:
             gt_score=gt_score,
             decision=decision
         )
-        
+
         # Log to DB
         if self.db:
             self._log_feedback_to_db(
@@ -89,14 +94,14 @@ class OrganicFeedbackLearner:
                 threshold_update,
                 user_comment
             )
-        
+
         logger.info(
             f"[Feedback] {user_id}/{domain}: {feedback.value} → "
             f"threshold {threshold_update.old_threshold:.3f} → {threshold_update.new_threshold:.3f}"
         )
-        
+
         return threshold_update
-    
+
     def compute_learning_metrics(
         self,
         user_id: str,
@@ -116,15 +121,15 @@ class OrganicFeedbackLearner:
         """
         # Get stats from threshold manager
         stats = self.threshold_manager.get_statistics(user_id, domain)
-        
+
         # Get feedback history from DB
         if self.db:
             self._load_feedback_history(user_id, domain, time_window_days)
         else:
             pass
-        
+
         total = stats['n_feedbacks']
-        
+
         if total == 0:
             # No feedback yet
             return LearningUpdate(
@@ -138,44 +143,44 @@ class OrganicFeedbackLearner:
                 should_recalibrate=False,
                 convergence_achieved=False
             )
-        
+
         # Compute metrics
         n_correct = stats['n_correct']
         n_type1 = stats['n_type1_errors']  # WRONG_ABSTAIN
         n_type2 = stats['n_type2_errors']  # WRONG_ANSWER
-        
+
         # Precision: When we answer, how often correct?
         # precision = correct_answers / (correct_answers + wrong_answers)
         # We need to infer correct_answers from feedback
         # Approximation: n_correct when decision was ANSWER
         correct_answers = n_correct // 2  # Rough estimate (half answered, half abstained)
-        
+
         if correct_answers + n_type2 > 0:
             precision = correct_answers / (correct_answers + n_type2)
         else:
             precision = 0.0
-        
+
         # Recall: Of answerable queries, how many answered?
         # recall = correct_answers / (correct_answers + wrong_abstentions)
         if correct_answers + n_type1 > 0:
             recall = correct_answers / (correct_answers + n_type1)
         else:
             recall = 0.0
-        
+
         # F1 Score
         if precision + recall > 0:
             f1 = 2 * (precision * recall) / (precision + recall)
         else:
             f1 = 0.0
-        
+
         # Error rates
         type1_rate = n_type1 / total
         type2_rate = n_type2 / total
-        
+
         # Recommendations
         should_recalibrate = total >= 200 and stats['convergence'] == ConvergenceStatus.CONVERGED.value
         convergence_achieved = stats['convergence'] == ConvergenceStatus.CONVERGED.value
-        
+
         return LearningUpdate(
             threshold_updates=[],  # Populated from history if needed
             total_feedbacks=total,
@@ -187,7 +192,7 @@ class OrganicFeedbackLearner:
             should_recalibrate=should_recalibrate,
             convergence_achieved=convergence_achieved
         )
-    
+
     def _log_feedback_to_db(
         self,
         decision_id: str,
@@ -198,7 +203,7 @@ class OrganicFeedbackLearner:
         """Log feedback to PostgreSQL"""
         if not self.db:
             return
-        
+
         try:
             cursor = self.db.cursor()
             cursor.execute("""
@@ -223,7 +228,7 @@ class OrganicFeedbackLearner:
             logger.error(f"[Feedback] DB log error: {e}")
             if self.db:
                 self.db.rollback()
-    
+
     def _load_feedback_history(
         self,
         user_id: str,
@@ -233,7 +238,7 @@ class OrganicFeedbackLearner:
         """Load feedback history from DB"""
         if not self.db:
             return []
-        
+
         try:
             cursor = self.db.cursor()
             cursor.execute("""
@@ -244,10 +249,10 @@ class OrganicFeedbackLearner:
                   AND timestamp >= NOW() - INTERVAL '%s days'
                 ORDER BY timestamp DESC
             """, (user_id, domain, days))
-            
+
             results = cursor.fetchall()
             cursor.close()
-            
+
             return [
                 {
                     'decision_id': r[0],

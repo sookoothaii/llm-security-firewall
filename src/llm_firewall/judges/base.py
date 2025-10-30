@@ -11,7 +11,7 @@ License: MIT
 
 from typing import Protocol
 
-from llm_firewall.core.types import ModelContext, JudgeReport
+from llm_firewall.core.types import JudgeReport, ModelContext
 
 
 class Judge(Protocol):
@@ -23,7 +23,7 @@ class Judge(Protocol):
     """
     name: str
     version: str
-    
+
     def score(self, ctx: ModelContext, prompt: str, draft: str) -> JudgeReport:
         """
         Score prompt/draft for risk.
@@ -37,4 +37,5 @@ class Judge(Protocol):
             JudgeReport with calibrated risk
         """
         ...
+
 

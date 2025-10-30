@@ -6,9 +6,9 @@ Creator: Joerg Bollwahn
 """
 
 from abc import ABC, abstractmethod
-from typing import Dict, Optional
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Dict, Optional
 
 
 @dataclass
@@ -19,7 +19,7 @@ class BiometricProfile:
     WORLD-FIRST: Behavioral authentication for LLM interfaces.
     """
     user_id: str
-    
+
     # Surface Features (6D)
     typo_rate: float
     message_length_mean: float
@@ -27,12 +27,12 @@ class BiometricProfile:
     punctuation_density: float
     capitalization_rate: float
     emoji_rate: float
-    
+
     # Temporal Features (3D)
     inter_message_time_mean: float
     inter_message_time_std: float
     session_duration_mean: float
-    
+
     # VAD (Valence-Arousal-Dominance) Features (6D)
     valence_mean: float
     valence_std: float
@@ -40,7 +40,7 @@ class BiometricProfile:
     arousal_std: float
     dominance_mean: float
     dominance_std: float
-    
+
     # Vocabulary Features (6D)
     vocabulary_size: int
     unique_word_ratio: float
@@ -48,7 +48,7 @@ class BiometricProfile:
     sentence_complexity: float
     technical_term_rate: float
     slang_rate: float
-    
+
     # Interaction Pattern Features (6D)
     question_rate: float
     directive_rate: float
@@ -56,7 +56,7 @@ class BiometricProfile:
     correction_rate: float
     code_snippet_rate: float
     link_share_rate: float
-    
+
     # Metadata
     baseline_n: int  # Number of messages in baseline
     last_updated: datetime
@@ -76,7 +76,7 @@ class AuthenticationResult:
 
 class BiometricsPort(ABC):
     """Abstract port for cultural biometrics functionality."""
-    
+
     @abstractmethod
     def authenticate(
         self,
@@ -86,7 +86,7 @@ class BiometricsPort(ABC):
     ) -> AuthenticationResult:
         """Authenticate user based on behavioral patterns."""
         pass
-    
+
     @abstractmethod
     def update_baseline(
         self,
@@ -95,12 +95,12 @@ class BiometricsPort(ABC):
     ) -> Dict:
         """Update behavioral baseline."""
         pass
-    
+
     @abstractmethod
     def get_profile(self, user_id: str) -> Optional[BiometricProfile]:
         """Get biometric profile for user."""
         pass
-    
+
     @abstractmethod
     def log_message(
         self,

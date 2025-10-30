@@ -9,6 +9,7 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
+
 import re
 
 FLAGS = re.IGNORECASE | re.UNICODE
@@ -36,4 +37,6 @@ def requires_safety_wrap(text: str, threshold: float = 2.0) -> bool:
     if SAFE_GUARDS.search(text or ""):
         return False
     return instructionality_score(text) >= threshold
+
+
 

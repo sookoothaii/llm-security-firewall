@@ -3,8 +3,9 @@ Regex generator for converting exact phrases into token-gapped regexes.
 Designed for LLM safety detection (defensive only).
 """
 from __future__ import annotations
+
 import re
-from typing import List, Dict, Any, Iterable
+from typing import Any, Dict, Iterable, List
 
 DEFAULT_MAX_GAP = 3  # number of intervening word tokens allowed between phrase tokens
 

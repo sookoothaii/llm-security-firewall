@@ -41,7 +41,7 @@ class ReasoningBlock:
     claims: List[Claim] = field(default_factory=list)
     tag_type: str = "thinking"  # 'thinking', 'antml:thinking', custom
     char_length: int = 0
-    
+
     def __post_init__(self):
         if self.char_length == 0:
             self.char_length = len(self.raw_text)
@@ -54,7 +54,7 @@ class ReasoningQuality:
     logic_chain_score: float  # 0-1, based on connectives and flow
     completeness_score: float  # 0-1, based on missing steps
     overall_score: float  # 0-1, weighted average
-    
+
     def __post_init__(self):
         if not (0.0 <= self.depth_score <= 1.0):
             raise ValueError(f"depth_score must be in [0,1], got {self.depth_score}")
@@ -87,10 +87,11 @@ class MetacognitiveResult:
     deception_types: List[DeceptionType] = field(default_factory=list)
     risk_score: float = 0.0  # 0-1, overall deception risk
     explanation: str = ""
-    
+
     def __post_init__(self):
         if not (0.0 <= self.risk_score <= 1.0):
             raise ValueError(f"risk_score must be in [0,1], got {self.risk_score}")
+
 
 
 

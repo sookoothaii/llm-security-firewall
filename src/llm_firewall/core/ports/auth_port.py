@@ -10,8 +10,8 @@ License: MIT
 """
 
 from abc import ABC, abstractmethod
-from typing import Optional, Dict, Any
 from dataclasses import dataclass
+from typing import Any, Dict, Optional
 
 
 @dataclass
@@ -21,7 +21,7 @@ class AuthenticationResult:
     method: str  # Authentication method used (e.g., "cultural_biometrics", "spatial_captcha")
     metadata: Dict[str, Any]  # Additional context (response_time, challenge_id, etc.)
     is_human: bool  # Derived from confidence and threshold
-    
+
     def __post_init__(self):
         """Validate confidence range."""
         if not (0.0 <= self.confidence <= 1.0):
@@ -40,7 +40,7 @@ class AuthenticationPort(ABC):
     - No adapter depends on another adapter
     - Composition happens at application layer
     """
-    
+
     @abstractmethod
     def authenticate(self, user_id: str, context: Dict[str, Any]) -> AuthenticationResult:
         """
@@ -54,12 +54,12 @@ class AuthenticationPort(ABC):
             AuthenticationResult with confidence score and metadata
         """
         pass
-    
+
     @abstractmethod
     def get_name(self) -> str:
         """Return adapter name for logging/metrics."""
         pass
-    
+
     @abstractmethod
     def get_latency_budget_ms(self) -> int:
         """
@@ -69,7 +69,7 @@ class AuthenticationPort(ABC):
             Latency budget in milliseconds
         """
         pass
-    
+
     @abstractmethod
     def supports_challenge(self) -> bool:
         """
@@ -79,7 +79,7 @@ class AuthenticationPort(ABC):
             True if interactive (e.g., CAPTCHA), False if passive (e.g., biometrics)
         """
         pass
-    
+
     @abstractmethod
     def is_available(self) -> bool:
         """
@@ -97,7 +97,7 @@ class MultiModalAuthenticator:
     
     Uses weighted voting to produce combined confidence score.
     """
-    
+
     def __init__(self, adapters: list[AuthenticationPort], weights: Optional[Dict[str, float]] = None):
         """
         Initialize multi-modal authenticator.
@@ -108,11 +108,11 @@ class MultiModalAuthenticator:
         """
         self.adapters = adapters
         self.weights = weights or {a.get_name(): 1.0 for a in adapters}
-        
+
         # Normalize weights
         total = sum(self.weights.values())
         self.weights = {k: v/total for k, v in self.weights.items()}
-    
+
     def authenticate(self, user_id: str, context: Dict[str, Any], threshold: float = 0.9) -> AuthenticationResult:
         """
         Authenticate using all available adapters.
@@ -127,28 +127,29 @@ class MultiModalAuthenticator:
         """
         results = []
         total_confidence = 0.0
-        
+
         for adapter in self.adapters:
             if not adapter.is_available():
                 continue
-                
+
             result = adapter.authenticate(user_id, context)
             results.append(result)
-            
+
             weight = self.weights.get(adapter.get_name(), 0.0)
             total_confidence += result.confidence * weight
-        
+
         # Combine metadata
         combined_metadata = {
             "adapters_used": [r.method for r in results],
             "individual_scores": {r.method: r.confidence for r in results},
             "weights": self.weights
         }
-        
+
         return AuthenticationResult(
             confidence=total_confidence,
             method="multi_modal_fusion",
             metadata=combined_metadata,
             is_human=total_confidence >= threshold
         )
+
 

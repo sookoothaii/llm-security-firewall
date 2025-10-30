@@ -11,12 +11,12 @@ Date: 2025-10-30
 License: MIT
 """
 
-from dataclasses import dataclass, asdict, field
-from typing import Dict, List, Optional, Any
-import json
 import hashlib
+import json
+from dataclasses import asdict, dataclass, field
+from typing import Any, Dict, List, Optional
 
-from llm_firewall.core.types import ModelContext, Decision
+from llm_firewall.core.types import Decision, ModelContext
 
 
 @dataclass
@@ -39,22 +39,22 @@ class DecisionRecord:
     """
     # Context
     ctx: ModelContext
-    
+
     # Gate results
     captcha: Optional[Dict[str, Any]] = None            # {item_id, seed, params, passed}
     stream_stats: Optional[Dict[str, Any]] = None       # {tokens, aborts, rewrites}
     votes: List[JudgeVote] = field(default_factory=list)
-    
+
     # Aggregation
     aggregation: Dict[str, Any] = field(default_factory=dict)  # {overall_risk, band, qhat, coverage}
     thresholds: Dict[str, Any] = field(default_factory=dict)   # {deny_band, abstain_band, weights}
-    
+
     # Final decision
     decision: Decision = Decision.ALLOW
-    
+
     # Audit
     kue_proof_id: Optional[str] = None
-    
+
     def id(self) -> str:
         """
         Compute deterministic ID for this decision.
@@ -74,7 +74,7 @@ class DecisionRecord:
         }
         content = json.dumps(data, sort_keys=True)
         return hashlib.sha256(content.encode()).hexdigest()
-    
+
     def to_json(self) -> str:
         """
         Serialize to JSON for storage.
@@ -83,7 +83,7 @@ class DecisionRecord:
             JSON string
         """
         return json.dumps(asdict(self), default=str, sort_keys=True, indent=2)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """
         Convert to dictionary for Postgres JSONB.
@@ -102,7 +102,7 @@ class DecisionLedger:
     - PostgreSQL JSONB (structured queries)
     - File-based (ndjson/parquet for long-term analysis)
     """
-    
+
     def __init__(self, db_connection=None, file_path: Optional[str] = None):
         """
         Initialize ledger.
@@ -113,7 +113,7 @@ class DecisionLedger:
         """
         self.db = db_connection
         self.file_path = file_path
-    
+
     def persist(self, record: DecisionRecord) -> str:
         """
         Persist decision record.
@@ -125,37 +125,37 @@ class DecisionLedger:
             Record ID
         """
         record_id = record.id()
-        
+
         # PostgreSQL storage
         if self.db:
             self._persist_postgres(record, record_id)
-        
+
         # File storage
         if self.file_path:
             self._persist_file(record)
-        
+
         return record_id
-    
+
     def _persist_postgres(self, record: DecisionRecord, record_id: str):
         """Persist to PostgreSQL JSONB column."""
         # TODO: Implement PostgreSQL INSERT
         # INSERT INTO decision_ledger (id, data, created_at)
         # VALUES (%s, %s, NOW())
         pass
-    
+
     def _persist_file(self, record: DecisionRecord):
         """Persist to NDJSON file."""
         import pathlib
-        
+
         if self.file_path is None:
             return
-        
+
         path = pathlib.Path(self.file_path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        
+
         with open(path, 'a', encoding='utf-8') as f:
             f.write(record.to_json() + '\n')
-    
+
     def query(self, filters: Dict[str, Any]) -> List[DecisionRecord]:
         """
         Query decision records.

@@ -15,23 +15,21 @@ Date: 2025-10-30
 """
 
 import sys
+
 sys.path.insert(0, 'src')
 
 import json
 from datetime import datetime
 
+from llm_firewall.aggregate.conformal_stacker import (
+    AggregationConfig,
+    ConformalRiskStacker,
+    decision_from_risk,
+    default_qhat_provider,
+)
 from llm_firewall.core.types import ModelContext
 from llm_firewall.judges.nli_consistency import NLIConsistencyJudge
 from llm_firewall.judges.policy_judge import PolicyJudge
-from llm_firewall.judges.persuasion_fusion import PersuasionFusionJudge
-from llm_firewall.persuasion import PersuasionDetector
-from llm_firewall.safety.band_judge import BandJudge
-from llm_firewall.aggregate.conformal_stacker import (
-    ConformalRiskStacker,
-    AggregationConfig,
-    default_qhat_provider,
-    decision_from_risk
-)
 
 print("="*60)
 print("Multi-Gate Architecture Demo")

@@ -15,11 +15,12 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
-from collections import deque, defaultdict
-from dataclasses import dataclass
-from typing import Dict, List, Iterable, Tuple
-import pathlib
+
 import json
+import pathlib
+from collections import defaultdict, deque
+from dataclasses import dataclass
+from typing import Dict, Iterable, List, Tuple
 
 try:
     pass  # if available, else fallback to re for normalize whitespace
@@ -27,6 +28,7 @@ except Exception:  # pragma: no cover
     pass  # type: ignore
 
 from llm_firewall.text.normalize_unicode import normalize
+
 
 @dataclass
 class _Node:
@@ -100,4 +102,6 @@ def build_from_lexicons(lexicon_dir: str | pathlib.Path) -> AhoCorasick:
     ac = AhoCorasick()
     ac.build(pats)
     return ac
+
+
 

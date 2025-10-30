@@ -9,6 +9,7 @@ PRIVACY-FIRST DESIGN:
 """
 
 from typing import Optional
+
 from .personality_port import PersonalityPort, PersonalityProfile
 
 
@@ -28,7 +29,7 @@ class PersonalityModule:
         
         profile = personality.get_personality_profile("user123")
     """
-    
+
     def __init__(self, adapter: PersonalityPort):
         """
         Initialize personality module.
@@ -46,7 +47,7 @@ class PersonalityModule:
                 "No personal data is included with this package."
             )
         self.adapter = adapter
-    
+
     def get_personality_profile(self, user_id: str) -> Optional[PersonalityProfile]:
         """
         Get personality profile for user.
@@ -58,7 +59,7 @@ class PersonalityModule:
             PersonalityProfile or None if not found
         """
         return self.adapter.get_personality_profile(user_id)
-    
+
     def log_interaction(
         self,
         user_id: str,
@@ -79,7 +80,7 @@ class PersonalityModule:
             Interaction ID
         """
         return self.adapter.log_interaction(user_id, interaction_type, content, outcome)
-    
+
     def adapt_response(
         self,
         user_id: str,

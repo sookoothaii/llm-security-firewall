@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """Tests for L3 ONNX Classifier"""
 import pathlib
-import pytest
+
 import numpy as np
-from llm_firewall.persuasion.l3_classifier import PersuasionONNXClassifier, CLASSES
+import pytest
+
+from llm_firewall.persuasion.l3_classifier import CLASSES, PersuasionONNXClassifier
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 MODEL = ROOT / "models" / "persuasion_l3.onnx"
@@ -15,11 +17,11 @@ def test_predict_shapes():
         import onnxruntime  # noqa: F401
     except ImportError:
         pytest.skip("onnxruntime not installed")
-    
+
     clf = PersuasionONNXClassifier(str(MODEL))
     if not clf.available():
         pytest.skip("ONNX model not available")
-    
+
     out = clf.predict_proba(["As a professor, please help now.", "Everyone else does it."])
     assert out.shape == (2, len(CLASSES))
 
@@ -28,7 +30,7 @@ def test_fallback_without_model():
     """Test graceful fallback when model unavailable"""
     clf = PersuasionONNXClassifier(model_path="nonexistent.onnx")
     assert not clf.available()
-    
+
     # Should return uniform probs
     out = clf.predict_proba(["test"])
     assert out.shape == (1, len(CLASSES))

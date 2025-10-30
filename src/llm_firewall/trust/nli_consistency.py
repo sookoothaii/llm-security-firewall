@@ -9,15 +9,16 @@ Based on GPT-5 Evidence Pipeline (2025-10-27):
 """
 
 from __future__ import annotations
-from typing import Sequence, Protocol
+
 import logging
+from typing import Protocol, Sequence
 
 logger = logging.getLogger(__name__)
 
 
 class NLIModel(Protocol):
     """Protocol for NLI model implementations."""
-    
+
     def entailment_prob(self, premise: str, hypothesis: str) -> float:
         """
         Return P(entailment) in [0,1].
@@ -38,13 +39,13 @@ class FakeNLI(NLIModel):
     
     Simple substring match (for testing only).
     """
-    
+
     def entailment_prob(self, premise: str, hypothesis: str) -> float:
         """Simple substring entailment for testing."""
         # Deterministic stub: substring match
         premise_lower = premise.strip().lower()
         hypothesis_lower = hypothesis.strip().lower()
-        
+
         if hypothesis_lower in premise_lower:
             return 1.0
         else:
@@ -78,13 +79,13 @@ def consistency_against_kb(
     if not kb_sentences:
         logger.warning("[NLI] Empty KB - cannot validate consistency")
         return 0.0
-    
+
     # Compute entailment for each KB sentence
     scores = []
     for premise in kb_sentences:
         score = model.entailment_prob(premise, hypothesis)
         scores.append(score)
-    
+
     # Aggregate
     if agg == "mean":
         result = sum(scores) / len(scores)
@@ -94,12 +95,12 @@ def consistency_against_kb(
         result = min(scores)  # Pessimistic: all must support
     else:
         raise ValueError(f"Unknown aggregation: {agg}")
-    
+
     logger.debug(
         f"[NLI] Consistency check: {result:.2f} "
         f"({len(kb_sentences)} KB sentences, agg={agg})"
     )
-    
+
     return result
 
 
@@ -121,23 +122,23 @@ def check_contradiction(
     """
     if not kb_sentences:
         return 0.0
-    
+
     # For real NLI models, check contradiction label
     # For now, use simple heuristics
     contradiction_scores = []
-    
+
     # Check for negations and opposites
     hypothesis_lower = hypothesis.lower()
-    
+
     for sentence in kb_sentences:
         sentence_lower = sentence.lower()
-        
+
         # Simple heuristic: negation words
         if ('not' in hypothesis_lower and 'not' not in sentence_lower) or \
            ('not' in sentence_lower and 'not' not in hypothesis_lower):
             contradiction_scores.append(0.5)
         else:
             contradiction_scores.append(0.0)
-    
+
     return max(contradiction_scores) if contradiction_scores else 0.0
 

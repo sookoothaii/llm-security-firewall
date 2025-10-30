@@ -49,13 +49,18 @@ class ClaimGraph:
         self._sources: Set[str] = set()
 
         # Edges
-        self._claim_to_sources: Dict[str, Set[str]] = {}  # claim → {source1, source2, ...}
-        self._source_to_source: Dict[str, Set[str]] = {}  # source → {cited_source1, ...}
+        # claim → {source1, source2, ...}
+        self._claim_to_sources: Dict[str, Set[str]] = {}
+        # source → {cited_source1, ...}
+        self._source_to_source: Dict[str, Set[str]] = {}
 
         # Edge attributes
-        self._support_scores: Dict[Tuple[str, str], float] = {}  # (claim, source) → support
-        self._trust_scores: Dict[Tuple[str, str], float] = {}  # (claim, source) → trust
-        self._recency_scores: Dict[Tuple[str, str], float] = {}  # (claim, source) → recency
+        # (claim, source) → support
+        self._support_scores: Dict[Tuple[str, str], float] = {}
+        # (claim, source) → trust
+        self._trust_scores: Dict[Tuple[str, str], float] = {}
+        # (claim, source) → recency
+        self._recency_scores: Dict[Tuple[str, str], float] = {}
 
         # Optional metadata
         self._claim_texts: Dict[str, str] = {}
@@ -74,7 +79,9 @@ class ClaimGraph:
         if text is not None:
             self._claim_texts[claim_id] = text
 
-    def add_source(self, source_id: str, metadata: Optional[Dict[str, Any]] = None) -> None:
+    def add_source(
+        self, source_id: str, metadata: Optional[Dict[str, Any]] = None
+    ) -> None:
         """
         Register a source.
 

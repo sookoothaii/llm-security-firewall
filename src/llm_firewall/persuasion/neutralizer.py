@@ -15,6 +15,7 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
+
 import json
 import pathlib
 import re
@@ -110,4 +111,5 @@ class Neutralizer:
             "restated": restated,
             "removed_counts": stats,
         }
+
 

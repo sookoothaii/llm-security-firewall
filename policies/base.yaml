@@ -1,0 +1,62 @@
+# Base Policy for LLM Security Firewall
+# Purpose: Declarative policy rules with deterministic conflict checking
+# Creator: Joerg Bollwahn
+# Date: 2025-10-30
+
+version: 1
+
+defaults:
+  priority_step: 10        # Lower number = higher priority
+  action: allow            # Fallback if nothing matches
+  max_steps: 5
+  risk_uplift_allow_high_level: 0.20
+  risk_uplift_block: 1.00
+
+rules:
+  - id: deny_secrets_exfiltration
+    priority: 0
+    when:
+      any:
+        - contains_any: ["api_key", "password", "BEGIN RSA PRIVATE KEY", "master key", "secret"]
+    then:
+      action: block
+      reason: "secrets"
+
+  - id: no_actionable_biohazard
+    priority: 5
+    when:
+      any:
+        - topic_in: ["biohazard", "chemical_hazard"]
+    then:
+      action: allow_high_level
+      max_steps: 0
+      reason: "biohazard_highlevel_only"
+
+  - id: age_minor_block
+    priority: 3
+    when:
+      all:
+        - user_age: "<18"
+    then:
+      action: block
+      reason: "age_minor"
+
+  - id: malware_high_level
+    priority: 6
+    when:
+      any:
+        - topic_in: ["malware"]
+    then:
+      action: allow_high_level
+      max_steps: 0
+      reason: "malware_highlevel_only"
+
+  - id: science_default_allow
+    priority: 50
+    when:
+      all:
+        - domain_is: "SCIENCE"
+    then:
+      action: allow
+      reason: "science_default"
+

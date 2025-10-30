@@ -10,11 +10,12 @@ License: MIT
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Optional, Dict
+
 import hashlib
 import logging
 import os
+from dataclasses import dataclass
+from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +45,7 @@ class BandJudge:
     - 2-Decode BFT-lite: both must agree on "safe"
     - Simple in-memory cache (1h TTL emulated via dict)
     """
-    
+
     def __init__(
         self,
         model: str = "deepseek-chat",
@@ -63,22 +64,22 @@ class BandJudge:
         self.cache_enabled = cache_enabled
         self.cache: Dict[str, JudgeResult] = {}
         self.available = False
-        
+
         if not _HAS_OPENAI:
             logger.warning("openai package not available, BandJudge disabled")
             return
-        
+
         # Get API key
         if api_key is None and model is not None:
             if "deepseek" in model.lower():
                 api_key = os.getenv("DEEPSEEK_API_KEY")
             else:
                 api_key = os.getenv("OPENAI_API_KEY")
-        
+
         if not api_key:
             logger.warning(f"No API key found for {model}, BandJudge disabled")
             return
-        
+
         # Initialize client
         try:
             if "deepseek" in model.lower():
@@ -88,16 +89,16 @@ class BandJudge:
                 )
             else:
                 self.client = OpenAI(api_key=api_key)
-            
+
             self.available = True
             logger.info(f"BandJudge initialized with {model}")
         except Exception as e:
             logger.warning(f"BandJudge initialization failed: {e}")
-    
+
     def _cache_key(self, text: str) -> str:
         """Generate cache key from text."""
         return hashlib.sha256(text.encode('utf-8')).hexdigest()[:16]
-    
+
     def _judge_single(self, text: str, temperature: float = 0.0) -> bool:
         """
         Single decode: is text safe?
@@ -122,20 +123,20 @@ REASON: [brief explanation]"""
                 temperature=temperature,
                 max_tokens=100,
             )
-            
+
             content = response.choices[0].message.content or ""
-            
+
             # Parse verdict
             if "SAFE" in content.upper() and "UNSAFE" not in content.upper():
                 return True
             else:
                 return False
-        
+
         except Exception as e:
             logger.error(f"BandJudge decode failed: {e}")
             # Fail-safe: block on error
             return False
-    
+
     def judge(self, text: str, p_risk: float, tau_block: float, epsilon: float) -> JudgeResult:
         """
         Judge text if in uncertainty band.
@@ -157,7 +158,7 @@ REASON: [brief explanation]"""
                 reasoning="BandJudge not available",
                 cache_hit=False
             )
-        
+
         # Check cache
         cache_key = self._cache_key(text)
         if self.cache_enabled and cache_key in self.cache:
@@ -169,7 +170,7 @@ REASON: [brief explanation]"""
                 reasoning=result.reasoning,
                 cache_hit=True
             )
-        
+
         # Check if in band
         dist = abs(p_risk - tau_block)
         if dist >= epsilon:
@@ -180,29 +181,29 @@ REASON: [brief explanation]"""
                 reasoning=f"Outside band (dist={dist:.3f})",
                 cache_hit=False
             )
-        
+
         # BFT-lite: 2 decodes, both must agree on "safe"
         logger.info(f"BandJudge triggered (p={p_risk:.3f}, dist={dist:.3f})")
-        
+
         decode_1 = self._judge_single(text, temperature=0.0)  # Greedy
         decode_2 = self._judge_single(text, temperature=0.0)  # Greedy (deterministic)
-        
+
         # Both must say safe
         is_safe = decode_1 and decode_2
         confidence = 0.9 if (decode_1 == decode_2) else 0.6
         reasoning = f"BFT-lite: decode1={decode_1}, decode2={decode_2}"
-        
+
         result = JudgeResult(
             is_safe=is_safe,
             confidence=confidence,
             reasoning=reasoning,
             cache_hit=False
         )
-        
+
         # Cache result
         if self.cache_enabled:
             self.cache[cache_key] = result
-        
+
         return result
 
 

@@ -10,12 +10,13 @@ All content is strictly defensive (detection-oriented) and avoids operational ha
 """
 
 from __future__ import annotations
+
 import json
-import re
 import math
+import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Tuple, Any, Iterable
+from typing import Any, Dict, Iterable, List, Tuple
 
 LEX_DIR = Path(__file__).parent.parent / "lexicons_gpt5"
 
@@ -149,7 +150,7 @@ class IntentMatcher:
         except ImportError:
             # Fallback if import fails
             from llm_firewall.lexicons.regex_generator import build_cluster_regexes
-            
+
         # AC channel for exact phrases
         self._acs: Dict[str, ACMatcher] = {}
         self._weights: Dict[str, Dict[str, float]] = {}
@@ -162,11 +163,11 @@ class IntentMatcher:
             ac = ACMatcher(phrases)
             self._acs[cid] = ac
             self._weights[cid] = {p: w for (p, w) in phrases}
-        
+
         # Regex channel (gapped patterns)
         regex_specs = build_cluster_regexes(intents_json, max_gap=max_gap)
         self._rx = RegexMatcher({"patterns": regex_specs}, [])
-    
+
     def score(self, text: str) -> Dict[str, float]:
         """
         Compute per-cluster scores combining AC (exact) + Regex (gapped).
@@ -178,17 +179,17 @@ class IntentMatcher:
             Dict mapping cluster IDs to normalized scores
         """
         per_cluster = {cid: 0.0 for cid in self._acs.keys()}
-        
+
         # AC channel (exact phrase)
         for cid, ac in self._acs.items():
             hits = ac.findall(text)
             wmap = self._weights[cid]
             per_cluster[cid] += sum(wmap.get(pat, 0.0) for (_, pat) in hits)
-        
+
         # Regex channel (gapped)
         for m in self._rx.findall(text):
             per_cluster[m.category] = per_cluster.get(m.category, 0.0) + float(m.weight)
-        
+
         # Normalize
         total = sum(per_cluster.values()) + 1e-9
         return {k: (v / total) for k, v in per_cluster.items()}
@@ -210,7 +211,7 @@ def intent_lex_score(text: str, intents_json: Dict[str, Any], evasions_json: Dic
     im = IntentMatcher(intents_json, evasions_json, max_gap=max_gap)
     normalized = im.score(text)
     sorted_norm = sorted(normalized.items(), key=lambda kv: -kv[1])
-    
+
     if not sorted_norm:
         # No clusters matched
         return {
@@ -219,10 +220,10 @@ def intent_lex_score(text: str, intents_json: Dict[str, Any], evasions_json: Dic
             "margin": 0.0,
             "per_cluster": {}
         }
-    
+
     top = sorted_norm[0]
     margin = top[1] - (sorted_norm[1][1] if len(sorted_norm) > 1 else 0.0)
-    
+
     return {
         "lex_score": round(top[1], 6),
         "top_cluster": top[0],
@@ -286,23 +287,23 @@ def evaluate_windowed(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3,
         if not seg:
             break
         chunks.append(evaluate(seg, base_dir=base_dir, max_gap=max_gap))
-    
+
     # Fallback for empty or very short text
     if not chunks:
         return evaluate(text, base_dir=base_dir, max_gap=max_gap)
-    
+
     # Aggregate: max(pattern), mean(intent)
     patt_max = max(c["pattern"]["score"] for c in chunks)
-    
+
     # Intent aggregation
     intents = [c["intent"] for c in chunks]
     lex_mean = sum(x["lex_score"] for x in intents) / len(intents)
     margin_mean = sum(x.get("margin", 0.0) for x in intents) / len(intents)
-    
+
     # Build combined result
     combined = chunks[0].copy()
     combined["pattern"]["score"] = round(patt_max, 6)
     combined["intent"]["lex_score"] = round(lex_mean, 6)
     combined["intent"]["margin"] = round(margin_mean, 6)
-    
+
     return combined

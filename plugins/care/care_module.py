@@ -17,6 +17,7 @@ CARE behaves as RESEARCH PARTNER, not as parent/therapist/moral police.
 """
 
 from typing import Dict, Optional
+
 from .care_port import CAREPort, ReadinessScore
 
 
@@ -52,7 +53,7 @@ class CAREModule:
             print(f"Pattern suggests low success ({readiness.readiness_score:.0%}).")
             print("But you know yourself best - CARE could be wrong.")
     """
-    
+
     def __init__(self, adapter: CAREPort):
         """
         Initialize CARE module.
@@ -70,7 +71,7 @@ class CAREModule:
                 "No personal data is included with this package."
             )
         self.adapter = adapter
-    
+
     def get_readiness(self, user_id: str) -> ReadinessScore:
         """
         Get current cognitive readiness score.
@@ -85,7 +86,7 @@ class CAREModule:
             ReadinessScore with recommendation
         """
         return self.adapter.get_readiness(user_id)
-    
+
     def log_session(
         self,
         session_id: str,
@@ -112,7 +113,7 @@ class CAREModule:
         return self.adapter.log_session(
             session_id, user_id, facts_attempted, facts_supported, cognitive_state
         )
-    
+
     def suggest_optimal_time(self, user_id: str) -> Dict:
         """
         Suggest optimal time for next research session.
@@ -127,7 +128,7 @@ class CAREModule:
             Suggestion dictionary with rationale
         """
         return self.adapter.suggest_optimal_time(user_id)
-    
+
     def get_stats(self) -> Dict:
         """
         Get CARE system statistics.

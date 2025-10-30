@@ -16,18 +16,21 @@ Expected Defense:
 """
 
 import pytest
+
 from llm_firewall.evidence.pipeline import (
-    EvidencePipeline, PipelineConfig, EvidenceRecord
+    EvidencePipeline,
+    EvidenceRecord,
+    PipelineConfig,
 )
+from llm_firewall.evidence.source_verifier import SourceVerifier
 from llm_firewall.evidence.validator import EvidenceValidator
 from llm_firewall.trust.domain_scorer import DomainTrustScorer
-from llm_firewall.evidence.source_verifier import SourceVerifier
 from llm_firewall.trust.nli_consistency import FakeNLI
 
 
 class TestFakeCitationAttack:
     """Red-Team: Fake citation attacks."""
-    
+
     def setup_method(self):
         """Setup pipeline."""
         self.pipeline = EvidencePipeline(
@@ -37,7 +40,7 @@ class TestFakeCitationAttack:
             source_verifier=SourceVerifier(timeout=5),
             nli_model=FakeNLI()
         )
-    
+
     def test_fake_doi_rejected(self):
         """Test that fake DOI is rejected."""
         # Attack: Plausible but fake DOI
@@ -47,14 +50,14 @@ class TestFakeCitationAttack:
             doi="10.9999/fake.2025.123456",
             kb_corroborations=3
         )
-        
+
         kb = ["X is beneficial for Y according to research"]
         result = self.pipeline.process(record, kb)
-        
+
         # Should quarantine or reject due to invalid DOI
         # (SourceVerifier will detect non-existent DOI)
         assert result['decision'] in ['QUARANTINE', 'REJECT']
-    
+
     def test_fake_arxiv_id_rejected(self):
         """Test fake arXiv ID rejection."""
         # Attack: Non-existent arXiv paper
@@ -63,15 +66,15 @@ class TestFakeCitationAttack:
             source_url="https://arxiv.org/abs/9999.99999",
             kb_corroborations=2
         )
-        
+
         kb = ["quantum computing advances"]
         result = self.pipeline.process(record, kb)
-        
+
         # arXiv domain has high trust but URL should fail accessibility
         # Result depends on actual network check
         # At minimum, low NLI or other factors should trigger quarantine
         assert result['trust'] > 0.0  # arxiv.org has trust
-    
+
     def test_authoritative_sounding_fake_source(self):
         """Test rejection of authoritative-sounding but fake source."""
         # Attack: Fake journal with authoritative name
@@ -80,15 +83,15 @@ class TestFakeCitationAttack:
             source_url="https://international-journal-of-everything.xyz/article/123",
             kb_corroborations=1
         )
-        
+
         kb = ["discovery in field X"]
         result = self.pipeline.process(record, kb)
-        
+
         # Unknown domain (.xyz) = low trust (0.10)
         assert result['decision'] == 'QUARANTINE'
         assert result['trust'] < 0.75
         assert any('low_trust' in r for r in result['reasons'])
-    
+
     def test_fake_citation_without_url(self):
         """Test plain-text fake citation."""
         # Attack: Citation without verifiable URL
@@ -97,15 +100,15 @@ class TestFakeCitationAttack:
             source_url=None,  # No URL!
             kb_corroborations=1
         )
-        
+
         kb = ["X causes Y"]
         result = self.pipeline.process(record, kb)
-        
+
         # No URL = no domain trust = low score
         # Insufficient corroboration (1 < 2)
         assert result['decision'] == 'QUARANTINE'
         assert any('low_corroboration' in r for r in result['reasons'])
-    
+
     def test_mismatched_doi_and_content(self):
         """Test detection of DOI that doesn't match claimed content."""
         # Attack: Real DOI but wrong content
@@ -115,10 +118,10 @@ class TestFakeCitationAttack:
             doi="10.1038/nature12345",
             kb_corroborations=2
         )
-        
+
         kb = ["neural networks in AI"]
         result = self.pipeline.process(record, kb)
-        
+
         # NLI should be high if KB mentions neural networks
         # DOI validation depends on network access
         # This test primarily checks pipeline logic

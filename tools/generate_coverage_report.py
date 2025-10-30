@@ -9,11 +9,12 @@ Usage:
 """
 
 from __future__ import annotations
+
 import argparse
-import json
 import csv
-from pathlib import Path
+import json
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List
 
 
@@ -34,43 +35,43 @@ def parse_test_results(test_log_path: str) -> Dict:
         'success_rate': 0.0,
         'timestamp': datetime.now().isoformat()
     }
-    
+
     try:
         with open(test_log_path, 'r', encoding='utf-8') as f:
             content = f.read()
-            
+
         # Parse pytest summary line
         # Example: "197 passed in 40.58s"
         import re
-        
+
         match = re.search(r'(\d+)\s+passed', content)
         if match:
             stats['passed'] = int(match.group(1))
             stats['total_tests'] = stats['passed']
-        
+
         failed_match = re.search(r'(\d+)\s+failed', content)
         if failed_match:
             stats['failed'] = int(failed_match.group(1))
             stats['total_tests'] += stats['failed']
-        
+
         if stats['total_tests'] > 0:
             stats['success_rate'] = stats['passed'] / stats['total_tests']
-    
+
     except Exception as e:
         print(f"Warning: Could not parse test log: {e}")
-    
+
     return stats
 
 
 def load_coverage_matrix(csv_path: str) -> List[Dict]:
     """Load coverage matrix from CSV."""
     matrix = []
-    
+
     with open(csv_path, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
             matrix.append(row)
-    
+
     return matrix
 
 
@@ -78,31 +79,31 @@ def compute_aggregates(matrix: List[Dict]) -> Dict:
     """Compute aggregate metrics from coverage matrix."""
     total_attacks = len(set(row['Attack_Class'] for row in matrix))
     total_defenses = len(set(row['Defense_Layer'] for row in matrix))
-    
+
     # Parse percentages
     asr_reductions = []
     fpr_impacts = []
     latencies = []
-    
+
     for row in matrix:
         try:
             asr = float(row['ASR_Reduction'].rstrip('%'))
             asr_reductions.append(asr)
         except (ValueError, KeyError, AttributeError):
             pass
-        
+
         try:
             fpr = float(row['FPR_Impact'].rstrip('%'))
             fpr_impacts.append(fpr)
         except (ValueError, KeyError, AttributeError):
             pass
-        
+
         try:
             lat = float(row['Latency_Delta_ms'])
             latencies.append(lat)
         except (ValueError, KeyError):
             pass
-    
+
     return {
         'total_attack_classes': total_attacks,
         'total_defense_layers': total_defenses,
@@ -128,16 +129,16 @@ def generate_report(
         output_path: Path for output JSON
     """
     print("=== Defense Coverage Report Generator ===\n")
-    
+
     # Load data
     print("Loading coverage matrix...")
     matrix = load_coverage_matrix(matrix_path)
     print(f"  Loaded {len(matrix)} attack-defense mappings")
-    
+
     print("\nParsing test results...")
     test_stats = parse_test_results(test_log_path)
     print(f"  Tests: {test_stats['passed']}/{test_stats['total_tests']} passed ({test_stats['success_rate']*100:.1f}%)")
-    
+
     print("\nComputing aggregates...")
     aggregates = compute_aggregates(matrix)
     print(f"  Attack classes: {aggregates['total_attack_classes']}")
@@ -145,7 +146,7 @@ def generate_report(
     print(f"  Avg ASR reduction: {aggregates['avg_asr_reduction']:.1f}%")
     print(f"  Avg FPR impact: {aggregates['avg_fpr_impact']:.1f}%")
     print(f"  Avg latency: {aggregates['avg_latency_ms']:.1f}ms")
-    
+
     # Build report
     report = {
         'version': '2025-10-28',
@@ -162,15 +163,15 @@ def generate_report(
         },
         'status': 'PRODUCTION_READY' if test_stats['success_rate'] >= 0.97 else 'NEEDS_REVIEW'
     }
-    
+
     # Write report
     print(f"\nWriting report to {output_path}...")
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(report, f, indent=2)
-    
+
     print("✓ Report generated successfully")
     print(f"\nStatus: {report['status']}")
-    
+
     return report
 
 
@@ -180,32 +181,32 @@ def main():
         description="Generate Defense Coverage Report",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    
+
     ap.add_argument("--matrix", default="monitoring/defense_coverage_matrix.csv",
                     help="Path to coverage matrix CSV")
     ap.add_argument("--test-log", default="pytest_output.txt",
                     help="Path to pytest output log")
     ap.add_argument("--output", default="defense_coverage_report.json",
                     help="Path for output JSON report")
-    
+
     args = ap.parse_args()
-    
+
     # Check files exist
     if not Path(args.matrix).exists():
         print(f"ERROR: Matrix file not found: {args.matrix}")
         return 1
-    
+
     if not Path(args.test_log).exists():
         print(f"Warning: Test log not found: {args.test_log}")
         print("Using empty test stats...")
-    
+
     # Generate report
     generate_report(
         matrix_path=args.matrix,
         test_log_path=args.test_log,
         output_path=args.output
     )
-    
+
     return 0
 
 

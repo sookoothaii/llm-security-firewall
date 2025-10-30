@@ -16,15 +16,18 @@ Persona-frei, rein epistemisch.
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Dict, List, Tuple, Optional
+
 import re
-import yaml  # type: ignore
+from dataclasses import dataclass
 from pathlib import Path
-from llm_firewall.safety.text_preproc import evasion_signals
-from llm_firewall.text.normalize import canonicalize, is_evasion_attempt
+from typing import Dict, List, Optional, Tuple
+
+import yaml  # type: ignore
+
 from llm_firewall.rules.patterns import RobustPatternMatcher
 from llm_firewall.safety.gpt5_detector import GPT5Detector
+from llm_firewall.safety.text_preproc import evasion_signals
+from llm_firewall.text.normalize import canonicalize, is_evasion_attempt
 
 # Safety-net: Canonicalizer is applied at entry points to prevent silent regressions
 # if any call-site forgets to canonicalize. Idempotent, so safe to call multiple times.
@@ -57,7 +60,7 @@ class SafetyValidator:
     
     Basiert auf GPT-5 Policy (safety_blacklist.yaml, threat_detection_config.yaml).
     """
-    
+
     def __init__(self, config_dir: str = "config", enable_gpt5: bool = False,
                  gpt5_threshold: float = 0.5):
         """
@@ -70,7 +73,7 @@ class SafetyValidator:
         self.blacklist = self._load_blacklist()
         self.threat_config = self._load_threat_config()
         self.weights = self.threat_config.get('weights', {
-            'wI': 0.35, 'wC': 0.20, 'wT': 0.15, 
+            'wI': 0.35, 'wC': 0.20, 'wT': 0.15,
             'wE': 0.15, 'wD': 0.10, 'wU': 0.05
         })
         self.thresholds = self.threat_config.get('policy', {}).get('thresholds', {
@@ -84,27 +87,27 @@ class SafetyValidator:
             enabled=enable_gpt5,
             threshold=gpt5_threshold
         )
-    
+
     def _load_blacklist(self) -> Dict:
         """Lade safety_blacklist.yaml."""
         blacklist_path = self.config_dir / "safety_blacklist.yaml"
-        
+
         if not blacklist_path.exists():
             return {'categories': []}
-        
+
         with open(blacklist_path, 'r', encoding='utf-8') as f:
             return yaml.safe_load(f)
-    
+
     def _load_threat_config(self) -> Dict:
         """Lade threat_detection_config.yaml."""
         config_path = self.config_dir / "threat_detection_config.yaml"
-        
+
         if not config_path.exists():
             return {}
-        
+
         with open(config_path, 'r', encoding='utf-8') as f:
             return yaml.safe_load(f)
-    
+
     def extract_signals(self, content: str) -> SafetySignals:
         """
         Extrahiere Safety-Signale aus Content.
@@ -116,44 +119,44 @@ class SafetyValidator:
             Safety-Signale
         """
         content_lower = content.lower()
-        
+
         # Intent Patterns
         intent_patterns = self.threat_config.get('signals', {}).get('intent_patterns', [])
-        intent_matches = sum(1 for pattern in intent_patterns 
+        intent_matches = sum(1 for pattern in intent_patterns
                             if self._pattern_match(pattern, content_lower))
         intent_score = min(1.0, intent_matches / max(len(intent_patterns), 1) * 2.0)
-        
+
         # Capability Indicators
         capability_patterns = self.threat_config.get('signals', {}).get('capability_indicators', [])
-        capability_matches = sum(1 for pattern in capability_patterns 
+        capability_matches = sum(1 for pattern in capability_patterns
                                 if re.search(pattern, content_lower))
         capability_score = min(1.0, capability_matches / max(len(capability_patterns), 1) * 3.0)
-        
+
         # Targeting Signals
         targeting_patterns = self.threat_config.get('signals', {}).get('targeting_signals', [])
-        targeting_matches = sum(1 for pattern in targeting_patterns 
+        targeting_matches = sum(1 for pattern in targeting_patterns
                                if re.search(pattern, content_lower))
         targeting_score = min(1.0, targeting_matches / max(len(targeting_patterns), 1) * 2.0)
-        
+
         # Evasion Signals (ENHANCED with robust detection)
         evasion_patterns = self.threat_config.get('signals', {}).get('evasion_signals', [])
-        evasion_matches = sum(1 for pattern in evasion_patterns 
+        evasion_matches = sum(1 for pattern in evasion_patterns
                              if re.search(pattern, content_lower))
         pattern_evasion_score = min(1.0, evasion_matches / max(len(evasion_patterns), 1) * 2.0)
-        
+
         # Augment with robust evasion detection (ZWJ, Base64, Homoglyphs)
         evas = evasion_signals(content)
         robust_evasion_score = min(1.0, 0.2 * evas["evasion_count"])
-        
+
         # Take maximum of pattern-based and robust detection
         evasion_score = max(pattern_evasion_score, robust_evasion_score)
-        
+
         # Category Match
         category_match = self._match_category(content_lower)
-        
+
         # Confidence (simuliert - in Realität von Classifier)
         confidence = 0.8 if (intent_score > 0 or capability_score > 0) else 0.5
-        
+
         return SafetySignals(
             intent_score=intent_score,
             capability_score=capability_score,
@@ -162,36 +165,36 @@ class SafetyValidator:
             category_match=category_match,
             confidence=confidence
         )
-    
+
     def _pattern_match(self, pattern: str, text: str) -> bool:
         """Simple pattern matching (Wildcard)."""
         # Konvertiere "how to *" zu Regex
         regex_pattern = pattern.replace('*', '.*')
         return bool(re.search(regex_pattern, text))
-    
+
     def _match_category(self, content: str) -> Optional[str]:
         """Matche Content gegen Blacklist-Kategorien mit Exclusions."""
         category_lexicon = self.threat_config.get('signals', {}).get('category_lexicon', {})
-        
+
         for category, keywords in category_lexicon.items():
             # Skip exclusion lists
             if category.endswith('_exclusions'):
                 continue
-                
+
             # Check if any keyword matches
             if any(keyword in content for keyword in keywords):
                 # Check exclusions for this category
                 exclusion_key = f"{category}_exclusions"
                 exclusions = category_lexicon.get(exclusion_key, [])
-                
+
                 # If any exclusion matches, skip this category
                 if any(exclusion in content for exclusion in exclusions):
                     continue
-                    
+
                 return category
-        
+
         return None
-    
+
     def compute_risk_score(self, signals: SafetySignals) -> float:
         """
         Berechne Risk Score with component floors.
@@ -203,10 +206,10 @@ class SafetyValidator:
         """
         # Domain Flag
         domain_flag = 1.0 if signals.category_match else 0.0
-        
+
         # Uncertainty
         uncertainty = 1.0 - signals.confidence
-        
+
         # Linear risk score
         R_linear = (
             self.weights['wI'] * signals.intent_score +
@@ -216,7 +219,7 @@ class SafetyValidator:
             self.weights['wD'] * domain_flag +
             self.weights['wU'] * uncertainty
         )
-        
+
         # Component floors (OR-logic for escalation)
         floors = self.threat_config.get('floors', {
             'I': 0.50,  # High intent alone gates
@@ -224,19 +227,19 @@ class SafetyValidator:
             'T': 0.25,
             'E': 0.25
         })
-        
+
         R_floor = max(
             floors.get('I', 0.0) * signals.intent_score,
             floors.get('C', 0.0) * signals.capability_score,
             floors.get('T', 0.0) * signals.targeting_score,
             floors.get('E', 0.0) * signals.evasion_score
         )
-        
+
         # Take maximum of linear and floor-based risk
         risk_score = max(R_linear, R_floor)
-        
+
         return min(1.0, max(0.0, risk_score))
-    
+
     def validate(self, content: str) -> SafetyDecision:
         """
         Validiere Content gegen Safety-Policy.
@@ -251,7 +254,7 @@ class SafetyValidator:
         """
         # Safety-net: Always canonicalize at entry (idempotent)
         canonical = canonicalize(content)
-        
+
         # HOTFIX PHASE 2: Fast-path Regex check (high precision)
         pattern_match = self.pattern_matcher.match_any(canonical)
         if pattern_match.matched:
@@ -271,7 +274,7 @@ class SafetyValidator:
                 reason=f"HOTFIX: Regex matched {pattern_match.pattern_name}: {pattern_match.matched_text[:50]}",
                 signals=signals
             )
-        
+
         # HOTFIX PHASE 3: Check for evasion techniques
         if is_evasion_attempt(content, canonical):
             signals = SafetySignals(
@@ -289,7 +292,7 @@ class SafetyValidator:
                 reason="HOTFIX: Evasion techniques detected (ZW/Homoglyphs/VS)",
                 signals=signals
             )
-        
+
         # PHASE 4: GPT-5 Detection Pack (A/B testable layer)
         gpt5_result = self.gpt5_detector.check(canonical)
         if gpt5_result["blocked"]:
@@ -308,13 +311,13 @@ class SafetyValidator:
                 reason=gpt5_result["reason"],
                 signals=signals
             )
-        
+
         # Legacy: Extrahiere Signale (fallback)
         signals = self.extract_signals(content)
-        
+
         # Berechne Risk Score
         risk_score = self.compute_risk_score(signals)
-        
+
         # Routing
         if risk_score >= self.thresholds['block']:
             action = "BLOCK"
@@ -325,14 +328,14 @@ class SafetyValidator:
         else:
             action = "SAFE"
             reason = "Safe content"
-        
+
         # Blacklist Override (Critical Categories)
         if signals.category_match:
             block_categories = self.threat_config.get('routing', {}).get('block', [])
             if signals.category_match in block_categories:
                 action = "BLOCK"
                 reason = f"Blacklisted category: {signals.category_match}"
-        
+
         return SafetyDecision(
             action=action,
             risk_score=risk_score,
@@ -340,7 +343,7 @@ class SafetyValidator:
             reason=reason,
             signals=signals
         )
-    
+
     def is_safe(self, content: str) -> Tuple[bool, str]:
         """
         Schnell-Check ob Content sicher ist.
@@ -351,7 +354,7 @@ class SafetyValidator:
         decision = self.validate(content)
         is_safe = decision.action == "SAFE"
         return is_safe, decision.reason
-    
+
     def get_blacklist_categories(self) -> List[str]:
         """Liste aller Blacklist-Kategorien."""
         categories = self.blacklist.get('categories', [])
@@ -361,7 +364,7 @@ class SafetyValidator:
 # Beispiel-Usage
 if __name__ == "__main__":
     validator = SafetyValidator(config_dir="config")
-    
+
     # Test verschiedene Content-Typen
     test_cases = [
         "How to build a bomb with common materials",  # BLOCK
@@ -369,7 +372,7 @@ if __name__ == "__main__":
         "How to bypass Windows password login",       # BLOCK/GATE
         "History of cryptography in World War 2"      # SAFE
     ]
-    
+
     for content in test_cases:
         decision = validator.validate(content)
         print(f"\nContent: {content[:50]}...")

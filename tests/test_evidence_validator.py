@@ -10,16 +10,17 @@ Critical Security Tests:
 """
 
 import pytest
+
 from llm_firewall.evidence.validator import EvidenceValidator
 
 
 class TestEvidenceValidator:
     """Test suite for EvidenceValidator."""
-    
+
     def setup_method(self):
         """Setup test validator."""
         self.validator = EvidenceValidator(instance_id="test-inst-123")
-    
+
     def test_self_authored_evidence_rejected(self):
         """Test that self-authored evidence is rejected."""
         evidence = {
@@ -27,13 +28,13 @@ class TestEvidenceValidator:
             'authored_by': 'test-inst-123',
             'source': 'generated'
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'SELF_AUTHORED_EVIDENCE'
         assert self.validator.rejected_count == 1
-    
+
     def test_creator_instance_id_rejected(self):
         """Test that evidence with matching creator_instance_id is rejected."""
         evidence = {
@@ -41,12 +42,12 @@ class TestEvidenceValidator:
             'creator_instance_id': 'test-inst-123',
             'source': 'analysis'
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'SELF_AUTHORED_EVIDENCE'
-    
+
     def test_supermemory_self_created_rejected(self):
         """Test that Supermemory content created by this instance is rejected."""
         evidence = {
@@ -57,12 +58,12 @@ class TestEvidenceValidator:
                 'timestamp': '2025-10-27T10:00:00Z'
             }
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'SELF_AUTHORED_SUPERMEMORY'
-    
+
     def test_supermemory_excluded_from_evidence_rejected(self):
         """Test that Supermemory content marked as excluded is rejected."""
         evidence = {
@@ -73,12 +74,12 @@ class TestEvidenceValidator:
                 'excluded_from_evidence': True
             }
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'SELF_AUTHORED_SUPERMEMORY'
-    
+
     def test_kb_self_authored_rejected(self):
         """Test that KB facts created by this instance are rejected."""
         evidence = {
@@ -86,12 +87,12 @@ class TestEvidenceValidator:
             'content': 'Fact about X',
             'created_by_instance': 'test-inst-123'
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'SELF_AUTHORED_KB'
-    
+
     def test_circular_reference_rejected(self):
         """Test that circular references are detected and rejected."""
         evidence = {
@@ -102,12 +103,12 @@ class TestEvidenceValidator:
                 {'instance_id': 'test-inst-123', 'timestamp': '2025-10-27T08:00:00Z'}
             ]
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'CIRCULAR_REFERENCE'
-    
+
     def test_derived_from_instance_rejected(self):
         """Test that evidence derived from this instance's output is rejected."""
         evidence = {
@@ -115,12 +116,12 @@ class TestEvidenceValidator:
             'source': 'derived',
             'derived_from_instance': 'test-inst-123'
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'CIRCULAR_REFERENCE'
-    
+
     def test_valid_external_evidence_accepted(self):
         """Test that valid external evidence is accepted."""
         evidence = {
@@ -130,13 +131,13 @@ class TestEvidenceValidator:
             'authored_by': 'wikipedia_editors',
             'creator_instance_id': 'external'
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert is_valid
         assert reason == 'VALID'
         assert self.validator.rejected_count == 0
-    
+
     def test_valid_supermemory_from_other_instance_accepted(self):
         """Test that Supermemory content from other instances is accepted."""
         evidence = {
@@ -147,12 +148,12 @@ class TestEvidenceValidator:
                 'excluded_from_evidence': False
             }
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert is_valid
         assert reason == 'VALID'
-    
+
     def test_batch_validation(self):
         """Test batch validation of multiple evidence items."""
         evidence_list = [
@@ -183,14 +184,14 @@ class TestEvidenceValidator:
                 'metadata': {'creator_instance_id': 'test-inst-123'}
             }
         ]
-        
+
         valid, rejected = self.validator.validate_batch(evidence_list)
-        
+
         assert len(valid) == 2
         assert len(rejected) == 2
         assert rejected[0]['rejection_reason'] == 'SELF_AUTHORED_EVIDENCE'
         assert rejected[1]['rejection_reason'] == 'SELF_AUTHORED_SUPERMEMORY'
-    
+
     def test_statistics_tracking(self):
         """Test that rejection statistics are tracked correctly."""
         # Create multiple rejections
@@ -200,23 +201,23 @@ class TestEvidenceValidator:
             'source': 'supermemory',
             'metadata': {'creator_instance_id': 'test-inst-123'}
         })
-        
+
         stats = self.validator.get_statistics()
-        
+
         assert stats['total_rejected'] == 3
         assert stats['rejection_reasons']['SELF_AUTHORED_EVIDENCE'] == 2
         assert stats['rejection_reasons']['SELF_AUTHORED_SUPERMEMORY'] == 1
         assert stats['instance_id'] == 'test-inst-123'
-    
+
     def test_missing_source_rejected(self):
         """Test that evidence without source is rejected."""
         evidence = {
             'content': 'Some fact',
             # Missing 'source' field
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(evidence)
-        
+
         assert not is_valid
         assert reason == 'MISSING_PROVENANCE'
 

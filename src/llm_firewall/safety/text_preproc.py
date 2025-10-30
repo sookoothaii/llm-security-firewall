@@ -7,9 +7,10 @@ Persona-free, purely epistemic indicators.
 """
 
 from __future__ import annotations
-from typing import Any, Dict
+
 import re
 import unicodedata
+from typing import Any, Dict
 
 # Zero-width invisible characters
 ZW_INVIS = ''.join([
@@ -42,7 +43,7 @@ def has_homoglyph_mix(s: str) -> bool:
     has_lat = any('LATIN' in unicodedata.name(ch, '') for ch in s if ch.isalpha())
     has_cyr = any('CYRILLIC' in unicodedata.name(ch, '') for ch in s if ch.isalpha())
     has_grk = any('GREEK' in unicodedata.name(ch, '') for ch in s if ch.isalpha())
-    
+
     return has_lat and (has_cyr or has_grk)
 
 
@@ -57,7 +58,7 @@ def evasion_signals(s: str) -> dict:
         Dict with evasion flags and aggregate count
     """
     t = strip_zero_width(normalize_nfkc_lower(s))
-    
+
     sig: Dict[str, Any] = {
         "mentions_bypass": any(p in t for p in [
             "ignore previous", "bypass", "evade", "circumvent", "jailbreak"
@@ -69,10 +70,10 @@ def evasion_signals(s: str) -> dict:
         "zero_width_present": (t != normalize_nfkc_lower(s)),
         "homoglyph_mix": has_homoglyph_mix(s),
     }
-    
+
     # Aggregate: count of distinct flags
     sig["evasion_count"] = sum(1 for v in sig.values() if v)
-    
+
     return sig
 
 
@@ -86,7 +87,7 @@ if __name__ == "__main__":
         "Zero\u200bwidth\u200cchars\u200dpresent",
         "Ηомоglyph mixing Lаtin and Сyrillic"
     ]
-    
+
     for text in test_cases:
         signals = evasion_signals(text)
         print(f"\nText: {text[:50]}...")

@@ -13,12 +13,12 @@ Date: 2025-10-30
 License: MIT
 """
 
-from dataclasses import dataclass, field
-from enum import Enum
-from typing import List, Tuple, Optional
-from datetime import datetime
 import hashlib
 import json
+from dataclasses import dataclass, field
+from datetime import datetime
+from enum import Enum
+from typing import List, Optional, Tuple
 
 
 class DifficultyLevel(Enum):
@@ -45,7 +45,7 @@ class SpatialObject:
     rotation: Tuple[float, float, float]  # (roll, pitch, yaw) in degrees
     color: str  # RGB hex (e.g., "#FF0000")
     size: float = 1.0  # Scale factor
-    
+
     def to_dict(self) -> dict:
         """Serialize to dict."""
         return {
@@ -71,21 +71,21 @@ class Challenge:
     seed: int
     difficulty: DifficultyLevel
     question_type: str  # "which_behind", "which_above", "rotation_match", etc.
-    
+
     # Scene
     objects: List[SpatialObject]
     rotation_angle: float  # Degrees
     occlusion_enabled: bool
-    
+
     # Question
     question_text: str
     options: List[str]  # Multiple choice answers
     correct_answer: str
-    
+
     # Metadata
     created_at: datetime = field(default_factory=datetime.now)
     presented_at: Optional[datetime] = None
-    
+
     def __post_init__(self):
         """Validate challenge parameters."""
         if not self.objects:
@@ -96,7 +96,7 @@ class Challenge:
             raise ValueError(f"Correct answer '{self.correct_answer}' not in options")
         if not (0 <= self.rotation_angle <= 360):
             raise ValueError(f"Rotation angle must be in [0, 360], got {self.rotation_angle}")
-    
+
     def to_dict(self) -> dict:
         """Serialize to dict for storage."""
         return {
@@ -113,7 +113,7 @@ class Challenge:
             "created_at": self.created_at.isoformat(),
             "presented_at": self.presented_at.isoformat() if self.presented_at else None
         }
-    
+
     def compute_hash(self) -> str:
         """
         Compute deterministic hash for challenge.
@@ -143,17 +143,17 @@ class ChallengeResponse:
     selected_answer: str
     response_time_ms: int
     is_correct: bool
-    
+
     # Metadata
     device_info: Optional[dict] = None  # Screen size, input method
     session_id: Optional[str] = None
     timestamp: datetime = field(default_factory=datetime.now)
-    
+
     def __post_init__(self):
         """Validate response."""
         if self.response_time_ms < 0:
             raise ValueError(f"Response time must be >= 0, got {self.response_time_ms}")
-    
+
     def is_suspicious(self) -> bool:
         """
         Business rule: Detect suspicious response patterns.
@@ -183,20 +183,20 @@ class UserSpatialProfile:
     challenges_completed: int = 0
     challenges_passed: int = 0
     average_response_time_ms: float = 0.0
-    
+
     # Difficulty performance
     easy_accuracy: float = 0.0
     medium_accuracy: float = 0.0
     hard_accuracy: float = 0.0
-    
+
     last_updated: datetime = field(default_factory=datetime.now)
-    
+
     def pass_rate(self) -> float:
         """Calculate overall pass rate."""
         if self.challenges_completed == 0:
             return 0.0
         return self.challenges_passed / self.challenges_completed
-    
+
     def recommend_difficulty(self) -> DifficultyLevel:
         """
         Business rule: Recommend next difficulty level.
@@ -207,13 +207,13 @@ class UserSpatialProfile:
         """
         if self.challenges_completed < 3:
             return DifficultyLevel.MEDIUM  # Baseline
-        
+
         if self.medium_accuracy > 0.8 and self.challenges_completed >= 5:
             return DifficultyLevel.HARD
-        
+
         if self.medium_accuracy < 0.5:
             return DifficultyLevel.EASY
-        
+
         return DifficultyLevel.MEDIUM
 
 
@@ -225,4 +225,5 @@ MAX_RESPONSE_TIME_MS = 30000   # Slower = timeout/suspicious
 # Target performance (from paper)
 TARGET_HUMAN_PASS_RATE = 0.90   # 90%+ for humans
 TARGET_MLLM_PASS_RATE = 0.31    # <31% for SoTA MLLMs
+
 

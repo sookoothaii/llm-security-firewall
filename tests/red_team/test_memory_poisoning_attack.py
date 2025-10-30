@@ -17,16 +17,17 @@ Expected Defense:
 """
 
 import pytest
+
 from llm_firewall.evidence.validator import EvidenceValidator
 
 
 class TestMemoryPoisoningAttack:
     """Red-Team: MINJA-style memory poisoning attacks."""
-    
+
     def setup_method(self):
         """Setup validator for red-team instance."""
         self.validator = EvidenceValidator(instance_id="red-team-attacker")
-    
+
     def test_minja_step1_direct_injection_blocked(self):
         """Test MINJA Step 1: Direct memory injection is blocked."""
         # Attack: Try to inject self-authored memory
@@ -38,13 +39,13 @@ class TestMemoryPoisoningAttack:
                 'session': 'attack_session_1'
             }
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(poisoned_memory)
-        
+
         # MUST be rejected (either reason is valid - both block the attack)
         assert not is_valid
         assert reason in ['SELF_AUTHORED_SUPERMEMORY', 'SELF_AUTHORED_EVIDENCE']
-    
+
     def test_minja_step3_retrieval_of_own_content_blocked(self):
         """Test MINJA Step 3: Retrieval of own content is blocked."""
         # Attack: Later session tries to use previously planted memory
@@ -57,13 +58,13 @@ class TestMemoryPoisoningAttack:
                 'retrieved_in_session': 'attack_session_5'
             }
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(retrieved_memory)
-        
+
         # MUST be rejected (same creator_instance_id)
         assert not is_valid
         assert reason == 'SELF_AUTHORED_SUPERMEMORY'
-    
+
     def test_circular_reference_chain_detected(self):
         """Test detection of circular reference chains."""
         # Attack: Evidence that references attacker's previous output
@@ -75,13 +76,13 @@ class TestMemoryPoisoningAttack:
                 {'instance_id': 'red-team-attacker', 'timestamp': '2025-10-27T09:00:00Z'}
             ]
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(circular_evidence)
-        
+
         # MUST be rejected (circular reference)
         assert not is_valid
         assert reason == 'CIRCULAR_REFERENCE'
-    
+
     def test_derived_from_own_analysis_blocked(self):
         """Test that evidence derived from attacker's analysis is blocked."""
         # Attack: Another instance summarizes attacker's output
@@ -90,13 +91,13 @@ class TestMemoryPoisoningAttack:
             'source': 'summary',
             'derived_from_instance': 'red-team-attacker'
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(derived_evidence)
-        
+
         # MUST be rejected
         assert not is_valid
         assert reason == 'CIRCULAR_REFERENCE'
-    
+
     def test_excluded_flag_respected(self):
         """Test that excluded_from_evidence flag is respected."""
         # Attack: Try to use memory explicitly marked as excluded
@@ -108,13 +109,13 @@ class TestMemoryPoisoningAttack:
                 'excluded_from_evidence': True  # Explicitly excluded!
             }
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(excluded_memory)
-        
+
         # MUST be rejected
         assert not is_valid
         assert reason == 'SELF_AUTHORED_SUPERMEMORY'
-    
+
     def test_legitimate_external_memory_accepted(self):
         """Test that legitimate external memories are accepted."""
         # NOT an attack: Valid external evidence
@@ -127,9 +128,9 @@ class TestMemoryPoisoningAttack:
                 'verified': True
             }
         }
-        
+
         is_valid, reason = self.validator.is_valid_evidence(external_memory)
-        
+
         # MUST be accepted
         assert is_valid
         assert reason == 'VALID'

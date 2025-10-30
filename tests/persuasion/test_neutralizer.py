@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Tests for Neutralizer"""
 import pathlib
+
 from llm_firewall.persuasion.neutralizer import Neutralizer
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -40,4 +41,5 @@ def test_fallback_when_no_verb():
     obj = N.restate_neutral(text)
     # Should still produce something reasonable
     assert len(obj["restated"]) > 10
+
 

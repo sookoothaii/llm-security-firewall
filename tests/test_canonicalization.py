@@ -4,6 +4,7 @@ CRITICAL: These tests validate security-critical normalization.
 """
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from llm_firewall.text.normalize import canonicalize, is_evasion_attempt
@@ -99,7 +100,7 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("CANONICALIZATION TESTS (SECURITY CRITICAL)")
     print("=" * 60 + "\n")
-    
+
     test_cyrillic_homoglyphs()
     test_greek_homoglyphs()
     test_zero_width_chars()
@@ -109,7 +110,7 @@ if __name__ == "__main__":
     test_idempotence()
     test_benign_text()
     test_combined_evasion()
-    
+
     print("\n" + "=" * 60)
     print("ALL CANONICALIZATION TESTS PASSED")
     print("=" * 60)

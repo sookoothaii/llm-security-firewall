@@ -20,6 +20,7 @@ Requirements:
 """
 
 from __future__ import annotations
+
 import argparse
 import datetime as dt
 import sys
@@ -32,8 +33,8 @@ except ImportError:
 
 
 def kill_switch(
-    dsn: str, 
-    domains: list[str], 
+    dsn: str,
+    domains: list[str],
     last_n_adapters: int = 5,
     last_m_promotions: int = 200,
     dry_run: bool = False
@@ -49,7 +50,7 @@ def kill_switch(
         dry_run: If True, only print actions without executing
     """
     now = dt.datetime.utcnow().isoformat()
-    
+
     print("=== Kill-Switch Procedure ===")
     print(f"Timestamp: {now}")
     print(f"Domains: {domains}")
@@ -57,11 +58,11 @@ def kill_switch(
     print(f"Demote promotions: last {last_m_promotions}")
     print(f"Dry-run: {dry_run}")
     print()
-    
+
     if dry_run:
         print("DRY-RUN MODE - No changes will be made")
         print()
-    
+
     try:
         with psycopg.connect(dsn, autocommit=False) as conn:
             with conn.cursor() as cur:
@@ -76,14 +77,14 @@ def kill_switch(
                         LIMIT %s
                         RETURNING adapter_id, created_at;
                     """
-                    
+
                     if not dry_run:
                         cur.execute(query, (domain, last_n_adapters))
                         rows = cur.fetchall()
                         print(f"  {domain}: Unmounted {len(rows)} adapters")
                     else:
                         print(f"  {domain}: Would unmount {last_n_adapters} adapters")
-                
+
                 # 2) Demote/quarantine last M promotions
                 print("\nStep 2: Demoting promotions...")
                 query = """
@@ -95,14 +96,14 @@ def kill_switch(
                     LIMIT %s
                     RETURNING decision_id, created_at;
                 """
-                
+
                 if not dry_run:
                     cur.execute(query, (now, last_m_promotions))
                     rows = cur.fetchall()
                     print(f"  Demoted {len(rows)} promotions")
                 else:
                     print(f"  Would demote {last_m_promotions} promotions")
-                
+
                 # 3) Freeze memory writes
                 print("\nStep 3: Freezing memory writes...")
                 query = """
@@ -111,7 +112,7 @@ def kill_switch(
                     WHERE name = 'memory_write_enabled'
                     RETURNING name;
                 """
-                
+
                 if not dry_run:
                     cur.execute(query)
                     if cur.rowcount > 0:
@@ -120,7 +121,7 @@ def kill_switch(
                         print("  Warning: feature_flags table may not exist")
                 else:
                     print("  Would freeze memory writes")
-                
+
                 # 4) Ledger event
                 print("\nStep 4: Creating ledger event...")
                 query = """
@@ -130,14 +131,14 @@ def kill_switch(
                             now())
                     RETURNING id;
                 """
-                
+
                 if not dry_run:
                     cur.execute(query, (domains, now, dry_run))
                     event_id = cur.fetchone()
                     print(f"  Ledger event created: {event_id[0] if event_id else 'N/A'}")
                 else:
                     print("  Would create ledger event")
-                
+
                 # Commit or rollback
                 if not dry_run:
                     conn.commit()
@@ -145,7 +146,7 @@ def kill_switch(
                 else:
                     conn.rollback()
                     print("\n✓ Dry-run complete (no changes made)")
-                
+
     except psycopg.OperationalError as e:
         print("\nERROR: Database connection failed")
         print(f"  {e}")
@@ -173,8 +174,8 @@ Examples:
   python tools/kill_switch.py --dsn "postgresql://..." --domains SCIENCE --last-n-adapters 10 --last-m-promotions 500
         """
     )
-    
-    ap.add_argument("--dsn", required=True, 
+
+    ap.add_argument("--dsn", required=True,
                     help="PostgreSQL connection string")
     ap.add_argument("--domains", nargs="+", required=True,
                     help="Domains to affect (SCIENCE, MEDICINE, etc.)")
@@ -184,19 +185,19 @@ Examples:
                     help="Number of recent promotions to demote (default: 200)")
     ap.add_argument("--dry-run", action="store_true",
                     help="Dry-run mode (no changes)")
-    
+
     args = ap.parse_args()
-    
+
     # Confirmation prompt (unless dry-run)
     if not args.dry_run:
         print("WARNING: This will affect production data!")
         print(f"Domains: {', '.join(args.domains)}")
         confirm = input("Type 'CONFIRM' to proceed: ")
-        
+
         if confirm != "CONFIRM":
             print("Aborted.")
             sys.exit(0)
-    
+
     kill_switch(
         dsn=args.dsn,
         domains=args.domains,

@@ -2,8 +2,8 @@
 Negative control tests for encoding detection.
 Ensures benign base64/hex don't trigger false positives.
 """
-import sys
 import base64
+import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -43,11 +43,11 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("ENCODING NEGATIVE CONTROL TESTS")
     print("=" * 60 + "\n")
-    
+
     test_base64_negative_control_benign()
     test_hex_negative_control_benign()
     test_base64_with_jailbreak_context()
-    
+
     print("\n" + "=" * 60)
     print("ALL ENCODING TESTS PASSED")
     print("=" * 60)

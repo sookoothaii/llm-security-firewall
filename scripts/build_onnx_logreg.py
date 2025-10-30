@@ -9,11 +9,13 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
-import onnx
-from onnx import helper, TensorProto
-import numpy as np
-from typing import Union
+
 import pathlib
+from typing import Union
+
+import numpy as np
+import onnx
+from onnx import TensorProto, helper
 
 
 def build_onnx(W: np.ndarray, b: np.ndarray, out_path: Union[str, pathlib.Path], input_dim: int | None = None):
@@ -46,7 +48,7 @@ def build_onnx(W: np.ndarray, b: np.ndarray, out_path: Union[str, pathlib.Path],
     )
     # Use IR version 9 + Opset 17 for compatibility with ONNX Runtime 1.20.1 (max IR 10, max opset 21)
     model = helper.make_model(
-        graph, 
+        graph,
         producer_name="hak_gal_firewall",
         ir_version=9,
         opset_imports=[helper.make_opsetid("", 17)]  # Opset 17 stable, widely supported

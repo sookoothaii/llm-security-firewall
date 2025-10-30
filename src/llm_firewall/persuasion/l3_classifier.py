@@ -12,8 +12,10 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
+
 import os
 from typing import List, Sequence
+
 import numpy as np
 
 try:

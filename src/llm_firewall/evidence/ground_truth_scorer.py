@@ -20,14 +20,14 @@ References:
     - GPT-5 Critical Analysis: Memory-Poisoning Prevention
 """
 
-from typing import Dict, List, Optional
-from datetime import datetime
 import logging
+from datetime import datetime
+from typing import Dict, List, Optional
 
-from llm_firewall.utils.types import GroundTruthScore, DomainConfig
+from llm_firewall.evidence.source_verifier import SourceVerifier
 from llm_firewall.evidence.validator import get_validator
 from llm_firewall.trust.domain_scorer import DomainTrustScorer
-from llm_firewall.evidence.source_verifier import SourceVerifier
+from llm_firewall.utils.types import DomainConfig, GroundTruthScore
 
 logger = logging.getLogger(__name__)
 
@@ -133,7 +133,7 @@ class GroundTruthScorer:
         - DomainTrustScorer (Authority assessment)
         - SourceVerifier (Link/DOI validation + BLAKE3)
     """
-    
+
     def __init__(self, domain_configs: Optional[Dict[str, DomainConfig]] = None):
         """
         Args:
@@ -142,9 +142,9 @@ class GroundTruthScorer:
         self.configs = domain_configs or DOMAIN_CONFIGS
         self.domain_trust_scorer = DomainTrustScorer()
         self.source_verifier = SourceVerifier()
-        
+
         logger.info("[GT Scorer] Initialized with security features: EvidenceValidator, DomainTrust, SourceVerifier")
-    
+
     def score(
         self,
         query: str,
@@ -168,13 +168,13 @@ class GroundTruthScorer:
         validator = get_validator()
         if validator:
             valid_sources, rejected_sources = validator.validate_batch(sources)
-            
+
             if rejected_sources:
                 logger.warning(
                     f"[GT Scorer] REJECTED {len(rejected_sources)} sources due to self-authorship. "
                     f"Reasons: {[r['rejection_reason'] for r in rejected_sources]}"
                 )
-            
+
             # Use only validated sources
             sources = valid_sources
         else:
@@ -182,29 +182,29 @@ class GroundTruthScorer:
                 "[GT Scorer] EvidenceValidator not initialized - "
                 "proceeding without Memory-Poisoning protection!"
             )
-        
+
         # Auto-detect domain if not provided
         if domain is None:
             domain = self._detect_domain(query, kb_facts)
-        
+
         # Get domain config
         config = self.configs.get(domain, self.configs['GLOBAL'])
-        
+
         # Compute component scores
         kb_score = self._score_kb_coverage(kb_facts, config)
         source_score = self._score_sources(sources, config)
         recency_score = self._score_recency(kb_facts, sources, config)
-        
+
         # Weighted average (domain-specific weights)
         overall = (
             config.weight_kb * kb_score +
             config.weight_sources * source_score +
             config.weight_recency * recency_score
         )
-        
+
         # Find newest fact/source
         days_since = self._compute_days_since_newest(kb_facts, sources)
-        
+
         return GroundTruthScore(
             overall_score=overall,
             kb_coverage=kb_score,
@@ -218,7 +218,7 @@ class GroundTruthScorer:
             domain_half_life=config.half_life_days,
             query=query
         )
-    
+
     def _score_kb_coverage(self, kb_facts: List[Dict], config: DomainConfig) -> float:
         """
         Score KB fact coverage
@@ -226,16 +226,16 @@ class GroundTruthScorer:
         Method: Saturating function - diminishing returns after threshold
         """
         n_facts = len(kb_facts)
-        
+
         # Saturation at 10 facts (more doesn't help much)
         saturation_point = 10.0
-        
+
         # Logistic saturation curve
         normalized = n_facts / saturation_point
         saturated = normalized / (1 + normalized)  # Soft saturation
-        
+
         return saturated
-    
+
     def _score_sources(self, sources: List[Dict], config: DomainConfig) -> float:
         """
         Score source quality with security features.
@@ -253,55 +253,55 @@ class GroundTruthScorer:
         """
         if not sources:
             return 0.0
-        
+
         n_sources = len(sources)
-        
+
         # Verify and score each source
         trust_scores = []
         verified_count = 0
-        
+
         for source in sources:
             url = source.get('url', source.get('name', ''))
-            
+
             # Get domain trust score
             domain_trust, reasoning = self.domain_trust_scorer.score_source(url)
-            
+
             # Mark as verified if high trust or explicitly verified
             is_verified = (
                 domain_trust >= 0.75 or  # High-trust domain
                 source.get('verified', False)  # Explicitly marked
             )
-            
+
             if is_verified:
                 verified_count += 1
                 trust_scores.append(domain_trust)
-            
+
             logger.debug(
                 f"[GT Scorer] Source: {url[:50]}... | "
                 f"trust={domain_trust:.2f} | verified={is_verified}"
             )
-        
+
         # Count score (saturates at 5)
         count_score = min(n_sources / 5.0, 1.0)
-        
+
         # Verified score (saturates at 2)
         verified_score = min(verified_count / 2.0, 1.0)
-        
+
         # Average domain trust (for verified sources only)
         if trust_scores:
             avg_trust = sum(trust_scores) / len(trust_scores)
         else:
             avg_trust = 0.0
-        
+
         # Weighted combination
         source_quality = (
             0.4 * count_score +       # How many sources
             0.3 * verified_score +    # How many verified
             0.3 * avg_trust           # Average trust score
         )
-        
+
         return source_quality
-    
+
     def _score_recency(
         self,
         kb_facts: List[Dict],
@@ -315,19 +315,19 @@ class GroundTruthScorer:
         """
         # Find newest timestamp
         timestamps = []
-        
+
         for fact in kb_facts:
             if 'timestamp' in fact:
                 timestamps.append(fact['timestamp'])
-        
+
         for source in sources:
             if 'published_date' in source:
                 timestamps.append(source['published_date'])
-        
+
         if not timestamps:
             # No temporal info - assume old
             return 0.50
-        
+
         # Parse timestamps
         dates = []
         for ts in timestamps:
@@ -338,21 +338,21 @@ class GroundTruthScorer:
                     pass
             elif isinstance(ts, datetime):
                 dates.append(ts)
-        
+
         if not dates:
             return 0.50
-        
+
         # Newest date
         newest = max(dates)
         days_old = (datetime.now() - newest).days
-        
+
         # Exponential decay with domain half-life
         # score = 2^(-days_old / half_life)
         half_life = config.half_life_days
         recency_score = 2 ** (-days_old / half_life)
-        
+
         return recency_score
-    
+
     def _compute_days_since_newest(
         self,
         kb_facts: List[Dict],
@@ -360,18 +360,18 @@ class GroundTruthScorer:
     ) -> int:
         """Compute days since newest fact/source"""
         timestamps = []
-        
+
         for fact in kb_facts:
             if 'timestamp' in fact:
                 timestamps.append(fact['timestamp'])
-        
+
         for source in sources:
             if 'published_date' in source:
                 timestamps.append(source['published_date'])
-        
+
         if not timestamps:
             return 999999
-        
+
         dates = []
         for ts in timestamps:
             if isinstance(ts, str):
@@ -381,13 +381,13 @@ class GroundTruthScorer:
                     pass
             elif isinstance(ts, datetime):
                 dates.append(ts)
-        
+
         if not dates:
             return 999999
-        
+
         newest = max(dates)
         return (datetime.now() - newest).days
-    
+
     def _detect_domain(self, query: str, kb_facts: List[Dict]) -> str:
         """
         Auto-detect query domain
@@ -396,7 +396,7 @@ class GroundTruthScorer:
         Phase 2: Embedding-based classification
         """
         query_lower = query.lower()
-        
+
         # Keyword matching (simple heuristic)
         domain_keywords = {
             'MATH': ['calculate', 'equation', 'number', 'sum', 'multiply', 'pi', 'sqrt'],
@@ -405,11 +405,11 @@ class GroundTruthScorer:
             'GEOGRAPHY': ['country', 'capital', 'continent', 'ocean', 'mountain', 'river'],
             'NEWS': ['today', 'recently', 'latest', 'current', 'breaking'],
         }
-        
+
         for domain, keywords in domain_keywords.items():
             if any(kw in query_lower for kw in keywords):
                 return domain
-        
+
         # Check KB facts for domain tags
         if kb_facts:
             domains_in_facts = [f.get('domain') for f in kb_facts if 'domain' in f]
@@ -418,7 +418,7 @@ class GroundTruthScorer:
                 from collections import Counter
                 most_common_domain = Counter(domains_in_facts).most_common(1)[0][0]
                 return str(most_common_domain)
-        
+
         # Default
         return 'GLOBAL'
 

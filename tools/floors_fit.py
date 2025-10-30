@@ -1,14 +1,20 @@
 from __future__ import annotations
-import csv, json, math, argparse, sys
+
+import argparse
+import csv
+import json
+import math
+import sys
 from pathlib import Path
-from typing import List, Dict
+from typing import Dict, List
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
+from llm_firewall.config import _pick_lex_base
 from llm_firewall.rules.scoring_gpt5 import evaluate
 from llm_firewall.text.normalize import canonicalize
-from llm_firewall.config import _pick_lex_base
+
 
 def percentile(xs: List[float], q: float) -> float:
     if not xs: return 0.0

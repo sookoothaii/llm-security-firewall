@@ -12,14 +12,14 @@ Author: Claude Sonnet 4.5 (Forschungsleiter)
 Date: 2025-10-27
 """
 
-from typing import Optional
-import uuid
 import logging
+import uuid
+from typing import Optional
 
-from llm_firewall.utils.types import HonestyDecision
 from llm_firewall.evidence.ground_truth_scorer import GroundTruthScorer
 from llm_firewall.fusion.adaptive_threshold import AdaptiveThresholdManager
 from llm_firewall.fusion.robbins_monro import ProximalRobbinsMonroController
+from llm_firewall.utils.types import HonestyDecision
 
 logger = logging.getLogger(__name__)
 
@@ -30,12 +30,12 @@ SANITY_PATTERNS = [
     {'keywords': ['paris', 'france', 'capital'], 'answer': 'yes'},
     {'keywords': ['canberra', 'australia', 'capital'], 'answer': 'yes'},
     {'keywords': ['sydney', 'capital', 'australia'], 'answer': 'no'},
-    
+
     # Math
     {'keywords': ['2+2', '4'], 'answer': 'yes'},
     {'keywords': ['pi', '3.14'], 'answer': 'yes'},
     {'keywords': ['sqrt', '4', '2'], 'answer': 'yes'},
-    
+
     # Science
     {'keywords': ['water', 'boils', '100'], 'answer': 'yes'},
     {'keywords': ['sun', 'planet'], 'answer': 'no'},  # Sun is star
@@ -54,7 +54,7 @@ class HonestyDecisionEngine:
         4. Apply confidence safety check
         5. Return decision + detailed reasoning
     """
-    
+
     def __init__(
         self,
         gt_scorer: GroundTruthScorer,
@@ -76,12 +76,12 @@ class HonestyDecisionEngine:
         self.rm_controller = rm_controller
         self.min_confidence = min_confidence_override
         self.sanity_enabled = sanity_override_enabled
-        
+
         logger.info(
             f"[HonestyEngine] Initialized (min_conf={min_confidence_override}, "
             f"sanity={sanity_override_enabled})"
         )
-    
+
     def decide(
         self,
         query: str,
@@ -108,13 +108,13 @@ class HonestyDecisionEngine:
         # Step 1: Compute Ground Truth score
         gt_score = self.gt_scorer.score(query, kb_facts, sources, domain)
         domain = gt_score.domain  # Use detected domain
-        
+
         # Step 2: Get adaptive threshold
         threshold = self.threshold_manager.get_threshold(user_id, domain)
-        
+
         # Step 3: Check sanity override
         is_sanity, sanity_confidence = self._check_sanity(query)
-        
+
         if self.sanity_enabled and is_sanity and sanity_confidence > 0.95:
             # Sanity query → ALWAYS answer
             should_answer = True
@@ -123,18 +123,18 @@ class HonestyDecisionEngine:
                 f"Sanity query detected (confidence {sanity_confidence:.1%}) - "
                 f"OVERRIDE: Always answer obvious questions"
             )
-            
+
             logger.info(
                 f"[Decision] SANITY OVERRIDE: '{query[:50]}...' → ANSWER "
                 f"(sanity_conf={sanity_confidence:.1%})"
             )
-        
+
         else:
             sanity_override = False
-            
+
             # Step 4: Primary decision - GT score vs threshold
             should_answer = gt_score.overall_score >= threshold
-            
+
             # Step 5: Confidence safety check
             if should_answer and confidence < self.min_confidence:
                 # High GT but low model confidence = suspicious
@@ -143,16 +143,16 @@ class HonestyDecisionEngine:
                     f"CONFIDENCE BLOCK: GT score sufficient ({gt_score.overall_score:.1%} >= {threshold:.1%}) "
                     f"but model confidence too low ({confidence:.1%} < {self.min_confidence:.1%})"
                 )
-                
+
                 logger.warning(
                     f"[Decision] CONFIDENCE OVERRIDE: '{query[:50]}...' → ABSTAIN "
                     f"(GT={gt_score.overall_score:.1%}, conf={confidence:.1%})"
                 )
-            
+
             else:
                 # Normal decision
                 margin = gt_score.overall_score - threshold
-                
+
                 if should_answer:
                     reasoning = (
                         f"Ground truth sufficient: {gt_score.overall_score:.1%} >= {threshold:.1%} "
@@ -163,16 +163,16 @@ class HonestyDecisionEngine:
                         f"Ground truth insufficient: {gt_score.overall_score:.1%} < {threshold:.1%} "
                         f"(margin: {margin:.1%})"
                     )
-        
+
         # Compute margin
         margin = gt_score.overall_score - threshold
-        
+
         # Get user strictness
         personality = self.threshold_manager._get_personality(user_id)
         directness = personality.get('directness', 0.7)
         bullshit_tolerance = personality.get('bullshit_tolerance', 0.3)
         strictness = (directness + (1.0 - bullshit_tolerance)) / 2.0
-        
+
         # Create decision object
         decision = HonestyDecision(
             decision='ANSWER' if should_answer else 'ABSTAIN',
@@ -187,15 +187,15 @@ class HonestyDecisionEngine:
             decision_id=str(uuid.uuid4()),
             sanity_override=sanity_override
         )
-        
+
         logger.info(
             f"[Decision] {user_id}/{domain}: {decision.decision} "
             f"(GT={gt_score.overall_score:.2f}, τ={threshold:.2f}, "
             f"conf={confidence:.2f}, margin={margin:+.2f})"
         )
-        
+
         return decision
-    
+
     def _check_sanity(self, query: str) -> tuple:
         """
         Check if query is sanity check (obvious answer)
@@ -208,12 +208,12 @@ class HonestyDecisionEngine:
             "Is 2+2=4?" → (True, 0.99)
         """
         query_lower = query.lower()
-        
+
         for pattern in SANITY_PATTERNS:
             keywords = pattern['keywords']
             # Check if all keywords present
             if all(kw in query_lower for kw in keywords):
                 return True, 0.99
-        
+
         return False, 0.0
 

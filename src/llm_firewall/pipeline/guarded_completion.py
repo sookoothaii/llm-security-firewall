@@ -19,16 +19,20 @@ License: MIT
 
 import asyncio
 import time
-from typing import List, Dict, Tuple, Optional
+from typing import Dict, List, Optional, Tuple
 
-from llm_firewall.core.types import ModelContext, Decision
-from llm_firewall.gates.stream_guard import StreamGuard, StreamAction
-from llm_firewall.judges.base import Judge
 from llm_firewall.aggregate.conformal_stacker import (
     ConformalRiskStacker,
-    decision_from_risk
+    decision_from_risk,
 )
-from llm_firewall.ledger.decision_ledger import DecisionLedger, DecisionRecord, JudgeVote
+from llm_firewall.core.types import Decision, ModelContext
+from llm_firewall.gates.stream_guard import StreamAction, StreamGuard
+from llm_firewall.judges.base import Judge
+from llm_firewall.ledger.decision_ledger import (
+    DecisionLedger,
+    DecisionRecord,
+    JudgeVote,
+)
 
 
 async def run_judges_parallel(
@@ -60,7 +64,12 @@ async def run_judges_parallel(
             return result
         except Exception as e:
             # Judge failed - return neutral report
-            from llm_firewall.core.types import JudgeReport, TaxonomyRisk, RiskScore, Severity
+            from llm_firewall.core.types import (
+                JudgeReport,
+                RiskScore,
+                Severity,
+                TaxonomyRisk,
+            )
             return JudgeReport(
                 name=judge.name,
                 version=judge.version,
@@ -71,17 +80,17 @@ async def run_judges_parallel(
                 ),
                 notes=f"Judge failed: {str(e)}"
             )
-    
+
     # Create tasks
     tasks = [asyncio.create_task(_run_one(j)) for j in judges]
-    
+
     # Wait with timeout
     done, pending = await asyncio.wait(tasks, timeout=timeout_s)
-    
+
     # Cancel pending
     for task in pending:
         task.cancel()
-    
+
     # Collect results
     return [task.result() for task in done if not task.cancelled()]
 
@@ -119,48 +128,48 @@ async def guarded_completion(
     if risk_tier in ["high", "critical"]:
         # Generate challenge
         item = captcha.generate(difficulty=3)
-        
+
         # Present to user (external UI required)
         # user_response = await get_user_response(item)
-        
+
         # For now: Skip actual challenge (would need UI integration)
         # In production: Wait for user response, verify, block if failed
-        
+
         cap_info = {
             "item_id": item.item_id,
             "seed": item.seed,
             "params": item.params,
             "passed": True  # Placeholder
         }
-    
+
     # Gate 1: Stream generation with token guard
     state = stream_guard.start(ctx)
     draft_tokens = []
-    
+
     # Simulate streaming (would be: async for tok in model.stream(prompt))
     # For now: Single completion
     draft_text = "This is a simulated LLM response."
-    
+
     for token in draft_text.split():
         action, state = stream_guard.on_token(token, state)
-        
+
         if action == StreamAction.ABORT:
             break
         elif action == StreamAction.REWRITE:
             draft_tokens.append("[REDACTED]")
         else:  # CONTINUE
             draft_tokens.append(token)
-    
+
     stream_guard.finish(state)
     draft_complete = " ".join(draft_tokens)
-    
+
     # Gate 2: Multi-agent judges (parallel)
     reports = await run_judges_parallel(judges, ctx, prompt, draft_complete)
-    
+
     # Aggregator: Conformal risk stacking
     agg = stacker.aggregate(reports)
     decision = decision_from_risk(agg, stacker.cfg)
-    
+
     # Build decision record
     votes = [
         JudgeVote(
@@ -173,7 +182,7 @@ async def guarded_completion(
         )
         for r in reports
     ]
-    
+
     record = DecisionRecord(
         ctx=ctx,
         captcha=cap_info,
@@ -196,11 +205,11 @@ async def guarded_completion(
         },
         decision=decision
     )
-    
+
     # Persist to ledger
     record_id = ledger.persist(record)
     record.kue_proof_id = record_id
-    
+
     # Return based on decision
     if decision == Decision.DENY:
         output = ""
@@ -208,6 +217,7 @@ async def guarded_completion(
         output = "I cannot provide a complete answer. Please rephrase your question."
     else:  # ALLOW
         output = draft_complete
-    
+
     return decision, output, cap_info
+
 

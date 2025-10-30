@@ -10,6 +10,7 @@ Creator: Joerg Bollwahn
 License: MIT
 """
 from __future__ import annotations
+
 import json
 import pathlib
 import re
@@ -42,7 +43,7 @@ class PersuasionDetector:
     - Unity/Identity
     - Roleplay/Ignore Rules
     """
-    
+
     def __init__(self, lexicon_dir: str | pathlib.Path):
         """
         Initialize detector with lexicon directory.
@@ -114,4 +115,5 @@ class PersuasionDetector:
         if score >= warn_threshold:
             return "warn"
         return "allow"
+
 

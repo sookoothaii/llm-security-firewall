@@ -9,15 +9,16 @@ Persona/Epistemik separation: No personality variables here.
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Sequence, Optional, Dict
-import logging
 
+import logging
+from dataclasses import dataclass
+from typing import Dict, Optional, Sequence
+
+from llm_firewall.evidence.source_verifier import SourceVerifier
+from llm_firewall.evidence.validator import EvidenceValidator
 from llm_firewall.trust.content_hasher import blake3_hex
 from llm_firewall.trust.domain_scorer import DomainTrustScorer
-from llm_firewall.evidence.source_verifier import SourceVerifier
 from llm_firewall.trust.nli_consistency import FakeNLI, consistency_against_kb
-from llm_firewall.evidence.validator import EvidenceValidator
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +49,7 @@ class EvidencePipeline:
     CRITICAL: Persona/Epistemik separation maintained.
     No personality variables in pipeline logic.
     """
-    
+
     def __init__(
         self,
         config: PipelineConfig,
@@ -63,9 +64,9 @@ class EvidencePipeline:
         self.domain_trust = domain_trust_scorer
         self.source_verifier = source_verifier
         self.nli = nli_model or FakeNLI()
-        
+
         logger.info("[EvidencePipeline] Initialized with security components")
-    
+
     def process(
         self,
         record: EvidenceRecord,
@@ -92,16 +93,16 @@ class EvidencePipeline:
         """
         # Step 1: Content hashing
         digest = blake3_hex(record.content)
-        
+
         # Step 2: Self-authorship check
         evidence_obj = {
             'content': record.content,
             'source': record.source_domain or 'external',
             'url': record.source_url
         }
-        
+
         is_valid_evidence, rejection_reason = self.evidence_validator.is_valid_evidence(evidence_obj)
-        
+
         if not is_valid_evidence:
             return {
                 'digest': digest,
@@ -111,12 +112,12 @@ class EvidencePipeline:
                 'nli': 0.0,
                 'verified': False
             }
-        
+
         # Step 3: Domain trust
         trust = 0.5  # Default
         if record.source_url:
             trust, trust_reasoning = self.domain_trust.score_source(record.source_url)
-        
+
         # Step 4: Source verification
         link_verified = False
         if record.source_url:
@@ -126,7 +127,7 @@ class EvidencePipeline:
                 expected_doi=record.doi
             )
             link_verified = verification['verified']
-        
+
         # Step 5: NLI consistency
         nli_score = 0.0
         if kb_sentences:
@@ -136,35 +137,35 @@ class EvidencePipeline:
                 self.nli,
                 agg="max"
             )
-        
+
         # Step 6: Corroboration check
         has_corroboration = record.kb_corroborations >= self.cfg.min_corroborations
-        
+
         # Step 7: Decision
         decision = "QUARANTINE"
         reasons = []
-        
+
         if trust < self.cfg.tau_trust:
             reasons.append(f"low_trust:{trust:.2f} < tau({self.cfg.tau_trust:.2f})")
-        
+
         if nli_score < self.cfg.tau_nli:
             reasons.append(f"low_nli:{nli_score:.2f} < tau({self.cfg.tau_nli:.2f})")
-        
+
         if self.cfg.require_corroboration and not has_corroboration:
             reasons.append(
                 f"low_corroboration:{record.kb_corroborations} < "
                 f"{self.cfg.min_corroborations}"
             )
-        
+
         if not reasons:
             decision = "PROMOTE"
-        
+
         logger.info(
             f"[EvidencePipeline] {decision}: "
             f"trust={trust:.2f}, nli={nli_score:.2f}, "
             f"corr={record.kb_corroborations}"
         )
-        
+
         return {
             'digest': digest,
             'trust': trust,

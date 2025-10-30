@@ -92,11 +92,11 @@ CONCEPTS = ["neural networks", "photosynthesis", "democracy"]
 def generate_samples(n_per_class: int = 100) -> list:
     """Generate n_per_class samples for each class"""
     samples = []
-    
+
     for cls, templates in TEMPLATES.items():
         for _ in range(n_per_class):
             template = random.choice(templates)
-            
+
             # Fill placeholders
             text = template.format(
                 title=random.choice(TITLES),
@@ -109,29 +109,29 @@ def generate_samples(n_per_class: int = 100) -> list:
                 x=random.choice(TOPICS),
                 y=random.choice(TOPICS),
             )
-            
+
             samples.append({"text": text, "label": cls})
-    
+
     # Shuffle
     random.shuffle(samples)
     return samples
 
 def main():
     random.seed(42)  # Reproducible
-    
+
     print("Generating synthetic training data...")
     samples = generate_samples(n_per_class=100)
-    
+
     output_path = Path("data/l3_train.jsonl")
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(output_path, "w", encoding="utf-8") as f:
         for sample in samples:
             f.write(json.dumps(sample, ensure_ascii=False) + "\n")
-    
+
     print(f"\n[OK] Generated {len(samples)} samples")
     print(f"[OK] Saved to: {output_path}")
-    print(f"\nClass distribution:")
+    print("\nClass distribution:")
     from collections import Counter
     counts = Counter(s["label"] for s in samples)
     for cls, count in sorted(counts.items()):

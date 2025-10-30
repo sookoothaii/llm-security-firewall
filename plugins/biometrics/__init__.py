@@ -20,9 +20,9 @@ Usage:
     auth_result = biometrics.authenticate(user_id, message)
 """
 
-from .biometrics_module import BiometricsModule
-from .biometrics_port import BiometricsPort, BiometricProfile
 from .biometrics_adapter import PostgreSQLBiometricsAdapter
+from .biometrics_module import BiometricsModule
+from .biometrics_port import BiometricProfile, BiometricsPort
 
 __all__ = ['BiometricsModule', 'BiometricsPort', 'BiometricProfile', 'PostgreSQLBiometricsAdapter']
 __version__ = '1.0.0'

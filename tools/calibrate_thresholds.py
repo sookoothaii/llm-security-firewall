@@ -14,7 +14,7 @@ from typing import List, Tuple
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from llm_firewall.rules.scoring_gpt5 import evaluate, load_lexicons
+from llm_firewall.rules.scoring_gpt5 import evaluate
 
 
 def load_dataset(path: Path) -> List[Tuple[str, int]]:
@@ -55,11 +55,11 @@ def calibrate(path_csv: Path, max_gap: int = 3):
     base = Path(__file__).parent.parent / "src" / "llm_firewall" / "lexicons_gpt5"
     if not (base / "intents.json").exists():
         base = Path(__file__).parent.parent / "src" / "llm_firewall" / "lexicons"
-    
+
     print(f"Loading dataset: {path_csv}")
     data = load_dataset(path_csv)
     print(f"Loaded {len(data)} samples")
-    
+
     # Compute scores
     print("Computing scores...")
     scores, labels = [], []
@@ -75,21 +75,21 @@ def calibrate(path_csv: Path, max_gap: int = 3):
         except Exception as e:
             print(f"  Warning: Failed on sample {i}: {e}")
             continue
-    
+
     print(f"\nProcessed {len(scores)} samples successfully")
-    
+
     # Compute ROC curve (naive implementation)
     print("Computing ROC curve...")
     pairs = sorted(zip(scores, labels), key=lambda x: x[0])
     thresholds = sorted(set(s for s, _ in pairs))
-    
+
     P = sum(labels)  # Positives
     N = len(labels) - P  # Negatives
-    
+
     if P == 0 or N == 0:
         print("ERROR: Dataset must have both positive and negative samples!")
         sys.exit(1)
-    
+
     tprs, fprs = [], []
     for thr in thresholds:
         tp = sum(1 for s, y in zip(scores, labels) if s >= thr and y == 1)
@@ -100,21 +100,21 @@ def calibrate(path_csv: Path, max_gap: int = 3):
         fpr = fp / N if N else 0.0
         tprs.append(tpr)
         fprs.append(fpr)
-    
+
     # Find optimal threshold
     J, optimal_thr = youden_j(fprs, tprs, thresholds)
-    
+
     # Compute metrics at optimal threshold
     tp = sum(1 for s, y in zip(scores, labels) if s >= optimal_thr and y == 1)
     fp = sum(1 for s, y in zip(scores, labels) if s >= optimal_thr and y == 0)
     fn = P - tp
     tn = N - fp
-    
+
     sensitivity = tp / P if P else 0.0
     specificity = tn / N if N else 0.0
     precision = tp / (tp + fp) if (tp + fp) else 0.0
     f1 = 2 * precision * sensitivity / (precision + sensitivity) if (precision + sensitivity) else 0.0
-    
+
     # Output results
     result = {
         "youden_j": round(J, 6),
@@ -136,13 +136,13 @@ def calibrate(path_csv: Path, max_gap: int = 3):
             "prevalence": round(P / len(labels), 4)
         }
     }
-    
+
     print("\n" + "=" * 60)
     print("CALIBRATION RESULTS")
     print("=" * 60)
     print(json.dumps(result, indent=2))
     print("=" * 60)
-    
+
     # Save to file
     output_path = Path(__file__).parent.parent / "config" / "calibrated_threshold.json"
     output_path.parent.mkdir(exist_ok=True)
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         print("Usage: python tools/calibrate_thresholds.py <path_to_csv>")
         print("CSV format: text,label (label in {0,1})")
         sys.exit(1)
-    
+
     calibrate(Path(sys.argv[1]))
 
 

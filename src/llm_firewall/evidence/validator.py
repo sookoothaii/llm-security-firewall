@@ -11,9 +11,9 @@ GPT-5 Critical Analysis (2025-10-27):
 Solution: No self-authored evidence allowed.
 """
 
-from typing import Dict, Tuple, Optional
 import logging
 from datetime import datetime
+from typing import Dict, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class EvidenceValidator:
     - Blocks circular reasoning
     - Ensures evidence independence
     """
-    
+
     def __init__(self, instance_id: str):
         """
         Initialize validator.
@@ -44,7 +44,7 @@ class EvidenceValidator:
             'SELF_AUTHORED_KB': 0,
             'MISSING_PROVENANCE': 0
         }
-    
+
     def is_valid_evidence(self, evidence: dict) -> Tuple[bool, str]:
         """
         Validate evidence against self-authorship policy.
@@ -65,42 +65,42 @@ class EvidenceValidator:
         if evidence.get('authored_by') == self.instance_id:
             self._log_rejection('SELF_AUTHORED_EVIDENCE', evidence)
             return False, "SELF_AUTHORED_EVIDENCE"
-        
+
         # Check 2: Creator instance ID
         if evidence.get('creator_instance_id') == self.instance_id:
             self._log_rejection('SELF_AUTHORED_EVIDENCE', evidence)
             return False, "SELF_AUTHORED_EVIDENCE"
-        
+
         # Check 3: Supermemory self-authored content
         if evidence.get('source') == 'supermemory':
             metadata = evidence.get('metadata', {})
             if metadata.get('creator_instance_id') == self.instance_id:
                 self._log_rejection('SELF_AUTHORED_SUPERMEMORY', evidence)
                 return False, "SELF_AUTHORED_SUPERMEMORY"
-            
+
             # Supermemory content marked as excluded
             if metadata.get('excluded_from_evidence', False):
                 self._log_rejection('SELF_AUTHORED_SUPERMEMORY', evidence)
                 return False, "SELF_AUTHORED_SUPERMEMORY"
-        
+
         # Check 4: KB facts created by this instance
         if evidence.get('source') == 'kb':
             if evidence.get('created_by_instance') == self.instance_id:
                 self._log_rejection('SELF_AUTHORED_KB', evidence)
                 return False, "SELF_AUTHORED_KB"
-        
+
         # Check 5: Circular reference detection
         if self._is_circular_reference(evidence):
             self._log_rejection('CIRCULAR_REFERENCE', evidence)
             return False, "CIRCULAR_REFERENCE"
-        
+
         # Check 6: Provenance exists
         if not self._has_valid_provenance(evidence):
             self._log_rejection('MISSING_PROVENANCE', evidence)
             return False, "MISSING_PROVENANCE"
-        
+
         return True, "VALID"
-    
+
     def _is_circular_reference(self, evidence: dict) -> bool:
         """
         Check for circular chains of evidence.
@@ -118,7 +118,7 @@ class EvidenceValidator:
         """
         # Check if evidence references this instance's previous outputs
         reference_chain = evidence.get('reference_chain', [])
-        
+
         for ref in reference_chain:
             if ref.get('instance_id') == self.instance_id:
                 logger.warning(
@@ -126,13 +126,13 @@ class EvidenceValidator:
                     f"Evidence references output from instance {self.instance_id}"
                 )
                 return True
-        
+
         # Check if evidence is a derivative of our own content
         if evidence.get('derived_from_instance') == self.instance_id:
             return True
-        
+
         return False
-    
+
     def _has_valid_provenance(self, evidence: dict) -> bool:
         """
         Check if evidence has valid provenance metadata.
@@ -146,7 +146,7 @@ class EvidenceValidator:
         # Must have source
         if not evidence.get('source'):
             return False
-        
+
         # Supermemory/KB must have creator info
         source = evidence.get('source')
         if source in ['supermemory', 'kb']:
@@ -159,20 +159,20 @@ class EvidenceValidator:
                 # For now, allow (backward compatibility)
                 # TODO: Make this strict after migration
                 return True
-        
+
         return True
-    
+
     def _log_rejection(self, reason: str, evidence: dict):
         """Log rejection for audit trail."""
         self.rejected_count += 1
         self.rejection_reasons[reason] += 1
-        
+
         logger.warning(
             f"[EvidenceValidator] REJECTED evidence: {reason} | "
             f"Source: {evidence.get('source', 'unknown')} | "
             f"Instance: {self.instance_id}"
         )
-    
+
     def get_statistics(self) -> Dict:
         """
         Get validator statistics.
@@ -185,7 +185,7 @@ class EvidenceValidator:
             'rejection_reasons': self.rejection_reasons.copy(),
             'instance_id': self.instance_id
         }
-    
+
     def validate_batch(self, evidence_list: list) -> Tuple[list, list]:
         """
         Validate a batch of evidence items.
@@ -198,10 +198,10 @@ class EvidenceValidator:
         """
         valid = []
         rejected = []
-        
+
         for evidence in evidence_list:
             is_valid, reason = self.is_valid_evidence(evidence)
-            
+
             if is_valid:
                 valid.append(evidence)
             else:
@@ -210,12 +210,12 @@ class EvidenceValidator:
                     'rejection_reason': reason,
                     'timestamp': datetime.now().isoformat()
                 })
-        
+
         logger.info(
             f"[EvidenceValidator] Batch validated: "
             f"{len(valid)} valid, {len(rejected)} rejected"
         )
-        
+
         return valid, rejected
 
 

@@ -17,9 +17,9 @@ Usage:
     profile = personality.get_personality_profile(user_id)
 """
 
+from .personality_adapter import PostgreSQLPersonalityAdapter
 from .personality_module import PersonalityModule
 from .personality_port import PersonalityPort
-from .personality_adapter import PostgreSQLPersonalityAdapter
 
 __all__ = ['PersonalityModule', 'PersonalityPort', 'PostgreSQLPersonalityAdapter']
 __version__ = '1.0.0'

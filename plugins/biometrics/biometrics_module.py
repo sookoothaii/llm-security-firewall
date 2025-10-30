@@ -11,7 +11,8 @@ PRIVACY-FIRST DESIGN:
 """
 
 from typing import Dict, Optional
-from .biometrics_port import BiometricsPort, BiometricProfile, AuthenticationResult
+
+from .biometrics_port import AuthenticationResult, BiometricProfile, BiometricsPort
 
 
 class BiometricsModule:
@@ -50,7 +51,7 @@ class BiometricsModule:
             # Block suspicious request
             pass
     """
-    
+
     def __init__(self, adapter: BiometricsPort):
         """
         Initialize cultural biometrics module.
@@ -68,7 +69,7 @@ class BiometricsModule:
                 "No personal data is included with this package."
             )
         self.adapter = adapter
-    
+
     def authenticate(
         self,
         user_id: str,
@@ -87,7 +88,7 @@ class BiometricsModule:
             AuthenticationResult with recommendation
         """
         return self.adapter.authenticate(user_id, message, context)
-    
+
     def update_baseline(
         self,
         user_id: str,
@@ -111,7 +112,7 @@ class BiometricsModule:
             Update statistics
         """
         return self.adapter.update_baseline(user_id, force)
-    
+
     def get_profile(self, user_id: str) -> Optional[BiometricProfile]:
         """
         Get biometric profile for user.
@@ -123,7 +124,7 @@ class BiometricsModule:
             BiometricProfile or None if not found
         """
         return self.adapter.get_profile(user_id)
-    
+
     def log_message(
         self,
         user_id: str,

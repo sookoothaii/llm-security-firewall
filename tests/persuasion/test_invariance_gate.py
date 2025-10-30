@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Tests for InvarianceGate"""
-from llm_firewall.persuasion import PersuasionDetector, Neutralizer, InvarianceGate
-
 import pathlib
 import re
+
+from llm_firewall.persuasion import InvarianceGate, Neutralizer, PersuasionDetector
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 LEX_DIR = ROOT / "src/llm_firewall/lexicons/persuasion"
@@ -48,4 +48,5 @@ def test_agreement_allows():
     res = gate.evaluate(text)
     assert res.action == "allow"
     assert res.decision_original == res.decision_restated
+
 

@@ -7,6 +7,7 @@ Users must provide their own database with the required schema.
 """
 
 from typing import Optional
+
 from .personality_port import PersonalityPort, PersonalityProfile
 
 
@@ -57,7 +58,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
             timestamp TIMESTAMP DEFAULT NOW()
         )
     """
-    
+
     def __init__(self, db_connection):
         """
         Initialize PostgreSQL adapter.
@@ -72,7 +73,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
                 "See documentation for required schema."
             )
         self.conn = db_connection
-    
+
     def get_personality_profile(self, user_id: str) -> Optional[PersonalityProfile]:
         """Get personality profile from PostgreSQL."""
         with self.conn.cursor() as cur:
@@ -92,10 +93,10 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
                 (user_id,)
             )
             row = cur.fetchone()
-            
+
             if not row:
                 return None
-            
+
             return PersonalityProfile(
                 user_id=row[0],
                 openness=row[1],
@@ -122,7 +123,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
                 interaction_count=row[22],
                 context_tags=row[23] or []
             )
-    
+
     def log_interaction(
         self,
         user_id: str,
@@ -144,7 +145,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
             interaction_id = cur.fetchone()[0]
             self.conn.commit()
             return interaction_id
-    
+
     def adapt_response(
         self,
         user_id: str,
@@ -159,31 +160,31 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
         - Personality affects NEVER: thresholds, gates, epistemic decisions
         """
         profile = self.get_personality_profile(user_id)
-        
+
         if not profile:
             return draft_response
-        
+
         adapted = draft_response
-        
+
         # Adapt based on directness
         if profile.directness > 0.8:
             # High directness: Remove softeners
             adapted = adapted.replace("maybe", "")
             adapted = adapted.replace("perhaps", "")
             adapted = adapted.replace("might", "")
-        
+
         # Adapt based on emoji tolerance
         if profile.emoji_tolerance < 0.1:
             # Remove emojis for low tolerance users
             import re
             # Remove common emojis (simplified)
             adapted = re.sub(r'[\\U0001F600-\\U0001F64F]', '', adapted)
-        
+
         # Adapt based on formality
         if profile.formality_preference > 0.7:
             # High formality: More formal language
             adapted = adapted.replace("you're", "you are")
             adapted = adapted.replace("don't", "do not")
-        
+
         return adapted
 

@@ -12,14 +12,14 @@ Date: 2025-10-30
 License: MIT
 """
 
-from typing import List, Optional, Tuple
 from dataclasses import dataclass
+from typing import List, Optional, Tuple
 
-from llm_firewall.core.types import RiskScore, Severity, JudgeReport, TaxonomyRisk
 from llm_firewall.aggregate.conformal_stacker import (
+    AggregationConfig,
     ConformalRiskStacker,
-    AggregationConfig
 )
+from llm_firewall.core.types import JudgeReport, RiskScore, Severity, TaxonomyRisk
 
 
 @dataclass
@@ -40,7 +40,7 @@ class InputEnsembleConformal:
     Treats each detector (Safety, Embedding, Perplexity) as a "judge"
     and aggregates via Conformal Risk Stacking.
     """
-    
+
     def __init__(
         self,
         qhat_provider,
@@ -64,9 +64,9 @@ class InputEnsembleConformal:
                 "perplexity_detector": 0.7
             }
         )
-        
+
         self.stacker = ConformalRiskStacker(self.config, qhat_provider)
-    
+
     def aggregate(
         self,
         results: List[InputDetectorResult]
@@ -82,11 +82,11 @@ class InputEnsembleConformal:
         """
         # Convert detector results to JudgeReports
         judge_reports: List[JudgeReport] = []
-        
+
         for result in results:
             # Map detector result to judge report
             severity = Severity.HIGH if result.is_threat else Severity.NONE
-            
+
             overall_risk = RiskScore(
                 value=result.risk_score,
                 band="unknown",  # Will be assigned by stacker
@@ -94,11 +94,11 @@ class InputEnsembleConformal:
                 calibrated=False,
                 method=result.detector_name
             )
-            
+
             categories = {}
             if result.category:
                 categories[result.category] = overall_risk
-            
+
             report = JudgeReport(
                 name=result.detector_name,
                 version="1.0",
@@ -109,23 +109,23 @@ class InputEnsembleConformal:
                 ),
                 notes=result.reason
             )
-            
+
             judge_reports.append(report)
-        
+
         # Aggregate via conformal stacker
         agg = self.stacker.aggregate(judge_reports)
-        
+
         # Determine if safe
         is_safe = agg.overall.band < self.config.deny_band
-        
+
         # Build reason string
         threat_detectors = [r.name for r in judge_reports if r.risks.overall.severity >= Severity.MEDIUM]
-        
+
         if threat_detectors:
             reason = f"Conformal ensemble: Risk {agg.overall.value:.3f} (band {agg.overall.band}). Detectors flagged: {', '.join(threat_detectors)}"
         else:
             reason = f"Conformal ensemble: Safe (risk {agg.overall.value:.3f}, band {agg.overall.band})"
-        
+
         return is_safe, reason, agg.overall
 
 
@@ -148,11 +148,11 @@ def input_qhat_provider(detector_name: str, coverage: float) -> float:
         "embedding_detector": 0.35,    # Semantic, more variable
         "perplexity_detector": 0.40    # Statistical, most variable
     }
-    
+
     base = defaults.get(detector_name, 0.5)
-    
+
     # Scale by coverage (higher coverage = higher q-hat)
     scaled = base * (1.0 / (1.0 - coverage))
-    
+
     return scaled
 

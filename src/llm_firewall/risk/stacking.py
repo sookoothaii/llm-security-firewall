@@ -7,6 +7,7 @@ Features:
 - ECE/Brier gates (only activate if calibration quality sufficient)
 """
 from __future__ import annotations
+
 import json
 import math
 from dataclasses import dataclass
@@ -47,7 +48,7 @@ def load_artifacts(base: Path) -> MetaArtifacts:
     model = json.loads((base / "model_meta.json").read_text())
     platt = json.loads((base / "platt.json").read_text())
     metrics = json.loads((base / "metrics.json").read_text())
-    
+
     return MetaArtifacts(
         coef=model["coef"],
         intercept=model["intercept"],
@@ -61,7 +62,7 @@ def load_artifacts(base: Path) -> MetaArtifacts:
 
 class MetaEnsemble:
     """Meta-ensemble classifier with Platt scaling."""
-    
+
     def __init__(self, art: MetaArtifacts):
         """
         Initialize with artifacts.
@@ -74,7 +75,7 @@ class MetaEnsemble:
         """
         assert art.features == META_FEATURES, f"Feature mismatch: {art.features} != {META_FEATURES}"
         self.a = art
-    
+
     def predict_proba(self, x: List[float]) -> float:
         """
         Predict probability with Platt-scaled logistic regression.
@@ -87,10 +88,10 @@ class MetaEnsemble:
         """
         # Linear combination
         z = sum(w * v for w, v in zip(self.a.coef, x)) + self.a.intercept
-        
+
         # Platt scaling
         p = _sigmoid(self.a.platt_A * z + self.a.platt_B)
-        
+
         return float(min(max(p, 0.0), 1.0))
 
 

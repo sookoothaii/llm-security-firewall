@@ -12,8 +12,9 @@ License: MIT
 """
 
 from dataclasses import dataclass
-from typing import List, Dict
 from datetime import date
+from typing import Dict, List
+
 import numpy as np
 
 
@@ -63,25 +64,25 @@ def lodo_cross_validate(
         LODOResult with cross-validation metrics
     """
     dates = sorted(data_by_day.keys())
-    
+
     if len(dates) < 3:
         raise ValueError(f"LODO requires >= 3 days, got {len(dates)}")
-    
+
     auc_scores = []
     ece_scores = []
     brier_scores = []
-    
+
     for held_out_date in dates:
         # Split data
         train_days = [d for d in dates if d != held_out_date]
-        
+
         # Aggregate training data
         train_preds = []
         train_labels = []
-        
+
         for d in train_days:
             day_data = data_by_day[d]
-            
+
             # Filter by category if specified
             if category != "default":
                 indices = [i for i, c in enumerate(day_data.categories) if c == category]
@@ -90,7 +91,7 @@ def lodo_cross_validate(
             else:
                 train_preds.extend(day_data.predictions)
                 train_labels.extend(day_data.labels)
-        
+
         # Validation data
         val_data = data_by_day[held_out_date]
         if category != "default":
@@ -100,26 +101,27 @@ def lodo_cross_validate(
         else:
             val_preds = val_data.predictions
             val_labels = val_data.labels
-        
+
         if not val_preds or not val_labels:
             continue
-        
+
         # Compute metrics on validation fold
-        from llm_firewall.metrics.hooks import brier_score, expected_calibration_error
         from sklearn.metrics import roc_auc_score
-        
+
+        from llm_firewall.metrics.hooks import brier_score, expected_calibration_error
+
         try:
             auc = roc_auc_score(val_labels, val_preds)
             ece = expected_calibration_error(val_preds, val_labels)
             brier = brier_score(val_preds, val_labels)
-            
+
             auc_scores.append(auc)
             ece_scores.append(ece)
             brier_scores.append(brier)
         except Exception:
             # Fold failed (e.g., all same class) - skip
             continue
-    
+
     # Aggregate results
     return LODOResult(
         judge_name=judge_name,
@@ -155,14 +157,14 @@ def compute_qhat_from_data(
     """
     if not predictions or not labels:
         return 0.5  # Conservative default
-    
+
     # Nonconformity score = |prediction - label|
     nonconformity = [abs(pred - label) for pred, label in zip(predictions, labels)]
-    
+
     # (1-alpha) quantile
     quantile = 1.0 - (1.0 - coverage)
     qhat = float(np.quantile(nonconformity, quantile))
-    
+
     return qhat
 
 

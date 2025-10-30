@@ -6,9 +6,9 @@ Cognitive And Research Effectiveness assessment.
 """
 
 from abc import ABC, abstractmethod
-from typing import Dict, Optional
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Dict, Optional
 
 
 @dataclass
@@ -36,12 +36,12 @@ class SessionOutcome:
 
 class CAREPort(ABC):
     """Abstract port for CARE functionality."""
-    
+
     @abstractmethod
     def get_readiness(self, user_id: str) -> ReadinessScore:
         """Get current cognitive readiness score."""
         pass
-    
+
     @abstractmethod
     def log_session(
         self,
@@ -53,12 +53,12 @@ class CAREPort(ABC):
     ) -> int:
         """Log research session outcome."""
         pass
-    
+
     @abstractmethod
     def suggest_optimal_time(self, user_id: str) -> Dict:
         """Suggest optimal time for next session."""
         pass
-    
+
     @abstractmethod
     def get_stats(self) -> Dict:
         """Get CARE system statistics."""

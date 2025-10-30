@@ -13,8 +13,10 @@ Based on GPT-5 Evidence Pipeline (2025-10-27)
 """
 
 from __future__ import annotations
+
 import re
 import unicodedata
+
 from blake3 import blake3
 
 
@@ -38,10 +40,10 @@ def normalize_text(text: str) -> str:
     """
     # NFKC normalization (canonical decomposition + compatibility)
     x = unicodedata.normalize("NFKC", text)
-    
+
     # Collapse whitespace to single space
     x = re.sub(r"\s+", " ", x).strip()
-    
+
     return x
 
 

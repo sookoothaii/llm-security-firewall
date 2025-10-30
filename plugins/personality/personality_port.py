@@ -6,22 +6,22 @@ This is the PORT interface for personality functionality.
 """
 
 from abc import ABC, abstractmethod
-from typing import Optional, List
 from dataclasses import dataclass
+from typing import List, Optional
 
 
 @dataclass
 class PersonalityProfile:
     """Personality profile with 20 dimensions."""
     user_id: str
-    
+
     # Big Five
     openness: float
     conscientiousness: float
     extraversion: float
     agreeableness: float
     neuroticism: float
-    
+
     # HAK/GAL Specific
     truth_over_comfort: float
     iterative_rigor: float
@@ -38,7 +38,7 @@ class PersonalityProfile:
     precision_priority: float
     honesty_absoluteness: float
     evidence_requirement: float
-    
+
     # Metadata
     confidence_score: float
     interaction_count: int
@@ -47,12 +47,12 @@ class PersonalityProfile:
 
 class PersonalityPort(ABC):
     """Abstract port for personality functionality."""
-    
+
     @abstractmethod
     def get_personality_profile(self, user_id: str) -> Optional[PersonalityProfile]:
         """Get personality profile for user."""
         pass
-    
+
     @abstractmethod
     def log_interaction(
         self,
@@ -63,7 +63,7 @@ class PersonalityPort(ABC):
     ) -> int:
         """Log interaction for profile learning."""
         pass
-    
+
     @abstractmethod
     def adapt_response(
         self,
