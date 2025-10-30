@@ -3,20 +3,21 @@
 **Bidirectional Security Framework for Human/LLM Interfaces**
 
 **Creator:** Joerg Bollwahn  
-**Version:** 1.0.0  
+**Version:** 1.1.0 (unreleased)  
 **License:** MIT  
-**Status:** Development (254/254 tests passing + 2 skipped + 1 xfail, not peer-reviewed)
+**Status:** Development (260/260 tests passing + 2 skipped + 1 xfail, not peer-reviewed)
 
 ---
 
 ## Abstract
 
-We present a bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 9 core defense layers (plus 2 optional advanced components) with 100% test coverage.
+We present a bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 9 core defense layers (plus 2 optional advanced components, plus 1 experimental persuasion layer) with 100% test coverage.
 
 **Key Contributions:**
 - Multi-layer ensemble defense with graceful degradation (embedding, perplexity, pattern-based detection)
 - Text canonicalization defeating Unicode-based evasion techniques
 - 43-pattern jailbreak detection (28 intent + 15 evasion) across 7 attack categories
+- Persuasion-jailbreak detection via three-tier ensemble (L1 lexicons, L2 heuristics, L3 ONNX classifier) with policy-invariance checking
 - MINJA prevention via creator_instance_id tracking
 - 59-canary drift detection system with temporal and mathematical validation
 - EWMA influence budget tracking for slow-roll attack detection
