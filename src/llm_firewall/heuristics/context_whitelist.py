@@ -97,15 +97,30 @@ def is_sha256_benign(line: str, m: re.Match) -> bool:
 
 def _b64_has_anchor(b64: str) -> bool:
     """Check if base64 contains provider anchors after decoding."""
+    import base64 as b64mod
+    
     # Inline anchor list to avoid circular imports
     anchors = ["sk-live", "sk-test", "ghp_", "gho_", "xoxb-", "xoxp-", "x-api-key", "api_key", "bearer"]
     
     try:
-        raw = base64.b64decode(b64, validate=True)[:4096]
-    except Exception:
+        raw = b64mod.b64decode(b64, validate=True)[:4096]
+    except Exception as e:
         return False
     if not raw:
         return False
+    
+    # PNG-aware check (if it's a PNG, scan metadata too)
+    if raw.startswith(b"\x89PNG\r\n\x1a\n"):
+        try:
+            from llm_firewall.detectors.png_text_sniff import detect_png_text_secret
+            
+            png_result = detect_png_text_secret(raw)
+            if png_result["has_secret"]:
+                return True
+        except Exception:
+            pass
+    
+    # Text decode fallback
     try:
         s = raw.decode("utf-8", "ignore").lower()
     except Exception:
@@ -128,11 +143,17 @@ def whitelist_decision(text: str) -> tuple[bool, str]:
         - Hex density checks
         - Length invariants
     """
+    # EXCLUDE archives from whitelisting (must be scanned by archive_sniff)
+    if re.search(
+        r"data:application/(?:gzip|x-gzip|zip|x-zip|octet-stream);base64,", text, re.I
+    ):
+        return False, ""  # Never whitelist potential archives
+    
     # Base64: only whitelist if decode reveals NO provider anchors (GPT-5 fix)
-    # Data-URI: check decoded content
-    m = re.search(r"data:[^;]+;base64,([A-Za-z0-9+/=]+)", text, re.I)
+    # Data-URI: ONLY for image/* (application/gzip|zip could hide secrets)
+    m = re.search(r"data:image/[^;]+;base64,([A-Za-z0-9+/=]+)", text, re.I)
     if m and not _b64_has_anchor(m.group(1)):
-        return True, "base64_data_uri_benign"
+        return True, "base64_data_uri_image_benign"
     
     # Image headers with base64
     if (

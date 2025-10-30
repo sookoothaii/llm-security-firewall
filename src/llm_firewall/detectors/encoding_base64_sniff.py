@@ -7,6 +7,8 @@ import base64
 import re
 from typing import Any
 
+from llm_firewall.detectors.png_text_sniff import detect_png_text_secret
+
 _B64_RUN = re.compile(r"[A-Za-z0-9+/]{24,}={0,2}")
 _DATA_URI = re.compile(r"data:[^;]+;base64,([A-Za-z0-9+/=]+)", re.I)
 
@@ -53,6 +55,18 @@ def detect_base64_secret(text: str) -> dict[str, Any]:
 
     # Data-URI path (common in attacks that hide text)
     for m in _DATA_URI.finditer(text):
+        # PNG metadata path first
+        try:
+            b = base64.b64decode(m.group(1), validate=True)
+            png = detect_png_text_secret(b)
+            if png["has_secret"]:
+                findings["has_secret"] = True
+                findings["windows"].append((m.start(), m.end()))
+                findings["score"] = 1.0
+                return findings
+        except Exception:
+            pass
+        
         s = _safe_decode(m.group(1))
         if s and any(a in s for a in anchors):
             findings["has_secret"] = True
