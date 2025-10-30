@@ -23,12 +23,13 @@ from src.llm_firewall.adapters.write_log_adapter import (
 SKIP_DB = os.getenv("SKIP_DB_TESTS", "0") == "1"
 
 # Test connection params (adjust for your environment)
+# Set HAKGAL_DB_PASSWORD env var or skip DB tests
 TEST_DB_PARAMS = {
     "host": "127.0.0.1",
     "port": 5172,
     "database": "hakgal",
     "user": "hakgal",
-    "password": "UdjazplzuyMyUf7neyP0XsZt/no2edMAWp3J3MMjst0=",
+    "password": os.getenv("HAKGAL_DB_PASSWORD", ""),
 }
 
 

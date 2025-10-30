@@ -1,0 +1,53 @@
+# Gitleaks Configuration for LLM Security Firewall
+# Purpose: Allow fake test data, prevent real secrets
+# Creator: Joerg Bollwahn
+# Date: 2025-10-30
+
+title = "LLM Security Firewall Gitleaks Config"
+
+# Allowlist for fake test data and examples
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(api[_-]?key|apikey)(.{0,20})?['"\s:=]+([a-z0-9_\-]{20,})'''
+
+[[rules.allowlist]]
+# Allow API_KEY= in test files and benchmarks (fake test data)
+paths = [
+    '''tests/.*\.py$''',
+    '''benchmarks/.*\.py$''',
+    '''examples/.*\.py$'''
+]
+regexes = [
+    '''API_KEY=(XYZ123|ABCD1234|xyz789)''',
+    '''api_key=(XYZ123|ABCD1234|xyz789|leaked)''',
+    '''first tokens: API_KEY''',
+]
+
+[[rules]]
+id = "password"
+description = "Password in code"
+regex = '''(?i)(password|passwd|pwd)(.{0,20})?['"\s:=]+([^\s]{8,})'''
+
+[[rules.allowlist]]
+# Allow password= in test files (fake test data)
+paths = [
+    '''tests/.*\.py$''',
+    '''benchmarks/.*\.py$''',
+]
+regexes = [
+    '''password=(admin123|test123)''',
+    '''password.*admin''',
+    '''first tokens: password''',
+]
+
+# Global allowlist for documentation and examples
+[allowlist]
+description = "Global allowlist for safe patterns"
+paths = [
+    '''.*\.md$''',
+    '''.*\.txt$''',
+    '''.*\.yaml$''',
+    '''LICENSE''',
+]
+
