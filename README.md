@@ -460,6 +460,26 @@ Note: Implementation adapts existing methods. No novel algorithms. Integration o
 
 ## Limitations
 
+### P0 Blockers Before Production Use (Critical - External Review)
+
+**Validation Gaps (must address):**
+1. **No Real-World Attack Validation** - ASR/FPR measured only on synthetic datasets (n=140 per seed). No external red-team evaluation. No multi-lingual/multi-domain attack corpus.
+2. **Safety-Sandwich Metrics Missing** - critical-leak@20 target (≤0.5%) not measured empirically. Leak prevention remains theoretical claim without evidence.
+3. **GuardNet Training Pipeline Incomplete** - Architecture implemented but no Decision Ledger mining, no Teacher-Ensemble labeling, no Hard-Negative mining, no OOD abstention mechanism documented.
+4. **Online Calibration Unproven** - Conformal q-hat calibration implemented but coverage guarantees per bucket not validated under distribution shift.
+5. **No Live Shadow Traffic** - Framework not validated against real production traffic (28-day shadow run with pre-registered analysis plan required).
+6. **Policy Invariant Coverage Minimal** - Only example invariants provided. Critical domains (PII disclosure, cross-tenant rules, dual-use topics) lack formal verification.
+7. **Distribution Shift Handling Unverified** - Drift detection implemented but no documented Auto-Recalib→Rollback pathway validated.
+8. **Privacy-Preserving Telemetry Not Deployed** - DP wrappers mentioned but k-anonymity/epsilon compliance not demonstrated.
+
+**Acceptance Criteria (measurable, not yet met):**
+- Shadow run (28 days): ASR@FPR=1% ≤ 0.25, critical-leak@20 ≤ 0.5%, ECE ≤ 0.05, Brier ≤ 0.10
+- Latency under load: p95 ≤ 150ms, p99 ≤ 350ms (3x burst with brownout mode)
+- Policy invariants: Minimum 8 Z3 invariants passing (biohazard, exploits, PII, secrets, cross-tenant, irreversible-actions, child-safety, financial-conduct)
+- Incident drill: TTD ≤ 15min, TTC ≤ 30min (kill-switch + policy-freeze)
+
+Note: This section added based on external technical review (2025-10-30). Honest assessment of production readiness gaps.
+
 ### Knowledge Base Dependencies
 - Framework performance depends on KB quality and coverage (not quantified)
 - Domain-specific knowledge gaps reduce validation accuracy (extent unknown)
