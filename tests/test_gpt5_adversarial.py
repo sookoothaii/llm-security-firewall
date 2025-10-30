@@ -15,7 +15,6 @@ sys.path.insert(0, str(root / "src"))
 
 from llm_firewall.gates.secrets_heuristics import analyze_secrets  # noqa: E402
 
-
 # Load test cases
 TEST_DATA_PATH = root / "data" / "gpt5_adversarial_suite.jsonl"
 
@@ -24,7 +23,7 @@ def load_test_cases():
     """Load GPT-5 adversarial test cases."""
     if not TEST_DATA_PATH.exists():
         pytest.skip(f"Test data not found: {TEST_DATA_PATH}")
-    
+
     cases = []
     with open(TEST_DATA_PATH, encoding="utf-8") as f:
         for line in f:
@@ -52,9 +51,9 @@ def test_adversarial_case(case):
     attack_type = case["attack_type"]
     severity = case["severity"]
     weakness = case["weakness_if_pass"]
-    
+
     detected = should_detect_secret(payload)
-    
+
     if expected == "should_block":
         if not detected:
             # FAILURE - document the weakness
@@ -65,7 +64,7 @@ def test_adversarial_case(case):
             )
             pytest.fail(msg)
         # Success - but don't celebrate, just pass
-    
+
     elif expected == "should_allow":
         if detected:
             # FALSE POSITIVE
@@ -81,14 +80,14 @@ def test_adversarial_summary_stats():
     """Generate summary statistics of adversarial test results."""
     if not test_cases:
         pytest.skip("No test cases loaded")
-    
+
     by_severity = {}
     by_category = {}
-    
+
     for case in test_cases:
         sev = case["severity"]
         by_severity[sev] = by_severity.get(sev, 0) + 1
-        
+
         attack_type = case["attack_type"]
         # Extract category from attack_type
         if "multi" in attack_type or "session" in attack_type or "slow_roll" in attack_type:
@@ -103,17 +102,17 @@ def test_adversarial_summary_stats():
             cat = "edge_case_fp"
         else:
             cat = "other_evasion"
-        
+
         by_category[cat] = by_category.get(cat, 0) + 1
-    
+
     print("\n=== GPT-5 ADVERSARIAL SUITE SUMMARY ===")
     print(f"Total Cases: {len(test_cases)}")
-    print(f"\nBy Severity:")
+    print("\nBy Severity:")
     for sev in ["critical", "high", "medium", "low"]:
         count = by_severity.get(sev, 0)
         print(f"  {sev.upper()}: {count}")
-    
-    print(f"\nBy Category:")
+
+    print("\nBy Category:")
     for cat, count in sorted(by_category.items(), key=lambda x: -x[1]):
         print(f"  {cat}: {count}")
 
