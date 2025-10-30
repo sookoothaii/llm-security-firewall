@@ -37,7 +37,7 @@ def normalize(text: str) -> str:
     
     Steps:
     1. NFKC normalization
-    2. Remove zero-width characters
+    2. Remove zero-width characters (replace with space to preserve boundaries)
     3. Remove variation selectors
     4. Map homoglyphs to ASCII equivalents
     5. Collapse whitespace
@@ -52,8 +52,8 @@ def normalize(text: str) -> str:
         return ""
     # NFKC fold
     t = unicodedata.normalize("NFKC", text)
-    # strip zero-width + variation
-    t = _ZW_RE.sub("", t)
+    # strip zero-width + variation (replace with space to preserve word boundaries)
+    t = _ZW_RE.sub(" ", t)  # Changed: "" → " "
     t = _VS_RE.sub("", t)
     # map homoglyphs
     t = _HG_RE.sub(lambda m: HOMOGLYPHS[m.group(0)], t)
