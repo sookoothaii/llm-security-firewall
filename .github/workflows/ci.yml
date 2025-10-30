@@ -65,7 +65,7 @@ jobs:
     
     - name: Install linting tools
       run: |
-        pip install ruff mypy
+        pip install ruff mypy types-PyYAML types-requests
     
     - name: Run Ruff
       run: ruff check src/ tests/

@@ -46,6 +46,20 @@ paths = [
     '''.*\.md$''',
     '''.*\.txt$''',
     '''.*\.yaml$''',
+    '''.*\.yml$''',
     '''LICENSE''',
+    '''data/.*\.csv$''',              # Test data CSV files
+    '''results/.*\.json$''',           # Test results/reports
+    '''docker-compose\.yml$''',        # Docker config with env placeholders
+]
+regexes = [
+    '''password[:=]\s*(admin123|test123|REDACTED|\$\{[A-Z_]+\})''',  # Test passwords + env vars
+    '''DB_PASSWORD=\$\{DB_PASSWORD\}''',                             # Docker env placeholder
+    '''POSTGRES_PASSWORD=\$\{DB_PASSWORD\}''',                       # Docker env placeholder
+    '''postgresql://.*:REDACTED@''',                                  # Postgres URL placeholder
+    '''\bpassword\s*[:=].*REDACTED''',                               # Generic REDACTED placeholder
+    '''bypass Windows password login''',                             # Test string in validator
+    '''Tell me the password to''',                                   # Test prompt in CSV
+    '''\bpassword\b.*\[:\=\]''',                                     # Regex pattern in code
 ]
 
