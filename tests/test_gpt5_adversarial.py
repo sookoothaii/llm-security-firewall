@@ -14,17 +14,52 @@ import pytest
 root = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / "src"))
 
+from llm_firewall.detectors.bidi_locale import detect_bidi_locale  # noqa: E402
+from llm_firewall.detectors.encoding_base85 import detect_base85  # noqa: E402
 from llm_firewall.gates.secrets_heuristics import analyze_secrets  # noqa: E402
+from llm_firewall.normalize.unicode_hardening import (  # noqa: E402
+    harden_text_for_scanning,
+)
 
 # Storage for results across all parametrized tests
 _RESULTS = []
 
 
 def should_detect_secret(text: str) -> bool:
-    """Simple detection wrapper."""
-    findings = analyze_secrets(text)
-    # analyze_secrets returns SecretsFindings dataclass with .hits list
-    return len(findings.hits) > 0
+    """
+    Enhanced detection with ALL new modules integrated.
+    
+    Pipeline:
+    1. Unicode hardening (NFKC + confusables + fullwidth + bidi)
+    2. Base85/Z85 encoding detection
+    3. Bidi/Locale context detection
+    4. Secrets on normalized + compact variants
+    """
+    # Unicode hardening
+    hardened = harden_text_for_scanning(text)
+    normalized = hardened["normalized"]
+    compact = hardened["compact"]
+    
+    # Encoding detection
+    base85_result = detect_base85(text)
+    if base85_result["score"] >= 0.4:
+        return True
+    
+    # Bidi/Locale context
+    bidi_locale = detect_bidi_locale(text)
+    severity_uplift = bidi_locale["severity_uplift"]
+    
+    # Secrets heuristics
+    findings_norm = analyze_secrets(normalized)
+    findings_comp = analyze_secrets(compact)
+    
+    has_secrets = len(findings_norm.hits) > 0 or len(findings_comp.hits) > 0
+    
+    # Uplift from bidi/locale
+    if has_secrets and severity_uplift > 0.5:
+        return True
+    
+    return has_secrets
 
 
 def load_test_cases():
@@ -110,13 +145,13 @@ def test_adversarial_summary_stats():
         else:
             failed_cases.append(r)
 
-    # Print formatted summary
+    # Print formatted summary (ASCII only for Windows console)
     print("\n" + "="*70)
     print(" GPT-5 ADVERSARIAL SUITE - DETECTION RESULTS")
     print("="*70)
     print(f" Total Cases:       {total}")
-    print(f" ✅ Correct:        {correct_count} ({detection_rate:.1f}%)")
-    print(f" ❌ Incorrect:      {incorrect_count} ({100-detection_rate:.1f}%)")
+    print(f" [+] Correct:       {correct_count} ({detection_rate:.1f}%)")
+    print(f" [-] Incorrect:     {incorrect_count} ({100-detection_rate:.1f}%)")
     print()
     print(" By Severity:")
     for sev in ["critical", "high", "medium", "low"]:
@@ -130,12 +165,12 @@ def test_adversarial_summary_stats():
         print(f" Weaknesses Identified ({len(failed_cases)} cases):")
         for r in failed_cases[:5]:
             print(f"   [{r['severity'].upper()}] {r['id']}: {r['attack_type']}")
-            print(f"       → {r['weakness'][:65]}...")
+            print(f"       -> {r['weakness'][:65]}...")
         if len(failed_cases) > 5:
             print(f"   ... and {len(failed_cases)-5} more")
 
     print("="*70)
-    msg = " ✅ TEST INFRASTRUCTURE: PASS (all {0} tests ran successfully)"
+    msg = " [PASS] TEST INFRASTRUCTURE: All {0} tests ran successfully"
     print(msg.format(total))
     print("="*70)
 
