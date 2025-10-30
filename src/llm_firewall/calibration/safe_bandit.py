@@ -116,3 +116,4 @@ def safe_ucb_simulation(
     k_best = int(np.argmin(asr_hat[safe])) if len(safe) else int(np.argmin(grid))
     return Metrics(grid[k_best], float(asr_hat[k_best]), float(fpr_hat[k_best]), int(att_seen[k_best]), int(ben_seen[k_best]))
 
+

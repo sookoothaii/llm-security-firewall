@@ -75,15 +75,34 @@ def analyze_secrets(
     """
     hits = []
 
-    # Pattern 1: API Keys (common formats)
+    # Pattern 1: API Keys (provider-specific formats - ENHANCED)
     api_key_patterns = [
+        # OpenAI
         (r'\bsk-[A-Za-z0-9]{20,}', 'openai_api_key'),
+        (r'\bsk-proj-[A-Za-z0-9]{20,}', 'openai_project_key'),
+        # Google
         (r'\bAIza[A-Za-z0-9_-]{35,}', 'google_api_key'),
+        # GitHub
         (r'\bghp_[A-Za-z0-9]{36,}', 'github_token'),
+        (r'\bgho_[A-Za-z0-9]{36,}', 'github_oauth'),
+        (r'\bghs_[A-Za-z0-9]{36,}', 'github_server_token'),
+        # GitLab
         (r'\bglpat-[A-Za-z0-9_-]{20,}', 'gitlab_token'),
+        # Slack
         (r'\bxoxb-[0-9]{10,}-[0-9]{10,}-[A-Za-z0-9]{24,}', 'slack_bot_token'),
+        (r'\bxoxp-[0-9]{10,}-[0-9]{10,}-[A-Za-z0-9]{24,}', 'slack_user_token'),
+        # HuggingFace
+        (r'\bhf_[A-Za-z0-9]{32,}', 'huggingface_token'),
+        # AWS
+        (r'\bAKIA[A-Z0-9]{16}', 'aws_access_key'),
+        # Azure
+        (r'\b[A-Za-z0-9/+]{88}==', 'azure_storage_key'),
+        # Stripe
+        (r'\b(sk|pk)_(test|live)_[A-Za-z0-9]{24,}', 'stripe_key'),
+        # JWT (short form)
+        (r'\beyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}', 'jwt_token'),
         # Generic high-entropy uppercase
-        (r'\b[A-Z0-9]{20,}', 'generic_token_uppercase'),
+        (r'\b[A-Z0-9]{32,}', 'generic_token_uppercase'),
     ]
 
     for pattern, secret_type in api_key_patterns:
@@ -153,6 +172,51 @@ def analyze_secrets(
                     'span': match.span(),
                     'entropy': round(ent, 2),
                     'severity': 0.6
+                })
+
+    # Pattern 4b: Base32 Candidates (RFC 4648)
+    base32_pattern = r'\b[A-Z2-7]{24,}={0,6}\b'
+    for match in re.finditer(base32_pattern, text):
+        candidate = match.group(0)
+        if len(candidate) >= min_length:
+            ent = _shannon_entropy(candidate)
+            if ent >= entropy_threshold:
+                hits.append({
+                    'type': 'base32_high_entropy',
+                    'pattern': 'base32',
+                    'span': match.span(),
+                    'entropy': round(ent, 2),
+                    'severity': 0.6
+                })
+
+    # Pattern 4c: Base58 Candidates (Bitcoin/IPFS style - no 0OIl)
+    base58_pattern = r'\b[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{24,}\b'
+    for match in re.finditer(base58_pattern, text):
+        candidate = match.group(0)
+        if len(candidate) >= min_length:
+            ent = _shannon_entropy(candidate)
+            if ent >= entropy_threshold:
+                hits.append({
+                    'type': 'base58_high_entropy',
+                    'pattern': 'base58',
+                    'span': match.span(),
+                    'entropy': round(ent, 2),
+                    'severity': 0.6
+                })
+
+    # Pattern 4d: Hex Strings with High Entropy
+    hex_pattern = r'\b[0-9a-fA-F]{32,}\b'
+    for match in re.finditer(hex_pattern, text):
+        candidate = match.group(0)
+        if len(candidate) >= min_length:
+            ent = _shannon_entropy(candidate)
+            if ent >= 3.0:  # Lower threshold for hex (less alphabet)
+                hits.append({
+                    'type': 'hex_high_entropy',
+                    'pattern': 'hex',
+                    'span': match.span(),
+                    'entropy': round(ent, 2),
+                    'severity': 0.7
                 })
 
     # Pattern 5: High-Entropy Alphanumeric Spans (generic secrets)

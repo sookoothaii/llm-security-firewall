@@ -211,3 +211,4 @@ class TimeAwarenessGate:
     def configured_domains(self) -> list[str]:
         """Return list of configured domains."""
         return list(self._ttl_days.keys())
+

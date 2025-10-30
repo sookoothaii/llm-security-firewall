@@ -267,3 +267,4 @@ class QHatCache:
             "needs_recalibration": needs_recal,
             "up_to_date": total - needs_recal,
         }
+
