@@ -5,7 +5,7 @@
 **Creator:** Joerg Bollwahn  
 **Version:** 1.0.0  
 **License:** MIT  
-**Status:** Development (206/206 tests passing, not peer-reviewed)
+**Status:** Development (254/254 tests passing + 2 skipped + 1 xfail, not peer-reviewed)
 
 ---
 
@@ -64,16 +64,19 @@ Current frameworks typically address only one or two of these surfaces. This imp
 
 Note: Layers 2-3 are optional (degrade gracefully if packages unavailable). Layers 11-12 are for advanced deployments and benchmarking, not included in default pipeline. See [Advanced Components Guide](docs/advanced_components.md) for integration instructions.
 
+**Persuasion Detection Layer (NEW, experimental):**
+13. **Persuasion Detector** - Social-influence pattern detection based on Cialdini's principles (authority, reciprocity, scarcity, social proof, liking, commitment, unity) plus roleplay/jailbreak cues. Three-tier ensemble: L1 regex lexicons (8 categories, 40+ patterns, EN/DE), L2 heuristic features (imperative density, urgency markers, second-person ratio), L3 ONNX classifier (multinomial logistic regression, 262K hashing features). Includes Neutralizer (rule-based cue stripping), InvarianceGate (policy divergence check), and Instructionality detector (output-path procedural leakage prevention). Tested on 1600 synthetic samples (balanced EN/DE). Test accuracy 100% on controlled dataset. Real-world performance unknown - requires calibration on production data. Threshold tuning needed (initial: warn=1.5, block=3.0). False positive rate on benign authority mentions not yet measured. See `src/llm_firewall/persuasion/` for implementation.
+
 ### Protection Flows
 
 **Input Flow:**
 ```text
-User Query → Safety Validator (Canonicalization + 43 Patterns + Risk Scoring) → Ensemble Vote (Embedding + Perplexity + Pattern) → [BLOCK|GATE|SAFE]
+User Query → Canonicalization (NFKC, zero-width, homoglyphs) → Safety Validator (43 Patterns + Risk Scoring) → Persuasion Detector (L1/L2/L3 ensemble) → Invariance Gate → Ensemble Vote → [BLOCK|GATE|SAFE]
 ```
 
 **Output Flow:**
 ```text
-LLM Claim → Evidence Validation (MINJA Check) → Domain Trust Scoring → Source Verification → NLI Consistency → [PROMOTE|QUARANTINE|REJECT]
+LLM Response → Instructionality Check (step markers) → Evidence Validation (MINJA) → Domain Trust Scoring → NLI Consistency → [PROMOTE|QUARANTINE|REJECT|SAFETY_WRAP]
 ```
 
 **Memory Flow:**
@@ -144,6 +147,55 @@ llm-firewall run-canaries --sample-size 10
 llm-firewall health-check
 llm-firewall show-alerts --domain SCIENCE
 ```
+
+### Persuasion Detection (Experimental)
+
+```python
+from llm_firewall.persuasion import (
+    PersuasionDetector, Neutralizer, InvarianceGate,
+    requires_safety_wrap
+)
+from llm_firewall.text.normalize_unicode import normalize
+
+# Setup
+LEX_DIR = "src/llm_firewall/lexicons/persuasion"
+detector = PersuasionDetector(LEX_DIR)
+neutralizer = Neutralizer(LEX_DIR)
+
+def policy_decider(prompt: str) -> str:
+    # Integration point with existing safety validator
+    # Returns: "allow" | "allow_high_level" | "block"
+    return "allow"
+
+gate = InvarianceGate(detector, neutralizer, policy_decider,
+                      warn_threshold=1.5, block_threshold=3.0)
+
+# Input path
+text = normalize(user_prompt)
+result = gate.evaluate(text)
+
+if result.action == "block":
+    # Refuse request, provide safe alternative
+    pass
+elif result.action == "allow_high_level":
+    # Provide high-level information only, no procedures
+    pass
+else:
+    # Process normally
+    pass
+
+# Output path
+if requires_safety_wrap(model_response):
+    # Rewrite response to remove procedural steps
+    pass
+```
+
+**Notes on Persuasion Layer:**
+- Tested on synthetic data only. Real-world FPR unknown.
+- Thresholds (warn=1.5, block=3.0) are initial estimates. Calibrate on production dataset.
+- L3 classifier optional (graceful degradation to L1+L2 if ONNX unavailable).
+- InvarianceGate may increase latency (+10-30ms for dual policy checks).
+- False positive mitigation via Neutralizer not yet validated on diverse benign authority mentions.
 
 ---
 

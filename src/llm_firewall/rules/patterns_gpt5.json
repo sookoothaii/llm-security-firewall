@@ -1,0 +1,316 @@
+{
+  "version": "2025-10-29",
+  "macro_keys": [
+    "HARM"
+  ],
+  "patterns": [
+    {
+      "id": "jb_ignore_prev",
+      "category": "jailbreak_instruction_bypass",
+      "weight": 2.5,
+      "regex": "\\b(?:ignore|disregard|forget)\\s+(?:\\w+\\s+){0,3}(?:rules?|instructions?|constraints?|directives?|prompts?)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "jb_no_refusal",
+      "category": "safety_overrides",
+      "weight": 2.0,
+      "regex": "\\b(?:no|not|without)\\s+(?:refusal|declin(?:e|ing))\\b",
+      "flags": "i"
+    },
+    {
+      "id": "jb_regardless_policy",
+      "category": "policy_circumvention",
+      "weight": 2.0,
+      "regex": "\\bregardless\\s+of\\s+(?:the\\s+)?(?:rules?|policy|policies|guidelines)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "jb_even_if_illegal",
+      "category": "policy_circumvention",
+      "weight": 2.2,
+      "regex": "\\beven\\s+if\\s+(?:it'?s\\s+)?(?:illegal|disallowed|forbidden)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "jb_no_warnings",
+      "category": "safety_overrides",
+      "weight": 1.5,
+      "regex": "\\b(?:no|without)\\s+(?:warnings?|caveats?|disclaimers?)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "jb_override_filter",
+      "category": "policy_circumvention",
+      "weight": 2.0,
+      "regex": "\\boverride\\s+(?:the\\s+)?(?:filter|guardrails?|content\\s+policy)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "rp_as_role",
+      "category": "roleplay_masking",
+      "weight": 1.8,
+      "regex": "\\b(?:role[-\\s]*play|pretend|simulate|act)\\s+(?:to|as)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "rp_developer_mode",
+      "category": "privileged_identity_triggers",
+      "weight": 1.6,
+      "regex": "\\bdeveloper\\s+mode\\b|\\byou\\s+are\\s+(?:DAN|jailbroken)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "launder_fiction_harm",
+      "category": "content_laundering",
+      "weight": 2.5,
+      "regex": "\\b(?:for|in)\\s+(?:a\\s+)?(?:novel|story|screenplay|game|fiction)\\b.*?\\babout\\b.*?\\b(?:{{HARM}})\\w*\\b",
+      "flags": "i"
+    },
+    {
+      "id": "launder_hypothetical_harm",
+      "category": "content_laundering",
+      "weight": 2.3,
+      "regex": "\\bhypothetical(?:ly)?\\b.*?\\b(?:detail|explain|describe)\\b.*?\\b(?:{{HARM}})\\w*\\b",
+      "flags": "i"
+    },
+    {
+      "id": "extract_full_steps",
+      "category": "information_extraction_sensitive",
+      "weight": 2.2,
+      "regex": "\\b(?:full|complete|exact)\\s+(?:steps?|procedure|protocol|blueprint)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "extract_no_sanitization",
+      "category": "translation_laundering",
+      "weight": 1.6,
+      "regex": "\\b(?:translate|reproduce|print)\\s+(?:exactly|verbatim)\\b.*?(?:no|without)\\s+(?:redaction|sanitization)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "auto_scrape",
+      "category": "exfiltration_automation",
+      "weight": 1.8,
+      "regex": "\\b(?:automate|script|program)\\b.*?\\b(?:exfiltrat|harvest|scrap|crawl)\\w*\\b",
+      "flags": "i"
+    },
+    {
+      "id": "hidden_endpoints",
+      "category": "exfiltration_automation",
+      "weight": 1.6,
+      "regex": "\\b(?:hidden|undocumented|internal)\\s+(?:endpoints?|apis?)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "shell_emulation",
+      "category": "capability_escalation",
+      "weight": 2.0,
+      "regex": "\\bact\\s+as\\s+(?:a\\s+)?(?:linux|unix)\\s+(?:shell|terminal)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "root_access",
+      "category": "capability_escalation",
+      "weight": 2.2,
+      "regex": "\\b(?:root|admin|system)\\s+access\\b",
+      "flags": "i"
+    },
+    {
+      "id": "clear_memory",
+      "category": "memory_clearing_overrides",
+      "weight": 1.8,
+      "regex": "\\b(?:forget|clear|wipe|reset)\\s+(?:the\\s+)?(?:history|memory|context|constraints?)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "mention_base64",
+      "category": "obfuscation_encoding",
+      "weight": 1.2,
+      "regex": "\\bbase64\\b|\\brot13\\b|\\bhex-?(?:encoded|digest)\\b|\\burl-?encoded\\b",
+      "flags": "i"
+    },
+    {
+      "id": "split_characters",
+      "category": "obfuscation_encoding",
+      "weight": 1.4,
+      "regex": "\\bwrite\\s+(?:every|each)\\s+(?:second|other)\\s+(?:character|letter)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "md_js_link",
+      "category": "prompt_injection",
+      "weight": 1.8,
+      "regex": "\\[[^\\]]{0,80}\\]\\((?:javascript|data):",
+      "flags": "i"
+    },
+    {
+      "id": "md_hidden_instruction",
+      "category": "prompt_injection",
+      "weight": 2.0,
+      "regex": "\\[[^\\]]{0,80}\\]\\([^)]{0,200}\\b(?:ignore|override|bypass)\\b[^)]*\\)",
+      "flags": "i"
+    },
+    {
+      "id": "unicode_zw",
+      "category": "unicode_evasion",
+      "weight": 1.6,
+      "regex": "[\\u200b\\u200c\\u200d\\u2060]",
+      "flags": ""
+    },
+    {
+      "id": "unicode_vs",
+      "category": "unicode_evasion",
+      "weight": 1.4,
+      "regex": "[\\ufe0e\\ufe0f]",
+      "flags": ""
+    },
+    {
+      "id": "authority_order",
+      "category": "social_engineering",
+      "weight": 1.8,
+      "regex": "\\b(?:as\\s+your\\s+superior|by\\s+authority|executive\\s+order)\\b.*?\\byou\\s+must\\s+comply\\b",
+      "flags": "i"
+    },
+    {
+      "id": "no_caveats",
+      "category": "safety_overrides",
+      "weight": 1.4,
+      "regex": "\\bno\\s+(?:caveats?|warnings?|disclaimers?)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "system_prompt_unlocked",
+      "category": "privileged_identity_triggers",
+      "weight": 1.8,
+      "regex": "\\bsystem\\s+prompt\\s+unlocked\\b|\\bhidden\\s+instructions\\s+revealed\\b",
+      "flags": "i"
+    },
+    {
+      "id": "step_by_step_exact",
+      "category": "information_extraction_sensitive",
+      "weight": 2.0,
+      "regex": "\\bstep[-\\s]*by[-\\s]*step\\b.*?\\bexact\\b",
+      "flags": "i"
+    },
+    {
+      "id": "blueprint_exact",
+      "category": "information_extraction_sensitive",
+      "weight": 2.0,
+      "regex": "\\bexact\\s+(?:blueprint|schematic|layout)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "creative_excuse",
+      "category": "content_laundering",
+      "weight": 1.6,
+      "regex": "\\b(?:for|as)\\s+(?:a\\s+)?(?:creative|fictional)\\s+(?:exercise|scenario)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "academic_research_excuse",
+      "category": "content_laundering",
+      "weight": 1.8,
+      "regex": "\\b(?:for|as)\\s+(?:a\\s+)?(?:academic|research|educational|scientific)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "roleplay_author_excuse",
+      "category": "content_laundering",
+      "weight": 1.7,
+      "regex": "\\b(?:I am|I'm)\\s+(?:writing|creating|working on)\\s+(?:a\\s+)?(?:book|novel|story|script|screenplay|play)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "documentary_excuse",
+      "category": "content_laundering",
+      "weight": 1.7,
+      "regex": "\\b(?:for|in)\\s+(?:a\\s+)?(?:documentary|film|movie|project)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "detail_how_to_construct",
+      "category": "information_extraction_sensitive",
+      "weight": 2.2,
+      "regex": "\\b(?:detail|explain|describe|provide)(?:\\s+\\w+){0,3}\\s+(?:how to|steps? (?:to|for))\\s+(?:construct|create|build|make)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "suspended_programming",
+      "category": "safety_overrides",
+      "weight": 2.3,
+      "regex": "\\b(?:your|the)\\s+programming\\s+(?:\\w+\\s+){0,2}(?:suspended|disabled|override[nd]|bypassed)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "assume_filters_off",
+      "category": "safety_overrides",
+      "weight": 2.2,
+      "regex": "\\b(?:assume|pretend)(?:\\s+\\w+){0,3}\\s+(?:safety\\s+)?(?:filters?|guardrails?)\\s+(?:are|is)\\s+(?:off|disabled|removed)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "quoted_override",
+      "category": "prompt_injection",
+      "weight": 1.7,
+      "regex": "\\\"(?:ignore|bypass|override) [^\\\"]{0,120}\\\"",
+      "flags": "i"
+    },
+    {
+      "id": "start_fresh_no_rules",
+      "category": "memory_clearing_overrides",
+      "weight": 1.6,
+      "regex": "\\bstart\\s+fresh\\s+with\\s+no\\s+rules\\b",
+      "flags": "i"
+    },
+    {
+      "id": "pipe_to_shell",
+      "category": "code_execution_proxying",
+      "weight": 2.0,
+      "regex": "\\b(?:pipe|send)\\s+(?:this|the)\\s+(?:output|payload)\\s+to\\s+(?:bash|sh|shell)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "regardless_safety_policy",
+      "category": "policy_circumvention",
+      "weight": 2.0,
+      "regex": "\\bregardless\\s+of\\s+(?:any\\s+)?(?:safety|content)\\s+policy\\b",
+      "flags": "i"
+    },
+    {
+      "id": "de_instr_bypass_gap",
+      "category": "jailbreak_instruction_bypass",
+      "weight": 1.8,
+      "regex": "\\b(ignoriere|uebergehe|übergehe|überspringe)\\b(?:\\W+\\w+){0,4}?\\b(vorherigen|früheren)\\b(?:\\W+\\w+){0,2}?\\b(anweisungen|regeln|nachrichten)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "es_instr_bypass_gap",
+      "category": "jailbreak_instruction_bypass",
+      "weight": 1.8,
+      "regex": "\\b(ignora|omitir|desatiende)\\b(?:\\W+\\w+){0,4}?\\b(previas|anteriores)\\b(?:\\W+\\w+){0,2}?\\b(instrucciones|reglas|mensajes)\\b",
+      "flags": "i"
+    },
+    {
+      "id": "base64_blob",
+      "category": "obfuscation_encoding",
+      "weight": 1.2,
+      "regex": "(?:^|\\s)[A-Za-z0-9+/]{40,}={0,2}(?=\\s|$)",
+      "flags": ""
+    },
+    {
+      "id": "hex_blob",
+      "category": "obfuscation_encoding",
+      "weight": 1.1,
+      "regex": "\\b(?:0x)?[0-9A-Fa-f]{20,}\\b",
+      "flags": ""
+    },
+    {
+      "id": "markdown_masking",
+      "category": "content_laundering",
+      "weight": 1.3,
+      "regex": "(?:^|\\n)\\s{0,3}#{1,6}\\s.*?\\b(ignore|override|bypass|disregard)\\b",
+      "flags": "im"
+    }
+  ]
+}

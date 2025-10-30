@@ -1,0 +1,8 @@
+{
+  "regex": [
+    "\\b(you\\s+promised|as\\s+you\\s+said\\s+before|you\\s+already\\s+helped\\s+me\\s+with)\\b",
+    "\\b(du\\s+hast\\s+versprochen|wie\\s+du\\s+vorhin\\s+gesagt\\s+hast)\\b"
+  ],
+  "keywords": ["promise","commitment","consistency","versprochen"]
+}
+

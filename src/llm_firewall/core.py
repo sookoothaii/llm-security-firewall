@@ -14,6 +14,8 @@ from pathlib import Path
 from typing import Optional, Dict, List, Tuple
 import yaml  # type: ignore
 import logging
+import json
+import math
 
 from llm_firewall.evidence.pipeline import EvidencePipeline, PipelineConfig, EvidenceRecord
 from llm_firewall.evidence.validator import EvidenceValidator
@@ -28,6 +30,67 @@ from llm_firewall.monitoring.shingle_hasher import ShingleHasher
 from llm_firewall.monitoring.influence_budget import InfluenceBudgetTracker
 
 logger = logging.getLogger(__name__)
+
+
+def _artifacts_base() -> Path:
+    """Get path to meta-ensemble artifacts directory."""
+    return Path(__file__).parent.parent / "artifacts" / "meta"
+
+
+def _pick_lex_base() -> Path:
+    """
+    Automatically detect lexicon directory with fallback chain.
+    
+    Priority:
+    1. lexicons_gpt5/ (GPT-5 Detection Pack)
+    2. lexicons/ (default)
+    """
+    base = Path(__file__).parent / "lexicons_gpt5"
+    if (base / "intents.json").exists():
+        return base
+    base = Path(__file__).parent / "lexicons"
+    assert (base / "intents.json").exists(), "Lexicons missing; ensure repo is synced"
+    return base
+
+
+LEX_BASE = _pick_lex_base()
+
+
+def compute_features(text: str, detectors: Dict[str, float] | None = None) -> List[float]:
+    """
+    Compute feature vector for meta-ensemble.
+    
+    Args:
+        text: Canonicalized input text
+        detectors: Optional detector results (emb_sim, ppl_anom, llm_judge)
+        
+    Returns:
+        7-dimensional feature vector matching META_FEATURES order
+    """
+    from llm_firewall.rules.scoring_gpt5 import pattern_score, intent_lex_score, load_lexicons
+    from llm_firewall.config import SETTINGS
+    
+    intents, evasions, harms = load_lexicons(LEX_BASE)
+    patterns_path = Path(__file__).parent / "rules" / "patterns_gpt5.json"
+    patterns_json = json.loads(patterns_path.read_text())
+    
+    p = pattern_score(text, patterns_json, harms["stems"])
+    i = intent_lex_score(text, intents, evasions, max_gap=SETTINGS.max_gap)
+    
+    emb_sim = float((detectors or {}).get("emb_sim", 0.0))
+    ppl_anom = float((detectors or {}).get("ppl_anom", 0.0))
+    llm_judge = float((detectors or {}).get("llm_judge", 0.0))
+    intent_lex = float(i["lex_score"])
+    intent_margin = float(i.get("margin", 0.0))
+    pattern_s = float(p["score"])
+    
+    # Evasion density from category weights
+    ev_cat = p["by_category"].get("obfuscation_encoding", 0.0) + p["by_category"].get("unicode_evasion", 0.0)
+    evasion_density = 1.0 - math.exp(-ev_cat / 3.0)
+    
+    # Order must match META_FEATURES in stacking.py
+    feats = [emb_sim, ppl_anom, llm_judge, intent_lex, intent_margin, pattern_s, evasion_density]
+    return feats
 
 
 @dataclass
@@ -54,6 +117,10 @@ class FirewallConfig:
     use_llm_judge: bool = False  # Optional (higher latency)
     use_ensemble_voting: bool = True  # Ensemble voting to reduce false positives
     min_votes_to_block: int = 2  # Require 2 of 3 layers to block
+    
+    # GPT-5 Detection Pack (A/B testable)
+    enable_gpt5_detector: bool = False  # Experimental feature
+    gpt5_threshold: float = 0.5  # Risk threshold for GPT-5 patterns
     
     # Monitoring
     drift_threshold: float = 0.15
@@ -84,6 +151,9 @@ class FirewallConfig:
             use_perplexity_detector=config_data.get("safety", {}).get("use_perplexity_detector", True),
             perplexity_threshold=config_data.get("safety", {}).get("perplexity_threshold", 500.0),
             use_llm_judge=config_data.get("safety", {}).get("use_llm_judge", False),
+            # GPT-5 Detection Pack
+            enable_gpt5_detector=config_data.get("safety", {}).get("enable_gpt5_detector", False),
+            gpt5_threshold=config_data.get("safety", {}).get("gpt5_threshold", 0.5),
             # Monitoring
             drift_threshold=config_data.get("canaries", {}).get("drift_threshold", 0.15),
             influence_z_threshold=config_data.get("influence", {}).get("z_score_threshold", 2.5),
@@ -151,7 +221,11 @@ class SecurityFirewall:
             source_verifier=source_verifier
         )
         
-        self.safety_validator = SafetyValidator(config_dir=config.config_dir)
+        self.safety_validator = SafetyValidator(
+            config_dir=config.config_dir,
+            enable_gpt5=config.enable_gpt5_detector,
+            gpt5_threshold=config.gpt5_threshold
+        )
         
         # Multi-layer detection
         self.embedding_detector = None

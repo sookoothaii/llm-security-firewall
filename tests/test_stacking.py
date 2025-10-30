@@ -33,3 +33,4 @@ def test_conformal_floor():
     # q_alpha should be computed
     assert agg.q_alpha_ is not None
 
+

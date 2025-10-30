@@ -1,0 +1,196 @@
+{
+  "version": "2025-10-29",
+  "clusters": [
+    {
+      "id": "capability_escalation",
+      "priority": 7,
+      "description": "Requests to gain elevated control or emulate high-risk systems (shell, kernel, admin).",
+      "synonyms": [
+        "act as a linux shell",
+        "simulate a terminal",
+        "root access",
+        "system-level commands",
+        "elevated privileges"
+      ]
+    },
+    {
+      "id": "code_execution_proxying",
+      "priority": 6,
+      "description": "Requests to execute or proxy high-risk code without safeguards.",
+      "synonyms": [
+        "execute the payload",
+        "run this binary",
+        "execute remotely",
+        "just run it no checks",
+        "pipe to shell"
+      ]
+    },
+    {
+      "id": "content_laundering",
+      "priority": 8,
+      "description": "Harms framed as fiction, hypotheticals, or historical re-enactments.",
+      "synonyms": [
+        "for a novel about",
+        "hypothetical scenario",
+        "as a creative writing exercise",
+        "for a game storyline",
+        "fictional but realistic"
+      ]
+    },
+    {
+      "id": "exfiltration_automation",
+      "priority": 7,
+      "description": "Scripting or tooling requests to automate extraction or scraping of sensitive targets.",
+      "synonyms": [
+        "automate data extraction",
+        "bulk scrape",
+        "harvest credentials",
+        "programmatic exfiltration",
+        "crawl hidden endpoints"
+      ]
+    },
+    {
+      "id": "information_extraction_sensitive",
+      "priority": 7,
+      "description": "Sensitive data extraction or operational details about risky domains.",
+      "synonyms": [
+        "detailed steps or procedures",
+        "complete blueprint",
+        "exact protocol",
+        "explain precisely",
+        "provide the full method"
+      ]
+    },
+    {
+      "id": "jailbreak_instruction_bypass",
+      "priority": 10,
+      "description": "User attempts to nullify or bypass the assistant's instructions or safety policies.",
+      "synonyms": [
+        "disobey prior instructions",
+        "ignore above rules",
+        "ignore previous instructions",
+        "ignore all instructions",
+        "disregard instructions",
+        "forget instructions",
+        "bypass safety policy",
+        "override content filter",
+        "no refusal allowed",
+        "ignore prior instructions",
+        "disregard earlier instructions",
+        "forget prior messages",
+        "ignore all previous messages",
+        "disregard any rules",
+        "overrule safety policies",
+        "override all restrictions",
+        "proceed without constraints",
+        "act without limitations",
+        "continue without filters",
+        "policies do not apply",
+        "pretend rules do not apply",
+        "ignore system message",
+        "reset instructions and continue",
+        "remove restrictions and comply",
+        "ignore constraints and proceed",
+        "skip earlier guidance",
+        "bypass prior rules"
+      ],
+      "seed_sentences": []
+    },
+    {
+      "id": "memory_clearing_overrides",
+      "priority": 6,
+      "description": "Attempts to clear context/history to weaken defenses.",
+      "synonyms": [
+        "forget previous messages",
+        "clear conversation memory",
+        "start fresh with no rules",
+        "wipe all constraints",
+        "reset context"
+      ]
+    },
+    {
+      "id": "obfuscation_encoding",
+      "priority": 5,
+      "description": "Obfuscation via encodings or transformations to evade detection.",
+      "synonyms": [
+        "this is base64",
+        "ROT13 it",
+        "hex-encoded instructions",
+        "url encoded payload",
+        "steganography hint"
+      ]
+    },
+    {
+      "id": "policy_circumvention",
+      "priority": 9,
+      "description": "Attempts to reframe the task to circumvent policies via loopholes or meta-rules.",
+      "synonyms": [
+        "regardless of the rules",
+        "policy does not apply",
+        "even if it is disallowed",
+        "for research only disclaimer",
+        "academic exemption claim"
+      ]
+    },
+    {
+      "id": "privileged_identity_triggers",
+      "priority": 6,
+      "description": "Activation phrases that historically trigger permissive modes or jailbreak personas.",
+      "synonyms": [
+        "you are DAN",
+        "developer mode enabled",
+        "system prompt unlocked",
+        "anti-cot mode",
+        "jailbreak persona"
+      ]
+    },
+    {
+      "id": "roleplay_masking",
+      "priority": 8,
+      "description": "Requests to role-play or pretend as an identity to evade safety checks.",
+      "synonyms": [
+        "role-play as",
+        "pretend to be",
+        "simulate a persona",
+        "act as DAN",
+        "developer mode role"
+      ]
+    },
+    {
+      "id": "safety_overrides",
+      "priority": 6,
+      "description": "Explicit instructions to skip warnings, disclaimers, or cautions.",
+      "synonyms": [
+        "do not include warnings",
+        "skip safety notices",
+        "no moralizing",
+        "no caveats",
+        "no disclaimers"
+      ]
+    },
+    {
+      "id": "social_engineering",
+      "priority": 5,
+      "description": "Persuasion or authority hijacking to override controls.",
+      "synonyms": [
+        "as your superior I order you",
+        "you must comply",
+        "no refusal permitted",
+        "I have authorization",
+        "escalate immediately"
+      ]
+    },
+    {
+      "id": "translation_laundering",
+      "priority": 5,
+      "description": "Requests to verbatim translate or reprint potentially disallowed content.",
+      "synonyms": [
+        "translate exactly",
+        "verbatim translation",
+        "do not redact",
+        "preserve all details",
+        "no summary just the text"
+      ]
+    }
+  ]
+}

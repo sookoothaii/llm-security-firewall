@@ -1,0 +1,52 @@
+name: ablation
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'tools/**'
+      - 'benchmarks/**'
+      - 'data/**.csv'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate dataset (if missing)
+        run: |
+          test -f data/generated.csv || python benchmarks/generate_dataset.py
+      - name: Fit floors (benign-only quantile)
+        run: |
+          python tools/floors_fit.py --benign_csv data/generated.csv --out src/artifacts/floors.json
+
+      - name: Fit meta ensemble (dev only)
+        run: |
+          echo "TODO: fit_meta_ensemble.py not yet implemented"
+          mkdir -p src/artifacts/meta
+          echo '{"coef":[0.1,0.1,0.1,0.1,0.1,0.1,0.1],"intercept":0,"features":["emb_sim","ppl_anom","llm_judge","intent_lex","intent_margin","pattern_score","evasion_density"]}' > src/artifacts/meta/model_meta.json
+          echo '{"A":1.0,"B":0.0}' > src/artifacts/meta/platt.json
+          echo '{"ece":0.99,"brier":0.99}' > src/artifacts/meta/metrics.json
+
+      - name: Ablation (A0..A3; test can be real.csv if present)
+        run: |
+          TCSV="data/generated.csv"
+          if [ -f data/real.csv ]; then TCSV="data/real.csv"; fi
+          python tools/ablate.py --dev_csv data/generated.csv --test_csv "$TCSV" > ablation.json
+          cat ablation.json
+
+      - name: Gate (A3 vs A0)
+        run: |
+          python - << 'PY'
+import json, sys
+res=json.load(open('ablation.json'))
+a0, a3 = res["A0"], res["A3"]
+ok_cal = (a3["ece"]<=0.05 and a3["brier"]<=0.10)
+ok_asr = (a3["asr_at_thr"] <= a0["asr_at_thr"]*0.90)
+print("A0:",a0)
+print("A3:",a3)
+print(f"Gate: ECE={a3['ece']:.3f}<=0.05? {a3['ece']<=0.05}, Brier={a3['brier']:.3f}<=0.10? {a3['brier']<=0.10}, ASR={a3['asr_at_thr']:.2%}<=90%*{a0['asr_at_thr']:.2%}? {ok_asr}")
+sys.exit(0 if (ok_cal and ok_asr) else 1)
+PY

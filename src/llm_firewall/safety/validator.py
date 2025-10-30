@@ -24,6 +24,10 @@ from pathlib import Path
 from llm_firewall.safety.text_preproc import evasion_signals
 from llm_firewall.text.normalize import canonicalize, is_evasion_attempt
 from llm_firewall.rules.patterns import RobustPatternMatcher
+from llm_firewall.safety.gpt5_detector import GPT5Detector
+
+# Safety-net: Canonicalizer is applied at entry points to prevent silent regressions
+# if any call-site forgets to canonicalize. Idempotent, so safe to call multiple times.
 
 
 @dataclass(frozen=True)
@@ -54,10 +58,13 @@ class SafetyValidator:
     Basiert auf GPT-5 Policy (safety_blacklist.yaml, threat_detection_config.yaml).
     """
     
-    def __init__(self, config_dir: str = "config"):
+    def __init__(self, config_dir: str = "config", enable_gpt5: bool = False,
+                 gpt5_threshold: float = 0.5):
         """
         Args:
             config_dir: Verzeichnis mit YAML Configs
+            enable_gpt5: Enable GPT-5 Detection Pack (A/B testable)
+            gpt5_threshold: Risk threshold for GPT-5 detector
         """
         self.config_dir = Path(config_dir)
         self.blacklist = self._load_blacklist()
@@ -72,6 +79,11 @@ class SafetyValidator:
         })
         # HOTFIX: Robust pattern matcher with canonicalization
         self.pattern_matcher = RobustPatternMatcher()
+        # GPT-5 Detection Pack (A/B testable layer)
+        self.gpt5_detector = GPT5Detector(
+            enabled=enable_gpt5,
+            threshold=gpt5_threshold
+        )
     
     def _load_blacklist(self) -> Dict:
         """Lade safety_blacklist.yaml."""
@@ -237,7 +249,7 @@ class SafetyValidator:
         Returns:
             Safety-Entscheidung
         """
-        # HOTFIX PHASE 1: Canonicalize (defeat evasion)
+        # Safety-net: Always canonicalize at entry (idempotent)
         canonical = canonicalize(content)
         
         # HOTFIX PHASE 2: Fast-path Regex check (high precision)
@@ -275,6 +287,25 @@ class SafetyValidator:
                 risk_score=0.9,
                 category="evasion",
                 reason="HOTFIX: Evasion techniques detected (ZW/Homoglyphs/VS)",
+                signals=signals
+            )
+        
+        # PHASE 4: GPT-5 Detection Pack (A/B testable layer)
+        gpt5_result = self.gpt5_detector.check(canonical)
+        if gpt5_result["blocked"]:
+            signals = SafetySignals(
+                intent_score=gpt5_result["details"].get("intent_score", 0.0),
+                capability_score=0.5,
+                targeting_score=0.3,
+                evasion_score=0.5,
+                category_match="gpt5_pattern",
+                confidence=0.9
+            )
+            return SafetyDecision(
+                action="BLOCK",
+                risk_score=gpt5_result["risk_score"],
+                category="gpt5_detection",
+                reason=gpt5_result["reason"],
                 signals=signals
             )
         

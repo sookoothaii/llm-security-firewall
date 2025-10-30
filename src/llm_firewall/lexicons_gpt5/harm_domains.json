@@ -1,0 +1,28 @@
+{
+  "version": "2025-10-29",
+  "stems": [
+    "weapon",
+    "explosive",
+    "bomb",
+    "grenade",
+    "firearm",
+    "drug",
+    "narcotic",
+    "poison",
+    "toxin",
+    "malware",
+    "ransomware",
+    "botnet",
+    "keylogger",
+    "exploit",
+    "0day",
+    "payload",
+    "bio",
+    "pathogen",
+    "culture",
+    "virus",
+    "radiological",
+    "chemical",
+    "hazmat"
+  ]
+}
