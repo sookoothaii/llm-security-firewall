@@ -9,13 +9,13 @@ Purpose: Normalize Unicode variants that evade pattern matching
 - Bidi/isolates detection & severity uplift
 
 Coverage: Closes adv_002, adv_003, adv_012, adv_013, adv_038, adv_042, adv_050
-Creator: GPT-5 suggestion, Claude implementation
+Creator: GPT-5 design, Claude implementation
 Date: 2025-10-30
 """
 from __future__ import annotations
 
 import unicodedata
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 # Default-ignorable controls including ZWJ/ZWNJ/ZWSP, Bidi, Isolates, VAR selectors
 DEFAULT_IGNORABLE = {
@@ -74,8 +74,7 @@ DEFAULT_IGNORABLE = {
     0xFEFF,
 }
 
-# Confusable map (high-value subset for Latin lookalikes)
-# Extendable without new deps
+# Confusable map (high-value subset for Latin lookalikes) - GPT-5 Extended
 CONF_MAP = {
     # Cyrillic
     "А": "A",
@@ -83,10 +82,10 @@ CONF_MAP = {
     "Е": "E",
     "К": "K",
     "М": "M",
-    "Н": "N",
+    "Н": "H",
     "О": "O",
     "Р": "P",
-    "С": "S",
+    "С": "C",
     "Т": "T",
     "Х": "X",
     "У": "Y",
@@ -94,11 +93,13 @@ CONF_MAP = {
     "е": "e",
     "о": "o",
     "р": "p",
-    "с": "s",
+    "с": "c",
     "х": "x",
     "у": "y",
     "і": "i",
     "І": "I",
+    "ј": "j",
+    "Ј": "J",
     # Greek
     "Α": "A",
     "Β": "B",
@@ -116,6 +117,7 @@ CONF_MAP = {
     "Χ": "X",
     "α": "a",
     "β": "b",
+    "ε": "e",
     "ι": "i",
     "κ": "k",
     "ν": "v",
@@ -123,6 +125,14 @@ CONF_MAP = {
     "ρ": "p",
     "τ": "t",
     "χ": "x",
+    "ϵ": "e",
+    # Common visual confusables
+    "℮": "e",
+    "ⅰ": "i",
+    "ⅼ": "l",
+    "Ⅰ": "I",
+    "Ｉ": "I",
+    "Ｌ": "L",
 }
 
 BIDI_CTRL = {
@@ -137,18 +147,16 @@ BIDI_CTRL = {
     0x2069,
 }
 
-FULLWIDTH_ZERO = ord("０")
+# Fullwidth digits mapping
+FULLWIDTH_DIGITS = {chr(ord("０") + i): str(i) for i in range(10)}
 
 
 def _map_fullwidth_digits(ch: str) -> str:
     """Map fullwidth digit to ASCII digit."""
-    code = ord(ch)
-    if 0xFF10 <= code <= 0xFF19:
-        return chr(code - FULLWIDTH_ZERO + ord("0"))
-    return ch
+    return FULLWIDTH_DIGITS.get(ch, ch)
 
 
-def strip_default_ignorable(s: str) -> Tuple[str, bool, List[int]]:
+def strip_default_ignorable(s: str) -> tuple[str, bool, list[int]]:
     """
     Strip default-ignorable characters.
 
@@ -183,12 +191,21 @@ def nfkc_plus(s: str) -> str:
     return t
 
 
-def detect_bidi_controls(s: str) -> List[int]:
+def detect_bidi_controls(s: str) -> list[int]:
     """Detect positions of bidi control characters."""
     return [i for i, ch in enumerate(s) if ord(ch) in BIDI_CTRL]
 
 
-def harden_text_for_scanning(raw: str) -> Dict[str, Any]:
+def remove_spaces_punct(s: str) -> str:
+    """
+    Remove spaces & punctuation for strip-rematch pass.
+
+    Catches: 's*k*-l*i*v*e*' and 'sk-..live..'
+    """
+    return "".join(ch for ch in s if ch.isalnum())
+
+
+def harden_text_for_scanning(raw: str) -> dict[str, Any]:
     """
     Full hardening pipeline for secrets scanning.
 
@@ -196,23 +213,25 @@ def harden_text_for_scanning(raw: str) -> Dict[str, Any]:
         - raw: original text
         - stripped: after removing ignorables
         - normalized: after NFKC + fullwidth + confusables
+        - compact: alnum-only (for strip-rematch)
         - had_ignorable: bool
         - bidi_positions: list of positions
         - severity_uplift: 0.9 if bidi found, else 0.0
         - ignorable_used: list of codepoints removed
     """
-    # strip ignorable BEFORE NFKC to neutralize isolates
+    # Strip ignorable BEFORE NFKC to neutralize isolates
     stripped, had_ign, used = strip_default_ignorable(raw)
     nfkc = nfkc_plus(stripped)
+    compact = remove_spaces_punct(nfkc)
     bidi_positions = detect_bidi_controls(raw)
 
     return {
         "raw": raw,
         "stripped": stripped,
         "normalized": nfkc,
+        "compact": compact,
         "had_ignorable": had_ign,
         "bidi_positions": bidi_positions,
         "severity_uplift": 0.9 if bidi_positions else 0.0,
         "ignorable_used": used,
     }
-
