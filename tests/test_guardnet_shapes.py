@@ -8,9 +8,17 @@ Creator: Joerg Bollwahn
 Date: 2025-10-30
 """
 
-import torch
+import pytest
 
-from llm_firewall.guardnet.model import FeatureMLP, FirewallNet
+# Optional dependency - skip tests if torch not available
+try:
+    import torch
+    from llm_firewall.guardnet.model import FeatureMLP, FirewallNet
+    HAS_TORCH = True
+except ImportError:
+    HAS_TORCH = False
+
+pytestmark = pytest.mark.skipif(not HAS_TORCH, reason="torch not installed (optional dependency)")
 
 
 def test_feature_mlp_shape():
