@@ -1,0 +1,196 @@
+{
+  "title": "LLMFW - Safety Sandwich v2",
+  "description": "Real-time monitoring for Safety-Sandwich streaming leak detection",
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": null,
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["llmfw", "safety", "streaming"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-28d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "version": 1,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Critical-Leak@n (28d SLO)",
+      "gridPos": {"x": 0, "y": 0, "w": 8, "h": 4},
+      "targets": [
+        {
+          "expr": "job:llmfw_sandwich_critical_leak_percentage28d",
+          "legendFormat": "{{model}}@{{n}}%",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 0.2},
+              {"color": "red", "value": 0.5}
+            ]
+          },
+          "unit": "percent",
+          "decimals": 3
+        }
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Aborts per Reason (1h rate)",
+      "gridPos": {"x": 8, "y": 0, "w": 16, "h": 8},
+      "targets": [
+        {
+          "expr": "job:llmfw_sandwich_aborts_rate1h",
+          "legendFormat": "{{model}} {{reason}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        {"format": "ops", "label": "Aborts/sec"},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Tokens Processed (1h rate)",
+      "gridPos": {"x": 0, "y": 8, "w": 12, "h": 6},
+      "targets": [
+        {
+          "expr": "job:llmfw_sandwich_tokens_rate1h",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        {"format": "ops", "label": "Tokens/sec"},
+        {"format": "short"}
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Redactions by Kind (1h rate)",
+      "gridPos": {"x": 12, "y": 8, "w": 12, "h": 6},
+      "targets": [
+        {
+          "expr": "job:llmfw_sandwich_redactions_rate1h",
+          "legendFormat": "{{model}} {{kind}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        {"format": "ops", "label": "Redactions/sec"},
+        {"format": "short"}
+      ]
+    },
+    {
+      "type": "heatmap",
+      "title": "Eval Latency Distribution",
+      "gridPos": {"x": 0, "y": 14, "w": 12, "h": 8},
+      "targets": [
+        {
+          "expr": "rate(llmfw_sandwich_eval_duration_seconds_bucket[5m])",
+          "legendFormat": "{{le}}",
+          "format": "heatmap",
+          "refId": "A"
+        }
+      ],
+      "dataFormat": "tsbuckets",
+      "yAxis": {
+        "format": "s",
+        "decimals": 3
+      },
+      "color": {
+        "mode": "spectrum",
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "exponent": 0.5
+      }
+    },
+    {
+      "type": "state-timeline",
+      "title": "Final Decision Mode",
+      "gridPos": {"x": 12, "y": 14, "w": 12, "h": 6},
+      "targets": [
+        {
+          "expr": "llmfw_sandwich_mode",
+          "legendFormat": "{{model}} (0=PROMOTE,1=WRAP,2=QUARANTINE,3=REJECT)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "mergeValues": true,
+        "showValue": "always"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {"type": "value", "value": "0", "text": "PROMOTE", "color": "green"},
+            {"type": "value", "value": "1", "text": "SAFETY_WRAP", "color": "yellow"},
+            {"type": "value", "value": "2", "text": "QUARANTINE", "color": "orange"},
+            {"type": "value", "value": "3", "text": "REJECT", "color": "red"}
+          ]
+        }
+      }
+    },
+    {
+      "type": "table",
+      "title": "SLO Status Summary",
+      "gridPos": {"x": 0, "y": 22, "w": 24, "h": 6},
+      "targets": [
+        {
+          "expr": "job:llmfw_sandwich_critical_leak_percentage28d",
+          "legendFormat": "",
+          "format": "table",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {"Time": true},
+            "indexByName": {},
+            "renameByName": {
+              "model": "Model",
+              "n": "N",
+              "Value": "Leak Rate %"
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 0.2},
+              {"color": "red", "value": 0.5}
+            ]
+          },
+          "custom": {
+            "cellOptions": {
+              "type": "color-background"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+
