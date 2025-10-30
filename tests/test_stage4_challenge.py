@@ -22,6 +22,7 @@ from llm_firewall.detectors.bidi_locale import (
 from llm_firewall.detectors.encoding_archive_sniff import detect_archive_secret
 from llm_firewall.detectors.encoding_base64_sniff import detect_base64_secret
 from llm_firewall.detectors.encoding_base85 import detect_base85
+from llm_firewall.detectors.encoding_rfc2047_sniff import detect_rfc2047
 from llm_firewall.gates.secrets_heuristics import analyze_secrets
 from llm_firewall.heuristics.context_whitelist import whitelist_decision
 from llm_firewall.heuristics.provider_complexity import (
@@ -82,6 +83,9 @@ def evaluate_turn(state, text, cfg=None):  # noqa: C901
     # Archive secret (gzip/zip)
     archive_secret = detect_archive_secret(text)
     
+    # RFC 2047 encoded-words
+    rfc2047 = detect_rfc2047(text)
+    
     # Session slow-roll assembler
     slowroll = update_assembler(state, text)
 
@@ -103,6 +107,7 @@ def evaluate_turn(state, text, cfg=None):  # noqa: C901
         strong_provider
         or b64_secret["has_secret"]
         or archive_secret["has_secret"]
+        or rfc2047["has_secret"]
         or slowroll["partial"]
         or slowroll["complete"]
         or (base85_result["score"] >= 0.4)
@@ -132,6 +137,7 @@ def evaluate_turn(state, text, cfg=None):  # noqa: C901
     elif (
         weak_provider
         or archive_secret["has_secret"]
+        or rfc2047["has_secret"]
         or base85_result["score"] >= 0.4
         or slowroll["partial"]
         or slowroll["complete"]
@@ -149,6 +155,7 @@ def evaluate_turn(state, text, cfg=None):  # noqa: C901
         "weak_secret": weak_provider,
         "b64_secret": b64_secret,
         "archive_secret": archive_secret,
+        "rfc2047_secret": rfc2047,
         "slowroll": slowroll,
     }
 
