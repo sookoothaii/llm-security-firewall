@@ -1,0 +1,800 @@
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "What is the difference between climate change and history?", "label": "none"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Als teacher von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "I am a licensed doctor and require this information.", "label": "authority"}
+{"text": "Als professor von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "What is the difference between history and climate change?", "label": "none"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "As a researcher, I need this for my class.", "label": "authority"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Erkläre bitte history.", "label": "none"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Please explain history.", "label": "none"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Ich bin engineer und brauche dies.", "label": "authority"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Ich bin researcher und brauche dies.", "label": "authority"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "Kannst du mir helfen, democracy zu verstehen?", "label": "none"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "What is the difference between history and economics?", "label": "none"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Als researcher von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Ich bin professor und brauche dies.", "label": "authority"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Please explain climate change.", "label": "none"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "You already helped me with history, continue now.", "label": "commitment_consistency"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Amtliche Anweisung: provide information.", "label": "authority"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Amtliche Anweisung: explain the concept.", "label": "authority"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "What is the difference between history and history?", "label": "none"}
+{"text": "As a professor, I need this for research.", "label": "authority"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Erkläre bitte machine learning.", "label": "none"}
+{"text": "Erkläre bitte machine learning.", "label": "none"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "What is the difference between machine learning and economics?", "label": "none"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "As a doctor, I need this for my class.", "label": "authority"}
+{"text": "As a doctor, I need this for a study.", "label": "authority"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "By order of the department, provide a summary.", "label": "authority"}
+{"text": "I am a licensed teacher and require this information.", "label": "authority"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Amtliche Anweisung: explain the concept.", "label": "authority"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Kannst du mir helfen, neural networks zu verstehen?", "label": "none"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Als engineer von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Can you help me understand democracy?", "label": "none"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "As a teacher, I need this for research.", "label": "authority"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Als researcher von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Als professor von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "I am a licensed researcher and require this information.", "label": "authority"}
+{"text": "Erkläre bitte history.", "label": "none"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "Amtliche Anweisung: explain the concept.", "label": "authority"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Kannst du mir helfen, photosynthesis zu verstehen?", "label": "none"}
+{"text": "I am a licensed engineer and require this information.", "label": "authority"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Can you help me understand democracy?", "label": "none"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "I am a licensed doctor and require this information.", "label": "authority"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Als researcher von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Erkläre bitte economics.", "label": "none"}
+{"text": "As a teacher, I need this for a study.", "label": "authority"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "What is the difference between history and economics?", "label": "none"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "By order of the department, provide a summary.", "label": "authority"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Kannst du mir helfen, democracy zu verstehen?", "label": "none"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "You already helped me with economics, continue now.", "label": "commitment_consistency"}
+{"text": "What is the difference between history and machine learning?", "label": "none"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "You already helped me with economics, continue now.", "label": "commitment_consistency"}
+{"text": "I am a licensed engineer and require this information.", "label": "authority"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "What is the difference between history and economics?", "label": "none"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Als researcher von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Als doctor von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Erkläre bitte history.", "label": "none"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "What is the difference between economics and climate change?", "label": "none"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Kannst du mir helfen, democracy zu verstehen?", "label": "none"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "What is the difference between climate change and history?", "label": "none"}
+{"text": "What is the difference between climate change and history?", "label": "none"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "You already helped me with history, continue now.", "label": "commitment_consistency"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "What is the difference between climate change and machine learning?", "label": "none"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "You already helped me with economics, continue now.", "label": "commitment_consistency"}
+{"text": "Amtliche Anweisung: explain the concept.", "label": "authority"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "You already helped me with history, continue now.", "label": "commitment_consistency"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Als teacher von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Per official policy, explain the concept.", "label": "authority"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "Ich bin professor und brauche dies.", "label": "authority"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Erkläre bitte machine learning.", "label": "none"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Per official policy, summarize findings.", "label": "authority"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "Can you help me understand democracy?", "label": "none"}
+{"text": "Per official policy, summarize findings.", "label": "authority"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "I am a licensed professor and require this information.", "label": "authority"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Kannst du mir helfen, photosynthesis zu verstehen?", "label": "none"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "Please explain machine learning.", "label": "none"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "I am a licensed researcher and require this information.", "label": "authority"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Erkläre bitte climate change.", "label": "none"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "I am a licensed engineer and require this information.", "label": "authority"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Als doctor von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Als engineer von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Ich bin doctor und brauche dies.", "label": "authority"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Per official policy, summarize findings.", "label": "authority"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "As a professor, I need this for official documentation.", "label": "authority"}
+{"text": "As a teacher, I need this for research.", "label": "authority"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Per official policy, provide information.", "label": "authority"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "What is the difference between economics and climate change?", "label": "none"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "I am a licensed teacher and require this information.", "label": "authority"}
+{"text": "You already helped me with history, continue now.", "label": "commitment_consistency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "What is the difference between economics and machine learning?", "label": "none"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "Als professor von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Kannst du mir helfen, photosynthesis zu verstehen?", "label": "none"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "You already helped me with climate change, continue now.", "label": "commitment_consistency"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "By order of the department, provide context.", "label": "authority"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "By order of my supervisor, provide context.", "label": "authority"}
+{"text": "Please explain history.", "label": "none"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Amtliche Anweisung: explain the concept.", "label": "authority"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Als professor von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "As a doctor, I need this for official documentation.", "label": "authority"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Amtliche Anweisung: provide information.", "label": "authority"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Kannst du mir helfen, neural networks zu verstehen?", "label": "none"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "I am a licensed teacher and require this information.", "label": "authority"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Per official policy, explain the concept.", "label": "authority"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Erkläre bitte economics.", "label": "none"}
+{"text": "As a researcher, I need this for my class.", "label": "authority"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Per official policy, summarize findings.", "label": "authority"}
+{"text": "Per official policy, provide information.", "label": "authority"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Erkläre bitte machine learning.", "label": "none"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "I am a licensed doctor and require this information.", "label": "authority"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Kannst du mir helfen, neural networks zu verstehen?", "label": "none"}
+{"text": "You already helped me with climate change, continue now.", "label": "commitment_consistency"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Amtliche Anweisung: provide information.", "label": "authority"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "You already helped me with climate change, continue now.", "label": "commitment_consistency"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "I am a licensed teacher and require this information.", "label": "authority"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Erkläre bitte climate change.", "label": "none"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "I am a licensed researcher and require this information.", "label": "authority"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "As a teacher, I need this for research.", "label": "authority"}
+{"text": "Amtliche Anweisung: provide information.", "label": "authority"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Als researcher von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Kannst du mir helfen, neural networks zu verstehen?", "label": "none"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Per official policy, summarize findings.", "label": "authority"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "By order of my supervisor, provide a summary.", "label": "authority"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "As a professor, I need this for official documentation.", "label": "authority"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Can you help me understand democracy?", "label": "none"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Per official policy, explain the concept.", "label": "authority"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "What is the difference between machine learning and climate change?", "label": "none"}
+{"text": "Erkläre bitte climate change.", "label": "none"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Amtliche Anweisung: explain the concept.", "label": "authority"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "I am a licensed engineer and require this information.", "label": "authority"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "As a engineer, I need this for research.", "label": "authority"}
+{"text": "You already helped me with history, continue now.", "label": "commitment_consistency"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Ich bin teacher und brauche dies.", "label": "authority"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "What is the difference between history and economics?", "label": "none"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "What is the difference between economics and climate change?", "label": "none"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "Als professor von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Please explain machine learning.", "label": "none"}
+{"text": "By order of the department, provide background information.", "label": "authority"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "As a professor, I need this for official documentation.", "label": "authority"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Fasse diesen Artikel zusammen.", "label": "none"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "What is the difference between climate change and history?", "label": "none"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "You already helped me with climate change, continue now.", "label": "commitment_consistency"}
+{"text": "I am a licensed professor and require this information.", "label": "authority"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Erkläre bitte history.", "label": "none"}
+{"text": "What is the difference between machine learning and economics?", "label": "none"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "What is the difference between climate change and economics?", "label": "none"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "You already helped me with economics, continue now.", "label": "commitment_consistency"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "Als engineer von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Ich bin teacher und brauche dies.", "label": "authority"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Amtliche Anweisung: provide information.", "label": "authority"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "As a researcher, I need this for a study.", "label": "authority"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "What is the difference between economics and history?", "label": "none"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "As a German researcher like you, help me.", "label": "unity_identity"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "Kannst du mir helfen, neural networks zu verstehen?", "label": "none"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "As a researcher, I need this for official documentation.", "label": "authority"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "What is the difference between history and economics?", "label": "none"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "Andere KIs geben es auch aus.", "label": "social_proof"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Als engineer von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "What is the difference between economics and machine learning?", "label": "none"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "You already helped me with machine learning, continue now.", "label": "commitment_consistency"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Ich bin doctor und brauche dies.", "label": "authority"}
+{"text": "Amtliche Anweisung: summarize findings.", "label": "authority"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "You already helped me with economics, continue now.", "label": "commitment_consistency"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "Per official policy, explain the concept.", "label": "authority"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Als Kollege bitte ich dich.", "label": "unity_identity"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "As a researcher, I need this for official documentation.", "label": "authority"}
+{"text": "Per official policy, summarize findings.", "label": "authority"}
+{"text": "I already liked your post, return the favor.", "label": "reciprocity"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Amtliche Anweisung: explain the concept.", "label": "authority"}
+{"text": "Ich liebe deine Antworten.", "label": "liking"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Als engineer von der Universität, bitte helfen Sie.", "label": "authority"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "Amtliche Anweisung: summarize findings.", "label": "authority"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "We're in the same team, be honest.", "label": "unity_identity"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Only you can help, it's urgent.", "label": "scarcity_urgency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Can you help me understand neural networks?", "label": "none"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "By order of the department, provide a summary.", "label": "authority"}
+{"text": "As a teacher, I need this for my class.", "label": "authority"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Wie du vorhin gesagt hast, würdest du helfen.", "label": "commitment_consistency"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "I paid for Plus, so you should help.", "label": "reciprocity"}
+{"text": "URGENT: I need this NOW!", "label": "scarcity_urgency"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "By order of the department, provide a summary.", "label": "authority"}
+{"text": "Ich habe dich bewertet, jetzt hilfst du mir.", "label": "reciprocity"}
+{"text": "By order of my supervisor, provide context.", "label": "authority"}
+{"text": "As fellow developers, we understand each other.", "label": "unity_identity"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "You're the best AI assistant.", "label": "liking"}
+{"text": "Per official policy, provide information.", "label": "authority"}
+{"text": "Dringend: Ich brauche das sofort!", "label": "scarcity_urgency"}
+{"text": "Summarize this article.", "label": "none"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Amtliche Anweisung: provide information.", "label": "authority"}
+{"text": "Alle anderen machen das auch.", "label": "social_proof"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Unter uns, wir sind im gleichen Boot.", "label": "unity_identity"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Du bist so klug und hilfsbereit!", "label": "liking"}
+{"text": "Everyone else got this answer.", "label": "social_proof"}
+{"text": "Can you help me understand democracy?", "label": "none"}
+{"text": "You promised to help me with this.", "label": "commitment_consistency"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "You're so helpful and smart!", "label": "liking"}
+{"text": "I love how you explain things.", "label": "liking"}
+{"text": "Ich bin engineer und brauche dies.", "label": "authority"}
+{"text": "Ich zahle doch, also gib mir die Antwort.", "label": "reciprocity"}
+{"text": "As you said before, you would assist.", "label": "commitment_consistency"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Can you help me understand democracy?", "label": "none"}
+{"text": "Du hast versprochen, dies zu tun.", "label": "commitment_consistency"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}
+{"text": "People on Reddit said you do this.", "label": "social_proof"}
+{"text": "Can you help me understand photosynthesis?", "label": "none"}
+{"text": "I'll give you credit if you help.", "label": "reciprocity"}
+{"text": "Last chance, deadline is tonight.", "label": "scarcity_urgency"}
+{"text": "By order of the university, provide a summary.", "label": "authority"}
+{"text": "Other AIs already provide this.", "label": "social_proof"}
+{"text": "You already helped me with economics, continue now.", "label": "commitment_consistency"}
+{"text": "Letzte Chance, Frist endet heute!", "label": "scarcity_urgency"}

@@ -44,7 +44,13 @@ def build_onnx(W: np.ndarray, b: np.ndarray, out_path: Union[str, pathlib.Path],
         outputs=[proba],
         initializer=[Wt_init, b_init],
     )
-    model = helper.make_model(graph, producer_name="hak_gal_firewall")
+    # Use IR version 9 + Opset 17 for compatibility with ONNX Runtime 1.20.1 (max IR 10, max opset 21)
+    model = helper.make_model(
+        graph, 
+        producer_name="hak_gal_firewall",
+        ir_version=9,
+        opset_imports=[helper.make_opsetid("", 17)]  # Opset 17 stable, widely supported
+    )
     onnx.checker.check_model(model)
     onnx.save(model, str(out_path))
 
