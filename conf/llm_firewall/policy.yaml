@@ -13,6 +13,18 @@ llm_firewall:
       - passwd
       - password
 
+    # Decode budgets (DoS protection)
+    max_inflate_bytes: 65536          # 64 KB max inflate/decode per turn
+    max_zip_files: 5                  # max files to inspect per ZIP
+    max_zip_read_bytes: 32768         # 32 KB max read per ZIP entry
+    max_png_chunks: 8                 # max text chunks per PNG
+
+    # Auto-strict guard (attack wave protection)
+    auto_strict_enabled: true
+    auto_strict_alarm_threshold: 3    # E-value alarms in window
+    auto_strict_window_seconds: 300   # 5 minutes
+    auto_strict_duration_seconds: 300 # Stay strict for 5 minutes
+
   # env override (optional): FIREWALL_POLICY_MODE = permissive|strict
   env_override: true
 

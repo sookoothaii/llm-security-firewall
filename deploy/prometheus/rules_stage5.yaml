@@ -1,0 +1,67 @@
+# Prometheus rules for Stage 5 components
+groups:
+  - name: firewall_stage5
+    interval: 30s
+    rules:
+      # Recording rules
+      - record: firewall:archive_secret:rate5m
+        expr: rate(archive_secret_total[5m])
+
+      - record: firewall:png_text_secret:rate5m
+        expr: rate(png_text_secret_total[5m])
+
+      - record: firewall:rfc2047_secret:rate5m
+        expr: rate(rfc2047_secret_total[5m])
+
+      - record: firewall:provider_nearmiss:rate5m
+        expr: rate(provider_nearmiss_total[5m])
+
+      - record: firewall:auto_strict_transitions:rate1h
+        expr: rate(policy_autostrict_transitions_total[1h])
+
+      # Alerting rules
+      - alert: HighArchiveSecretRate
+        expr: firewall:archive_secret:rate5m > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High rate of archive secrets detected"
+          description: "Archive secret detection rate: {{ $value }}/sec"
+
+      - alert: AutoStrictFrequentTransitions
+        expr: firewall:auto_strict_transitions:rate1h > 5
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Frequent auto-strict mode transitions"
+          description: "Policy auto-strict toggled {{ $value }} times/hour"
+
+      - alert: CriticalFalseNegative
+        expr: firewall_critical_fn_total > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CRITICAL false negative detected"
+          description: "Critical-severity attack missed: {{ $value }}"
+
+      - alert: HighFPR
+        expr: rate(firewall_false_positives_total[30m]) > 0.002
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "FPR exceeded 0.2% threshold"
+          description: "False positive rate: {{ $value }}"
+
+      - alert: SlowDecisionLatency
+        expr: histogram_quantile(0.99, rate(firewall_decision_latency_ms_bucket[15m])) > 40
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "p99 decision latency > 40ms"
+          description: "Decision latency p99: {{ $value }}ms"
+
