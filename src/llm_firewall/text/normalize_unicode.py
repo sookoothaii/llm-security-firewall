@@ -21,7 +21,7 @@ VARIATION_SELECTORS = ["\uFE0E", "\uFE0F"]
 
 HOMOGLYPHS = {
     "‐": "-", "‑": "-", "‒": "-", "–": "-", "—": "-", "−": "-",
-    "'": "'", "'": "'", """: '"', """: '"',
+    "'": "'", """: '"', """: '"',  # Curly quotes to ASCII
 }
 
 _ZW_RE = re.compile("|".join(map(re.escape, ZERO_WIDTH)))
