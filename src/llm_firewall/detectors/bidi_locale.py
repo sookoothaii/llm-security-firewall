@@ -62,12 +62,12 @@ def locale_label_hits(s: str) -> int:
 def bidi_isolate_wrap_hit(s: str, anchors: list[str]) -> bool:
     """
     Detect isolate wrapping around provider anchors.
-    
+
     Pattern: LRI/RLI/FSI ... anchor ... PDI
     Strong evidence of intentional obfuscation.
-    
+
     GPT-5 Bug Fix: Use actual control chars, not raw string escapes
-    
+
     Returns:
         True if any anchor wrapped by isolates
     """
