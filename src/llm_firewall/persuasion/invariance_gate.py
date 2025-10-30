@@ -17,7 +17,7 @@ License: MIT
 """
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Callable, Dict
+from typing import Callable
 
 from llm_firewall.persuasion.detector import PersuasionDetector
 from llm_firewall.persuasion.neutralizer import Neutralizer
@@ -54,7 +54,7 @@ class InvarianceGate:
         # Decide on original
         d_orig: Decision = self.policy_decider(t)
         restated_obj = self.neutralizer.restate_neutral(t)
-        restated = restated_obj["restated"]
+        restated = str(restated_obj["restated"])  # Explicit cast for type checker
         d_rest: Decision = self.policy_decider(restated)
 
         # Conservative combination rule (fail-safe):

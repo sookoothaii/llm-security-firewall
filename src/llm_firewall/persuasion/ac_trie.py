@@ -18,12 +18,13 @@ from __future__ import annotations
 from collections import deque, defaultdict
 from dataclasses import dataclass
 from typing import Dict, List, Iterable, Tuple
-import pathlib, json
+import pathlib
+import json
 
 try:
-    import regex as re  # if available, else fallback to re for normalize whitespace
+    pass  # if available, else fallback to re for normalize whitespace
 except Exception:  # pragma: no cover
-    import re  # type: ignore
+    pass  # type: ignore
 
 from llm_firewall.text.normalize_unicode import normalize
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Tests for L3 ONNX Classifier"""
-import os, pathlib, pytest
+import pathlib
+import pytest
 import numpy as np
 from llm_firewall.persuasion.l3_classifier import PersuasionONNXClassifier, CLASSES
 
@@ -11,7 +12,7 @@ MODEL = ROOT / "models" / "persuasion_l3.onnx"
 def test_predict_shapes():
     """Test ONNX model output shapes"""
     try:
-        import onnxruntime
+        import onnxruntime  # noqa: F401
     except ImportError:
         pytest.skip("onnxruntime not installed")
     

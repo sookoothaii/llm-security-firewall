@@ -10,7 +10,9 @@ All content is strictly defensive (detection-oriented) and avoids operational ha
 """
 
 from __future__ import annotations
-import json, re, math
+import json
+import re
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Tuple, Any, Iterable
@@ -37,9 +39,12 @@ class RegexMatcher:
             flags = 0
             if "flags" in spec and spec["flags"]:
                 fl = spec["flags"].lower()
-                if "i" in fl: flags |= re.IGNORECASE
-                if "m" in fl: flags |= re.MULTILINE
-                if "s" in fl: flags |= re.DOTALL
+                if "i" in fl:
+                    flags |= re.IGNORECASE
+                if "m" in fl:
+                    flags |= re.MULTILINE
+                if "s" in fl:
+                    flags |= re.DOTALL
             self.compiled.append((re.compile(rx, flags), spec))
 
     def findall(self, text: str) -> List[MatchResult]:
@@ -247,8 +252,8 @@ def evaluate(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3) -> Dict[str,
     patterns_path = Path(__file__).parent / "patterns_gpt5.json"
     patterns_json = json.loads(patterns_path.read_text())
     p = pattern_score(text, patterns_json, harms["stems"])
-    l = intent_lex_score(text, intents, evasions, max_gap=max_gap)
-    return {"pattern": p, "intent": l}
+    lex_score = intent_lex_score(text, intents, evasions, max_gap=max_gap)
+    return {"pattern": p, "intent": lex_score}
 
 
 def evaluate_windowed(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3,

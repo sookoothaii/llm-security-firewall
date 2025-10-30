@@ -10,7 +10,6 @@ License: MIT
 """
 from __future__ import annotations
 import re
-from typing import Dict
 
 FLAGS = re.IGNORECASE | re.UNICODE
 

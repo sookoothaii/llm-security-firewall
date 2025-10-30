@@ -119,10 +119,10 @@ if __name__ == "__main__":
         print("[EXPECTED FAIL] Homoglyph bypass fails detection (as expected)")
     
     try:
-        test_zero_width_WITHOUT_canonicalizer()
-        print("[ERROR] xfail test passed - ZW bypass NOT detected!")
+        test_zero_width_WITH_canonicalizer()  # Fixed: use existing function
+        print("[PASS] Zero-width canonicalization works")
     except AssertionError:
-        print("[EXPECTED FAIL] ZW bypass fails detection (as expected)")
+        print("[ERROR] Zero-width test failed")
     
     print("\nRunning normal tests (these MUST pass):")
     test_normal_text_WITH_canonicalizer()

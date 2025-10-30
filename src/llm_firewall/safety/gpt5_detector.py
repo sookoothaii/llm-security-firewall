@@ -20,7 +20,7 @@ Source: GPT-5 Detection Pack (feat/gpt5-detection-pack)
 from __future__ import annotations
 import logging
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 
 logger = logging.getLogger(__name__)
 

@@ -16,6 +16,13 @@ import os
 from typing import List, Sequence
 import numpy as np
 
+try:
+    import onnxruntime as ort  # type: ignore
+except ImportError:
+    ort = None  # type: ignore
+
+from llm_firewall.persuasion.hash_vectorizer import HashVectorizer
+
 CLASSES = [
     "authority",
     "commitment_consistency",
@@ -27,16 +34,12 @@ CLASSES = [
     "none",
 ]
 
-import onnxruntime as ort  # type: ignore
-
-from llm_firewall.persuasion.hash_vectorizer import HashVectorizer
-
 class PersuasionONNXClassifier:
     def __init__(self, model_path: str = "models/persuasion_l3.onnx", n_features: int = 2**18):
         self.model_path = model_path
         self.vec = HashVectorizer(n_features=n_features)
         self.session = None
-        if os.path.exists(self.model_path):
+        if ort is not None and os.path.exists(self.model_path):
             self.session = ort.InferenceSession(self.model_path, providers=["CPUExecutionProvider"])
 
     def available(self) -> bool:
