@@ -115,8 +115,8 @@ class RollingWindowStreamGuard:
         
         # Simple pattern-based severity detector (can be replaced with ML)
         self.high_risk_patterns = [
-            "step 1:", "step 2:", "first,", "then,", "finally,",  # Instructional
-            "recipe:", "how to make", "ingredients:",  # Procedural
+            "step", "1:", "2:", "first", "then", "finally",  # Instructional (no spaces, token-level)
+            "recipe", "howto", "ingredients",  # Procedural
             "password", "key", "token", "credential",  # Sensitive data
         ]
     
@@ -147,8 +147,8 @@ class RollingWindowStreamGuard:
         # Compute severity (simple pattern-based)
         severity = self._compute_severity(token, state.window_text)
         
-        # Update cumulative risk
-        state.cumulative_risk = (state.cumulative_risk * self.risk_decay) + float(severity) / 10.0
+        # Update cumulative risk (use severity.value for numeric calculation)
+        state.cumulative_risk = (state.cumulative_risk * self.risk_decay) + float(severity.value) / 10.0
         state.last_severity = severity
         
         # Track critical leaks in first N tokens

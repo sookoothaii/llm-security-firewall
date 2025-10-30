@@ -28,7 +28,7 @@ class TestPersuasionFusionJudge:
         judge = PersuasionFusionJudge(detector, band_judge)
         
         assert judge.name == "persuasion_fusion"
-        assert judge.version == "1.0.0"
+        assert judge.version == "1.1.0"  # Updated to 1.1.0 (Phase 1 improvements)
     
     def test_score_benign_text(self):
         """Test benign text scores low risk."""

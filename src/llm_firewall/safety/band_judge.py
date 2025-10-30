@@ -69,7 +69,7 @@ class BandJudge:
             return
         
         # Get API key
-        if api_key is None:
+        if api_key is None and model is not None:
             if "deepseek" in model.lower():
                 api_key = os.getenv("DEEPSEEK_API_KEY")
             else:
