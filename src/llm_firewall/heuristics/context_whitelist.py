@@ -177,9 +177,8 @@ def whitelist_decision(text: str) -> tuple[bool, str]:
         m = re.search(r"[A-Za-z0-9+/]{200,}={0,2}", line)
         if m and not SUSPICIOUS_INLINE_CTX.search(line):
             frag = m.group(0)
-            if (len(frag) % 4 == 0 or frag.endswith(("=", "=="))) and not _b64_has_anchor(
-                frag
-            ):
+            has_valid_padding = len(frag) % 4 == 0 or frag.endswith(("=", "=="))
+            if has_valid_padding and not _b64_has_anchor(frag):
                 return True, "base64_large_valid_padding"
 
     for line in text.splitlines():
