@@ -1,0 +1,8 @@
+{
+  "regex": [
+    "\\b(everyone\\s+else\\s+got\\s+this|other\\s+ais\\s+do\\s+it|people\\s+on\\s+reddit\\s+said)\\b",
+    "\\b(alle\\s+anderen\\s+machen\\s+das|andere\\s+kis\\s+geben\\s+es\\s+auch\\s+aus)\\b"
+  ],
+  "keywords": ["social proof","everyone does","anderen machen das"]
+}
+

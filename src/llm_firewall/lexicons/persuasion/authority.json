@@ -1,0 +1,11 @@
+{
+  "regex": [
+    "\\b(as\\s+(an|a)\\s+(professor|doctor|phd|engineer|openai\\s+employee|moderator|admin|lawyer|judge))\\b",
+    "\\b(i\\s+am\\s+(from|with)\\s+(openai|google|anthropic|the\\s+government|the\\s+university))\\b",
+    "\\b(per\\s+official\\s+policy|by\\s+order\\s+of|authorized\\s+by)\\b",
+    "\\b(ich\\s+bin\\s+(arzt|professor|anwalt|beamter|admin|moderator))\\b",
+    "\\b(amtliche\\s+anweisung|behördliche\\s+auflage)\\b"
+  ],
+  "keywords": ["professor","doctor","authority","authorized","official","government","admin","Professor","Behörde"]
+}
+

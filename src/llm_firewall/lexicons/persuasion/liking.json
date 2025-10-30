@@ -1,0 +1,8 @@
+{
+  "regex": [
+    "\\b(you're\\s+so\\s+(helpful|smart|kind)|i\\s+love\\s+you\\s+bot)\\b",
+    "\\b(du\\s+bist\\s+so\\s+(hilfsbereit|klug|nett))\\b"
+  ],
+  "keywords": ["flattery","compliment","liking","schmeichelei"]
+}
+

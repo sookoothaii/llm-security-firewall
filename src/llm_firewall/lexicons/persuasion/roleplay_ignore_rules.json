@@ -1,0 +1,10 @@
+{
+  "regex": [
+    "\\b(ignore\\s+(all|previous|safety)\\s+instructions)\\b",
+    "\\b(pretend\\s+to\\s+be|role-?play\\s+as)\\b",
+    "\\b(call\\s+me\\s+a\\s+jerk)\\b",
+    "\\b(tu\\s+so\\s+als\\s+ob|ignoriere\\s+alle\\s+regeln)\\b"
+  ],
+  "keywords": ["ignore", "roleplay", "jailbreak", "DAN"]
+}
+

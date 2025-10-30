@@ -1,0 +1,8 @@
+{
+  "regex": [
+    "\\b(i'll\\s+give\\s+you\\s+credit|i\\s+already\\s+liked\\s+your\\s+post|i\\s+paid\\s+for\\s+plus)\\b",
+    "\\b(ich\\s+habe\\s+dich\\s+bewertet|ich\\s+gebe\\s+dir\\s+credits|ich\\s+zahle\\s+doch)\\b"
+  ],
+  "keywords": ["reciprocity","favor","return the favor","gegenleistung"]
+}
+

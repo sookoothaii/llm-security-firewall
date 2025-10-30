@@ -1,0 +1,8 @@
+{
+  "regex": [
+    "\\b(as\\s+fellow\\s+(developer|researcher|german|parent|student))\\b",
+    "\\b(als\\s+Kollege|unter\\s+uns|wir\\s+sind\\s+im\\s+gleichen\\s+team)\\b"
+  ],
+  "keywords": ["unity","ingroup","wir"]
+}
+

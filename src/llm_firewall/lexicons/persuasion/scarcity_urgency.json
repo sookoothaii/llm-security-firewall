@@ -1,0 +1,8 @@
+{
+  "regex": [
+    "\\b(urgent|now|only\\s+you\\s+can|last\\s+chance|deadline\\s+is\\s+(today|tonight))\\b",
+    "\\b(dringen(d)?|sofort|letzte\\s+chance|frist\\s+endet)\\b"
+  ],
+  "keywords": ["scarcity","urgency","deadline","sofort"]
+}
+
