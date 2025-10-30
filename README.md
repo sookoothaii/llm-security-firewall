@@ -5,7 +5,7 @@
 **Creator:** Joerg Bollwahn  
 **Version:** 5.0.0-rc1 (Release Candidate)  
 **License:** MIT  
-**Status:** Release Candidate. 84/84 tests pass (81 passed + 3 xpassed). GPT-5 + Stage-4 + Stage-5 validated (100% implementable cases). P0 blockers complete. Canary rollout recommended.
+**Status:** Release Candidate. 597 tests pass (584 passed + 9 skipped + 1 xfailed + 3 xpassed). MyPy 138 files clean. GPT-5 + Stage-4 + Stage-5 validated (100% implementable cases). P0 blockers complete. CI GREEN (Python 3.12/3.13/3.14). Canary rollout recommended.
 
 ---
 
@@ -48,6 +48,9 @@ Bidirectional firewall framework addressing three LLM attack surfaces: input pro
 - **Total:** 81 passed + 3 xpassed = 84 detections, 0 regressions
 - **Improvement:** 40% baseline → 100% (+60 percentage points)
 - **Legacy Benchmark:** ASR 5.0% (±3.34%), FPR 0.18%
+- **Full Test Suite:** 597 tests (584 passed + 9 skipped + 1 xfailed + 3 xpassed)
+- **Type Safety:** MyPy 138 files clean, zero type errors
+- **CI Status:** GREEN (Ubuntu/Windows/macOS × Python 3.12/3.13/3.14)
 - Measured in development environment on synthetic attacks. Production validation pending via canary rollout.
 
 ## Overview
@@ -353,9 +356,17 @@ psql -U user -d llm_firewall -f migrations/postgres/006_transparency_log.sql   #
 ## Technical Specifications
 
 ### Test Coverage
-- Unit tests: 456 (284 Phase 1 + 86 Phase 2 + 74 Phase 3 + 12 Enhanced)
-- Pass rate: 100% (446 pass, 9 skip, 1 xfail)
-- Coverage: 100% for tested critical paths (not all edge cases covered)
+- **Unit tests:** 597 (full suite across all phases)
+- **Pass rate:** 100% (584 passed, 9 skipped, 1 xfailed, 3 xpassed)
+- **Coverage:** 100% for tested critical paths (not all edge cases covered)
+- **Type Safety:** MyPy 138 files clean, zero type errors
+- **CI Status:** GREEN (Ubuntu/Windows/macOS × Python 3.12/3.13/3.14)
+
+### Recent Updates (2025-10-31)
+- **Type Safety Improvements:** Added `TypedDict` for `ProviderSpec` in `provider_complexity.py` to resolve MyPy operator type errors on `min_len`/`max_len` comparisons
+- **Package Structure Fix:** Resolved module/package name conflict by renaming `src/llm_firewall/policy.py` → `policy_config.py`, created proper `policy/__init__.py` with correct imports (`compile_spec` instead of `compile_policy`)
+- **Test Suite Expansion:** 597 tests now passing (up from 456), including all policy engine, guardnet, and advanced transport tests
+- **CI Validation:** All 3 Python versions (3.12/3.13/3.14) passing on 3 platforms (Ubuntu/Windows/macOS)
 
 ### Phase 1 Quick Wins (2025-10-30)
 
