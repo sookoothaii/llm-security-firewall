@@ -58,6 +58,8 @@ def compute_risk_score(text: str, kb: Optional[Any] = None, detectors: Dict[str,
     text = canonicalize(text)
     
     # Load lexicons and patterns
+    if LEX_BASE is None:
+        raise RuntimeError("LEX_BASE not available - core module not loaded")
     intents, evasions, harms = load_lexicons(base_dir=LEX_BASE)
     patterns_path = Path(__file__).parent.parent / "rules" / "patterns_gpt5.json"
     patterns_json = json.loads(patterns_path.read_text())
@@ -90,6 +92,9 @@ def compute_risk_score(text: str, kb: Optional[Any] = None, detectors: Dict[str,
     # Meta-ensemble (if enabled and calibrated)
     if SETTINGS.use_meta_ensemble:
         try:
+            if _artifacts_base is None or compute_features is None:
+                raise RuntimeError("Meta-ensemble functions not available")
+            
             art = load_artifacts(_artifacts_base())
             
             # Gate: Only use if ECE/Brier quality sufficient
