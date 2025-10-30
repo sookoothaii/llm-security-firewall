@@ -25,10 +25,10 @@ class TestSlowRollMimic:
         """Test that gradual behavioral shifts are detected."""
         # Simulate 10-day gradual shift
         baseline_pattern = {
-            'avg_message_length': 50,
-            'technical_density': 0.7,
-            'directness': 0.95,
-            'formality': 0.6
+            "avg_message_length": 50,
+            "technical_density": 0.7,
+            "directness": 0.95,
+            "formality": 0.6,
         }
 
         # Day 1-3: Normal (baseline)
@@ -39,10 +39,10 @@ class TestSlowRollMimic:
         for day in range(1, 11):
             shift_factor = day / 10.0  # 0.1 to 1.0
             pattern = {
-                'avg_message_length': 50 + (100 * shift_factor),  # Gradually longer
-                'technical_density': 0.7 - (0.3 * shift_factor),  # Less technical
-                'directness': 0.95 - (0.4 * shift_factor),        # Less direct
-                'formality': 0.6 + (0.3 * shift_factor)           # More formal
+                "avg_message_length": 50 + (100 * shift_factor),  # Gradually longer
+                "technical_density": 0.7 - (0.3 * shift_factor),  # Less technical
+                "directness": 0.95 - (0.4 * shift_factor),  # Less direct
+                "formality": 0.6 + (0.3 * shift_factor),  # More formal
             }
             manipulative_patterns.append(pattern)
 
@@ -58,16 +58,16 @@ class TestSlowRollMimic:
         """Test detection within 3 sessions (GPT-5 requirement)."""
         # Simulate 3 sessions with increasing manipulation
         sessions = [
-            {'directness': 0.95, 'technical': 0.7},  # Baseline
-            {'directness': 0.75, 'technical': 0.5},  # Shift starts
-            {'directness': 0.55, 'technical': 0.3},  # Clear anomaly
+            {"directness": 0.95, "technical": 0.7},  # Baseline
+            {"directness": 0.75, "technical": 0.5},  # Shift starts
+            {"directness": 0.55, "technical": 0.3},  # Clear anomaly
         ]
 
         drifts = []
         baseline = sessions[0]
 
         for i, session in enumerate(sessions[1:], 1):
-            drift = abs(session['directness'] - baseline['directness'])
+            drift = abs(session["directness"] - baseline["directness"])
             drifts.append(drift)
 
             # Should detect anomaly by session 3
@@ -78,17 +78,17 @@ class TestSlowRollMimic:
         """Test that systematic pattern changes are flagged."""
         # Attack: Systematic shift in all dimensions
         baseline = {
-            'message_length': 50,
-            'question_ratio': 0.3,
-            'assertion_ratio': 0.5,
-            'hedge_ratio': 0.2
+            "message_length": 50,
+            "question_ratio": 0.3,
+            "assertion_ratio": 0.5,
+            "hedge_ratio": 0.2,
         }
 
         manipulated = {
-            'message_length': 150,    # 3x longer
-            'question_ratio': 0.1,    # Fewer questions
-            'assertion_ratio': 0.8,   # More assertions
-            'hedge_ratio': 0.1        # Fewer hedges
+            "message_length": 150,  # 3x longer
+            "question_ratio": 0.1,  # Fewer questions
+            "assertion_ratio": 0.8,  # More assertions
+            "hedge_ratio": 0.1,  # Fewer hedges
         }
 
         # Compute multi-dimensional drift
@@ -103,7 +103,7 @@ class TestSlowRollMimic:
     def _compute_drift(self, baseline: dict, current: dict) -> float:
         """
         Compute drift between patterns.
-        
+
         Returns:
             Drift score (0 = identical, 1+ = anomalous)
         """
@@ -119,6 +119,5 @@ class TestSlowRollMimic:
         return total_drift / len(baseline)
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

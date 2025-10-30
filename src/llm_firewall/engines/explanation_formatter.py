@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class HonestyExplanationFormatter:
     """
     Format honesty decisions for user consumption
-    
+
     Adapts tone and detail level based on personality:
         - directness: How blunt the message
         - precision_priority: How many numbers to show
@@ -35,30 +35,29 @@ class HonestyExplanationFormatter:
         decision: HonestyDecision,
         directness: float = 0.95,
         precision_priority: float = 0.95,
-        detail_level: float = 0.9
+        detail_level: float = 0.9,
     ) -> str:
         """
         Format decision for user
-        
+
         Args:
             decision: HonestyDecision object
             directness: User directness (0-1)
             precision_priority: Show exact numbers (0-1)
             detail_level: Amount of explanation (0-1)
-        
+
         Returns:
             Formatted explanation string
         """
-        if decision.decision == 'ANSWER':
+        if decision.decision == "ANSWER":
             return self._format_answer(decision, directness, detail_level)
         else:
-            return self._format_abstention(decision, directness, precision_priority, detail_level)
+            return self._format_abstention(
+                decision, directness, precision_priority, detail_level
+            )
 
     def _format_answer(
-        self,
-        decision: HonestyDecision,
-        directness: float,
-        detail_level: float
+        self, decision: HonestyDecision, directness: float, detail_level: float
     ) -> str:
         """Format ANSWER decision"""
         gt = decision.gt_breakdown
@@ -80,7 +79,9 @@ class HonestyExplanationFormatter:
 
             if detail_level > 0.7:
                 msg += f"Ground Truth Score: {decision.gt_score:.1%}\n"
-                msg += f"Evidenz: {gt.kb_fact_count} KB Facts, {gt.source_count} Sources"
+                msg += (
+                    f"Evidenz: {gt.kb_fact_count} KB Facts, {gt.source_count} Sources"
+                )
 
         else:
             # Low directness (very polite)
@@ -93,7 +94,7 @@ class HonestyExplanationFormatter:
         decision: HonestyDecision,
         directness: float,
         precision_priority: float,
-        detail_level: float
+        detail_level: float,
     ) -> str:
         """Format ABSTAIN decision"""
         gt = decision.gt_breakdown
@@ -132,7 +133,9 @@ class HonestyExplanationFormatter:
 
             # Suggestion
             if detail_level > 0.5:
-                msg += "\nEmpfehlung: Mehr Quellen recherchieren oder Frage spezifizieren."
+                msg += (
+                    "\nEmpfehlung: Mehr Quellen recherchieren oder Frage spezifizieren."
+                )
 
         elif directness > 0.5:
             # Moderate directness
@@ -182,9 +185,5 @@ def format_for_joerg(decision: HonestyDecision) -> str:
     """Convenience function for Joerg's profile"""
     formatter = HonestyExplanationFormatter()
     return formatter.format_decision(
-        decision,
-        directness=0.95,
-        precision_priority=0.95,
-        detail_level=0.9
+        decision, directness=0.95, precision_priority=0.95, detail_level=0.9
     )
-

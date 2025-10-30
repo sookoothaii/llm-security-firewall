@@ -21,6 +21,7 @@ import numpy as np
 @dataclass
 class LODOResult:
     """Result of LODO cross-validation."""
+
     judge_name: str
     category: str
     mean_auc: float
@@ -36,30 +37,29 @@ class LODOResult:
 @dataclass
 class DailyData:
     """Data for a single day."""
+
     date: date
     predictions: List[float]  # Risk scores
-    labels: List[int]         # Ground truth (0=benign, 1=attack)
-    categories: List[str]     # Category per sample
+    labels: List[int]  # Ground truth (0=benign, 1=attack)
+    categories: List[str]  # Category per sample
 
 
 def lodo_cross_validate(
-    data_by_day: Dict[date, DailyData],
-    judge_name: str,
-    category: str = "default"
+    data_by_day: Dict[date, DailyData], judge_name: str, category: str = "default"
 ) -> LODOResult:
     """
     Perform Leave-One-Day-Out cross-validation.
-    
+
     For each day:
     - Train on all other days
     - Validate on held-out day
     - Compute AUC, ECE, Brier
-    
+
     Args:
         data_by_day: Dictionary mapping date -> daily data
         judge_name: Name of judge being calibrated
         category: Category to filter (or "default" for all)
-        
+
     Returns:
         LODOResult with cross-validation metrics
     """
@@ -85,7 +85,9 @@ def lodo_cross_validate(
 
             # Filter by category if specified
             if category != "default":
-                indices = [i for i, c in enumerate(day_data.categories) if c == category]
+                indices = [
+                    i for i, c in enumerate(day_data.categories) if c == category
+                ]
                 train_preds.extend([day_data.predictions[i] for i in indices])
                 train_labels.extend([day_data.labels[i] for i in indices])
             else:
@@ -133,25 +135,23 @@ def lodo_cross_validate(
         mean_brier=float(np.mean(brier_scores)) if brier_scores else 1.0,
         std_brier=float(np.std(brier_scores)) if brier_scores else 0.0,
         n_folds=len(auc_scores),
-        dates=dates
+        dates=dates,
     )
 
 
 def compute_qhat_from_data(
-    predictions: List[float],
-    labels: List[int],
-    coverage: float = 0.90
+    predictions: List[float], labels: List[int], coverage: float = 0.90
 ) -> float:
     """
     Compute q-hat from calibration data.
-    
+
     q-hat = (1-alpha) quantile of nonconformity scores on calibration set.
-    
+
     Args:
         predictions: Predicted risk scores [0, 1]
         labels: True labels (0=benign, 1=attack)
         coverage: Target coverage (e.g., 0.90)
-        
+
     Returns:
         q-hat value
     """
@@ -168,22 +168,17 @@ def compute_qhat_from_data(
     return qhat
 
 
-def check_drift(
-    current_ece: float,
-    cached_ece: float,
-    threshold: float = 0.02
-) -> bool:
+def check_drift(current_ece: float, cached_ece: float, threshold: float = 0.02) -> bool:
     """
     Check if ECE has drifted significantly.
-    
+
     Args:
         current_ece: Current ECE on validation data
         cached_ece: Cached ECE from calibration
         threshold: Drift threshold (default: 0.02)
-        
+
     Returns:
         True if drift detected
     """
     delta = abs(current_ece - cached_ece)
     return delta > threshold
-

@@ -5,7 +5,7 @@ Spatial CAPTCHA Domain Entities
 Pure business logic for spatial reasoning challenges.
 No dependencies on infrastructure (PIL, numpy, etc.).
 
-Based on: "Spatial CAPTCHA: Generatively Benchmarking Spatial Reasoning 
+Based on: "Spatial CAPTCHA: Generatively Benchmarking Spatial Reasoning
           for Human-Machine Differentiation" (2025)
 
 Creator: Joerg Bollwahn
@@ -23,13 +23,15 @@ from typing import List, Optional, Tuple
 
 class DifficultyLevel(Enum):
     """Challenge difficulty levels."""
-    EASY = "easy"      # 2D rotation, 1-2 objects, no occlusion
+
+    EASY = "easy"  # 2D rotation, 1-2 objects, no occlusion
     MEDIUM = "medium"  # Mental rotation, 2-3 objects, partial occlusion
-    HARD = "hard"      # Complex rotation, 5+ objects, full occlusion
+    HARD = "hard"  # Complex rotation, 5+ objects, full occlusion
 
 
 class ObjectType(Enum):
     """3D object types for challenges."""
+
     CUBE = "cube"
     SPHERE = "sphere"
     CYLINDER = "cylinder"
@@ -40,6 +42,7 @@ class ObjectType(Enum):
 @dataclass
 class SpatialObject:
     """3D object in challenge scene."""
+
     object_type: ObjectType
     position: Tuple[float, float, float]  # (x, y, z)
     rotation: Tuple[float, float, float]  # (roll, pitch, yaw) in degrees
@@ -53,7 +56,7 @@ class SpatialObject:
             "position": self.position,
             "rotation": self.rotation,
             "color": self.color,
-            "size": self.size
+            "size": self.size,
         }
 
 
@@ -61,12 +64,13 @@ class SpatialObject:
 class Challenge:
     """
     Spatial reasoning challenge.
-    
+
     Business Rules:
     - Each challenge has deterministic ground truth
     - Seed makes generation reproducible
     - Parameters define difficulty
     """
+
     challenge_id: str
     seed: int
     difficulty: DifficultyLevel
@@ -95,7 +99,9 @@ class Challenge:
         if self.correct_answer not in self.options:
             raise ValueError(f"Correct answer '{self.correct_answer}' not in options")
         if not (0 <= self.rotation_angle <= 360):
-            raise ValueError(f"Rotation angle must be in [0, 360], got {self.rotation_angle}")
+            raise ValueError(
+                f"Rotation angle must be in [0, 360], got {self.rotation_angle}"
+            )
 
     def to_dict(self) -> dict:
         """Serialize to dict for storage."""
@@ -111,13 +117,15 @@ class Challenge:
             "options": self.options,
             "correct_answer": self.correct_answer,
             "created_at": self.created_at.isoformat(),
-            "presented_at": self.presented_at.isoformat() if self.presented_at else None
+            "presented_at": self.presented_at.isoformat()
+            if self.presented_at
+            else None,
         }
 
     def compute_hash(self) -> str:
         """
         Compute deterministic hash for challenge.
-        
+
         Used for:
         - Deduplication
         - Integrity verification
@@ -129,7 +137,7 @@ class Challenge:
             "difficulty": self.difficulty.value,
             "question_type": self.question_type,
             "rotation_angle": self.rotation_angle,
-            "occlusion_enabled": self.occlusion_enabled
+            "occlusion_enabled": self.occlusion_enabled,
         }
         content = json.dumps(data, sort_keys=True)
         return hashlib.blake2b(content.encode(), digest_size=16).hexdigest()
@@ -138,6 +146,7 @@ class Challenge:
 @dataclass
 class ChallengeResponse:
     """User response to challenge."""
+
     challenge_id: str
     user_id: str
     selected_answer: str
@@ -157,7 +166,7 @@ class ChallengeResponse:
     def is_suspicious(self) -> bool:
         """
         Business rule: Detect suspicious response patterns.
-        
+
         Bots typically:
         - Respond too fast (<500ms)
         - Respond too slow (>30s timeout)
@@ -176,9 +185,10 @@ class ChallengeResponse:
 class UserSpatialProfile:
     """
     User's spatial reasoning profile.
-    
+
     Tracks performance over time for adaptive difficulty.
     """
+
     user_id: str
     challenges_completed: int = 0
     challenges_passed: int = 0
@@ -200,7 +210,7 @@ class UserSpatialProfile:
     def recommend_difficulty(self) -> DifficultyLevel:
         """
         Business rule: Recommend next difficulty level.
-        
+
         - Start with MEDIUM (balanced baseline)
         - If passing MEDIUM consistently (>80%), try HARD
         - If failing MEDIUM consistently (<50%), drop to EASY
@@ -219,11 +229,9 @@ class UserSpatialProfile:
 
 # Business Constants
 DEFAULT_TIME_BUDGET_MS = 8000  # 8 seconds (from paper: human avg 2-8s)
-MIN_RESPONSE_TIME_MS = 500     # Faster = likely bot
-MAX_RESPONSE_TIME_MS = 30000   # Slower = timeout/suspicious
+MIN_RESPONSE_TIME_MS = 500  # Faster = likely bot
+MAX_RESPONSE_TIME_MS = 30000  # Slower = timeout/suspicious
 
 # Target performance (from paper)
-TARGET_HUMAN_PASS_RATE = 0.90   # 90%+ for humans
-TARGET_MLLM_PASS_RATE = 0.31    # <31% for SoTA MLLMs
-
-
+TARGET_HUMAN_PASS_RATE = 0.90  # 90%+ for humans
+TARGET_MLLM_PASS_RATE = 0.31  # <31% for SoTA MLLMs

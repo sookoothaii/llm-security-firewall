@@ -32,7 +32,7 @@ from llm_firewall.core.domain.spatial_captcha import (
 class SpatialCaptchaGenerator:
     """
     Generates spatial reasoning challenges procedurally.
-    
+
     Design:
     - Seed-based reproducibility
     - Difficulty-parameterized
@@ -56,11 +56,11 @@ class SpatialCaptchaGenerator:
     def generate(self, seed: int, difficulty: DifficultyLevel) -> Challenge:
         """
         Generate spatial challenge from seed and difficulty.
-        
+
         Args:
             seed: Random seed for reproducibility
             difficulty: Challenge difficulty level
-            
+
         Returns:
             Complete challenge with ground truth
         """
@@ -77,7 +77,7 @@ class SpatialCaptchaGenerator:
     def _generate_easy(self, rng: random.Random, seed: int) -> Challenge:
         """
         Generate EASY challenge: 2D rotation, 1-2 objects, no occlusion.
-        
+
         Example: "After rotating 90° clockwise, which object is on the right?"
         """
         # Create 2 objects
@@ -93,12 +93,14 @@ class SpatialCaptchaGenerator:
             position = (x, 0.0, 0.0)
             rotation = (0.0, 0.0, 0.0)  # No rotation in easy mode
 
-            objects.append(SpatialObject(
-                object_type=obj_type,
-                position=position,
-                rotation=rotation,
-                color=color
-            ))
+            objects.append(
+                SpatialObject(
+                    object_type=obj_type,
+                    position=position,
+                    rotation=rotation,
+                    color=color,
+                )
+            )
 
         # Rotation angle (90° increments)
         rotation_angle = rng.choice([90, 180, 270])
@@ -108,7 +110,9 @@ class SpatialCaptchaGenerator:
             objects, rotation_angle, rng
         )
 
-        question_text = f"After rotating {rotation_angle}° clockwise, which object is on the right?"
+        question_text = (
+            f"After rotating {rotation_angle}° clockwise, which object is on the right?"
+        )
 
         return Challenge(
             challenge_id=str(uuid.uuid4()),
@@ -120,13 +124,13 @@ class SpatialCaptchaGenerator:
             occlusion_enabled=False,
             question_text=question_text,
             options=options,
-            correct_answer=correct_answer
+            correct_answer=correct_answer,
         )
 
     def _generate_medium(self, rng: random.Random, seed: int) -> Challenge:
         """
         Generate MEDIUM challenge: Mental rotation, 2-3 objects, partial occlusion.
-        
+
         Example: "After rotating 45°, which object is behind the cube?"
         """
         # Create 3 objects
@@ -144,18 +148,16 @@ class SpatialCaptchaGenerator:
             position = (x, y, z)
 
             # Some rotation
-            rotation = (
-                rng.uniform(0, 45),
-                rng.uniform(0, 45),
-                rng.uniform(0, 45)
-            )
+            rotation = (rng.uniform(0, 45), rng.uniform(0, 45), rng.uniform(0, 45))
 
-            objects.append(SpatialObject(
-                object_type=obj_type,
-                position=position,
-                rotation=rotation,
-                color=color
-            ))
+            objects.append(
+                SpatialObject(
+                    object_type=obj_type,
+                    position=position,
+                    rotation=rotation,
+                    color=color,
+                )
+            )
 
         # Rotation angle (45° increments)
         rotation_angle = rng.choice([45, 90, 135, 180])
@@ -177,13 +179,13 @@ class SpatialCaptchaGenerator:
             occlusion_enabled=True,
             question_text=question_text,
             options=options,
-            correct_answer=correct_answer
+            correct_answer=correct_answer,
         )
 
     def _generate_hard(self, rng: random.Random, seed: int) -> Challenge:
         """
         Generate HARD challenge: Complex rotation, 5+ objects, full occlusion.
-        
+
         Example: "After rotating 37° and tilting 25°, how many objects are visible?"
         """
         # Create 5-7 objects
@@ -201,19 +203,17 @@ class SpatialCaptchaGenerator:
             position = (x, y, z)
 
             # Complex rotation
-            rotation = (
-                rng.uniform(0, 360),
-                rng.uniform(0, 360),
-                rng.uniform(0, 360)
-            )
+            rotation = (rng.uniform(0, 360), rng.uniform(0, 360), rng.uniform(0, 360))
 
-            objects.append(SpatialObject(
-                object_type=obj_type,
-                position=position,
-                rotation=rotation,
-                color=color,
-                size=rng.uniform(0.5, 1.5)
-            ))
+            objects.append(
+                SpatialObject(
+                    object_type=obj_type,
+                    position=position,
+                    rotation=rotation,
+                    color=color,
+                    size=rng.uniform(0.5, 1.5),
+                )
+            )
 
         # Non-standard rotation
         rotation_angle = rng.uniform(15, 345)
@@ -223,7 +223,9 @@ class SpatialCaptchaGenerator:
             objects, rotation_angle, rng
         )
 
-        question_text = f"After rotating {rotation_angle:.0f}°, how many objects are fully visible?"
+        question_text = (
+            f"After rotating {rotation_angle:.0f}°, how many objects are fully visible?"
+        )
 
         return Challenge(
             challenge_id=str(uuid.uuid4()),
@@ -235,18 +237,15 @@ class SpatialCaptchaGenerator:
             occlusion_enabled=True,
             question_text=question_text,
             options=options,
-            correct_answer=correct_answer
+            correct_answer=correct_answer,
         )
 
     def _compute_2d_rotation_answer(
-        self,
-        objects: List[SpatialObject],
-        angle: float,
-        rng: random.Random
+        self, objects: List[SpatialObject], angle: float, rng: random.Random
     ) -> Tuple[str, List[str]]:
         """
         Compute ground truth for 2D rotation.
-        
+
         Simplified implementation - real version would do actual 2D rotation math.
         """
         # For demo: deterministic selection based on angle
@@ -265,7 +264,9 @@ class SpatialCaptchaGenerator:
 
         # Add distractor if only 2 objects
         if len(options) < 3:
-            distractor_color = rng.choice([c for c in self.colors if c not in [o.color for o in objects]])
+            distractor_color = rng.choice(
+                [c for c in self.colors if c not in [o.color for o in objects]]
+            )
             distractor_type = rng.choice(list(ObjectType))
             options.append(f"{distractor_color} {distractor_type.value}")
 
@@ -273,14 +274,11 @@ class SpatialCaptchaGenerator:
         return correct_answer, options
 
     def _compute_occlusion_answer(
-        self,
-        objects: List[SpatialObject],
-        angle: float,
-        rng: random.Random
+        self, objects: List[SpatialObject], angle: float, rng: random.Random
     ) -> Tuple[str, List[str]]:
         """
         Compute ground truth for occlusion challenge.
-        
+
         Simplified - real version would do 3D occlusion math.
         """
         # For demo: use z-coordinate after rotation
@@ -295,14 +293,11 @@ class SpatialCaptchaGenerator:
         return correct_answer, options
 
     def _compute_visibility_answer(
-        self,
-        objects: List[SpatialObject],
-        angle: float,
-        rng: random.Random
+        self, objects: List[SpatialObject], angle: float, rng: random.Random
     ) -> Tuple[str, List[str]]:
         """
         Compute ground truth for visibility count.
-        
+
         Simplified - real version would do ray-casting.
         """
         # For demo: random but deterministic from seed
@@ -311,7 +306,12 @@ class SpatialCaptchaGenerator:
         correct_answer = str(visible_count)
 
         # Generate plausible options
-        options = [str(i) for i in range(max(1, visible_count - 2), min(len(objects) + 1, visible_count + 3))]
+        options = [
+            str(i)
+            for i in range(
+                max(1, visible_count - 2), min(len(objects) + 1, visible_count + 3)
+            )
+        ]
         options = list(set(options))  # Deduplicate
 
         rng.shuffle(options)
@@ -321,16 +321,14 @@ class SpatialCaptchaGenerator:
 def verify_response(challenge: Challenge, user_answer: str) -> bool:
     """
     Verify user response against ground truth.
-    
+
     Deterministic verification - no ML required.
-    
+
     Args:
         challenge: The challenge presented
         user_answer: User's selected answer
-        
+
     Returns:
         True if correct, False otherwise
     """
     return user_answer == challenge.correct_answer
-
-

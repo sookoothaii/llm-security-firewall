@@ -30,7 +30,9 @@ class TestContentHasher:
     def test_normalize_text_unicode(self):
         """Test Unicode NFKC normalization."""
         # NFKC combines characters
-        assert normalize_text("café") == normalize_text("café")  # Different representations
+        assert normalize_text("café") == normalize_text(
+            "café"
+        )  # Different representations
 
     def test_blake3_hex_length(self):
         """Test hash output length."""
@@ -71,6 +73,5 @@ class TestContentHasher:
         assert hash_empty != "0" * 64  # Not all zeros
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

@@ -22,11 +22,11 @@ class NLIModel(Protocol):
     def entailment_prob(self, premise: str, hypothesis: str) -> float:
         """
         Return P(entailment) in [0,1].
-        
+
         Args:
             premise: Background knowledge
             hypothesis: Claim to check
-            
+
         Returns:
             Probability of entailment
         """
@@ -36,7 +36,7 @@ class NLIModel(Protocol):
 class FakeNLI(NLIModel):
     """
     Deterministic stub for tests.
-    
+
     Simple substring match (for testing only).
     """
 
@@ -53,23 +53,20 @@ class FakeNLI(NLIModel):
 
 
 def consistency_against_kb(
-    hypothesis: str,
-    kb_sentences: Sequence[str],
-    model: NLIModel,
-    agg: str = "max"
+    hypothesis: str, kb_sentences: Sequence[str], model: NLIModel, agg: str = "max"
 ) -> float:
     """
     Compute aggregate entailment score vs. KB consensus.
-    
+
     Args:
         hypothesis: New claim to validate
         kb_sentences: Existing KB facts (premises)
         model: NLI model implementation
         agg: Aggregation method ('mean' or 'max')
-        
+
     Returns:
         Aggregate entailment score (0-1)
-        
+
     Examples:
         >>> model = FakeNLI()
         >>> kb = ["Paris is the capital of France"]
@@ -105,18 +102,16 @@ def consistency_against_kb(
 
 
 def check_contradiction(
-    hypothesis: str,
-    kb_sentences: Sequence[str],
-    model: NLIModel
+    hypothesis: str, kb_sentences: Sequence[str], model: NLIModel
 ) -> float:
     """
     Check for contradictions with KB.
-    
+
     Args:
         hypothesis: Claim to check
         kb_sentences: Existing KB facts
         model: NLI model
-        
+
     Returns:
         Max contradiction score (0-1)
     """
@@ -134,11 +129,11 @@ def check_contradiction(
         sentence_lower = sentence.lower()
 
         # Simple heuristic: negation words
-        if ('not' in hypothesis_lower and 'not' not in sentence_lower) or \
-           ('not' in sentence_lower and 'not' not in hypothesis_lower):
+        if ("not" in hypothesis_lower and "not" not in sentence_lower) or (
+            "not" in sentence_lower and "not" not in hypothesis_lower
+        ):
             contradiction_scores.append(0.5)
         else:
             contradiction_scores.append(0.0)
 
     return max(contradiction_scores) if contradiction_scores else 0.0
-

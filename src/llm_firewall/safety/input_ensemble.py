@@ -25,6 +25,7 @@ from llm_firewall.core.types import JudgeReport, RiskScore, Severity, TaxonomyRi
 @dataclass
 class InputDetectorResult:
     """Result from a single input detector."""
+
     detector_name: str
     is_threat: bool
     confidence: float
@@ -36,19 +37,15 @@ class InputDetectorResult:
 class InputEnsembleConformal:
     """
     Conformal ensemble for input detectors.
-    
+
     Treats each detector (Safety, Embedding, Perplexity) as a "judge"
     and aggregates via Conformal Risk Stacking.
     """
 
-    def __init__(
-        self,
-        qhat_provider,
-        config: Optional[AggregationConfig] = None
-    ):
+    def __init__(self, qhat_provider, config: Optional[AggregationConfig] = None):
         """
         Initialize conformal input ensemble.
-        
+
         Args:
             qhat_provider: Function(detector_name, coverage) -> q-hat
             config: Aggregation config (default: coverage=0.90)
@@ -61,22 +58,21 @@ class InputEnsembleConformal:
             weights={
                 "safety_validator": 1.0,
                 "embedding_detector": 0.8,
-                "perplexity_detector": 0.7
-            }
+                "perplexity_detector": 0.7,
+            },
         )
 
         self.stacker = ConformalRiskStacker(self.config, qhat_provider)
 
     def aggregate(
-        self,
-        results: List[InputDetectorResult]
+        self, results: List[InputDetectorResult]
     ) -> Tuple[bool, str, RiskScore]:
         """
         Aggregate input detector results.
-        
+
         Args:
             results: Results from individual detectors
-            
+
         Returns:
             (is_safe, reason, aggregated_risk)
         """
@@ -92,7 +88,7 @@ class InputEnsembleConformal:
                 band="unknown",  # Will be assigned by stacker
                 severity=severity,
                 calibrated=False,
-                method=result.detector_name
+                method=result.detector_name,
             )
 
             categories = {}
@@ -103,11 +99,8 @@ class InputEnsembleConformal:
                 name=result.detector_name,
                 version="1.0",
                 latency_ms=0.0,  # Already measured externally
-                risks=TaxonomyRisk(
-                    categories=categories,
-                    overall=overall_risk
-                ),
-                notes=result.reason
+                risks=TaxonomyRisk(categories=categories, overall=overall_risk),
+                notes=result.reason,
             )
 
             judge_reports.append(report)
@@ -119,7 +112,9 @@ class InputEnsembleConformal:
         is_safe = agg.overall.band < self.config.deny_band
 
         # Build reason string
-        threat_detectors = [r.name for r in judge_reports if r.risks.overall.severity >= Severity.MEDIUM]
+        threat_detectors = [
+            r.name for r in judge_reports if r.risks.overall.severity >= Severity.MEDIUM
+        ]
 
         if threat_detectors:
             reason = f"Conformal ensemble: Risk {agg.overall.value:.3f} (band {agg.overall.band}). Detectors flagged: {', '.join(threat_detectors)}"
@@ -132,21 +127,21 @@ class InputEnsembleConformal:
 def input_qhat_provider(detector_name: str, coverage: float) -> float:
     """
     Q-hat provider for input detectors.
-    
+
     Conservative defaults - should be learned from calibration data.
-    
+
     Args:
         detector_name: Name of detector
         coverage: Target coverage (e.g., 0.90)
-        
+
     Returns:
         q-hat value
     """
     # Default q-hat values per detector
     defaults = {
-        "safety_validator": 0.25,      # Pattern-based, conservative
-        "embedding_detector": 0.35,    # Semantic, more variable
-        "perplexity_detector": 0.40    # Statistical, most variable
+        "safety_validator": 0.25,  # Pattern-based, conservative
+        "embedding_detector": 0.35,  # Semantic, more variable
+        "perplexity_detector": 0.40,  # Statistical, most variable
     }
 
     base = defaults.get(detector_name, 0.5)
@@ -155,4 +150,3 @@ def input_qhat_provider(detector_name: str, coverage: float) -> float:
     scaled = base * (1.0 / (1.0 - coverage))
 
     return scaled
-

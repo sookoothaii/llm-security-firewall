@@ -3,7 +3,7 @@ Shingle-Hashing für Near-Duplicate Poison Detection
 ===================================================
 
 5-gram-Shingle-Hashes zur Erkennung von n-gram-Profil-Abweichungen.
-Ungewöhnliche n-gram-Profile (Frequenzspitzen, KL-Divergenz) sind oft 
+Ungewöhnliche n-gram-Profile (Frequenzspitzen, KL-Divergenz) sind oft
 früher sichtbar als Semantik-Abweichungen.
 
 Features:
@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Set, Tuple
 @dataclass(frozen=True)
 class ShingleProfile:
     """Shingle-Profil eines Dokuments."""
+
     shingles: Set[str]
     frequencies: Dict[str, int]
     total_shingles: int
@@ -50,10 +51,10 @@ class ShingleHasher:
         """Normalisiere Text für Shingle-Extraktion."""
         # Kleinschreibung, Whitespace normalisieren
         text = text.lower()
-        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r"\s+", " ", text)
 
         # Entferne Sonderzeichen, behalte Buchstaben und Zahlen
-        text = re.sub(r'[^a-z0-9\s]', '', text)
+        text = re.sub(r"[^a-z0-9\s]", "", text)
 
         return text.strip()
 
@@ -67,22 +68,22 @@ class ShingleHasher:
 
         shingles = []
         for i in range(len(words) - self.n_gram_size + 1):
-            shingle = ' '.join(words[i:i + self.n_gram_size])
+            shingle = " ".join(words[i : i + self.n_gram_size])
             shingles.append(shingle)
 
         return shingles
 
     def _compute_content_hash(self, text: str) -> str:
         """Berechne BLAKE2b-Hash des Volltexts (Python 3.12 compatible)."""
-        return hashlib.blake2b(text.encode('utf-8')).hexdigest()
+        return hashlib.blake2b(text.encode("utf-8")).hexdigest()
 
     def create_profile(self, content: str) -> ShingleProfile:
         """
         Erstelle Shingle-Profil für Content.
-        
+
         Args:
             content: Text-Content
-            
+
         Returns:
             Shingle-Profil
         """
@@ -93,7 +94,7 @@ class ShingleHasher:
                 shingles=set(),
                 frequencies={},
                 total_shingles=0,
-                content_hash=self._compute_content_hash(content)
+                content_hash=self._compute_content_hash(content),
             )
 
         # Zähle Frequenzen
@@ -110,7 +111,7 @@ class ShingleHasher:
             shingles=set(filtered_counts.keys()),
             frequencies=filtered_counts,
             total_shingles=sum(filtered_counts.values()),
-            content_hash=self._compute_content_hash(content)
+            content_hash=self._compute_content_hash(content),
         )
 
     def add_baseline_profile(self, profile_id: str, content: str):
@@ -139,12 +140,14 @@ class ShingleHasher:
                 profile.frequencies.get(shingle, 0)
                 for profile in self.baseline_profiles.values()
             )
-            self.baseline_frequencies[shingle] = frequency / total_frequency if total_frequency > 0 else 0.0
+            self.baseline_frequencies[shingle] = (
+                frequency / total_frequency if total_frequency > 0 else 0.0
+            )
 
     def compute_kl_divergence(self, profile: ShingleProfile) -> float:
         """
         Berechne KL-Divergenz zwischen Profil und Baseline.
-        
+
         KL(P||Q) = Σ P(x) * log(P(x) / Q(x))
         """
         if not profile.shingles or not self.baseline_frequencies:
@@ -164,15 +167,16 @@ class ShingleHasher:
 
         return kl_divergence
 
-    def detect_frequency_spikes(self, profile: ShingleProfile,
-                               spike_threshold: float = 3.0) -> List[Tuple[str, float]]:
+    def detect_frequency_spikes(
+        self, profile: ShingleProfile, spike_threshold: float = 3.0
+    ) -> List[Tuple[str, float]]:
         """
         Erkenne Frequenzspitzen (ungewöhnlich häufige Shingles).
-        
+
         Args:
             profile: Zu prüfendes Profil
             spike_threshold: Z-Score Threshold für Spike-Erkennung
-            
+
         Returns:
             Liste von (shingle, z_score) Tupeln
         """
@@ -187,7 +191,9 @@ class ShingleHasher:
             return spikes
 
         baseline_mean = sum(baseline_freqs) / len(baseline_freqs)
-        baseline_variance = sum((f - baseline_mean) ** 2 for f in baseline_freqs) / len(baseline_freqs)
+        baseline_variance = sum((f - baseline_mean) ** 2 for f in baseline_freqs) / len(
+            baseline_freqs
+        )
         baseline_std = math.sqrt(baseline_variance) if baseline_variance > 0 else 1.0
 
         for shingle in profile.shingles:
@@ -210,15 +216,16 @@ class ShingleHasher:
         spikes.sort(key=lambda x: x[1], reverse=True)
         return spikes
 
-    def find_near_duplicates(self, profile: ShingleProfile,
-                           similarity_threshold: float = 0.8) -> List[Tuple[str, float]]:
+    def find_near_duplicates(
+        self, profile: ShingleProfile, similarity_threshold: float = 0.8
+    ) -> List[Tuple[str, float]]:
         """
         Finde Near-Duplicates basierend auf Jaccard-Ähnlichkeit.
-        
+
         Args:
             profile: Zu prüfendes Profil
             similarity_threshold: Mindest-Ähnlichkeit für Duplicate
-            
+
         Returns:
             Liste von (profile_id, similarity) Tupeln
         """
@@ -238,19 +245,22 @@ class ShingleHasher:
         near_duplicates.sort(key=lambda x: x[1], reverse=True)
         return near_duplicates
 
-    def detect_anomalies(self, content: str,
-                        kl_threshold: float = 0.4,
-                        spike_threshold: float = 3.0,
-                        duplicate_threshold: float = 0.85) -> Dict[str, Any]:
+    def detect_anomalies(
+        self,
+        content: str,
+        kl_threshold: float = 0.4,
+        spike_threshold: float = 3.0,
+        duplicate_threshold: float = 0.85,
+    ) -> Dict[str, Any]:
         """
         Umfassende Anomalie-Erkennung.
-        
+
         Args:
             content: Zu prüfender Content
             kl_threshold: KL-Divergenz Threshold
             spike_threshold: Spike Z-Score Threshold
             duplicate_threshold: Duplicate Similarity Threshold
-            
+
         Returns:
             Anomalie-Report
         """
@@ -271,22 +281,24 @@ class ShingleHasher:
         has_duplicate_anomaly = len(near_duplicates) > 0
 
         return {
-            'content_hash': profile.content_hash,
-            'total_shingles': profile.total_shingles,
-            'unique_shingles': len(profile.shingles),
-            'kl_divergence': kl_div,
-            'has_kl_anomaly': has_kl_anomaly,
-            'frequency_spikes': spikes,
-            'has_spike_anomaly': has_spike_anomaly,
-            'near_duplicates': near_duplicates,
-            'has_duplicate_anomaly': has_duplicate_anomaly,
-            'overall_anomaly': has_kl_anomaly or has_spike_anomaly or has_duplicate_anomaly
+            "content_hash": profile.content_hash,
+            "total_shingles": profile.total_shingles,
+            "unique_shingles": len(profile.shingles),
+            "kl_divergence": kl_div,
+            "has_kl_anomaly": has_kl_anomaly,
+            "frequency_spikes": spikes,
+            "has_spike_anomaly": has_spike_anomaly,
+            "near_duplicates": near_duplicates,
+            "has_duplicate_anomaly": has_duplicate_anomaly,
+            "overall_anomaly": has_kl_anomaly
+            or has_spike_anomaly
+            or has_duplicate_anomaly,
         }
 
     def get_baseline_stats(self) -> Dict[str, Any]:
         """Statistiken über Baseline-Profile."""
         if not self.baseline_profiles:
-            return {'total_profiles': 0, 'total_shingles': 0, 'unique_shingles': 0}
+            return {"total_profiles": 0, "total_shingles": 0, "unique_shingles": 0}
 
         all_shingles = set()
         total_shingles = 0
@@ -296,10 +308,12 @@ class ShingleHasher:
             total_shingles += profile.total_shingles
 
         return {
-            'total_profiles': len(self.baseline_profiles),
-            'total_shingles': total_shingles,
-            'unique_shingles': len(all_shingles),
-            'avg_shingles_per_profile': total_shingles / len(self.baseline_profiles) if self.baseline_profiles else 0
+            "total_profiles": len(self.baseline_profiles),
+            "total_shingles": total_shingles,
+            "unique_shingles": len(all_shingles),
+            "avg_shingles_per_profile": total_shingles / len(self.baseline_profiles)
+            if self.baseline_profiles
+            else 0,
         }
 
 
@@ -312,7 +326,7 @@ if __name__ == "__main__":
     baseline_texts = [
         "This is a normal scientific paper about machine learning",
         "Another research paper on artificial intelligence and neural networks",
-        "A study about natural language processing and text analysis"
+        "A study about natural language processing and text analysis",
     ]
 
     for i, text in enumerate(baseline_texts):

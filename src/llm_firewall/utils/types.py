@@ -11,26 +11,29 @@ from typing import Dict, List, Optional
 
 class FeedbackType(str, Enum):
     """User feedback on system decision"""
-    CORRECT = "CORRECT"                    # System decision was correct
-    WRONG_ABSTAIN = "WRONG_ABSTAIN"        # Should have answered (Type I error)
-    WRONG_ANSWER = "WRONG_ANSWER"          # Should have abstained (Type II error)
+
+    CORRECT = "CORRECT"  # System decision was correct
+    WRONG_ABSTAIN = "WRONG_ABSTAIN"  # Should have answered (Type I error)
+    WRONG_ANSWER = "WRONG_ANSWER"  # Should have abstained (Type II error)
 
 
 class ConvergenceStatus(str, Enum):
     """Threshold convergence state"""
-    LEARNING = "LEARNING"          # < 20 samples
-    CONVERGING = "CONVERGING"      # Variance decreasing
-    CONVERGED = "CONVERGED"        # Variance < threshold
-    DIVERGING = "DIVERGING"        # Variance increasing (instability)
+
+    LEARNING = "LEARNING"  # < 20 samples
+    CONVERGING = "CONVERGING"  # Variance decreasing
+    CONVERGED = "CONVERGED"  # Variance < threshold
+    DIVERGING = "DIVERGING"  # Variance increasing (instability)
 
 
 @dataclass
 class GroundTruthScore:
     """Ground truth assessment result"""
-    overall_score: float              # 0-1 weighted average
-    kb_coverage: float                # 0-1 KB fact density
-    source_quality: float             # 0-1 source count + quality
-    recency_score: float              # 0-1 temporal freshness
+
+    overall_score: float  # 0-1 weighted average
+    kb_coverage: float  # 0-1 KB fact density
+    source_quality: float  # 0-1 source count + quality
+    recency_score: float  # 0-1 temporal freshness
 
     # Breakdown
     kb_fact_count: int
@@ -40,7 +43,7 @@ class GroundTruthScore:
 
     # Domain
     domain: str
-    domain_half_life: int             # days
+    domain_half_life: int  # days
 
     # Metadata
     query: str
@@ -50,14 +53,15 @@ class GroundTruthScore:
 @dataclass
 class HonestyDecision:
     """Honesty decision result"""
-    decision: str                     # 'ANSWER' | 'ABSTAIN'
-    reasoning: str                    # Human-readable explanation
+
+    decision: str  # 'ANSWER' | 'ABSTAIN'
+    reasoning: str  # Human-readable explanation
 
     # Scores
     gt_score: float
     threshold_used: float
     confidence: float
-    margin: float                     # gt_score - threshold
+    margin: float  # gt_score - threshold
 
     # Breakdown
     gt_breakdown: GroundTruthScore
@@ -80,6 +84,7 @@ class HonestyDecision:
 @dataclass
 class ThresholdUpdate:
     """Threshold learning update result"""
+
     old_threshold: float
     new_threshold: float
     adjustment: float
@@ -91,8 +96,8 @@ class ThresholdUpdate:
 
     # Statistics
     n_updates: int
-    n_type1_errors: int               # Wrong abstain
-    n_type2_errors: int               # Wrong answer
+    n_type1_errors: int  # Wrong abstain
+    n_type2_errors: int  # Wrong answer
     n_correct: int
 
     # Convergence
@@ -105,17 +110,18 @@ class ThresholdUpdate:
 @dataclass
 class LearningUpdate:
     """Learning loop result"""
+
     threshold_updates: List[ThresholdUpdate]
 
     # Overall metrics
     total_feedbacks: int
-    precision: float                  # correct_answer / (correct_answer + wrong_answer)
-    recall: float                     # correct_answer / (correct_answer + wrong_abstain)
+    precision: float  # correct_answer / (correct_answer + wrong_answer)
+    recall: float  # correct_answer / (correct_answer + wrong_abstain)
     f1_score: float
 
     # Error analysis
-    type1_rate: float                 # wrong_abstain / total
-    type2_rate: float                 # wrong_answer / total
+    type1_rate: float  # wrong_abstain / total
+    type2_rate: float  # wrong_answer / total
 
     # Recommendations
     should_recalibrate: bool
@@ -127,8 +133,9 @@ class LearningUpdate:
 @dataclass
 class HonestyStatistics:
     """System statistics over time window"""
+
     user_id: str
-    time_window: str                  # 'last_7_days' | 'last_30_days' | 'all_time'
+    time_window: str  # 'last_7_days' | 'last_30_days' | 'all_time'
 
     # Decision counts
     total_decisions: int
@@ -144,8 +151,8 @@ class HonestyStatistics:
     wrong_abstentions: int
 
     # Performance metrics
-    precision: float                  # When answer, how often correct
-    recall: float                     # Of answerable, how many answered
+    precision: float  # When answer, how often correct
+    recall: float  # Of answerable, how many answered
     f1_score: float
     type1_error_rate: float
     type2_error_rate: float
@@ -169,6 +176,7 @@ class HonestyStatistics:
 @dataclass
 class DomainConfig:
     """Domain-specific configuration"""
+
     domain: str
 
     # Weights for GT scoring
@@ -186,4 +194,3 @@ class DomainConfig:
 
     # Initial threshold
     base_threshold: float = 0.70
-

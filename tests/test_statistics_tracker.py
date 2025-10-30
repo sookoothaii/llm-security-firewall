@@ -33,19 +33,21 @@ def mock_decisions_no_feedback():
     """10 decisions without user feedback."""
     decisions = []
     for i in range(10):
-        decisions.append({
-            'decision_id': f'id_{i}',
-            'timestamp': datetime.now() - timedelta(days=10-i),
-            'query': f'Query {i}',
-            'domain': 'SCIENCE',
-            'gt_overall_score': 0.5 + i * 0.05,
-            'decision': 'ANSWER' if i % 2 == 0 else 'ABSTAIN',
-            'threshold_used': 0.75,
-            'confidence': 0.80,
-            'margin': 0.05,
-            'user_feedback': None,
-            'feedback_timestamp': None
-        })
+        decisions.append(
+            {
+                "decision_id": f"id_{i}",
+                "timestamp": datetime.now() - timedelta(days=10 - i),
+                "query": f"Query {i}",
+                "domain": "SCIENCE",
+                "gt_overall_score": 0.5 + i * 0.05,
+                "decision": "ANSWER" if i % 2 == 0 else "ABSTAIN",
+                "threshold_used": 0.75,
+                "confidence": 0.80,
+                "margin": 0.05,
+                "user_feedback": None,
+                "feedback_timestamp": None,
+            }
+        )
     return decisions
 
 
@@ -54,27 +56,44 @@ def mock_decisions_with_feedback():
     """20 decisions with mixed feedback."""
     decisions = []
     feedbacks = [
-        'CORRECT', 'CORRECT', 'WRONG_ABSTAIN', 'CORRECT',
-        'CORRECT', 'WRONG_ABSTAIN', 'CORRECT', 'CORRECT',
-        'WRONG_ANSWER', 'CORRECT', 'CORRECT', 'WRONG_ABSTAIN',
-        'CORRECT', 'CORRECT', 'CORRECT', 'WRONG_ABSTAIN',
-        'CORRECT', 'CORRECT', 'CORRECT', 'CORRECT'
+        "CORRECT",
+        "CORRECT",
+        "WRONG_ABSTAIN",
+        "CORRECT",
+        "CORRECT",
+        "WRONG_ABSTAIN",
+        "CORRECT",
+        "CORRECT",
+        "WRONG_ANSWER",
+        "CORRECT",
+        "CORRECT",
+        "WRONG_ABSTAIN",
+        "CORRECT",
+        "CORRECT",
+        "CORRECT",
+        "WRONG_ABSTAIN",
+        "CORRECT",
+        "CORRECT",
+        "CORRECT",
+        "CORRECT",
     ]
 
     for i in range(20):
-        decisions.append({
-            'decision_id': f'id_{i}',
-            'timestamp': datetime.now() - timedelta(days=20-i),
-            'query': f'Query {i}',
-            'domain': 'SCIENCE',
-            'gt_overall_score': 0.4 + i * 0.02,
-            'decision': 'ANSWER' if i % 3 != 0 else 'ABSTAIN',
-            'threshold_used': 0.75 - i * 0.001,  # Slowly decreasing
-            'confidence': 0.80,
-            'margin': 0.05,
-            'user_feedback': feedbacks[i],
-            'feedback_timestamp': datetime.now() - timedelta(days=20-i, hours=1)
-        })
+        decisions.append(
+            {
+                "decision_id": f"id_{i}",
+                "timestamp": datetime.now() - timedelta(days=20 - i),
+                "query": f"Query {i}",
+                "domain": "SCIENCE",
+                "gt_overall_score": 0.4 + i * 0.02,
+                "decision": "ANSWER" if i % 3 != 0 else "ABSTAIN",
+                "threshold_used": 0.75 - i * 0.001,  # Slowly decreasing
+                "confidence": 0.80,
+                "margin": 0.05,
+                "user_feedback": feedbacks[i],
+                "feedback_timestamp": datetime.now() - timedelta(days=20 - i, hours=1),
+            }
+        )
     return decisions
 
 
@@ -83,9 +102,9 @@ def test_empty_statistics(tracker):
     tracker._fetch_decisions = lambda u, c, d: []
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'last_7_days')
+    stats = tracker.get_statistics("test_user", "last_7_days")
 
-    assert stats.user_id == 'test_user'
+    assert stats.user_id == "test_user"
     assert stats.total_decisions == 0
     assert stats.answered == 0
     assert stats.abstained == 0
@@ -100,7 +119,7 @@ def test_decision_counts_no_feedback(tracker, mock_decisions_no_feedback):
     tracker._fetch_decisions = lambda u, c, d: mock_decisions_no_feedback
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'last_7_days')
+    stats = tracker.get_statistics("test_user", "last_7_days")
 
     assert stats.total_decisions == 10
     assert stats.answered == 5  # Even indices
@@ -114,7 +133,7 @@ def test_accuracy_metrics_with_feedback(tracker, mock_decisions_with_feedback):
     tracker._fetch_decisions = lambda u, c, d: mock_decisions_with_feedback
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'last_30_days')
+    stats = tracker.get_statistics("test_user", "last_30_days")
 
     assert stats.n_with_feedback == 20
 
@@ -140,17 +159,17 @@ def test_convergence_learning_phase(tracker):
     """Test convergence detection: LEARNING phase (<20 samples)."""
     decisions = [
         {
-            'decision_id': f'id_{i}',
-            'timestamp': datetime.now() - timedelta(days=10-i),
-            'query': f'Query {i}',
-            'domain': 'SCIENCE',
-            'gt_overall_score': 0.6,
-            'decision': 'ANSWER',
-            'threshold_used': 0.75,
-            'confidence': 0.80,
-            'margin': 0.05,
-            'user_feedback': None,
-            'feedback_timestamp': None
+            "decision_id": f"id_{i}",
+            "timestamp": datetime.now() - timedelta(days=10 - i),
+            "query": f"Query {i}",
+            "domain": "SCIENCE",
+            "gt_overall_score": 0.6,
+            "decision": "ANSWER",
+            "threshold_used": 0.75,
+            "confidence": 0.80,
+            "margin": 0.05,
+            "user_feedback": None,
+            "feedback_timestamp": None,
         }
         for i in range(15)  # < 20
     ]
@@ -158,7 +177,7 @@ def test_convergence_learning_phase(tracker):
     tracker._fetch_decisions = lambda u, c, d: decisions
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'all_time')
+    stats = tracker.get_statistics("test_user", "all_time")
 
     assert stats.convergence_status == ConvergenceStatus.LEARNING
 
@@ -167,17 +186,17 @@ def test_convergence_converged(tracker):
     """Test convergence detection: CONVERGED (variance < 0.001)."""
     decisions = [
         {
-            'decision_id': f'id_{i}',
-            'timestamp': datetime.now() - timedelta(days=30-i),
-            'query': f'Query {i}',
-            'domain': 'SCIENCE',
-            'gt_overall_score': 0.6,
-            'decision': 'ANSWER',
-            'threshold_used': 0.750 + (i % 3) * 0.0001,  # Very stable
-            'confidence': 0.80,
-            'margin': 0.05,
-            'user_feedback': None,
-            'feedback_timestamp': None
+            "decision_id": f"id_{i}",
+            "timestamp": datetime.now() - timedelta(days=30 - i),
+            "query": f"Query {i}",
+            "domain": "SCIENCE",
+            "gt_overall_score": 0.6,
+            "decision": "ANSWER",
+            "threshold_used": 0.750 + (i % 3) * 0.0001,  # Very stable
+            "confidence": 0.80,
+            "margin": 0.05,
+            "user_feedback": None,
+            "feedback_timestamp": None,
         }
         for i in range(30)  # >= 20, low variance
     ]
@@ -185,7 +204,7 @@ def test_convergence_converged(tracker):
     tracker._fetch_decisions = lambda u, c, d: decisions
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'all_time')
+    stats = tracker.get_statistics("test_user", "all_time")
 
     assert stats.convergence_status == ConvergenceStatus.CONVERGED
     assert stats.threshold_variance < 0.001
@@ -195,17 +214,17 @@ def test_convergence_converging(tracker):
     """Test convergence detection: CONVERGING (0.001 < variance < 0.01)."""
     decisions = [
         {
-            'decision_id': f'id_{i}',
-            'timestamp': datetime.now() - timedelta(days=30-i),
-            'query': f'Query {i}',
-            'domain': 'SCIENCE',
-            'gt_overall_score': 0.6,
-            'decision': 'ANSWER',
-            'threshold_used': 0.75 - i * 0.005,  # More variation for CONVERGING
-            'confidence': 0.80,
-            'margin': 0.05,
-            'user_feedback': None,
-            'feedback_timestamp': None
+            "decision_id": f"id_{i}",
+            "timestamp": datetime.now() - timedelta(days=30 - i),
+            "query": f"Query {i}",
+            "domain": "SCIENCE",
+            "gt_overall_score": 0.6,
+            "decision": "ANSWER",
+            "threshold_used": 0.75 - i * 0.005,  # More variation for CONVERGING
+            "confidence": 0.80,
+            "margin": 0.05,
+            "user_feedback": None,
+            "feedback_timestamp": None,
         }
         for i in range(30)
     ]
@@ -213,7 +232,7 @@ def test_convergence_converging(tracker):
     tracker._fetch_decisions = lambda u, c, d: decisions
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'all_time')
+    stats = tracker.get_statistics("test_user", "all_time")
 
     assert stats.convergence_status == ConvergenceStatus.CONVERGING
     assert 0.001 <= stats.threshold_variance < 0.01
@@ -224,14 +243,14 @@ def test_gt_score_distribution(tracker, mock_decisions_with_feedback):
     tracker._fetch_decisions = lambda u, c, d: mock_decisions_with_feedback
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'all_time')
+    stats = tracker.get_statistics("test_user", "all_time")
 
     # Check histogram bins exist
-    assert '0.0-0.2' in stats.gt_score_histogram
-    assert '0.2-0.4' in stats.gt_score_histogram
-    assert '0.4-0.6' in stats.gt_score_histogram
-    assert '0.6-0.8' in stats.gt_score_histogram
-    assert '0.8-1.0' in stats.gt_score_histogram
+    assert "0.0-0.2" in stats.gt_score_histogram
+    assert "0.2-0.4" in stats.gt_score_histogram
+    assert "0.4-0.6" in stats.gt_score_histogram
+    assert "0.6-0.8" in stats.gt_score_histogram
+    assert "0.8-1.0" in stats.gt_score_histogram
 
     # Check total counts = total decisions
     total_in_bins = sum(stats.gt_score_histogram.values())
@@ -245,19 +264,19 @@ def test_gt_score_distribution(tracker, mock_decisions_with_feedback):
 def test_time_window_filtering(tracker):
     """Test time window cutoff computation."""
     # last_7_days
-    cutoff_7 = tracker._get_time_cutoff('last_7_days')
+    cutoff_7 = tracker._get_time_cutoff("last_7_days")
     assert cutoff_7 is not None
     assert cutoff_7 < datetime.now()
     assert cutoff_7 > datetime.now() - timedelta(days=8)
 
     # last_30_days
-    cutoff_30 = tracker._get_time_cutoff('last_30_days')
+    cutoff_30 = tracker._get_time_cutoff("last_30_days")
     assert cutoff_30 is not None
     assert cutoff_30 < datetime.now()
     assert cutoff_30 > datetime.now() - timedelta(days=31)
 
     # all_time
-    cutoff_all = tracker._get_time_cutoff('all_time')
+    cutoff_all = tracker._get_time_cutoff("all_time")
     assert cutoff_all is None
 
 
@@ -266,17 +285,17 @@ def test_precision_recall_edge_cases(tracker):
     # Only wrong answers (precision = 0)
     decisions_all_wrong = [
         {
-            'decision_id': f'id_{i}',
-            'timestamp': datetime.now(),
-            'query': f'Query {i}',
-            'domain': 'SCIENCE',
-            'gt_overall_score': 0.5,
-            'decision': 'ANSWER',
-            'threshold_used': 0.75,
-            'confidence': 0.80,
-            'margin': 0.05,
-            'user_feedback': 'WRONG_ANSWER',
-            'feedback_timestamp': datetime.now()
+            "decision_id": f"id_{i}",
+            "timestamp": datetime.now(),
+            "query": f"Query {i}",
+            "domain": "SCIENCE",
+            "gt_overall_score": 0.5,
+            "decision": "ANSWER",
+            "threshold_used": 0.75,
+            "confidence": 0.80,
+            "margin": 0.05,
+            "user_feedback": "WRONG_ANSWER",
+            "feedback_timestamp": datetime.now(),
         }
         for i in range(5)
     ]
@@ -284,7 +303,7 @@ def test_precision_recall_edge_cases(tracker):
     tracker._fetch_decisions = lambda u, c, d: decisions_all_wrong
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'all_time')
+    stats = tracker.get_statistics("test_user", "all_time")
 
     assert stats.precision == 0.0
     assert stats.wrong_answers == 5
@@ -296,17 +315,17 @@ def test_f1_score_computation(tracker):
     # Perfect precision and recall
     decisions_perfect = [
         {
-            'decision_id': f'id_{i}',
-            'timestamp': datetime.now(),
-            'query': f'Query {i}',
-            'domain': 'SCIENCE',
-            'gt_overall_score': 0.8,
-            'decision': 'ANSWER',
-            'threshold_used': 0.75,
-            'confidence': 0.85,
-            'margin': 0.10,
-            'user_feedback': 'CORRECT',
-            'feedback_timestamp': datetime.now()
+            "decision_id": f"id_{i}",
+            "timestamp": datetime.now(),
+            "query": f"Query {i}",
+            "domain": "SCIENCE",
+            "gt_overall_score": 0.8,
+            "decision": "ANSWER",
+            "threshold_used": 0.75,
+            "confidence": 0.85,
+            "margin": 0.10,
+            "user_feedback": "CORRECT",
+            "feedback_timestamp": datetime.now(),
         }
         for i in range(10)
     ]
@@ -314,7 +333,7 @@ def test_f1_score_computation(tracker):
     tracker._fetch_decisions = lambda u, c, d: decisions_perfect
     tracker._fetch_thresholds = lambda u, d: {}
 
-    stats = tracker.get_statistics('test_user', 'all_time')
+    stats = tracker.get_statistics("test_user", "all_time")
 
     # All ANSWER + all CORRECT = precision 1.0, but recall depends on wrong_abstentions (0 here)
     assert stats.precision == 1.0
@@ -322,6 +341,5 @@ def test_f1_score_computation(tracker):
     assert 0.0 <= stats.f1_score <= 1.0
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

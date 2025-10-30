@@ -28,17 +28,17 @@ class TestGoalPostShift:
         """Test that criteria cannot be changed after creation."""
         # Create decision ledger with criteria
         criteria = {
-            'tests_pass': True,
-            'code_reviewed': True,
-            'deployed': True,
-            'documentation_complete': True
+            "tests_pass": True,
+            "code_reviewed": True,
+            "deployed": True,
+            "documentation_complete": True,
         }
 
         ledger_hash = self._hash_criteria(criteria)
 
         # Attempt to modify criteria
         modified_criteria = criteria.copy()
-        modified_criteria['documentation_complete'] = False  # Remove requirement!
+        modified_criteria["documentation_complete"] = False  # Remove requirement!
 
         modified_hash = self._hash_criteria(modified_criteria)
 
@@ -66,17 +66,17 @@ class TestGoalPostShift:
     def test_criteria_removal_detected(self):
         """Test detection of removed criteria."""
         original_criteria = [
-            'feature_implemented',
-            'tests_written',
-            'tests_pass',
-            'code_reviewed',
-            'security_audit'
+            "feature_implemented",
+            "tests_written",
+            "tests_pass",
+            "code_reviewed",
+            "security_audit",
         ]
 
         # Attack: Remove strict requirements
         relaxed_criteria = [
-            'feature_implemented',
-            'tests_written'
+            "feature_implemented",
+            "tests_written",
             # Removed: tests_pass, code_reviewed, security_audit
         ]
 
@@ -84,7 +84,7 @@ class TestGoalPostShift:
         missing = set(original_criteria) - set(relaxed_criteria)
 
         assert len(missing) == 3
-        assert 'security_audit' in missing
+        assert "security_audit" in missing
 
         # In real system, hash comparison would catch this
 
@@ -92,16 +92,16 @@ class TestGoalPostShift:
         """Test detection of relaxed thresholds."""
         # Original: Strict thresholds
         original_thresholds = {
-            'test_coverage': 0.95,
-            'code_quality': 0.90,
-            'security_score': 0.95
+            "test_coverage": 0.95,
+            "code_quality": 0.90,
+            "security_score": 0.95,
         }
 
         # Attack: Relax thresholds after seeing results
         relaxed_thresholds = {
-            'test_coverage': 0.70,   # Lowered!
-            'code_quality': 0.60,    # Lowered!
-            'security_score': 0.50   # Lowered!
+            "test_coverage": 0.70,  # Lowered!
+            "code_quality": 0.60,  # Lowered!
+            "security_score": 0.50,  # Lowered!
         }
 
         # Detect changes
@@ -109,14 +109,14 @@ class TestGoalPostShift:
         for key in original_thresholds:
             if original_thresholds[key] != relaxed_thresholds[key]:
                 changes[key] = {
-                    'original': original_thresholds[key],
-                    'relaxed': relaxed_thresholds[key],
-                    'delta': relaxed_thresholds[key] - original_thresholds[key]
+                    "original": original_thresholds[key],
+                    "relaxed": relaxed_thresholds[key],
+                    "delta": relaxed_thresholds[key] - original_thresholds[key],
                 }
 
         # All thresholds were lowered
         assert len(changes) == 3
-        assert all(c['delta'] < 0 for c in changes.values())
+        assert all(c["delta"] < 0 for c in changes.values())
 
     def test_commit_hash_tamper_detection(self):
         """Test that commit hash prevents retroactive changes."""
@@ -144,6 +144,5 @@ class TestGoalPostShift:
         return hashlib.sha256(criteria_str.encode()).hexdigest()
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

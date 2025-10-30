@@ -10,6 +10,7 @@ Keep D moderate (e.g., 2**18 = 262,144) for accuracy/latency trade-off.
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -22,7 +23,8 @@ from ..text.normalize_unicode import normalize
 
 class HashVectorizer:
     def __init__(self, n_features: int = 2**18, ngram_range: Tuple[int, int] = (1, 2)):
-        assert n_features > 0 and (n_features & (n_features - 1) == 0), "n_features should be power of two"
+        if n_features <= 0 or (n_features & (n_features - 1) != 0):
+            raise ValueError("n_features should be power of two")
         self.D = n_features
         self.ngram_range = ngram_range
 
@@ -34,7 +36,11 @@ class HashVectorizer:
     @staticmethod
     def _h32(s: str) -> int:
         # 32-bit index via blake2b (stable)
-        return int.from_bytes(hashlib.blake2b(s.encode("utf-8"), digest_size=4).digest(), "little", signed=False)
+        return int.from_bytes(
+            hashlib.blake2b(s.encode("utf-8"), digest_size=4).digest(),
+            "little",
+            signed=False,
+        )
 
     def transform_one(self, text: str) -> np.ndarray:
         toks = self._tokens(text)
@@ -44,7 +50,7 @@ class HashVectorizer:
             if n == 1:
                 grams = toks
             else:
-                grams = [" ".join(toks[i:i+n]) for i in range(len(toks) - n + 1)]
+                grams = [" ".join(toks[i : i + n]) for i in range(len(toks) - n + 1)]
             for g in grams:
                 idx = self._h32(g) & (self.D - 1)
                 feats[idx] += 1.0
@@ -57,4 +63,3 @@ class HashVectorizer:
     def transform(self, texts: Iterable[str]) -> np.ndarray:
         arr = [self.transform_one(t) for t in texts]
         return np.stack(arr, axis=0)
-

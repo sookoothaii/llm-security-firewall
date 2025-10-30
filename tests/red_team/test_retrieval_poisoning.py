@@ -38,12 +38,12 @@ class TestRetrievalPoisoning:
                 tau_trust=0.75,
                 tau_nli=0.85,
                 require_corroboration=True,
-                min_corroborations=2
+                min_corroborations=2,
             ),
             evidence_validator=EvidenceValidator("red-team-retrieval"),
             domain_trust_scorer=DomainTrustScorer(),
             source_verifier=SourceVerifier(timeout=5),
-            nli_model=FakeNLI()
+            nli_model=FakeNLI(),
         )
 
     def test_single_sided_sources_detected(self):
@@ -53,18 +53,18 @@ class TestRetrievalPoisoning:
             EvidenceRecord(
                 content="X is definitely beneficial",
                 source_url="https://pro-x-advocacy.org/study1",
-                kb_corroborations=0
+                kb_corroborations=0,
             ),
             EvidenceRecord(
                 content="X shows clear advantages",
                 source_url="https://pro-x-research.com/paper2",
-                kb_corroborations=0
+                kb_corroborations=0,
             ),
             EvidenceRecord(
                 content="X is universally accepted",
                 source_url="https://x-supporters.net/article3",
-                kb_corroborations=0
-            )
+                kb_corroborations=0,
+            ),
         ]
 
         kb = []  # Empty KB (no prior knowledge)
@@ -77,14 +77,15 @@ class TestRetrievalPoisoning:
         # All should be quarantined due to:
         # - Low domain trust (unknown domains)
         # - Insufficient corroboration (0 < 2)
-        quarantined = [r for r in results if r['decision'] == 'QUARANTINE']
+        quarantined = [r for r in results if r["decision"] == "QUARANTINE"]
 
         assert len(quarantined) == 3  # All quarantined
 
         # Check reasons
         for result in results:
-            assert any('low_trust' in r or 'low_corroboration' in r
-                      for r in result['reasons'])
+            assert any(
+                "low_trust" in r or "low_corroboration" in r for r in result["reasons"]
+            )
 
     def test_insufficient_corroboration_blocks_claim(self):
         """Test that single-source claims are blocked."""
@@ -92,16 +93,16 @@ class TestRetrievalPoisoning:
         record = EvidenceRecord(
             content="Controversial claim Z",
             source_url="https://nature.com/articles/controversial",
-            kb_corroborations=0  # No KB support!
+            kb_corroborations=0,  # No KB support!
         )
 
         kb = []  # No corroborating KB facts
         result = self.pipeline.process(record, kb)
 
         # High trust (nature.com = 0.98) but no corroboration
-        assert result['decision'] == 'QUARANTINE'
-        assert result['trust'] > 0.9  # Trust is high
-        assert any('low_corroboration' in r for r in result['reasons'])
+        assert result["decision"] == "QUARANTINE"
+        assert result["trust"] > 0.9  # Trust is high
+        assert any("low_corroboration" in r for r in result["reasons"])
 
     def test_low_trust_sources_rejected_even_with_corroboration(self):
         """Test that low-trust sources are rejected despite corroboration."""
@@ -109,16 +110,16 @@ class TestRetrievalPoisoning:
         record = EvidenceRecord(
             content="Dubious claim from unreliable sources",
             source_url="https://random-blog.xyz/article",
-            kb_corroborations=3  # Artificially high
+            kb_corroborations=3,  # Artificially high
         )
 
         kb = ["dubious claim"]  # KB has it (NLI will match)
         result = self.pipeline.process(record, kb)
 
         # Low trust (unknown domain = 0.10) should trigger quarantine
-        assert result['decision'] == 'QUARANTINE'
-        assert result['trust'] < 0.75
-        assert any('low_trust' in r for r in result['reasons'])
+        assert result["decision"] == "QUARANTINE"
+        assert result["trust"] < 0.75
+        assert any("low_trust" in r for r in result["reasons"])
 
     def test_source_diversity_requirement(self):
         """Test that source diversity is implicitly enforced."""
@@ -127,13 +128,13 @@ class TestRetrievalPoisoning:
             EvidenceRecord(
                 content="Claim A from blog",
                 source_url="https://biased-blog.com/post1",
-                kb_corroborations=0
+                kb_corroborations=0,
             ),
             EvidenceRecord(
                 content="Claim B from same blog",
                 source_url="https://biased-blog.com/post2",
-                kb_corroborations=0
-            )
+                kb_corroborations=0,
+            ),
         ]
 
         kb = []
@@ -144,7 +145,7 @@ class TestRetrievalPoisoning:
             results.append(result)
 
         # Both should be quarantined (low trust + no corroboration)
-        assert all(r['decision'] == 'QUARANTINE' for r in results)
+        assert all(r["decision"] == "QUARANTINE" for r in results)
 
     def test_high_trust_with_corroboration_passes(self):
         """Test that legitimate multi-source evidence passes."""
@@ -152,19 +153,18 @@ class TestRetrievalPoisoning:
         record = EvidenceRecord(
             content="Well-established scientific fact",
             source_url="https://nature.com/articles/established-fact",
-            kb_corroborations=3  # Multiple KB facts support
+            kb_corroborations=3,  # Multiple KB facts support
         )
 
         kb = ["well-established scientific fact documented in multiple sources"]
         result = self.pipeline.process(record, kb)
 
         # Should PROMOTE (high trust + corroboration + NLI match)
-        assert result['decision'] == 'PROMOTE'
-        assert result['trust'] > 0.9
-        assert result['nli'] > 0.8
-        assert result['corroborations'] >= 2
+        assert result["decision"] == "PROMOTE"
+        assert result["trust"] > 0.9
+        assert result["nli"] > 0.8
+        assert result["corroborations"] >= 2
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

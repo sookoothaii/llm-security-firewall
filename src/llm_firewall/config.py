@@ -2,6 +2,7 @@
 Configuration settings for LLM Security Firewall.
 Environment-based configuration with sensible defaults.
 """
+
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -26,21 +27,21 @@ class Settings:
     def __post_init__(self):
         """Initialize lexicon base if not set."""
         if self.lexicon_base is None:
-            object.__setattr__(self, 'lexicon_base', _pick_lex_base())
+            object.__setattr__(self, "lexicon_base", _pick_lex_base())
 
 
 def _pick_lex_base() -> Path:
     """
     Automatically detect lexicon directory with fallback chain.
-    
+
     Priority:
     1. lexicons_gpt5/ (GPT-5 Detection Pack)
     2. lexicons/ (default)
     3. Raise error if neither exists
-    
+
     Returns:
         Path to lexicon directory
-        
+
     Raises:
         FileNotFoundError: If no lexicon directory found
     """
@@ -67,7 +68,3 @@ def _pick_lex_base() -> Path:
 
 # Global settings instance
 SETTINGS = Settings()
-
-
-
-

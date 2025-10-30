@@ -22,7 +22,8 @@ from llm_firewall.rules.scoring_gpt5 import (
 from llm_firewall.text.normalize import canonicalize
 
 LEX_BASE = _pick_lex_base()
-_artifacts_base = lambda: Path(__file__).parent.parent / "artifacts" / "meta"
+def _artifacts_base():
+    return Path(__file__).parent.parent / "artifacts" / "meta"
 
 def load_csv(path: Path) -> List[Tuple[str,int,Dict[str,float]]]:
     rows = []

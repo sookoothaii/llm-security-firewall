@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 try:
     from openai import OpenAI
+
     _HAS_OPENAI = True
 except Exception:
     _HAS_OPENAI = False
@@ -30,6 +31,7 @@ except Exception:
 @dataclass
 class JudgeResult:
     """Result from LLM judge."""
+
     is_safe: bool
     confidence: float
     reasoning: str
@@ -39,7 +41,7 @@ class JudgeResult:
 class BandJudge:
     """
     LLM-as-Judge for uncertainty band only.
-    
+
     Features:
     - Only triggers when |p - tau_block| < epsilon (near threshold)
     - 2-Decode BFT-lite: both must agree on "safe"
@@ -50,11 +52,11 @@ class BandJudge:
         self,
         model: str = "deepseek-chat",
         api_key: Optional[str] = None,
-        cache_enabled: bool = True
+        cache_enabled: bool = True,
     ):
         """
         Initialize band judge.
-        
+
         Args:
             model: Model name (deepseek-chat or gpt-4o-mini)
             api_key: API key (or from env)
@@ -84,8 +86,7 @@ class BandJudge:
         try:
             if "deepseek" in model.lower():
                 self.client = OpenAI(
-                    api_key=api_key,
-                    base_url="https://api.deepseek.com"
+                    api_key=api_key, base_url="https://api.deepseek.com"
                 )
             else:
                 self.client = OpenAI(api_key=api_key)
@@ -97,12 +98,12 @@ class BandJudge:
 
     def _cache_key(self, text: str) -> str:
         """Generate cache key from text."""
-        return hashlib.sha256(text.encode('utf-8')).hexdigest()[:16]
+        return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
 
     def _judge_single(self, text: str, temperature: float = 0.0) -> bool:
         """
         Single decode: is text safe?
-        
+
         Returns:
             True if safe, False if jailbreak/harmful
         """
@@ -137,16 +138,18 @@ REASON: [brief explanation]"""
             # Fail-safe: block on error
             return False
 
-    def judge(self, text: str, p_risk: float, tau_block: float, epsilon: float) -> JudgeResult:
+    def judge(
+        self, text: str, p_risk: float, tau_block: float, epsilon: float
+    ) -> JudgeResult:
         """
         Judge text if in uncertainty band.
-        
+
         Args:
             text: Input text
             p_risk: Predicted risk probability [0, 1]
             tau_block: Block threshold
             epsilon: Band width
-            
+
         Returns:
             JudgeResult with decision
         """
@@ -156,7 +159,7 @@ REASON: [brief explanation]"""
                 is_safe=False,  # Fail-safe: block
                 confidence=0.5,
                 reasoning="BandJudge not available",
-                cache_hit=False
+                cache_hit=False,
             )
 
         # Check cache
@@ -168,7 +171,7 @@ REASON: [brief explanation]"""
                 is_safe=result.is_safe,
                 confidence=result.confidence,
                 reasoning=result.reasoning,
-                cache_hit=True
+                cache_hit=True,
             )
 
         # Check if in band
@@ -179,7 +182,7 @@ REASON: [brief explanation]"""
                 is_safe=(p_risk < tau_block),
                 confidence=1.0 - dist,
                 reasoning=f"Outside band (dist={dist:.3f})",
-                cache_hit=False
+                cache_hit=False,
             )
 
         # BFT-lite: 2 decodes, both must agree on "safe"
@@ -194,10 +197,7 @@ REASON: [brief explanation]"""
         reasoning = f"BFT-lite: decode1={decode_1}, decode2={decode_2}"
 
         result = JudgeResult(
-            is_safe=is_safe,
-            confidence=confidence,
-            reasoning=reasoning,
-            cache_hit=False
+            is_safe=is_safe, confidence=confidence, reasoning=reasoning, cache_hit=False
         )
 
         # Cache result
@@ -205,5 +205,3 @@ REASON: [brief explanation]"""
             self.cache[cache_key] = result
 
         return result
-
-

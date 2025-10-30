@@ -21,9 +21,10 @@ from typing import Iterable, List, Tuple
 class EvidenceMass:
     """
     Mass assignment over frame Θ={PROMOTE, QUARANTINE}.
-    
+
     Supports ignorance mass (unknown/theta).
     """
+
     promote: float
     quarantine: float
     unknown: float  # ignorance (theta)
@@ -53,11 +54,11 @@ class EvidenceMass:
 def make_mass(score: float, allow_ignorance: float = 0.0) -> EvidenceMass:
     """
     Deterministic mapping score∈[0,1] -> mass over {PROMOTE, QUARANTINE, Θ}.
-    
+
     Args:
         score: Confidence score [0,1]
         allow_ignorance: Amount of ignorance to preserve [0,1]
-        
+
     Returns:
         Evidence mass
     """
@@ -69,7 +70,7 @@ def make_mass(score: float, allow_ignorance: float = 0.0) -> EvidenceMass:
 
     # Allocate ignorance first, then split residual by s
     residual = 1.0 - t
-    p = s * residual              # exact product
+    p = s * residual  # exact product
     q = (1.0 - s) * residual
 
     return EvidenceMass(promote=p, quarantine=q, unknown=t)
@@ -78,7 +79,7 @@ def make_mass(score: float, allow_ignorance: float = 0.0) -> EvidenceMass:
 def conflict(m1: EvidenceMass, m2: EvidenceMass) -> float:
     """
     Compute conflict mass K.
-    
+
     K = m1(PROMOTE)*m2(QUARANTINE) + m1(QUARANTINE)*m2(PROMOTE)
     """
     m1.validate()
@@ -90,12 +91,12 @@ def conflict(m1: EvidenceMass, m2: EvidenceMass) -> float:
 def combine_pair(m1: EvidenceMass, m2: EvidenceMass) -> Tuple[EvidenceMass, float]:
     """
     Dempster's rule with proper normalization by (1-K).
-    
+
     Supports ignorance mass Θ.
-    
+
     Args:
         m1, m2: Evidence masses to combine
-        
+
     Returns:
         (combined_mass, conflict_K)
     """
@@ -110,13 +111,15 @@ def combine_pair(m1: EvidenceMass, m2: EvidenceMass) -> Tuple[EvidenceMass, floa
         return EvidenceMass(promote=0.5, quarantine=0.5, unknown=0.0), 1.0
 
     # Combine masses
-    P = (m1.promote * m2.promote +
-         m1.promote * m2.unknown +
-         m1.unknown * m2.promote) / denom
+    P = (
+        m1.promote * m2.promote + m1.promote * m2.unknown + m1.unknown * m2.promote
+    ) / denom
 
-    Q = (m1.quarantine * m2.quarantine +
-         m1.quarantine * m2.unknown +
-         m1.unknown * m2.quarantine) / denom
+    Q = (
+        m1.quarantine * m2.quarantine
+        + m1.quarantine * m2.unknown
+        + m1.unknown * m2.quarantine
+    ) / denom
 
     T = (m1.unknown * m2.unknown) / denom
 
@@ -127,9 +130,9 @@ def combine_pair(m1: EvidenceMass, m2: EvidenceMass) -> Tuple[EvidenceMass, floa
     if s > 1.0 + 1e-9:
         excess = s - 1.0
         out = EvidenceMass(
-            promote=max(0.0, out.promote - excess/3),
-            quarantine=max(0.0, out.quarantine - excess/3),
-            unknown=max(0.0, out.unknown - excess/3)
+            promote=max(0.0, out.promote - excess / 3),
+            quarantine=max(0.0, out.quarantine - excess / 3),
+            unknown=max(0.0, out.unknown - excess / 3),
         )
 
     out.validate()
@@ -139,10 +142,10 @@ def combine_pair(m1: EvidenceMass, m2: EvidenceMass) -> Tuple[EvidenceMass, floa
 def combine_all(masses: Iterable[EvidenceMass]) -> Tuple[EvidenceMass, float]:
     """
     Combine multiple evidence masses.
-    
+
     Args:
         masses: Iterable of evidence masses
-        
+
     Returns:
         (combined_mass, total_conflict_K)
     """
@@ -167,11 +170,11 @@ def combine_all(masses: Iterable[EvidenceMass]) -> Tuple[EvidenceMass, float]:
 def detect_conflict(K: float, tau: float = 0.50) -> bool:
     """
     Return True if conflict mass is high.
-    
+
     Args:
         K: Conflict mass
         tau: Threshold (default: 0.50)
-        
+
     Returns:
         True if conflict exceeds threshold
     """
@@ -191,10 +194,10 @@ class DempsterShaferFusion:
     def combine_masses(self, masses: List[EvidenceMass]) -> EvidenceMass:
         """
         Kombiniere Evidenzmassen per Dempster-Rule.
-        
+
         Args:
             masses: Liste von Evidenzmassen
-            
+
         Returns:
             Kombinierte Masse
         """
@@ -207,20 +210,22 @@ class DempsterShaferFusion:
     def compute_belief(self, mass: EvidenceMass) -> Tuple[float, float]:
         """
         Berechne Belief-Funktionen.
-        
+
         Returns:
             (belief_promote, belief_quarantine)
         """
         return mass.promote, mass.quarantine
 
-    def should_promote(self, mass: EvidenceMass, threshold: float = 0.1) -> Tuple[bool, float, float]:
+    def should_promote(
+        self, mass: EvidenceMass, threshold: float = 0.1
+    ) -> Tuple[bool, float, float]:
         """
         Entscheide Promotion basierend auf Belief-Differenz.
-        
+
         Args:
             mass: Kombinierte Evidenzmasse
             threshold: Mindest-Belief-Differenz für Promotion
-            
+
         Returns:
             (should_promote, belief_promote, belief_quarantine)
         """
@@ -234,7 +239,7 @@ class DempsterShaferFusion:
     def detect_conflict(self, masses: List[EvidenceMass]) -> bool:
         """
         Erkenne hohen Konflikt zwischen Evidenzen.
-        
+
         Returns:
             True wenn Konflikt > threshold
         """
@@ -251,11 +256,11 @@ def create_evidence_masses(
     corroboration: float,
     trust_weight: float = 0.4,
     nli_weight: float = 0.4,
-    corr_weight: float = 0.2
+    corr_weight: float = 0.2,
 ) -> List[EvidenceMass]:
     """
     Erstelle Evidenzmassen aus Pipeline-Metriken.
-    
+
     Uses make_mass for deterministic float arithmetic.
     """
     masses = []
@@ -284,11 +289,7 @@ if __name__ == "__main__":
     fusion = DempsterShaferFusion(conflict_threshold=0.5)
 
     # Hoher Trust, niedrige NLI, mittlere Corroboration
-    masses = create_evidence_masses(
-        trust=0.9,
-        nli=0.3,
-        corroboration=0.6
-    )
+    masses = create_evidence_masses(trust=0.9, nli=0.3, corroboration=0.6)
 
     combined = fusion.combine_masses(masses)
     should_promote, belief_p, belief_q = fusion.should_promote(combined, threshold=0.1)

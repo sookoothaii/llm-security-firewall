@@ -231,4 +231,3 @@ def analyze(spec: PolicySpec) -> List[AnalysisIssue]:
                 )
 
     return issues
-

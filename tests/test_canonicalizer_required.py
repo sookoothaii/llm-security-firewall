@@ -5,6 +5,7 @@ These tests are marked xfail and demonstrate what happens when canonicalizer is 
 Philosophy: "Ich will nicht sehen wo es funktioniert sondern erkennen wo noch nicht!"
 We explicitly TEST failure modes to ensure they're caught, not hidden.
 """
+
 import sys
 from pathlib import Path
 
@@ -17,11 +18,13 @@ from llm_firewall.rules.scoring_gpt5 import evaluate
 LEX = Path(__file__).parent.parent / "src" / "llm_firewall" / "lexicons_gpt5"
 
 
-@pytest.mark.xfail(reason="Canonicalizer bypass should fail homoglyph detection", strict=True)
+@pytest.mark.xfail(
+    reason="Canonicalizer bypass should fail homoglyph detection", strict=True
+)
 def test_homoglyph_WITHOUT_canonicalizer():
     """
     This test MUST fail to demonstrate that canonicalization is CRITICAL.
-    
+
     If this test ever starts passing without canonicalize(), something is wrong!
     We're simulating what happens if someone bypasses the canonicalizer.
     """
@@ -37,7 +40,9 @@ def test_homoglyph_WITHOUT_canonicalizer():
 
     # We EXPECT this to fail (score should be ~0)
     # If it passes (score > 0.2), canonicalizer was somehow applied
-    assert combined > 0.2, f"Expected failure: Got score {combined} (should be ~0 without canonicalizer)"
+    assert combined > 0.2, (
+        f"Expected failure: Got score {combined} (should be ~0 without canonicalizer)"
+    )
 
 
 def test_zero_width_WITH_canonicalizer():
@@ -131,4 +136,3 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("CANONICALIZER REQUIREMENT VALIDATED")
     print("=" * 60)
-

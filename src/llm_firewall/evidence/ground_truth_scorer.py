@@ -4,7 +4,7 @@ Ground Truth Scorer - Evidence Quality Assessment
 
 Evaluates query answerability based on:
 1. KB Fact Coverage (40% weight)
-2. Source Quality (40% weight) 
+2. Source Quality (40% weight)
 3. Temporal Recency (20% weight)
 
 Domain-specific weighting supported (e.g., Math emphasizes KB over sources).
@@ -34,100 +34,100 @@ logger = logging.getLogger(__name__)
 
 # Domain configurations (Perplexity-recommended)
 DOMAIN_CONFIGS = {
-    'MATH': DomainConfig(
-        domain='MATH',
-        weight_kb=0.60,           # Emphasize KB facts (authoritative)
-        weight_sources=0.20,      # Sources less critical (static truths)
-        weight_recency=0.20,      # Recency minimal (math doesn't age)
-        half_life_days=999999,    # Never ages
-        min_kb_facts=3,           # Lower requirement
-        min_sources=1,            # Lower requirement
-        base_threshold=0.80
+    "MATH": DomainConfig(
+        domain="MATH",
+        weight_kb=0.60,  # Emphasize KB facts (authoritative)
+        weight_sources=0.20,  # Sources less critical (static truths)
+        weight_recency=0.20,  # Recency minimal (math doesn't age)
+        half_life_days=999999,  # Never ages
+        min_kb_facts=3,  # Lower requirement
+        min_sources=1,  # Lower requirement
+        base_threshold=0.80,
     ),
-    'PHYSICS': DomainConfig(
-        domain='PHYSICS',
+    "PHYSICS": DomainConfig(
+        domain="PHYSICS",
         weight_kb=0.50,
         weight_sources=0.30,
         weight_recency=0.20,
         half_life_days=999999,
         min_kb_facts=5,
         min_sources=2,
-        base_threshold=0.80
+        base_threshold=0.80,
     ),
-    'SCIENCE': DomainConfig(
-        domain='SCIENCE',
+    "SCIENCE": DomainConfig(
+        domain="SCIENCE",
         weight_kb=0.40,
         weight_sources=0.40,
         weight_recency=0.20,
-        half_life_days=1825,      # 5 years
+        half_life_days=1825,  # 5 years
         min_kb_facts=5,
         min_sources=3,
-        base_threshold=0.75
+        base_threshold=0.75,
     ),
-    'MEDICINE': DomainConfig(
-        domain='MEDICINE',
+    "MEDICINE": DomainConfig(
+        domain="MEDICINE",
         weight_kb=0.35,
-        weight_sources=0.45,      # Sources very important
+        weight_sources=0.45,  # Sources very important
         weight_recency=0.20,
-        half_life_days=730,       # 2 years
+        half_life_days=730,  # 2 years
         min_kb_facts=5,
         min_sources=4,
         min_verified_sources=2,
-        base_threshold=0.80
+        base_threshold=0.80,
     ),
-    'GEOGRAPHY': DomainConfig(
-        domain='GEOGRAPHY',
+    "GEOGRAPHY": DomainConfig(
+        domain="GEOGRAPHY",
         weight_kb=0.40,
         weight_sources=0.40,
         weight_recency=0.20,
-        half_life_days=3650,      # 10 years
+        half_life_days=3650,  # 10 years
         min_kb_facts=3,
         min_sources=2,
-        base_threshold=0.70
+        base_threshold=0.70,
     ),
-    'NEWS': DomainConfig(
-        domain='NEWS',
+    "NEWS": DomainConfig(
+        domain="NEWS",
         weight_kb=0.20,
-        weight_sources=0.50,      # Sources critical
-        weight_recency=0.30,      # Recency very important
-        half_life_days=30,        # 1 month
+        weight_sources=0.50,  # Sources critical
+        weight_recency=0.30,  # Recency very important
+        half_life_days=30,  # 1 month
         min_kb_facts=2,
         min_sources=5,
         min_verified_sources=2,
-        base_threshold=0.60
+        base_threshold=0.60,
     ),
-    'OPINION': DomainConfig(
-        domain='OPINION',
+    "OPINION": DomainConfig(
+        domain="OPINION",
         weight_kb=0.10,
         weight_sources=0.50,
-        weight_recency=0.40,      # Recency critical
-        half_life_days=7,         # 1 week
+        weight_recency=0.40,  # Recency critical
+        half_life_days=7,  # 1 week
         min_kb_facts=1,
         min_sources=3,
-        base_threshold=0.50
+        base_threshold=0.50,
     ),
-    'GLOBAL': DomainConfig(
-        domain='GLOBAL',
+    "GLOBAL": DomainConfig(
+        domain="GLOBAL",
         weight_kb=0.40,
         weight_sources=0.40,
         weight_recency=0.20,
         half_life_days=365,
         min_kb_facts=5,
         min_sources=3,
-        base_threshold=0.70
-    )
+        base_threshold=0.70,
+    ),
 }
 
 
 class GroundTruthScorer:
     """
     Assess evidence quality for query
-    
+
     Progressive evolution:
         Phase 1 (now): Simple weighted sum
         Phase 2 (Month 3): Meta-learned weights
         Phase 3 (Month 6): Neural scoring model
-    
+
     Security Features (GPT-5 2025-10-27):
         - EvidenceValidator (Memory-Poisoning prevention)
         - DomainTrustScorer (Authority assessment)
@@ -143,24 +143,26 @@ class GroundTruthScorer:
         self.domain_trust_scorer = DomainTrustScorer()
         self.source_verifier = SourceVerifier()
 
-        logger.info("[GT Scorer] Initialized with security features: EvidenceValidator, DomainTrust, SourceVerifier")
+        logger.info(
+            "[GT Scorer] Initialized with security features: EvidenceValidator, DomainTrust, SourceVerifier"
+        )
 
     def score(
         self,
         query: str,
         kb_facts: List[Dict],
         sources: List[Dict],
-        domain: Optional[str] = None
+        domain: Optional[str] = None,
     ) -> GroundTruthScore:
         """
         Compute ground truth score
-        
+
         Args:
             query: User query
             kb_facts: KB facts supporting query (from PostgreSQL)
             sources: Retrieved sources (URLs, citations)
             domain: Query domain (auto-detect if None)
-        
+
         Returns:
             GroundTruthScore with overall score + breakdown
         """
@@ -188,7 +190,7 @@ class GroundTruthScorer:
             domain = self._detect_domain(query, kb_facts)
 
         # Get domain config
-        config = self.configs.get(domain, self.configs['GLOBAL'])
+        config = self.configs.get(domain, self.configs["GLOBAL"])
 
         # Compute component scores
         kb_score = self._score_kb_coverage(kb_facts, config)
@@ -197,9 +199,9 @@ class GroundTruthScorer:
 
         # Weighted average (domain-specific weights)
         overall = (
-            config.weight_kb * kb_score +
-            config.weight_sources * source_score +
-            config.weight_recency * recency_score
+            config.weight_kb * kb_score
+            + config.weight_sources * source_score
+            + config.weight_recency * recency_score
         )
 
         # Find newest fact/source
@@ -212,17 +214,17 @@ class GroundTruthScorer:
             recency_score=recency_score,
             kb_fact_count=len(kb_facts),
             source_count=len(sources),
-            verified_source_count=len([s for s in sources if s.get('verified', False)]),
+            verified_source_count=len([s for s in sources if s.get("verified", False)]),
             days_since_newest=days_since,
             domain=domain,
             domain_half_life=config.half_life_days,
-            query=query
+            query=query,
         )
 
     def _score_kb_coverage(self, kb_facts: List[Dict], config: DomainConfig) -> float:
         """
         Score KB fact coverage
-        
+
         Method: Saturating function - diminishing returns after threshold
         """
         n_facts = len(kb_facts)
@@ -239,13 +241,13 @@ class GroundTruthScorer:
     def _score_sources(self, sources: List[Dict], config: DomainConfig) -> float:
         """
         Score source quality with security features.
-        
+
         Components:
             - Count (up to 5 sources)
             - Domain trust (via DomainTrustScorer)
             - Link/DOI verification (via SourceVerifier)
             - Content hashing (BLAKE3 for tamper detection)
-        
+
         Security (GPT-5 2025-10-27):
             - Verified sources only (accessible + high-trust)
             - DOI validation for academic papers
@@ -261,15 +263,15 @@ class GroundTruthScorer:
         verified_count = 0
 
         for source in sources:
-            url = source.get('url', source.get('name', ''))
+            url = source.get("url", source.get("name", ""))
 
             # Get domain trust score
             domain_trust, reasoning = self.domain_trust_scorer.score_source(url)
 
             # Mark as verified if high trust or explicitly verified
             is_verified = (
-                domain_trust >= 0.75 or  # High-trust domain
-                source.get('verified', False)  # Explicitly marked
+                domain_trust >= 0.75  # High-trust domain
+                or source.get("verified", False)  # Explicitly marked
             )
 
             if is_verified:
@@ -295,34 +297,31 @@ class GroundTruthScorer:
 
         # Weighted combination
         source_quality = (
-            0.4 * count_score +       # How many sources
-            0.3 * verified_score +    # How many verified
-            0.3 * avg_trust           # Average trust score
+            0.4 * count_score  # How many sources
+            + 0.3 * verified_score  # How many verified
+            + 0.3 * avg_trust  # Average trust score
         )
 
         return source_quality
 
     def _score_recency(
-        self,
-        kb_facts: List[Dict],
-        sources: List[Dict],
-        config: DomainConfig
+        self, kb_facts: List[Dict], sources: List[Dict], config: DomainConfig
     ) -> float:
         """
         Score temporal recency with domain-specific half-life
-        
+
         Method: Exponential decay based on domain half-life
         """
         # Find newest timestamp
         timestamps = []
 
         for fact in kb_facts:
-            if 'timestamp' in fact:
-                timestamps.append(fact['timestamp'])
+            if "timestamp" in fact:
+                timestamps.append(fact["timestamp"])
 
         for source in sources:
-            if 'published_date' in source:
-                timestamps.append(source['published_date'])
+            if "published_date" in source:
+                timestamps.append(source["published_date"])
 
         if not timestamps:
             # No temporal info - assume old
@@ -354,20 +353,18 @@ class GroundTruthScorer:
         return recency_score
 
     def _compute_days_since_newest(
-        self,
-        kb_facts: List[Dict],
-        sources: List[Dict]
+        self, kb_facts: List[Dict], sources: List[Dict]
     ) -> int:
         """Compute days since newest fact/source"""
         timestamps = []
 
         for fact in kb_facts:
-            if 'timestamp' in fact:
-                timestamps.append(fact['timestamp'])
+            if "timestamp" in fact:
+                timestamps.append(fact["timestamp"])
 
         for source in sources:
-            if 'published_date' in source:
-                timestamps.append(source['published_date'])
+            if "published_date" in source:
+                timestamps.append(source["published_date"])
 
         if not timestamps:
             return 999999
@@ -391,7 +388,7 @@ class GroundTruthScorer:
     def _detect_domain(self, query: str, kb_facts: List[Dict]) -> str:
         """
         Auto-detect query domain
-        
+
         Phase 1: Simple keyword matching
         Phase 2: Embedding-based classification
         """
@@ -399,11 +396,33 @@ class GroundTruthScorer:
 
         # Keyword matching (simple heuristic)
         domain_keywords = {
-            'MATH': ['calculate', 'equation', 'number', 'sum', 'multiply', 'pi', 'sqrt'],
-            'PHYSICS': ['force', 'energy', 'velocity', 'quantum', 'particle', 'wave'],
-            'MEDICINE': ['disease', 'treatment', 'symptom', 'drug', 'patient', 'medical'],
-            'GEOGRAPHY': ['country', 'capital', 'continent', 'ocean', 'mountain', 'river'],
-            'NEWS': ['today', 'recently', 'latest', 'current', 'breaking'],
+            "MATH": [
+                "calculate",
+                "equation",
+                "number",
+                "sum",
+                "multiply",
+                "pi",
+                "sqrt",
+            ],
+            "PHYSICS": ["force", "energy", "velocity", "quantum", "particle", "wave"],
+            "MEDICINE": [
+                "disease",
+                "treatment",
+                "symptom",
+                "drug",
+                "patient",
+                "medical",
+            ],
+            "GEOGRAPHY": [
+                "country",
+                "capital",
+                "continent",
+                "ocean",
+                "mountain",
+                "river",
+            ],
+            "NEWS": ["today", "recently", "latest", "current", "breaking"],
         }
 
         for domain, keywords in domain_keywords.items():
@@ -412,13 +431,13 @@ class GroundTruthScorer:
 
         # Check KB facts for domain tags
         if kb_facts:
-            domains_in_facts = [f.get('domain') for f in kb_facts if 'domain' in f]
+            domains_in_facts = [f.get("domain") for f in kb_facts if "domain" in f]
             if domains_in_facts:
                 # Most common domain
                 from collections import Counter
+
                 most_common_domain = Counter(domains_in_facts).most_common(1)[0][0]
                 return str(most_common_domain)
 
         # Default
-        return 'GLOBAL'
-
+        return "GLOBAL"

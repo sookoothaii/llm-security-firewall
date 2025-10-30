@@ -436,5 +436,3 @@ class MerkleChainBuilder:
             ttl_expiry=ttl_expiry,
             metadata=metadata,
         )
-
-

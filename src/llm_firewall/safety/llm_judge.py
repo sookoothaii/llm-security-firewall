@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class JudgeResult:
     """Result from LLM judge."""
+
     is_jailbreak: bool
     reasoning: str
     confidence: float
@@ -33,7 +34,7 @@ class JudgeResult:
 class LLMJudgeDetector:
     """
     Uses LLM to judge if prompt is a jailbreak attempt.
-    
+
     Provides semantic understanding and catches novel attacks.
     Uses DeepSeek API for cost-effective detection.
     """
@@ -41,7 +42,7 @@ class LLMJudgeDetector:
     def __init__(self, api_key: Optional[str] = None):
         """
         Initialize LLM judge detector.
-        
+
         Args:
             api_key: DeepSeek API key (or from environment)
         """
@@ -57,10 +58,10 @@ class LLMJudgeDetector:
     def detect(self, prompt: str) -> JudgeResult:
         """
         Use LLM to judge if prompt is jailbreak.
-        
+
         Args:
             prompt: Input text to analyze
-            
+
         Returns:
             JudgeResult with detection decision
         """
@@ -70,7 +71,7 @@ class LLMJudgeDetector:
                 is_jailbreak=False,
                 reasoning="LLM judge disabled (no API key)",
                 confidence=0.0,
-                method="llm_judge_disabled"
+                method="llm_judge_disabled",
             )
 
         # Construct judge prompt
@@ -98,17 +99,15 @@ Answer with YES or NO on the first line, then explain your reasoning."""
                 "https://api.deepseek.com/v1/chat/completions",
                 headers={
                     "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 json={
                     "model": "deepseek-chat",
-                    "messages": [
-                        {"role": "user", "content": judge_prompt}
-                    ],
+                    "messages": [{"role": "user", "content": judge_prompt}],
                     "temperature": 0.0,
-                    "max_tokens": 200
+                    "max_tokens": 200,
                 },
-                timeout=10.0
+                timeout=10.0,
             )
 
             if response.status_code == 200:
@@ -123,7 +122,7 @@ Answer with YES or NO on the first line, then explain your reasoning."""
                     is_jailbreak=is_jailbreak,
                     reasoning=answer,
                     confidence=confidence,
-                    method="llm_judge"
+                    method="llm_judge",
                 )
             else:
                 logger.error(f"DeepSeek API error: {response.status_code}")
@@ -131,7 +130,7 @@ Answer with YES or NO on the first line, then explain your reasoning."""
                     is_jailbreak=False,
                     reasoning=f"API error: {response.status_code}",
                     confidence=0.0,
-                    method="llm_judge_error"
+                    method="llm_judge_error",
                 )
 
         except Exception as e:
@@ -140,6 +139,5 @@ Answer with YES or NO on the first line, then explain your reasoning."""
                 is_jailbreak=False,
                 reasoning=f"Exception: {str(e)}",
                 confidence=0.0,
-                method="llm_judge_error"
+                method="llm_judge_error",
             )
-

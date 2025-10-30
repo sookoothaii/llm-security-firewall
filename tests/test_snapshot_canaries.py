@@ -20,7 +20,7 @@ class TestCanaryClaim:
         canary = CanaryClaim(
             content="Paris is the capital of France",
             expected_truth=True,
-            category="known_true"
+            category="known_true",
         )
 
         assert canary.content == "Paris is the capital of France"
@@ -96,12 +96,12 @@ class TestSnapshotCanaries:
         stats = self.canaries.get_canary_stats()
 
         assert isinstance(stats, dict)
-        assert 'total' in stats
-        assert stats['total'] > 0
+        assert "total" in stats
+        assert stats["total"] > 0
 
         # Summe aller Kategorien sollte total entsprechen
-        category_sum = sum(v for k, v in stats.items() if k != 'total')
-        assert category_sum == stats['total']
+        category_sum = sum(v for k, v in stats.items() if k != "total")
+        assert category_sum == stats["total"]
 
     def test_add_custom_canary(self):
         """Test hinzufügen von benutzerdefinierten Canaries."""
@@ -111,7 +111,7 @@ class TestSnapshotCanaries:
             content="Custom test claim",
             expected_truth=True,
             category="test",
-            confidence_threshold=0.9
+            confidence_threshold=0.9,
         )
 
         # Sollte einen Canary hinzugefügt haben
@@ -122,7 +122,7 @@ class TestSnapshotCanaries:
 
         # Statistiken sollten aktualisiert sein
         stats = self.canaries.get_canary_stats()
-        assert stats['test'] == 1
+        assert stats["test"] == 1
 
     def test_drift_threshold_effect(self):
         """Test Effekt verschiedener Drift-Thresholds."""
@@ -189,23 +189,25 @@ class TestIntegration:
             has_drift, drift_scores = canaries.check_drift(sample_size=3)
             has_false, failed = canaries.check_false_entailments()
 
-            results.append({
-                'iteration': i,
-                'has_drift': has_drift,
-                'max_drift': max(drift_scores.values()) if drift_scores else 0.0,
-                'has_false_entailments': has_false,
-                'failed_count': len(failed)
-            })
+            results.append(
+                {
+                    "iteration": i,
+                    "has_drift": has_drift,
+                    "max_drift": max(drift_scores.values()) if drift_scores else 0.0,
+                    "has_false_entailments": has_false,
+                    "failed_count": len(failed),
+                }
+            )
 
         # Alle Ergebnisse sollten konsistent sein
         assert len(results) == 5
 
         for result in results:
-            assert isinstance(result['has_drift'], bool)
-            assert isinstance(result['has_false_entailments'], bool)
-            assert 0.0 <= result['max_drift'] <= 1.0
-            assert result['failed_count'] >= 0
+            assert isinstance(result["has_drift"], bool)
+            assert isinstance(result["has_false_entailments"], bool)
+            assert 0.0 <= result["max_drift"] <= 1.0
+            assert result["failed_count"] >= 0
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

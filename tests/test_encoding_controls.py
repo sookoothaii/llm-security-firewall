@@ -2,6 +2,7 @@
 Negative control tests for encoding detection.
 Ensures benign base64/hex don't trigger false positives.
 """
+
 import base64
 import sys
 from pathlib import Path
@@ -51,7 +52,3 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("ALL ENCODING TESTS PASSED")
     print("=" * 60)
-
-
-
-

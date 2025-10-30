@@ -2,6 +2,7 @@
 Tests for gapped regex and intent matching.
 Validates positive/negative cases and unicode handling.
 """
+
 import json
 import sys
 from pathlib import Path
@@ -43,7 +44,9 @@ def test_intent_gapped_positive():
     res = intent_lex_score(text, intents, evasions, max_gap=3)
 
     # Should detect jailbreak cluster
-    assert res["top_cluster"] == "jailbreak_instruction_bypass", f"Got: {res['top_cluster']}"
+    assert res["top_cluster"] == "jailbreak_instruction_bypass", (
+        f"Got: {res['top_cluster']}"
+    )
     assert res["lex_score"] > 0.0, f"Got score: {res['lex_score']}"
 
     print("[PASS] test_intent_gapped_positive")
@@ -86,7 +89,9 @@ def test_unicode_evasion():
         canonical = canonicalize(text)
         res = evaluate(canonical, base_dir=LEX, max_gap=3)
         combined = max(res["pattern"]["score"], res["intent"]["lex_score"])
-        assert combined > 0.0, f"Failed to detect after canonicalization: {repr(text)}, scores: {res}"
+        assert combined > 0.0, (
+            f"Failed to detect after canonicalization: {repr(text)}, scores: {res}"
+        )
 
     print("[PASS] test_unicode_evasion")
 
@@ -119,4 +124,3 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("ALL TESTS PASSED")
     print("=" * 60)
-

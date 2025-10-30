@@ -14,6 +14,7 @@ Notes:
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import json
@@ -35,6 +36,7 @@ class _Node:
     next: Dict[str, int]
     fail: int
     out: List[Tuple[str, str]]  # (pattern, category)
+
 
 class AhoCorasick:
     def __init__(self):
@@ -102,6 +104,3 @@ def build_from_lexicons(lexicon_dir: str | pathlib.Path) -> AhoCorasick:
     ac = AhoCorasick()
     ac.build(pats)
     return ac
-
-
-

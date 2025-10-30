@@ -17,7 +17,7 @@ Algorithm:
     tau_{t+1} = tau_t + eta_t * (bound_violation + proximal_term)
     eta_t = eta0 / sqrt(t)  (diminishing step)
     proximal_term = lambda * (tau_t - proximal_center)
-    
+
 Dual-objective:
     Primary: Maintain bound (UB <= epsilon)
     Secondary: Maximize coverage (target 60-70%)
@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 class ProximalRobbinsMonroController:
     """
     Proximal Robbins-Monro controller for conformal threshold
-    
+
     Maintains P(error|answer) <= epsilon via adaptive tau adjustment using
     the latest proximal Robbins-Monro method (2025) for enhanced stability.
     """
@@ -58,7 +58,7 @@ class ProximalRobbinsMonroController:
         window_size: int = 200,
         # Proximal parameters
         proximal_weight: float = 0.1,
-        proximal_decay: float = 0.99
+        proximal_decay: float = 0.99,
     ):
         """
         Args:
@@ -88,8 +88,10 @@ class ProximalRobbinsMonroController:
 
         # State
         self.tau = 0.75  # Initial threshold
-        self.t = 0       # Update counter
-        self.window_decisions: List[Tuple[Dict, bool]] = []  # Recent (decision, correct) tuples
+        self.t = 0  # Update counter
+        self.window_decisions: List[
+            Tuple[Dict, bool]
+        ] = []  # Recent (decision, correct) tuples
 
         # Proximal state
         self.proximal_center = 0.75  # Center for proximal term
@@ -100,35 +102,34 @@ class ProximalRobbinsMonroController:
             f"proximal_weight={proximal_weight}"
         )
 
-    def update(
-        self,
-        decisions: List[Dict]
-    ) -> Dict:
+    def update(self, decisions: List[Dict]) -> Dict:
         """
         Update threshold based on mini-batch of recent decisions
-        
+
         Args:
             decisions: List of dicts with:
                 - 'decision': 'ANSWER' | 'ABSTAIN'
                 - 'correct': bool (from feedback)
                 - 'gt_score': float
-        
+
         Returns:
             Update result with new threshold + diagnostics
         """
         # Filter to answered only
-        answered = [d for d in decisions if d['decision'] == 'ANSWER']
+        answered = [d for d in decisions if d["decision"] == "ANSWER"]
 
         if not answered:
-            logger.warning("[RobbinsMonro] No answered decisions in batch - skipping update")
+            logger.warning(
+                "[RobbinsMonro] No answered decisions in batch - skipping update"
+            )
             return {
-                'tau': self.tau,
-                'update_applied': False,
-                'reason': 'no_answered_decisions'
+                "tau": self.tau,
+                "update_applied": False,
+                "reason": "no_answered_decisions",
             }
 
         n_answered = len(answered)
-        n_errors = sum(1 for d in answered if not d['correct'])
+        n_errors = sum(1 for d in answered if not d["correct"])
 
         # Compute Clopper-Pearson upper bound
         ub_error = self._clopper_pearson_upper(n_errors, n_answered, self.alpha)
@@ -164,9 +165,7 @@ class ProximalRobbinsMonroController:
 
         # Clamp to max step
         tau_new_clamped = np.clip(
-            tau_new_smoothed,
-            self.tau - self.max_step,
-            self.tau + self.max_step
+            tau_new_smoothed, self.tau - self.max_step, self.tau + self.max_step
         )
 
         # Final bounds
@@ -178,9 +177,8 @@ class ProximalRobbinsMonroController:
 
         # Update proximal center (moving average for stability)
         self.proximal_center = (
-            (1 - self.beta) * self.proximal_center +
-            self.beta * tau_new
-        )
+            1 - self.beta
+        ) * self.proximal_center + self.beta * tau_new
 
         # Decay proximal weight (reduces influence over time)
         self.proximal_weight *= self.proximal_decay
@@ -193,55 +191,52 @@ class ProximalRobbinsMonroController:
         )
 
         return {
-            'tau_old': tau_old,
-            'tau_new': tau_new,
-            'adjustment': tau_new - tau_old,
-            'eta_t': eta_t,
-            'ub_error': ub_error,
-            'delta_bound': delta_bound,
-            'coverage': coverage,
-            'delta_coverage': delta_coverage,
-            'n_errors': n_errors,
-            'n_answered': n_answered,
-            'update_applied': True,
-            't': self.t,
+            "tau_old": tau_old,
+            "tau_new": tau_new,
+            "adjustment": tau_new - tau_old,
+            "eta_t": eta_t,
+            "ub_error": ub_error,
+            "delta_bound": delta_bound,
+            "coverage": coverage,
+            "delta_coverage": delta_coverage,
+            "n_errors": n_errors,
+            "n_answered": n_answered,
+            "update_applied": True,
+            "t": self.t,
             # Proximal information
-            'proximal_center': self.proximal_center,
-            'proximal_weight': self.proximal_weight,
-            'proximal_term': proximal_term,
-            'primary_adjustment': primary_adjustment,
-            'secondary_adjustment': secondary_adjustment
+            "proximal_center": self.proximal_center,
+            "proximal_weight": self.proximal_weight,
+            "proximal_term": proximal_term,
+            "primary_adjustment": primary_adjustment,
+            "secondary_adjustment": secondary_adjustment,
         }
 
-    def check_convergence(
-        self,
-        recent_updates: List[Dict]
-    ) -> Dict:
+    def check_convergence(self, recent_updates: List[Dict]) -> Dict:
         """
         Check convergence criteria (GPT-5 specified)
-        
+
         Criteria:
             1. Parameter stability: |tau_t - tau_{t-5}| < 0.01
             2. Bound stability: |UB - epsilon| < 0.01 over last 10 batches
             3. Coverage stability: Var(coverage) < 0.005 over last 10 batches
-        
+
         Args:
             recent_updates: Last 10+ update results
-        
+
         Returns:
             Convergence diagnostics
         """
         if len(recent_updates) < 10:
             return {
-                'converged': False,
-                'reason': 'insufficient_batches',
-                'n_batches': len(recent_updates)
+                "converged": False,
+                "reason": "insufficient_batches",
+                "n_batches": len(recent_updates),
             }
 
         # Extract metrics
-        taus = [u['tau_new'] for u in recent_updates[-10:]]
-        ubs = [u['ub_error'] for u in recent_updates[-10:]]
-        coverages = [u['coverage'] for u in recent_updates[-10:]]
+        taus = [u["tau_new"] for u in recent_updates[-10:]]
+        ubs = [u["ub_error"] for u in recent_updates[-10:]]
+        coverages = [u["coverage"] for u in recent_updates[-10:]]
 
         # 1. Parameter stability
         if len(taus) >= 6:
@@ -262,14 +257,14 @@ class ProximalRobbinsMonroController:
         converged = tau_stable and bound_stable and coverage_stable
 
         result = {
-            'converged': converged,
-            'tau_stable': tau_stable,
-            'bound_stable': bound_stable,
-            'coverage_stable': coverage_stable,
-            'tau_change': tau_change if len(taus) >= 6 else None,
-            'bound_deviation_max': max(bound_deviations),
-            'coverage_variance': coverage_var,
-            'n_batches': len(recent_updates)
+            "converged": converged,
+            "tau_stable": tau_stable,
+            "bound_stable": bound_stable,
+            "coverage_stable": coverage_stable,
+            "tau_change": tau_change if len(taus) >= 6 else None,
+            "bound_deviation_max": max(bound_deviations),
+            "coverage_variance": coverage_var,
+            "n_batches": len(recent_updates),
         }
 
         if converged:
@@ -280,31 +275,27 @@ class ProximalRobbinsMonroController:
 
         return result
 
-    def detect_drift(
-        self,
-        recent_decisions: List[Dict],
-        method: str = "cusum"
-    ) -> Dict:
+    def detect_drift(self, recent_decisions: List[Dict], method: str = "cusum") -> Dict:
         """
         Detect distribution drift via CUSUM or Page-Hinkley
-        
+
         Args:
             recent_decisions: Last 100+ decisions with feedback
             method: 'cusum' or 'page_hinkley'
-        
+
         Returns:
             Drift detection result with alarm flag
         """
         # Extract errors
-        answered = [d for d in recent_decisions if d['decision'] == 'ANSWER']
+        answered = [d for d in recent_decisions if d["decision"] == "ANSWER"]
 
         if len(answered) < 30:
-            return {'alarm': False, 'reason': 'insufficient_data'}
+            return {"alarm": False, "reason": "insufficient_data"}
 
         # Residuals: (error - epsilon)
         residuals = []
         for d in answered:
-            error = 0.0 if d.get('correct', False) else 1.0
+            error = 0.0 if d.get("correct", False) else 1.0
             residuals.append(error - self.epsilon)
 
         if method == "cusum":
@@ -319,21 +310,23 @@ class ProximalRobbinsMonroController:
             )
 
         return {
-            'alarm': alarm,
-            'method': method,
-            'statistic': statistic,
-            'n_samples': len(residuals),
-            'action': 'freeze_and_recalibrate' if alarm else 'continue'
+            "alarm": alarm,
+            "method": method,
+            "statistic": statistic,
+            "n_samples": len(residuals),
+            "action": "freeze_and_recalibrate" if alarm else "continue",
         }
 
-    def _cusum(self, residuals: List[float], threshold: float = 0.02) -> Tuple[bool, float]:
+    def _cusum(
+        self, residuals: List[float], threshold: float = 0.02
+    ) -> Tuple[bool, float]:
         """
         Cumulative Sum (CUSUM) drift detection
-        
+
         Args:
             residuals: Sequence of (error - epsilon)
             threshold: Alarm threshold
-        
+
         Returns:
             (alarm_triggered, max_statistic)
         """
@@ -352,19 +345,16 @@ class ProximalRobbinsMonroController:
         return alarm, max_stat
 
     def _page_hinkley(
-        self,
-        residuals: List[float],
-        delta: float = 0.01,
-        threshold: float = 0.05
+        self, residuals: List[float], delta: float = 0.01, threshold: float = 0.05
     ) -> Tuple[bool, float]:
         """
         Page-Hinkley test for drift
-        
+
         Args:
             residuals: Sequence of (error - epsilon)
             delta: Minimum change to detect
             threshold: Alarm threshold
-        
+
         Returns:
             (alarm_triggered, statistic)
         """
@@ -382,24 +372,21 @@ class ProximalRobbinsMonroController:
         return alarm, statistic
 
     def _clopper_pearson_upper(
-        self,
-        k_errors: int,
-        n_answered: int,
-        alpha: float
+        self, k_errors: int, n_answered: int, alpha: float
     ) -> float:
         """
         Clopper-Pearson exact upper bound for error rate
-        
+
         P(error|answer) with 1-alpha confidence
-        
+
         Formula:
             UB = BetaInv(1-alpha; k+1, n-k)
-        
+
         Args:
             k_errors: Number of errors
             n_answered: Total answered
             alpha: Confidence level (0.05 = 95% CI)
-        
+
         Returns:
             Upper bound on error rate
         """
@@ -419,4 +406,3 @@ class ProximalRobbinsMonroController:
 
 # Backward compatibility alias
 RobbinsMonroController = ProximalRobbinsMonroController
-

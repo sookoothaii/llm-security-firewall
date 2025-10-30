@@ -6,6 +6,7 @@ Features:
 - LogisticRegression + Platt scaling
 - ECE/Brier gates (only activate if calibration quality sufficient)
 """
+
 from __future__ import annotations
 
 import json
@@ -15,12 +16,21 @@ from pathlib import Path
 from typing import List
 
 # Meta-feature vector (versioned, stable order)
-META_FEATURES = ["emb_sim", "ppl_anom", "llm_judge", "intent_lex", "intent_margin", "pattern_score", "evasion_density"]
+META_FEATURES = [
+    "emb_sim",
+    "ppl_anom",
+    "llm_judge",
+    "intent_lex",
+    "intent_margin",
+    "pattern_score",
+    "evasion_density",
+]
 
 
 @dataclass
 class MetaArtifacts:
     """Artifacts from meta-ensemble training."""
+
     coef: List[float]
     intercept: float
     features: List[str]
@@ -38,10 +48,10 @@ def _sigmoid(x: float) -> float:
 def load_artifacts(base: Path) -> MetaArtifacts:
     """
     Load meta-ensemble artifacts from directory.
-    
+
     Args:
         base: Path to artifacts/meta directory
-        
+
     Returns:
         MetaArtifacts with model weights and calibration metrics
     """
@@ -56,7 +66,7 @@ def load_artifacts(base: Path) -> MetaArtifacts:
         platt_A=platt["A"],
         platt_B=platt["B"],
         ece=metrics["ece"],
-        brier=metrics["brier"]
+        brier=metrics["brier"],
     )
 
 
@@ -66,23 +76,24 @@ class MetaEnsemble:
     def __init__(self, art: MetaArtifacts):
         """
         Initialize with artifacts.
-        
+
         Args:
             art: MetaArtifacts from load_artifacts()
-            
+
         Raises:
             AssertionError: If feature order doesn't match META_FEATURES
         """
-        assert art.features == META_FEATURES, f"Feature mismatch: {art.features} != {META_FEATURES}"
+        if art.features != META_FEATURES:
+            raise ValueError(f"Feature mismatch: {art.features} != {META_FEATURES}")
         self.a = art
 
     def predict_proba(self, x: List[float]) -> float:
         """
         Predict probability with Platt-scaled logistic regression.
-        
+
         Args:
             x: Feature vector (must match META_FEATURES order)
-            
+
         Returns:
             Calibrated probability [0, 1]
         """
@@ -95,18 +106,20 @@ class MetaEnsemble:
         return float(min(max(p, 0.0), 1.0))
 
 
-def gate_by_calibration(art: MetaArtifacts, ece_max: float = 0.05, brier_max: float = 0.10) -> bool:
+def gate_by_calibration(
+    art: MetaArtifacts, ece_max: float = 0.05, brier_max: float = 0.10
+) -> bool:
     """
     Check if meta-ensemble meets calibration quality gates.
-    
+
     Only use meta-ensemble if calibration quality is sufficient,
     otherwise fall back to linear combination.
-    
+
     Args:
         art: MetaArtifacts with calibration metrics
         ece_max: Maximum acceptable ECE (Expected Calibration Error)
         brier_max: Maximum acceptable Brier score
-        
+
     Returns:
         True if gates passed (safe to use meta-ensemble)
     """

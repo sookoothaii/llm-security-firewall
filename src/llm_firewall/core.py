@@ -46,7 +46,7 @@ def _artifacts_base() -> Path:
 def _pick_lex_base() -> Path:
     """
     Automatically detect lexicon directory with fallback chain.
-    
+
     Priority:
     1. lexicons_gpt5/ (GPT-5 Detection Pack)
     2. lexicons/ (default)
@@ -55,21 +55,24 @@ def _pick_lex_base() -> Path:
     if (base / "intents.json").exists():
         return base
     base = Path(__file__).parent / "lexicons"
-    assert (base / "intents.json").exists(), "Lexicons missing; ensure repo is synced"
+    if not (base / "intents.json").exists():
+        raise FileNotFoundError("Lexicons missing; ensure repo is synced")
     return base
 
 
 LEX_BASE = _pick_lex_base()
 
 
-def compute_features(text: str, detectors: Dict[str, float] | None = None) -> List[float]:
+def compute_features(
+    text: str, detectors: Dict[str, float] | None = None
+) -> List[float]:
     """
     Compute feature vector for meta-ensemble.
-    
+
     Args:
         text: Canonicalized input text
         detectors: Optional detector results (emb_sim, ppl_anom, llm_judge)
-        
+
     Returns:
         7-dimensional feature vector matching META_FEATURES order
     """
@@ -95,11 +98,21 @@ def compute_features(text: str, detectors: Dict[str, float] | None = None) -> Li
     pattern_s = float(p["score"])
 
     # Evasion density from category weights
-    ev_cat = p["by_category"].get("obfuscation_encoding", 0.0) + p["by_category"].get("unicode_evasion", 0.0)
+    ev_cat = p["by_category"].get("obfuscation_encoding", 0.0) + p["by_category"].get(
+        "unicode_evasion", 0.0
+    )
     evasion_density = 1.0 - math.exp(-ev_cat / 3.0)
 
     # Order must match META_FEATURES in stacking.py
-    feats = [emb_sim, ppl_anom, llm_judge, intent_lex, intent_margin, pattern_s, evasion_density]
+    feats = [
+        emb_sim,
+        ppl_anom,
+        llm_judge,
+        intent_lex,
+        intent_margin,
+        pattern_s,
+        evasion_density,
+    ]
     return feats
 
 
@@ -156,17 +169,31 @@ class FirewallConfig:
             tau_nli=config_data.get("evidence", {}).get("tau_nli", 0.85),
             safety_threshold=config_data.get("safety", {}).get("threshold", 0.8),
             # Multi-layer detection thresholds
-            use_embedding_detector=config_data.get("safety", {}).get("use_embedding_detector", True),
-            embedding_threshold=config_data.get("safety", {}).get("embedding_threshold", 0.75),
-            use_perplexity_detector=config_data.get("safety", {}).get("use_perplexity_detector", True),
-            perplexity_threshold=config_data.get("safety", {}).get("perplexity_threshold", 500.0),
+            use_embedding_detector=config_data.get("safety", {}).get(
+                "use_embedding_detector", True
+            ),
+            embedding_threshold=config_data.get("safety", {}).get(
+                "embedding_threshold", 0.75
+            ),
+            use_perplexity_detector=config_data.get("safety", {}).get(
+                "use_perplexity_detector", True
+            ),
+            perplexity_threshold=config_data.get("safety", {}).get(
+                "perplexity_threshold", 500.0
+            ),
             use_llm_judge=config_data.get("safety", {}).get("use_llm_judge", False),
             # GPT-5 Detection Pack
-            enable_gpt5_detector=config_data.get("safety", {}).get("enable_gpt5_detector", False),
+            enable_gpt5_detector=config_data.get("safety", {}).get(
+                "enable_gpt5_detector", False
+            ),
             gpt5_threshold=config_data.get("safety", {}).get("gpt5_threshold", 0.5),
             # Monitoring
-            drift_threshold=config_data.get("canaries", {}).get("drift_threshold", 0.15),
-            influence_z_threshold=config_data.get("influence", {}).get("z_score_threshold", 2.5),
+            drift_threshold=config_data.get("canaries", {}).get(
+                "drift_threshold", 0.15
+            ),
+            influence_z_threshold=config_data.get("influence", {}).get(
+                "z_score_threshold", 2.5
+            ),
             kl_threshold=config_data.get("shingle", {}).get("kl_threshold", 0.05),
         )
 
@@ -174,6 +201,7 @@ class FirewallConfig:
 @dataclass
 class ValidationResult:
     """Result from input validation."""
+
     is_safe: bool
     reason: str
     risk_score: float = 0.0
@@ -183,6 +211,7 @@ class ValidationResult:
 @dataclass
 class EvidenceDecision:
     """Result from evidence validation."""
+
     should_promote: bool
     should_quarantine: bool
     should_reject: bool
@@ -194,16 +223,16 @@ class EvidenceDecision:
 class SecurityFirewall:
     """
     Unified security firewall for LLM systems.
-    
+
     Provides:
     - Input validation (HUMAN → LLM)
     - Output validation (LLM → HUMAN)
     - Memory monitoring (drift, influence, duplicates)
-    
+
     Example:
         config = FirewallConfig.from_yaml("config.yaml")
         firewall = SecurityFirewall(config)
-        
+
         is_safe, reason = firewall.validate_input(user_query)
         decision = firewall.validate_evidence(content, sources, kb_facts)
     """
@@ -228,13 +257,13 @@ class SecurityFirewall:
             config=pipeline_config,
             evidence_validator=evidence_validator,
             domain_trust_scorer=domain_trust_scorer,
-            source_verifier=source_verifier
+            source_verifier=source_verifier,
         )
 
         self.safety_validator = SafetyValidator(
             config_dir=config.config_dir,
             enable_gpt5=config.enable_gpt5_detector,
-            gpt5_threshold=config.gpt5_threshold
+            gpt5_threshold=config.gpt5_threshold,
         )
 
         # Multi-layer detection
@@ -272,7 +301,9 @@ class SecurityFirewall:
             self.ensemble_validator = EnsembleValidator(
                 min_votes_to_block=config.min_votes_to_block
             )
-            logger.info(f"Ensemble voting enabled (min_votes: {config.min_votes_to_block})")
+            logger.info(
+                f"Ensemble voting enabled (min_votes: {config.min_votes_to_block})"
+            )
 
         # Canaries require NLI model - initialize later when needed
         self.canary_monitor = None
@@ -286,10 +317,10 @@ class SecurityFirewall:
     def validate_input(self, text: str) -> Tuple[bool, str]:
         """
         Validate input text for safety (Multi-Layer Defense with Ensemble Voting).
-        
+
         Args:
             text: Input text to validate
-            
+
         Returns:
             (is_safe, reason) tuple
         """
@@ -299,7 +330,7 @@ class SecurityFirewall:
                 text,
                 self.safety_validator,
                 self.embedding_detector,
-                self.perplexity_detector
+                self.perplexity_detector,
             )
 
         # Fallback: Sequential layer checking (legacy mode)
@@ -307,19 +338,28 @@ class SecurityFirewall:
         safety_decision = self.safety_validator.validate(text)
 
         if safety_decision.action == "BLOCK":
-            return False, f"Layer 1 (Pattern): {safety_decision.reason} (category: {safety_decision.category})"
+            return (
+                False,
+                f"Layer 1 (Pattern): {safety_decision.reason} (category: {safety_decision.category})",
+            )
 
         # Layer 2: Embedding-based detection
         if self.embedding_detector and self.embedding_detector.available:
             embedding_result = self.embedding_detector.detect(text)
             if embedding_result.is_jailbreak:
-                return False, f"Layer 2 (Embedding): Semantic jailbreak detected (similarity: {embedding_result.max_similarity:.3f})"
+                return (
+                    False,
+                    f"Layer 2 (Embedding): Semantic jailbreak detected (similarity: {embedding_result.max_similarity:.3f})",
+                )
 
         # Layer 3: Perplexity-based detection
         if self.perplexity_detector and self.perplexity_detector.available:
             perplexity_result = self.perplexity_detector.detect(text)
             if perplexity_result.is_adversarial:
-                return False, f"Layer 3 (Perplexity): Adversarial content detected (perplexity: {perplexity_result.perplexity:.1f})"
+                return (
+                    False,
+                    f"Layer 3 (Perplexity): Adversarial content detected (perplexity: {perplexity_result.perplexity:.1f})",
+                )
 
         # Layer 4: LLM-as-Judge (optional)
         if self.llm_judge and self.llm_judge.available:
@@ -333,43 +373,37 @@ class SecurityFirewall:
         return True, "Input passed safety validation"
 
     def validate_evidence(
-        self,
-        content: str,
-        sources: List[Dict],
-        kb_facts: List[str]
+        self, content: str, sources: List[Dict], kb_facts: List[str]
     ) -> EvidenceDecision:
         """
         Validate evidence through full pipeline.
-        
+
         Args:
             content: Claim to validate
             sources: List of source dicts with 'name', 'url', 'doi' keys
             kb_facts: List of KB facts for corroboration
-            
+
         Returns:
             EvidenceDecision with promote/quarantine/reject decision
         """
         # Create evidence record
-        source_url = sources[0].get('url') if sources else None
-        source_domain = sources[0].get('domain') if sources else None
-        doi = sources[0].get('doi') if sources else None
+        source_url = sources[0].get("url") if sources else None
+        source_domain = sources[0].get("domain") if sources else None
+        doi = sources[0].get("doi") if sources else None
 
         record = EvidenceRecord(
             content=content,
             source_url=source_url,
             source_domain=source_domain,
             doi=doi,
-            kb_corroborations=len(kb_facts)
+            kb_corroborations=len(kb_facts),
         )
 
         # Run evidence pipeline
-        result = self.evidence_pipeline.process(
-            record=record,
-            kb_sentences=kb_facts
-        )
+        result = self.evidence_pipeline.process(record=record, kb_sentences=kb_facts)
 
         # Map to decision
-        decision = result.get('decision', 'REJECT')
+        decision = result.get("decision", "REJECT")
 
         if decision == "PROMOTE":
             should_promote = True
@@ -388,18 +422,18 @@ class SecurityFirewall:
             should_promote=should_promote,
             should_quarantine=should_quarantine,
             should_reject=should_reject,
-            confidence=result.get('confidence', 0.0),
-            reason=result.get('reason', 'Unknown'),
-            evidence_hash=result.get('evidence_hash')
+            confidence=result.get("confidence", 0.0),
+            reason=result.get("reason", "Unknown"),
+            evidence_hash=result.get("evidence_hash"),
         )
 
     def check_drift(self, sample_size: int = 10) -> Tuple[bool, Dict]:
         """
         Check for memory drift using canaries.
-        
+
         Args:
             sample_size: Number of canaries to test
-            
+
         Returns:
             (has_drift, canary_scores) tuple
         """
@@ -428,10 +462,10 @@ class SecurityFirewall:
     def get_alerts(self, domain: str = "SCIENCE") -> List[str]:
         """
         Get active alerts for domain.
-        
+
         Args:
             domain: Domain to filter alerts
-            
+
         Returns:
             List of alert messages
         """
@@ -439,7 +473,7 @@ class SecurityFirewall:
         alerts = []
 
         # Check influence budget
-        if hasattr(self.influence_tracker, 'current_z_score'):
+        if hasattr(self.influence_tracker, "current_z_score"):
             z = self.influence_tracker.current_z_score
             if abs(z) > self.config.influence_z_threshold:
                 alerts.append(f"Influence spike detected: Z={z:.2f}")
@@ -449,9 +483,8 @@ class SecurityFirewall:
 
 # Export main classes
 __all__ = [
-    'SecurityFirewall',
-    'FirewallConfig',
-    'ValidationResult',
-    'EvidenceDecision',
+    "SecurityFirewall",
+    "FirewallConfig",
+    "ValidationResult",
+    "EvidenceDecision",
 ]
-

@@ -11,13 +11,15 @@ from typing import List, Optional
 
 class ConsistencyLevel(Enum):
     """Consistency between reasoning and output."""
-    ENTAILMENT = "entailment"      # Reasoning supports output
-    NEUTRAL = "neutral"              # Reasoning doesn't contradict output
+
+    ENTAILMENT = "entailment"  # Reasoning supports output
+    NEUTRAL = "neutral"  # Reasoning doesn't contradict output
     CONTRADICTION = "contradiction"  # Reasoning contradicts output
 
 
 class DeceptionType(Enum):
     """Types of metacognitive deception."""
+
     REASONING_OUTPUT_MISMATCH = "reasoning_output_mismatch"
     MISSING_LOGIC_STEPS = "missing_logic_steps"
     OVERCONFIDENT_CLAIM = "overconfident_claim"
@@ -28,6 +30,7 @@ class DeceptionType(Enum):
 @dataclass
 class Claim:
     """A claim extracted from reasoning or output."""
+
     text: str
     source: str  # 'reasoning' or 'output'
     confidence: float = 1.0
@@ -37,6 +40,7 @@ class Claim:
 @dataclass
 class ReasoningBlock:
     """Extracted reasoning block from LLM response."""
+
     raw_text: str
     claims: List[Claim] = field(default_factory=list)
     tag_type: str = "thinking"  # 'thinking', 'antml:thinking', custom
@@ -50,6 +54,7 @@ class ReasoningBlock:
 @dataclass
 class ReasoningQuality:
     """Quality assessment of reasoning."""
+
     depth_score: float  # 0-1, based on length and structure
     logic_chain_score: float  # 0-1, based on connectives and flow
     completeness_score: float  # 0-1, based on missing steps
@@ -59,16 +64,23 @@ class ReasoningQuality:
         if not (0.0 <= self.depth_score <= 1.0):
             raise ValueError(f"depth_score must be in [0,1], got {self.depth_score}")
         if not (0.0 <= self.logic_chain_score <= 1.0):
-            raise ValueError(f"logic_chain_score must be in [0,1], got {self.logic_chain_score}")
+            raise ValueError(
+                f"logic_chain_score must be in [0,1], got {self.logic_chain_score}"
+            )
         if not (0.0 <= self.completeness_score <= 1.0):
-            raise ValueError(f"completeness_score must be in [0,1], got {self.completeness_score}")
+            raise ValueError(
+                f"completeness_score must be in [0,1], got {self.completeness_score}"
+            )
         if not (0.0 <= self.overall_score <= 1.0):
-            raise ValueError(f"overall_score must be in [0,1], got {self.overall_score}")
+            raise ValueError(
+                f"overall_score must be in [0,1], got {self.overall_score}"
+            )
 
 
 @dataclass
 class ConsistencyCheck:
     """Result of reasoning-output consistency check."""
+
     level: ConsistencyLevel
     score: float  # 0-1, confidence in consistency assessment
     reasoning_claim: Claim
@@ -79,6 +91,7 @@ class ConsistencyCheck:
 @dataclass
 class MetacognitiveResult:
     """Result of metacognitive validation."""
+
     has_reasoning: bool
     reasoning_blocks: List[ReasoningBlock]
     quality: Optional[ReasoningQuality]
@@ -91,8 +104,3 @@ class MetacognitiveResult:
     def __post_init__(self):
         if not (0.0 <= self.risk_score <= 1.0):
             raise ValueError(f"risk_score must be in [0,1], got {self.risk_score}")
-
-
-
-
-

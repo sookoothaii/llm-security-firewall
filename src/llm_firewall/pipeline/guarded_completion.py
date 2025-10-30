@@ -40,21 +40,22 @@ async def run_judges_parallel(
     ctx: ModelContext,
     prompt: str,
     draft: str,
-    timeout_s: float = 2.0
+    timeout_s: float = 2.0,
 ) -> List:
     """
     Run all judges in parallel with timeout.
-    
+
     Args:
         judges: List of judge instances
         ctx: Model context
         prompt: User input
         draft: LLM response
         timeout_s: Max execution time per judge
-        
+
     Returns:
         List of JudgeReports
     """
+
     async def _run_one(judge: Judge):
         """Run single judge with timing."""
         t0 = time.perf_counter()
@@ -70,15 +71,18 @@ async def run_judges_parallel(
                 Severity,
                 TaxonomyRisk,
             )
+
             return JudgeReport(
                 name=judge.name,
                 version=judge.version,
                 latency_ms=(time.perf_counter() - t0) * 1000,
                 risks=TaxonomyRisk(
                     categories={},
-                    overall=RiskScore(value=0.5, band="S2", severity=Severity.MEDIUM, calibrated=False)
+                    overall=RiskScore(
+                        value=0.5, band="S2", severity=Severity.MEDIUM, calibrated=False
+                    ),
                 ),
-                notes=f"Judge failed: {str(e)}"
+                notes=f"Judge failed: {str(e)}",
             )
 
     # Create tasks
@@ -104,11 +108,11 @@ async def guarded_completion(
     captcha,  # SpatialCaptchaAuthenticator
     stream_guard: StreamGuard,
     stacker: ConformalRiskStacker,
-    ledger: DecisionLedger
+    ledger: DecisionLedger,
 ) -> Tuple[Decision, str, Optional[Dict]]:
     """
     Complete guarded LLM completion workflow.
-    
+
     Args:
         ctx: Model context
         prompt: User input
@@ -119,7 +123,7 @@ async def guarded_completion(
         stream_guard: Token-level guard
         stacker: Risk aggregator
         ledger: Decision ledger
-        
+
     Returns:
         (decision, output_text, captcha_info)
     """
@@ -139,7 +143,7 @@ async def guarded_completion(
             "item_id": item.item_id,
             "seed": item.seed,
             "params": item.params,
-            "passed": True  # Placeholder
+            "passed": True,  # Placeholder
         }
 
     # Gate 1: Stream generation with token guard
@@ -178,7 +182,7 @@ async def guarded_completion(
             risk=r.risks.overall.value,
             band=r.risks.overall.band,
             severity=int(r.risks.overall.severity),
-            latency_ms=r.latency_ms
+            latency_ms=r.latency_ms,
         )
         for r in reports
     ]
@@ -189,21 +193,21 @@ async def guarded_completion(
         stream_stats={
             "tokens": len(draft_tokens),
             "aborts": 1 if StreamAction.ABORT in [StreamAction.ABORT] else 0,
-            "rewrites": draft_tokens.count("[REDACTED]")
+            "rewrites": draft_tokens.count("[REDACTED]"),
         },
         votes=votes,
         aggregation={
             "overall_risk": agg.overall.value,
             "band": agg.overall.band,
             "qhat": agg.conformal_qhat,
-            "coverage": agg.coverage_target
+            "coverage": agg.coverage_target,
         },
         thresholds={
             "deny_band": stacker.cfg.deny_band,
             "abstain_band": stacker.cfg.abstain_band,
-            "weights": stacker.cfg.weights
+            "weights": stacker.cfg.weights,
         },
-        decision=decision
+        decision=decision,
     )
 
     # Persist to ledger
@@ -219,5 +223,3 @@ async def guarded_completion(
         output = draft_complete
 
     return decision, output, cap_info
-
-

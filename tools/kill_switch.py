@@ -41,7 +41,7 @@ def kill_switch(
 ):
     """
     Execute kill-switch procedure.
-    
+
     Args:
         dsn: PostgreSQL connection string
         domains: List of domains to affect
@@ -107,8 +107,8 @@ def kill_switch(
                 # 3) Freeze memory writes
                 print("\nStep 3: Freezing memory writes...")
                 query = """
-                    UPDATE feature_flags 
-                    SET enabled = FALSE 
+                    UPDATE feature_flags
+                    SET enabled = FALSE
                     WHERE name = 'memory_write_enabled'
                     RETURNING name;
                 """
@@ -126,8 +126,8 @@ def kill_switch(
                 print("\nStep 4: Creating ledger event...")
                 query = """
                     INSERT INTO operational_events(kind, payload, created_at)
-                    VALUES ('KILL_SWITCH', 
-                            jsonb_build_object('domains', %s, 'time', %s, 'dry_run', %s), 
+                    VALUES ('KILL_SWITCH',
+                            jsonb_build_object('domains', %s, 'time', %s, 'dry_run', %s),
                             now())
                     RETURNING id;
                 """
@@ -166,10 +166,10 @@ def main():
 Examples:
   # Dry-run
   python tools/kill_switch.py --dsn "postgresql://..." --domains SCIENCE --dry-run
-  
+
   # Production (affects SCIENCE and MEDICINE domains)
   python tools/kill_switch.py --dsn "postgresql://..." --domains SCIENCE MEDICINE
-  
+
   # Custom limits
   python tools/kill_switch.py --dsn "postgresql://..." --domains SCIENCE --last-n-adapters 10 --last-m-promotions 500
         """

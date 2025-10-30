@@ -20,10 +20,7 @@ class TestEvidenceItem:
     def test_evidence_item_creation(self):
         """Test Evidence-Item-Erstellung."""
         item = EvidenceItem(
-            type="trust",
-            value=0.95,
-            weight=0.3,
-            contribution="High trust from Nature"
+            type="trust", value=0.95, weight=0.3, contribution="High trust from Nature"
         )
 
         assert item.type == "trust"
@@ -51,7 +48,7 @@ class TestExplainWhyEngine:
             kb_facts=["Fact 1", "Fact 2"],
             sources=[{"name": "Nature", "verified": True}],
             domain="SCIENCE",
-            threshold=0.75
+            threshold=0.75,
         )
 
         assert reasoning.decision == "PROMOTE"
@@ -71,7 +68,7 @@ class TestExplainWhyEngine:
             kb_facts=["Single fact"],
             sources=[{"name": "Blog", "verified": False}],
             domain="MEDICINE",
-            threshold=0.75
+            threshold=0.75,
         )
 
         assert reasoning.decision == "QUARANTINE"
@@ -90,7 +87,7 @@ class TestExplainWhyEngine:
             kb_facts=[],
             sources=[],
             domain="SCIENCE",
-            threshold=0.75
+            threshold=0.75,
         )
 
         json_str = reasoning.to_json()
@@ -111,7 +108,7 @@ class TestExplainWhyEngine:
             kb_facts=[],
             sources=[],
             domain="GENERAL",
-            threshold=0.75
+            threshold=0.75,
         )
 
         audit_log = reasoning.to_audit_log()
@@ -133,7 +130,7 @@ class TestExplainWhyEngine:
             kb_facts=["Fact"],
             sources=[{"name": "Source"}],
             domain="SCIENCE",
-            threshold=0.75
+            threshold=0.75,
         )
 
         is_valid = self.engine.validate_reasoning(reasoning)
@@ -152,7 +149,7 @@ class TestExplainWhyEngine:
             kb_facts=[],
             sources=[],
             domain="SCIENCE",
-            threshold=0.75
+            threshold=0.75,
         )
 
         retrieved = self.engine.get_reasoning_by_id("test_006")
@@ -174,7 +171,7 @@ class TestExplainWhyEngine:
                 kb_facts=[],
                 sources=[],
                 domain="SCIENCE",
-                threshold=0.75
+                threshold=0.75,
             )
 
         recent = self.engine.get_recent_reasoning(limit=3)
@@ -196,7 +193,7 @@ class TestExplainWhyEngine:
                 kb_facts=[],
                 sources=[],
                 domain="SCIENCE",
-                threshold=0.75
+                threshold=0.75,
             )
 
         export_data = self.engine.export_reasoning_for_regression()
@@ -206,9 +203,9 @@ class TestExplainWhyEngine:
 
         # Prüfe Struktur
         for item in export_data:
-            assert 'decision' in item
-            assert 'confidence' in item
-            assert 'domain' in item
+            assert "decision" in item
+            assert "confidence" in item
+            assert "domain" in item
 
     def test_get_statistics(self):
         """Test Statistiken."""
@@ -223,7 +220,7 @@ class TestExplainWhyEngine:
             kb_facts=[],
             sources=[],
             domain="SCIENCE",
-            threshold=0.75
+            threshold=0.75,
         )
 
         self.engine.create_reasoning(
@@ -236,16 +233,16 @@ class TestExplainWhyEngine:
             kb_facts=[],
             sources=[],
             domain="SCIENCE",
-            threshold=0.75
+            threshold=0.75,
         )
 
         stats = self.engine.get_statistics()
 
-        assert stats['total'] >= 2
-        assert stats['promote'] >= 1
-        assert stats['quarantine'] >= 1
-        assert 'avg_confidence' in stats
-        assert 'avg_evidence_count' in stats
+        assert stats["total"] >= 2
+        assert stats["promote"] >= 1
+        assert stats["quarantine"] >= 1
+        assert "avg_confidence" in stats
+        assert "avg_evidence_count" in stats
 
 
 class TestIntegration:
@@ -266,11 +263,11 @@ class TestIntegration:
             kb_facts=["Fact 1", "Fact 2", "Fact 3"],
             sources=[
                 {"name": "Nature", "verified": True},
-                {"name": "Science", "verified": True}
+                {"name": "Science", "verified": True},
             ],
             domain="SCIENCE",
             threshold=0.75,
-            metadata={"query": "Test query"}
+            metadata={"query": "Test query"},
         )
 
         # Validate
@@ -290,8 +287,8 @@ class TestIntegration:
 
         # Statistics
         stats = engine.get_statistics()
-        assert stats['total'] >= 1
+        assert stats["total"] >= 1
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

@@ -1,4 +1,5 @@
 """Persuasion detection module for LLM Security Firewall"""
+
 from .detector import PersuasionDetector, PersuasionSignal
 from .instructionality import instructionality_score, requires_safety_wrap
 from .invariance_gate import InvarianceGate, InvarianceResult
@@ -11,6 +12,5 @@ __all__ = [
     "InvarianceGate",
     "InvarianceResult",
     "instructionality_score",
-    "requires_safety_wrap"
+    "requires_safety_wrap",
 ]
-

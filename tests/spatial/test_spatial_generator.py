@@ -76,7 +76,9 @@ class TestSpatialCaptchaGenerator:
         challenge = generator.generate(seed=50, difficulty=DifficultyLevel.EASY)
 
         # Find a wrong answer
-        wrong_answer = [opt for opt in challenge.options if opt != challenge.correct_answer][0]
+        wrong_answer = [
+            opt for opt in challenge.options if opt != challenge.correct_answer
+        ][0]
 
         is_correct = verify_response(challenge, wrong_answer)
         assert is_correct is False
@@ -114,7 +116,7 @@ class TestChallengeResponse:
             user_id="user1",
             selected_answer="A",
             response_time_ms=100,  # Too fast
-            is_correct=True
+            is_correct=True,
         )
 
         assert response.is_suspicious() is True
@@ -128,7 +130,7 @@ class TestChallengeResponse:
             user_id="user1",
             selected_answer="A",
             response_time_ms=35000,  # Too slow
-            is_correct=True
+            is_correct=True,
         )
 
         assert response.is_suspicious() is True
@@ -143,7 +145,7 @@ class TestChallengeResponse:
             selected_answer="A",
             response_time_ms=3000,  # Normal
             is_correct=True,
-            device_info={"screen": "1920x1080"}
+            device_info={"screen": "1920x1080"},
         )
 
         assert response.is_suspicious() is False
@@ -157,9 +159,7 @@ class TestUserSpatialProfile:
         from llm_firewall.core.domain.spatial_captcha import UserSpatialProfile
 
         profile = UserSpatialProfile(
-            user_id="user1",
-            challenges_completed=10,
-            challenges_passed=7
+            user_id="user1", challenges_completed=10, challenges_passed=7
         )
 
         assert profile.pass_rate() == 0.7
@@ -177,9 +177,7 @@ class TestUserSpatialProfile:
         from llm_firewall.core.domain.spatial_captcha import UserSpatialProfile
 
         profile = UserSpatialProfile(
-            user_id="user1",
-            challenges_completed=5,
-            medium_accuracy=0.85
+            user_id="user1", challenges_completed=5, medium_accuracy=0.85
         )
 
         assert profile.recommend_difficulty() == DifficultyLevel.HARD
@@ -189,11 +187,7 @@ class TestUserSpatialProfile:
         from llm_firewall.core.domain.spatial_captcha import UserSpatialProfile
 
         profile = UserSpatialProfile(
-            user_id="user1",
-            challenges_completed=5,
-            medium_accuracy=0.3
+            user_id="user1", challenges_completed=5, medium_accuracy=0.3
         )
 
         assert profile.recommend_difficulty() == DifficultyLevel.EASY
-
-

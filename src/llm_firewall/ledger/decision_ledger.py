@@ -22,6 +22,7 @@ from llm_firewall.core.types import Decision, ModelContext
 @dataclass
 class JudgeVote:
     """Vote from a single judge."""
+
     name: str
     version: str
     risk: float
@@ -34,20 +35,25 @@ class JudgeVote:
 class DecisionRecord:
     """
     Complete audit record for a firewall decision.
-    
+
     KUE-Proof: Contains all information needed to reproduce decision.
     """
+
     # Context
     ctx: ModelContext
 
     # Gate results
-    captcha: Optional[Dict[str, Any]] = None            # {item_id, seed, params, passed}
-    stream_stats: Optional[Dict[str, Any]] = None       # {tokens, aborts, rewrites}
+    captcha: Optional[Dict[str, Any]] = None  # {item_id, seed, params, passed}
+    stream_stats: Optional[Dict[str, Any]] = None  # {tokens, aborts, rewrites}
     votes: List[JudgeVote] = field(default_factory=list)
 
     # Aggregation
-    aggregation: Dict[str, Any] = field(default_factory=dict)  # {overall_risk, band, qhat, coverage}
-    thresholds: Dict[str, Any] = field(default_factory=dict)   # {deny_band, abstain_band, weights}
+    aggregation: Dict[str, Any] = field(
+        default_factory=dict
+    )  # {overall_risk, band, qhat, coverage}
+    thresholds: Dict[str, Any] = field(
+        default_factory=dict
+    )  # {deny_band, abstain_band, weights}
 
     # Final decision
     decision: Decision = Decision.ALLOW
@@ -58,10 +64,10 @@ class DecisionRecord:
     def id(self) -> str:
         """
         Compute deterministic ID for this decision.
-        
+
         Based on request context + decision parameters.
         Used for deduplication and audit trail.
-        
+
         Returns:
             SHA-256 hash (64 hex chars)
         """
@@ -70,7 +76,7 @@ class DecisionRecord:
             "time": self.ctx.time_utc.isoformat(),
             "prompt_hash": self.ctx.prompt_hash,
             "decision": self.decision.value,
-            "overall_risk": self.aggregation.get("overall_risk", 0.0)
+            "overall_risk": self.aggregation.get("overall_risk", 0.0),
         }
         content = json.dumps(data, sort_keys=True)
         return hashlib.sha256(content.encode()).hexdigest()
@@ -78,7 +84,7 @@ class DecisionRecord:
     def to_json(self) -> str:
         """
         Serialize to JSON for storage.
-        
+
         Returns:
             JSON string
         """
@@ -87,7 +93,7 @@ class DecisionRecord:
     def to_dict(self) -> Dict[str, Any]:
         """
         Convert to dictionary for Postgres JSONB.
-        
+
         Returns:
             Dict representation
         """
@@ -97,7 +103,7 @@ class DecisionRecord:
 class DecisionLedger:
     """
     Persistence layer for decision records.
-    
+
     Supports:
     - PostgreSQL JSONB (structured queries)
     - File-based (ndjson/parquet for long-term analysis)
@@ -106,7 +112,7 @@ class DecisionLedger:
     def __init__(self, db_connection=None, file_path: Optional[str] = None):
         """
         Initialize ledger.
-        
+
         Args:
             db_connection: PostgreSQL connection (optional)
             file_path: NDJSON file path for file-based persistence (optional)
@@ -117,10 +123,10 @@ class DecisionLedger:
     def persist(self, record: DecisionRecord) -> str:
         """
         Persist decision record.
-        
+
         Args:
             record: Decision record to store
-            
+
         Returns:
             Record ID
         """
@@ -153,20 +159,19 @@ class DecisionLedger:
         path = pathlib.Path(self.file_path)
         path.parent.mkdir(parents=True, exist_ok=True)
 
-        with open(path, 'a', encoding='utf-8') as f:
-            f.write(record.to_json() + '\n')
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(record.to_json() + "\n")
 
     def query(self, filters: Dict[str, Any]) -> List[DecisionRecord]:
         """
         Query decision records.
-        
+
         Args:
             filters: Query filters (session_id, user_id, decision, etc.)
-            
+
         Returns:
             List of matching records
         """
         # TODO: Implement PostgreSQL query
         # SELECT data FROM decision_ledger WHERE ...
         return []
-

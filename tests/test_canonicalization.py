@@ -2,6 +2,7 @@
 Tests for text canonicalization (evasion resistance).
 CRITICAL: These tests validate security-critical normalization.
 """
+
 import sys
 from pathlib import Path
 
@@ -114,4 +115,3 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("ALL CANONICALIZATION TESTS PASSED")
     print("=" * 60)
-

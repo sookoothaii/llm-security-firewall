@@ -23,15 +23,15 @@ from blake3 import blake3
 def normalize_text(text: str) -> str:
     """
     Normalize text to NFKC, collapse whitespace, strip.
-    
+
     Deterministic; do NOT include personality/epistemic params.
-    
+
     Args:
         text: Raw text
-        
+
     Returns:
         Normalized text
-        
+
     Examples:
         >>> normalize_text("Hello   World")
         'Hello World'
@@ -50,13 +50,13 @@ def normalize_text(text: str) -> str:
 def blake3_hex(text: str) -> str:
     """
     Return 64-char hex digest (32 bytes) of normalized text.
-    
+
     Args:
         text: Text to hash
-        
+
     Returns:
         Hexadecimal hash string (64 chars)
-        
+
     Examples:
         >>> len(blake3_hex("test"))
         64
@@ -70,12 +70,11 @@ def blake3_hex(text: str) -> str:
 def blake3_bytes(data: bytes) -> str:
     """
     Hash raw bytes (for files, binary data).
-    
+
     Args:
         data: Raw bytes
-        
+
     Returns:
         Hexadecimal hash string (64 chars)
     """
     return blake3(data).hexdigest()
-

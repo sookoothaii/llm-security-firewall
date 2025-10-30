@@ -14,6 +14,7 @@ from typing import Dict, List, Optional
 
 try:
     import psycopg  # type: ignore
+
     HAS_PSYCOPG3 = True
 except ImportError:
     HAS_PSYCOPG3 = False
@@ -23,6 +24,7 @@ except ImportError:
 @dataclass(frozen=True)
 class InfluenceConfig:
     """Configuration for Influence Budget tracking."""
+
     dsn: str
     bucket_minutes: int = 60
     alpha: float = 0.2
@@ -32,7 +34,7 @@ class InfluenceConfig:
 class InfluenceBudgetRepo:
     """
     Repository for Influence Budget tracking.
-    
+
     Uses PostgreSQL stored procedure sp_update_influence_budget
     for atomic EWMA updates and Z-score computation.
     """
@@ -50,10 +52,10 @@ class InfluenceBudgetRepo:
     def _bucket_start(self, t: datetime) -> datetime:
         """
         Compute bucket start time for given timestamp.
-        
+
         Args:
             t: Timestamp
-            
+
         Returns:
             Bucket start time (rounded down to bucket_minutes)
         """
@@ -62,19 +64,16 @@ class InfluenceBudgetRepo:
         return t.replace(minute=m)
 
     def record(
-        self,
-        domain: str,
-        influence: float,
-        when: Optional[datetime] = None
+        self, domain: str, influence: float, when: Optional[datetime] = None
     ) -> float:
         """
         Record influence and get current Z-score.
-        
+
         Args:
             domain: Domain (SCIENCE, MEDICINE, etc.)
             influence: Influence score
             when: Timestamp (default: now UTC)
-            
+
         Returns:
             Current Z-score for this bucket
         """
@@ -88,14 +87,14 @@ class InfluenceBudgetRepo:
                 # Call stored procedure for atomic EWMA update
                 cur.execute(
                     "SELECT sp_update_influence_budget(%s, %s, %s, %s);",
-                    (domain.lower(), bucket, float(influence), float(self.cfg.alpha))
+                    (domain.lower(), bucket, float(influence), float(self.cfg.alpha)),
                 )
 
                 # Fetch current Z-score
                 cur.execute(
                     "SELECT z_score FROM influence_budget_rollup "
                     "WHERE domain=%s AND bucket_start=%s;",
-                    (domain.lower(), bucket)
+                    (domain.lower(), bucket),
                 )
 
                 row = cur.fetchone()
@@ -107,29 +106,26 @@ class InfluenceBudgetRepo:
     def is_alert(self, z: float) -> bool:
         """
         Check if Z-score triggers alert.
-        
+
         Args:
             z: Z-score
-            
+
         Returns:
             True if alert threshold exceeded
         """
         return abs(z) >= self.cfg.alert_z
 
     def get_rollup(
-        self,
-        domain: str,
-        start: datetime,
-        end: Optional[datetime] = None
+        self, domain: str, start: datetime, end: Optional[datetime] = None
     ) -> List[Dict]:
         """
         Get rollup data for domain in time range.
-        
+
         Args:
             domain: Domain
             start: Start time
             end: End time (default: now)
-            
+
         Returns:
             List of rollup records
         """
@@ -140,28 +136,28 @@ class InfluenceBudgetRepo:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT domain, bucket_start, ib_sum, ewma_mean, 
+                    SELECT domain, bucket_start, ib_sum, ewma_mean,
                            ewma_var, z_score, samples
                     FROM influence_budget_rollup
-                    WHERE domain = %s 
-                      AND bucket_start >= %s 
+                    WHERE domain = %s
+                      AND bucket_start >= %s
                       AND bucket_start <= %s
                     ORDER BY bucket_start
                     """,
-                    (domain.lower(), start, end)
+                    (domain.lower(), start, end),
                 )
 
                 rows = cur.fetchall()
 
                 return [
                     {
-                        'domain': row[0],
-                        'bucket_start': row[1],
-                        'ib_sum': row[2],
-                        'ewma_mean': row[3],
-                        'ewma_var': row[4],
-                        'z_score': row[5],
-                        'samples': row[6]
+                        "domain": row[0],
+                        "bucket_start": row[1],
+                        "ib_sum": row[2],
+                        "ewma_mean": row[3],
+                        "ewma_var": row[4],
+                        "z_score": row[5],
+                        "samples": row[6],
                     }
                     for row in rows
                 ]
@@ -170,16 +166,16 @@ class InfluenceBudgetRepo:
         self,
         domain: Optional[str] = None,
         since: Optional[datetime] = None,
-        limit: int = 100
+        limit: int = 100,
     ) -> List[Dict]:
         """
         Get alerts (high Z-scores).
-        
+
         Args:
             domain: Optional domain filter
             since: Optional time filter
             limit: Max results
-            
+
         Returns:
             List of alert records
         """
@@ -191,21 +187,21 @@ class InfluenceBudgetRepo:
                 if domain is not None:
                     cur.execute(
                         """
-                        SELECT domain, bucket_start, ib_sum, ewma_mean, 
+                        SELECT domain, bucket_start, ib_sum, ewma_mean,
                                ewma_var, z_score, samples
                         FROM influence_budget_rollup
-                        WHERE domain = %s 
+                        WHERE domain = %s
                           AND bucket_start >= %s
                           AND ABS(z_score) >= %s
                         ORDER BY ABS(z_score) DESC
                         LIMIT %s
                         """,
-                        (domain.lower(), since, self.cfg.alert_z, limit)
+                        (domain.lower(), since, self.cfg.alert_z, limit),
                     )
                 else:
                     cur.execute(
                         """
-                        SELECT domain, bucket_start, ib_sum, ewma_mean, 
+                        SELECT domain, bucket_start, ib_sum, ewma_mean,
                                ewma_var, z_score, samples
                         FROM influence_budget_rollup
                         WHERE bucket_start >= %s
@@ -213,21 +209,21 @@ class InfluenceBudgetRepo:
                         ORDER BY ABS(z_score) DESC
                         LIMIT %s
                         """,
-                        (since, self.cfg.alert_z, limit)
+                        (since, self.cfg.alert_z, limit),
                     )
 
                 rows = cur.fetchall()
 
                 return [
                     {
-                        'domain': row[0],
-                        'bucket_start': row[1],
-                        'ib_sum': row[2],
-                        'ewma_mean': row[3],
-                        'ewma_var': row[4],
-                        'z_score': row[5],
-                        'samples': row[6],
-                        'is_alert': abs(row[5]) >= self.cfg.alert_z
+                        "domain": row[0],
+                        "bucket_start": row[1],
+                        "ib_sum": row[2],
+                        "ewma_mean": row[3],
+                        "ewma_var": row[4],
+                        "z_score": row[5],
+                        "samples": row[6],
+                        "is_alert": abs(row[5]) >= self.cfg.alert_z,
                     }
                     for row in rows
                 ]
@@ -238,14 +234,11 @@ if __name__ == "__main__":
     import os
 
     # Get DSN from environment or use default
-    dsn = os.getenv("DATABASE_URL", "postgresql://hakgal:password@localhost:5172/hakgal")
-
-    cfg = InfluenceConfig(
-        dsn=dsn,
-        bucket_minutes=60,
-        alpha=0.2,
-        alert_z=4.0
+    dsn = os.getenv(
+        "DATABASE_URL", "postgresql://hakgal:password@localhost:5172/hakgal"
     )
+
+    cfg = InfluenceConfig(dsn=dsn, bucket_minutes=60, alpha=0.2, alert_z=4.0)
 
     repo = InfluenceBudgetRepo(cfg)
 
@@ -253,7 +246,7 @@ if __name__ == "__main__":
     print("Recording normal influences...")
     for i in range(10):
         z = repo.record("SCIENCE", 0.1 + i * 0.01)
-        print(f"  Sample {i+1}: influence=0.{10+i}, z={z:.3f}")
+        print(f"  Sample {i + 1}: influence=0.{10 + i}, z={z:.3f}")
 
     # Simulate spike
     print("\nRecording spike...")
@@ -266,4 +259,3 @@ if __name__ == "__main__":
     print(f"\nAlerts: {len(alerts)}")
     for alert in alerts:
         print(f"  {alert['bucket_start']}: z={alert['z_score']:.2f}")
-

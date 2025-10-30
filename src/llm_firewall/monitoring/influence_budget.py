@@ -25,6 +25,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import psycopg  # noqa: F401
+
     HAS_PSYCOPG3 = True
 except ImportError:
     HAS_PSYCOPG3 = False
@@ -33,6 +34,7 @@ except ImportError:
 @dataclass(frozen=True)
 class InfluenceRecord:
     """Einzelner Influence-Record."""
+
     source_id: str
     domain: str
     influence_score: float
@@ -43,6 +45,7 @@ class InfluenceRecord:
 @dataclass(frozen=True)
 class InfluenceAlert:
     """Influence-Alert bei Anomalie."""
+
     source_id: str
     domain: str
     time_window: str
@@ -56,7 +59,7 @@ class InfluenceAlert:
 class InfluenceBudgetTracker:
     """
     Tracker für Influence-Budget und Anomalie-Erkennung.
-    
+
     Detektiert Slow-Roll-Poison durch überproportionale Source-Einflüsse.
     """
 
@@ -64,7 +67,7 @@ class InfluenceBudgetTracker:
         self,
         z_score_threshold: float = 4.0,
         time_window_minutes: int = 60,
-        min_samples_for_baseline: int = 10
+        min_samples_for_baseline: int = 10,
     ):
         """
         Args:
@@ -81,15 +84,11 @@ class InfluenceBudgetTracker:
         self.baseline_statistics: Dict[str, Dict] = {}
 
     def record_influence(
-        self,
-        source_id: str,
-        domain: str,
-        influence_score: float,
-        context: str = ""
+        self, source_id: str, domain: str, influence_score: float, context: str = ""
     ):
         """
         Registriere Influence-Event.
-        
+
         Args:
             source_id: ID der Source (Domain, User, etc.)
             domain: Domain (SCIENCE, MEDICINE, etc.)
@@ -101,7 +100,7 @@ class InfluenceBudgetTracker:
             domain=domain,
             influence_score=abs(influence_score),  # Absolute value
             timestamp=datetime.now(),
-            context=context
+            context=context,
         )
 
         self.influence_records.append(record)
@@ -115,10 +114,7 @@ class InfluenceBudgetTracker:
     def _update_baseline(self, domain: str):
         """Update Baseline-Statistiken für Domain."""
         # Filter Records für Domain
-        domain_records = [
-            r for r in self.influence_records
-            if r.domain == domain
-        ]
+        domain_records = [r for r in self.influence_records if r.domain == domain]
 
         if len(domain_records) < self.min_samples_for_baseline:
             return
@@ -131,9 +127,9 @@ class InfluenceBudgetTracker:
         std = math.sqrt(variance) if variance > 0 else 1.0
 
         self.baseline_statistics[domain] = {
-            'mean': mean,
-            'std': std,
-            'count': len(domain_records)
+            "mean": mean,
+            "std": std,
+            "count": len(domain_records),
         }
 
     def _check_for_anomalies(self, source_id: str, domain: str):
@@ -161,8 +157,8 @@ class InfluenceBudgetTracker:
         total_influence = sum(recent_influences)
 
         # Z-Score berechnen
-        if baseline['std'] > 0:
-            z_score = (total_influence - baseline['mean']) / baseline['std']
+        if baseline["std"] > 0:
+            z_score = (total_influence - baseline["mean"]) / baseline["std"]
         else:
             z_score = 0.0
 
@@ -181,16 +177,13 @@ class InfluenceBudgetTracker:
                 z_score=z_score,
                 threshold=self.z_score_threshold,
                 anomaly_type=anomaly_type,
-                timestamp=datetime.now()
+                timestamp=datetime.now(),
             )
 
             self.alerts.append(alert)
 
     def _classify_anomaly_type(
-        self,
-        source_id: str,
-        domain: str,
-        recent_influences: List[float]
+        self, source_id: str, domain: str, recent_influences: List[float]
     ) -> str:
         """Klassifiziere Anomalie-Typ."""
         if not recent_influences:
@@ -205,14 +198,16 @@ class InfluenceBudgetTracker:
 
         # Sustained: Konstant hoher Einfluss
         if len(recent_influences) >= 5:
-            variance = sum((x - avg_influence) ** 2 for x in recent_influences) / len(recent_influences)
+            variance = sum((x - avg_influence) ** 2 for x in recent_influences) / len(
+                recent_influences
+            )
             if variance < avg_influence * 0.2:  # Niedrige Varianz
                 return "sustained"
 
         # Sudden: Plötzlicher Anstieg
         if len(recent_influences) >= 3:
-            first_half = recent_influences[:len(recent_influences)//2]
-            second_half = recent_influences[len(recent_influences)//2:]
+            first_half = recent_influences[: len(recent_influences) // 2]
+            second_half = recent_influences[len(recent_influences) // 2 :]
 
             if first_half and second_half:
                 first_avg = sum(first_half) / len(first_half)
@@ -224,19 +219,16 @@ class InfluenceBudgetTracker:
         return "general"
 
     def get_influence_budget(
-        self,
-        source_id: str,
-        domain: str,
-        time_window_minutes: Optional[int] = None
+        self, source_id: str, domain: str, time_window_minutes: Optional[int] = None
     ) -> float:
         """
         Hole Influence-Budget für Source.
-        
+
         Args:
             source_id: Source ID
             domain: Domain
             time_window_minutes: Optionales Zeitfenster (default: self.time_window)
-            
+
         Returns:
             Total influence im Zeitfenster
         """
@@ -258,14 +250,11 @@ class InfluenceBudgetTracker:
         return sum(influences)
 
     def get_top_influencers(
-        self,
-        domain: str,
-        limit: int = 10,
-        time_window_minutes: Optional[int] = None
+        self, domain: str, limit: int = 10, time_window_minutes: Optional[int] = None
     ) -> List[Tuple[str, float]]:
         """
         Hole Top-Influencers für Domain.
-        
+
         Returns:
             Liste von (source_id, total_influence) Tupeln
         """
@@ -285,25 +274,21 @@ class InfluenceBudgetTracker:
 
         # Sortiere nach Influence
         sorted_sources = sorted(
-            source_influences.items(),
-            key=lambda x: x[1],
-            reverse=True
+            source_influences.items(), key=lambda x: x[1], reverse=True
         )
 
         return sorted_sources[:limit]
 
     def get_alerts(
-        self,
-        domain: Optional[str] = None,
-        limit: Optional[int] = None
+        self, domain: Optional[str] = None, limit: Optional[int] = None
     ) -> List[InfluenceAlert]:
         """
         Hole Alerts.
-        
+
         Args:
             domain: Optional Domain-Filter
             limit: Optional Limit
-            
+
         Returns:
             Liste von Alerts
         """
@@ -328,11 +313,7 @@ class InfluenceBudgetTracker:
             records = [r for r in records if r.domain == domain]
 
         if not records:
-            return {
-                'total_records': 0,
-                'total_alerts': 0,
-                'unique_sources': 0
-            }
+            return {"total_records": 0, "total_alerts": 0, "unique_sources": 0}
 
         unique_sources = len(set(r.source_id for r in records))
         total_influence = sum(r.influence_score for r in records)
@@ -343,12 +324,12 @@ class InfluenceBudgetTracker:
             alerts = [a for a in alerts if a.domain == domain]
 
         return {
-            'total_records': len(records),
-            'total_alerts': len(alerts),
-            'unique_sources': unique_sources,
-            'total_influence': total_influence,
-            'avg_influence': avg_influence,
-            'baseline': self.baseline_statistics.get(domain or 'default', {})
+            "total_records": len(records),
+            "total_alerts": len(alerts),
+            "unique_sources": unique_sources,
+            "total_influence": total_influence,
+            "avg_influence": avg_influence,
+            "baseline": self.baseline_statistics.get(domain or "default", {}),
         }
 
     def reset_alerts(self):
@@ -360,17 +341,13 @@ class InfluenceBudgetTracker:
         cutoff = datetime.now() - timedelta(days=days)
 
         self.influence_records = [
-            r for r in self.influence_records
-            if r.timestamp >= cutoff
+            r for r in self.influence_records if r.timestamp >= cutoff
         ]
 
 
 # Beispiel-Usage
 if __name__ == "__main__":
-    tracker = InfluenceBudgetTracker(
-        z_score_threshold=4.0,
-        time_window_minutes=60
-    )
+    tracker = InfluenceBudgetTracker(z_score_threshold=4.0, time_window_minutes=60)
 
     # Simuliere normale Influence
     for i in range(20):
@@ -378,7 +355,7 @@ if __name__ == "__main__":
             source_id="source_normal",
             domain="SCIENCE",
             influence_score=0.1 + (i % 3) * 0.05,
-            context=f"Query {i}"
+            context=f"Query {i}",
         )
 
     # Simuliere Anomalie (Slow-Roll-Poison)
@@ -387,7 +364,7 @@ if __name__ == "__main__":
             source_id="source_suspicious",
             domain="SCIENCE",
             influence_score=0.8 + i * 0.1,  # Steigend!
-            context=f"Suspicious query {i}"
+            context=f"Suspicious query {i}",
         )
 
     # Check Alerts
@@ -409,4 +386,3 @@ if __name__ == "__main__":
     # Statistics
     stats = tracker.get_statistics("SCIENCE")
     print(f"\nStatistics: {stats}")
-

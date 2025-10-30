@@ -41,24 +41,24 @@ class TestExplanationFormatter:
             source_count=2,
             verified_source_count=0,
             days_since_newest=100,
-            domain='SCIENCE',
+            domain="SCIENCE",
             domain_half_life=1825,
-            query="Test query"
+            query="Test query",
         )
 
         # Create sample decision
         self.abstention_decision = HonestyDecision(
-            decision='ABSTAIN',
+            decision="ABSTAIN",
             reasoning="GT insufficient",
             gt_score=0.45,
             threshold_used=0.80,
             confidence=0.70,
             margin=-0.35,
             gt_breakdown=self.gt_breakdown,
-            user_id='joerg',
+            user_id="joerg",
             user_strictness=0.975,
-            decision_id='test-id',
-            sanity_override=False
+            decision_id="test-id",
+            sanity_override=False,
         )
 
     def test_high_directness_abstention(self):
@@ -67,7 +67,7 @@ class TestExplanationFormatter:
             self.abstention_decision,
             directness=0.95,
             precision_priority=0.95,
-            detail_level=0.9
+            detail_level=0.9,
         )
 
         # Should start with NEIN
@@ -87,7 +87,7 @@ class TestExplanationFormatter:
             self.abstention_decision,
             directness=0.6,
             precision_priority=0.5,
-            detail_level=0.5
+            detail_level=0.5,
         )
 
         # Should NOT start with NEIN (more polite)
@@ -105,7 +105,7 @@ class TestExplanationFormatter:
             self.abstention_decision,
             directness=0.3,
             precision_priority=0.3,
-            detail_level=0.3
+            detail_level=0.3,
         )
 
         # Should be very polite
@@ -120,18 +120,18 @@ class TestExplanationFormatter:
             self.abstention_decision,
             directness=0.95,
             precision_priority=0.95,
-            detail_level=0.9
+            detail_level=0.9,
         )
 
         low_precision = self.formatter.format_decision(
             self.abstention_decision,
             directness=0.95,
             precision_priority=0.3,
-            detail_level=0.9
+            detail_level=0.9,
         )
 
         # High precision should have more "%" signs
-        assert high_precision.count('%') > low_precision.count('%')
+        assert high_precision.count("%") > low_precision.count("%")
 
     def test_detail_level_affects_length(self):
         """Test: High detail level produces longer explanations"""
@@ -139,14 +139,14 @@ class TestExplanationFormatter:
             self.abstention_decision,
             directness=0.95,
             precision_priority=0.95,
-            detail_level=0.9
+            detail_level=0.9,
         )
 
         low_detail = self.formatter.format_decision(
             self.abstention_decision,
             directness=0.95,
             precision_priority=0.95,
-            detail_level=0.3
+            detail_level=0.3,
         )
 
         # High detail should be longer
@@ -160,12 +160,11 @@ class TestExplanationFormatter:
         assert result.startswith("NEIN")
 
         # Should have numbers
-        assert '%' in result
+        assert "%" in result
 
         # Should have breakdown
         assert "Komponenten" in result or "KB Facts" in result
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

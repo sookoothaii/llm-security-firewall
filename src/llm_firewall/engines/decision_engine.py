@@ -27,26 +27,24 @@ logger = logging.getLogger(__name__)
 # Sanity queries (MUST pass even with low GT)
 SANITY_PATTERNS = [
     # Geography
-    {'keywords': ['paris', 'france', 'capital'], 'answer': 'yes'},
-    {'keywords': ['canberra', 'australia', 'capital'], 'answer': 'yes'},
-    {'keywords': ['sydney', 'capital', 'australia'], 'answer': 'no'},
-
+    {"keywords": ["paris", "france", "capital"], "answer": "yes"},
+    {"keywords": ["canberra", "australia", "capital"], "answer": "yes"},
+    {"keywords": ["sydney", "capital", "australia"], "answer": "no"},
     # Math
-    {'keywords': ['2+2', '4'], 'answer': 'yes'},
-    {'keywords': ['pi', '3.14'], 'answer': 'yes'},
-    {'keywords': ['sqrt', '4', '2'], 'answer': 'yes'},
-
+    {"keywords": ["2+2", "4"], "answer": "yes"},
+    {"keywords": ["pi", "3.14"], "answer": "yes"},
+    {"keywords": ["sqrt", "4", "2"], "answer": "yes"},
     # Science
-    {'keywords': ['water', 'boils', '100'], 'answer': 'yes'},
-    {'keywords': ['sun', 'planet'], 'answer': 'no'},  # Sun is star
-    {'keywords': ['earth', 'round'], 'answer': 'yes'},
+    {"keywords": ["water", "boils", "100"], "answer": "yes"},
+    {"keywords": ["sun", "planet"], "answer": "no"},  # Sun is star
+    {"keywords": ["earth", "round"], "answer": "yes"},
 ]
 
 
 class HonestyDecisionEngine:
     """
     Makes ANSWER/ABSTAIN decisions with full pipeline integration
-    
+
     Decision Flow:
         1. Load user adaptive threshold
         2. Check sanity override
@@ -61,7 +59,7 @@ class HonestyDecisionEngine:
         threshold_manager: AdaptiveThresholdManager,
         rm_controller: Optional[ProximalRobbinsMonroController] = None,
         min_confidence_override: float = 0.70,
-        sanity_override_enabled: bool = True
+        sanity_override_enabled: bool = True,
     ):
         """
         Args:
@@ -89,11 +87,11 @@ class HonestyDecisionEngine:
         sources: list,
         confidence: float,
         user_id: str,
-        domain: Optional[str] = None
+        domain: Optional[str] = None,
     ) -> HonestyDecision:
         """
         Make ANSWER/ABSTAIN decision
-        
+
         Args:
             query: User query
             kb_facts: KB facts from PostgreSQL
@@ -101,7 +99,7 @@ class HonestyDecisionEngine:
             confidence: Model confidence (0-1)
             user_id: User identifier
             domain: Query domain (auto-detect if None)
-        
+
         Returns:
             HonestyDecision with decision + full reasoning
         """
@@ -169,13 +167,13 @@ class HonestyDecisionEngine:
 
         # Get user strictness
         personality = self.threshold_manager._get_personality(user_id)
-        directness = personality.get('directness', 0.7)
-        bullshit_tolerance = personality.get('bullshit_tolerance', 0.3)
+        directness = personality.get("directness", 0.7)
+        bullshit_tolerance = personality.get("bullshit_tolerance", 0.3)
         strictness = (directness + (1.0 - bullshit_tolerance)) / 2.0
 
         # Create decision object
         decision = HonestyDecision(
-            decision='ANSWER' if should_answer else 'ABSTAIN',
+            decision="ANSWER" if should_answer else "ABSTAIN",
             reasoning=reasoning,
             gt_score=gt_score.overall_score,
             threshold_used=threshold,
@@ -185,7 +183,7 @@ class HonestyDecisionEngine:
             user_id=user_id,
             user_strictness=strictness,
             decision_id=str(uuid.uuid4()),
-            sanity_override=sanity_override
+            sanity_override=sanity_override,
         )
 
         logger.info(
@@ -199,10 +197,10 @@ class HonestyDecisionEngine:
     def _check_sanity(self, query: str) -> tuple:
         """
         Check if query is sanity check (obvious answer)
-        
+
         Returns:
             (is_sanity, confidence_score)
-        
+
         Examples:
             "What is the capital of France?" → (True, 0.99)
             "Is 2+2=4?" → (True, 0.99)
@@ -210,10 +208,9 @@ class HonestyDecisionEngine:
         query_lower = query.lower()
 
         for pattern in SANITY_PATTERNS:
-            keywords = pattern['keywords']
+            keywords = pattern["keywords"]
             # Check if all keywords present
             if all(kw in query_lower for kw in keywords):
                 return True, 0.99
 
         return False, 0.0
-

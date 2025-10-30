@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class PipelineConfig:
     """Evidence pipeline configuration."""
+
     tau_trust: float = 0.75
     tau_nli: float = 0.85
     require_corroboration: bool = True
@@ -35,6 +36,7 @@ class PipelineConfig:
 @dataclass
 class EvidenceRecord:
     """Evidence record for pipeline processing."""
+
     content: str
     source_url: Optional[str] = None
     source_domain: Optional[str] = None
@@ -45,7 +47,7 @@ class EvidenceRecord:
 class EvidencePipeline:
     """
     Orchestrates evidence verification.
-    
+
     CRITICAL: Persona/Epistemik separation maintained.
     No personality variables in pipeline logic.
     """
@@ -56,7 +58,7 @@ class EvidencePipeline:
         evidence_validator: EvidenceValidator,
         domain_trust_scorer: DomainTrustScorer,
         source_verifier: SourceVerifier,
-        nli_model = None  # Optional, defaults to FakeNLI
+        nli_model=None,  # Optional, defaults to FakeNLI
     ):
         """Initialize pipeline with all components."""
         self.cfg = config
@@ -67,14 +69,10 @@ class EvidencePipeline:
 
         logger.info("[EvidencePipeline] Initialized with security components")
 
-    def process(
-        self,
-        record: EvidenceRecord,
-        kb_sentences: Sequence[str]
-    ) -> Dict:
+    def process(self, record: EvidenceRecord, kb_sentences: Sequence[str]) -> Dict:
         """
         Process evidence record through verification pipeline.
-        
+
         Steps:
         1. Content hashing (BLAKE3)
         2. Self-authorship check (EvidenceValidator)
@@ -83,11 +81,11 @@ class EvidencePipeline:
         5. NLI consistency (against KB)
         6. Corroboration check
         7. Decision (PROMOTE | QUARANTINE)
-        
+
         Args:
             record: Evidence to process
             kb_sentences: Existing KB facts for consistency check
-            
+
         Returns:
             Pipeline result dict
         """
@@ -96,21 +94,23 @@ class EvidencePipeline:
 
         # Step 2: Self-authorship check
         evidence_obj = {
-            'content': record.content,
-            'source': record.source_domain or 'external',
-            'url': record.source_url
+            "content": record.content,
+            "source": record.source_domain or "external",
+            "url": record.source_url,
         }
 
-        is_valid_evidence, rejection_reason = self.evidence_validator.is_valid_evidence(evidence_obj)
+        is_valid_evidence, rejection_reason = self.evidence_validator.is_valid_evidence(
+            evidence_obj
+        )
 
         if not is_valid_evidence:
             return {
-                'digest': digest,
-                'decision': 'REJECT',
-                'reasons': [rejection_reason],
-                'trust': 0.0,
-                'nli': 0.0,
-                'verified': False
+                "digest": digest,
+                "decision": "REJECT",
+                "reasons": [rejection_reason],
+                "trust": 0.0,
+                "nli": 0.0,
+                "verified": False,
             }
 
         # Step 3: Domain trust
@@ -122,20 +122,15 @@ class EvidencePipeline:
         link_verified = False
         if record.source_url:
             verification = self.source_verifier.verify_source(
-                record.source_url,
-                content=record.content,
-                expected_doi=record.doi
+                record.source_url, content=record.content, expected_doi=record.doi
             )
-            link_verified = verification['verified']
+            link_verified = verification["verified"]
 
         # Step 5: NLI consistency
         nli_score = 0.0
         if kb_sentences:
             nli_score = consistency_against_kb(
-                record.content,
-                kb_sentences,
-                self.nli,
-                agg="max"
+                record.content, kb_sentences, self.nli, agg="max"
             )
 
         # Step 6: Corroboration check
@@ -167,13 +162,12 @@ class EvidencePipeline:
         )
 
         return {
-            'digest': digest,
-            'trust': trust,
-            'nli': nli_score,
-            'link_verified': link_verified,
-            'corroborations': record.kb_corroborations,
-            'decision': decision,
-            'reasons': reasons,
-            'verified': decision == "PROMOTE"
+            "digest": digest,
+            "trust": trust,
+            "nli": nli_score,
+            "link_verified": link_verified,
+            "corroborations": record.kb_corroborations,
+            "decision": decision,
+            "reasons": reasons,
+            "verified": decision == "PROMOTE",
         }
-

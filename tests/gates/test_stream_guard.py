@@ -31,7 +31,7 @@ class TestRollingWindowStreamGuard:
             user_id="user1",
             model_id="test-model",
             prompt_hash="abc123",
-            time_utc=datetime.now()
+            time_utc=datetime.now(),
         )
 
         state = guard.start(ctx)
@@ -83,5 +83,3 @@ class TestRollingWindowStreamGuard:
 
         # Risk should have accumulated
         assert state.cumulative_risk > initial_risk
-
-

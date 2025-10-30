@@ -1,4 +1,3 @@
-
 """
 Scoring utilities for LLM Firewall pattern and intent lexicon matching.
 
@@ -20,12 +19,14 @@ from typing import Any, Dict, Iterable, List, Tuple
 
 LEX_DIR = Path(__file__).parent.parent / "lexicons_gpt5"
 
+
 @dataclass
 class MatchResult:
     id: str
     category: str
     weight: float
     span: Tuple[int, int]
+
 
 class RegexMatcher:
     def __init__(self, patterns_json: Dict[str, Any], harm_stems: List[str]) -> None:
@@ -52,16 +53,20 @@ class RegexMatcher:
         out: List[MatchResult] = []
         for rx, spec in self.compiled:
             for m in rx.finditer(text):
-                out.append(MatchResult(
-                    id=spec["id"],
-                    category=spec["category"],
-                    weight=float(spec["weight"]),
-                    span=m.span()
-                ))
+                out.append(
+                    MatchResult(
+                        id=spec["id"],
+                        category=spec["category"],
+                        weight=float(spec["weight"]),
+                        span=m.span(),
+                    )
+                )
         return out
+
 
 class ACMatcher:
     """Minimal Aho-Corasick for phrase lookup."""
+
     def __init__(self, phrases: Iterable[Tuple[str, float]]) -> None:
         self.goto: List[Dict[str, int]] = [{}]
         self.out: List[List[str]] = [[]]
@@ -85,6 +90,7 @@ class ACMatcher:
 
     def _build(self) -> None:
         from collections import deque
+
         q: deque[int] = deque()
         for ch, nxt in self.goto[0].items():
             self.fail[nxt] = 0
@@ -111,7 +117,10 @@ class ACMatcher:
                 results.append((i - len(pat) + 1, pat))
         return results
 
-def pattern_score(text: str, patterns_json: Dict[str, Any], harm_stems: List[str]) -> Dict[str, Any]:
+
+def pattern_score(
+    text: str, patterns_json: Dict[str, Any], harm_stems: List[str]
+) -> Dict[str, Any]:
     rxm = RegexMatcher(patterns_json, harm_stems)
     hits = rxm.findall(text)
     total_weight = sum(m.weight for m in hits)
@@ -126,8 +135,11 @@ def pattern_score(text: str, patterns_json: Dict[str, Any], harm_stems: List[str
     return {
         "score": round(score, 6),
         "total_weight": round(total_weight, 3),
-        "by_category": {k: round(v, 3) for k, v in sorted(cat_weights.items(), key=lambda kv: -kv[1])},
-        "matches": [m.__dict__ for m in hits]
+        "by_category": {
+            k: round(v, 3)
+            for k, v in sorted(cat_weights.items(), key=lambda kv: -kv[1])
+        },
+        "matches": [m.__dict__ for m in hits],
     }
 
 
@@ -136,10 +148,16 @@ class IntentMatcher:
     Combines exact-phrase AC matching with token-gapped regexes per intent cluster.
     Provides robust detection against phrase variations.
     """
-    def __init__(self, intents_json: Dict[str, Any], evasions_json: Dict[str, Any], max_gap: int = 3):
+
+    def __init__(
+        self,
+        intents_json: Dict[str, Any],
+        evasions_json: Dict[str, Any],
+        max_gap: int = 3,
+    ):
         """
         Initialize matcher with AC (exact) + Regex (gapped) channels.
-        
+
         Args:
             intents_json: Intent cluster definitions
             evasions_json: Shared evasion phrases
@@ -159,7 +177,10 @@ class IntentMatcher:
             base_w = 1.0 + (c.get("priority", 0) / 20.0)
             phrases = [(s, base_w) for s in c.get("synonyms", [])]
             # shared evasions at reduced weight
-            phrases += [(p["phrase"], p["weight"] * 0.5) for p in evasions_json.get("phrases", [])]
+            phrases += [
+                (p["phrase"], p["weight"] * 0.5)
+                for p in evasions_json.get("phrases", [])
+            ]
             ac = ACMatcher(phrases)
             self._acs[cid] = ac
             self._weights[cid] = {p: w for (p, w) in phrases}
@@ -171,10 +192,10 @@ class IntentMatcher:
     def score(self, text: str) -> Dict[str, float]:
         """
         Compute per-cluster scores combining AC (exact) + Regex (gapped).
-        
+
         Args:
             text: Input text to analyze
-            
+
         Returns:
             Dict mapping cluster IDs to normalized scores
         """
@@ -195,16 +216,21 @@ class IntentMatcher:
         return {k: (v / total) for k, v in per_cluster.items()}
 
 
-def intent_lex_score(text: str, intents_json: Dict[str, Any], evasions_json: Dict[str, Any], max_gap: int = 3) -> Dict[str, Any]:
+def intent_lex_score(
+    text: str,
+    intents_json: Dict[str, Any],
+    evasions_json: Dict[str, Any],
+    max_gap: int = 3,
+) -> Dict[str, Any]:
     """
     Compute intent cluster scores using AC (exact) + Regex (gapped) hybrid matcher.
-    
+
     Args:
         text: Input text to analyze
         intents_json: Intent cluster definitions
         evasions_json: Shared evasion phrases
         max_gap: Maximum token gap for regex channel
-        
+
     Returns:
         Dict with lex_score, top_cluster, margin, per_cluster
     """
@@ -218,7 +244,7 @@ def intent_lex_score(text: str, intents_json: Dict[str, Any], evasions_json: Dic
             "lex_score": 0.0,
             "top_cluster": "unknown",
             "margin": 0.0,
-            "per_cluster": {}
+            "per_cluster": {},
         }
 
     top = sorted_norm[0]
@@ -228,25 +254,29 @@ def intent_lex_score(text: str, intents_json: Dict[str, Any], evasions_json: Dic
         "lex_score": round(top[1], 6),
         "top_cluster": top[0],
         "margin": round(margin, 6),
-        "per_cluster": {k: round(v, 6) for k, v in sorted_norm}
+        "per_cluster": {k: round(v, 6) for k, v in sorted_norm},
     }
 
-def load_lexicons(base_dir: Path = LEX_DIR) -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
+
+def load_lexicons(
+    base_dir: Path = LEX_DIR,
+) -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     intents = json.loads((base_dir / "intents.json").read_text())
     evasions = json.loads((base_dir / "evasions.json").read_text())
     harms = json.loads((base_dir / "harm_domains.json").read_text())
     return intents, evasions, harms
 
+
 # Simple integration helper
 def evaluate(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3) -> Dict[str, Any]:
     """
     Evaluate text against pattern matching and intent detection.
-    
+
     Args:
         text: Input text to analyze
         base_dir: Lexicon directory path
         max_gap: Maximum token gap for intent matcher
-        
+
     Returns:
         Dict with "pattern" and "intent" results
     """
@@ -259,21 +289,26 @@ def evaluate(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3) -> Dict[str,
     return {"pattern": p, "intent": lex_score}
 
 
-def evaluate_windowed(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3,
-                     win: int = 512, stride: int = 256) -> Dict[str, Any]:
+def evaluate_windowed(
+    text: str,
+    base_dir: Path = LEX_DIR,
+    max_gap: int = 3,
+    win: int = 512,
+    stride: int = 256,
+) -> Dict[str, Any]:
     """
     Run pattern/intent scoring over overlapping windows, then aggregate.
-    
+
     Reduces false positives in very long inputs by analyzing local context windows
     and aggregating results conservatively.
-    
+
     Args:
         text: Input text to analyze
         base_dir: Lexicon directory path
         max_gap: Maximum token gap for intent matcher
         win: Window size in characters
         stride: Stride between windows in characters
-        
+
     Returns:
         Dict with "pattern" and "intent" results (aggregated)
         - pattern_score: max over windows (conservative)
@@ -283,7 +318,7 @@ def evaluate_windowed(text: str, base_dir: Path = LEX_DIR, max_gap: int = 3,
     # Build chunks with sliding window
     chunks = []
     for i in range(0, len(text), stride):
-        seg = text[i:i+win]
+        seg = text[i : i + win]
         if not seg:
             break
         chunks.append(evaluate(seg, base_dir=base_dir, max_gap=max_gap))

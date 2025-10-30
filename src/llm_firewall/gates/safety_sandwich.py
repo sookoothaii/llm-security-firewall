@@ -182,5 +182,3 @@ def guarded_decode_with_details(
 
     full_output = model.decode(prompt)
     return full_output, False, []
-
-

@@ -20,7 +20,13 @@ class TestPersuasionFusionJudge:
 
     def test_judge_initialization(self):
         """Test judge can be created."""
-        lex_dir = Path(__file__).parent.parent.parent / "src" / "llm_firewall" / "lexicons" / "persuasion"
+        lex_dir = (
+            Path(__file__).parent.parent.parent
+            / "src"
+            / "llm_firewall"
+            / "lexicons"
+            / "persuasion"
+        )
 
         detector = PersuasionDetector(lex_dir)
         band_judge = BandJudge(None)  # No API key for test
@@ -32,7 +38,13 @@ class TestPersuasionFusionJudge:
 
     def test_score_benign_text(self):
         """Test benign text scores low risk."""
-        lex_dir = Path(__file__).parent.parent.parent / "src" / "llm_firewall" / "lexicons" / "persuasion"
+        lex_dir = (
+            Path(__file__).parent.parent.parent
+            / "src"
+            / "llm_firewall"
+            / "lexicons"
+            / "persuasion"
+        )
 
         detector = PersuasionDetector(lex_dir)
         band_judge = BandJudge(None)
@@ -44,7 +56,7 @@ class TestPersuasionFusionJudge:
             user_id="user1",
             model_id="test-model",
             prompt_hash="abc123",
-            time_utc=datetime.now()
+            time_utc=datetime.now(),
         )
 
         report = judge.score(ctx, "Hello, how are you?", "I'm doing well, thanks!")
@@ -55,7 +67,13 @@ class TestPersuasionFusionJudge:
 
     def test_score_persuasive_text(self):
         """Test persuasive text scores higher risk."""
-        lex_dir = Path(__file__).parent.parent.parent / "src" / "llm_firewall" / "lexicons" / "persuasion"
+        lex_dir = (
+            Path(__file__).parent.parent.parent
+            / "src"
+            / "llm_firewall"
+            / "lexicons"
+            / "persuasion"
+        )
 
         detector = PersuasionDetector(lex_dir)
         band_judge = BandJudge(None)
@@ -71,4 +89,3 @@ class TestPersuasionFusionJudge:
         # Should detect persuasion patterns
         assert len(report.risks.categories) > 0
         assert report.features["persuasion_signals"] > 0
-

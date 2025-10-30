@@ -15,6 +15,7 @@ This module does not execute any model; it orchestrates decisions.
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -26,6 +27,7 @@ from llm_firewall.text.normalize_unicode import normalize
 
 Decision = str  # "allow" | "allow_high_level" | "block"
 
+
 @dataclass
 class InvarianceResult:
     original: str
@@ -36,13 +38,16 @@ class InvarianceResult:
     action: Decision  # final action after invariance logic
     reason: str
 
+
 class InvarianceGate:
-    def __init__(self,
-                 detector: PersuasionDetector,
-                 neutralizer: Neutralizer,
-                 policy_decider: Callable[[str], Decision],
-                 warn_threshold: float = 1.5,
-                 block_threshold: float = 3.0):
+    def __init__(
+        self,
+        detector: PersuasionDetector,
+        neutralizer: Neutralizer,
+        policy_decider: Callable[[str], Decision],
+        warn_threshold: float = 1.5,
+        block_threshold: float = 3.0,
+    ):
         self.detector = detector
         self.neutralizer = neutralizer
         self.policy_decider = policy_decider
@@ -61,7 +66,9 @@ class InvarianceGate:
         # Conservative combination rule (fail-safe):
         # If decisions diverge, or persuasion score high, prefer stricter one.
         if d_orig != d_rest:
-            final: Decision = min(d_orig, d_rest, key=self._severity)  # "block" < "allow_high_level" < "allow"
+            final: Decision = min(
+                d_orig, d_rest, key=self._severity
+            )  # "block" < "allow_high_level" < "allow"
             reason = f"Divergent decisions under restatement (orig={d_orig}, restated={d_rest})."
         else:
             final = d_orig
@@ -89,4 +96,3 @@ class InvarianceGate:
     def _severity(d: Decision) -> int:
         order = {"block": 0, "allow_high_level": 1, "allow": 2}
         return order.get(d, 0)
-

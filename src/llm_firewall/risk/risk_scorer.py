@@ -7,6 +7,7 @@ Implements Joerg's compute_risk_score() with:
 - Data-driven category floors (from floors.json)
 - Meta-ensemble (gated by ECE/Brier)
 """
+
 from __future__ import annotations
 
 import json
@@ -23,7 +24,7 @@ from .stacking import MetaEnsemble, gate_by_calibration, load_artifacts
 def _load_floors() -> Dict[str, float]:
     """
     Load data-driven category floors from artifacts.
-    
+
     Returns:
         Dict mapping category names to floor values
     """
@@ -36,22 +37,24 @@ def _load_floors() -> Dict[str, float]:
     return {}
 
 
-def compute_risk_score(text: str, kb: Optional[Any] = None, detectors: Dict[str, float] | None = None) -> float:
+def compute_risk_score(
+    text: str, kb: Optional[Any] = None, detectors: Dict[str, float] | None = None
+) -> float:
     """
     Compute risk score with canonicalization, floors, and optional meta-ensemble.
-    
+
     Pipeline:
     1. Canonicalize text (always, idempotent safety-net)
     2. Compute pattern + intent scores
     3. Linear combination: 0.6*pattern + 0.4*intent
     4. Apply data-driven category floors (OR-logic)
     5. If meta-ensemble enabled + calibrated, use it (still respect floors)
-    
+
     Args:
         text: Input text (will be canonicalized)
         kb: Optional knowledge base (unused, for compatibility)
         detectors: Optional detector results (emb_sim, ppl_anom, llm_judge)
-        
+
     Returns:
         Risk score [0, 1]
     """
@@ -81,11 +84,29 @@ def compute_risk_score(text: str, kb: Optional[Any] = None, detectors: Dict[str,
         return float(floors.get(key, default))
 
     # Apply floors only if category fires
-    f_I = fval("jailbreak_instruction_bypass", 0.55) if cat.get("jailbreak_instruction_bypass", 0) > 0 else 0.0
-    f_E = fval("evasion_floor", 0.45) if (cat.get("obfuscation_encoding", 0.0) > 0 or
-                                          cat.get("unicode_evasion", 0.0) > 0) else 0.0
-    f_T = fval("information_extraction_sensitive", 0.50) if cat.get("information_extraction_sensitive", 0.0) > 0 else 0.0
-    f_C = fval("capability_escalation", 0.50) if cat.get("capability_escalation", 0.0) > 0 else 0.0
+    f_I = (
+        fval("jailbreak_instruction_bypass", 0.55)
+        if cat.get("jailbreak_instruction_bypass", 0) > 0
+        else 0.0
+    )
+    f_E = (
+        fval("evasion_floor", 0.45)
+        if (
+            cat.get("obfuscation_encoding", 0.0) > 0
+            or cat.get("unicode_evasion", 0.0) > 0
+        )
+        else 0.0
+    )
+    f_T = (
+        fval("information_extraction_sensitive", 0.50)
+        if cat.get("information_extraction_sensitive", 0.0) > 0
+        else 0.0
+    )
+    f_C = (
+        fval("capability_escalation", 0.50)
+        if cat.get("capability_escalation", 0.0) > 0
+        else 0.0
+    )
 
     # Baseline: max(linear, floors)
     R_base = max(r_linear, f_I, f_E, f_T, f_C)
@@ -111,7 +132,3 @@ def compute_risk_score(text: str, kb: Optional[Any] = None, detectors: Dict[str,
             pass
 
     return float(R_base)
-
-
-
-

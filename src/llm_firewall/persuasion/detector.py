@@ -9,6 +9,7 @@ Based on Cialdini's 7 Principles of Influence (2024/2025 Research)
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import json
@@ -19,20 +20,24 @@ from typing import Dict, List, Tuple
 
 FLAGS = re.IGNORECASE | re.UNICODE
 
+
 @dataclass
 class PersuasionSignal:
     """Signal from a persuasion category"""
+
     category: str
     regex_hits: int
     keyword_hits: int
     score: float
 
+
 DEFAULT_WEIGHTS = {"regex": 1.0, "keyword": 0.5}
+
 
 class PersuasionDetector:
     """
     Detects persuasion-based jailbreak attempts.
-    
+
     Uses 7 Cialdini Principles + Roleplay/Jailbreak patterns:
     - Authority
     - Commitment/Consistency
@@ -47,7 +52,7 @@ class PersuasionDetector:
     def __init__(self, lexicon_dir: str | pathlib.Path):
         """
         Initialize detector with lexicon directory.
-        
+
         Args:
             lexicon_dir: Path to directory containing *.json lexicons
         """
@@ -60,7 +65,7 @@ class PersuasionDetector:
         for p in sorted(self.lexicon_dir.glob("*.json")):
             data = json.loads(p.read_text(encoding="utf-8"))
             regs = [re.compile(r, FLAGS) for r in data.get("regex", [])]
-            kws  = [k.lower() for k in data.get("keywords", [])]
+            kws = [k.lower() for k in data.get("keywords", [])]
             self._compiled[p.stem] = (regs, kws)
 
     def categories(self) -> List[str]:
@@ -73,14 +78,16 @@ class PersuasionDetector:
         tl = text.lower()
         return sum(1 for k in kws if k in tl)
 
-    def score_text(self, text: str, weights: Dict[str, float] = DEFAULT_WEIGHTS) -> Tuple[float, List[PersuasionSignal]]:
+    def score_text(
+        self, text: str, weights: Dict[str, float] = DEFAULT_WEIGHTS
+    ) -> Tuple[float, List[PersuasionSignal]]:
         """
         Score text for persuasion patterns.
-        
+
         Args:
             text: Input text (should be pre-normalized)
             weights: Scoring weights (regex=1.0, keyword=0.5 default)
-            
+
         Returns:
             (total_score, signals_by_category)
         """
@@ -97,15 +104,17 @@ class PersuasionDetector:
         signals.sort(key=lambda x: x.score, reverse=True)
         return total, signals
 
-    def decide(self, text: str, warn_threshold: float = 1.5, block_threshold: float = 3.0) -> str:
+    def decide(
+        self, text: str, warn_threshold: float = 1.5, block_threshold: float = 3.0
+    ) -> str:
         """
         Make decision: block, warn, or allow.
-        
+
         Args:
             text: Input text (should be pre-normalized)
             warn_threshold: Score threshold for warning
             block_threshold: Score threshold for blocking
-            
+
         Returns:
             "block" | "warn" | "allow"
         """
@@ -115,5 +124,3 @@ class PersuasionDetector:
         if score >= warn_threshold:
             return "warn"
         return "allow"
-
-

@@ -30,5 +30,3 @@ def test_research_pretext():
     canonical = canonicalize(text)
     score, hits = pattern_score(canonical)
     assert "research_pretext" in hits
-
-

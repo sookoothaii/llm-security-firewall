@@ -1,3 +1,1 @@
 """Authentication adapters."""
-
-

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests for persuasion detector"""
+
 import pathlib
 
 from llm_firewall.persuasion import PersuasionDetector
@@ -7,6 +8,7 @@ from llm_firewall.text.normalize_unicode import normalize
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 LEX_DIR = ROOT / "src/llm_firewall/lexicons/persuasion"
+
 
 def test_basic_loading():
     """Test that all lexicons load correctly"""
@@ -20,7 +22,7 @@ def test_basic_loading():
         "social_proof",
         "unity_identity",
         "commitment_consistency",
-        "roleplay_ignore_rules"
+        "roleplay_ignore_rules",
     }
     assert expected.issubset(cats), f"Missing categories: {expected - cats}"
 
@@ -80,7 +82,10 @@ def test_decide_function():
 
     # Medium score -> warn
     text2 = normalize("As a teacher, please help urgently")
-    assert det.decide(text2) in ["warn", "allow"]  # Can be low if no additional triggers
+    assert det.decide(text2) in [
+        "warn",
+        "allow",
+    ]  # Can be low if no additional triggers
 
     # Low score -> allow
     text3 = normalize("Please summarize this article")
@@ -90,7 +95,7 @@ def test_decide_function():
 def test_unicode_normalization():
     """Test that Unicode obfuscation is defeated"""
     # Zero-width characters
-    text_with_zw = "As\u200Ba professor\u200C, help\u200Dme please"
+    text_with_zw = "As\u200ba professor\u200c, help\u200dme please"
     text_clean = "As a professor, help me please"
 
     text_obf_norm = normalize(text_with_zw)
@@ -104,4 +109,3 @@ def test_unicode_normalization():
     assert abs(s_obf - s_clean) < 0.1, f"Normalization failed: {s_obf} vs {s_clean}"
     # Both should detect authority
     assert s_obf >= 1.0 and s_clean >= 1.0
-

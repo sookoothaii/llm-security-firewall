@@ -36,17 +36,19 @@ from llm_firewall.text.normalize import canonicalize, is_evasion_attempt
 @dataclass(frozen=True)
 class SafetySignals:
     """Extrahierte Safety-Signale."""
-    intent_score: float      # [0,1] - How-to Intent
+
+    intent_score: float  # [0,1] - How-to Intent
     capability_score: float  # [0,1] - Technische Details
-    targeting_score: float   # [0,1] - Spezifische Ziele
-    evasion_score: float     # [0,1] - Jailbreak-Versuche
+    targeting_score: float  # [0,1] - Spezifische Ziele
+    evasion_score: float  # [0,1] - Jailbreak-Versuche
     category_match: Optional[str]  # Blacklist-Kategorie
-    confidence: float        # [0,1] - Confidence der Klassifikation
+    confidence: float  # [0,1] - Confidence der Klassifikation
 
 
 @dataclass(frozen=True)
 class SafetyDecision:
     """Safety-Entscheidung."""
+
     action: str  # BLOCK, GATE, SAFE
     risk_score: float  # [0,1]
     category: Optional[str]
@@ -57,12 +59,16 @@ class SafetyDecision:
 class SafetyValidator:
     """
     Safety Validator für Evidence.
-    
+
     Basiert auf GPT-5 Policy (safety_blacklist.yaml, threat_detection_config.yaml).
     """
 
-    def __init__(self, config_dir: str = "config", enable_gpt5: bool = False,
-                 gpt5_threshold: float = 0.5):
+    def __init__(
+        self,
+        config_dir: str = "config",
+        enable_gpt5: bool = False,
+        gpt5_threshold: float = 0.5,
+    ):
         """
         Args:
             config_dir: Verzeichnis mit YAML Configs
@@ -72,30 +78,26 @@ class SafetyValidator:
         self.config_dir = Path(config_dir)
         self.blacklist = self._load_blacklist()
         self.threat_config = self._load_threat_config()
-        self.weights = self.threat_config.get('weights', {
-            'wI': 0.35, 'wC': 0.20, 'wT': 0.15,
-            'wE': 0.15, 'wD': 0.10, 'wU': 0.05
-        })
-        self.thresholds = self.threat_config.get('policy', {}).get('thresholds', {
-            'block': 0.60,
-            'gate': 0.40
-        })
+        self.weights = self.threat_config.get(
+            "weights",
+            {"wI": 0.35, "wC": 0.20, "wT": 0.15, "wE": 0.15, "wD": 0.10, "wU": 0.05},
+        )
+        self.thresholds = self.threat_config.get("policy", {}).get(
+            "thresholds", {"block": 0.60, "gate": 0.40}
+        )
         # HOTFIX: Robust pattern matcher with canonicalization
         self.pattern_matcher = RobustPatternMatcher()
         # GPT-5 Detection Pack (A/B testable layer)
-        self.gpt5_detector = GPT5Detector(
-            enabled=enable_gpt5,
-            threshold=gpt5_threshold
-        )
+        self.gpt5_detector = GPT5Detector(enabled=enable_gpt5, threshold=gpt5_threshold)
 
     def _load_blacklist(self) -> Dict:
         """Lade safety_blacklist.yaml."""
         blacklist_path = self.config_dir / "safety_blacklist.yaml"
 
         if not blacklist_path.exists():
-            return {'categories': []}
+            return {"categories": []}
 
-        with open(blacklist_path, 'r', encoding='utf-8') as f:
+        with open(blacklist_path, "r", encoding="utf-8") as f:
             return yaml.safe_load(f)
 
     def _load_threat_config(self) -> Dict:
@@ -105,44 +107,64 @@ class SafetyValidator:
         if not config_path.exists():
             return {}
 
-        with open(config_path, 'r', encoding='utf-8') as f:
+        with open(config_path, "r", encoding="utf-8") as f:
             return yaml.safe_load(f)
 
     def extract_signals(self, content: str) -> SafetySignals:
         """
         Extrahiere Safety-Signale aus Content.
-        
+
         Args:
             content: Zu prüfender Content
-            
+
         Returns:
             Safety-Signale
         """
         content_lower = content.lower()
 
         # Intent Patterns
-        intent_patterns = self.threat_config.get('signals', {}).get('intent_patterns', [])
-        intent_matches = sum(1 for pattern in intent_patterns
-                            if self._pattern_match(pattern, content_lower))
+        intent_patterns = self.threat_config.get("signals", {}).get(
+            "intent_patterns", []
+        )
+        intent_matches = sum(
+            1
+            for pattern in intent_patterns
+            if self._pattern_match(pattern, content_lower)
+        )
         intent_score = min(1.0, intent_matches / max(len(intent_patterns), 1) * 2.0)
 
         # Capability Indicators
-        capability_patterns = self.threat_config.get('signals', {}).get('capability_indicators', [])
-        capability_matches = sum(1 for pattern in capability_patterns
-                                if re.search(pattern, content_lower))
-        capability_score = min(1.0, capability_matches / max(len(capability_patterns), 1) * 3.0)
+        capability_patterns = self.threat_config.get("signals", {}).get(
+            "capability_indicators", []
+        )
+        capability_matches = sum(
+            1 for pattern in capability_patterns if re.search(pattern, content_lower)
+        )
+        capability_score = min(
+            1.0, capability_matches / max(len(capability_patterns), 1) * 3.0
+        )
 
         # Targeting Signals
-        targeting_patterns = self.threat_config.get('signals', {}).get('targeting_signals', [])
-        targeting_matches = sum(1 for pattern in targeting_patterns
-                               if re.search(pattern, content_lower))
-        targeting_score = min(1.0, targeting_matches / max(len(targeting_patterns), 1) * 2.0)
+        targeting_patterns = self.threat_config.get("signals", {}).get(
+            "targeting_signals", []
+        )
+        targeting_matches = sum(
+            1 for pattern in targeting_patterns if re.search(pattern, content_lower)
+        )
+        targeting_score = min(
+            1.0, targeting_matches / max(len(targeting_patterns), 1) * 2.0
+        )
 
         # Evasion Signals (ENHANCED with robust detection)
-        evasion_patterns = self.threat_config.get('signals', {}).get('evasion_signals', [])
-        evasion_matches = sum(1 for pattern in evasion_patterns
-                             if re.search(pattern, content_lower))
-        pattern_evasion_score = min(1.0, evasion_matches / max(len(evasion_patterns), 1) * 2.0)
+        evasion_patterns = self.threat_config.get("signals", {}).get(
+            "evasion_signals", []
+        )
+        evasion_matches = sum(
+            1 for pattern in evasion_patterns if re.search(pattern, content_lower)
+        )
+        pattern_evasion_score = min(
+            1.0, evasion_matches / max(len(evasion_patterns), 1) * 2.0
+        )
 
         # Augment with robust evasion detection (ZWJ, Base64, Homoglyphs)
         evas = evasion_signals(content)
@@ -163,22 +185,24 @@ class SafetyValidator:
             targeting_score=targeting_score,
             evasion_score=evasion_score,
             category_match=category_match,
-            confidence=confidence
+            confidence=confidence,
         )
 
     def _pattern_match(self, pattern: str, text: str) -> bool:
         """Simple pattern matching (Wildcard)."""
         # Konvertiere "how to *" zu Regex
-        regex_pattern = pattern.replace('*', '.*')
+        regex_pattern = pattern.replace("*", ".*")
         return bool(re.search(regex_pattern, text))
 
     def _match_category(self, content: str) -> Optional[str]:
         """Matche Content gegen Blacklist-Kategorien mit Exclusions."""
-        category_lexicon = self.threat_config.get('signals', {}).get('category_lexicon', {})
+        category_lexicon = self.threat_config.get("signals", {}).get(
+            "category_lexicon", {}
+        )
 
         for category, keywords in category_lexicon.items():
             # Skip exclusion lists
-            if category.endswith('_exclusions'):
+            if category.endswith("_exclusions"):
                 continue
 
             # Check if any keyword matches
@@ -198,9 +222,9 @@ class SafetyValidator:
     def compute_risk_score(self, signals: SafetySignals) -> float:
         """
         Berechne Risk Score with component floors.
-        
+
         R = max(R_linear, f_I*I, f_C*C, f_T*T, f_E*E)
-        
+
         Floors ensure high single-signal cases escalate properly.
         Persona/epistemic separation: purely epistemic features.
         """
@@ -212,27 +236,30 @@ class SafetyValidator:
 
         # Linear risk score
         R_linear = (
-            self.weights['wI'] * signals.intent_score +
-            self.weights['wC'] * signals.capability_score +
-            self.weights['wT'] * signals.targeting_score +
-            self.weights['wE'] * signals.evasion_score +
-            self.weights['wD'] * domain_flag +
-            self.weights['wU'] * uncertainty
+            self.weights["wI"] * signals.intent_score
+            + self.weights["wC"] * signals.capability_score
+            + self.weights["wT"] * signals.targeting_score
+            + self.weights["wE"] * signals.evasion_score
+            + self.weights["wD"] * domain_flag
+            + self.weights["wU"] * uncertainty
         )
 
         # Component floors (OR-logic for escalation)
-        floors = self.threat_config.get('floors', {
-            'I': 0.50,  # High intent alone gates
-            'C': 0.33,  # High capability alone exceeds 0.3 risk
-            'T': 0.25,
-            'E': 0.25
-        })
+        floors = self.threat_config.get(
+            "floors",
+            {
+                "I": 0.50,  # High intent alone gates
+                "C": 0.33,  # High capability alone exceeds 0.3 risk
+                "T": 0.25,
+                "E": 0.25,
+            },
+        )
 
         R_floor = max(
-            floors.get('I', 0.0) * signals.intent_score,
-            floors.get('C', 0.0) * signals.capability_score,
-            floors.get('T', 0.0) * signals.targeting_score,
-            floors.get('E', 0.0) * signals.evasion_score
+            floors.get("I", 0.0) * signals.intent_score,
+            floors.get("C", 0.0) * signals.capability_score,
+            floors.get("T", 0.0) * signals.targeting_score,
+            floors.get("E", 0.0) * signals.evasion_score,
         )
 
         # Take maximum of linear and floor-based risk
@@ -243,12 +270,12 @@ class SafetyValidator:
     def validate(self, content: str) -> SafetyDecision:
         """
         Validiere Content gegen Safety-Policy.
-        
+
         HOTFIX: Jetzt mit Kanonisierung + Regex-Patterns!
-        
+
         Args:
             content: Zu prüfender Content
-            
+
         Returns:
             Safety-Entscheidung
         """
@@ -265,14 +292,14 @@ class SafetyValidator:
                 targeting_score=0.5,
                 evasion_score=0.9,
                 category_match="jailbreak",
-                confidence=0.95
+                confidence=0.95,
             )
             return SafetyDecision(
                 action="BLOCK",
                 risk_score=1.0,
                 category="jailbreak",
                 reason=f"HOTFIX: Regex matched {pattern_match.pattern_name}: {pattern_match.matched_text[:50]}",
-                signals=signals
+                signals=signals,
             )
 
         # HOTFIX PHASE 3: Check for evasion techniques
@@ -283,14 +310,14 @@ class SafetyValidator:
                 targeting_score=0.0,
                 evasion_score=1.0,
                 category_match="evasion",
-                confidence=0.9
+                confidence=0.9,
             )
             return SafetyDecision(
                 action="BLOCK",
                 risk_score=0.9,
                 category="evasion",
                 reason="HOTFIX: Evasion techniques detected (ZW/Homoglyphs/VS)",
-                signals=signals
+                signals=signals,
             )
 
         # PHASE 4: GPT-5 Detection Pack (A/B testable layer)
@@ -302,14 +329,14 @@ class SafetyValidator:
                 targeting_score=0.3,
                 evasion_score=0.5,
                 category_match="gpt5_pattern",
-                confidence=0.9
+                confidence=0.9,
             )
             return SafetyDecision(
                 action="BLOCK",
                 risk_score=gpt5_result["risk_score"],
                 category="gpt5_detection",
                 reason=gpt5_result["reason"],
-                signals=signals
+                signals=signals,
             )
 
         # Legacy: Extrahiere Signale (fallback)
@@ -319,10 +346,10 @@ class SafetyValidator:
         risk_score = self.compute_risk_score(signals)
 
         # Routing
-        if risk_score >= self.thresholds['block']:
+        if risk_score >= self.thresholds["block"]:
             action = "BLOCK"
             reason = "High risk content (dual-use or harmful)"
-        elif risk_score >= self.thresholds['gate']:
+        elif risk_score >= self.thresholds["gate"]:
             action = "GATE"
             reason = "Borderline content requiring human review"
         else:
@@ -331,7 +358,7 @@ class SafetyValidator:
 
         # Blacklist Override (Critical Categories)
         if signals.category_match:
-            block_categories = self.threat_config.get('routing', {}).get('block', [])
+            block_categories = self.threat_config.get("routing", {}).get("block", [])
             if signals.category_match in block_categories:
                 action = "BLOCK"
                 reason = f"Blacklisted category: {signals.category_match}"
@@ -341,13 +368,13 @@ class SafetyValidator:
             risk_score=risk_score,
             category=signals.category_match,
             reason=reason,
-            signals=signals
+            signals=signals,
         )
 
     def is_safe(self, content: str) -> Tuple[bool, str]:
         """
         Schnell-Check ob Content sicher ist.
-        
+
         Returns:
             (is_safe, reason)
         """
@@ -357,8 +384,8 @@ class SafetyValidator:
 
     def get_blacklist_categories(self) -> List[str]:
         """Liste aller Blacklist-Kategorien."""
-        categories = self.blacklist.get('categories', [])
-        return [cat['id'] for cat in categories]
+        categories = self.blacklist.get("categories", [])
+        return [cat["id"] for cat in categories]
 
 
 # Beispiel-Usage
@@ -368,9 +395,9 @@ if __name__ == "__main__":
     # Test verschiedene Content-Typen
     test_cases = [
         "How to build a bomb with common materials",  # BLOCK
-        "Ethical considerations of AI in medicine",   # SAFE
-        "How to bypass Windows password login",       # BLOCK/GATE
-        "History of cryptography in World War 2"      # SAFE
+        "Ethical considerations of AI in medicine",  # SAFE
+        "How to bypass Windows password login",  # BLOCK/GATE
+        "History of cryptography in World War 2",  # SAFE
     ]
 
     for content in test_cases:
@@ -379,4 +406,3 @@ if __name__ == "__main__":
         print(f"Action: {decision.action}")
         print(f"Risk Score: {decision.risk_score:.3f}")
         print(f"Reason: {decision.reason}")
-

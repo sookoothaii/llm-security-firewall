@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 class SourceVerifier:
     """
     Verifies sources and creates content hashes.
-    
+
     Security Features:
     - Prevents fake citations (DOI validation)
     - Detects link rot (accessibility check)
@@ -38,27 +38,29 @@ class SourceVerifier:
     def __init__(self, timeout: int = 10):
         """
         Initialize verifier.
-        
+
         Args:
             timeout: HTTP request timeout in seconds
         """
         self.timeout = timeout
-        self.verification_cache: Dict[str, Tuple[bool, Optional[int]]] = {}  # URL → (accessible, status_code)
+        self.verification_cache: Dict[
+            str, Tuple[bool, Optional[int]]
+        ] = {}  # URL → (accessible, status_code)
 
     def verify_source(
         self,
         url: str,
         content: Optional[str] = None,
-        expected_doi: Optional[str] = None
+        expected_doi: Optional[str] = None,
     ) -> Dict:
         """
         Comprehensive source verification.
-        
+
         Args:
             url: Source URL to verify
             content: Optional content text for hashing
             expected_doi: Optional DOI to validate
-            
+
         Returns:
             Dict with verification results:
             {
@@ -72,58 +74,58 @@ class SourceVerifier:
             }
         """
         result: Dict[str, Any] = {
-            'url': url,
-            'accessible': False,
-            'status_code': None,
-            'doi_valid': None,
-            'content_hash': None,
-            'domain_trust': 0.0,
-            'verified': False,
-            'reasoning': []
+            "url": url,
+            "accessible": False,
+            "status_code": None,
+            "doi_valid": None,
+            "content_hash": None,
+            "domain_trust": 0.0,
+            "verified": False,
+            "reasoning": [],
         }
 
         # Check 1: URL accessibility
         is_accessible, status_code = self._check_accessibility(url)
-        result['accessible'] = is_accessible
-        result['status_code'] = status_code
+        result["accessible"] = is_accessible
+        result["status_code"] = status_code
 
         if not is_accessible:
-            result['reasoning'].append(f"URL not accessible (status: {status_code})")
+            result["reasoning"].append(f"URL not accessible (status: {status_code})")
             return result
 
-        result['reasoning'].append(f"URL accessible (status: {status_code})")
+        result["reasoning"].append(f"URL accessible (status: {status_code})")
 
         # Check 2: DOI validation (if DOI present)
-        if 'doi.org' in url or expected_doi:
+        if "doi.org" in url or expected_doi:
             doi = expected_doi or self._extract_doi_from_url(url)
             if doi:
                 is_valid = self._validate_doi(doi)
-                result['doi_valid'] = is_valid
+                result["doi_valid"] = is_valid
 
                 if is_valid:
-                    result['reasoning'].append(f"DOI valid: {doi}")
+                    result["reasoning"].append(f"DOI valid: {doi}")
                 else:
-                    result['reasoning'].append(f"DOI invalid: {doi}")
+                    result["reasoning"].append(f"DOI invalid: {doi}")
                     return result  # Fail fast on invalid DOI
 
         # Check 3: Content hashing (if content provided)
         if content:
             content_hash = self._hash_content(content)
-            result['content_hash'] = content_hash
-            result['reasoning'].append(f"Content hash: {content_hash[:16]}...")
+            result["content_hash"] = content_hash
+            result["reasoning"].append(f"Content hash: {content_hash[:16]}...")
 
         # Overall verification
-        result['verified'] = is_accessible and (result['doi_valid'] is not False)
+        result["verified"] = is_accessible and (result["doi_valid"] is not False)
 
         return result
 
     def _check_accessibility(self, url: str) -> Tuple[bool, Optional[int]]:
         """
         Check if URL is accessible.
-        
+
         Args:
             url: URL to check
-            
+
         Returns:
             (is_accessible, status_code)
         """
@@ -134,7 +136,7 @@ class SourceVerifier:
         try:
             response = requests.head(url, timeout=self.timeout, allow_redirects=True)
             status_code = response.status_code
-            is_accessible = (200 <= status_code < 400)
+            is_accessible = 200 <= status_code < 400
 
             # Cache result
             self.verification_cache[url] = (is_accessible, status_code)
@@ -152,19 +154,19 @@ class SourceVerifier:
     def _extract_doi_from_url(self, url: str) -> Optional[str]:
         """
         Extract DOI from URL.
-        
+
         Examples:
             https://doi.org/10.1038/s41586-020-2649-2 → 10.1038/s41586-020-2649-2
             https://nature.com/articles/s41586-020-2649-2 → 10.1038/s41586-020-2649-2
-        
+
         Args:
             url: URL possibly containing DOI
-            
+
         Returns:
             DOI string or None
         """
         # Pattern: 10.XXXX/...
-        doi_pattern = r'10\.\d{4,}/[^\s]+'
+        doi_pattern = r"10\.\d{4,}/[^\s]+"
         match = re.search(doi_pattern, url)
 
         if match:
@@ -175,24 +177,28 @@ class SourceVerifier:
     def _validate_doi(self, doi: str) -> bool:
         """
         Validate DOI via doi.org resolution.
-        
+
         Args:
             doi: DOI string (e.g., "10.1038/s41586-020-2649-2")
-            
+
         Returns:
             True if DOI resolves successfully
         """
         try:
             doi_url = f"https://doi.org/{doi}"
-            response = requests.head(doi_url, timeout=self.timeout, allow_redirects=True)
+            response = requests.head(
+                doi_url, timeout=self.timeout, allow_redirects=True
+            )
 
             # DOI is valid if it resolves (200-399)
-            is_valid = (200 <= response.status_code < 400)
+            is_valid = 200 <= response.status_code < 400
 
             if is_valid:
                 logger.debug(f"[SourceVerifier] DOI valid: {doi}")
             else:
-                logger.warning(f"[SourceVerifier] DOI invalid: {doi} (status: {response.status_code})")
+                logger.warning(
+                    f"[SourceVerifier] DOI invalid: {doi} (status: {response.status_code})"
+                )
 
             return is_valid
 
@@ -203,37 +209,37 @@ class SourceVerifier:
     def _hash_content(self, content: str) -> str:
         """
         Hash content with BLAKE3 (fast, secure).
-        
+
         Args:
             content: Text content to hash
-            
+
         Returns:
             Hexadecimal hash string
         """
-        hasher = blake3.blake3(content.encode('utf-8'))
+        hasher = blake3.blake3(content.encode("utf-8"))
         return hasher.hexdigest()
 
     def batch_verify(self, sources: list) -> list:
         """
         Verify multiple sources in batch.
-        
+
         Args:
             sources: List of source dicts with 'url' and optional 'content'
-            
+
         Returns:
             List of verification results
         """
         results = []
 
         for source in sources:
-            url = source.get('url', '')
-            content = source.get('content') or source.get('text')
-            doi = source.get('doi')
+            url = source.get("url", "")
+            content = source.get("content") or source.get("text")
+            doi = source.get("doi")
 
             verification = self.verify_source(url, content, doi)
             results.append(verification)
 
-        verified_count = len([r for r in results if r['verified']])
+        verified_count = len([r for r in results if r["verified"]])
 
         logger.info(
             f"[SourceVerifier] Batch verified: "
@@ -245,8 +251,11 @@ class SourceVerifier:
     def get_statistics(self) -> Dict:
         """Get verifier statistics."""
         return {
-            'cache_size': len(self.verification_cache),
-            'cached_accessible': len([v for v in self.verification_cache.values() if v[0]]),
-            'cached_failed': len([v for v in self.verification_cache.values() if not v[0]])
+            "cache_size": len(self.verification_cache),
+            "cached_accessible": len(
+                [v for v in self.verification_cache.values() if v[0]]
+            ),
+            "cached_failed": len(
+                [v for v in self.verification_cache.values() if not v[0]]
+            ),
         }
-

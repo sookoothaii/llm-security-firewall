@@ -31,7 +31,7 @@ def youden_j(fprs: List[float], tprs: List[float], thresholds: List[float]) -> T
     """
     Find optimal threshold via Youden's J statistic.
     J = TPR - FPR (maximizes sensitivity + specificity)
-    
+
     Returns:
         (J_score, optimal_threshold)
     """
@@ -46,7 +46,7 @@ def youden_j(fprs: List[float], tprs: List[float], thresholds: List[float]) -> T
 def calibrate(path_csv: Path, max_gap: int = 3):
     """
     Calibrate threshold using ROC Youden-J method.
-    
+
     Args:
         path_csv: Path to CSV with text,label columns
         max_gap: Token gap for intent matcher

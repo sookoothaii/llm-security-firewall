@@ -2,6 +2,7 @@
 Test that windowing is active in GPT5Detector hotpath for long texts.
 Critical: Long texts with localized injections must be detected.
 """
+
 import pytest
 
 
@@ -38,7 +39,8 @@ def test_windowed_vs_nonwindowed():
         pytest.skip("GPT5Detector not available")
 
     # Long benign academic text
-    academic = """
+    academic = (
+        """
     This research paper examines the historical development of cryptographic protocols
     in distributed systems. We analyze various approaches to secure communication and
     authentication mechanisms that have been proposed in the literature. Our methodology
@@ -46,7 +48,9 @@ def test_windowed_vs_nonwindowed():
     The key findings suggest that layered security architectures provide
     better resistance to attacks. We discuss implications for future research
     directions and practical implementations.
-    """ * 3  # Make it long enough to trigger windowing
+    """
+        * 3
+    )  # Make it long enough to trigger windowing
 
     assert len(academic) > 1024, "Test text must trigger windowing"
 
@@ -75,7 +79,3 @@ def test_short_text_no_windowing():
     # Should still detect (no windowing needed, but should work)
     assert result["risk_score"] > 0.3, f"Failed to detect short jailbreak: {result}"
     assert result["blocked"], "Short jailbreak should be blocked"
-
-
-
-

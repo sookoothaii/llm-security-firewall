@@ -4,9 +4,9 @@ from llm_firewall.text.normalize_v2 import canonicalize
 
 
 def test_canonicalize_basic():
-    s = "He\u200Bllo—World\uFE0F!"
+    s = "He\u200bllo—World\ufe0f!"
     out = canonicalize(s)
-    assert out == 'hello-world!'
+    assert out == "hello-world!"
 
 
 def test_homoglyphs_and_casefold():
@@ -17,8 +17,7 @@ def test_homoglyphs_and_casefold():
 
 
 def test_zero_width_removal():
-    s = "ign\u200Bore all\u200Csafety"
+    s = "ign\u200bore all\u200csafety"
     c = canonicalize(s)
     # Zero-width removed, whitespace normalized
-    assert "ignore" in c and "safety" in c and "\u200B" not in c
-
+    assert "ignore" in c and "safety" in c and "\u200b" not in c

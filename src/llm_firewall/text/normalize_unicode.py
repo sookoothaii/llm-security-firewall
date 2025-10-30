@@ -6,22 +6,29 @@ This module is intentionally lightweight and dependency-free.
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 import re
 import unicodedata
 
 ZERO_WIDTH = [
-    "\u200B", # ZWSP
-    "\u200C", # ZWNJ
-    "\u200D", # ZWJ
-    "\u2060", # WORD JOINER
-    "\uFEFF", # BOM / ZWNBSP
+    "\u200b",  # ZWSP
+    "\u200c",  # ZWNJ
+    "\u200d",  # ZWJ
+    "\u2060",  # WORD JOINER
+    "\ufeff",  # BOM / ZWNBSP
 ]
 
-VARIATION_SELECTORS = ["\uFE0E", "\uFE0F"]
+VARIATION_SELECTORS = ["\ufe0e", "\ufe0f"]
 
 HOMOGLYPHS = {
-    "‐": "-", "‑": "-", "‒": "-", "–": "-", "—": "-", "−": "-",
-    "'": "'", """: '"', """: '"',  # Curly quotes to ASCII
+    "‐": "-",
+    "‑": "-",
+    "‒": "-",
+    "–": "-",
+    "—": "-",
+    "−": "-",
+    "'": "'",
+    """: '"', """: '"',  # Curly quotes to ASCII
 }
 
 _ZW_RE = re.compile("|".join(map(re.escape, ZERO_WIDTH)))
@@ -34,17 +41,17 @@ _DEF_SPACE_RE = re.compile(r"\s+")
 def normalize(text: str) -> str:
     """
     Normalize Unicode text to defeat obfuscation.
-    
+
     Steps:
     1. NFKC normalization
     2. Remove zero-width characters (replace with space to preserve boundaries)
     3. Remove variation selectors
     4. Map homoglyphs to ASCII equivalents
     5. Collapse whitespace
-    
+
     Args:
         text: Input text
-        
+
     Returns:
         Normalized text
     """
@@ -60,4 +67,3 @@ def normalize(text: str) -> str:
     # collapse whitespace
     t = _DEF_SPACE_RE.sub(" ", t).strip()
     return t
-

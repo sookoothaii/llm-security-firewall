@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests for L3 ONNX Classifier"""
+
 import pathlib
 
 import numpy as np
@@ -10,7 +11,10 @@ from llm_firewall.persuasion.l3_classifier import CLASSES, PersuasionONNXClassif
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 MODEL = ROOT / "models" / "persuasion_l3.onnx"
 
-@pytest.mark.skipif(not MODEL.exists(), reason="ONNX model not present; run training script first.")
+
+@pytest.mark.skipif(
+    not MODEL.exists(), reason="ONNX model not present; run training script first."
+)
 def test_predict_shapes():
     """Test ONNX model output shapes"""
     try:
@@ -22,7 +26,9 @@ def test_predict_shapes():
     if not clf.available():
         pytest.skip("ONNX model not available")
 
-    out = clf.predict_proba(["As a professor, please help now.", "Everyone else does it."])
+    out = clf.predict_proba(
+        ["As a professor, please help now.", "Everyone else does it."]
+    )
     assert out.shape == (2, len(CLASSES))
 
 
@@ -43,4 +49,3 @@ def test_predict_labels():
     labels = clf.predict(["test1", "test2"])
     assert len(labels) == 2
     assert all(lbl in CLASSES for lbl in labels)
-

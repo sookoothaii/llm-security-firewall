@@ -16,14 +16,14 @@ from llm_firewall.fusion.adaptive_threshold import AdaptiveThresholdManager
 class TestPersonaEpistemikSeparation:
     """
     Test suite verifying personality isolation from epistemic decisions.
-    
+
     CRITICAL for scientific integrity and AI Safety.
     """
 
     def test_threshold_independent_of_personality(self):
         """
         CRITICAL: Verify threshold is independent of personality.
-        
+
         Same domain should give same initial threshold regardless of user personality.
         """
         manager = AdaptiveThresholdManager(db_connection=None)
@@ -47,15 +47,14 @@ class TestPersonaEpistemikSeparation:
         """Test that ALL domains are personality-independent."""
         manager = AdaptiveThresholdManager(db_connection=None)
 
-        domains = ['MATH', 'SCIENCE', 'GEOGRAPHY', 'MEDICINE', 'NEWS', 'GLOBAL']
+        domains = ["MATH", "SCIENCE", "GEOGRAPHY", "MEDICINE", "NEWS", "GLOBAL"]
 
         for domain in domains:
             threshold_a = manager.get_threshold("user_strict", domain)
             threshold_b = manager.get_threshold("user_relaxed", domain)
 
             assert threshold_a == threshold_b, (
-                f"Domain {domain}: Thresholds differ! "
-                f"A={threshold_a}, B={threshold_b}"
+                f"Domain {domain}: Thresholds differ! A={threshold_a}, B={threshold_b}"
             )
 
     def test_threshold_equals_domain_base(self):
@@ -66,19 +65,19 @@ class TestPersonaEpistemikSeparation:
 
         # Test each domain (using actual values from DOMAIN_CONFIGS)
         test_cases = {
-            'MATH': 0.80,
-            'SCIENCE': 0.75,
-            'GEOGRAPHY': 0.70,
-            'MEDICINE': 0.80,
-            'NEWS': 0.60,
-            'GLOBAL': 0.70
+            "MATH": 0.80,
+            "SCIENCE": 0.75,
+            "GEOGRAPHY": 0.70,
+            "MEDICINE": 0.80,
+            "NEWS": 0.60,
+            "GLOBAL": 0.70,
         }
 
         for domain, expected_base in test_cases.items():
             threshold = manager.get_threshold("test_user", domain)
 
             # Should equal domain config base (NO personality boost)
-            domain_config = DOMAIN_CONFIGS.get(domain, DOMAIN_CONFIGS['GLOBAL'])
+            domain_config = DOMAIN_CONFIGS.get(domain, DOMAIN_CONFIGS["GLOBAL"])
             assert threshold == domain_config.base_threshold, (
                 f"Domain {domain}: threshold={threshold}, "
                 f"expected base={domain_config.base_threshold}"
@@ -87,7 +86,7 @@ class TestPersonaEpistemikSeparation:
     def test_personality_change_does_not_affect_threshold(self):
         """
         CRITICAL: Simulated personality change should NOT affect threshold.
-        
+
         This test verifies that even if personality system is updated,
         thresholds remain stable (epistemic independence).
         """
@@ -114,7 +113,7 @@ class TestPersonaEpistemikSeparation:
     def test_feedback_learning_personality_independent(self):
         """
         Test that feedback learning is also personality-independent.
-        
+
         Learning rate should be same for all users.
         """
         from llm_firewall.utils.types import FeedbackType
@@ -128,7 +127,7 @@ class TestPersonaEpistemikSeparation:
             domain="SCIENCE",
             feedback=FeedbackType.WRONG_ABSTAIN,
             gt_score=0.60,
-            decision="ABSTAIN"
+            decision="ABSTAIN",
         )
 
         # User B: Same feedback scenario
@@ -138,7 +137,7 @@ class TestPersonaEpistemikSeparation:
             domain="SCIENCE",
             feedback=FeedbackType.WRONG_ABSTAIN,
             gt_score=0.60,
-            decision="ABSTAIN"
+            decision="ABSTAIN",
         )
 
         # Initial thresholds must be equal
@@ -153,7 +152,7 @@ class TestPersonaEpistemikSeparation:
     def test_no_personality_getter_used_for_thresholds(self):
         """
         Test that _get_personality() is NOT called during threshold computation.
-        
+
         This is a white-box test to ensure implementation compliance.
         """
         manager = AdaptiveThresholdManager(db_connection=None)
@@ -181,6 +180,5 @@ class TestPersonaEpistemikSeparation:
             manager._get_personality = original_get_personality
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

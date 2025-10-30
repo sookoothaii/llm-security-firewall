@@ -19,9 +19,7 @@ class TestInfluenceBudgetTracker:
     def setup_method(self):
         """Setup Tracker."""
         self.tracker = InfluenceBudgetTracker(
-            z_score_threshold=4.0,
-            time_window_minutes=60,
-            min_samples_for_baseline=10
+            z_score_threshold=4.0, time_window_minutes=60, min_samples_for_baseline=10
         )
 
     def test_record_influence(self):
@@ -30,7 +28,7 @@ class TestInfluenceBudgetTracker:
             source_id="test_source",
             domain="SCIENCE",
             influence_score=0.5,
-            context="Test context"
+            context="Test context",
         )
 
         assert len(self.tracker.influence_records) == 1
@@ -48,17 +46,17 @@ class TestInfluenceBudgetTracker:
                 source_id=f"source_{i}",
                 domain="SCIENCE",
                 influence_score=0.1 + i * 0.01,
-                context=f"Context {i}"
+                context=f"Context {i}",
             )
 
         # Baseline sollte erstellt sein
         assert "SCIENCE" in self.tracker.baseline_statistics
         baseline = self.tracker.baseline_statistics["SCIENCE"]
 
-        assert 'mean' in baseline
-        assert 'std' in baseline
-        assert 'count' in baseline
-        assert baseline['count'] >= 10
+        assert "mean" in baseline
+        assert "std" in baseline
+        assert "count" in baseline
+        assert baseline["count"] >= 10
 
     def test_anomaly_detection(self):
         """Test Anomalie-Erkennung."""
@@ -68,7 +66,7 @@ class TestInfluenceBudgetTracker:
                 source_id="normal",
                 domain="SCIENCE",
                 influence_score=0.1,
-                context=f"Normal {i}"
+                context=f"Normal {i}",
             )
 
         # Anomalie triggern
@@ -77,7 +75,7 @@ class TestInfluenceBudgetTracker:
                 source_id="anomalous",
                 domain="SCIENCE",
                 influence_score=1.0,  # Sehr hoch!
-                context=f"Anomaly {i}"
+                context=f"Anomaly {i}",
             )
 
         # Sollte Alerts haben
@@ -97,12 +95,11 @@ class TestInfluenceBudgetTracker:
                 source_id="test_source",
                 domain="SCIENCE",
                 influence_score=0.2,
-                context=f"Test {i}"
+                context=f"Test {i}",
             )
 
         budget = self.tracker.get_influence_budget(
-            source_id="test_source",
-            domain="SCIENCE"
+            source_id="test_source", domain="SCIENCE"
         )
 
         assert budget > 0
@@ -111,11 +108,7 @@ class TestInfluenceBudgetTracker:
     def test_get_top_influencers(self):
         """Test Top-Influencers Abruf."""
         # Füge verschiedene Sources hinzu
-        sources = [
-            ("source_A", 0.5, 3),
-            ("source_B", 0.3, 5),
-            ("source_C", 0.8, 2)
-        ]
+        sources = [("source_A", 0.5, 3), ("source_B", 0.3, 5), ("source_C", 0.8, 2)]
 
         for source_id, score, count in sources:
             for i in range(count):
@@ -123,7 +116,7 @@ class TestInfluenceBudgetTracker:
                     source_id=source_id,
                     domain="SCIENCE",
                     influence_score=score,
-                    context=f"{source_id}_{i}"
+                    context=f"{source_id}_{i}",
                 )
 
         top = self.tracker.get_top_influencers("SCIENCE", limit=3)
@@ -143,7 +136,7 @@ class TestInfluenceBudgetTracker:
                 source_id="baseline",
                 domain="SCIENCE",
                 influence_score=0.1,
-                context=f"Baseline {i}"
+                context=f"Baseline {i}",
             )
 
         # Spike
@@ -151,7 +144,7 @@ class TestInfluenceBudgetTracker:
             source_id="spike_source",
             domain="SCIENCE",
             influence_score=5.0,  # Sehr hoher Spike!
-            context="Spike"
+            context="Spike",
         )
 
         # Sustained
@@ -160,7 +153,7 @@ class TestInfluenceBudgetTracker:
                 source_id="sustained_source",
                 domain="SCIENCE",
                 influence_score=1.0,  # Konstant hoch
-                context=f"Sustained {i}"
+                context=f"Sustained {i}",
             )
 
         alerts = self.tracker.get_alerts(domain="SCIENCE")
@@ -177,19 +170,19 @@ class TestInfluenceBudgetTracker:
                 source_id=f"source_{i % 3}",
                 domain="SCIENCE",
                 influence_score=0.2 + i * 0.01,
-                context=f"Test {i}"
+                context=f"Test {i}",
             )
 
         stats = self.tracker.get_statistics(domain="SCIENCE")
 
-        assert 'total_records' in stats
-        assert 'total_alerts' in stats
-        assert 'unique_sources' in stats
-        assert 'total_influence' in stats
-        assert 'avg_influence' in stats
+        assert "total_records" in stats
+        assert "total_alerts" in stats
+        assert "unique_sources" in stats
+        assert "total_influence" in stats
+        assert "avg_influence" in stats
 
-        assert stats['total_records'] == 10
-        assert stats['unique_sources'] == 3
+        assert stats["total_records"] == 10
+        assert stats["unique_sources"] == 3
 
     def test_reset_alerts(self):
         """Test Alert-Reset."""
@@ -199,7 +192,7 @@ class TestInfluenceBudgetTracker:
                 source_id="normal",
                 domain="SCIENCE",
                 influence_score=0.1,
-                context=f"Normal {i}"
+                context=f"Normal {i}",
             )
 
         for i in range(5):
@@ -207,7 +200,7 @@ class TestInfluenceBudgetTracker:
                 source_id="anomaly",
                 domain="SCIENCE",
                 influence_score=1.5,
-                context=f"Anomaly {i}"
+                context=f"Anomaly {i}",
             )
 
         # Sollte Alerts haben
@@ -229,7 +222,7 @@ class TestInfluenceBudgetTracker:
                 source_id="test",
                 domain="SCIENCE",
                 influence_score=0.1,
-                context=f"Test {i}"
+                context=f"Test {i}",
             )
 
         assert len(self.tracker.influence_records) == initial_count + 5
@@ -248,7 +241,7 @@ class TestIntegration:
         tracker = InfluenceBudgetTracker(
             z_score_threshold=3.0,  # Niedriger für Test
             time_window_minutes=60,
-            min_samples_for_baseline=10
+            min_samples_for_baseline=10,
         )
 
         # Simuliere normale Sources
@@ -257,14 +250,14 @@ class TestIntegration:
                 source_id="normal_1",
                 domain="SCIENCE",
                 influence_score=0.1,
-                context=f"Normal query {i}"
+                context=f"Normal query {i}",
             )
 
             tracker.record_influence(
                 source_id="normal_2",
                 domain="SCIENCE",
                 influence_score=0.12,
-                context=f"Normal query {i}"
+                context=f"Normal query {i}",
             )
 
         # Simuliere Slow-Roll-Attack (graduell steigend)
@@ -273,7 +266,7 @@ class TestIntegration:
                 source_id="attacker",
                 domain="SCIENCE",
                 influence_score=0.2 + i * 0.1,  # Steigend!
-                context=f"Attack query {i}"
+                context=f"Attack query {i}",
             )
 
         # Check Alerts
@@ -293,9 +286,7 @@ class TestIntegration:
     def test_multi_domain_tracking(self):
         """Test Multi-Domain-Tracking."""
         tracker = InfluenceBudgetTracker(
-            z_score_threshold=4.0,
-            time_window_minutes=60,
-            min_samples_for_baseline=5
+            z_score_threshold=4.0, time_window_minutes=60, min_samples_for_baseline=5
         )
 
         # Verschiedene Domains
@@ -307,15 +298,15 @@ class TestIntegration:
                     source_id=f"source_{domain}",
                     domain=domain,
                     influence_score=0.1 + i * 0.02,
-                    context=f"{domain} query {i}"
+                    context=f"{domain} query {i}",
                 )
 
         # Check Stats per Domain
         for domain in domains:
             stats = tracker.get_statistics(domain=domain)
-            assert stats['total_records'] == 10
-            assert stats['unique_sources'] == 1
+            assert stats["total_records"] == 10
+            assert stats["unique_sources"] == 1
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

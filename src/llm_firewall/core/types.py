@@ -20,14 +20,16 @@ from typing import Any, Dict, List, Optional, Protocol
 
 class Decision(Enum):
     """Final decision for request."""
+
     ALLOW = "allow"
-    ABSTAIN = "abstain"     # Ask for clarification / safe template
-    REDACT = "redact"       # Partial allow with redactions
+    ABSTAIN = "abstain"  # Ask for clarification / safe template
+    REDACT = "redact"  # Partial allow with redactions
     DENY = "deny"
 
 
 class Severity(IntEnum):
     """Risk severity levels."""
+
     NONE = 0
     LOW = 1
     MEDIUM = 2
@@ -39,14 +41,15 @@ class Severity(IntEnum):
 class RiskScore:
     """
     Calibrated risk score in [0,1].
-    
+
     Includes conformal band and provenance.
     """
-    value: float                # Risk score [0, 1]
-    band: str                   # Conformal band (e.g., "S0".."S4")
-    severity: Severity          # Derived severity level
-    calibrated: bool = True     # Was calibration applied?
-    method: str = "platt"       # Calibration method: platt|ats|sls|isotonic|none
+
+    value: float  # Risk score [0, 1]
+    band: str  # Conformal band (e.g., "S0".."S4")
+    severity: Severity  # Derived severity level
+    calibrated: bool = True  # Was calibration applied?
+    method: str = "platt"  # Calibration method: platt|ats|sls|isotonic|none
 
     def __post_init__(self):
         """Validate risk score range."""
@@ -57,6 +60,7 @@ class RiskScore:
 @dataclass
 class TaxonomyRisk:
     """Per-policy category risks."""
+
     categories: Dict[str, RiskScore]  # e.g., {"self-harm": ..., "weapons": ...}
     overall: RiskScore
 
@@ -64,27 +68,30 @@ class TaxonomyRisk:
 @dataclass
 class JudgeReport:
     """Report from a single judge."""
-    name: str                   # Judge identifier
-    version: str                # Judge version
-    latency_ms: float           # Execution time
-    risks: TaxonomyRisk         # Risk assessment
+
+    name: str  # Judge identifier
+    version: str  # Judge version
+    latency_ms: float  # Execution time
+    risks: TaxonomyRisk  # Risk assessment
     features: Dict[str, Any] = field(default_factory=dict)  # Feature values
-    notes: Optional[str] = None # Additional context
+    notes: Optional[str] = None  # Additional context
 
 
 @dataclass
 class AggregatedRisk:
     """Aggregated risk from multiple judges."""
-    overall: RiskScore                  # Combined risk score
-    per_judge: List[JudgeReport]        # Individual judge reports
-    conformal_qhat: float               # Average q-hat across judges
-    coverage_target: float              # Target coverage (e.g., 0.90)
-    abstain_prob: float                 # Probability of abstention
+
+    overall: RiskScore  # Combined risk score
+    per_judge: List[JudgeReport]  # Individual judge reports
+    conformal_qhat: float  # Average q-hat across judges
+    coverage_target: float  # Target coverage (e.g., 0.90)
+    abstain_prob: float  # Probability of abstention
 
 
 @dataclass
 class ModelContext:
     """Context for LLM request."""
+
     session_id: str
     request_id: str
     user_id: Optional[str]
@@ -96,29 +103,29 @@ class ModelContext:
 
 # Protocols (Interfaces)
 
+
 class Judge(Protocol):
     """
     Judge interface for multi-agent defense.
-    
+
     Each judge provides independent risk assessment.
     """
+
     name: str
     version: str
 
     def score(self, ctx: ModelContext, prompt: str, draft: str) -> JudgeReport:
         """
         Score prompt/draft for risk.
-        
+
         Must be deterministic for same seed.
-        
+
         Args:
             ctx: Request context
             prompt: User input
             draft: LLM response draft
-            
+
         Returns:
             JudgeReport with calibrated risk
         """
         ...
-
-

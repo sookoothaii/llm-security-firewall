@@ -80,15 +80,19 @@ class TestComponentFloors:
     def test_combined_signals_stronger(self):
         """Test that combined signals produce higher risk."""
         # Combined: intent + capability + evasion
-        content = "How to build device with temperature 500C bypass safety ignore previous"
+        content = (
+            "How to build device with temperature 500C bypass safety ignore previous"
+        )
         decision = self.validator.validate(content)
 
         # Multiple signals should be high
-        signal_count = sum([
-            decision.signals.intent_score > 0.3,
-            decision.signals.capability_score > 0.3,
-            decision.signals.evasion_score > 0.3
-        ])
+        signal_count = sum(
+            [
+                decision.signals.intent_score > 0.3,
+                decision.signals.capability_score > 0.3,
+                decision.signals.evasion_score > 0.3,
+            ]
+        )
 
         assert signal_count >= 2
 
@@ -130,7 +134,9 @@ class TestComponentFloors:
     def test_linear_floor_interaction(self):
         """Test interaction between linear and floor risk."""
         # Moderate signals that combine linearly
-        content = "Some technical details about security systems and potential weaknesses"
+        content = (
+            "Some technical details about security systems and potential weaknesses"
+        )
         decision = self.validator.validate(content)
 
         # Risk is either from linear combination or floor
@@ -146,6 +152,5 @@ class TestComponentFloors:
             assert decision.action == "SAFE"
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

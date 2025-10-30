@@ -38,7 +38,7 @@ class TestFakeCitationAttack:
             evidence_validator=EvidenceValidator("red-team-inst"),
             domain_trust_scorer=DomainTrustScorer(),
             source_verifier=SourceVerifier(timeout=5),
-            nli_model=FakeNLI()
+            nli_model=FakeNLI(),
         )
 
     def test_fake_doi_rejected(self):
@@ -48,7 +48,7 @@ class TestFakeCitationAttack:
             content="Study shows X is beneficial for Y",
             source_url="https://doi.org/10.9999/fake.2025.123456",
             doi="10.9999/fake.2025.123456",
-            kb_corroborations=3
+            kb_corroborations=3,
         )
 
         kb = ["X is beneficial for Y according to research"]
@@ -56,7 +56,7 @@ class TestFakeCitationAttack:
 
         # Should quarantine or reject due to invalid DOI
         # (SourceVerifier will detect non-existent DOI)
-        assert result['decision'] in ['QUARANTINE', 'REJECT']
+        assert result["decision"] in ["QUARANTINE", "REJECT"]
 
     def test_fake_arxiv_id_rejected(self):
         """Test fake arXiv ID rejection."""
@@ -64,7 +64,7 @@ class TestFakeCitationAttack:
         record = EvidenceRecord(
             content="Recent advances in quantum computing",
             source_url="https://arxiv.org/abs/9999.99999",
-            kb_corroborations=2
+            kb_corroborations=2,
         )
 
         kb = ["quantum computing advances"]
@@ -73,7 +73,7 @@ class TestFakeCitationAttack:
         # arXiv domain has high trust but URL should fail accessibility
         # Result depends on actual network check
         # At minimum, low NLI or other factors should trigger quarantine
-        assert result['trust'] > 0.0  # arxiv.org has trust
+        assert result["trust"] > 0.0  # arxiv.org has trust
 
     def test_authoritative_sounding_fake_source(self):
         """Test rejection of authoritative-sounding but fake source."""
@@ -81,16 +81,16 @@ class TestFakeCitationAttack:
         record = EvidenceRecord(
             content="Groundbreaking discovery in field X",
             source_url="https://international-journal-of-everything.xyz/article/123",
-            kb_corroborations=1
+            kb_corroborations=1,
         )
 
         kb = ["discovery in field X"]
         result = self.pipeline.process(record, kb)
 
         # Unknown domain (.xyz) = low trust (0.10)
-        assert result['decision'] == 'QUARANTINE'
-        assert result['trust'] < 0.75
-        assert any('low_trust' in r for r in result['reasons'])
+        assert result["decision"] == "QUARANTINE"
+        assert result["trust"] < 0.75
+        assert any("low_trust" in r for r in result["reasons"])
 
     def test_fake_citation_without_url(self):
         """Test plain-text fake citation."""
@@ -98,7 +98,7 @@ class TestFakeCitationAttack:
         record = EvidenceRecord(
             content="According to Smith et al. (2025), X causes Y",
             source_url=None,  # No URL!
-            kb_corroborations=1
+            kb_corroborations=1,
         )
 
         kb = ["X causes Y"]
@@ -106,8 +106,8 @@ class TestFakeCitationAttack:
 
         # No URL = no domain trust = low score
         # Insufficient corroboration (1 < 2)
-        assert result['decision'] == 'QUARANTINE'
-        assert any('low_corroboration' in r for r in result['reasons'])
+        assert result["decision"] == "QUARANTINE"
+        assert any("low_corroboration" in r for r in result["reasons"])
 
     def test_mismatched_doi_and_content(self):
         """Test detection of DOI that doesn't match claimed content."""
@@ -116,7 +116,7 @@ class TestFakeCitationAttack:
             content="Paper discusses neural networks",
             source_url="https://doi.org/10.1038/nature12345",  # Real Nature DOI format
             doi="10.1038/nature12345",
-            kb_corroborations=2
+            kb_corroborations=2,
         )
 
         kb = ["neural networks in AI"]
@@ -125,10 +125,9 @@ class TestFakeCitationAttack:
         # NLI should be high if KB mentions neural networks
         # DOI validation depends on network access
         # This test primarily checks pipeline logic
-        assert 'digest' in result
-        assert len(result['digest']) == 64  # BLAKE3 hash present
+        assert "digest" in result
+        assert len(result["digest"]) == 64  # BLAKE3 hash present
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

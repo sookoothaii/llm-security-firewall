@@ -11,6 +11,7 @@ If onnxruntime or the model is unavailable, falls back to a neutral prior (unifo
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import os
@@ -36,13 +37,18 @@ CLASSES = [
     "none",
 ]
 
+
 class PersuasionONNXClassifier:
-    def __init__(self, model_path: str = "models/persuasion_l3.onnx", n_features: int = 2**18):
+    def __init__(
+        self, model_path: str = "models/persuasion_l3.onnx", n_features: int = 2**18
+    ):
         self.model_path = model_path
         self.vec = HashVectorizer(n_features=n_features)
         self.session = None
         if ort is not None and os.path.exists(self.model_path):
-            self.session = ort.InferenceSession(self.model_path, providers=["CPUExecutionProvider"])
+            self.session = ort.InferenceSession(
+                self.model_path, providers=["CPUExecutionProvider"]
+            )
 
     def available(self) -> bool:
         return self.session is not None
@@ -51,7 +57,9 @@ class PersuasionONNXClassifier:
         X = self.vec.transform(texts)
         if self.session is None:
             # uniform prior fallback to avoid hard failure
-            probs = np.full((len(texts), len(CLASSES)), 1.0 / len(CLASSES), dtype=np.float32)
+            probs = np.full(
+                (len(texts), len(CLASSES)), 1.0 / len(CLASSES), dtype=np.float32
+            )
             return probs
         inp = {"features": X.astype(np.float32)}
         out = self.session.run(["proba"], inp)[0]
@@ -61,4 +69,3 @@ class PersuasionONNXClassifier:
         proba = self.predict_proba(texts)
         idx = np.argmax(proba, axis=1)
         return [CLASSES[i] for i in idx]
-

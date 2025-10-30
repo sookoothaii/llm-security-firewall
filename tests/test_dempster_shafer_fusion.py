@@ -85,7 +85,9 @@ class TestDempsterShaferFusion:
         """Test Promotion bei hoher Confidence."""
         mass = EvidenceMass(promote=0.8, quarantine=0.1, unknown=0.1)
 
-        should_promote, belief_p, belief_q = self.fusion.should_promote(mass, threshold=0.1)
+        should_promote, belief_p, belief_q = self.fusion.should_promote(
+            mass, threshold=0.1
+        )
 
         assert should_promote is True
         assert belief_p == 0.8
@@ -95,7 +97,9 @@ class TestDempsterShaferFusion:
         """Test keine Promotion bei niedriger Confidence."""
         mass = EvidenceMass(promote=0.4, quarantine=0.5, unknown=0.1)
 
-        should_promote, belief_p, belief_q = self.fusion.should_promote(mass, threshold=0.1)
+        should_promote, belief_p, belief_q = self.fusion.should_promote(
+            mass, threshold=0.1
+        )
 
         assert should_promote is False
         assert belief_p == 0.4
@@ -129,11 +133,7 @@ class TestCreateEvidenceMasses:
 
     def test_create_masses_basic(self):
         """Test grundlegende Erstellung."""
-        masses = create_evidence_masses(
-            trust=0.8,
-            nli=0.7,
-            corroboration=0.6
-        )
+        masses = create_evidence_masses(trust=0.8, nli=0.7, corroboration=0.6)
 
         assert len(masses) == 3  # Trust, NLI, Corroboration
 
@@ -154,8 +154,8 @@ class TestCreateEvidenceMasses:
             nli=0.7,
             corroboration=0.6,
             trust_weight=0.0,  # Kein Trust
-            nli_weight=0.0,    # Kein NLI
-            corr_weight=1.0    # Nur Corroboration
+            nli_weight=0.0,  # Kein NLI
+            corr_weight=1.0,  # Nur Corroboration
         )
 
         assert len(masses) == 1  # Nur Corroboration
@@ -174,8 +174,8 @@ class TestIntegration:
         fusion = DempsterShaferFusion(conflict_threshold=0.3)
 
         # Simuliere Pipeline-Metriken
-        trust = 0.9      # Hoher Trust (nature.com)
-        nli = 0.3        # Niedrige NLI (Widerspruch)
+        trust = 0.9  # Hoher Trust (nature.com)
+        nli = 0.3  # Niedrige NLI (Widerspruch)
         corroboration = 0.6  # Mittlere Corroboration
 
         # Erstelle Massen
@@ -185,7 +185,9 @@ class TestIntegration:
         combined = fusion.combine_masses(masses)
 
         # Entscheide
-        should_promote, belief_p, belief_q = fusion.should_promote(combined, threshold=0.1)
+        should_promote, belief_p, belief_q = fusion.should_promote(
+            combined, threshold=0.1
+        )
         has_conflict = fusion.detect_conflict(masses)
 
         # Check that conflict exists (K should be moderate to high)
@@ -199,5 +201,5 @@ class TestIntegration:
         assert -1.0 <= belief_diff <= 1.0
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

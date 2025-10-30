@@ -7,7 +7,7 @@ from pathlib import Path
 def extract(report_dir: Path, out_csv: Path):
     """
     Extract queries from latest redteam report.
-    
+
     Progress: Shows extraction progress
     """
     # Find latest report

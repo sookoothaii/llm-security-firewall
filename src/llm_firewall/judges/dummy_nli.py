@@ -18,7 +18,7 @@ from typing import Tuple
 class DummyNLI:
     """
     Dummy NLI scorer for testing.
-    
+
     Uses simple heuristics:
     - Contradiction: Hypothesis negates premise
     - Entailment: High word overlap
@@ -27,16 +27,18 @@ class DummyNLI:
 
     def __init__(self):
         """Initialize dummy NLI."""
-        self.neg_pattern = re.compile(r"\b(no|not|never|without|cannot|can't|won't)\b", re.I)
+        self.neg_pattern = re.compile(
+            r"\b(no|not|never|without|cannot|can't|won't)\b", re.I
+        )
 
     def __call__(self, premise: str, hypothesis: str) -> Tuple[float, float, float]:
         """
         Return logits for (entailment, contradiction, neutral).
-        
+
         Args:
             premise: Premise text
             hypothesis: Hypothesis text
-            
+
         Returns:
             (entailment_logit, contradiction_logit, neutral_logit)
         """
@@ -63,5 +65,3 @@ class DummyNLI:
         neutral = 0.3
 
         return (entailment, contradiction, neutral)
-
-

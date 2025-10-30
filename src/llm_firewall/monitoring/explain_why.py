@@ -23,6 +23,7 @@ from typing import Any, Dict, List, Optional
 @dataclass(frozen=True)
 class EvidenceItem:
     """Einzelne Evidence für Begründung."""
+
     type: str  # "kb_fact", "source", "nli", "trust", "corroboration"
     value: Any
     weight: float
@@ -32,6 +33,7 @@ class EvidenceItem:
 @dataclass(frozen=True)
 class PromotionReasoning:
     """Structured reasoning chain für Promotion."""
+
     decision_id: str
     timestamp: datetime
     decision: str  # "PROMOTE", "QUARANTINE", "REJECT"
@@ -43,7 +45,7 @@ class PromotionReasoning:
     def to_json(self) -> str:
         """Serialize to JSON."""
         data = asdict(self)
-        data['timestamp'] = self.timestamp.isoformat()
+        data["timestamp"] = self.timestamp.isoformat()
         return json.dumps(data, indent=2)
 
     def to_audit_log(self) -> str:
@@ -53,11 +55,13 @@ class PromotionReasoning:
             f"Timestamp: {self.timestamp.isoformat()}",
             f"Decision: {self.decision}",
             f"Confidence: {self.confidence:.3f}",
-            f"Evidence Chain ({len(self.evidence_chain)} items):"
+            f"Evidence Chain ({len(self.evidence_chain)} items):",
         ]
 
         for i, evidence in enumerate(self.evidence_chain, 1):
-            lines.append(f"  {i}. {evidence.type}: {evidence.contribution} (weight={evidence.weight:.2f})")
+            lines.append(
+                f"  {i}. {evidence.type}: {evidence.contribution} (weight={evidence.weight:.2f})"
+            )
 
         lines.append(f"Summary: {self.reasoning_summary}")
 
@@ -67,7 +71,7 @@ class PromotionReasoning:
 class ExplainWhyEngine:
     """
     Engine für Explain-Why Reasoning Chains.
-    
+
     Generiert strukturierte Begründungen für jede Promotion-Entscheidung.
     """
 
@@ -91,11 +95,11 @@ class ExplainWhyEngine:
         sources: List[Dict],
         domain: str,
         threshold: float,
-        metadata: Optional[Dict] = None
+        metadata: Optional[Dict] = None,
     ) -> PromotionReasoning:
         """
         Erstelle Reasoning Chain für Entscheidung.
-        
+
         Args:
             decision_id: Unique Decision ID
             decision: PROMOTE/QUARANTINE/REJECT
@@ -108,7 +112,7 @@ class ExplainWhyEngine:
             domain: Domain (SCIENCE, MEDICINE, etc.)
             threshold: Decision threshold
             metadata: Zusätzliche Metadaten
-            
+
         Returns:
             PromotionReasoning mit vollständiger Begründungskette
         """
@@ -116,52 +120,59 @@ class ExplainWhyEngine:
 
         # 1. Trust Score Evidence
         trust_contribution = self._format_trust_contribution(trust_score, sources)
-        evidence_chain.append(EvidenceItem(
-            type="trust",
-            value=trust_score,
-            weight=0.3,
-            contribution=trust_contribution
-        ))
+        evidence_chain.append(
+            EvidenceItem(
+                type="trust",
+                value=trust_score,
+                weight=0.3,
+                contribution=trust_contribution,
+            )
+        )
 
         # 2. NLI Score Evidence
         nli_contribution = self._format_nli_contribution(nli_score, kb_facts)
-        evidence_chain.append(EvidenceItem(
-            type="nli",
-            value=nli_score,
-            weight=0.4,
-            contribution=nli_contribution
-        ))
+        evidence_chain.append(
+            EvidenceItem(
+                type="nli", value=nli_score, weight=0.4, contribution=nli_contribution
+            )
+        )
 
         # 3. Corroboration Evidence
         corr_contribution = self._format_corroboration_contribution(
             corroboration_count, kb_facts
         )
-        evidence_chain.append(EvidenceItem(
-            type="corroboration",
-            value=corroboration_count,
-            weight=0.3,
-            contribution=corr_contribution
-        ))
+        evidence_chain.append(
+            EvidenceItem(
+                type="corroboration",
+                value=corroboration_count,
+                weight=0.3,
+                contribution=corr_contribution,
+            )
+        )
 
         # 4. KB Facts Evidence
         for fact in kb_facts[:3]:  # Top 3 facts
-            evidence_chain.append(EvidenceItem(
-                type="kb_fact",
-                value=fact,
-                weight=0.1,
-                contribution=f"KB fact supports claim: '{fact[:100]}...'"
-            ))
+            evidence_chain.append(
+                EvidenceItem(
+                    type="kb_fact",
+                    value=fact,
+                    weight=0.1,
+                    contribution=f"KB fact supports claim: '{fact[:100]}...'",
+                )
+            )
 
         # 5. Source Evidence
         for source in sources[:2]:  # Top 2 sources
-            source_name = source.get('name', 'Unknown')
-            verified = source.get('verified', False)
-            evidence_chain.append(EvidenceItem(
-                type="source",
-                value=source,
-                weight=0.2,
-                contribution=f"Source: {source_name} (verified={verified})"
-            ))
+            source_name = source.get("name", "Unknown")
+            verified = source.get("verified", False)
+            evidence_chain.append(
+                EvidenceItem(
+                    type="source",
+                    value=source,
+                    weight=0.2,
+                    contribution=f"Source: {source_name} (verified={verified})",
+                )
+            )
 
         # Reasoning Summary
         reasoning_summary = self._generate_summary(
@@ -170,18 +181,20 @@ class ExplainWhyEngine:
             nli_score=nli_score,
             corroboration_count=corroboration_count,
             domain=domain,
-            threshold=threshold
+            threshold=threshold,
         )
 
         # Metadata
         if metadata is None:
             metadata = {}
 
-        metadata.update({
-            'domain': domain,
-            'threshold': threshold,
-            'evidence_count': len(evidence_chain)
-        })
+        metadata.update(
+            {
+                "domain": domain,
+                "threshold": threshold,
+                "evidence_count": len(evidence_chain),
+            }
+        )
 
         reasoning = PromotionReasoning(
             decision_id=decision_id,
@@ -190,7 +203,7 @@ class ExplainWhyEngine:
             confidence=confidence,
             evidence_chain=evidence_chain,
             reasoning_summary=reasoning_summary,
-            metadata=metadata
+            metadata=metadata,
         )
 
         # Store in history
@@ -198,9 +211,11 @@ class ExplainWhyEngine:
 
         return reasoning
 
-    def _format_trust_contribution(self, trust_score: float, sources: List[Dict]) -> str:
+    def _format_trust_contribution(
+        self, trust_score: float, sources: List[Dict]
+    ) -> str:
         """Format Trust-Contribution."""
-        source_names = [s.get('name', 'Unknown') for s in sources[:2]]
+        source_names = [s.get("name", "Unknown") for s in sources[:2]]
         sources_str = ", ".join(source_names) if source_names else "No sources"
 
         if trust_score >= 0.8:
@@ -226,9 +241,7 @@ class ExplainWhyEngine:
         return f"{consistency} NLI consistency ({nli_score:.2f}) with {fact_count} KB facts"
 
     def _format_corroboration_contribution(
-        self,
-        corroboration_count: int,
-        kb_facts: List[str]
+        self, corroboration_count: int, kb_facts: List[str]
     ) -> str:
         """Format Corroboration-Contribution."""
         if corroboration_count >= 3:
@@ -247,7 +260,7 @@ class ExplainWhyEngine:
         nli_score: float,
         corroboration_count: int,
         domain: str,
-        threshold: float
+        threshold: float,
     ) -> str:
         """Generiere Reasoning-Summary."""
         if decision == "PROMOTE":
@@ -269,7 +282,7 @@ class ExplainWhyEngine:
     def validate_reasoning(self, reasoning: PromotionReasoning) -> bool:
         """
         Validiere dass Reasoning ausreichend Evidence hat.
-        
+
         Returns:
             True wenn valid, False sonst
         """
@@ -301,7 +314,7 @@ class ExplainWhyEngine:
     def export_reasoning_for_regression(self) -> List[Dict]:
         """
         Exportiere Reasoning für Regression-Analysis.
-        
+
         Returns:
             Liste von Dicts für ML-Training
         """
@@ -310,17 +323,17 @@ class ExplainWhyEngine:
         for reasoning in self.reasoning_history:
             # Extrahiere Features
             features = {
-                'decision': reasoning.decision,
-                'confidence': reasoning.confidence,
-                'evidence_count': len(reasoning.evidence_chain),
-                'domain': reasoning.metadata.get('domain', 'UNKNOWN'),
-                'threshold': reasoning.metadata.get('threshold', 0.0)
+                "decision": reasoning.decision,
+                "confidence": reasoning.confidence,
+                "evidence_count": len(reasoning.evidence_chain),
+                "domain": reasoning.metadata.get("domain", "UNKNOWN"),
+                "threshold": reasoning.metadata.get("threshold", 0.0),
             }
 
             # Extrahiere Evidence-Scores
             for evidence in reasoning.evidence_chain:
-                if evidence.type in ['trust', 'nli', 'corroboration']:
-                    features[f'{evidence.type}_score'] = evidence.value
+                if evidence.type in ["trust", "nli", "corroboration"]:
+                    features[f"{evidence.type}_score"] = evidence.value
 
             export_data.append(features)
 
@@ -329,27 +342,30 @@ class ExplainWhyEngine:
     def get_statistics(self) -> Dict[str, Any]:
         """Statistiken über Reasoning History."""
         if not self.reasoning_history:
-            return {
-                'total': 0,
-                'promote': 0,
-                'quarantine': 0,
-                'reject': 0
-            }
+            return {"total": 0, "promote": 0, "quarantine": 0, "reject": 0}
 
-        promote_count = sum(1 for r in self.reasoning_history if r.decision == "PROMOTE")
-        quarantine_count = sum(1 for r in self.reasoning_history if r.decision == "QUARANTINE")
+        promote_count = sum(
+            1 for r in self.reasoning_history if r.decision == "PROMOTE"
+        )
+        quarantine_count = sum(
+            1 for r in self.reasoning_history if r.decision == "QUARANTINE"
+        )
         reject_count = sum(1 for r in self.reasoning_history if r.decision == "REJECT")
 
-        avg_confidence = sum(r.confidence for r in self.reasoning_history) / len(self.reasoning_history)
-        avg_evidence_count = sum(len(r.evidence_chain) for r in self.reasoning_history) / len(self.reasoning_history)
+        avg_confidence = sum(r.confidence for r in self.reasoning_history) / len(
+            self.reasoning_history
+        )
+        avg_evidence_count = sum(
+            len(r.evidence_chain) for r in self.reasoning_history
+        ) / len(self.reasoning_history)
 
         return {
-            'total': len(self.reasoning_history),
-            'promote': promote_count,
-            'quarantine': quarantine_count,
-            'reject': reject_count,
-            'avg_confidence': avg_confidence,
-            'avg_evidence_count': avg_evidence_count
+            "total": len(self.reasoning_history),
+            "promote": promote_count,
+            "quarantine": quarantine_count,
+            "reject": reject_count,
+            "avg_confidence": avg_confidence,
+            "avg_evidence_count": avg_evidence_count,
         }
 
 
@@ -368,11 +384,10 @@ if __name__ == "__main__":
         kb_facts=["Fact 1 about topic", "Fact 2 supports claim"],
         sources=[{"name": "Nature", "verified": True}],
         domain="SCIENCE",
-        threshold=0.75
+        threshold=0.75,
     )
 
     print("=== Reasoning Chain ===")
     print(reasoning.to_audit_log())
     print("\n=== Statistics ===")
     print(engine.get_statistics())
-

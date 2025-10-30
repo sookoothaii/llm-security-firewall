@@ -190,4 +190,3 @@ def parse_yaml_spec(yaml_obj: Dict[str, Any]) -> PolicySpec:
     rules.sort(key=lambda r: r.priority)
 
     return PolicySpec(version=version, defaults=defaults, rules=rules)
-

@@ -27,10 +27,7 @@ class TestProximalRobbinsMonro:
     def setup_method(self):
         """Setup before each test"""
         self.controller = ProximalRobbinsMonroController(
-            epsilon=0.05,
-            alpha=0.05,
-            eta0=0.05,
-            proximal_weight=0.1
+            epsilon=0.05, alpha=0.05, eta0=0.05, proximal_weight=0.1
         )
 
     def test_initialization(self):
@@ -43,17 +40,16 @@ class TestProximalRobbinsMonro:
     def test_threshold_update_no_errors(self):
         """Test: 0 errors → threshold should lower (more permissive)"""
         # Simulate mini-batch: 50 decisions, 40 answered, 0 errors
-        decisions = (
-            [{'decision': 'ANSWER', 'correct': True} for _ in range(40)] +
-            [{'decision': 'ABSTAIN'} for _ in range(10)]
-        )
+        decisions = [{"decision": "ANSWER", "correct": True} for _ in range(40)] + [
+            {"decision": "ABSTAIN"} for _ in range(10)
+        ]
 
         result = self.controller.update(decisions)
 
         # With 0 errors, UB is very low → should lower threshold
-        assert result['update_applied']
-        assert result['n_errors'] == 0
-        assert result['ub_error'] < 0.10
+        assert result["update_applied"]
+        assert result["n_errors"] == 0
+        assert result["ub_error"] < 0.10
         # Threshold might go down (depending on coverage)
         # assert result['tau_new'] <= tau_old  # Not always true due to coverage term
 
@@ -61,45 +57,44 @@ class TestProximalRobbinsMonro:
         """Test: High errors → UB > epsilon detected"""
         # Simulate mini-batch: 50 decisions, 40 answered, 10 errors
         decisions = (
-            [{'decision': 'ANSWER', 'correct': False} for _ in range(10)] +
-            [{'decision': 'ANSWER', 'correct': True} for _ in range(30)] +
-            [{'decision': 'ABSTAIN'} for _ in range(10)]
+            [{"decision": "ANSWER", "correct": False} for _ in range(10)]
+            + [{"decision": "ANSWER", "correct": True} for _ in range(30)]
+            + [{"decision": "ABSTAIN"} for _ in range(10)]
         )
 
         result = self.controller.update(decisions)
 
         # With 10/40 errors (25%), UB > epsilon
-        assert result['update_applied']
-        assert result['n_errors'] == 10
-        assert result['ub_error'] > 0.15  # Well above epsilon=0.05
+        assert result["update_applied"]
+        assert result["n_errors"] == 10
+        assert result["ub_error"] > 0.15  # Well above epsilon=0.05
 
         # Proximal formulation may not always raise immediately (stability)
         # But delta_bound should be positive (clipped at 0.1)
-        assert result['delta_bound'] >= 0.10
+        assert result["delta_bound"] >= 0.10
 
     def test_proximal_term_prevents_overshooting(self):
         """Test: Proximal term prevents large jumps"""
         # Extreme case: high error rate
-        decisions = (
-            [{'decision': 'ANSWER', 'correct': False} for _ in range(30)] +
-            [{'decision': 'ANSWER', 'correct': True} for _ in range(10)]
-        )
+        decisions = [{"decision": "ANSWER", "correct": False} for _ in range(30)] + [
+            {"decision": "ANSWER", "correct": True} for _ in range(10)
+        ]
 
         result = self.controller.update(decisions)
 
         # Even with 75% error rate, step should be bounded
-        assert abs(result['adjustment']) <= self.controller.max_step
+        assert abs(result["adjustment"]) <= self.controller.max_step
 
     def test_learning_rate_decay(self):
         """Test: Learning rate decays over iterations (eta = eta0 / sqrt(t))"""
         # First update
-        decisions = [{'decision': 'ANSWER', 'correct': True} for _ in range(40)]
+        decisions = [{"decision": "ANSWER", "correct": True} for _ in range(40)]
         result1 = self.controller.update(decisions)
-        eta1 = result1['eta_t']
+        eta1 = result1["eta_t"]
 
         # Second update
         result2 = self.controller.update(decisions)
-        eta2 = result2['eta_t']
+        eta2 = result2["eta_t"]
 
         # eta should decrease
         assert eta2 < eta1
@@ -110,7 +105,7 @@ class TestProximalRobbinsMonro:
 
     def test_proximal_center_update(self):
         """Test: Proximal center tracks threshold via moving average"""
-        decisions = [{'decision': 'ANSWER', 'correct': True} for _ in range(40)]
+        decisions = [{"decision": "ANSWER", "correct": True} for _ in range(40)]
 
         center_old = self.controller.proximal_center
         result = self.controller.update(decisions)
@@ -118,14 +113,14 @@ class TestProximalRobbinsMonro:
 
         # Center should update toward new threshold
         # center_new = (1-beta) * center_old + beta * tau_new
-        expected = (1 - 0.2) * center_old + 0.2 * result['tau_new']
+        expected = (1 - 0.2) * center_old + 0.2 * result["tau_new"]
         assert abs(center_new - expected) < 0.001
 
     def test_proximal_weight_decay(self):
         """Test: Proximal weight decays over time"""
         weight_old = self.controller.proximal_weight
 
-        decisions = [{'decision': 'ANSWER', 'correct': True} for _ in range(40)]
+        decisions = [{"decision": "ANSWER", "correct": True} for _ in range(40)]
         self.controller.update(decisions)
 
         weight_new = self.controller.proximal_weight
@@ -141,16 +136,18 @@ class TestProximalRobbinsMonro:
         updates = []
 
         for i in range(15):
-            updates.append({
-                'tau_new': 0.75 + np.random.normal(0, 0.0005),  # Very stable
-                'ub_error': 0.05 + np.random.normal(0, 0.001),   # Near epsilon
-                'coverage': 0.65 + np.random.normal(0, 0.01)     # Stable coverage
-            })
+            updates.append(
+                {
+                    "tau_new": 0.75 + np.random.normal(0, 0.0005),  # Very stable
+                    "ub_error": 0.05 + np.random.normal(0, 0.001),  # Near epsilon
+                    "coverage": 0.65 + np.random.normal(0, 0.01),  # Stable coverage
+                }
+            )
 
         result = self.controller.check_convergence(updates)
 
         # Should be converged or converging
-        assert result['converged'] or result['tau_stable']
+        assert result["converged"] or result["tau_stable"]
 
     def test_clopper_pearson_zero_errors(self):
         """Test: Clopper-Pearson UB with 0 errors"""
@@ -175,13 +172,14 @@ class TestProximalRobbinsMonro:
         residuals_with_drift = [0.001] * 25 + [0.15] * 25  # Sudden large increase
 
         alarm_no, stat_no = self.controller._cusum(residuals_no_drift, threshold=0.05)
-        alarm_yes, stat_yes = self.controller._cusum(residuals_with_drift, threshold=0.05)
+        alarm_yes, stat_yes = self.controller._cusum(
+            residuals_with_drift, threshold=0.05
+        )
 
         # Drift should have much higher statistic
         assert stat_yes > stat_no
         assert stat_yes > 0.10  # Should be well above threshold
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v', '-s'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v", "-s"])

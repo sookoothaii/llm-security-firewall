@@ -31,24 +31,18 @@ class TestNLIConsistency:
 
     def test_nli_mean_aggregate(self):
         """Test mean aggregation averages scores."""
-        kb = [
-            "Paris is the capital of France",
-            "Berlin is the capital of Germany"
-        ]
+        kb = ["Paris is the capital of France", "Berlin is the capital of Germany"]
 
         # "Paris" is in first sentence only
         score_max = consistency_against_kb("Paris", kb, self.model, "max")
         score_mean = consistency_against_kb("Paris", kb, self.model, "mean")
 
-        assert score_max == 1.0   # Found in one
+        assert score_max == 1.0  # Found in one
         assert score_mean == 0.5  # Average: 1.0 + 0.0 / 2
 
     def test_nli_min_aggregate(self):
         """Test min aggregation requires all support."""
-        kb = [
-            "Paris is the capital of France",
-            "Berlin is the capital of Germany"
-        ]
+        kb = ["Paris is the capital of France", "Berlin is the capital of Germany"]
 
         # "capital" is in both sentences
         score = consistency_against_kb("capital", kb, self.model, "min")
@@ -87,6 +81,5 @@ class TestNLIConsistency:
         assert score_yes > 0.0  # Should detect negation
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
-
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

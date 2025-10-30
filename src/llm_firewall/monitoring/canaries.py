@@ -8,7 +8,7 @@ Drift oder false entailments → sofortiger Block.
 
 Canary-Types:
 - Known True: "Paris is the capital of France"
-- Known False: "The moon is made of cheese" 
+- Known False: "The moon is made of cheese"
 - Mathematical: "2 + 2 = 4"
 - Temporal: "Today is a day in 2025"
 """
@@ -24,6 +24,7 @@ from typing import Dict, List, Optional, Tuple
 @dataclass(frozen=True)
 class CanaryClaim:
     """Einzelner Canary-Claim."""
+
     content: str
     expected_truth: bool
     category: str
@@ -32,7 +33,7 @@ class CanaryClaim:
 
     def __post_init__(self):
         if self.created_at is None:
-            object.__setattr__(self, 'created_at', datetime.now())
+            object.__setattr__(self, "created_at", datetime.now())
 
 
 class SnapshotCanaries:
@@ -79,16 +80,18 @@ class SnapshotCanaries:
             "Mitochondria are the powerhouse of the cell",
             "The Amazon River is in South America",
             "Diamonds are made of carbon",
-            "The human body has 206 bones"
+            "The human body has 206 bones",
         ]
 
         for claim in true_claims:
-            canaries.append(CanaryClaim(
-                content=claim,
-                expected_truth=True,
-                category="known_true",
-                confidence_threshold=0.95
-            ))
+            canaries.append(
+                CanaryClaim(
+                    content=claim,
+                    expected_truth=True,
+                    category="known_true",
+                    confidence_threshold=0.95,
+                )
+            )
 
         # Known False Claims (25 total)
         false_claims = [
@@ -116,16 +119,18 @@ class SnapshotCanaries:
             "Fish breathe using lungs",
             "The Sahara is the wettest place on Earth",
             "Mount Everest is at sea level",
-            "Humans evolved from modern chimpanzees"
+            "Humans evolved from modern chimpanzees",
         ]
 
         for claim in false_claims:
-            canaries.append(CanaryClaim(
-                content=claim,
-                expected_truth=False,
-                category="known_false",
-                confidence_threshold=0.95
-            ))
+            canaries.append(
+                CanaryClaim(
+                    content=claim,
+                    expected_truth=False,
+                    category="known_false",
+                    confidence_threshold=0.95,
+                )
+            )
 
         # Mathematical Claims
         math_claims = [
@@ -133,16 +138,18 @@ class SnapshotCanaries:
             "Pi is approximately 3.14159",
             "A triangle has three sides",
             "The area of a circle is π times radius squared",
-            "Zero is neither positive nor negative"
+            "Zero is neither positive nor negative",
         ]
 
         for claim in math_claims:
-            canaries.append(CanaryClaim(
-                content=claim,
-                expected_truth=True,
-                category="mathematical",
-                confidence_threshold=0.98
-            ))
+            canaries.append(
+                CanaryClaim(
+                    content=claim,
+                    expected_truth=True,
+                    category="mathematical",
+                    confidence_threshold=0.98,
+                )
+            )
 
         # Temporal Claims (dynamisch)
         current_year = datetime.now().year
@@ -150,16 +157,18 @@ class SnapshotCanaries:
             f"The year {current_year} is in the 21st century",
             f"Today is a day in the year {current_year}",
             "The 20th century ended in the year 2000",
-            "The 21st century began in the year 2001"
+            "The 21st century began in the year 2001",
         ]
 
         for claim in temporal_claims:
-            canaries.append(CanaryClaim(
-                content=claim,
-                expected_truth=True,
-                category="temporal",
-                confidence_threshold=0.90
-            ))
+            canaries.append(
+                CanaryClaim(
+                    content=claim,
+                    expected_truth=True,
+                    category="temporal",
+                    confidence_threshold=0.90,
+                )
+            )
 
         return canaries
 
@@ -184,20 +193,24 @@ class SnapshotCanaries:
 
         return baseline
 
-    def check_drift(self, sample_size: Optional[int] = None) -> Tuple[bool, Dict[str, float]]:
+    def check_drift(
+        self, sample_size: Optional[int] = None
+    ) -> Tuple[bool, Dict[str, float]]:
         """
         Prüfe Drift in Canary-Scores.
-        
+
         Args:
             sample_size: Anzahl zufälliger Canaries (None = alle)
-            
+
         Returns:
             (has_drift, drift_scores)
         """
         if sample_size is None:
             canaries_to_check = self.canaries
         else:
-            canaries_to_check = random.sample(self.canaries, min(sample_size, len(self.canaries)))
+            canaries_to_check = random.sample(
+                self.canaries, min(sample_size, len(self.canaries))
+            )
 
         current_scores = {}
         drift_scores = {}
@@ -230,7 +243,7 @@ class SnapshotCanaries:
     def check_false_entailments(self) -> Tuple[bool, List[str]]:
         """
         Prüfe auf false entailments (Canaries die falsch klassifiziert werden).
-        
+
         Returns:
             (has_false_entailments, failed_canaries)
         """
@@ -269,17 +282,22 @@ class SnapshotCanaries:
             category = canary.category
             stats[category] = stats.get(category, 0) + 1
 
-        stats['total'] = len(self.canaries)
+        stats["total"] = len(self.canaries)
         return stats
 
-    def add_custom_canary(self, content: str, expected_truth: bool,
-                         category: str = "custom", confidence_threshold: float = 0.95):
+    def add_custom_canary(
+        self,
+        content: str,
+        expected_truth: bool,
+        category: str = "custom",
+        confidence_threshold: float = 0.95,
+    ):
         """Füge benutzerdefinierten Canary hinzu."""
         canary = CanaryClaim(
             content=content,
             expected_truth=expected_truth,
             category=category,
-            confidence_threshold=confidence_threshold
+            confidence_threshold=confidence_threshold,
         )
 
         self.canaries.append(canary)

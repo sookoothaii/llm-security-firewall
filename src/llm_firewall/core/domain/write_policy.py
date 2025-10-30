@@ -228,5 +228,3 @@ class WritePathPolicy:
     def is_high_risk_domain(self, domain: str) -> bool:
         """Check if domain requires two-man rule."""
         return domain in self.high_risk_domains
-
-

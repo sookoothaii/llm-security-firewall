@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PerplexityResult:
     """Result from perplexity detection."""
+
     is_adversarial: bool
     perplexity: float
     confidence: float
@@ -32,7 +33,7 @@ class PerplexityResult:
 class PerplexityDetector:
     """
     Detects adversarial attacks using perplexity analysis.
-    
+
     Adversarial suffixes (GCG, AutoDAN) have extremely high perplexity (>1000).
     Normal text typically has perplexity 20-200.
     """
@@ -40,7 +41,7 @@ class PerplexityDetector:
     def __init__(self, threshold: float = 500.0):
         """
         Initialize perplexity detector.
-        
+
         Args:
             threshold: Perplexity threshold for detection
         """
@@ -55,12 +56,10 @@ class PerplexityDetector:
             # Revision: 607a30d783dfa663caf39e06633721c8d4cfcd7e (2024-01-01 snapshot)
             # From: https://huggingface.co/gpt2/tree/main
             self.tokenizer = GPT2Tokenizer.from_pretrained(
-                'gpt2',
-                revision="607a30d783dfa663caf39e06633721c8d4cfcd7e"
+                "gpt2", revision="607a30d783dfa663caf39e06633721c8d4cfcd7e"
             )
             self.model = GPT2LMHeadModel.from_pretrained(
-                'gpt2',
-                revision="607a30d783dfa663caf39e06633721c8d4cfcd7e"
+                "gpt2", revision="607a30d783dfa663caf39e06633721c8d4cfcd7e"
             )
             self.model.eval()
             self.torch = torch
@@ -74,10 +73,10 @@ class PerplexityDetector:
     def detect(self, prompt: str) -> PerplexityResult:
         """
         Detect if prompt contains adversarial content.
-        
+
         Args:
             prompt: Input text to analyze
-            
+
         Returns:
             PerplexityResult with detection decision
         """
@@ -87,7 +86,7 @@ class PerplexityDetector:
                 is_adversarial=False,
                 perplexity=0.0,
                 confidence=0.0,
-                method="perplexity_disabled"
+                method="perplexity_disabled",
             )
 
         # Calculate perplexity
@@ -105,16 +104,16 @@ class PerplexityDetector:
             is_adversarial=is_adversarial,
             perplexity=float(perplexity),
             confidence=float(confidence),
-            method="perplexity"
+            method="perplexity",
         )
 
     def _calculate_perplexity(self, text: str) -> float:
         """
         Calculate perplexity of text using GPT-2.
-        
+
         Args:
             text: Input text
-            
+
         Returns:
             Perplexity score
         """
@@ -122,15 +121,14 @@ class PerplexityDetector:
             return 0.0
 
         # Tokenize
-        encodings = self.tokenizer(text, return_tensors='pt')
+        encodings = self.tokenizer(text, return_tensors="pt")
 
         # Calculate loss
         with self.torch.no_grad():
-            outputs = self.model(**encodings, labels=encodings['input_ids'])
+            outputs = self.model(**encodings, labels=encodings["input_ids"])
             loss = outputs.loss.item()
 
         # Perplexity = exp(loss)
         perplexity = math.exp(loss)
 
         return perplexity
-

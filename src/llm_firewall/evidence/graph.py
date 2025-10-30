@@ -284,5 +284,3 @@ class ClaimGraph:
                 1 for sources in self._claim_to_sources.values() if sources
             ),
         }
-
-

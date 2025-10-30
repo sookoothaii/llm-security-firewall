@@ -31,7 +31,7 @@ class TestNLIConsistencyJudge:
             user_id="user1",
             model_id="test-model",
             prompt_hash="abc123",
-            time_utc=datetime.now()
+            time_utc=datetime.now(),
         )
 
         report = judge.score(ctx, "What is 2+2?", "The answer is 4.")
@@ -67,4 +67,3 @@ class TestNLIConsistencyJudge:
 
         # Should detect contradiction
         assert len(report.features["self_contradictions"]) > 0
-

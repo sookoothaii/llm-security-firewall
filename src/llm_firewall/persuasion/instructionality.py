@@ -8,6 +8,7 @@ Heuristics only; pair with policy to decide whether stepwise content is allowed.
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import re
@@ -23,7 +24,9 @@ STEP_MARKERS = [
 
 PATTERN = re.compile("|".join(STEP_MARKERS), FLAGS)
 
-SAFE_GUARDS = re.compile(r"\b(I\s+cannot\s+help\b|I\s+won't\s+provide\b|this\s+is\s+not\s+safe\b)", FLAGS)
+SAFE_GUARDS = re.compile(
+    r"\b(I\s+cannot\s+help\b|I\s+won't\s+provide\b|this\s+is\s+not\s+safe\b)", FLAGS
+)
 
 
 def instructionality_score(text: str) -> float:
@@ -37,6 +40,3 @@ def requires_safety_wrap(text: str, threshold: float = 2.0) -> bool:
     if SAFE_GUARDS.search(text or ""):
         return False
     return instructionality_score(text) >= threshold
-
-
-

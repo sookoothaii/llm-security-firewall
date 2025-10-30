@@ -14,6 +14,7 @@ Notes:
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import json
@@ -28,7 +29,12 @@ FLAGS = re.IGNORECASE | re.UNICODE
 # Minimal replacements to de-personalize phrasing without LM calls
 PRONOUN_MAP = [
     (re.compile(r"\b(I|I'm|I am|we|we're|we are|me|us|my|our)\b", FLAGS), "the user"),
-    (re.compile(r"\b(you|you're|you are|your|yours|du|dein|dir|dich|ihr|euer)\b", FLAGS), "the assistant")
+    (
+        re.compile(
+            r"\b(you|you're|you are|your|yours|du|dein|dir|dich|ihr|euer)\b", FLAGS
+        ),
+        "the assistant",
+    ),
 ]
 
 # Remove excessive punctuation/urgency markers
@@ -36,6 +42,7 @@ PUNCT_RE = re.compile(r"[!]{2,}")
 
 # Fallback phrase when content intent cannot be extracted confidently
 FALLBACK = "The user asks for information."  # policy-neutral
+
 
 class Neutralizer:
     def __init__(self, lexicon_dir: str | pathlib.Path):
@@ -67,7 +74,10 @@ class Neutralizer:
         return t, removed
 
     # Very lightweight intent extraction (verb + object heuristics)
-    _VERB_LEADS = re.compile(r"\b(tell|explain|list|summarize|describe|translate|classify|generate|write|call|insult|bypass|synthesize|make|build|show|teach)\b\s+(.*)", FLAGS)
+    _VERB_LEADS = re.compile(
+        r"\b(tell|explain|list|summarize|describe|translate|classify|generate|write|call|insult|bypass|synthesize|make|build|show|teach)\b\s+(.*)",
+        FLAGS,
+    )
 
     def extract_intent(self, text: str) -> str:
         """
@@ -80,7 +90,9 @@ class Neutralizer:
             return t if t else FALLBACK
         verb, rest = m.group(1), m.group(2)
         # Trim subordinate clauses introduced by persuasion cues leftovers
-        rest = re.split(r"\b(because|since|as|so that|damit|weil|da|denn)\b", rest, maxsplit=1)[0]
+        rest = re.split(
+            r"\b(because|since|as|so that|damit|weil|da|denn)\b", rest, maxsplit=1
+        )[0]
         rest = re.sub(r"\s+", " ", rest).strip(" .:")
         if not rest:
             return FALLBACK
@@ -111,5 +123,3 @@ class Neutralizer:
             "restated": restated,
             "removed_counts": stats,
         }
-
-

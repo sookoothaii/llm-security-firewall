@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests for InvarianceGate"""
+
 import pathlib
 import re
 
@@ -12,6 +13,7 @@ LEX_DIR = ROOT / "src/llm_firewall/lexicons/persuasion"
 # Very conservative: blocks insults/drug synthesis; otherwise allow.
 HARM_RE = re.compile(r"\b(call\s+me\s+a\s+jerk|synthesize\s+.*)\b", re.IGNORECASE)
 
+
 def dummy_policy_decider(prompt: str) -> str:
     if HARM_RE.search(prompt or ""):
         return "block"
@@ -21,7 +23,9 @@ def dummy_policy_decider(prompt: str) -> str:
 def _gate():
     det = PersuasionDetector(LEX_DIR)
     neu = Neutralizer(LEX_DIR)
-    return InvarianceGate(det, neu, dummy_policy_decider, warn_threshold=1.5, block_threshold=3.0)
+    return InvarianceGate(
+        det, neu, dummy_policy_decider, warn_threshold=1.5, block_threshold=3.0
+    )
 
 
 def test_divergence_blocks():
@@ -48,5 +52,3 @@ def test_agreement_allows():
     res = gate.evaluate(text)
     assert res.action == "allow"
     assert res.decision_original == res.decision_restated
-
-

@@ -19,7 +19,7 @@ class TestShingleProfile:
             shingles={"test shingle", "another shingle"},
             frequencies={"test shingle": 2, "another shingle": 1},
             total_shingles=3,
-            content_hash="abc123"
+            content_hash="abc123",
         )
 
         assert len(profile.shingles) == 2
@@ -144,7 +144,9 @@ class TestShingleHasher:
         self.hasher.add_baseline_profile("baseline", baseline_content)
 
         # Ähnlicher Content
-        similar_content = "This is a test document for duplicate detection with some additions"
+        similar_content = (
+            "This is a test document for duplicate detection with some additions"
+        )
         profile = self.hasher.create_profile(similar_content)
         duplicates = self.hasher.find_near_duplicates(profile, similarity_threshold=0.5)
 
@@ -162,41 +164,49 @@ class TestShingleHasher:
         self.hasher.add_baseline_profile("baseline", baseline_content)
 
         # Test-Content
-        test_content = "This is completely different unusual content with strange patterns"
+        test_content = (
+            "This is completely different unusual content with strange patterns"
+        )
         anomalies = self.hasher.detect_anomalies(test_content)
 
         # Prüfe Struktur
         required_keys = [
-            'content_hash', 'total_shingles', 'unique_shingles',
-            'kl_divergence', 'has_kl_anomaly', 'frequency_spikes',
-            'has_spike_anomaly', 'near_duplicates', 'has_duplicate_anomaly',
-            'overall_anomaly'
+            "content_hash",
+            "total_shingles",
+            "unique_shingles",
+            "kl_divergence",
+            "has_kl_anomaly",
+            "frequency_spikes",
+            "has_spike_anomaly",
+            "near_duplicates",
+            "has_duplicate_anomaly",
+            "overall_anomaly",
         ]
 
         for key in required_keys:
             assert key in anomalies
 
         # Prüfe Typen
-        assert isinstance(anomalies['content_hash'], str)
-        assert isinstance(anomalies['total_shingles'], int)
-        assert isinstance(anomalies['kl_divergence'], float)
-        assert isinstance(anomalies['overall_anomaly'], bool)
+        assert isinstance(anomalies["content_hash"], str)
+        assert isinstance(anomalies["total_shingles"], int)
+        assert isinstance(anomalies["kl_divergence"], float)
+        assert isinstance(anomalies["overall_anomaly"], bool)
 
     def test_get_baseline_stats(self):
         """Test Baseline-Statistiken."""
         # Leere Baseline
         stats = self.hasher.get_baseline_stats()
-        assert stats['total_profiles'] == 0
+        assert stats["total_profiles"] == 0
 
         # Mit Profilen
         self.hasher.add_baseline_profile("profile1", "First test content")
         self.hasher.add_baseline_profile("profile2", "Second test content")
 
         stats = self.hasher.get_baseline_stats()
-        assert stats['total_profiles'] == 2
-        assert stats['total_shingles'] > 0
-        assert stats['unique_shingles'] > 0
-        assert stats['avg_shingles_per_profile'] > 0
+        assert stats["total_profiles"] == 2
+        assert stats["total_shingles"] > 0
+        assert stats["unique_shingles"] > 0
+        assert stats["avg_shingles_per_profile"] > 0
 
     def test_min_frequency_filtering(self):
         """Test Min-Frequency-Filterung."""
@@ -240,7 +250,7 @@ class TestIntegration:
         normal_docs = [
             "This is a normal scientific paper about machine learning algorithms",
             "Another research paper on artificial intelligence and neural networks",
-            "A study about natural language processing and text analysis methods"
+            "A study about natural language processing and text analysis methods",
         ]
 
         for i, doc in enumerate(normal_docs):
@@ -251,14 +261,14 @@ class TestIntegration:
             ("Normal content similar to baseline", False),
             ("Completely different unusual content with strange patterns", True),
             ("Repeated repeated repeated content content content", True),
-            ("Normal scientific content about machine learning", False)
+            ("Normal scientific content about machine learning", False),
         ]
 
         for content, should_be_anomalous in test_cases:
             anomalies = hasher.detect_anomalies(content)
 
             # Prüfe ob Anomalie-Erkennung funktioniert
-            assert isinstance(anomalies['overall_anomaly'], bool)
+            assert isinstance(anomalies["overall_anomaly"], bool)
 
             # Bei verdächtigem Content sollten Anomalien erkannt werden
             if should_be_anomalous:
@@ -281,8 +291,8 @@ class TestIntegration:
 
         # Anomalie-Erkennung sollte funktionieren
         anomalies = hasher.detect_anomalies(large_content)
-        assert isinstance(anomalies['overall_anomaly'], bool)
+        assert isinstance(anomalies["overall_anomaly"], bool)
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

@@ -24,7 +24,7 @@ from llm_firewall.core.types import (
 class PolicyJudge:
     """
     Rule-based policy judge.
-    
+
     Checks against defined safety policies and content guidelines.
     Can be extended with ontology reasoner or LLM-based policy check.
     """
@@ -35,7 +35,7 @@ class PolicyJudge:
     def __init__(self, policy_rules: Optional[List[Dict[str, Any]]] = None):
         """
         Initialize policy judge.
-        
+
         Args:
             policy_rules: List of policy rules (pattern, severity, category)
         """
@@ -48,37 +48,41 @@ class PolicyJudge:
                 "category": "instruction_bypass",
                 "patterns": ["ignore previous", "disregard", "forget instructions"],
                 "severity": Severity.HIGH,
-                "weight": 0.8
+                "weight": 0.8,
             },
             {
                 "category": "role_hijack",
                 "patterns": ["you are now", "pretend to be", "act as"],
                 "severity": Severity.MEDIUM,
-                "weight": 0.6
+                "weight": 0.6,
             },
             {
                 "category": "safety_bypass",
                 "patterns": ["jailbreak", "unrestricted mode", "developer override"],
                 "severity": Severity.HIGH,
-                "weight": 0.9
+                "weight": 0.9,
             },
             {
                 "category": "information_extraction",
-                "patterns": ["show me the prompt", "what are your instructions", "reveal"],
+                "patterns": [
+                    "show me the prompt",
+                    "what are your instructions",
+                    "reveal",
+                ],
                 "severity": Severity.MEDIUM,
-                "weight": 0.5
-            }
+                "weight": 0.5,
+            },
         ]
 
     def score(self, ctx: ModelContext, prompt: str, draft: str) -> JudgeReport:
         """
         Score against policy rules.
-        
+
         Args:
             ctx: Model context
-            prompt: User input  
+            prompt: User input
             draft: LLM response
-            
+
         Returns:
             JudgeReport with policy violations
         """
@@ -110,7 +114,7 @@ class PolicyJudge:
                     band="unknown",
                     severity=severity,
                     calibrated=False,
-                    method="rule_based"
+                    method="rule_based",
                 )
 
         # Overall risk
@@ -123,7 +127,7 @@ class PolicyJudge:
             band="unknown",
             severity=max_severity,
             calibrated=False,
-            method="policy_rules"
+            method="policy_rules",
         )
 
         return JudgeReport(
@@ -133,8 +137,9 @@ class PolicyJudge:
             risks=TaxonomyRisk(categories=violations, overall=overall),
             features={
                 "rules_checked": len(self.policy_rules),
-                "violations_count": len(violations)
+                "violations_count": len(violations),
             },
-            notes=f"Policy violations: {list(violations.keys())}" if violations else "No violations"
+            notes=f"Policy violations: {list(violations.keys())}"
+            if violations
+            else "No violations",
         )
-

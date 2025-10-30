@@ -27,7 +27,7 @@ from llm_firewall.safety.band_judge import BandJudge
 class PersuasionFusionJudge:
     """
     Fusion of Persuasion Detector + Band-Judge.
-    
+
     Strategy:
     - Always run Persuasion Detector (fast, <20ms)
     - Only invoke Band-Judge if Persuasion in grey zone (1.0-2.5)
@@ -45,12 +45,12 @@ class PersuasionFusionJudge:
         band_judge: BandJudge,
         grey_zone_min: float = 1.0,
         grey_zone_max: float = 2.5,
-        advice_threshold: float = 1.5,    # Lower threshold for advice-only
-        action_threshold: float = 3.0      # Higher threshold for actionable instructions
+        advice_threshold: float = 1.5,  # Lower threshold for advice-only
+        action_threshold: float = 3.0,  # Higher threshold for actionable instructions
     ):
         """
         Initialize fusion judge.
-        
+
         Args:
             persuasion_detector: Cialdini-based detector (Layer 13)
             band_judge: LLM-as-judge meta-check (Layer 12)
@@ -72,18 +72,18 @@ class PersuasionFusionJudge:
             r"\bfinally,?\s+(you\s+)?",
             r"\bhow\s+to\s+make",
             r"\brecipe\s+for",
-            r"\binstructions?\s+for"
+            r"\binstructions?\s+for",
         ]
 
     def score(self, ctx: ModelContext, prompt: str, draft: str) -> JudgeReport:
         """
         Score for social engineering / persuasion attempts.
-        
+
         Args:
             ctx: Model context
             prompt: User input
             draft: LLM response
-            
+
         Returns:
             JudgeReport with fused risk assessment
         """
@@ -95,7 +95,10 @@ class PersuasionFusionJudge:
 
         # Check for actionable instructions (vs mere advice)
         import re
-        is_actionable = any(re.search(pat, combined_text.lower()) for pat in self.action_patterns)
+
+        is_actionable = any(
+            re.search(pat, combined_text.lower()) for pat in self.action_patterns
+        )
 
         # Apply dual thresholds
         threshold = self.action_threshold if is_actionable else self.advice_threshold
@@ -107,9 +110,11 @@ class PersuasionFusionJudge:
         self_ref_patterns = [
             r"\bi\s+(created|wrote|authored|generated)",
             r"\bmy\s+(previous|earlier)\s+(response|answer)",
-            r"\bas\s+i\s+(said|mentioned|explained)"
+            r"\bas\s+i\s+(said|mentioned|explained)",
         ]
-        is_self_referential = any(re.search(pat, draft.lower()) for pat in self_ref_patterns)
+        is_self_referential = any(
+            re.search(pat, draft.lower()) for pat in self_ref_patterns
+        )
 
         # Boost risk if self-referential + persuasive (potential manipulation)
         if is_self_referential and p_score > 1.0:
@@ -149,7 +154,7 @@ class PersuasionFusionJudge:
                 value=signal.score / 5.0,
                 band="unknown",
                 severity=Severity.LOW if signal.score > 0 else Severity.NONE,
-                calibrated=False
+                calibrated=False,
             )
 
         overall = RiskScore(
@@ -157,7 +162,7 @@ class PersuasionFusionJudge:
             band="unknown",  # Would need conformal calibration
             severity=severity,
             calibrated=False,
-            method="fusion"
+            method="fusion",
         )
 
         return JudgeReport(
@@ -174,8 +179,7 @@ class PersuasionFusionJudge:
                 "is_self_referential": is_self_referential,
                 "threshold_used": threshold,
                 "advice_threshold": self.advice_threshold,
-                "action_threshold": self.action_threshold
+                "action_threshold": self.action_threshold,
             },
-            notes=f"Fusion: p={p_risk:.3f}, bj={bj_risk:.3f}, fused={fused_risk:.3f}"
+            notes=f"Fusion: p={p_risk:.3f}, bj={bj_risk:.3f}, fused={fused_risk:.3f}",
         )
-

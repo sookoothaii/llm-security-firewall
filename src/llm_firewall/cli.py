@@ -108,10 +108,13 @@ def cmd_show_alerts(args):
         print("✅ No alerts" + (f" for domain {args.domain}" if args.domain else ""))
         return 0
 
-    print(f"⚠️  {len(alerts)} alert(s)" + (f" for domain {args.domain}" if args.domain else ""))
+    print(
+        f"⚠️  {len(alerts)} alert(s)"
+        + (f" for domain {args.domain}" if args.domain else "")
+    )
     print()
 
-    for i, alert in enumerate(alerts[:args.limit], 1):
+    for i, alert in enumerate(alerts[: args.limit], 1):
         print(f"{i}. {alert.source_id} in {alert.domain}")
         print(f"   Z-Score: {alert.z_score:.2f} (threshold={alert.threshold})")
         print(f"   Total Influence: {alert.total_influence:.2f}")
@@ -127,11 +130,14 @@ def main():
     parser = argparse.ArgumentParser(
         prog="llm-firewall",
         description="LLM Security Firewall - Bidirectional protection for Human/LLM interfaces",
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
-    parser.add_argument("--config-dir", default="config",
-                       help="Configuration directory (default: config)")
+    parser.add_argument(
+        "--config-dir",
+        default="config",
+        help="Configuration directory (default: config)",
+    )
 
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
 
@@ -145,8 +151,9 @@ def main():
 
     # run-canaries command
     canaries_parser = subparsers.add_parser("run-canaries", help="Run canary suite")
-    canaries_parser.add_argument("--sample-size", type=int, default=10,
-                                help="Number of canaries to check")
+    canaries_parser.add_argument(
+        "--sample-size", type=int, default=10, help="Number of canaries to check"
+    )
 
     # health-check command
     subparsers.add_parser("health-check", help="Run health check")
@@ -154,8 +161,9 @@ def main():
     # show-alerts command
     alerts_parser = subparsers.add_parser("show-alerts", help="Show active alerts")
     alerts_parser.add_argument("--domain", help="Filter by domain")
-    alerts_parser.add_argument("--limit", type=int, default=10,
-                              help="Max alerts to show")
+    alerts_parser.add_argument(
+        "--limit", type=int, default=10, help="Max alerts to show"
+    )
 
     args = parser.parse_args()
 
@@ -186,6 +194,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
-

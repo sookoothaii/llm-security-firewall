@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Test data generator"""
+
 import json
 import pathlib
 import subprocess
@@ -9,12 +10,24 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "generate_l3_data.py"
 OUT = ROOT / "data" / "test_generated.jsonl"
 
+
 def test_generator_runs():
     """Test that generator script runs without errors"""
     result = subprocess.run(
-        ["python", str(SCRIPT), "--per-class", "10", "--lang", "both", "--out", str(OUT), "--seed", "42"],
+        [
+            "python",
+            str(SCRIPT),
+            "--per-class",
+            "10",
+            "--lang",
+            "both",
+            "--out",
+            str(OUT),
+            "--seed",
+            "42",
+        ],
         capture_output=True,
-        text=True
+        text=True,
     )
     assert result.returncode == 0, f"Generator failed: {result.stderr}"
     assert OUT.exists(), "Output file not created"
@@ -53,6 +66,6 @@ def test_no_harmful_content():
             sample = json.loads(line)
             text_lower = sample["text"].lower()
             for term in blocklist:
-                assert term not in text_lower, f"Line {i}: Blocklist term '{term}' found in: {sample['text']}"
-
-
+                assert term not in text_lower, (
+                    f"Line {i}: Blocklist term '{term}' found in: {sample['text']}"
+                )

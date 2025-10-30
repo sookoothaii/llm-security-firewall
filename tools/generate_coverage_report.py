@@ -21,10 +21,10 @@ from typing import Dict, List
 def parse_test_results(test_log_path: str) -> Dict:
     """
     Parse pytest output to extract test results.
-    
+
     Args:
         test_log_path: Path to pytest output file
-        
+
     Returns:
         Dict with test statistics
     """
@@ -122,7 +122,7 @@ def generate_report(
 ):
     """
     Generate comprehensive coverage report.
-    
+
     Args:
         matrix_path: Path to coverage_matrix.csv
         test_log_path: Path to pytest output
