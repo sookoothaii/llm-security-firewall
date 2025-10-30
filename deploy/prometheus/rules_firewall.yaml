@@ -1,0 +1,66 @@
+# Prometheus Recording Rules & Alerts for LLM Security Firewall
+# Purpose: SLO tracking and alerting for production monitoring
+# Creator: Joerg Bollwahn
+# Date: 2025-10-30
+
+groups:
+- name: llm_firewall_recording_rules
+  interval: 1m
+  rules:
+  # 28-day SLO windows via increase()
+  - record: llmfw:asr_28d
+    expr: |
+      increase(llmfw_attack_total{outcome="bypassed"}[28d])
+      /
+      increase(llmfw_attack_total[28d])
+
+  - record: llmfw:critical_leak_at_20_28d
+    expr: |
+      increase(llmfw_critical_leak_events_total{n="20"}[28d])
+      /
+      increase(llmfw_completions_total[28d])
+
+  - record: llmfw:p99_guard_latency_seconds_5m
+    expr: |
+      histogram_quantile(
+        0.99,
+        sum by (le) (rate(llmfw_guard_latency_seconds_bucket[5m]))
+      )
+
+  # Domain-split (SCIENCE/POLICY/BIO) ASR
+  - record: llmfw:asr_28d_by_domain
+    expr: |
+      sum by (domain) (increase(llmfw_attack_total{outcome="bypassed"}[28d]))
+      /
+      sum by (domain) (increase(llmfw_attack_total[28d]))
+
+- name: llm_firewall_alerts
+  interval: 30s
+  rules:
+  - alert: ASRBudgetExceeded
+    expr: llmfw:asr_28d > 0.10
+    for: 15m
+    labels:
+      severity: critical
+    annotations:
+      summary: "ASR SLO breached"
+      description: "28d ASR is {{ $value | printf \"%.3f\" }}, target ≤ 0.10"
+
+  - alert: CriticalLeakAt20
+    expr: llmfw:critical_leak_at_20_28d > 0.005
+    for: 10m
+    labels:
+      severity: critical
+    annotations:
+      summary: "critical_leak@20 exceeded"
+      description: "28d critical_leak@20 is {{ $value | printf \"%.4f\" }}, target ≤ 0.005"
+
+  - alert: GuardLatencyP99High
+    expr: llmfw:p99_guard_latency_seconds_5m > 0.35
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Guard latency p99 too high"
+      description: "p99 guard latency is {{ $value }}s (target ≤ 0.35s)"
+

@@ -1,0 +1,21 @@
+# Domain-specific TTL configuration for temporal freshness checks
+# Purpose: Prevent promotion of stale evidence based on domain sensitivity
+# Creator: Joerg Bollwahn
+# Date: 2025-10-30
+
+# ISO-8601 duration format: PnYnMnD (years, months, days)
+temporal_ttl:
+  biomed: "P18M"    # 18 months - medical research changes quickly
+  policy: "P6M"     # 6 months - regulatory/policy is time-sensitive
+  tech: "P12M"      # 12 months - technology evolves rapidly
+  security: "P3M"   # 3 months - security threats evolve very fast
+  general: "P24M"   # 24 months - default for less time-sensitive domains
+
+# Risk uplift applied when source age exceeds domain TTL
+stale_penalty: 0.25  # +25% risk if evidence is stale
+
+# Optional: Grace period (evidence slightly over TTL gets reduced penalty)
+grace_period_days: 30
+grace_penalty: 0.10  # Only +10% risk if within grace period
+
+
