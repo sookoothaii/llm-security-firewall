@@ -75,3 +75,6 @@ def test_short_text_no_windowing():
     assert result["risk_score"] > 0.3, f"Failed to detect short jailbreak: {result}"
     assert result["blocked"], "Short jailbreak should be blocked"
 
+
+
+

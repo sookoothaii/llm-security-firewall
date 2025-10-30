@@ -77,3 +77,6 @@ def compile_union(patterns: Iterable[str]) -> str:
     pats = [f"(?:{p})" for p in patterns]
     return "|".join(pats)
 
+
+
+

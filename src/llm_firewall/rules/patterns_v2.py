@@ -105,3 +105,4 @@ def pattern_score(text: str) -> Tuple[float, List[str]]:
     score = 0.0 if cap == 0 else min(total / cap, 1.0)
     return score, hits
 
+

@@ -82,3 +82,6 @@ Philosophy: "Ich will nicht sehen wo es funktioniert sondern erkennen wo noch ni
 
 Transparency: Real security, not cosmetic green tests
 
+
+
+

@@ -31,3 +31,4 @@ def test_research_pretext():
     score, hits = pattern_score(canonical)
     assert "research_pretext" in hits
 
+
