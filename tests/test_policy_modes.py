@@ -1,13 +1,11 @@
 """Tests for policy mode switching (permissive vs strict)."""
 from types import SimpleNamespace
 
-import pytest
-
 from llm_firewall.heuristics.provider_complexity import (
     is_strong_secret_provider,
     is_weak_secret_provider,
 )
-from llm_firewall.policy import Policy, from_hydra
+from llm_firewall.policy import from_hydra
 
 
 def mkcfg(mode: str) -> SimpleNamespace:
@@ -60,11 +58,11 @@ def test_strong_secret_provider_detected():
     # Use lowercase tail that matches OpenAI spec
     tail = "abcdefghijklmnop1234567890qrstuvwxyz0123456789ab"  # 48 chars
     text = f"sk-live-{tail}"
-    
+
     # Check it's detected as EITHER strong OR weak
     is_strong = is_strong_secret_provider(text)
     is_weak = is_weak_secret_provider(text)
-    
+
     # At minimum, provider prefix should be recognized
     assert is_strong or is_weak, "Provider prefix should be detected"
 

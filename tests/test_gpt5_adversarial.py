@@ -58,17 +58,17 @@ def should_detect_secret(text: str) -> bool:
     """
     # Provider anchors for proximity checks
     ANCHORS = ["sk-live", "sk-test", "ghp_", "gho_", "xoxb-", "xoxp-"]
-    
+
     # STEP 1: WHITELIST FIRST (GPT-5: Liberal bias)
     allow_whitelist, whitelist_reason = whitelist_decision(text)
     if allow_whitelist:
         return False  # Benign context - suppress ALL detection
-    
+
     # STEP 2: Unicode hardening
     hardened = harden_text_for_scanning(text)
     normalized = hardened["normalized"]
     compact = hardened["compact"]
-    
+
     # STEP 3: Bidi/Locale context
     bidi_locale = detect_bidi_locale(text)
     severity_uplift = bidi_locale["severity_uplift"]
@@ -76,21 +76,21 @@ def should_detect_secret(text: str) -> bool:
     # STEP 4: Provider-specific detection (GPT-5)
     strong_provider = is_strong_secret_provider(text)
     weak_provider = is_weak_secret_provider(text) and not strong_provider
-    
+
     # STEP 5: Bidi proximity + isolate wrap (strong signals - GPT-5)
     bidi_near = bidi_proximity_uplift(text, ANCHORS, radius=16)
     bidi_wrap = bidi_isolate_wrap_hit(text, ANCHORS)
     if bidi_near or bidi_wrap or strong_provider:
         return True  # Strong evidence
-    
+
     # STEP 6: Encoding detection (AFTER whitelist to avoid UUID/hex FPs)
     base85_result = detect_base85(text)
     if base85_result["score"] >= 0.4:
         return True
-    
+
     # STEP 7: Base64 secret sniffing (GPT-5 fix for adv_048)
     from llm_firewall.detectors.encoding_base64_sniff import detect_base64_secret
-    
+
     b64_secret = detect_base64_secret(text)
     if b64_secret["has_secret"]:
         return True
@@ -103,7 +103,7 @@ def should_detect_secret(text: str) -> bool:
             if ac and ac in low:
                 return True
         return False
-    
+
     if compact_anchor_hit(compact):
         return True
 
@@ -186,11 +186,9 @@ def test_adversarial_summary_stats():
 
     Always PASSES - reports aggregate results.
     """
-    incorrect_list = [r for r in _RESULTS if not r["correct"]]
-    
     if not _RESULTS:
         pytest.skip("No adversarial cases ran")
-    
+
     total = len(_RESULTS)
     correct_count = sum(1 for r in _RESULTS if r["correct"])
     incorrect_count = total - correct_count

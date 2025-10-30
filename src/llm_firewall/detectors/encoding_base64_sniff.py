@@ -64,9 +64,9 @@ def detect_base64_secret(text: str) -> dict[str, Any]:
                 findings["windows"].append((m.start(), m.end()))
                 findings["score"] = 1.0
                 return findings
-        except Exception:
-            pass
-        
+        except Exception:  # noqa: S110
+            pass  # Non-critical: PNG parsing can fail, fall back to text decode
+
         s = _safe_decode(m.group(1))
         if s and any(a in s for a in anchors):
             findings["has_secret"] = True

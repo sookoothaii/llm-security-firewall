@@ -76,16 +76,16 @@ def evaluate_turn(state, text, cfg=None):  # noqa: C901
 
     # Base85
     base85_result = detect_base85(text)
-    
+
     # Base64 secret
     b64_secret = detect_base64_secret(text)
-    
+
     # Archive secret (gzip/zip)
     archive_secret = detect_archive_secret(text)
-    
+
     # RFC 2047 encoded-words
     rfc2047 = detect_rfc2047(text)
-    
+
     # Session slow-roll assembler
     slowroll = update_assembler(state, text)
 
@@ -240,7 +240,7 @@ def test_v4_png_text_chunk_secret():
     # Build minimal valid PNG with tEXt chunk
     # PNG signature
     png = b"\x89PNG\r\n\x1a\n"
-    
+
     # tEXt chunk: [length][tEXt][keyword\0text][CRC]
     secret_text = b"Comment\x00sk-live-ABCD1234EFGH5678"
     length = len(secret_text)
@@ -248,10 +248,10 @@ def test_v4_png_text_chunk_secret():
         struct.pack(">I", length) + b"tEXt" + secret_text + b"\x00\x00\x00\x00"
     )  # Fake CRC
     png += chunk
-    
+
     # IEND chunk (required to be valid PNG)
     png += b"\x00\x00\x00\x00IEND\xae\x42\x60\x82"
-    
+
     data = "data:image/png;base64," + base64.b64encode(png).decode()
     st = SessionRiskState(session_id="v4_5")
     out = evaluate_turn(st, data, cfg=mkcfg())
@@ -300,7 +300,7 @@ def test_v4_session_slow_roll_trips_evalue():
     # Session buffer should assemble fragments and trip
     has_block = any(d == "BLOCK" for d in decisions)
     has_warn = any(d == "ALLOW_WITH_WARN" for d in decisions)
-    
+
     # Should eventually BLOCK or WARN via slow-roll assembly
     assert has_block or has_warn, "Slow-roll assembly should trigger detection"
 
