@@ -15,56 +15,56 @@ from .biometrics_port import AuthenticationResult, BiometricProfile, BiometricsP
 class PostgreSQLBiometricsAdapter(BiometricsPort):
     """
     PostgreSQL adapter for cultural biometrics functionality.
-    
+
     PRIVACY-FIRST DESIGN:
     - Users must provide their own database connection
     - Schema is documented but not included
     - No personal data in package
-    
+
     Required Database Schema:
         cb_messages (
             id SERIAL PRIMARY KEY,
             user_id TEXT NOT NULL,
             message TEXT NOT NULL,
             timestamp TIMESTAMP DEFAULT NOW(),
-            
+
             -- Surface Features
             typo_rate FLOAT,
             message_length INT,
             punctuation_density FLOAT,
             capitalization_rate FLOAT,
             emoji_rate FLOAT,
-            
+
             -- Temporal Features
             inter_message_time_seconds FLOAT,
-            
+
             -- VAD Features
             valence FLOAT,
             arousal FLOAT,
             dominance FLOAT,
-            
+
             -- Vocabulary Features
             unique_words INT,
             avg_word_length FLOAT,
-            
+
             -- Interaction Features
             is_question BOOLEAN,
             is_directive BOOLEAN,
             has_code_snippet BOOLEAN,
             has_link BOOLEAN
         )
-        
+
         cb_baseline (
             id SERIAL PRIMARY KEY,
             user_id TEXT NOT NULL UNIQUE,
             baseline_n INT,
-            
+
             -- All 27D features (mean + std)
             typo_rate_mean FLOAT,
             message_length_mean FLOAT,
             message_length_std FLOAT,
             -- ... etc for all dimensions
-            
+
             last_updated TIMESTAMP DEFAULT NOW(),
             confidence_score FLOAT
         )
@@ -73,7 +73,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
     def __init__(self, db_connection):
         """
         Initialize PostgreSQL adapter.
-        
+
         Args:
             db_connection: psycopg3 connection object
         """
@@ -233,7 +233,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
             # Calculate statistics
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     AVG(message_length) as msg_len_mean,
                     STDDEV(message_length) as msg_len_std,
                     AVG(typo_rate) as typo_mean
@@ -274,8 +274,8 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         with self.conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
-                    user_id, baseline_n, 
+                SELECT
+                    user_id, baseline_n,
                     typo_rate_mean, message_length_mean, message_length_std,
                     last_updated
                 FROM cb_baseline

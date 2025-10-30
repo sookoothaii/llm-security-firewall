@@ -15,12 +15,12 @@ from .care_port import CAREPort, ReadinessScore
 class PostgreSQLCAREAdapter(CAREPort):
     """
     PostgreSQL adapter for CARE functionality.
-    
+
     PRIVACY-FIRST DESIGN:
     - Users must provide their own database connection
     - Schema is documented but not included
     - No personal data in package
-    
+
     Required Database Schema:
         care_sessions (
             id SERIAL PRIMARY KEY,
@@ -30,18 +30,18 @@ class PostgreSQLCAREAdapter(CAREPort):
             facts_attempted INT,
             facts_supported INT,
             success_rate FLOAT,
-            
+
             -- Cognitive State Features
             hyperfocus FLOAT,
             satisfaction FLOAT,
             arousal FLOAT,
             engagement FLOAT,
-            
+
             -- Metadata
             duration_minutes INT,
             session_type TEXT
         )
-        
+
         care_readiness_model (
             id SERIAL PRIMARY KEY,
             user_id TEXT NOT NULL,
@@ -55,7 +55,7 @@ class PostgreSQLCAREAdapter(CAREPort):
     def __init__(self, db_connection):
         """
         Initialize PostgreSQL adapter.
-        
+
         Args:
             db_connection: psycopg3 connection object
         """
@@ -91,7 +91,7 @@ class PostgreSQLCAREAdapter(CAREPort):
             # Calculate readiness based on recent patterns
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     AVG(success_rate) as avg_success,
                     COUNT(*) as recent_sessions
                 FROM care_sessions
@@ -196,7 +196,7 @@ class PostgreSQLCAREAdapter(CAREPort):
             # Find best performing time windows
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     EXTRACT(HOUR FROM timestamp) as hour,
                     AVG(success_rate) as avg_success,
                     COUNT(*) as n_sessions
@@ -232,7 +232,7 @@ class PostgreSQLCAREAdapter(CAREPort):
         with self.conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     COUNT(*) as total_sessions,
                     AVG(success_rate) as avg_success_rate,
                     COUNT(DISTINCT user_id) as total_users

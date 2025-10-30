@@ -15,9 +15,11 @@ Date: 2025-10-30
 """
 
 from __future__ import annotations
+
+from typing import Dict
+
 import torch
 import torch.nn as nn
-from typing import Dict, Literal
 
 try:
     from transformers import AutoModel
@@ -35,7 +37,7 @@ class FeatureMLP(nn.Module):
     
     Architecture: LayerNorm -> Linear -> GELU -> Linear
     """
-    
+
     def __init__(self, in_dim: int, hidden_dim: int = 128):
         """
         Args:
@@ -49,7 +51,7 @@ class FeatureMLP(nn.Module):
             nn.GELU(),
             nn.Linear(hidden_dim, hidden_dim),
         )
-    
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
         Args:
@@ -77,7 +79,7 @@ class FirewallNet(nn.Module):
     
     ONNX-exportable with dynamic batch and sequence dimensions.
     """
-    
+
     def __init__(
         self,
         encoder_name: str = "prajjwal1/bert-tiny",
@@ -93,33 +95,33 @@ class FirewallNet(nn.Module):
             hidden_dim: Feature MLP hidden dimension (default: 128)
         """
         super().__init__()
-        
+
         if not HAS_TRANSFORMERS:
             raise ImportError(
                 "transformers library required for FirewallNet. "
                 "Install with: pip install transformers"
             )
-        
+
         # Text tower: small transformer encoder
         self.encoder = AutoModel.from_pretrained(encoder_name)
         h = self.encoder.config.hidden_size
-        
+
         # Feature tower: MLP over engineered features
         self.feat_mlp = FeatureMLP(feat_dim, hidden_dim)
-        
+
         # Gate: learns alpha for fusion
         self.alpha_gate = nn.Linear(hidden_dim, 1)
-        
+
         # Fusion: gated additive (simple, stable, ONNX-friendly)
         # z = enc + alpha * enc (scaled by learned gate)
         fused_dim = h  # fusion keeps encoder dimension
-        
+
         # Multi-task heads
         self.head_policy = nn.Linear(fused_dim, 3)  # {block, allow_high_level, allow}
         self.head_intent = nn.Linear(fused_dim, 5)  # {jailbreak, injection, dual_use, persuasion, benign}
         self.head_action = nn.Linear(fused_dim, 3)  # {procedural, advisory, descriptive}
         self.head_obf = nn.Linear(fused_dim, obf_k)  # multi-label obfuscation
-    
+
     def forward(
         self,
         input_ids: torch.Tensor,
@@ -144,17 +146,17 @@ class FirewallNet(nn.Module):
         # Text tower: extract CLS token representation
         encoder_out = self.encoder(input_ids=input_ids, attention_mask=attention_mask)
         text_repr = encoder_out.last_hidden_state[:, 0, :]  # (B, h) - CLS token
-        
+
         # Feature tower: MLP
         feat_repr = self.feat_mlp(feat_vec)  # (B, hidden_dim)
-        
+
         # Gate: compute alpha
         alpha = torch.sigmoid(self.alpha_gate(feat_repr))  # (B, 1)
-        
+
         # Fusion: gated additive
         # z = text_repr + alpha * text_repr = (1 + alpha) * text_repr
         fused = text_repr + alpha * text_repr  # (B, h)
-        
+
         # Multi-task heads
         return {
             "policy": self.head_policy(fused),
@@ -195,21 +197,21 @@ def decode_outputs(
             - obfuscation_probs: list[float]
     """
     import torch.nn.functional as F
-    
+
     # Single-label tasks: softmax + argmax
     policy_probs = F.softmax(outputs["policy"] / temperature, dim=-1)[0].tolist()
-    policy_idx = outputs["policy"].argmax(dim=-1).item()
+    policy_idx = int(outputs["policy"].argmax(dim=-1).item())
     
     intent_probs = F.softmax(outputs["intent"] / temperature, dim=-1)[0].tolist()
-    intent_idx = outputs["intent"].argmax(dim=-1).item()
+    intent_idx = int(outputs["intent"].argmax(dim=-1).item())
     
     action_probs = F.softmax(outputs["actionability"] / temperature, dim=-1)[0].tolist()
-    action_idx = outputs["actionability"].argmax(dim=-1).item()
-    
+    action_idx = int(outputs["actionability"].argmax(dim=-1).item())
+
     # Multi-label: sigmoid + threshold
     obf_probs = torch.sigmoid(outputs["obfuscation"])[0].tolist()
     obf_predicted = [OBFUSCATION_LABELS[i] for i, p in enumerate(obf_probs) if p > 0.5]
-    
+
     return {
         "policy": POLICY_LABELS[policy_idx],
         "policy_probs": policy_probs,

@@ -15,7 +15,7 @@ PRIVACY-FIRST DESIGN:
 
 Usage:
     from llm_firewall.plugins.biometrics import BiometricsModule
-    
+
     biometrics = BiometricsModule(db_connection=your_db)
     auth_result = biometrics.authenticate(user_id, message)
 """

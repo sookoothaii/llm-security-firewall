@@ -18,29 +18,29 @@ from .biometrics_port import AuthenticationResult, BiometricProfile, BiometricsP
 class BiometricsModule:
     """
     Cultural Biometrics authentication module.
-    
+
     WORLD-FIRST INNOVATION:
     This is the first behavioral authentication system specifically
     designed for Human/LLM interaction patterns.
-    
+
     Traditional biometrics (fingerprint, face) don't work for text.
     This system uses 27 behavioral dimensions to detect:
     - Impersonation attempts
     - Account takeover
     - Anomalous behavior patterns
-    
+
     IMPORTANT: This module requires user's own database.
     No personal data is included with this package.
-    
+
     Example:
         import psycopg3
-        
+
         conn = psycopg3.connect("postgresql://...")
         adapter = PostgreSQLBiometricsAdapter(conn)
         biometrics = BiometricsModule(adapter)
-        
+
         result = biometrics.authenticate("user123", "Hello world")
-        
+
         if result.authenticated:
             # Proceed with request
             pass
@@ -55,10 +55,10 @@ class BiometricsModule:
     def __init__(self, adapter: BiometricsPort):
         """
         Initialize cultural biometrics module.
-        
+
         Args:
             adapter: Biometrics adapter (must implement BiometricsPort)
-        
+
         Raises:
             ValueError: If adapter is None
         """
@@ -78,12 +78,12 @@ class BiometricsModule:
     ) -> AuthenticationResult:
         """
         Authenticate user based on behavioral patterns.
-        
+
         Args:
             user_id: User identifier
             message: Message to analyze
             context: Optional context (timestamp, session_id, etc.)
-            
+
         Returns:
             AuthenticationResult with recommendation
         """
@@ -96,18 +96,18 @@ class BiometricsModule:
     ) -> Dict:
         """
         Update behavioral baseline.
-        
+
         Baselines should be updated periodically:
         - After 10 messages (initial)
         - After 50 messages
         - After 100 messages
         - After 500 messages
         - After 1000 messages
-        
+
         Args:
             user_id: User identifier
             force: Force update regardless of message count
-            
+
         Returns:
             Update statistics
         """
@@ -116,10 +116,10 @@ class BiometricsModule:
     def get_profile(self, user_id: str) -> Optional[BiometricProfile]:
         """
         Get biometric profile for user.
-        
+
         Args:
             user_id: User identifier
-            
+
         Returns:
             BiometricProfile or None if not found
         """
@@ -133,12 +133,12 @@ class BiometricsModule:
     ) -> int:
         """
         Log message for behavioral analysis.
-        
+
         Args:
             user_id: User identifier
             message: Message content
             metadata: Optional metadata (timestamp, session_id, etc.)
-            
+
         Returns:
             Message ID
         """

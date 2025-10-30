@@ -60,7 +60,7 @@ MODULE_MAPPING = {
 def adjust_imports(content: str) -> str:
     """
     Adjust import paths from HAK_GAL to standalone.
-    
+
     Changes:
     - from .types → from llm_firewall.utils.types
     - from .evidence_validator → from llm_firewall.evidence.validator

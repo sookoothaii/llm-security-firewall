@@ -12,7 +12,7 @@ PRIVACY-FIRST DESIGN:
 
 Usage:
     from llm_firewall.plugins.personality import PersonalityModule
-    
+
     personality = PersonalityModule(db_connection=your_db)
     profile = personality.get_personality_profile(user_id)
 """

@@ -12,7 +12,7 @@ PRIVACY-FIRST DESIGN:
 
 Usage:
     from llm_firewall.plugins.care import CAREModule
-    
+
     care = CAREModule(db_connection=your_db)
     readiness = care.get_readiness(user_id)
 """

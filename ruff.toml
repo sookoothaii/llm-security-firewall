@@ -92,3 +92,48 @@ ignore = []
 
 # Calibration: Safe bandit with mathematical formulas
 "src/llm_firewall/calibration/safe_bandit.py" = ["E501", "E701", "E702"]
+
+# GuardNet: Multi-task model with detailed docstrings and training logs
+"src/llm_firewall/guardnet/model.py" = ["E501", "W293"]
+"src/llm_firewall/guardnet/train.py" = ["E501", "W293"]
+"tests/test_guardnet_shapes.py" = ["E501"]
+"tests/test_feature_extractor.py" = ["E501"]
+
+# Tools: Development utilities with compact code style
+"tools/ablate.py" = ["E501", "E701", "E702"]
+"tools/calibrate_thresholds.py" = ["E501"]
+"tools/convert_redteam_to_csv.py" = ["E501"]
+"tools/extract_from_redteam.py" = ["E501"]
+"tools/fit_meta_ensemble.py" = ["E501"]
+"tools/floors_fit.py" = ["E501", "E701", "E702"]
+"tools/generate_coverage_report.py" = ["E501"]
+"tools/json_validate.py" = ["E501"]
+"tools/kill_switch.py" = ["E501"]
+"tools/merge_lexicons.py" = ["E501", "E701", "E702"]
+
+# Scripts: Training and build scripts with detailed parameters
+"scripts/build_onnx_logreg.py" = ["E501", "F841"]
+"scripts/ci_gate.py" = ["E702"]
+"scripts/generate_l3_data.py" = ["E501"]
+"scripts/train_l3_sklearn.py" = ["E501", "E402"]
+
+# Examples: Demo code with detailed usage examples
+"examples/demo_multi_gate.py" = ["E501"]
+"examples/minimal_fastapi.py" = ["E501"]
+
+# Extract utility
+"extract_all.py" = ["E501"]
+
+# Plugins: Detailed docstrings and explanations
+"plugins/biometrics/__init__.py" = ["E501"]
+"plugins/biometrics/biometrics_adapter.py" = ["E501"]
+"plugins/care/care_adapter.py" = ["E501"]
+"plugins/care/scientific_validation.py" = ["E501"]
+"plugins/personality/personality_adapter.py" = ["E501"]
+"plugins/personality/personality_module.py" = ["E501"]
+
+# GuardNet: Detailed docstrings for ML model
+"src/llm_firewall/guardnet/__init__.py" = ["E501"]
+"src/llm_firewall/guardnet/export_onnx.py" = ["E501"]
+"src/llm_firewall/guardnet/features/extractor.py" = ["E501"]
+"src/llm_firewall/guardnet/gate_integration.py" = ["E501"]

@@ -10,9 +10,9 @@ PRIVACY-FIRST DESIGN:
 - Framework only, not trained models
 
 Philosophy:
-"Kluge Care auf Augenhoehe wie Forschungspartner die nicht verwandt sind - 
+"Kluge Care auf Augenhoehe wie Forschungspartner die nicht verwandt sind -
  nicht bemuttern sondern sukzessive mit viel Humor auf mich einstellen"
- 
+
 CARE behaves as RESEARCH PARTNER, not as parent/therapist/moral police.
 """
 
@@ -24,26 +24,26 @@ from .care_port import CAREPort, ReadinessScore
 class CAREModule:
     """
     Cognitive And Research Effectiveness assessment module.
-    
+
     CARE predicts research session success based on cognitive state patterns.
-    
+
     Key Innovation:
     - NOT a wellness app
     - NOT a productivity tracker
     - RESEARCH PARTNER on equal footing
-    
+
     CARE observes patterns, suggests hypotheses, lets user decide.
     No moralizing. No bevormundung (paternalism).
-    
+
     Example:
         import psycopg3
-        
+
         conn = psycopg3.connect("postgresql://...")
         adapter = PostgreSQLCAREAdapter(conn)
         care = CAREModule(adapter)
-        
+
         readiness = care.get_readiness("user123")
-        
+
         if readiness.recommendation == "READY":
             print(f"Good time for research! ({readiness.readiness_score:.0%})")
         elif readiness.recommendation == "MARGINAL":
@@ -57,10 +57,10 @@ class CAREModule:
     def __init__(self, adapter: CAREPort):
         """
         Initialize CARE module.
-        
+
         Args:
             adapter: CARE adapter (must implement CAREPort)
-        
+
         Raises:
             ValueError: If adapter is None
         """
@@ -75,13 +75,13 @@ class CAREModule:
     def get_readiness(self, user_id: str) -> ReadinessScore:
         """
         Get current cognitive readiness score.
-        
+
         IMPORTANT: This is a SUGGESTION, not a command.
         CARE observes patterns but user always decides.
-        
+
         Args:
             user_id: User identifier
-            
+
         Returns:
             ReadinessScore with recommendation
         """
@@ -97,16 +97,16 @@ class CAREModule:
     ) -> int:
         """
         Log research session outcome.
-        
+
         This data enables CARE to learn patterns and improve predictions.
-        
+
         Args:
             session_id: Session identifier
             user_id: User identifier
             facts_attempted: Number of facts attempted
             facts_supported: Number of facts successfully supported
             cognitive_state: Optional cognitive state features
-            
+
         Returns:
             Session log ID
         """
@@ -117,13 +117,13 @@ class CAREModule:
     def suggest_optimal_time(self, user_id: str) -> Dict:
         """
         Suggest optimal time for next research session.
-        
+
         IMPORTANT: This is adaptive scheduling, not rigid rules.
         User can override at any time.
-        
+
         Args:
             user_id: User identifier
-            
+
         Returns:
             Suggestion dictionary with rationale
         """
@@ -132,7 +132,7 @@ class CAREModule:
     def get_stats(self) -> Dict:
         """
         Get CARE system statistics.
-        
+
         Returns:
             Statistics dictionary (sessions, success rate, model status)
         """

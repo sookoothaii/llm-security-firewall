@@ -27,7 +27,7 @@ def build_onnx(W: np.ndarray, b: np.ndarray, out_path: Union[str, pathlib.Path],
     features = helper.make_tensor_value_info("features", TensorProto.FLOAT, [None, D])
     proba     = helper.make_tensor_value_info("proba", TensorProto.FLOAT, [None, K])
 
-    W_init = helper.make_tensor("W", TensorProto.FLOAT, [K, D], W.flatten().tolist())
+    helper.make_tensor("W", TensorProto.FLOAT, [K, D], W.flatten().tolist())
     b_init = helper.make_tensor("b", TensorProto.FLOAT, [K], b.flatten().tolist())
 
     # MatMul: X [N,D] @ W^T [D,K] -> [N,K]

@@ -15,7 +15,7 @@ from typing import Dict, Optional
 class BiometricProfile:
     """
     27-Dimensional Cultural Biometrics Profile.
-    
+
     WORLD-FIRST: Behavioral authentication for LLM interfaces.
     """
     user_id: str

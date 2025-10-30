@@ -14,12 +14,13 @@ Creator: Joerg Bollwahn
 """
 
 from __future__ import annotations
+
 from llm_firewall.guardnet.features.extractor import (
+    base64_fraction,
     compute_features,
     mixed_script_ratio,
     punct_burst_score,
     zwc_density,
-    base64_fraction,
 )
 
 __all__ = [

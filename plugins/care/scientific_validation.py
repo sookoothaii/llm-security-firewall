@@ -26,7 +26,7 @@ warnings.filterwarnings('ignore')
 class CAREScientificValidator:
     """
     Scientific validation framework for CARE system.
-    
+
     Implements peer-review standards:
     - Cross-validation with k-fold splits
     - Statistical significance testing
@@ -46,7 +46,7 @@ class CAREScientificValidator:
         with self.conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     session_id,
                     timestamp,
                     facts_attempted,
@@ -58,9 +58,9 @@ class CAREScientificValidator:
                     engagement,
                     EXTRACT(HOUR FROM timestamp) as hour_of_day,
                     EXTRACT(DOW FROM timestamp) as day_of_week,
-                    CASE 
-                        WHEN success_rate >= 0.6 THEN 1 
-                        ELSE 0 
+                    CASE
+                        WHEN success_rate >= 0.6 THEN 1
+                        ELSE 0
                     END as success_binary
                 FROM care_sessions
                 WHERE user_id = %s
@@ -84,7 +84,7 @@ class CAREScientificValidator:
     def cross_validation_analysis(self, user_id: str) -> Dict:
         """
         Perform k-fold cross-validation analysis.
-        
+
         Returns:
             Dictionary with CV metrics and confidence intervals
         """
@@ -151,7 +151,7 @@ class CAREScientificValidator:
     def statistical_significance_tests(self, user_id: str) -> Dict:
         """
         Perform statistical significance tests.
-        
+
         Tests:
         - t-test for success rate differences
         - ANOVA for multi-group comparisons
@@ -211,7 +211,7 @@ class CAREScientificValidator:
     def effect_size_analysis(self, user_id: str) -> Dict:
         """
         Calculate effect sizes for all significant findings.
-        
+
         Effect sizes:
         - Cohen's d for continuous variables
         - Cramér's V for categorical variables
@@ -257,7 +257,7 @@ class CAREScientificValidator:
     def baseline_comparison(self, user_id: str) -> Dict:
         """
         Compare CARE predictions against random baseline.
-        
+
         Baseline: Random predictions with same success rate
         """
         data = self.load_session_data(user_id)
@@ -304,7 +304,7 @@ class CAREScientificValidator:
     def longitudinal_analysis(self, user_id: str) -> Dict:
         """
         Analyze pattern stability over time.
-        
+
         Tests:
         - Trend analysis
         - Pattern consistency

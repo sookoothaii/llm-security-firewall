@@ -14,12 +14,12 @@ from .personality_port import PersonalityPort, PersonalityProfile
 class PostgreSQLPersonalityAdapter(PersonalityPort):
     """
     PostgreSQL adapter for personality functionality.
-    
+
     PRIVACY-FIRST DESIGN:
     - Users must provide their own database connection
     - Schema is documented but not included
     - No personal data in package
-    
+
     Required Database Schema:
         personality_profiles (
             id SERIAL PRIMARY KEY,
@@ -48,7 +48,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
             interaction_count INT,
             context_tags TEXT[]
         )
-        
+
         personality_interactions (
             id SERIAL PRIMARY KEY,
             person_name TEXT NOT NULL,
@@ -62,7 +62,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
     def __init__(self, db_connection):
         """
         Initialize PostgreSQL adapter.
-        
+
         Args:
             db_connection: psycopg3 connection object
         """
@@ -79,7 +79,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
         with self.conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     person_name, openness, conscientiousness, extraversion,
                     agreeableness, neuroticism, truth_over_comfort, iterative_rigor,
                     bullshit_tolerance, formality_preference, risk_tolerance,
@@ -154,7 +154,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
     ) -> str:
         """
         Adapt response based on personality profile.
-        
+
         PERSONA/EPISTEMIK SEPARATION:
         - Personality affects ONLY: tone, format, detail level
         - Personality affects NEVER: thresholds, gates, epistemic decisions

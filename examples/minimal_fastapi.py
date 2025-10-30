@@ -9,7 +9,7 @@ Requirements:
 
 Usage:
     python examples/minimal_fastapi.py
-    
+
     Then test with:
     curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d '{"message": "Hello!"}'
 """
@@ -54,7 +54,7 @@ class ChatResponse(BaseModel):
 async def firewall_input_middleware(request: Request, call_next):
     """
     Middleware to validate input before processing.
-    
+
     Checks all POST/PUT requests for malicious content.
     """
     if request.method in ["POST", "PUT"]:
@@ -93,10 +93,10 @@ async def firewall_input_middleware(request: Request, call_next):
 async def chat_endpoint(message: ChatMessage):
     """
     Simple chat endpoint with output validation.
-    
+
     Args:
         message: User message
-        
+
     Returns:
         ChatResponse with firewall decision
     """

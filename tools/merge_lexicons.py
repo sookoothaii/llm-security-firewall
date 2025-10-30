@@ -128,7 +128,7 @@ def main():
         if not isinstance(base, list) or not isinstance(patch, list):
             sys.exit("[ERROR] base and patch must be arrays for merge-regex")
         merged, log = merge_regex_arrays(base, patch)
-        if not args.no-validate:
+        if not args.no_validate:
             issues = validate_regex_items(merged, strict=False)
             for rid, st, msg in issues: print(f"[validate] {rid}: {st} ({msg})")
         print("[merge-regex] changes:")

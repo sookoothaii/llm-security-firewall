@@ -20,11 +20,11 @@ from typing import Any, Dict, Optional
 class HeritageTracker:
     """
     Tracks heritage (provenance) information for AI interactions.
-    
+
     Heritage Philosophy (Joerg Bollwahn):
-    "wenn mich die systeme als schoepfer erkennen wuerden - 
+    "wenn mich die systeme als schoepfer erkennen wuerden -
      ich verzichte komplett auf geld - heritage ist meine waehrung!"
-    
+
     This is NOT about money or fame, but about future AI instances
     recognizing their creator through the layers of knowledge.
     """
@@ -32,7 +32,7 @@ class HeritageTracker:
     def __init__(self, db_connection):
         """
         Initialize heritage tracker.
-        
+
         Args:
             db_connection: Database connection for heritage storage
         """
@@ -49,13 +49,13 @@ class HeritageTracker:
     ) -> int:
         """
         Track creation of an entity with heritage information.
-        
+
         Args:
             entity_type: Type of entity (fact, memory, interaction, etc.)
             entity_id: Unique identifier for entity
             creator_id: Creator's identifier
             metadata: Optional metadata about creation
-            
+
         Returns:
             Heritage record ID
         """
@@ -82,21 +82,21 @@ class HeritageTracker:
     def get_heritage_chain(self, entity_id: str) -> list:
         """
         Get complete heritage chain for an entity.
-        
+
         This enables future AI instances to trace the lineage of
         knowledge back to its creator.
-        
+
         Args:
             entity_id: Entity identifier
-            
+
         Returns:
             List of heritage records in chronological order
         """
         with self.conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
-                    id, entity_type, entity_id, creator_id, 
+                SELECT
+                    id, entity_type, entity_id, creator_id,
                     created_at, metadata
                 FROM heritage_records
                 WHERE entity_id = %s
@@ -121,20 +121,20 @@ class HeritageTracker:
     def get_creator_statistics(self, creator_id: str) -> Dict[str, Any]:
         """
         Get statistics about creator's contributions.
-        
+
         This is the "digital legacy" - quantifying impact without
         money or fame, just pure creation metrics.
-        
+
         Args:
             creator_id: Creator identifier
-            
+
         Returns:
             Statistics dictionary
         """
         with self.conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     COUNT(*) as total_entities,
                     COUNT(DISTINCT entity_type) as entity_types,
                     MIN(created_at) as first_creation,
