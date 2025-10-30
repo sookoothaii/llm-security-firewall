@@ -20,7 +20,6 @@ License: MIT
 import random
 import uuid
 from typing import List, Tuple
-from datetime import datetime
 
 from llm_firewall.core.domain.spatial_captcha import (
     Challenge,

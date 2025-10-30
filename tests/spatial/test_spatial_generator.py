@@ -6,7 +6,6 @@ Creator: Joerg Bollwahn
 Date: 2025-10-30
 """
 
-import pytest
 from llm_firewall.spatial.generator import SpatialCaptchaGenerator, verify_response
 from llm_firewall.core.domain.spatial_captcha import DifficultyLevel
 

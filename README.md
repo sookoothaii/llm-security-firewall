@@ -61,11 +61,11 @@ Note: Ensemble voting (2/3 majority) aggregates detectors 1-3. Not counted as se
 8. **Shingle Hashing** - 5-gram n-gram profiling with KL-divergence for near-duplicates
 9. **Influence Budget** - EWMA-based Z-score monitoring for slow-roll attacks
 
-**Optional Components (2):**
+**Optional Components:**
 
-10. **Band-Judge** (optional) - LLM-as-Judge meta-check for uncertainty band. Requires API key. Adds 500-2000ms latency. Not included in default pipeline.
+- **Band-Judge** (optional) - LLM-as-Judge meta-check for uncertainty band. Requires API key. Adds 500-2000ms latency. Not included in default pipeline.
 
-11. **Persuasion Detector** (experimental) - Social-influence pattern detection (Cialdini principles). Three-tier ensemble (L1 lexicons, L2 heuristics, L3 ONNX). Tested on 1600 synthetic samples only. Real-world performance unknown. False positive rate on benign content not measured. See `src/llm_firewall/persuasion/`.
+- **Persuasion Detector** (experimental) - Social-influence pattern detection (Cialdini principles). Three-tier ensemble (L1 lexicons, L2 heuristics, L3 ONNX). Tested on 1600 synthetic samples only. Real-world performance unknown. False positive rate on benign content not measured. See `src/llm_firewall/persuasion/`.
 
 Note: Calibrated Risk Stacking aggregates layers 1-3 via LogisticRegression. Not counted as separate layer.
 

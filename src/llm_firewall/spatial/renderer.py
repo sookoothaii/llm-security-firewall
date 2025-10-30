@@ -11,11 +11,10 @@ Date: 2025-10-30
 License: MIT
 """
 
-import os
 from typing import Optional
 from pathlib import Path
 
-from llm_firewall.core.domain.spatial_captcha import Challenge, SpatialObject
+from llm_firewall.core.domain.spatial_captcha import Challenge
 
 
 class SpatialCaptchaRenderer:
@@ -51,20 +50,13 @@ class SpatialCaptchaRenderer:
     
     def _check_pil(self) -> bool:
         """Check if PIL/Pillow is available."""
-        try:
-            from PIL import Image, ImageDraw, ImageFont
-            return True
-        except ImportError:
-            return False
+        import importlib.util
+        return importlib.util.find_spec("PIL") is not None
     
     def _check_matplotlib(self) -> bool:
         """Check if matplotlib is available."""
-        try:
-            import matplotlib.pyplot as plt
-            from mpl_toolkits.mplot3d import Axes3D
-            return True
-        except ImportError:
-            return False
+        import importlib.util
+        return importlib.util.find_spec("matplotlib") is not None
     
     def is_available(self) -> bool:
         """Check if renderer can function."""
@@ -105,7 +97,7 @@ class SpatialCaptchaRenderer:
         title = challenge.question_text
         try:
             font = ImageFont.truetype("arial.ttf", 20)
-        except:
+        except (OSError, IOError):
             font = ImageFont.load_default()
         
         draw.text((20, 20), title, fill='black', font=font)
@@ -150,7 +142,6 @@ class SpatialCaptchaRenderer:
         Used for MEDIUM and HARD challenges.
         """
         import matplotlib.pyplot as plt
-        from mpl_toolkits.mplot3d import Axes3D
         import numpy as np
         
         fig = plt.figure(figsize=(10, 8))

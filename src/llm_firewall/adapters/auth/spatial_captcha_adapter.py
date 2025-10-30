@@ -17,7 +17,6 @@ License: MIT
 
 import time
 from typing import Dict, Any, Optional
-from datetime import datetime
 
 from llm_firewall.core.ports.auth_port import AuthenticationPort, AuthenticationResult
 from llm_firewall.core.domain.spatial_captcha import (
@@ -25,8 +24,7 @@ from llm_firewall.core.domain.spatial_captcha import (
     ChallengeResponse,
     DifficultyLevel,
     UserSpatialProfile,
-    DEFAULT_TIME_BUDGET_MS,
-    TARGET_HUMAN_PASS_RATE
+    DEFAULT_TIME_BUDGET_MS
 )
 from llm_firewall.spatial.generator import SpatialCaptchaGenerator, verify_response
 from llm_firewall.spatial.renderer import SpatialCaptchaRenderer

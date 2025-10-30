@@ -20,7 +20,7 @@ Based on research paper: **"Spatial CAPTCHA: Generatively Benchmarking Spatial R
 ## Architecture
 
 **Hexagonal Design:**
-```
+```text
 AuthenticationPort (Interface)
     ↓
 SpatialCaptchaAdapter (Adapter)
