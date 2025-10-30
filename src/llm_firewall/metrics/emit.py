@@ -75,3 +75,4 @@ def observe_latency(seconds: float) -> None:
         seconds: Latency in seconds
     """
     guard_latency_seconds.observe(seconds)
+

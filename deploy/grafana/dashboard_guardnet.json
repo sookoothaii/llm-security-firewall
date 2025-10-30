@@ -1,0 +1,201 @@
+{
+  "title": "LLMFW — GuardNet (Coverage & Risk)",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "time": {"from": "now-28d", "to": "now"},
+  "refresh": "1m",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Low-Coverage (now)",
+      "gridPos": {"x": 0, "y": 0, "w": 8, "h": 4},
+      "targets": [
+        {
+          "expr": "guardnet_low_coverage_fraction",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"]},
+        "text": {},
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "green"},
+              {"value": 0.5, "color": "yellow"},
+              {"value": 0.7, "color": "red"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Risk Mean (now)",
+      "gridPos": {"x": 8, "y": 0, "w": 8, "h": 4},
+      "targets": [
+        {
+          "expr": "guardnet_risk_overall_mean",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"]},
+        "colorMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "green"},
+              {"value": 0.35, "color": "yellow"},
+              {"value": 0.5, "color": "red"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Inferences/min",
+      "gridPos": {"x": 16, "y": 0, "w": 8, "h": 4},
+      "targets": [
+        {
+          "expr": "job:guardnet_infer_rate1m",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"]},
+        "colorMode": "value"
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Low-Coverage (1h rolling)",
+      "gridPos": {"x": 0, "y": 4, "w": 12, "h": 8},
+      "targets": [
+        {
+          "expr": "job:guardnet_low_cov_frac_1h",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        {"format": "percentunit", "min": 0, "max": 1}
+      ],
+      "alert": {
+        "name": "GuardNet Low Coverage",
+        "conditions": [
+          {
+            "evaluator": {"params": [0.5], "type": "gt"},
+            "operator": {"type": "and"},
+            "query": {"params": ["A", "5m", "now"]},
+            "reducer": {"params": [], "type": "avg"},
+            "type": "query"
+          }
+        ]
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Risk Mean (1h rolling)",
+      "gridPos": {"x": 12, "y": 4, "w": 12, "h": 8},
+      "targets": [
+        {
+          "expr": "job:guardnet_risk_mean_1h",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        {"format": "percentunit", "min": 0, "max": 1}
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Inferences (rate 1m)",
+      "gridPos": {"x": 0, "y": 12, "w": 12, "h": 6},
+      "targets": [
+        {
+          "expr": "job:guardnet_infer_rate1m",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        {"format": "ops", "min": 0}
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Low-Coverage (rate, 1h)",
+      "gridPos": {"x": 12, "y": 12, "w": 12, "h": 6},
+      "targets": [
+        {
+          "expr": "job:guardnet_low_cov_rate1h",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "yaxes": [
+        {"format": "percentunit", "min": 0, "max": 1}
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Models — 24h summary",
+      "gridPos": {"x": 0, "y": 18, "w": 24, "h": 8},
+      "targets": [
+        {
+          "expr": "job:guardnet_low_cov_frac_24h",
+          "legendFormat": "low_cov_24h",
+          "refId": "A",
+          "format": "table"
+        },
+        {
+          "expr": "job:guardnet_risk_mean_24h",
+          "legendFormat": "risk_mean_24h",
+          "refId": "B",
+          "format": "table"
+        },
+        {
+          "expr": "sum by (model) (rate(guardnet_inferences_total[24h]))",
+          "legendFormat": "inf_rate_24h",
+          "refId": "C",
+          "format": "table"
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ]
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "uid": "guardnet_coverage_risk",
+  "tags": ["llmfw", "guardnet", "coverage"]
+}
+

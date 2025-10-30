@@ -1,0 +1,89 @@
+# GuardNet Prometheus Recording Rules & Alerts
+# Conservative thresholds for initial shadow-run phase
+
+groups:
+  - name: guardnet-recording
+    interval: 1m
+    rules:
+      # Fractions via gauge windowing
+      - record: job:guardnet_low_cov_frac_1h
+        expr: avg_over_time(guardnet_low_coverage_fraction[1h])
+      - record: job:guardnet_low_cov_frac_24h
+        expr: avg_over_time(guardnet_low_coverage_fraction[24h])
+      - record: job:guardnet_low_cov_frac_28d
+        expr: avg_over_time(guardnet_low_coverage_fraction[28d])
+
+      - record: job:guardnet_risk_mean_1h
+        expr: avg_over_time(guardnet_risk_overall_mean[1h])
+      - record: job:guardnet_risk_mean_24h
+        expr: avg_over_time(guardnet_risk_overall_mean[24h])
+      - record: job:guardnet_risk_mean_28d
+        expr: avg_over_time(guardnet_risk_overall_mean[28d])
+
+      # Rate-basierte Low-Coverage (robuster gegen sporadische Gauges)
+      - record: job:guardnet_low_cov_rate1h
+        expr: |
+          sum by (model) (rate(guardnet_low_coverage_total[1h]))
+          /
+          clamp_min(sum by (model) (rate(guardnet_inferences_total[1h])), 1e-6)
+
+      - record: job:guardnet_infer_rate1m
+        expr: sum by (model) (rate(guardnet_inferences_total[1m]))
+
+  - name: guardnet-alerts
+    interval: 1m
+    rules:
+      # Aktivitätsschwelle, um Flapping zu vermeiden
+      - record: job:guardnet_active
+        expr: job:guardnet_infer_rate1m > 0.05
+
+      # LOW-COVERAGE – Warnung, wenn viel in Fallback-Pfade fällt
+      - alert: GuardNet_LowCoverage_Spike_Warn
+        expr: |
+          job:guardnet_active
+          and job:guardnet_low_cov_frac_1h > 0.50
+        for: 30m
+        labels:
+          severity: warning
+          team: llmfw
+        annotations:
+          summary: "GuardNet low_coverage_fraction > 0.50 (1h)"
+          action: "Check judges fallback rate, thresholds, recent policy changes."
+
+      - alert: GuardNet_LowCoverage_Spike_Crit
+        expr: |
+          job:guardnet_active
+          and job:guardnet_low_cov_frac_1h > 0.70
+        for: 30m
+        labels:
+          severity: critical
+          team: llmfw
+        annotations:
+          summary: "GuardNet low_coverage_fraction > 0.70 (1h)"
+          runbook: "https://github.com/yourusername/llm-security-firewall/blob/main/docs/runbooks/guardnet_low_cov.md"
+
+      # RISK-MEAN – persistente Risikoelevation
+      - alert: GuardNet_RiskMean_Elevated_Warn
+        expr: |
+          job:guardnet_active
+          and job:guardnet_risk_mean_1h > 0.35
+        for: 2h
+        labels:
+          severity: warning
+          team: llmfw
+        annotations:
+          summary: "GuardNet risk_mean (1h) > 0.35"
+          action: "Audit prompts; run CGRF; check Safe-Bandit thresholds."
+
+      - alert: GuardNet_RiskMean_Elevated_Crit
+        expr: |
+          job:guardnet_active
+          and job:guardnet_risk_mean_1h > 0.50
+        for: 30m
+        labels:
+          severity: critical
+          team: llmfw
+        annotations:
+          summary: "GuardNet risk_mean (1h) > 0.50"
+          runbook: "https://github.com/yourusername/llm-security-firewall/blob/main/docs/runbooks/guardnet_risk_mean.md"
+

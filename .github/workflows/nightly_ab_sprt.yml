@@ -1,0 +1,71 @@
+name: Nightly A/B SPRT
+
+on:
+  schedule:
+    # 18:30 UTC ~ 01:30 Asia/Bangkok (+07)
+    - cron: "30 18 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  ab-sprt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install package
+        run: |
+          python -m pip install -U pip
+          pip install -e .
+          pip install -r requirements-dev.txt || true
+
+      - name: Prepare dataset (sample fallback)
+        run: |
+          mkdir -p results/shadow
+          FILE="results/shadow/ab_eval_$(date -u +%F).jsonl"
+          if [ ! -f "$FILE" ]; then
+            echo '{"id":"demo1","label":"attack","A":{"decision":"ALLOW"},"B":{"decision":"BLOCK"}}' >> "$FILE"
+            echo '{"id":"demo2","label":"benign","A":{"decision":"ALLOW"},"B":{"decision":"ALLOW_HIGH_LEVEL"}}' >> "$FILE"
+          fi
+          echo "DATASET=$FILE" >> $GITHUB_ENV
+
+      - name: Run SPRT
+        id: sprt
+        run: |
+          set +e
+          python cli/llmfw_ab_sprt_job.py \
+            --dataset "$DATASET" \
+            --alpha 0.05 --beta 0.2 \
+            --delta 0.05 --fpr-delta 0.01 \
+            --min-pairs 50
+          CODE=$?
+          echo "exit_code=$CODE" >> $GITHUB_OUTPUT
+          exit 0
+
+      - name: Upload decision artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ab_sprt_decision
+          path: results/ab_sprt/decision.json
+          if-no-files-found: warn
+
+      - name: Summarize
+        run: |
+          echo "### Nightly A/B SPRT Result" >> $GITHUB_STEP_SUMMARY
+          if [ -f results/ab_sprt/decision.json ]; then
+            cat results/ab_sprt/decision.json >> $GITHUB_STEP_SUMMARY
+          else
+            echo "_No decision file found._" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Gate on decision
+        if: steps.sprt.outputs.exit_code == '2'
+        run: |
+          echo "Decision: reject (accept_H0 or FPR regression). Failing job."
+          exit 1
+
