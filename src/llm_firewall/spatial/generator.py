@@ -332,3 +332,4 @@ def verify_response(challenge: Challenge, user_answer: str) -> bool:
         True if correct, False otherwise
     """
     return user_answer == challenge.correct_answer
+

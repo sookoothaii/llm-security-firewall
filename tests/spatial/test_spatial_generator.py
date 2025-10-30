@@ -191,3 +191,4 @@ class TestUserSpatialProfile:
         )
 
         assert profile.recommend_difficulty() == DifficultyLevel.EASY
+

@@ -83,3 +83,4 @@ class TestRollingWindowStreamGuard:
 
         # Risk should have accumulated
         assert state.cumulative_risk > initial_risk
+

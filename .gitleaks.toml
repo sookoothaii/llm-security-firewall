@@ -56,6 +56,7 @@ paths = [
     '''.*\.yml$''',
     '''LICENSE''',
     '''data/.*\.csv$''',              # Test data CSV files
+    '''data/.*\.jsonl$''',             # Adversarial test data (synthetic secrets)
     '''results/.*\.json$''',           # Test results/reports
     '''docker-compose\.yml$''',        # Docker config with env placeholders
 ]

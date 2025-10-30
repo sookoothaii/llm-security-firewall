@@ -204,3 +204,4 @@ COMMENT ON COLUMN evidence_write_log.meta IS 'JSONB metadata: domain, model_id, 
 
 
 
+

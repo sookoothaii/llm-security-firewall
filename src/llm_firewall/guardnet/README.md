@@ -91,7 +91,7 @@ pip install onnxruntime
 ### 1. Feature Extraction
 
 ```python
-from llm_firewall.guardnet.features import compute_features
+from llm_firewall.guardnet.features import extract_features
 
 text_normalized = "Your input text here"
 regex_hits = {"intent/jailbreak": 0, "evasion/base64": 0}
@@ -100,7 +100,7 @@ emb_ood_energy = 0.0
 ttl_delta_days = 30
 trust_tier = 0.8
 
-features = compute_features(
+features = extract_features(
     text_normalized,
     regex_hits,
     lid,

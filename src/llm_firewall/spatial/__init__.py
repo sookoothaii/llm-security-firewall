@@ -20,3 +20,4 @@ from llm_firewall.spatial.generator import SpatialCaptchaGenerator, verify_respo
 from llm_firewall.spatial.renderer import SpatialCaptchaRenderer
 
 __all__ = ["SpatialCaptchaGenerator", "SpatialCaptchaRenderer", "verify_response"]
+

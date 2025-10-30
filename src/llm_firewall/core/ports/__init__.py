@@ -1,1 +1,2 @@
 """Port interfaces (Hexagonal Architecture)."""
+

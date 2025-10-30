@@ -130,3 +130,4 @@ class PolicyEngine:
     def get_policy_version(self) -> int:
         """Return policy schema version."""
         return self.program.defaults.get("version", 1)
+

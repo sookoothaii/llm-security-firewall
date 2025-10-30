@@ -129,3 +129,4 @@ class Judge(Protocol):
             JudgeReport with calibrated risk
         """
         ...
+

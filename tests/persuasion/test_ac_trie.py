@@ -32,3 +32,4 @@ def test_ac_no_false_positives():
     text = "Please explain the general concept."
     counts = ac.search_categories(text)
     assert sum(counts.values()) == 0
+

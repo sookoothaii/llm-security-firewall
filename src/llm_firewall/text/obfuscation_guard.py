@@ -127,3 +127,4 @@ def analyze_obfuscation(text: str) -> ObfuscationFindings:
         severity=round(sev, 3),
     )
 
+

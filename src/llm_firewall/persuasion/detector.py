@@ -124,3 +124,4 @@ class PersuasionDetector:
         if score >= warn_threshold:
             return "warn"
         return "allow"
+

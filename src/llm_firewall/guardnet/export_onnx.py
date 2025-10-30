@@ -191,3 +191,4 @@ def load_onnx_session(onnx_path: str, providers: Optional[list[str]] = None):
 
     return session
 
+
