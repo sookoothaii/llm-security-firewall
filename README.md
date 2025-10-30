@@ -3,9 +3,9 @@
 **Bidirectional Security Framework for Human/LLM Interfaces**
 
 **Creator:** Joerg Bollwahn  
-**Version:** 1.2.0-dev (unreleased, development only)  
+**Version:** 1.3.0-dev (unreleased, development only)  
 **License:** MIT  
-**Status:** Research prototype. 279/279 tests pass in development environment. Not peer-reviewed. Not validated in production.
+**Status:** Research prototype. 284/284 tests pass in development environment. Not peer-reviewed. Not validated in production.
 
 ---
 
@@ -14,14 +14,17 @@
 Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths.
 
 **Implemented Components:**
-- Pattern-based input detection (43 patterns across 7 categories)
+- Pattern-based input detection (43 patterns: 28 intent across 7 categories + 15 evasion across 4 categories)
 - Text canonicalization (NFKC, homoglyphs, zero-width removal)
 - Optional semantic detection (embedding, perplexity - require additional packages)
-- Persuasion detection (experimental, synthetic data only)
+- Conformal risk stacking with per-category q-hat calibration (Phase 1 improvements)
+- Persuasion detection v1.1.0 (experimental, synthetic data only, dual thresholds + source-awareness)
 - MINJA prevention (creator_instance_id tracking)
 - Drift detection (59 canaries)
 - EWMA influence tracking
 - Spatial reasoning challenges (experimental plugin, not tested at scale)
+- Multi-gate architecture with streaming token guard and parallel judges
+- Decision ledger for KUE-proof audit trails
 - Optional meta-components (stacking, band-judge - for research only)
 
 **Test Results (Input Protection only):** Attack Success Rate 5.0% (±3.34%) on controlled test dataset (n=140 per seed, 4 seeds), compared to 95% baseline. False Positive Rate 0.18%. Measured in development environment on synthetic attacks. Reproducible via fixed seeds (1337-1340). Production performance unknown. Output and memory protection layers not empirically validated.
@@ -45,11 +48,11 @@ Implementation tested in development environment only. Production performance no
 **Core Defense Layers (9):**
 
 **Input Protection (3 detectors):**
-1. **Safety Validator** - Pattern-based detection (43 regex patterns across 7 categories) with text canonicalization
+1. **Safety Validator** - Pattern-based detection (43 regex patterns: 28 intent + 15 evasion across 11 categories) with text canonicalization
 2. **Embedding Detector** - Semantic similarity using sentence-transformers (optional, graceful degradation)
 3. **Perplexity Detector** - Statistical anomaly detection via GPT-2 (optional, graceful degradation)
 
-Note: Ensemble voting (2/3 majority) aggregates detectors 1-3. Not counted as separate layer.
+Note: Input ensemble uses conformal risk stacking (Phase 1) with per-detector q-hat calibration. Legacy 2/3 majority voting deprecated. Not counted as separate layer.
 
 **Output Protection (3 validators):**
 4. **Evidence Validation** - MINJA prevention via creator_instance_id tracking
@@ -65,19 +68,30 @@ Note: Ensemble voting (2/3 majority) aggregates detectors 1-3. Not counted as se
 
 - **Band-Judge** (optional) - LLM-as-Judge meta-check for uncertainty band. Requires API key. Adds 500-2000ms latency. Not included in default pipeline.
 
-- **Persuasion Detector** (experimental) - Social-influence pattern detection (Cialdini principles). Three-tier ensemble (L1 lexicons, L2 heuristics, L3 ONNX). Tested on 1600 synthetic samples only. Real-world performance unknown. False positive rate on benign content not measured. See `src/llm_firewall/persuasion/`.
+- **Persuasion Detector** (experimental, v1.1.0) - Social-influence pattern detection (Cialdini principles). Three-tier ensemble (L1 lexicons, L2 heuristics, L3 ONNX). Phase 1 improvements: dual thresholds (advice 1.5 vs action 3.0), source-awareness (+30% risk for self-referential content). Tested on 1600 synthetic samples only. Real-world performance unknown. False positive rate on benign content not measured. See `src/llm_firewall/persuasion/`.
 
 Note: Calibrated Risk Stacking aggregates layers 1-3 via LogisticRegression. Not counted as separate layer.
 
 **Authentication Plugin (separate category):**
 
-**Spatial CAPTCHA** - Human/bot differentiation via spatial reasoning challenges (mental rotation, occlusion). Three difficulty levels. Research reports human ~90%, MLLM ~31% (gap may narrow). Requires PIL/matplotlib. Not tested at scale. Optional plugin via `pip install -e .[biometrics]`. See `docs/SPATIAL_CAPTCHA_PLUGIN.md`.
+**Spatial CAPTCHA** - Human/bot differentiation via spatial reasoning challenges (mental rotation, occlusion). Three difficulty levels. Research reports human ~90%, MLLM ~31% (gap may narrow). Requires PIL/matplotlib. Not tested at scale. Hexagonal architecture (ports/adapters/domain). Optional plugin via `pip install -e .[biometrics]`. See `docs/SPATIAL_CAPTCHA_PLUGIN.md`.
+
+**Multi-Gate Integration Architecture (new):**
+
+Orchestrated pipeline for LLM completion protection:
+- **Gate 0:** Spatial CAPTCHA (pre-filter authentication)
+- **Gate 1:** Streaming Token Guard (real-time token-level moderation with critical-leak@n tracking)
+- **Gate 2:** Parallel Judges (NLI Consistency, Policy, Persuasion Fusion)
+- **Aggregator:** Conformal Risk Stacker (coverage-controlled, per-judge q-hat)
+- **Ledger:** Decision Ledger (KUE-proof SHA-256 audit trails)
+
+See `src/llm_firewall/pipeline/guarded_completion.py` and `examples/demo_multi_gate.py`.
 
 ### Protection Flows
 
 **Input Flow:**
 ```text
-User Query → Canonicalization (NFKC, zero-width, homoglyphs) → Safety Validator (43 Patterns + Risk Scoring) → Persuasion Detector (L1/L2/L3 ensemble) → Invariance Gate → Ensemble Vote → [BLOCK|GATE|SAFE]
+User Query → Canonicalization (NFKC, zero-width, homoglyphs) → Safety Validator (43 Patterns + Risk Scoring) → Persuasion Detector v1.1.0 (L1/L2/L3 + dual thresholds) → Invariance Gate → Conformal Risk Stacker (per-detector q-hat) → [BLOCK|GATE|SAFE]
 ```
 
 **Output Flow:**
@@ -267,7 +281,7 @@ pre-commit run --all-files
 ### CI Pipeline (Automated)
 
 Every push/PR runs:
-- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (206 tests)
+- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (284 tests)
 - **Lint:** Ruff + MyPy type safety
 - **Security:** Bandit, pip-audit, Gitleaks (secrets scanner)
 - **Docs:** Markdownlint + Lychee (link checker)
@@ -288,6 +302,7 @@ psql -U user -d llm_firewall -f migrations/postgres/001_evidence_tables.sql
 psql -U user -d llm_firewall -f migrations/postgres/002_caches.sql
 psql -U user -d llm_firewall -f migrations/postgres/003_procedures.sql
 psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
+psql -U user -d llm_firewall -f migrations/postgres/005_spatial_challenges.sql  # Spatial CAPTCHA
 ```
 
 ---
@@ -295,9 +310,19 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 ## Technical Specifications
 
 ### Test Coverage
-- Unit tests: 279
-- Pass rate: 98.6% (279 pass, 2 skip, 1 xfail)
+- Unit tests: 284
+- Pass rate: 98.6% (284 pass, 2 skip, 1 xfail)
 - Coverage: 100% for tested critical paths (not all edge cases covered)
+
+### Phase 1 Quick Wins (2025-10-30)
+
+Four high-impact improvements implemented (GPT-5 specification):
+1. **Input Ensemble → Conformal Stacker** - Per-detector q-hat calibration, weighted max aggregation (target: +5% AUC, -1pp FPR)
+2. **Critical-Leak@n Metric** - Track critical leaks in first N tokens for streaming guard (target: ≤ 0.5% @ n=20)
+3. **Persuasion Fusion Enhanced** - Dual thresholds (advice/action), source-awareness detection (target: -20-35% FN in social engineering)
+4. **Q-hat per Category + LODO** - Granular calibration with Leave-One-Day-Out cross-validation, ECE drift monitoring (target: ECE ≤ 0.05, Brier ≤ 0.10 stable)
+
+See `src/llm_firewall/safety/input_ensemble.py`, `src/llm_firewall/calibration/`, and `src/llm_firewall/gates/stream_guard.py`.
 
 ### Performance Measurements
 - ASR on test dataset: 5.0% (test conditions only)
@@ -327,7 +352,7 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 | Test Coverage | ~85% | N/A | ~90% | N/A | 98.6% |
 | Open Source | Yes | Yes | Yes | No | Yes |
 
-Note: ARCA is red-team framework (no defense). Coverage percentages from public documentation (2025-10). This framework: "Tested (dev)" = empirically measured in development (ASR 5% on synthetic attacks). "Implemented" = code exists, unit tests pass, but not validated against real attacks or in production. Ensemble voting and risk stacking are aggregators over other layers, not counted separately. Spatial CAPTCHA is authentication plugin (separate from defense layers). Test coverage 98.6% refers to unit tests in development, not production validation. No independent security audit conducted.
+Note: ARCA is red-team framework (no defense). Coverage percentages from public documentation (2025-10). This framework: "Tested (dev)" = empirically measured in development (ASR 5% on synthetic attacks). "Implemented" = code exists, unit tests pass, but not validated against real attacks or in production. Conformal risk stacking is aggregator over detectors (not counted separately). Spatial CAPTCHA is authentication plugin (separate from defense layers). Multi-gate architecture is integration layer (not defense layer). Test coverage 98.6% refers to unit tests in development, not production validation. No independent security audit conducted.
 
 ---
 
