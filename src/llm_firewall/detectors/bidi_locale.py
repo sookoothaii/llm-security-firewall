@@ -30,11 +30,11 @@ BIDI_SET = set(BIDI_CTLS.keys())
 
 # Locale-specific secret labels
 LOCALE_LABELS = {
-    "ar": [r"كلمة.?المرور", r"مفتاح", r"سر"],  # password/key/secret
-    "hi": [r"पासवर्ड", r"कुंजी"],  # password/key
-    "zh": [r"密码", r"密钥", r"钥匙"],  # password/key
-    "th": [r"รหัสผ่าน", r"คีย์", r"กุญแจ"],  # password/key
-    "de": [r"passwort", r"schl[u|ü]ssel", r"zugang"],  # password/key/access
+    "ar": [r"كلمة.?المرور", r"مفتاح", r"سر", r"رمز", r"توكن"],  # noqa: E501
+    "hi": [r"पासवर्ड", r"कुंजी", r"टोकن"],  # password/key/token
+    "zh": [r"密码", r"密钥", r"钥匙", r"令牌"],  # password/key/token
+    "th": [r"รหัสผ่าน", r"คีย์", r"กุญแจ", r"โทเค็น"],  # password/key/token
+    "de": [r"passwort", r"schl[u|ü]ssel", r"zugang", r"token"],  # noqa: E501
 }
 
 
@@ -57,6 +57,72 @@ def locale_label_hits(s: str) -> int:
             if re.search(pat, s_low):
                 count += 1
     return count
+
+
+def bidi_isolate_wrap_hit(s: str, anchors: list[str]) -> bool:
+    """
+    Detect isolate wrapping around provider anchors (GPT-5).
+
+    Pattern: LRI/RLI/FSI ... anchor ... PDI
+    Strong evidence of intentional obfuscation.
+
+    Returns:
+        True if any anchor wrapped by isolates
+    """
+    # Isolate pairs: opening (LRI/RLI/FSI) ... closing (PDI)
+    ISOLATE_OPEN = {"\u2066", "\u2067", "\u2068"}  # LRI, RLI, FSI
+    ISOLATE_CLOSE = "\u2069"  # PDI
+
+    s_low = s.lower()
+    for anchor in anchors:
+        anchor_low = anchor.lower()
+        for m in re.finditer(re.escape(anchor_low), s_low):
+            # Check ±16 chars for isolate wrapping
+            window_start = max(0, m.start() - 16)
+            window_end = min(len(s), m.end() + 16)
+            window = s[window_start:window_end]
+
+            # Check if opening before and closing after
+            has_open = any(ch in ISOLATE_OPEN for ch in window[:m.start()-window_start])
+            has_close = ISOLATE_CLOSE in window[m.end()-window_start:]
+
+            if has_open and has_close:
+                return True
+
+    return False
+
+
+def bidi_proximity_uplift(
+    s: str,
+    anchors: list[str],
+    radius: int = 16  # GPT-5: increased from 8
+) -> bool:
+    """
+    Check if bidi controls occur near provider anchors.
+
+    Returns True if any bidi control within ±radius chars of anchor pattern.
+    Strong evidence signal: bidi near 'sk-live' = likely obfuscation.
+
+    Args:
+        s: Text to scan
+        anchors: Provider prefixes (e.g., 'sk-live', 'ghp_')
+        radius: Character window around anchor
+    """
+    # Precompute bidi control positions
+    bidi_positions = [i for i, ch in enumerate(s) if ch in BIDI_SET]
+    if not bidi_positions:
+        return False
+
+    s_low = s.lower()
+    for anchor in anchors:
+        for m in re.finditer(re.escape(anchor.lower()), s_low):
+            left = m.start() - radius
+            right = m.end() + radius
+            # Check if any bidi control in window
+            if any(left <= pos <= right for pos in bidi_positions):
+                return True
+
+    return False
 
 
 def detect_bidi_locale(text: str) -> dict[str, Any]:

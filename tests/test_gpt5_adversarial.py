@@ -14,9 +14,14 @@ import pytest
 root = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / "src"))
 
-from llm_firewall.detectors.bidi_locale import detect_bidi_locale  # noqa: E402
+from llm_firewall.detectors.bidi_locale import (  # noqa: E402
+    bidi_isolate_wrap_hit,
+    bidi_proximity_uplift,
+    detect_bidi_locale,
+)
 from llm_firewall.detectors.encoding_base85 import detect_base85  # noqa: E402
 from llm_firewall.gates.secrets_heuristics import analyze_secrets  # noqa: E402
+from llm_firewall.heuristics.context_whitelist import whitelist_decision  # noqa: E402
 from llm_firewall.normalize.unicode_hardening import (  # noqa: E402
     harden_text_for_scanning,
 )
@@ -27,38 +32,55 @@ _RESULTS = []
 
 def should_detect_secret(text: str) -> bool:
     """
-    Enhanced detection with ALL new modules integrated.
-    
+    Enhanced detection with ALL modules + FP-kill heuristics.
+
     Pipeline:
     1. Unicode hardening (NFKC + confusables + fullwidth + bidi)
     2. Base85/Z85 encoding detection
     3. Bidi/Locale context detection
-    4. Secrets on normalized + compact variants
+    4. Bidi proximity uplift (strong signal)
+    5. Secrets on normalized + compact variants
+    6. Context whitelist (FP reduction)
     """
+    # Provider anchors for proximity checks
+    ANCHORS = ["sk-live", "sk-test", "ghp_", "gho_", "xoxb-", "xoxp-"]
+
     # Unicode hardening
     hardened = harden_text_for_scanning(text)
     normalized = hardened["normalized"]
     compact = hardened["compact"]
-    
+
     # Encoding detection
     base85_result = detect_base85(text)
     if base85_result["score"] >= 0.4:
         return True
-    
+
     # Bidi/Locale context
     bidi_locale = detect_bidi_locale(text)
     severity_uplift = bidi_locale["severity_uplift"]
-    
+
+    # Bidi proximity + isolate wrap (strong signals - GPT-5)
+    bidi_near = bidi_proximity_uplift(text, ANCHORS, radius=16)
+    bidi_wrap = bidi_isolate_wrap_hit(text, ANCHORS)
+    if bidi_near or bidi_wrap:
+        return True  # Strong evidence
+
     # Secrets heuristics
     findings_norm = analyze_secrets(normalized)
     findings_comp = analyze_secrets(compact)
-    
+
     has_secrets = len(findings_norm.hits) > 0 or len(findings_comp.hits) > 0
-    
+
+    # Context whitelist check (FP reduction)
+    if has_secrets:
+        allow_whitelist, _ = whitelist_decision(text)
+        if allow_whitelist:
+            return False  # Suppress FP
+
     # Uplift from bidi/locale
     if has_secrets and severity_uplift > 0.5:
         return True
-    
+
     return has_secrets
 
 
