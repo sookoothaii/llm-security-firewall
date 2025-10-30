@@ -152,7 +152,7 @@ class IntentMatcher:
             
         # AC channel for exact phrases
         self._acs: Dict[str, ACMatcher] = {}
-        self._weights: Dict[str, float] = {}
+        self._weights: Dict[str, Dict[str, float]] = {}
         for c in intents_json["clusters"]:
             cid = c["id"]
             base_w = 1.0 + (c.get("priority", 0) / 20.0)
@@ -160,7 +160,8 @@ class IntentMatcher:
             # shared evasions at reduced weight
             phrases += [(p["phrase"], p["weight"] * 0.5) for p in evasions_json.get("phrases", [])]
             ac = ACMatcher(phrases)
-            self._acs[cid] = (ac, {p: w for (p, w) in phrases})
+            self._acs[cid] = ac
+            self._weights[cid] = {p: w for (p, w) in phrases}
         
         # Regex channel (gapped patterns)
         regex_specs = build_cluster_regexes(intents_json, max_gap=max_gap)
@@ -179,8 +180,9 @@ class IntentMatcher:
         per_cluster = {cid: 0.0 for cid in self._acs.keys()}
         
         # AC channel (exact phrase)
-        for cid, (ac, wmap) in self._acs.items():
+        for cid, ac in self._acs.items():
             hits = ac.findall(text)
+            wmap = self._weights[cid]
             per_cluster[cid] += sum(wmap.get(pat, 0.0) for (_, pat) in hits)
         
         # Regex channel (gapped)

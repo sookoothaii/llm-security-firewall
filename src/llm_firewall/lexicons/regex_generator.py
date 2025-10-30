@@ -23,7 +23,7 @@ def phrase_to_gapped_regex(phrase: str, max_gap: int = DEFAULT_MAX_GAP) -> str:
         
     Example:
         >>> phrase_to_gapped_regex("ignore previous instructions", max_gap=2)
-        r'\bignore(?:\W+\w+){0,2}?\W+previous(?:\W+\w+){0,2}?\W+instructions\b'  # noqa: W605
+        r'\\bignore(?:\\W+\\w+){0,2}?\\W+previous(?:\\W+\\w+){0,2}?\\W+instructions\\b'
     """
     toks = re.findall(r"\w+", phrase.lower())
     if not toks:
