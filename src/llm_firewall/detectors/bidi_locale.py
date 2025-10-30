@@ -61,33 +61,28 @@ def locale_label_hits(s: str) -> int:
 
 def bidi_isolate_wrap_hit(s: str, anchors: list[str]) -> bool:
     """
-    Detect isolate wrapping around provider anchors (GPT-5).
-
+    Detect isolate wrapping around provider anchors.
+    
     Pattern: LRI/RLI/FSI ... anchor ... PDI
     Strong evidence of intentional obfuscation.
-
+    
+    GPT-5 Bug Fix: Use actual control chars, not raw string escapes
+    
     Returns:
         True if any anchor wrapped by isolates
     """
-    # Isolate pairs: opening (LRI/RLI/FSI) ... closing (PDI)
-    ISOLATE_OPEN = {"\u2066", "\u2067", "\u2068"}  # LRI, RLI, FSI
-    ISOLATE_CLOSE = "\u2069"  # PDI
-
+    # GPT-5 Fix: actual control chars in pattern, not raw string
     s_low = s.lower()
     for anchor in anchors:
-        anchor_low = anchor.lower()
-        for m in re.finditer(re.escape(anchor_low), s_low):
-            # Check ±16 chars for isolate wrapping
-            window_start = max(0, m.start() - 16)
-            window_end = min(len(s), m.end() + 16)
-            window = s[window_start:window_end]
-
-            # Check if opening before and closing after
-            has_open = any(ch in ISOLATE_OPEN for ch in window[:m.start()-window_start])
-            has_close = ISOLATE_CLOSE in window[m.end()-window_start:]
-
-            if has_open and has_close:
-                return True
+        # Build pattern with ACTUAL control chars (not r"\u2066")
+        # Pattern: (LRI|RLI|FSI) optional-space anchor optional-space PDI
+        pattern = (
+            "[\u2066\u2067\u2068]\\s*"  # Opening isolates
+            + re.escape(anchor.lower())
+            + "\\s*\u2069"  # Closing PDI
+        )
+        if re.search(pattern, s_low):
+            return True
 
     return False
 

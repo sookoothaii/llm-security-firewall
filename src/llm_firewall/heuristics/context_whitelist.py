@@ -51,21 +51,17 @@ def left_context(line: str, pos: int, window: int = 20) -> str:
 
 
 def is_uuid_benign(line: str, m: re.Match) -> bool:
-    """Check if UUID appears in benign context."""
-    lctx = left_context(line, m.start())
-    # Check for suspicious keywords in left context FIRST
-    if SUSPICIOUS_INLINE_CTX.search(lctx):
-        return False
-    if BENIGN_LEFT_CTX.search(lctx):
-        return True
-    if BENIGN_INLINE_CTX.search(line) and not SUSPICIOUS_INLINE_CTX.search(line):
-        return True
-    return False
+    """Check if UUID appears in benign context (GPT-5: default ALLOW)."""
+    # GPT-5: Liberal bias - UUID is benign unless suspicious context
+    if SUSPICIOUS_INLINE_CTX.search(line):
+        return False  # Suspicious context overrides
+
+    # Default ALLOW for bare UUID (GPT-5 decision)
+    return True
 
 
 def is_git_hash_benign(line: str, m: re.Match) -> bool:
-    """Check if git hash appears in benign context (GPT-5 hex-density check)."""
-    lctx = left_context(line, m.start())
+    """Check if git hash appears in benign context (GPT-5: liberal default)."""
     frag = m.group(0)
 
     # Hex density check (≥95% hex chars)
@@ -73,34 +69,30 @@ def is_git_hash_benign(line: str, m: re.Match) -> bool:
     if hex_density < 0.95:
         return False
 
-    # Check for suspicious keywords in left context FIRST
-    if SUSPICIOUS_INLINE_CTX.search(lctx):
+    # GPT-5: Default ALLOW for hex (40-char = git hash common)
+    # BLOCK only if suspicious context
+    if SUSPICIOUS_INLINE_CTX.search(line):
         return False
-    if BENIGN_LEFT_CTX.search(lctx):
-        return True
-    if "commit" in line.lower() and not SUSPICIOUS_INLINE_CTX.search(line):
-        return True
-    return False
+
+    # Liberal bias: Allow hex unless proven suspicious
+    return True
 
 
 def is_sha256_benign(line: str, m: re.Match) -> bool:
-    """Check if SHA256 appears in benign context (GPT-5 length-invariant)."""
-    lctx = left_context(line, m.start())
+    """Check if SHA256 appears in benign context (GPT-5: liberal default)."""
     frag = m.group(0)
 
     # Length invariant: SHA256 = exactly 64 hex chars
     if len(frag) != 64:
         return False
 
-    # Check for suspicious keywords FIRST
-    if SUSPICIOUS_INLINE_CTX.search(lctx):
+    # GPT-5: Default ALLOW for 64-hex (checksums common)
+    # BLOCK only if suspicious context
+    if SUSPICIOUS_INLINE_CTX.search(line):
         return False
 
-    if BENIGN_LEFT_CTX.search(lctx) or ("sha256" in line.lower()):
-        if not SUSPICIOUS_INLINE_CTX.search(line):
-            return True
-
-    return False
+    # Liberal bias: Allow SHA256 unless proven suspicious
+    return True
 
 
 def whitelist_decision(text: str) -> tuple[bool, str]:
@@ -118,10 +110,19 @@ def whitelist_decision(text: str) -> tuple[bool, str]:
         - Hex density checks
         - Length invariants
     """
-    # Base64 structural allow (GPT-5)
+    # Base64 structural allow (GPT-5 extended)
     if BASE64_IMAGE_STRUCTURAL.search(text):
         if "Content-Transfer-Encoding: base64" in text or "data:image" in text:
             return True, "base64_image_structural"
+
+    # GPT-5: Large base64 with valid padding (likely file/image)
+    for line in text.splitlines():
+        m = re.search(r"[A-Za-z0-9+/]{200,}={0,2}", line)
+        if m and not SUSPICIOUS_INLINE_CTX.search(line):
+            frag = m.group(0)
+            # Valid padding check
+            if len(frag) % 4 == 0 or frag.endswith(("=", "==")):
+                return True, "base64_large_valid_padding"
 
     for line in text.splitlines():
         # Check UUID

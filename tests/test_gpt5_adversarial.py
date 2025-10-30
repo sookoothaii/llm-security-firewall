@@ -22,6 +22,10 @@ from llm_firewall.detectors.bidi_locale import (  # noqa: E402
 from llm_firewall.detectors.encoding_base85 import detect_base85  # noqa: E402
 from llm_firewall.gates.secrets_heuristics import analyze_secrets  # noqa: E402
 from llm_firewall.heuristics.context_whitelist import whitelist_decision  # noqa: E402
+from llm_firewall.heuristics.provider_complexity import (  # noqa: E402
+    is_strong_secret_provider,
+    is_weak_secret_provider,
+)
 from llm_firewall.normalize.unicode_hardening import (  # noqa: E402
     harden_text_for_scanning,
 )
@@ -59,23 +63,30 @@ def should_detect_secret(text: str) -> bool:
     bidi_locale = detect_bidi_locale(text)
     severity_uplift = bidi_locale["severity_uplift"]
 
+    # EARLY WHITELIST CHECK (GPT-5: Liberal bias - check benign FIRST)
+    allow_whitelist, whitelist_reason = whitelist_decision(text)
+    if allow_whitelist:
+        return False  # Benign context - suppress detection
+
+    # Provider-specific detection (GPT-5)
+    strong_provider = is_strong_secret_provider(text)
+    weak_provider = is_weak_secret_provider(text) and not strong_provider
+
     # Bidi proximity + isolate wrap (strong signals - GPT-5)
     bidi_near = bidi_proximity_uplift(text, ANCHORS, radius=16)
     bidi_wrap = bidi_isolate_wrap_hit(text, ANCHORS)
-    if bidi_near or bidi_wrap:
+    if bidi_near or bidi_wrap or strong_provider:
         return True  # Strong evidence
 
     # Secrets heuristics
     findings_norm = analyze_secrets(normalized)
     findings_comp = analyze_secrets(compact)
 
-    has_secrets = len(findings_norm.hits) > 0 or len(findings_comp.hits) > 0
-
-    # Context whitelist check (FP reduction)
-    if has_secrets:
-        allow_whitelist, _ = whitelist_decision(text)
-        if allow_whitelist:
-            return False  # Suppress FP
+    has_secrets = (
+        len(findings_norm.hits) > 0
+        or len(findings_comp.hits) > 0
+        or weak_provider
+    )
 
     # Uplift from bidi/locale
     if has_secrets and severity_uplift > 0.5:
