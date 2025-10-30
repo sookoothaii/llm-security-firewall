@@ -1,10 +1,10 @@
 # English-only code
 from __future__ import annotations
+
 import base64
 import binascii
 import re
-import unicodedata
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from typing import Dict, List
 
 # Unicode control / bidi ranges

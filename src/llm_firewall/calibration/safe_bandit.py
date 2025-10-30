@@ -1,9 +1,12 @@
 # English-only code
 from __future__ import annotations
+
+import math
 from dataclasses import dataclass
 from typing import Iterable, List, Tuple
-import math
+
 import numpy as np
+
 
 @dataclass(frozen=True)
 class Metrics:

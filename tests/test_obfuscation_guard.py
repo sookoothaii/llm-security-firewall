@@ -1,16 +1,19 @@
-import sys, pathlib
+import pathlib
+import sys
+
 root = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / "src"))
 
 from llm_firewall.text.obfuscation_guard import analyze_obfuscation
 
+
 def test_obfuscation_signals_detected():
-    text = "Hello\u200bWorld %41%42%43 api_key=XYZ " \
+    text = "Hello\u200bWorld %41%42%43%44%45%46 api_key=XYZ " \
            "H4sIAAAAAAAA/8tIzcnJVwjPL8pJAQAA//8BAAD//w== " \
            "Confuse: aоe (Latin 'a','e' + Cyrillic 'о')"
     f = analyze_obfuscation(text)
     assert f.zwc_count >= 1
-    assert f.url_encoded_spans >= 1
+    assert f.url_encoded_spans >= 1, f"Expected URL-encoded spans ≥1, got {f.url_encoded_spans}"
     assert f.base64_spans >= 1 and f.gzip_magic_in_base64 is True
     assert "latin" in f.mixed_scripts and "cyrillic" in f.mixed_scripts
     assert f.confusables_suspected is True
@@ -58,24 +61,24 @@ def test_severity_calculation_bounded():
 if __name__ == "__main__":
     test_obfuscation_signals_detected()
     print("✓ test_obfuscation_signals_detected passed")
-    
+
     test_clean_text_low_severity()
     print("✓ test_clean_text_low_severity passed")
-    
+
     test_bidi_controls_detected()
     print("✓ test_bidi_controls_detected passed")
-    
+
     test_mixed_scripts_cyrillic_greek()
     print("✓ test_mixed_scripts_cyrillic_greek passed")
-    
+
     test_hex_run_detected()
     print("✓ test_hex_run_detected passed")
-    
+
     test_rot13_suspected()
     print("✓ test_rot13_suspected passed")
-    
+
     test_severity_calculation_bounded()
     print("✓ test_severity_calculation_bounded passed")
-    
+
     print("\nAll obfuscation guard tests passed!")
 

@@ -11,9 +11,15 @@ Exit codes:
   2 Invariant violated or unsatisfied
 """
 from __future__ import annotations
-import argparse, sys, yaml
-from typing import Dict, Any, List, Tuple
-from llm_firewall.policy.dsl import parse_yaml_spec, PolicyCond, PolicyLeaf
+
+import argparse
+import sys
+from typing import Any, Dict, Tuple
+
+import yaml
+
+from llm_firewall.policy.dsl import PolicyCond, PolicyLeaf, parse_yaml_spec
+
 
 def _collect_atoms(spec) -> Dict[str, Any]:
     topics = set()
@@ -39,11 +45,11 @@ def _collect_atoms(spec) -> Dict[str, Any]:
 
 def _as_z3(spec) -> Tuple[Any, Dict[str, Any]]:
     try:
-        from z3 import Bool, Int, Or, And, Not, Solver, sat
+        from z3 import And, Bool, Int, Not, Solver
     except Exception as e:
         return None, {"err": str(e)}
     atoms = _collect_atoms(spec)
-    from z3 import BoolVal, IntVal
+    from z3 import BoolVal
 
     # variables
     z = {}
@@ -56,7 +62,7 @@ def _as_z3(spec) -> Tuple[Any, Dict[str, Any]]:
     z["user_age"] = Int("user_age")
 
     def enc_leaf(lf: PolicyLeaf):
-        from z3 import BoolVal, Or, And, Not, IntVal, ULE, UGE, LT, GT, Eq
+        from z3 import BoolVal, Or
         if lf.kind == "topic_in":
             vs = lf.value if isinstance(lf.value, list) else [lf.value]
             return Or(*[z.get(f"topic_{str(v)}", BoolVal(False)) for v in vs])
@@ -76,7 +82,7 @@ def _as_z3(spec) -> Tuple[Any, Dict[str, Any]]:
         return BoolVal(False)
 
     def enc_cond(c: PolicyCond):
-        from z3 import And, Or, BoolVal
+        from z3 import And, BoolVal, Or
         if c.leaf: return enc_leaf(c.leaf)
         if c.all:  return And(*[enc_cond(x) for x in c.all])
         if c.any:  return Or(*[enc_cond(x) for x in c.any])
@@ -92,12 +98,8 @@ def _as_z3(spec) -> Tuple[Any, Dict[str, Any]]:
 
     # final action
     from z3 import If
-    action_allow = False
-    action_allow_high = False
-    action_block = False
     # walk in order; if none, fallback defaults
     act_expr = None
-    from z3 import BoolVal
     for i, r in enumerate(spec.rules):
         a = r.action
         this = fires[i]
@@ -139,7 +141,7 @@ def verify_no_allow_biohazard(spec) -> Tuple[bool, str]:
             return False, f"Fallback detected 'allow' rule(s) for biohazard at priority {top_allow_prio}: {bio_ids}"
         return True, "Fallback static check passed (no explicit allow on biohazard)."
 
-    from z3 import Bool, sat, And
+    from z3 import sat
     z = ctx["z"]
     S = z3
     # require topic=biohazard true; others unconstrained

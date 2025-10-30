@@ -1,8 +1,17 @@
-import sys, pathlib, numpy as np
+import pathlib
+import sys
+
+import numpy as np
+
 root = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / "src"))
 
-from llm_firewall.calibration.safe_bandit import optimize_threshold_offline, evaluate_threshold, safe_ucb_simulation
+from llm_firewall.calibration.safe_bandit import (
+    evaluate_threshold,
+    optimize_threshold_offline,
+    safe_ucb_simulation,
+)
+
 
 def test_offline_optim_fpr_constraint():
     rng = np.random.default_rng(7)
@@ -30,7 +39,7 @@ def test_safe_ucb_simulation_safe_choice():
 def test_evaluate_threshold_basic():
     scores = np.array([0.1, 0.2, 0.3, 0.7, 0.8, 0.9])
     labels = np.array([1, 1, 1, 0, 0, 0])  # 1=attack, 0=benign
-    
+
     # Threshold 0.5: attacks (0.1,0.2,0.3) bypass, benign (0.7,0.8,0.9) blocked
     m = evaluate_threshold(scores, labels, thr=0.5)
     assert m.asr == 1.0  # all attacks bypass
@@ -41,7 +50,7 @@ def test_optimize_threshold_no_valid_threshold():
     rng = np.random.default_rng(42)
     s = rng.uniform(0.4, 0.6, size=1000)
     y = rng.integers(0, 2, size=1000)
-    
+
     # Very strict FPR constraint
     m = optimize_threshold_offline(s, y, fpr_max=0.001)
     # Should fallback to most conservative (min score)
@@ -50,15 +59,15 @@ def test_optimize_threshold_no_valid_threshold():
 if __name__ == "__main__":
     test_offline_optim_fpr_constraint()
     print("✓ test_offline_optim_fpr_constraint passed")
-    
+
     test_safe_ucb_simulation_safe_choice()
     print("✓ test_safe_ucb_simulation_safe_choice passed")
-    
+
     test_evaluate_threshold_basic()
     print("✓ test_evaluate_threshold_basic passed")
-    
+
     test_optimize_threshold_no_valid_threshold()
     print("✓ test_optimize_threshold_no_valid_threshold passed")
-    
+
     print("\nAll safe bandit tests passed!")
 

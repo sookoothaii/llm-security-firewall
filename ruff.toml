@@ -83,3 +83,12 @@ ignore = []
 "tests/test_gapped_regex.py" = ["E501"]
 "tests/test_shingle_hasher.py" = ["E501"]
 "tests/test_statistics_tracker.py" = ["E501"]
+"tests/test_obfuscation_guard.py" = ["E402", "E501"]
+"tests/test_safe_bandit.py" = ["E402"]
+"tests/test_policy_verify_invariant.py" = ["E402"]
+
+# CLI: Policy verifier with detailed messages
+"cli/llmfw_policy_verify.py" = ["E501", "E701", "E712"]
+
+# Calibration: Safe bandit with mathematical formulas
+"src/llm_firewall/calibration/safe_bandit.py" = ["E501", "E701", "E702"]
