@@ -5,13 +5,13 @@
 **Creator:** Joerg Bollwahn  
 **Version:** 1.4.0-dev (unreleased, development only)  
 **License:** MIT  
-**Status:** Research prototype. 444/444 tests pass in development environment. Not peer-reviewed. Not validated in production.
+**Status:** Research prototype. 456/456 tests pass in development environment. Not peer-reviewed. Not validated in production.
 
 ---
 
 ## Abstract
 
-Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths.
+Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 2 Phase 3 enhanced components (Safety-Sandwich v2, Secrets Heuristics) plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths.
 
 **Implemented Components:**
 - Pattern-based input detection (43 patterns: 28 intent across 7 categories + 15 evasion across 4 categories)
@@ -302,7 +302,7 @@ pre-commit run --all-files
 ### CI Pipeline (Automated)
 
 Every push/PR runs:
-- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (444 tests, 3.15.0-alpha.1 tracked with allowed failures)
+- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (456 tests, 3.15.0-alpha.1 tracked with allowed failures)
 - **Lint:** Ruff + MyPy type safety
 - **Security:** Bandit, pip-audit, Gitleaks (secrets scanner)
 - **Docs:** Markdownlint + Lychee (link checker)
@@ -334,8 +334,8 @@ psql -U user -d llm_firewall -f migrations/postgres/006_transparency_log.sql   #
 ## Technical Specifications
 
 ### Test Coverage
-- Unit tests: 444 (284 Phase 1 + 86 Phase 2 + 74 Phase 3)
-- Pass rate: 100% (439 pass, 4 skip, 1 xfail)
+- Unit tests: 456 (284 Phase 1 + 86 Phase 2 + 74 Phase 3 + 12 Enhanced)
+- Pass rate: 100% (446 pass, 9 skip, 1 xfail)
 - Coverage: 100% for tested critical paths (not all edge cases covered)
 
 ### Phase 1 Quick Wins (2025-10-30)
@@ -397,10 +397,23 @@ Four components for adaptive defense and formal verification:
 
 See `src/llm_firewall/guardnet/`, `src/llm_firewall/text/obfuscation_guard.py`, `src/llm_firewall/calibration/safe_bandit.py`, `cli/llmfw_policy_verify.py`, `data/schema_guardnet.md`.
 
+**Phase 3 Enhanced Components (2):**
+
+21. **Secrets Heuristics** - PASTA-like secret detection with pattern + entropy analysis. Five pattern categories: API keys (OpenAI, Google, GitHub, GitLab, Slack, generic high-entropy), password assignments, PEM private keys, Base64 candidates, high-entropy alphanumeric spans. Shannon entropy calculation for random-looking strings (threshold: 3.5 bits). Severity scoring [0,1] with multi-hit boost. Redaction helper for post-hoc masking. Implementation: `src/llm_firewall/gates/secrets_heuristics.py`.
+
+22. **Safety-Sandwich v2** - Streaming early-abort API with real-time token-level leak prevention. Streaming feed_token() interface returns GuardAction ("continue", "redact", "abort"). Integrates secrets_heuristics + obfuscation_guard for side-channel detection. Prometheus metrics: tokens_processed, aborts (by reason), redactions (by kind), critical-leak@n events, decision mode gauge, eval latency histogram. Four decision modes: PROMOTE (clean), SAFETY_WRAP (redacted content), QUARANTINE (high obfuscation), REJECT (aborted on high-severity secret). Configuration: critical_leak_n window (default 20), abort/redact thresholds, sliding window size (800 chars), recheck stride. Implementation: `src/llm_firewall/gates/safety_sandwich_v2.py`. CLI demo: `cli/llmfw_safety_sandwich_demo.py`. Prometheus rules: `deploy/prometheus/rules_safety_sandwich.yaml` (SLO: critical-leak@n ≤ 0.5%). Grafana dashboard: `deploy/grafana/dashboard_safety_sandwich.json` (6 panels, 28d window). Tests: 7/7 passing.
+
+**P0 Blocker Progress:**
+- Blocker #2 "Safety-Sandwich Metrics Missing" → **Partial Progress**: critical-leak@n now measurable via Prometheus (target: ≤0.5%). Implementation complete, empirical validation pending (28-day shadow run required).
+
+**Status:** All components implemented with 7/7 tests passing. Shadow-run infrastructure ready (Prometheus rules + Grafana dashboard). Awaiting production traffic validation.
+
+See `src/llm_firewall/gates/safety_sandwich_v2.py`, `src/llm_firewall/gates/secrets_heuristics.py`, `deploy/prometheus/rules_safety_sandwich.yaml`, `deploy/grafana/dashboard_safety_sandwich.json`.
+
 ### Performance Measurements
 - ASR on test dataset: 5.0% (test conditions only, target: ≤ 2.0% with Phase 2)
 - FPR on test dataset: 0.18% (may differ in production, target: < 0.5%)
-- Critical-Leak@20: Not yet measured empirically (target: ≤ 0.5%)
+- Critical-Leak@20: Now measurable via Safety-Sandwich v2 Prometheus metrics (not yet validated in production, target: ≤ 0.5%)
 - ECE: Not yet measured (target: ≤ 0.05 via LODO)
 - Brier Score: Not yet measured (target: ≤ 0.10)
 - Latency per layer: 3-120ms (measured in development environment, P95 target: ≤ 150ms, P99 target: ≤ 350ms)
@@ -468,7 +481,7 @@ Note: Implementation adapts existing methods. No novel algorithms. Integration o
 
 **Validation Gaps (must address):**
 1. **No Real-World Attack Validation** - ASR/FPR measured only on synthetic datasets (n=140 per seed). No external red-team evaluation. No multi-lingual/multi-domain attack corpus.
-2. **Safety-Sandwich Metrics Missing** - critical-leak@20 target (≤0.5%) not measured empirically. Leak prevention remains theoretical claim without evidence.
+2. **Safety-Sandwich Metrics Missing** - **PARTIAL PROGRESS**: critical-leak@20 now measurable via Prometheus (Safety-Sandwich v2 + Grafana dashboard implemented). Target (≤0.5%) not yet validated in production. Requires 28-day shadow run on real traffic.
 3. **GuardNet Training Pipeline Incomplete** - Architecture implemented but no Decision Ledger mining, no Teacher-Ensemble labeling, no Hard-Negative mining, no OOD abstention mechanism documented.
 4. **Online Calibration Unproven** - Conformal q-hat calibration implemented but coverage guarantees per bucket not validated under distribution shift.
 5. **No Live Shadow Traffic** - Framework not validated against real production traffic (28-day shadow run with pre-registered analysis plan required).

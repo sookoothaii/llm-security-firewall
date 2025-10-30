@@ -35,18 +35,41 @@ All notable changes to LLM Security Firewall will be documented in this file.
   - 3 tests (100% passing)
 
 ### Changed
-- Test count: 370 → 444 (74 new Phase 3 tests)
-- Python support: 3.12/3.13/3.14 tested, 3.15 in preparation
-- CI status: GREEN (as of 2025-10-30)
+- Test count: 370 → 456 (74 Phase 3 + 12 Enhanced = 86 new tests)
+- Python support: 3.12/3.13/3.14 tested, 3.15 in CI with known scipy incompatibility
+- CI status: GREEN for 3.12/3.13/3.14 (as of 2025-10-30)
+- P0 Blocker #2 partial progress: critical-leak@n now measurable
 
 ### Documentation
 - README updated with Phase 3 components
 - Technical Specifications expanded
 - Architecture section updated (9 core + 7 Phase 2 + 4 Phase 3 + 2 optional)
 
+### Added - Phase 3 Enhanced Components (GPT-5 Contribution)
+- **Secrets Heuristics** (PASTA-like detection)
+  - 5 pattern categories: API keys, passwords, PEM keys, Base64, high-entropy spans
+  - Shannon entropy calculation (threshold: 3.5 bits)
+  - Severity scoring [0,1] with multi-hit boost
+  - Redaction helper for post-hoc masking
+  - Implementation: `src/llm_firewall/gates/secrets_heuristics.py` (220 LOC)
+
+- **Safety-Sandwich v2** (Streaming Early-Abort)
+  - Real-time token-level leak prevention
+  - Streaming API: feed_token() -> GuardAction ("continue", "redact", "abort")
+  - Integrates secrets_heuristics + obfuscation_guard
+  - Prometheus metrics: tokens_processed, aborts, redactions, critical-leak@n
+  - 4 decision modes: PROMOTE, SAFETY_WRAP, QUARANTINE, REJECT
+  - Configuration: critical_leak_n (default 20), thresholds, sliding window
+  - Implementation: `src/llm_firewall/gates/safety_sandwich_v2.py` (265 LOC)
+  - CLI demo: `cli/llmfw_safety_sandwich_demo.py`
+  - Prometheus rules: `deploy/prometheus/rules_safety_sandwich.yaml` (SLO alerts)
+  - Grafana dashboard: `deploy/grafana/dashboard_safety_sandwich.json` (6 panels)
+  - Tests: 7/7 passing
+
 ### Status
 - Phase 3 components implemented, all tests passing
 - GuardNet training data generation pending
+- Safety-Sandwich v2 ready for shadow-run validation
 - No empirical validation yet
 - Hexagonal architecture maintained
 
