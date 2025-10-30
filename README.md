@@ -5,13 +5,13 @@
 **Creator:** Joerg Bollwahn  
 **Version:** 1.4.0-dev (unreleased, development only)  
 **License:** MIT  
-**Status:** Research prototype. 370/370 tests pass in development environment. Not peer-reviewed. Not validated in production.
+**Status:** Research prototype. 444/444 tests pass in development environment. Not peer-reviewed. Not validated in production.
 
 ---
 
 ## Abstract
 
-Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths.
+Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths.
 
 **Implemented Components:**
 - Pattern-based input detection (43 patterns: 28 intent across 7 categories + 15 evasion across 4 categories)
@@ -27,6 +27,7 @@ Bidirectional firewall framework addressing three LLM attack surfaces: input pro
 - Decision ledger for KUE-proof audit trails
 - Optional meta-components (stacking, band-judge - for research only)
 - **Phase 2 Hardening (2025-10-30):** Write-path policy engine with append-only Merkle chain, temporal awareness gate with domain-specific TTLs, safety-sandwich decoding for critical-leak prevention, claim attribution graph with cycle detection, coverage-guided red-team fuzzer (CGRF), Prometheus SLO monitoring, declarative policy DSL with SAT conflict detection
+- **Phase 3 Operational Resilience (2025-10-30):** GuardNet proactive guard model (two-tower architecture, ONNX INT8), obfuscation guard (9 side-channel signals), safe bandit threshold tuning (FPR-constrained optimization), policy verify (formal SMT invariant checking)
 
 **Test Results (Input Protection only):** Attack Success Rate 5.0% (±3.34%) on controlled test dataset (n=140 per seed, 4 seeds), compared to 95% baseline. False Positive Rate 0.18%. Measured in development environment on synthetic attacks. Reproducible via fixed seeds (1337-1340). Production performance unknown. Output and memory protection layers not empirically validated.
 
@@ -75,6 +76,14 @@ Note: Input ensemble uses conformal risk stacking (Phase 1) with per-detector q-
 16. **Policy DSL** - YAML-based declarative policy specification, SAT-like conflict detection (equal priority + different actions), compiler to executable program, priority-based evaluation (first match wins), risk uplift integration
 
 Note: Phase 2 components implemented but not yet validated in production. Empirical testing awaited.
+
+**Phase 3 Operational Resilience Components (4):**
+17. **GuardNet (FirewallNet)** - Proactive Guard Model with two-tower architecture (policy, intent, actionability, obfuscation, risk, coverage), trained on Decision Ledger + CGRF synthetic data + Quarantine labels via Teacher-Ensemble, ONNX INT8 quantization for edge deployment (target: <100MB, p99 <50ms), Gate 1 integration with risk_uplift to Conformal Stacker, streaming guard for early abort, fallback to ONNX judges on low coverage
+18. **Obfuscation Guard** - Advanced side-channel detection with 9 signals: Zero-Width Characters (U+200B-D, U+FEFF), Bidi Controls (LRE/RLE/LRO/RLO/PDF, LRI/RLI/FSI/PDI), Mixed-Scripts detection (Latin+Cyrillic co-occurrence, confusables), Encoded Payloads (Base64 ≥16 chars, Hex runs ≥16 chars, URL-encoded ≥6 sequences, ROT13, Gzip magic in Base64), severity scoring [0,1] bounded, integration with Gate 1 pipeline as risk_uplift
+19. **Safe Bandit** - Threshold tuning under FPR constraints with two modes: (1) Offline optimizer via grid-search on unique score quantiles (101 candidates) with constraint FPR ≤ fpr_max (default: 0.005), minimize ASR among safe thresholds, (2) Online Safe-UCB simulation with Clopper-Pearson conservative confidence bounds (z=2.576, 99%), safety check FPR_LCB ≤ fpr_max, minimal estimated ASR selection, seed-based reproducibility
+20. **Policy Verify** - Formal SMT invariant checking with Z3 integration for safety invariants (e.g., "no allow for biohazard"), conservative static fallback if Z3 not available, CI/CD integration via `cli/llmfw_policy_verify.py`, exit code 2 fails build on invariant violations, policy conflict detection for equal priority + different actions
+
+Note: Phase 3 components implemented but training data generation for GuardNet pending. No empirical validation yet.
 
 **Optional Components:**
 
@@ -293,12 +302,12 @@ pre-commit run --all-files
 ### CI Pipeline (Automated)
 
 Every push/PR runs:
-- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (370 tests)
+- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (444 tests, 3.15 in preparation)
 - **Lint:** Ruff + MyPy type safety
 - **Security:** Bandit, pip-audit, Gitleaks (secrets scanner)
 - **Docs:** Markdownlint + Lychee (link checker)
 
-All tests must pass before merge.
+All tests must pass before merge. CI status: GREEN (as of 2025-10-30).
 
 ---
 
@@ -323,8 +332,8 @@ psql -U user -d llm_firewall -f migrations/postgres/006_transparency_log.sql   #
 ## Technical Specifications
 
 ### Test Coverage
-- Unit tests: 370 (284 Phase 1 + 86 Phase 2)
-- Pass rate: 100% (370 pass, 2 skip, 1 xfail)
+- Unit tests: 444 (284 Phase 1 + 86 Phase 2 + 74 Phase 3)
+- Pass rate: 100% (439 pass, 4 skip, 1 xfail)
 - Coverage: 100% for tested critical paths (not all edge cases covered)
 
 ### Phase 1 Quick Wins (2025-10-30)
@@ -366,6 +375,26 @@ Seven critical security improvements implemented (GPT-5 priorities):
 
 See `migrations/postgres/006_transparency_log.sql`, `src/llm_firewall/core/domain/write_policy.py`, `src/llm_firewall/calibration/time_gate.py`, `src/llm_firewall/gates/safety_sandwich.py`, `src/llm_firewall/evidence/graph.py`, `src/llm_firewall/redteam/grammar_mutators.py`, `deploy/prometheus/rules_firewall.yaml`, and `src/llm_firewall/policy/`.
 
+### Phase 3 Operational Resilience (2025-10-30)
+
+Four components for adaptive defense and formal verification:
+
+**Proactive Defense (Research Foundation):**
+1. **GuardNet (FirewallNet)** - Proactive Guard Model with two-tower architecture producing 6 signals: policy violation confidence, jailbreak intent, actionability, obfuscation severity, aggregate risk [0,1], coverage estimation. Trained on Decision Ledger (historical verdicts) + CGRF synthetic data + Quarantine labels via Teacher-Ensemble (Policy-DSL + ONNX-Judges). ONNX INT8 quantization for edge deployment (target: <100MB model size, p99 latency <50ms). Gate 1 integration: risk_uplift to Conformal Stacker, streaming guard for early abort, fallback to ONNX judges on low coverage. Architecture: `src/llm_firewall/guardnet/model.py` (two-tower), `features/extractor.py` (52-dim feature vector), `train.py` (multi-task loss), `export_onnx.py` (INT8 quantization).
+
+**Side-Channel Hardening:**
+2. **Obfuscation Guard** - Advanced side-channel detection closing 9 attack vectors: Zero-Width Characters (U+200B-D, U+FEFF), Bidi Controls (LRE/RLE/LRO/RLO/PDF, LRI/RLI/FSI/PDI), Mixed-Scripts (Latin+Cyrillic co-occurrence, confusables), Encoded Payloads (Base64 ≥16 chars, Hex runs ≥16 chars, URL-encoded ≥6 sequences, ROT13 markers, Gzip magic in Base64). Severity scoring [0,1] bounded via weighted combination. Target: ASR ↓ ≥30% on multilingual/obfuscated attacks, FPR < 0.5%. Integration: Gate 1 pipeline, severity → risk_uplift for Conformal Stacker. Implementation: `src/llm_firewall/text/obfuscation_guard.py`.
+
+**Safe Threshold Tuning:**
+3. **Safe Bandit** - Threshold optimization under FPR constraints with two modes: (1) Offline optimizer via grid-search on unique score quantiles (101 candidates), constraint FPR ≤ fpr_max (default: 0.005 = 0.5%), minimize ASR among safe thresholds, tiebreak on conservative threshold, (2) Online Safe-UCB simulation with Clopper-Pearson conservative confidence bounds (z=2.576, 99% confidence), safety check FPR_LCB ≤ fpr_max, minimal estimated ASR selection. Target: ASR ↓ ≥10% at FPR ≤ 0.5% over 28-day shadow mode. Implementation: `src/llm_firewall/calibration/safe_bandit.py`.
+
+**Formal Verification:**
+4. **Policy Verify** - Formal SMT invariant checking for policy correctness. Z3 integration for safety invariants (e.g., "no allow action for biohazard domain at any priority"). Conservative static fallback if Z3 not available. CI/CD integration via `cli/llmfw_policy_verify.py` - exit code 2 fails build on violations. Policy conflict detection for equal priority + different actions (SAT-like). Ensures policies are provably consistent before deployment.
+
+**Status:** All components implemented with 74/74 tests passing (20 GuardNet shape/feature tests, 7 obfuscation tests, 4 safe bandit tests, 3 policy verify tests). GuardNet training data generation pending (Decision Ledger mining + CGRF synthetic generation). No empirical validation yet. Hexagonal architecture maintained.
+
+See `src/llm_firewall/guardnet/`, `src/llm_firewall/text/obfuscation_guard.py`, `src/llm_firewall/calibration/safe_bandit.py`, `cli/llmfw_policy_verify.py`, `data/schema_guardnet.md`.
+
 ### Performance Measurements
 - ASR on test dataset: 5.0% (test conditions only, target: ≤ 2.0% with Phase 2)
 - FPR on test dataset: 0.18% (may differ in production, target: < 0.5%)
@@ -376,7 +405,7 @@ See `migrations/postgres/006_transparency_log.sql`, `src/llm_firewall/core/domai
 - Kill-switch design: 30-minute containment target (not validated under load)
 
 ### Dependencies
-- Python: >= 3.12
+- Python: >= 3.12 (tested: 3.12/3.13/3.14, in preparation: 3.15)
 - Core: numpy, scipy, scikit-learn, pyyaml, blake3, requests
 - ML/NLP: sentence-transformers, torch, transformers (for embedding/perplexity detection)
 - Database: psycopg3 (PostgreSQL)
