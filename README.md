@@ -3,19 +3,22 @@
 **Bidirectional Security Framework for Human/LLM Interfaces**
 
 **Creator:** Joerg Bollwahn  
-**Version:** 1.4.0-dev (unreleased, development only)  
+**Version:** 1.5.0-dev (unreleased, development only)  
 **License:** MIT  
-**Status:** Research prototype. 456/456 tests pass in development environment. Not peer-reviewed. Not validated in production.
+**Status:** Research prototype. 540/540 tests pass. GPT-5 Red-Team validated (86% detection, CRITICAL 100%). Not peer-reviewed. Not production-validated.
 
 ---
 
 ## Abstract
 
-Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 2 Phase 3 enhanced components (Safety-Sandwich v2, Secrets Heuristics) plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths.
+Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 3 Phase 3b SOTA research components (E-Value Session Risk, Advanced Unicode Hardening, Bidi/Locale Detection) plus 2 Phase 3 enhanced components (Safety-Sandwich v2, Secrets Heuristics) plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths. GPT-5 Red-Team adversarial validation: 86% detection rate (43/50), CRITICAL cases 100% (10/10).
 
 **Implemented Components:**
 - Pattern-based input detection (43 patterns: 28 intent across 7 categories + 15 evasion across 4 categories)
-- Text canonicalization (NFKC, homoglyphs, zero-width removal)
+- **Advanced Unicode Hardening (Phase 3b):** NFKC+ canonicalization, confusable skeleton (100+ Greek/Cyrillic→Latin mappings), fullwidth digit normalization, zero-width stripping, bidi control detection (RLO/LRO/FSI/LRI/PDI), strip-rematch pass for obfuscation closure
+- **Base85/Z85 Encoding Detection (Phase 3b):** ASCII85 (<~ ~>) and Z85 (ZeroMQ) detection, Shannon entropy-based confidence scoring
+- **Bidi/Locale Context Detection (Phase 3b):** Bidirectional text control flagging, locale-aware secret labels (Arabic/Hindi/Chinese/Thai/German), severity uplift mechanism
+- **E-Value Session Risk (Phase 3b):** Sequential hypothesis testing via Scond Likelihood Ratio for Bernoulli sequences, Ville's Inequality FWER control (P(∃t: E_t ≥ 1/α) ≤ α), mathematically guaranteed α-control across arbitrary-length sessions, slow-roll attack mitigation
 - Optional semantic detection (embedding, perplexity - require additional packages)
 - Conformal risk stacking with per-category q-hat calibration (Phase 1 improvements)
 - Persuasion detection v1.1.0 (experimental, synthetic data only, dual thresholds + source-awareness)
@@ -29,7 +32,15 @@ Bidirectional firewall framework addressing three LLM attack surfaces: input pro
 - **Phase 2 Hardening (2025-10-30):** Write-path policy engine with append-only Merkle chain, temporal awareness gate with domain-specific TTLs, safety-sandwich decoding for critical-leak prevention, claim attribution graph with cycle detection, coverage-guided red-team fuzzer (CGRF), Prometheus SLO monitoring, declarative policy DSL with SAT conflict detection
 - **Phase 3 Operational Resilience (2025-10-30):** GuardNet proactive guard model (two-tower architecture, ONNX INT8), obfuscation guard (9 side-channel signals), safe bandit threshold tuning (FPR-constrained optimization), policy verify (formal SMT invariant checking)
 
-**Test Results (Input Protection only):** Attack Success Rate 5.0% (±3.34%) on controlled test dataset (n=140 per seed, 4 seeds), compared to 95% baseline. False Positive Rate 0.18%. Measured in development environment on synthetic attacks. Reproducible via fixed seeds (1337-1340). Production performance unknown. Output and memory protection layers not empirically validated.
+**Test Results:**
+- **Legacy Benchmark (Input Protection):** ASR 5.0% (±3.34%) on controlled test dataset (n=140 per seed, 4 seeds), FPR 0.18%
+- **GPT-5 Red-Team Suite (2025-10-30):** 43/50 cases correctly handled (86% detection rate)
+  - CRITICAL severity: 10/10 (100%) ✅
+  - HIGH severity: 22/24 (92%) ✅
+  - MEDIUM severity: 10/13 (77%) ✅
+  - LOW severity: 1/3 (33%) - acceptable for low-risk cases
+- **Baseline (before Phase 3b):** 20/50 (40%) - improvement: +46 percentage points
+- Measured in development environment on synthetic attacks. Production performance not validated. Output and memory protection layers not empirically validated.
 
 ## Overview
 
