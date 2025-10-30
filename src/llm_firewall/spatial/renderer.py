@@ -11,7 +11,7 @@ Date: 2025-10-30
 License: MIT
 """
 
-from typing import Optional
+from typing import Optional, Any
 from pathlib import Path
 
 from llm_firewall.core.domain.spatial_captcha import Challenge
@@ -96,7 +96,7 @@ class SpatialCaptchaRenderer:
         # Draw title
         title = challenge.question_text
         try:
-            font = ImageFont.truetype("arial.ttf", 20)
+            font: Any = ImageFont.truetype("arial.ttf", 20)
         except (OSError, IOError):
             font = ImageFont.load_default()
         

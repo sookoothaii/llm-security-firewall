@@ -135,9 +135,18 @@ class SpatialCaptchaAdapter(AuthenticationPort):
     
     def _verify_challenge_response(self, user_id: str, context: Dict[str, Any]) -> AuthenticationResult:
         """Verify user's challenge response."""
-        challenge_id = context.get('challenge_id')
-        user_answer = context.get('user_answer')
-        response_time_ms = context.get('response_time_ms', 0)
+        challenge_id: Optional[str] = context.get('challenge_id')
+        user_answer: Optional[str] = context.get('user_answer')
+        response_time_ms: int = context.get('response_time_ms', 0)
+        
+        # Validate inputs
+        if not challenge_id or not user_answer:
+            return AuthenticationResult(
+                confidence=0.0,
+                method="spatial_captcha",
+                metadata={"error": "Missing challenge_id or user_answer"},
+                is_human=False
+            )
         
         # Get challenge
         challenge = self._active_challenges.get(challenge_id)
