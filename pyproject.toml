@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-security-firewall"
-version = "1.0.0"
-description = "Bidirectional Security Framework for Human/LLM Interfaces - 9 Defense Layers, 197 Tests"
+version = "5.0.0rc1"
+description = "Bidirectional Security Framework for Human/LLM Interfaces - 9 Core + 27 Hardening Layers, 597 Tests (100% PASS), MyPy Clean, CI GREEN"
 authors = [{name = "Joerg Bollwahn", email = "info@hakgal.org"}]
 readme = "README.md"
 license = {text = "MIT"}
