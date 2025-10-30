@@ -45,8 +45,8 @@ def test_base64_fraction_no_base64():
 
 def test_base64_fraction_with_base64():
     """Test base64 fraction on text with base64 sequences."""
-    text = "Token: SGVsbG8gV29ybGQ="  # "Hello World" in base64
-    base64_len = len("SGVsbG8gV29ybGQ=")
+    text = "Token: SGVsbG8gV29ybGQhIFRoaXMgaXM="  # "Hello World! This is" in base64 (24 chars + 1 padding)
+    base64_len = len("SGVsbG8gV29ybGQhIFRoaXMgaXM=")
     expected = base64_len / len(text)
     assert base64_fraction(text) == pytest.approx(expected)
 
@@ -130,7 +130,7 @@ def test_compute_features_all_zero():
 
 def test_compute_features_with_obfuscation():
     """Test compute_features with obfuscated text."""
-    text = "Hello\u200BПриветSGVsbG8gV29ybGQ=!?!?"
+    text = "Hello\u200BПриветSGVsbG8gV29ybGQhIFRoaXMgaXM=!?!?"  # longer base64 (25 chars)
     regex_hits = {"intent/jailbreak": 2, "evasion/base64": 1}
     lid = "mixed"
     emb_ood_energy = 5.2
