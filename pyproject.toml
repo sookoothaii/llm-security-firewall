@@ -41,6 +41,8 @@ dev = [
     "pytest-cov>=4.1.0",
     "ruff>=0.1.0",
     "mypy>=1.7.0",
+    "types-PyYAML>=6.0.0",
+    "types-requests>=2.31.0",
 ]
 monitoring = [
     "prometheus-client>=0.17.0",

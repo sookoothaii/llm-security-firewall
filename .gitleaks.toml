@@ -10,8 +10,7 @@ title = "LLM Security Firewall Gitleaks Config"
 id = "generic-api-key"
 description = "Generic API Key"
 regex = '''(?i)(api[_-]?key|apikey)(.{0,20})?['"\s:=]+([a-z0-9_\-]{20,})'''
-
-[[rules.allowlist]]
+[rules.allowlist]
 # Allow API_KEY= in test files and benchmarks (fake test data)
 paths = [
     '''tests/.*\.py$''',
@@ -28,8 +27,7 @@ regexes = [
 id = "password"
 description = "Password in code"
 regex = '''(?i)(password|passwd|pwd)(.{0,20})?['"\s:=]+([^\s]{8,})'''
-
-[[rules.allowlist]]
+[rules.allowlist]
 # Allow password= in test files (fake test data)
 paths = [
     '''tests/.*\.py$''',

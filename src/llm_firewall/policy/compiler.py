@@ -173,7 +173,7 @@ def evaluate(program: PolicyProgram, features: Dict[str, Any]) -> Dict[str, Any]
     # Evaluate rules in priority order
     for rule in program.rules:
         if _match(rule.cond, features):
-            result = {
+            result: Dict[str, Any] = {
                 "action": rule.action,
                 "reason": rule.reason or rule.id,
                 "rule_id": rule.id,
