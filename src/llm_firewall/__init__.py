@@ -9,19 +9,23 @@ License: MIT
 Version: 1.0.0
 """
 
-from llm_firewall.core import (
-    SecurityFirewall,
-    FirewallConfig,
-    ValidationResult,
-    EvidenceDecision,
-)
-
 __version__ = "1.0.0"
 __author__ = "Joerg Bollwahn"
 
-__all__ = [
-    "SecurityFirewall",
-    "FirewallConfig",
-    "ValidationResult",
-    "EvidenceDecision",
-]
+# Core imports (graceful degradation if not available)
+try:
+    from llm_firewall.core import (
+        SecurityFirewall,
+        FirewallConfig,
+        ValidationResult,
+        EvidenceDecision,
+    )
+    __all__ = [
+        "SecurityFirewall",
+        "FirewallConfig",
+        "ValidationResult",
+        "EvidenceDecision",
+    ]
+except ImportError:
+    # Core not available - plugins can still work independently
+    __all__ = []

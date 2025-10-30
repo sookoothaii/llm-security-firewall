@@ -3,70 +3,75 @@
 **Bidirectional Security Framework for Human/LLM Interfaces**
 
 **Creator:** Joerg Bollwahn  
-**Version:** 1.1.0 (unreleased)  
+**Version:** 1.2.0-dev (unreleased, development only)  
 **License:** MIT  
-**Status:** Development (260/260 tests passing + 2 skipped + 1 xfail, not peer-reviewed)
+**Status:** Research prototype. 279/279 tests pass in development environment. Not peer-reviewed. Not validated in production.
 
 ---
 
 ## Abstract
 
-We present a bidirectional firewall framework addressing all three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Current frameworks typically address only one or two surfaces, leaving critical vulnerabilities. Our implementation provides integrated protection across all three through 9 core defense layers (plus 2 optional advanced components, plus 1 experimental persuasion layer) with 100% test coverage.
+Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths.
 
-**Key Contributions:**
-- Multi-layer ensemble defense with graceful degradation (embedding, perplexity, pattern-based detection)
-- Text canonicalization defeating Unicode-based evasion techniques
-- 43-pattern jailbreak detection (28 intent + 15 evasion) across 7 attack categories
-- Persuasion-jailbreak detection via three-tier ensemble (L1 lexicons, L2 heuristics, L3 ONNX classifier) with policy-invariance checking
-- MINJA prevention via creator_instance_id tracking
-- 59-canary drift detection system with temporal and mathematical validation
-- EWMA influence budget tracking for slow-roll attack detection
-- Optional calibrated stacking and band-judge for research deployments
+**Implemented Components:**
+- Pattern-based input detection (43 patterns across 7 categories)
+- Text canonicalization (NFKC, homoglyphs, zero-width removal)
+- Optional semantic detection (embedding, perplexity - require additional packages)
+- Persuasion detection (experimental, synthetic data only)
+- MINJA prevention (creator_instance_id tracking)
+- Drift detection (59 canaries)
+- EWMA influence tracking
+- Spatial reasoning challenges (experimental plugin, not tested at scale)
+- Optional meta-components (stacking, band-judge - for research only)
 
-**Empirical Results:** Attack Success Rate 5.0% (±3.34%) across multi-seed validation (n=140 per seed, 4 seeds), reduced from initial 95% baseline (19-fold improvement). False Positive Rate 0.18%. All metrics reproducible via deterministic evaluation with fixed random seeds (1337-1340).
+**Test Results (Input Protection only):** Attack Success Rate 5.0% (±3.34%) on controlled test dataset (n=140 per seed, 4 seeds), compared to 95% baseline. False Positive Rate 0.18%. Measured in development environment on synthetic attacks. Reproducible via fixed seeds (1337-1340). Production performance unknown. Output and memory protection layers not empirically validated.
 
 ## Overview
 
-A comprehensive security framework that addresses three attack surfaces in LLM systems:
+Framework implementing protection mechanisms for three LLM attack surfaces:
 
 1. **Input Protection** (HUMAN → LLM): Malicious prompts, jailbreak attempts, dual-use queries
 2. **Output Protection** (LLM → HUMAN): Hallucinations, fake citations, biased outputs  
 3. **Memory Integrity** (Long-term storage): Memory poisoning, drift, slow-roll attacks
 
-Current frameworks typically address only one or two of these surfaces. This implementation provides integrated protection across all three.
+Implementation tested in development environment only. Production performance not validated. See Limitations section for known gaps.
 
 ---
 
 ## Architecture
 
-### Defense Layers (9 core + 2 optional)
+### Defense Layers (9 core + 2 optional components)
 
-**Core Layers (always active):**
+**Core Defense Layers (9):**
 
-**Input Protection (HUMAN → LLM):**
-1. **Safety Validator** - Pattern-based detection (43 regex patterns across 7 categories) with text canonicalization (NFKC, homoglyphs, zero-width removal) and component floor risk scoring
-2. **Embedding Detector** - Semantic similarity against known jailbreaks using sentence-transformers (optional, requires sentence-transformers package)
-3. **Perplexity Detector** - Statistical anomaly detection via GPT-2 perplexity scoring (optional, requires transformers package)
-4. **Ensemble Validator** - Majority voting (2/3) across multiple detectors to reduce false positives
+**Input Protection (3 detectors):**
+1. **Safety Validator** - Pattern-based detection (43 regex patterns across 7 categories) with text canonicalization
+2. **Embedding Detector** - Semantic similarity using sentence-transformers (optional, graceful degradation)
+3. **Perplexity Detector** - Statistical anomaly detection via GPT-2 (optional, graceful degradation)
 
-**Output Protection (LLM → HUMAN):**
-5. **Evidence Validation** - Prevents memory injection attacks (MINJA) via creator_instance_id tracking and circular reference detection
-6. **Domain Trust Scoring** - 4-tier source verification (Nature/Science: 0.95-0.98, arXiv/PubMed: 0.85-0.90, Scholar: 0.70-0.80, Unknown: 0.10)
-7. **NLI Consistency** - Claim verification against knowledge base via natural language inference
+Note: Ensemble voting (2/3 majority) aggregates detectors 1-3. Not counted as separate layer.
 
-**Memory Integrity (Long-term Storage):**
-8. **Snapshot Canaries** - 59 synthetic claims for drift detection (25 known-true, 25 known-false, 5 mathematical, 4 temporal)
-9. **Shingle Hashing** - 5-gram n-gram frequency profiling with KL-divergence for near-duplicate detection
-10. **Influence Budget Tracker** - EWMA-based Z-score monitoring for slow-roll attack detection
+**Output Protection (3 validators):**
+4. **Evidence Validation** - MINJA prevention via creator_instance_id tracking
+5. **Domain Trust Scoring** - 4-tier source verification (Nature: 0.95-0.98, arXiv: 0.85-0.90, Scholar: 0.70-0.80, Unknown: 0.10)
+6. **NLI Consistency** - Claim verification against knowledge base
 
-**Advanced Components (for research/benchmarking):**
-11. **Calibrated Risk Stacking** - LogisticRegression with Platt Scaling and Conformal Prediction (requires labeled training data, n>=100)
-12. **Band-Judge** - LLM-as-Judge meta-check for uncertainty band only (requires API key, adds 500-2000ms latency)
+**Memory Integrity (3 monitors):**
+7. **Snapshot Canaries** - 59 synthetic claims for drift detection (25 true, 25 false, 5 mathematical, 4 temporal)
+8. **Shingle Hashing** - 5-gram n-gram profiling with KL-divergence for near-duplicates
+9. **Influence Budget** - EWMA-based Z-score monitoring for slow-roll attacks
 
-Note: Layers 2-3 are optional (degrade gracefully if packages unavailable). Layers 11-12 are for advanced deployments and benchmarking, not included in default pipeline. See [Advanced Components Guide](docs/advanced_components.md) for integration instructions.
+**Optional Components (2):**
 
-**Persuasion Detection Layer (NEW, experimental):**
-13. **Persuasion Detector** - Social-influence pattern detection based on Cialdini's principles (authority, reciprocity, scarcity, social proof, liking, commitment, unity) plus roleplay/jailbreak cues. Three-tier ensemble: L1 regex lexicons (8 categories, 40+ patterns, EN/DE), L2 heuristic features (imperative density, urgency markers, second-person ratio), L3 ONNX classifier (multinomial logistic regression, 262K hashing features). Includes Neutralizer (rule-based cue stripping), InvarianceGate (policy divergence check), and Instructionality detector (output-path procedural leakage prevention). Tested on 1600 synthetic samples (balanced EN/DE). Test accuracy 100% on controlled dataset. Real-world performance unknown - requires calibration on production data. Threshold tuning needed (initial: warn=1.5, block=3.0). False positive rate on benign authority mentions not yet measured. See `src/llm_firewall/persuasion/` for implementation.
+10. **Band-Judge** (optional) - LLM-as-Judge meta-check for uncertainty band. Requires API key. Adds 500-2000ms latency. Not included in default pipeline.
+
+11. **Persuasion Detector** (experimental) - Social-influence pattern detection (Cialdini principles). Three-tier ensemble (L1 lexicons, L2 heuristics, L3 ONNX). Tested on 1600 synthetic samples only. Real-world performance unknown. False positive rate on benign content not measured. See `src/llm_firewall/persuasion/`.
+
+Note: Calibrated Risk Stacking aggregates layers 1-3 via LogisticRegression. Not counted as separate layer.
+
+**Authentication Plugin (separate category):**
+
+**Spatial CAPTCHA** - Human/bot differentiation via spatial reasoning challenges (mental rotation, occlusion). Three difficulty levels. Research reports human ~90%, MLLM ~31% (gap may narrow). Requires PIL/matplotlib. Not tested at scale. Optional plugin via `pip install -e .[biometrics]`. See `docs/SPATIAL_CAPTCHA_PLUGIN.md`.
 
 ### Protection Flows
 
@@ -100,17 +105,17 @@ pip install -e .[full]        # With optional plugins
 
 ### Optional Plugins
 
-**"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
+Optional extensions. Users provide own databases (no personal data included).
 
 ```bash
 # After cloning repository:
-pip install -e .[personality]  # 20D Personality Model + Heritage Tracking
-pip install -e .[biometrics]   # 27D Behavioral Authentication
+pip install -e .[personality]  # 20D Personality Model
+pip install -e .[biometrics]   # 27D Behavioral Authentication + Spatial CAPTCHA
 pip install -e .[care]         # Cognitive Readiness Assessment
 pip install -e .[full]         # All plugins
 ```
 
-**PRIVACY-FIRST:** Plugins contain NO personal data. Users provide their own databases.
+Note: Plugins require additional setup (database migrations, configuration). See plugin documentation.
 
 ---
 
@@ -290,15 +295,15 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 ## Technical Specifications
 
 ### Test Coverage
-- Unit tests: 206
-- Pass rate: 100%
-- Coverage: 100% (all critical paths)
+- Unit tests: 279
+- Pass rate: 98.6% (279 pass, 2 skip, 1 xfail)
+- Coverage: 100% for tested critical paths (not all edge cases covered)
 
-### Performance Metrics
-- Attack Success Rate (ASR) @ 0.1% poison: < 10%
-- False Positive Rate (FPR): < 1% (domain-calibrated)
-- Latency impact: 3-120ms per layer
-- Kill-switch containment: < 30 minutes
+### Performance Measurements
+- ASR on test dataset: 5.0% (test conditions only)
+- FPR on test dataset: 0.18% (may differ in production)
+- Latency per layer: 3-120ms (measured in development environment)
+- Kill-switch design: 30-minute containment target (not validated under load)
 
 ### Dependencies
 - Python: >= 3.12
@@ -313,18 +318,16 @@ psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 
 | Feature | Lakera Guard | ARCA | NeMo Guardrails | OpenAI Moderation | This Framework |
 |---------|--------------|------|-----------------|-------------------|----------------|
-| Input Protection | Yes | No | Yes | No | Yes |
-| Output Protection | Yes | No | Yes | Yes | Yes |
-| Memory Protection | No | No | No | No | Yes |
-| MINJA Prevention | No | No | No | No | Yes |
-| Influence Tracking | No | No | No | No | Yes |
+| Input Protection | Yes | No | Yes | No | Tested (dev) |
+| Output Protection | Yes | No | Yes | Yes | Implemented |
+| Memory Protection | No | No | No | No | Implemented |
+| MINJA Prevention | No | No | No | No | Implemented |
+| Influence Tracking | No | No | No | No | Implemented |
 | Defense Layers | 4-6 | 0 | 6-8 | 4 | 9+2 |
-| Test Coverage | ~85% | N/A | ~90% | N/A | 100% |
+| Test Coverage | ~85% | N/A | ~90% | N/A | 98.6% |
 | Open Source | Yes | Yes | Yes | No | Yes |
 
-Note: ARCA is a red-team framework (attack simulation only, no defense mechanisms). Others focus on input/output filtering without memory integrity guarantees.
-
-Coverage percentages based on public documentation as of 2025-10. Our 100% refers to critical paths in core defense layers, not all edge cases. Framework has not undergone independent security audit.
+Note: ARCA is red-team framework (no defense). Coverage percentages from public documentation (2025-10). This framework: "Tested (dev)" = empirically measured in development (ASR 5% on synthetic attacks). "Implemented" = code exists, unit tests pass, but not validated against real attacks or in production. Ensemble voting and risk stacking are aggregators over other layers, not counted separately. Spatial CAPTCHA is authentication plugin (separate from defense layers). Test coverage 98.6% refers to unit tests in development, not production validation. No independent security audit conducted.
 
 ---
 
@@ -335,10 +338,12 @@ Coverage percentages based on public documentation as of 2025-10. Our 100% refer
 - **Conformal Prediction**: Distribution-free uncertainty quantification
 - **Proximal Robbins-Monro**: Stochastic approximation for adaptive thresholds
 
-### Novel Applications
-- **EWMA for Influence Budget**: Online Z-score tracking adapted from signal processing
-- **Snapshot Canaries**: Synthetic claims for drift detection (concept from NVIDIA 2024)
-- **5-gram Shingle Hashing**: KL-divergence for near-duplicate detection
+**Standard Techniques (adapted):**
+- EWMA for influence tracking (signal processing)
+- Snapshot canaries (concept from NVIDIA 2024)
+- 5-gram shingle hashing (near-duplicate detection)
+
+Note: Implementation adapts existing methods. No novel algorithms. Integration of multiple techniques in single framework.
 
 ### References
 - Dempster-Shafer for intrusion detection (Chen et al. 2024, "Evidence Fusion in Network Security", IEEE Transactions on Information Forensics and Security)
@@ -351,64 +356,63 @@ Coverage percentages based on public documentation as of 2025-10. Our 100% refer
 ## Limitations
 
 ### Knowledge Base Dependencies
-- Framework performance depends on KB quality and coverage
-- Domain-specific knowledge gaps may reduce validation accuracy
-- Requires regular KB updates for temporal claim verification
+- Framework performance depends on KB quality and coverage (not quantified)
+- Domain-specific knowledge gaps reduce validation accuracy (extent unknown)
+- Requires regular KB updates for temporal claims (no automated process)
 
-### Performance Tradeoffs
-- Latency impact: 3-120ms per layer (cumulative for full pipeline)
-- Memory overhead: ~50MB for influence budget tracking
-- Database load: Additional queries for evidence validation
+### Performance Constraints
+- Latency impact: 3-120ms per layer measured in development (production latency untested)
+- Memory overhead: ~50MB for influence budget tracking (single-instance measurement)
+- Database load: Additional queries for evidence validation (scalability not tested)
+- Spatial CAPTCHA: 8-10s human response time (accessibility impact not measured)
 
 ### Generalization Constraints
-- Thresholds calibrated for scientific/academic domains
-- May require re-calibration for specialized domains (legal, medical, financial)
-- Assumes structured knowledge base with provenance metadata
+- Thresholds calibrated for scientific/academic domains (other domains not validated)
+- Re-calibration required for specialized domains (no calibration procedure documented)
+- Assumes structured knowledge base with provenance metadata (format assumptions not flexible)
 
 ### Current Scope
-- Focuses on text-based LLM interactions
-- Does not address multimodal (image/audio) attack vectors
-- Limited to English language content (Unicode normalization included)
+- Text-based LLM interactions only (multimodal not implemented)
+- English language content (other languages not tested)
+- Single-user deployments tested (multi-tenant untested)
+- Spatial CAPTCHA: Research paper reports ~90% human / ~31% MLLM performance (may change as models improve)
 
 ---
 
-## Production Deployment
+## Deployment Considerations (not production-validated)
 
-### Monitoring
-- 8 Prometheus alert rules (influence spikes, canary failures, conflict mass, FPR)
-- 10 SQL health-check queries
-- Defense coverage matrix (25 attack-defense mappings)
+### Monitoring (implemented, not production-tested)
+- 8 Prometheus alert rules defined (not validated under load)
+- 10 SQL health-check queries (development environment only)
+- Defense coverage matrix defined (25 attack-defense mappings, theoretical)
 
-### Emergency Response
-- Kill-switch with 30-minute containment SLO
-- Automated rollback procedures
-- Audit trail for all decisions
+### Emergency Response (design only, not validated)
+- Kill-switch design with 30-minute containment target
+- Automated rollback procedures (implementation incomplete)
+- Audit trail logging (not tested under incident conditions)
 
-### Service Level Objectives
-- ASR @ 0.1% poison: <= 10%
-- Promotion FPR: <= 1%
-- Expected Calibration Error (ECE): <= 0.05
-- Time-to-detect: <= 15 minutes
-- Time-to-contain: <= 30 minutes
+### Design Targets (not validated in production)
+- ASR @ 0.1% poison: <= 10% (test conditions)
+- Promotion FPR: <= 1% (test conditions)
+- Expected Calibration Error (ECE): <= 0.05 (not measured)
+- Time-to-detect: <= 15 minutes (design goal, not validated)
+- Time-to-contain: <= 30 minutes (design goal, not validated)
 
 ---
 
-## Use Cases
-
-### Enterprise AI Systems
-- Customer-facing LLM applications requiring safety guarantees
-- Compliance with AI safety regulations (EU AI Act, etc.)
-- Audit trail for regulatory requirements
+## Potential Use Cases (not validated)
 
 ### Research Platforms
-- Knowledge base integrity in RAG systems
-- Multi-source evidence validation
-- Secure autonomous agents
+- Knowledge base integrity testing in RAG systems
+- Multi-source evidence validation experiments
+- Red-team testing (24 attack simulation templates included)
 
-### AI Safety Research
-- Red-team testing framework (24 attack simulations)
-- Memory poisoning prevention
-- Explainable decision-making
+### Development Environments
+- Testing LLM safety mechanisms during development
+- Prototyping defense-in-depth architectures
+- Evaluating attack surface coverage
+
+Note: Framework not validated for production deployment. Enterprise use cases require additional testing and calibration.
 
 ---
 
