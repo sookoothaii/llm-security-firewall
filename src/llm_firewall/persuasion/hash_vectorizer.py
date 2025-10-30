@@ -14,7 +14,7 @@ from __future__ import annotations
 import hashlib
 from typing import Iterable, Tuple, List
 import numpy as np
-from llm_firewall.text.normalize_unicode import normalize
+from ..text.normalize_unicode import normalize
 
 class HashVectorizer:
     def __init__(self, n_features: int = 2**18, ngram_range: Tuple[int, int] = (1, 2)):

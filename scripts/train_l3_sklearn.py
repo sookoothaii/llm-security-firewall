@@ -76,8 +76,8 @@ def main():
     
     # Build ONNX graph (features -> softmax probabilities)
     build_onnx(W, b, out_path=MODEL_DIR / "persuasion_l3.onnx")
-    print(f"\n✓ Saved: {MODEL_DIR / 'persuasion_l3.onnx'}")
-    print(f"✓ Saved: {MODEL_DIR / 'persuasion_l3_weights.npz'}")
+    print(f"\n[OK] Saved: {MODEL_DIR / 'persuasion_l3.onnx'}")
+    print(f"[OK] Saved: {MODEL_DIR / 'persuasion_l3_weights.npz'}")
 
 if __name__ == "__main__":
     main()

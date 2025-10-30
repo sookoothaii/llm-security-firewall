@@ -129,8 +129,8 @@ def main():
         for sample in samples:
             f.write(json.dumps(sample, ensure_ascii=False) + "\n")
     
-    print(f"\n✓ Generated {len(samples)} samples")
-    print(f"✓ Saved to: {output_path}")
+    print(f"\n[OK] Generated {len(samples)} samples")
+    print(f"[OK] Saved to: {output_path}")
     print(f"\nClass distribution:")
     from collections import Counter
     counts = Counter(s["label"] for s in samples)
