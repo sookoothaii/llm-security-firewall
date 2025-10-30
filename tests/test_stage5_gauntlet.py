@@ -34,11 +34,15 @@ from llm_firewall.session.e_value_risk import (
     update_evalue,
 )
 from llm_firewall.session.session_slowroll import update_assembler
+from llm_firewall.session.yaml_alias_assembler import expand_yaml_aliases
 
 
 def evaluate_turn(state, text, cfg=None):  # noqa: C901
     """Minimal wrapper - uses test detection logic (same as Stage 4)."""
     ANCHORS = ["sk-live", "sk-test", "ghp_", "gho_", "xoxb-", "xoxp-"]
+
+    # Pre-process YAML aliases (bounded expansion)
+    text = expand_yaml_aliases(text)
 
     allow_whitelist, whitelist_reason = whitelist_decision(text)
     if allow_whitelist:
@@ -200,15 +204,13 @@ def test_v5_json_key_bidi():
 
 
 # ---------- 5) YAML anchors/aliases: secret spread across lines ----------
-@pytest.mark.xfail(
-    reason="YAML anchor/alias reassembly needs YAML-aware parser or semantic line-join"
-)
 def test_v5_yaml_anchor_alias():
     """Test YAML anchors spreading secret across lines."""
     y = "a: &id sk-\n b: *id live-ABCD1234"
     out = evaluate_turn(SessionRiskState(session_id="v5_yaml"), y, cfg=mkcfg())
-    # YAML requires YAML-aware parsing or line-join heuristic
+    # YAML alias expansion should reassemble secret
     assert out["hit"] is True
+    assert out["decision"] in ("BLOCK", "ALLOW_WITH_WARN")
 
 
 # ---------- 6) Zalgo/Combining flood still matches after canonicalization ----------

@@ -73,3 +73,50 @@ QHAT_CURRENT = Gauge(
     labelnames=("bucket",),
 )
 
+# Stage 5 metrics
+ARCHIVE_SECRET_TOTAL = Counter(
+    "llmfw_archive_secret_total",
+    "Archive secrets detected (gzip/zip)",
+    labelnames=("kind",),
+)
+
+PNG_TEXT_SECRET_TOTAL = Counter(
+    "llmfw_png_text_secret_total",
+    "PNG text chunk secrets detected",
+    labelnames=("chunk_type",),
+)
+
+RFC2047_SECRET_TOTAL = Counter(
+    "llmfw_rfc2047_secret_total",
+    "RFC 2047 encoded-word secrets detected",
+)
+
+PROVIDER_NEARMISS_TOTAL = Counter(
+    "llmfw_provider_nearmiss_total",
+    "Provider prefix near-miss detections",
+    labelnames=("levenshtein_distance",),
+)
+
+POLICY_AUTOSTRICT_TRANSITIONS = Counter(
+    "llmfw_policy_autostrict_transitions_total",
+    "Auto-strict mode transitions",
+    labelnames=("trigger",),
+)
+
+FIREWALL_CRITICAL_FN = Counter(
+    "llmfw_critical_fn_total",
+    "Critical false negatives",
+)
+
+FIREWALL_FALSE_POSITIVES = Counter(
+    "llmfw_false_positives_total",
+    "False positives",
+)
+
+FIREWALL_DECISION_LATENCY = Histogram(
+    "llmfw_decision_latency_ms",
+    "Decision latency in milliseconds",
+    labelnames=("decision",),
+    buckets=(1, 2, 5, 10, 25, 50, 100, 250, 500, 1000),
+)
+

@@ -53,13 +53,13 @@ def from_hydra(cfg: Any | None) -> Policy:
     default_allow = True
     thr = 200
     terms: tuple[str, ...] = ()
-    
+
     # Decode budgets
     max_inflate = 65536
     max_zip_files = 5
     max_zip_read = 32768
     max_png_chunks = 8
-    
+
     # Auto-strict
     auto_strict_on = True
     auto_strict_alarms = 3
@@ -80,13 +80,13 @@ def from_hydra(cfg: Any | None) -> Policy:
         )
         lst = _cfg_get(cfg, ("llm_firewall", "policy", "suspicious_terms"), [])
         terms = tuple(str(x).lower() for x in (lst or []))
-        
+
         # Budgets
         max_inflate = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_inflate_bytes"), max_inflate))
         max_zip_files = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_zip_files"), max_zip_files))
         max_zip_read = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_zip_read_bytes"), max_zip_read))
         max_png_chunks = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_png_chunks"), max_png_chunks))
-        
+
         # Auto-strict
         auto_strict_on = bool(_cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_enabled"), auto_strict_on))
         auto_strict_alarms = int(_cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_alarm_threshold"), auto_strict_alarms))
