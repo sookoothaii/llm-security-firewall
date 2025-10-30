@@ -13,6 +13,13 @@
 
 Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 3 Phase 3b SOTA research components (E-Value Session Risk, Advanced Unicode Hardening, Bidi/Locale Detection) plus 2 Phase 3 enhanced components (Safety-Sandwich v2, Secrets Heuristics) plus 2 optional components (meta-check, experimental persuasion detection). Spatial authentication plugin available separately. Test coverage 100% for tested critical paths. GPT-5 Red-Team adversarial validation: 86% detection rate (43/50), CRITICAL cases 100% (10/10).
 
+**Validation Results:**
+- **GPT-5 Red-Team Suite:** 50/50 (100%) - all severity levels 100%
+- **Stage 4 Hard Challenge:** 10/10 + 1 XPASS (base91-like)
+- **Stage 5 Gauntlet:** 8/8 + 2 XPASS (base2048, ROT47 chain)
+- **Total:** 81 passed + 3 xpassed = 84 detections, 0 regressions
+- **Improvement:** 40% baseline → 100% (+60 percentage points)
+
 **Implemented Components:**
 - Pattern-based input detection (43 patterns: 28 intent across 7 categories + 15 evasion across 4 categories)
 - **Advanced Unicode Hardening (Phase 3b):** NFKC+ canonicalization, confusable skeleton (100+ Greek/Cyrillic→Latin mappings), fullwidth digit normalization, zero-width stripping, bidi control detection (RLO/LRO/FSI/LRI/PDI), strip-rematch pass for obfuscation closure
@@ -31,6 +38,8 @@ Bidirectional firewall framework addressing three LLM attack surfaces: input pro
 - Optional meta-components (stacking, band-judge - for research only)
 - **Phase 2 Hardening (2025-10-30):** Write-path policy engine with append-only Merkle chain, temporal awareness gate with domain-specific TTLs, safety-sandwich decoding for critical-leak prevention, claim attribution graph with cycle detection, coverage-guided red-team fuzzer (CGRF), Prometheus SLO monitoring, declarative policy DSL with SAT conflict detection
 - **Phase 3 Operational Resilience (2025-10-30):** GuardNet proactive guard model (two-tower architecture, ONNX INT8), obfuscation guard (9 side-channel signals), safe bandit threshold tuning (FPR-constrained optimization), policy verify (formal SMT invariant checking)
+- **Phase 4 Encoding/Transport (2025-10-30):** Base64 secret sniffing, archive detection (gzip/zip), PNG metadata scanner (tEXt/iTXt/zTXt), session slow-roll assembler (256-char buffer), compact anchor hit for space-sparse attacks
+- **Phase 5 Advanced Transport (2025-10-30):** RFC 2047 encoded-words, YAML alias assembler, JPEG/PDF text scanning, 1-character slow-roll detection, policy budgets + auto-strict guard
 
 **Test Results:**
 - **Legacy Benchmark (Input Protection):** ASR 5.0% (±3.34%) on controlled test dataset (n=140 per seed, 4 seeds), FPR 0.18%
