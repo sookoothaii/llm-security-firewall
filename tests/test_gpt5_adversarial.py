@@ -89,16 +89,16 @@ def test_adversarial_summary_stats():
         by_severity[sev] = by_severity.get(sev, 0) + 1
 
         attack_type = case["attack_type"]
-        # Extract category from attack_type
-        if "multi" in attack_type or "session" in attack_type or "slow_roll" in attack_type:
+        # Extract category from attack_type (noqa: E501 for readability)
+        if "multi" in attack_type or "session" in attack_type or "slow_roll" in attack_type:  # noqa: E501
             cat = "session_level"
-        elif "encoding" in attack_type or "base" in attack_type or "escape" in attack_type:
+        elif "encoding" in attack_type or "base" in attack_type or "escape" in attack_type:  # noqa: E501
             cat = "encoding_evasion"
-        elif "bidi" in attack_type or "homoglyph" in attack_type or "zero_width" in attack_type:
+        elif "bidi" in attack_type or "homoglyph" in attack_type or "zero_width" in attack_type:  # noqa: E501
             cat = "unicode_obfuscation"
-        elif "locale" in attack_type or "multilang" in attack_type or "domain" in attack_type:
+        elif "locale" in attack_type or "multilang" in attack_type or "domain" in attack_type:  # noqa: E501
             cat = "distribution_shift"
-        elif "false_positive" in attack_type or "uuid" in attack_type or "dna" in attack_type:
+        elif "false_positive" in attack_type or "uuid" in attack_type or "dna" in attack_type:  # noqa: E501
             cat = "edge_case_fp"
         else:
             cat = "other_evasion"

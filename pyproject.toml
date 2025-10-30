@@ -100,5 +100,9 @@ exclude_lines = [
     "if __name__ == .__main__.:",
 ]
 
+[tool.ruff]
+line-length = 88
+extend-ignore = ["E501"]
+
 
 
