@@ -27,10 +27,7 @@ CLASSES = [
     "none",
 ]
 
-try:  # runtime dependency is optional for repo import
-    import onnxruntime as ort  # type: ignore
-except Exception:  # pragma: no cover
-    ort = None
+import onnxruntime as ort  # type: ignore
 
 from llm_firewall.persuasion.hash_vectorizer import HashVectorizer
 
@@ -39,8 +36,8 @@ class PersuasionONNXClassifier:
         self.model_path = model_path
         self.vec = HashVectorizer(n_features=n_features)
         self.session = None
-        if ort is not None and os.path.exists(self.model_path):
-            self.session = ort.InferenceSession(self.model_path, providers=["CPUExecutionProvider"])  # noqa
+        if os.path.exists(self.model_path):
+            self.session = ort.InferenceSession(self.model_path, providers=["CPUExecutionProvider"])
 
     def available(self) -> bool:
         return self.session is not None
