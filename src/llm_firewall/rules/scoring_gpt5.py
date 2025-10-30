@@ -62,10 +62,10 @@ class RegexMatcher:
 class ACMatcher:
     """Minimal Aho-Corasick for phrase lookup."""
     def __init__(self, phrases: Iterable[Tuple[str, float]]) -> None:
-        self.goto = [{}]
-        self.out = [[]]
-        self.fail = [0]
-        self.weights = {}
+        self.goto: List[Dict[str, int]] = [{}]
+        self.out: List[List[str]] = [[]]
+        self.fail: List[int] = [0]
+        self.weights: Dict[str, float] = {}
         for phrase, w in phrases:
             self._add(phrase.lower(), w)
         self._build()
@@ -84,7 +84,7 @@ class ACMatcher:
 
     def _build(self) -> None:
         from collections import deque
-        q = deque()
+        q: deque[int] = deque()
         for ch, nxt in self.goto[0].items():
             self.fail[nxt] = 0
             q.append(nxt)
@@ -151,8 +151,8 @@ class IntentMatcher:
             from llm_firewall.lexicons.regex_generator import build_cluster_regexes
             
         # AC channel for exact phrases
-        self._acs = {}
-        self._weights = {}
+        self._acs: Dict[str, ACMatcher] = {}
+        self._weights: Dict[str, float] = {}
         for c in intents_json["clusters"]:
             cid = c["id"]
             base_w = 1.0 + (c.get("priority", 0) / 20.0)

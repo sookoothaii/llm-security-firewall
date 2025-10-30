@@ -21,7 +21,7 @@ class Settings:
     risk_threshold: float = float(os.getenv("LLMFW_RISK_THRESHOLD", "0.5"))
     
     # Lexicon base directory (auto-detected)
-    lexicon_base: Path = None  # Set by _pick_lex_base()
+    lexicon_base: Path | None = None  # Set by _pick_lex_base()
     
     def __post_init__(self):
         """Initialize lexicon base if not set."""
