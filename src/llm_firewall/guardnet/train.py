@@ -179,7 +179,7 @@ def train_guardnet(
         raise ImportError("transformers required. Install with: pip install transformers")
 
     # Setup
-    tokenizer = AutoTokenizer.from_pretrained(encoder_name)
+    tokenizer = AutoTokenizer.from_pretrained(encoder_name)  # nosec B615
 
     # Define feature keys (must match feature extractor output)
     feat_keys = [

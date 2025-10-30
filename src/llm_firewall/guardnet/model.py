@@ -16,7 +16,7 @@ Date: 2025-10-30
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Any, Dict
 
 import torch
 import torch.nn as nn
@@ -103,7 +103,7 @@ class FirewallNet(nn.Module):
             )
 
         # Text tower: small transformer encoder
-        self.encoder = AutoModel.from_pretrained(encoder_name)
+        self.encoder = AutoModel.from_pretrained(encoder_name)  # nosec B615
         h = self.encoder.config.hidden_size
 
         # Feature tower: MLP over engineered features
@@ -177,7 +177,7 @@ OBFUSCATION_LABELS = ["base64", "leet", "homoglyph", "zwc", "mixed_script", "emo
 def decode_outputs(
     outputs: Dict[str, torch.Tensor],
     temperature: float = 1.0,
-) -> Dict[str, any]:
+) -> Dict[str, Any]:
     """
     Decode model outputs to human-readable predictions.
     

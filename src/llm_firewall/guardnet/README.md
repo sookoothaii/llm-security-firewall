@@ -23,7 +23,7 @@ GuardNet is a standalone guard model trained on firewall signals for proactive i
 
 ## Architecture
 
-```
+```text
 Input Text + Features
        │
        ├─── Text Tower (Transformer Encoder: MiniLM/DeBERTa-Small/bert-tiny)
