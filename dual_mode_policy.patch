@@ -1,0 +1,25 @@
+diff --git a/conf/llm_firewall/policy.yaml b/conf/llm_firewall/policy.yaml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/conf/llm_firewall/policy.yaml
+@@ -0,0 +1,18 @@
++# Policy switch: permissive (prod) vs strict (CI/Red-Team)
++llm_firewall:
++  policy:
++    mode: permissive          # options: permissive | strict
++    hex_uuid_base64_default_allow: true   # ignored if mode=strict
++    base64_len_allow_threshold: 200       # long base64 treated as benign if no suspicious context
++    suspicious_terms:
++      - secret
++      - token
++      - api_key
++      - x-api-key
++      - authorization
++      - passwd
++      - password
++
++  # env override (optional): FIREWALL_POLICY_MODE = permissive|strict
++  env_override: true
++
+

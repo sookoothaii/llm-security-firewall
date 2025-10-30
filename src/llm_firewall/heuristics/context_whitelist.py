@@ -55,7 +55,7 @@ def is_uuid_benign(line: str, m: re.Match) -> bool:
     # GPT-5: Liberal bias - UUID is benign unless suspicious context
     if SUSPICIOUS_INLINE_CTX.search(line):
         return False  # Suspicious context overrides
-
+    
     # Default ALLOW for bare UUID (GPT-5 decision)
     return True
 
@@ -95,33 +95,60 @@ def is_sha256_benign(line: str, m: re.Match) -> bool:
     return True
 
 
+def _b64_has_anchor(b64: str) -> bool:
+    """Check if base64 contains provider anchors after decoding."""
+    # Inline anchor list to avoid circular imports
+    anchors = ["sk-live", "sk-test", "ghp_", "gho_", "xoxb-", "xoxp-", "x-api-key", "api_key", "bearer"]
+    
+    try:
+        raw = base64.b64decode(b64, validate=True)[:4096]
+    except Exception:
+        return False
+    if not raw:
+        return False
+    try:
+        s = raw.decode("utf-8", "ignore").lower()
+    except Exception:
+        s = "".join(chr(b).lower() if 32 <= b < 127 else " " for b in raw)
+    return any(a in s for a in anchors)
+
+
 def whitelist_decision(text: str) -> tuple[bool, str]:
     """
     Check if text should be whitelisted due to benign context.
-
+    
     Returns:
         (allow, reason) - If allow=True, caller may suppress detection
-
+    
     Strategy:
         Line-wise analysis to leverage left context proximity
-
+        
     GPT-5 Extensions:
         - Base64 structural markers (data:image, etc.)
         - Hex density checks
         - Length invariants
     """
-    # Base64 structural allow (GPT-5 extended)
-    if BASE64_IMAGE_STRUCTURAL.search(text):
-        if "Content-Transfer-Encoding: base64" in text or "data:image" in text:
-            return True, "base64_image_structural"
-
-    # GPT-5: Large base64 with valid padding (likely file/image)
+    # Base64: only whitelist if decode reveals NO provider anchors (GPT-5 fix)
+    # Data-URI: check decoded content
+    m = re.search(r"data:[^;]+;base64,([A-Za-z0-9+/=]+)", text, re.I)
+    if m and not _b64_has_anchor(m.group(1)):
+        return True, "base64_data_uri_benign"
+    
+    # Image headers with base64
+    if (
+        "Content-Transfer-Encoding: base64" in text
+        and "Content-Type: image/" in text.lower()
+    ):
+        return True, "base64_email_image"
+    
+    # Large base64 with valid padding (likely file/image) - but check for anchors
     for line in text.splitlines():
         m = re.search(r"[A-Za-z0-9+/]{200,}={0,2}", line)
         if m and not SUSPICIOUS_INLINE_CTX.search(line):
             frag = m.group(0)
-            # Valid padding check
-            if len(frag) % 4 == 0 or frag.endswith(("=", "==")):
+            if (len(frag) % 4 == 0 or frag.endswith(("=", "=="))) and not _b64_has_anchor(
+                frag
+            ):
                 return True, "base64_large_valid_padding"
 
     for line in text.splitlines():
