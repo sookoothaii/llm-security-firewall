@@ -82,16 +82,44 @@ def from_hydra(cfg: Any | None) -> Policy:
         terms = tuple(str(x).lower() for x in (lst or []))
 
         # Budgets
-        max_inflate = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_inflate_bytes"), max_inflate))
-        max_zip_files = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_zip_files"), max_zip_files))
-        max_zip_read = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_zip_read_bytes"), max_zip_read))
-        max_png_chunks = int(_cfg_get(cfg, ("llm_firewall", "policy", "max_png_chunks"), max_png_chunks))
+        max_inflate = int(
+            _cfg_get(cfg, ("llm_firewall", "policy", "max_inflate_bytes"), max_inflate)
+        )
+        max_zip_files = int(
+            _cfg_get(cfg, ("llm_firewall", "policy", "max_zip_files"), max_zip_files)
+        )
+        max_zip_read = int(
+            _cfg_get(cfg, ("llm_firewall", "policy", "max_zip_read_bytes"), max_zip_read)
+        )
+        max_png_chunks = int(
+            _cfg_get(cfg, ("llm_firewall", "policy", "max_png_chunks"), max_png_chunks)
+        )
 
         # Auto-strict
-        auto_strict_on = bool(_cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_enabled"), auto_strict_on))
-        auto_strict_alarms = int(_cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_alarm_threshold"), auto_strict_alarms))
-        auto_strict_window = int(_cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_window_seconds"), auto_strict_window))
-        auto_strict_duration = int(_cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_duration_seconds"), auto_strict_duration))
+        auto_strict_on = bool(
+            _cfg_get(cfg, ("llm_firewall", "policy", "auto_strict_enabled"), auto_strict_on)
+        )
+        auto_strict_alarms = int(
+            _cfg_get(
+                cfg,
+                ("llm_firewall", "policy", "auto_strict_alarm_threshold"),
+                auto_strict_alarms,
+            )
+        )
+        auto_strict_window = int(
+            _cfg_get(
+                cfg,
+                ("llm_firewall", "policy", "auto_strict_window_seconds"),
+                auto_strict_window,
+            )
+        )
+        auto_strict_duration = int(
+            _cfg_get(
+                cfg,
+                ("llm_firewall", "policy", "auto_strict_duration_seconds"),
+                auto_strict_duration,
+            )
+        )
 
     # env override (emergency switch)
     if _cfg_get(cfg, ("llm_firewall", "env_override"), True):
