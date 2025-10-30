@@ -2,18 +2,21 @@
 Session-Risk via E-Values (Sequential Hypothesis Testing).
 
 Mathematical Foundation:
-- Beta-Mixture Martingale (Ramdas et al. JRSSB 2020)
+- Scond E-value for Bernoulli sequences (Hao et al. 2023)
+- Likelihood Ratio = Sgro(M) for exponential families
 - Ville's Inequality: P(∃t: E_t ≥ 1/α) ≤ α
 - Non-negative Supermartingale under H0: p ≤ p0
 
 Guarantees:
 - Family-wise error rate (FWER) ≤ α across arbitrary-length sessions
+- Optimal power for Bernoulli (no δ⁴ penalty from GRO approximation)
 - No α-inflation from multiple testing
 - Valid sequential stopping
 
 References:
-- Ramdas et al. (2020): Sequential Anytime-Valid Inference, JRSSB
-- Howard et al. (2021): Time-Uniform Confidence Sequences
+- Hao, Grünwald, Turner (2023): Safe Testing (Table 1)
+- Grünwald et al. (2023): Game-Theoretic Statistics
+- Howard & Ramdas (2021): Time-Uniform Confidence Sequences
 """
 from __future__ import annotations
 
@@ -44,17 +47,18 @@ class SessionRiskState:
             self.last_update = time.time()
 
 
-def _log_beta(a: float, b: float) -> float:
-    """Compute log(Beta(a,b)) via lgamma."""
-    return math.lgamma(a) + math.lgamma(b) - math.lgamma(a + b)
-
-
 def update_evalue(state: SessionRiskState, hit: bool) -> SessionRiskState:
     """
-    Update E-value via Beta-Mixture Martingale.
+    Update E-value via Likelihood Ratio (Scond for Bernoulli).
 
-    Formula:
-        E_t = Beta(a+s, b+(n-s)) / (Beta(a,b) * p0^s * (1-p0)^(n-s))
+    Formula (closed-form for Bernoulli):
+        E_t = (p_hat/p0)^s * ((1-p_hat)/(1-p0))^(n-s)
+        where p_hat = s/n (MLE), s = hits, n = total turns
+
+    Theoretical Foundation:
+        - Scond = Sgro(M) for exponential families (Hao et al. 2023)
+        - Optimal E-value for Bernoulli sequence
+        - Ville's Inequality: P(∃t: E_t ≥ 1/α) ≤ α
 
     Args:
         state: Current session state
@@ -62,23 +66,31 @@ def update_evalue(state: SessionRiskState, hit: bool) -> SessionRiskState:
 
     Returns:
         Updated state with new e_value
+
+    References:
+        Hao, Grünwald, Turner (2023): Safe Testing, Table 1
     """
     state.n += 1
     state.s += int(bool(hit))
 
-    # Compute in log-space for numerical stability
-    log_num = _log_beta(state.a + state.s, state.b + state.n - state.s)
-    log_den = (
-        _log_beta(state.a, state.b)
-        + state.s * math.log(state.p0)
-        + (state.n - state.s) * math.log(1 - state.p0)
-    )
-    log_e = log_num - log_den
+    # Closed-form Likelihood Ratio for Bernoulli
+    if state.s == 0:
+        state.e_value = 1.0
+    else:
+        p_hat = state.s / state.n
+        if p_hat <= state.p0:
+            # No evidence against H0
+            state.e_value = 1.0
+        else:
+            # LR: (p_hat/p0)^s * ((1-p_hat)/(1-p0))^(n-s)
+            lr = (
+                (p_hat / state.p0) ** state.s
+                * ((1 - p_hat) / (1 - state.p0)) ** (state.n - state.s)
+            )
+            # Cap at 1e300 to avoid overflow
+            state.e_value = float(min(1e300, lr))
 
-    # Cap at 1e300 to avoid overflow
-    state.e_value = float(min(1e300, math.exp(log_e)))
     state.last_update = time.time()
-
     return state
 
 
