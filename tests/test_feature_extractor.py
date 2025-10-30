@@ -9,6 +9,7 @@ Date: 2025-10-30
 """
 
 import pytest
+
 from llm_firewall.guardnet.features.extractor import (
     base64_fraction,
     compute_features,

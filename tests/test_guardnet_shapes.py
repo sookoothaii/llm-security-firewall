@@ -13,6 +13,7 @@ import pytest
 # Optional dependency - skip tests if torch not available
 try:
     import torch
+
     from llm_firewall.guardnet.model import FeatureMLP, FirewallNet
     HAS_TORCH = True
 except ImportError:
