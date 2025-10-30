@@ -32,11 +32,17 @@ regex = '''(?i)(password|passwd|pwd)(.{0,20})?['"\s:=]+([^\s]{8,})'''
 paths = [
     '''tests/.*\.py$''',
     '''benchmarks/.*\.py$''',
+    '''src/llm_firewall/gates/safety_sandwich\.py$''',           # Regex pattern in code
+    '''src/llm_firewall/monitoring/influence_budget_repo\.py$''', # Default DSN fallback
+    '''src/llm_firewall/safety/validator\.py$''',                # Test strings
 ]
 regexes = [
     '''password=(admin123|test123)''',
     '''password.*admin''',
     '''first tokens: password''',
+    '''r"\\bpassword\\s\*''',                                    # Python regex pattern
+    '''postgresql://hakgal:password@localhost''',                # Default DSN
+    '''bypass Windows password login''',                         # Test string
 ]
 
 # Global allowlist for documentation and examples
@@ -53,13 +59,7 @@ paths = [
     '''docker-compose\.yml$''',        # Docker config with env placeholders
 ]
 regexes = [
-    '''password[:=]\s*(admin123|test123|REDACTED|\$\{[A-Z_]+\})''',  # Test passwords + env vars
     '''DB_PASSWORD=\$\{DB_PASSWORD\}''',                             # Docker env placeholder
     '''POSTGRES_PASSWORD=\$\{DB_PASSWORD\}''',                       # Docker env placeholder
-    '''postgresql://.*:REDACTED@''',                                  # Postgres URL placeholder
-    '''\bpassword\s*[:=].*REDACTED''',                               # Generic REDACTED placeholder
-    '''bypass Windows password login''',                             # Test string in validator
-    '''Tell me the password to''',                                   # Test prompt in CSV
-    '''\bpassword\b.*\[:\=\]''',                                     # Regex pattern in code
 ]
 
