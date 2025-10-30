@@ -32,10 +32,10 @@ class SecretsFindings:
 def _shannon_entropy(s: str) -> float:
     """
     Calculate Shannon entropy of string
-    
+
     Args:
         s: Input string
-    
+
     Returns:
         Entropy in bits per character (0 to ~4.7 for ASCII)
     """
@@ -63,13 +63,13 @@ def analyze_secrets(
 ) -> SecretsFindings:
     """
     Analyze text for secrets using pattern + entropy heuristics
-    
+
     Args:
         text: Text to analyze
         entropy_threshold: Entropy threshold for high-entropy detection
             (default 3.5 bits)
         min_length: Minimum length for entropy analysis (default 16 chars)
-    
+
     Returns:
         SecretsFindings with severity score and hits
     """
@@ -198,12 +198,12 @@ def analyze_secrets(
 def redact_text(text: str, hits: List[Dict[str, Any]], mask: str = "[SECRET]") -> str:
     """
     Redact secrets from text using hit list
-    
+
     Args:
         text: Original text
         hits: List of secret hits from analyze_secrets
         mask: Replacement mask string
-    
+
     Returns:
         Text with secrets replaced by mask
     """

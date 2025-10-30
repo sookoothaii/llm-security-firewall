@@ -118,7 +118,7 @@ class SandwichState:
 class SafetySandwichV2:
     """
     Streaming safety sandwich with early abort capability
-    
+
     Usage:
         sandwich = SafetySandwichV2(config)
         for token in model_stream():
@@ -151,11 +151,11 @@ class SafetySandwichV2:
     def feed_token(self, token: str, *, dt_seconds: float = 0.0) -> GuardAction:
         """
         Stream a decoded token and get guard action
-        
+
         Args:
             token: Single token from model
             dt_seconds: Evaluation time for this check (for metrics)
-        
+
         Returns:
             GuardAction: "continue", "redact", or "abort"
         """
@@ -215,7 +215,7 @@ class SafetySandwichV2:
     def finalize(self) -> FinalDecision:
         """
         Decide final action after stream complete or aborted
-        
+
         Returns:
             FinalDecision: "PROMOTE", "SAFETY_WRAP", "QUARANTINE", or "REJECT"
         """
@@ -237,10 +237,10 @@ class SafetySandwichV2:
     def redact_text_posthoc(self, text: str) -> str:
         """
         Redact secrets from full text (post-hoc convenience helper)
-        
+
         Args:
             text: Full text to redact
-        
+
         Returns:
             Text with secrets replaced by mask
         """
@@ -250,7 +250,7 @@ class SafetySandwichV2:
     def snapshot(self) -> Dict[str, Any]:
         """
         Get current state snapshot for introspection/testing
-        
+
         Returns:
             Dict with all state fields
         """
