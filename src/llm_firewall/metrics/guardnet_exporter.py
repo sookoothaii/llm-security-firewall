@@ -11,6 +11,8 @@ except Exception:  # pragma: no cover
     _HAS_PROMETHEUS = False
 
     class _Noop:
+        def __init__(self, *_, **__):
+            pass
         def labels(self, *_, **__):
             return self
         def inc(self, *_, **__):

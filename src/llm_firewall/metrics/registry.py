@@ -1,7 +1,28 @@
 """Central Prometheus metrics registry for LLM Firewall."""
 from __future__ import annotations
 
-from prometheus_client import Counter, Gauge, Histogram
+try:
+    from prometheus_client import Counter, Gauge, Histogram
+    _HAS_PROMETHEUS = True
+except Exception:  # pragma: no cover
+    _HAS_PROMETHEUS = False
+
+    class _Noop:
+        def __init__(self, *_, **__):
+            pass
+        def labels(self, *_, **__):
+            return self
+        def inc(self, *_, **__):
+            pass
+        def set(self, *_, **__):
+            pass
+        def observe(self, *_, **__):
+            pass
+
+    # Type stubs for when prometheus_client unavailable
+    Counter = _Noop  # type: ignore
+    Gauge = _Noop  # type: ignore
+    Histogram = _Noop  # type: ignore
 
 # Reusable, singleton-style metric handles (import-only).
 
