@@ -302,12 +302,14 @@ pre-commit run --all-files
 ### CI Pipeline (Automated)
 
 Every push/PR runs:
-- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (444 tests, 3.15 in preparation)
+- **Test Matrix:** Ubuntu/Windows/macOS x Python 3.12/3.13/3.14 (444 tests, 3.15.0-alpha.1 tracked with allowed failures)
 - **Lint:** Ruff + MyPy type safety
 - **Security:** Bandit, pip-audit, Gitleaks (secrets scanner)
 - **Docs:** Markdownlint + Lychee (link checker)
 
-All tests must pass before merge. CI status: GREEN (as of 2025-10-30).
+All tests must pass before merge. CI status: GREEN for 3.12/3.13/3.14 (as of 2025-10-30).
+
+Note: Python 3.15.0-alpha.1 jobs continue-on-error due to scipy incompatibility (OpenBLAS build fails). Will stabilize when scipy releases 3.15-compatible version.
 
 ---
 
@@ -405,11 +407,13 @@ See `src/llm_firewall/guardnet/`, `src/llm_firewall/text/obfuscation_guard.py`, 
 - Kill-switch design: 30-minute containment target (not validated under load)
 
 ### Dependencies
-- Python: >= 3.12 (tested: 3.12/3.13/3.14, in preparation: 3.15)
+- Python: >= 3.12 (tested: 3.12/3.13/3.14, in CI: 3.15.0-alpha.1 with known scipy build issues)
 - Core: numpy, scipy, scikit-learn, pyyaml, blake3, requests
 - ML/NLP: sentence-transformers, torch, transformers (for embedding/perplexity detection)
 - Database: psycopg3 (PostgreSQL)
 - Optional: prometheus-client (monitoring)
+
+Note: Python 3.15 support tracked in CI but scipy (core dependency) not yet compatible with 3.15.0-alpha.1. Will auto-pass when scipy releases 3.15-compatible version.
 
 ---
 
