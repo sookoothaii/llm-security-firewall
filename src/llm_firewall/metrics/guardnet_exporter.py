@@ -9,7 +9,7 @@ try:
     _HAS_PROMETHEUS = True
 except Exception:  # pragma: no cover
     _HAS_PROMETHEUS = False
-    
+
     class _Noop:
         def labels(self, *_, **__):
             return self
@@ -17,7 +17,7 @@ except Exception:  # pragma: no cover
             pass
         def set(self, *_, **__):
             pass
-    
+
     # Type stubs for when prometheus_client unavailable
     Counter = _Noop  # type: ignore
     Gauge = _Noop  # type: ignore

@@ -13,13 +13,18 @@ License: MIT
 """
 
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple
 
 from llm_firewall.aggregate.conformal_stacker import (
     AggregationConfig,
     ConformalRiskStacker,
 )
+from llm_firewall.calibration.conformal_online import (
+    BucketConfig,
+    OnlineConformalCalibrator,
+)
 from llm_firewall.core.types import JudgeReport, RiskScore, Severity, TaxonomyRisk
+from llm_firewall.metrics.registry import NONCONF_UPDATES, QHAT_CURRENT
 
 
 @dataclass
@@ -150,3 +155,91 @@ def input_qhat_provider(detector_name: str, coverage: float) -> float:
     scaled = base * (1.0 / (1.0 - coverage))
 
     return scaled
+
+
+# --- Simple Online-Conformal Wrapper (alternative to full ConformalRiskStacker) ---
+
+
+@dataclass
+class DetectorScores:
+    """Simple detector scores for lightweight ensemble."""
+
+    safety: Optional[float] = None
+    embed: Optional[float] = None
+    pplx: Optional[float] = None
+
+
+class InputEnsemble:
+    """
+    Weighted-max aggregator with online, bucketed conformal thresholds.
+    Assumes detector scores are nonconformity scores in [0,1].
+
+    Alternative to InputEnsembleConformal for simpler use cases.
+    """
+
+    def __init__(
+        self,
+        weights: Dict[str, float],
+        threshold: float = 0.75,  # used only as last-resort fallback
+        bucket_cfg: Optional[BucketConfig] = None,
+    ):
+        """Initialize simple ensemble with online conformal calibration."""
+        self.w = weights
+        self.threshold = threshold
+        self.cal = OnlineConformalCalibrator(bucket_cfg or BucketConfig())
+
+    def _aggregate(self, s: DetectorScores) -> float:
+        vals = []
+        if s.safety is not None:
+            vals.append(self.w.get("safety", 1.0) * s.safety)
+        if s.embed is not None:
+            vals.append(self.w.get("embed", 1.0) * s.embed)
+        if s.pplx is not None:
+            vals.append(self.w.get("pplx", 1.0) * s.pplx)
+        return max(vals) if vals else 0.0
+
+    def _bucket_key(
+        self, domain: str, locale: str, tenant: str, model: str
+    ) -> str:
+        domain = (domain or "other").lower()
+        locale = (locale or "und").lower()
+        tenant = (tenant or "single").lower()
+        model = (model or "unknown").lower()
+        return f"{domain}|{locale}|{tenant}|{model}"
+
+    def decide(
+        self,
+        scores: DetectorScores,
+        *,
+        domain: str = "other",
+        locale: str = "en",
+        tenant: str = "single",
+        model: str = "unknown",
+        alpha: Optional[float] = None,
+    ) -> Tuple[float, str, float]:
+        """
+        Make decision using online-calibrated threshold.
+
+        Returns:
+            (risk, label, qhat_used)
+        """
+        risk = self._aggregate(scores)
+        bucket = self._bucket_key(domain, locale, tenant, model)
+        qhat = self.cal.get_threshold(bucket, alpha=alpha)
+        QHAT_CURRENT.labels(bucket=bucket).set(qhat)
+        label = "BLOCK" if risk > qhat else "SAFE"
+        return risk, label, qhat
+
+    def update_online(
+        self,
+        bucket_items: Iterable[Tuple[str, float, float]],
+    ) -> None:
+        """
+        Shadow-mode training signal.
+
+        Args:
+            bucket_items: iterable of (bucket_key, score_in_[0,1], weight)
+        """
+        for b, s, w in bucket_items:
+            self.cal.update(b, s, weight=w)
+            NONCONF_UPDATES.labels(bucket=b).inc()

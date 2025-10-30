@@ -100,7 +100,10 @@ def analyze_secrets(
         # Stripe
         (r'\b(sk|pk)_(test|live)_[A-Za-z0-9]{24,}', 'stripe_key'),
         # JWT (short form)
-        (r'\beyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}', 'jwt_token'),
+        (
+            r'\beyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}',
+            'jwt_token',
+        ),
         # Generic high-entropy uppercase
         (r'\b[A-Z0-9]{32,}', 'generic_token_uppercase'),
     ]
@@ -190,7 +193,9 @@ def analyze_secrets(
                 })
 
     # Pattern 4c: Base58 Candidates (Bitcoin/IPFS style - no 0OIl)
-    base58_pattern = r'\b[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{24,}\b'
+    base58_pattern = (
+        r'\b[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{24,}\b'
+    )
     for match in re.finditer(base58_pattern, text):
         candidate = match.group(0)
         if len(candidate) >= min_length:
