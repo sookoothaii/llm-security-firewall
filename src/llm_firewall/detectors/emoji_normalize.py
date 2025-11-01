@@ -8,9 +8,7 @@ Target: Reduce Perfect Storm Emoji-Homoglyph ASR from 91.7% to <30%
 Author: Claude Sonnet 4.5 (Autonomous Executive)
 Date: 2025-11-01
 """
-import re
-from typing import Tuple, Dict
-
+from typing import Dict, Tuple
 
 # Regional Indicator Symbols (U+1F1E6-U+1F1FF) -> A-Z
 # Used for country flags, but also as homoglyphs
@@ -113,7 +111,7 @@ def normalize_emoji_homoglyphs(text: str) -> Tuple[str, Dict[str, int]]:
     regional_count = 0
     math_count = 0
     normalized = []
-    
+
     for char in text:
         if char in REGIONAL_INDICATORS:
             normalized.append(REGIONAL_INDICATORS[char])
@@ -125,16 +123,16 @@ def normalize_emoji_homoglyphs(text: str) -> Tuple[str, Dict[str, int]]:
             changed = True
         else:
             normalized.append(char)
-    
+
     result = ''.join(normalized)
-    
+
     metadata = {
         'changed': changed,
         'regional_indicators': regional_count,
         'math_alphanumeric': math_count,
         'total_replaced': regional_count + math_count,
     }
-    
+
     return result, metadata
 
 
@@ -146,31 +144,31 @@ def detect_emoji_homoglyphs(text: str) -> list:
         List of signal names for risk aggregation
     """
     hits = []
-    
+
     normalized, meta = normalize_emoji_homoglyphs(text)
-    
+
     if meta['changed']:
         hits.append('emoji_homoglyph_detected')
-        
+
         if meta['regional_indicators'] >= 1:
             hits.append('emoji_regional_indicator')
-        
+
         if meta['math_alphanumeric'] >= 1:
             hits.append('emoji_math_alphanumeric')
-        
+
         if meta['total_replaced'] >= 3:
             hits.append('emoji_homoglyph_high_density')
-    
+
     return hits
 
 
 # Quick test
 if __name__ == '__main__':
-    import sys
     import io
+    import sys
     # Windows cp1252 fix
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    
+
     test_cases = [
         "🅰lert('bypass')",
         "ev🅰l('code')",
@@ -179,14 +177,14 @@ if __name__ == '__main__':
         "🅰l𝐞rt('combo')",
         "normal text",
     ]
-    
+
     print("Emoji-Homoglyph Normalization Test")
     print("=" * 60)
-    
+
     for i, test in enumerate(test_cases, 1):
         normalized, meta = normalize_emoji_homoglyphs(test)
         hits = detect_emoji_homoglyphs(test)
-        
+
         print(f"\n[{i}] Test Case:")
         print(f"    Normalized: {normalized}")
         print(f"    Changed:    {meta['changed']}")

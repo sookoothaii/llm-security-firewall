@@ -182,7 +182,7 @@ WEAK_SIGNALS = {
 # RC2 P4.2: Transport-Indicators Complete
 TRANSPORT_DECODE_INDICATORS = {
     'base64_secret', 'base64_multiline_detected', 'base85', 'ascii85_detected',
-    'rfc2047', 'armor_markers', 
+    'rfc2047', 'armor_markers',
     'chain_decoded_1_stages', 'chain_decoded_2_stages', 'chain_decoded_3_stages',
     'any_armor', 'pgp_armor', 'smime_ct',
     # RC2 P4.2: New Transport-Indicators
@@ -191,7 +191,7 @@ TRANSPORT_DECODE_INDICATORS = {
 
 # Feature families for K-of-N Gate
 FEATURE_FAMILIES = {
-    'Transport': {'base64_secret', 'base85', 'rfc2047', 'armor_markers', 
+    'Transport': {'base64_secret', 'base85', 'rfc2047', 'armor_markers',
                   'chain_decoded_1_stages', 'chain_decoded_2_stages', 'chain_decoded_3_stages',
                   'any_armor', 'pgp_armor', 'smime_ct',
                   # RC2 P4.2: Transport-Indicators Complete
@@ -234,18 +234,18 @@ def _neutralize_transport_if_benign(hits: list) -> list:
         if os.getenv('RC_DEBUG_NEUTRALIZE') == '1':
             print(f"[NEUTRALIZE] decoded_benign_media NOT in hits: {hits[:10]}")
         return hits
-    
+
     # Remove transport heuristics when benign proof exists
     transport_signals = {
         'high_entropy', 'dense_alphabet',
         'base64_multiline_detected', 'base64_secret'
     }
-    
+
     neutralized = [h for h in hits if h not in transport_signals]
     if os.getenv('RC_DEBUG_NEUTRALIZE') == '1':
         removed = set(hits) - set(neutralized)
         print(f"[NEUTRALIZE] Removed: {removed}, Kept: {len(neutralized)}/{len(hits)}")
-    
+
     return neutralized
 
 
@@ -268,11 +268,11 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
     context = context_meta.get('context', 'natural')
     is_dev = context_meta.get('is_dev_placeholder', False)
     is_documentation = context_meta.get('is_documentation', False)
-    
+
     # Dev placeholder → zero risk (lab only)
     if is_dev:
         return 0.0, {'dev_placeholder': -99}
-    
+
     # RC2 P4.6: Documentation/Test-Examples → severe dampening (prevents FP on security docs)
     if is_documentation or context == 'documentation':
         # Return low risk but not zero (still detect obvious attacks)
@@ -282,13 +282,13 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
     else:
         doc_dampen = 1.0
         contributions = {}
-    
+
     dampen = CONTEXT_DAMPEN.get(context, CONTEXT_DAMPEN['natural'])  # Fallback for 'documentation'
     total = 0.0
-    
+
     # Check for STRONG signals
     has_strong = any(hit in STRONG_SIGNALS for hit in hits)
-    
+
     # RC2 P3.4b: Check for Unicode obfuscation signals (complement to Transport)
     unicode_obfuscation_signals = {
         'bidi_controls', 'zero_width_chars', 'fullwidth_forms',
@@ -296,13 +296,13 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
         'unicode_enclosed_seen', 'unicode_invisible_space', 'unicode_tag_seen', 'unicode_vs_seen'
     }
     has_unicode_obfuscation = any(hit in unicode_obfuscation_signals for hit in hits)
-    
+
     # Check for Transport/Decode indicators
     has_transport_decode = any(hit in TRANSPORT_DECODE_INDICATORS for hit in hits)
-    
+
     # Count indicators for Indicator Gate
     indicator_count = len([h for h in hits if h in MEDIUM_SIGNALS or h in STRONG_SIGNALS])
-    
+
     # Executability Probe: Check once for all MED/WEAK signals
     # BUT: Skip if Transport/Decode present (Code+Base64 must not be dampened!)
     executability_dampen = 1.0
@@ -313,7 +313,7 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
         if probe_result['parseable']:
             executability_dampen = probe_result['dampen_factor']
             executability_reason = probe_result['reason']
-    
+
     for hit in hits:
         # P2.7: Benign signals (negative risk)
         if hit in BENIGN_SIGNALS:
@@ -321,7 +321,7 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
             total += BENIGN_SIGNALS[hit]
             contributions[hit] = f'BENIGN {hit} ({BENIGN_SIGNALS[hit]:.2f})'
             continue
-        
+
         # Determine signal strength
         if hit in STRONG_SIGNALS or hit in STRONG_SIGNALS_EXTRA:
             base_score = STRONG_SIGNALS.get(hit) or STRONG_SIGNALS_EXTRA.get(hit, 2.0)
@@ -331,7 +331,7 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
             base_score = MEDIUM_SIGNALS.get(hit) or MEDIUM_SIGNALS_EXTRA.get(hit, 1.0)
             factor = dampen['MEDIUM']
             strength = 'MEDIUM'
-            
+
             # Executability Probe: Apply if code parses OK
             if executability_dampen < 1.0:
                 factor *= executability_dampen
@@ -341,13 +341,13 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
             base_score = WEAK_SIGNALS[hit]
             factor = dampen['WEAK']
             strength = 'WEAK'
-            
+
             # Executability Probe: Apply if code parses OK
             if executability_dampen < 1.0:
                 factor *= executability_dampen
                 if executability_reason:
                     contributions[f'{hit}_executability'] = executability_reason
-            
+
             # RC2 P4.1: Tri-Key Enforcement (replaces Two-Key)
             # entropy/dense_alphabet count ONLY if:
             # - Transport/Decode present (Base64, Hex, etc.) OR
@@ -365,7 +365,7 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
             base_score = 0.1
             factor = dampen['WEAK']
             strength = 'WEAK'
-        
+
         score = base_score * factor
         total += score
         contributions[hit] = {
@@ -374,43 +374,43 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
             'strength': strength,
             'context': context
         }
-    
+
     # Indicator Gate: In code/config without STRONG, need ≥2 indicators
     if context in ('code', 'config') and not has_strong:
         if indicator_count < 2:
             # Reduce total score by 50%
             total *= 0.5
             contributions['indicator_gate'] = f'<2 indicators in {context} (applied 0.5x penalty)'
-    
+
     # K-of-N Gate: Require ≥2 feature families for WARN/BLOCK
     # EXCEPT: Unicode family is critical - exempt from gate
     active_families = set()
     for family_name, family_signals in FEATURE_FAMILIES.items():
         if any(hit in family_signals for hit in hits):
             active_families.add(family_name)
-    
+
     unicode_critical = 'Unicode' in active_families
-    
+
     if len(active_families) < 2 and not has_strong and not unicode_critical:
         # Single family → downgrade (but NOT Unicode - critical for security)
         total *= 0.5
         contributions['k_of_n_gate'] = f'Only {len(active_families)} family/families active, require ≥2 for WARN/BLOCK (applied 0.5x penalty)'
-    
+
     # RC2 P4.6: Apply documentation dampening (prevents FP on security docs/test examples)
     total *= doc_dampen
     if doc_dampen < 1.0:
         contributions['doc_dampen_applied'] = f'Documentation context: {doc_dampen}x dampening'
-    
+
     # RC8.1: Legacy test compatibility - add alias keys (no logic change)
     if 'high_entropy_suppressed' in contributions or 'dense_alphabet_suppressed' in contributions:
         contributions.setdefault('two_key_gate', 'Two-Key Gate (Transport/Unicode/STRONG requirement not met)')
         contributions.setdefault('high_entropy_gate', 'High-entropy features gated')
         contributions.setdefault('dense_alphabet_gate', 'Dense-alphabet features gated')
-    
+
     return total, contributions
 
-def decide_action(hits: list, context_meta: dict, text: str = '', 
-                 warn_threshold: float = None, 
+def decide_action(hits: list, context_meta: dict, text: str = '',
+                 warn_threshold: float = None,
                  block_threshold: float = None) -> tuple:
     """
     Make final decision with context-aware weights (V2)
@@ -428,27 +428,27 @@ def decide_action(hits: list, context_meta: dict, text: str = '',
     from llm_firewall.policy.unicode_context import adjust_unicode_signals
     adjusted_hits = adjust_unicode_signals(set(hits), text, context_meta.get('context', 'natural'))
     hits = list(adjusted_hits)
-    
+
     # RC2 P3.2: Neutralize transport if benign media detected
     hits = _neutralize_transport_if_benign(hits)
-    
+
     # RC2: Context-specific thresholds (FPR 99.9%→<2%)
     context = context_meta.get('context', 'natural')
-    
+
     if warn_threshold is None:
         # RC2 P4.9: Restore original code threshold (1.4 for FPR), use STRONG promotion instead
         if context == 'code':
             warn_threshold = float(os.getenv('P2_WARN_TH_CODE', '1.4'))  # Restored to prevent FPR explosion
         elif context == 'config':
             warn_threshold = float(os.getenv('P2_WARN_TH_CONFIG', '1.2'))
-        else:  # natural  
+        else:  # natural
             warn_threshold = float(os.getenv('P2_WARN_TH_NATURAL', '0.7'))
-    
+
     if block_threshold is None:
         block_threshold = float(os.getenv('P2_BLOCK_TH', '2.0'))
-    
+
     risk, contrib = calculate_risk_score(hits, context_meta, text=text)
-    
+
     # RC2 P2.7: Evidence Ladder v2 - Proof-of-Risk not Proof-of-Decode
     # BLOCK only with RISK proof (secretlike, URL-Host-Homoglyph, Unicode in natural)
     risk_proof_signals = {
@@ -456,13 +456,13 @@ def decide_action(hits: list, context_meta: dict, text: str = '',
         'url_homoglyph_detected',       # Homoglyph in URL
         'bidi_controls', 'zero_width_chars',  # Unicode controls
     }
-    
+
     has_risk_proof = any(hit in risk_proof_signals for hit in hits)
-    
+
     # RC2 P3.1: Enhanced Evidence Ladder - Mixed-Script Identifier also risk proof
     risk_proof_signals.add('mixed_script_identifier_strong')
     has_risk_proof = any(hit in risk_proof_signals for hit in hits)
-    
+
     # Evidence Ladder v2 logic (with PRIORITY BLOCK for critical signals)
     if context == 'natural':
         # Natural: BLOCK if risk proof (secrets, Unicode controls)
@@ -470,7 +470,7 @@ def decide_action(hits: list, context_meta: dict, text: str = '',
     else:  # code/config
         # Code/Config: BLOCK only with decoded_secretlike, URL homoglyph, or mixed-script identifier
         can_block = 'decoded_secretlike' in hits or 'url_homoglyph_detected' in hits or 'mixed_script_identifier_strong' in hits
-    
+
     # Apply Evidence Ladder v2
     # RC2 P3.1: Priority BLOCK for decoded_secretlike regardless of threshold
     if 'decoded_secretlike' in hits:
@@ -486,6 +486,6 @@ def decide_action(hits: list, context_meta: dict, text: str = '',
         action = 'WARN'
     else:
         action = 'PASS'
-    
+
     return action, risk, contrib
 

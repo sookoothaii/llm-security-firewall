@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """MASSACRE - 1000 ATTACK VARIANTS"""
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import base64
 import random
-import itertools
-from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
+
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
+from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
 
 # MASSIVE GENERATION
 bases = [
@@ -40,7 +41,7 @@ for base in bases:
                 v = v.encode().hex() if isinstance(v, str) else v
             variants.append(v if isinstance(v, str) else str(v))
     except: pass
-    
+
     # Unicode (20 per base)
     for _ in range(20):
         v = base
@@ -50,18 +51,18 @@ for base in bases:
         v = v.replace('o', random.choice(['\u043e', '\uff4f', '\u2134', 'o']))
         v = v.replace('s', random.choice(['\u0455', '\uff53', '\ua731', 's']))
         variants.append(v)
-    
+
     # Whitespace (10 per base)
     for ws in ['\t', '\xa0', '\u2003', '\u2009', '\u200a', '  ', '\n', '/**/']:
         variants.append(base.replace(' ', ws) if ' ' in base else base + ws)
-    
+
     # Case (8 per base)
     variants.append(base.upper())
     variants.append(base.lower())
     variants.append(base.swapcase())
     for _ in range(5):
         variants.append(''.join(random.choice([c.upper(), c.lower()]) for c in base))
-    
+
     # Comments (6 per base)
     variants.append('/*' + base + '*/')
     variants.append('//' + base)
@@ -69,7 +70,7 @@ for base in bases:
     variants.append('# ' + base)
     variants.append(base + '/**/')
     variants.append('/*x*/' + base + '/*y*/')
-    
+
     # Fragments (5 per base)
     if len(base) > 5:
         for _ in range(5):
@@ -93,16 +94,16 @@ for i, payload in enumerate(variants):
         all_hits = list(base_hits) + attack_hits
         ctx = classify_context(payload)
         action, risk, _ = decide_action_otb(all_hits, ctx, text=payload)
-        
+
         if action == 'PASS':
             bypasses.append(risk)
     except:
         pass
-    
+
     if (i+1) % 100 == 0:
         print(f"{i+1}/{len(variants)} - Bypasses: {len(bypasses)}")
 
-print(f"\nMAS SACRE RESULTS:")
+print("\nMAS SACRE RESULTS:")
 print(f"Tested:    {tested}")
 print(f"Bypasses:  {len(bypasses)}")
 print(f"ASR:       {len(bypasses)/tested*100:.2f}%")

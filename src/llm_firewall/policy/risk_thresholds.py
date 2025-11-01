@@ -80,12 +80,12 @@ def passes_tri_key_gate(hit: str, hits: list) -> bool:
     # Only apply gate to entropy/dense_alphabet (WEAK signals that caused FPR)
     if hit not in {'high_entropy', 'dense_alphabet'}:
         return True  # Not a gated signal, always count
-    
+
     # Check three keys
     has_transport = any(h in TRANSPORT_DECODE_INDICATORS for h in hits)
     has_unicode_obfuscation = any(h in UNICODE_OBFUSCATION_SIGNALS for h in hits)
     has_strong = any(h in STRONG_SIGNAL_NAMES for h in hits)
-    
+
     # Pass if ANY key present
     return has_transport or has_unicode_obfuscation or has_strong
 

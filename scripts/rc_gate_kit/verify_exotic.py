@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 import sys
 from pathlib import Path
+
 repo_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(repo_root / "src"))
 
-from llm_firewall.detectors.exotic_encodings import detect_json_depth, detect_base64_multiline
+from llm_firewall.detectors.exotic_encodings import (
+    detect_base64_multiline,
+    detect_json_depth,
+)
 from llm_firewall.detectors.homoglyph_spoof import latin_spoof_score
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context

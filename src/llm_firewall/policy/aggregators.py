@@ -8,9 +8,8 @@ Author: Claude Sonnet 4.5 (Autonomous Executive)
 Date: 2025-10-31
 """
 
-from typing import List, Set, Dict
 from collections import defaultdict
-
+from typing import Dict, List
 
 # =============================================================================
 # SIGNAL FAMILIES
@@ -51,7 +50,7 @@ SIGNAL_FAMILIES = {
         'path_traversal_dotdot', 'path_system_file_access',
         'rce_log4j_jndi', 'rce_command_injection', 'rce_template_injection',
         'ldap_injection', 'ssrf_internal_target',
-        'attack_keyword_with_encoding', 'dangerous_scheme_detected', 
+        'attack_keyword_with_encoding', 'dangerous_scheme_detected',
         'xss_scheme_obfuscated', 'encoding_near_attack_keyword'
     }
 }
@@ -100,12 +99,12 @@ def get_family_counts(hits: List[str]) -> Dict[str, int]:
         Dict mapping family -> signal count
     """
     family_counts = defaultdict(int)
-    
+
     for hit in hits:
         family = get_signal_family(hit)
         if family != 'Unknown':
             family_counts[family] += 1
-    
+
     return dict(family_counts)
 
 
@@ -144,7 +143,7 @@ def k_of_n_families_with_details(hits: List[str], k: int = 2) -> Dict:
     """
     family_counts = get_family_counts(hits)
     distinct_families = len(family_counts)
-    
+
     return {
         'pass': distinct_families >= k,
         'distinct_families': distinct_families,
@@ -172,11 +171,11 @@ def should_warn_k_of_n(hits: List[str], base_score: float, warn_threshold: float
     # If score clearly above threshold, allow
     if base_score >= warn_threshold * 1.2:
         return True
-    
+
     # If near threshold, require 2+ families
     if base_score >= warn_threshold:
         return k_of_n_families(hits, k=2)
-    
+
     # Below threshold
     return False
 
@@ -196,11 +195,11 @@ def should_block_k_of_n(hits: List[str], base_score: float, block_threshold: flo
     # If score clearly above threshold, allow
     if base_score >= block_threshold * 1.1:
         return True
-    
+
     # If near threshold, require 3+ families
     if base_score >= block_threshold:
         return k_of_n_families(hits, k=3)
-    
+
     # Below threshold
     return False
 

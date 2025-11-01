@@ -53,12 +53,12 @@ def _sniff_magic(buf: bytes) -> str:
     """Sniff magic signature from buffer"""
     if not buf or len(buf) < 4:
         return None
-    
+
     # Binary signatures
     for sig, mime in MAGIC_SIGNATURES.items():
         if buf.startswith(sig):
             return mime
-    
+
     # Text-based formats (SVG, XML, SourceMaps)
     try:
         head = buf[:2048].decode("utf-8", errors="ignore").lstrip()
@@ -68,7 +68,7 @@ def _sniff_magic(buf: bytes) -> str:
             return "application/json+sourcemap"
     except Exception:
         pass
-    
+
     return None
 
 
@@ -76,7 +76,7 @@ def _try_decompress(buf: bytes, cap: int = 100000) -> bytes:
     """Try to decompress GZIP/ZLIB for nested assets with multiple wbits variants"""
     if not buf or len(buf) < 4:
         return None
-    
+
     # Try multiple zlib variants (zlib, raw, gzip)
     for wbits in (zlib.MAX_WBITS, -zlib.MAX_WBITS, 15 | 32):
         try:
@@ -85,7 +85,7 @@ def _try_decompress(buf: bytes, cap: int = 100000) -> bytes:
                 return out
         except Exception:
             pass
-    
+
     return None
 
 
@@ -104,22 +104,22 @@ def looks_benign_media(buf: bytes) -> bool:
     """
     if not buf or len(buf) < 4:
         return False
-    
+
     # Direct magic check
     if _sniff_magic(buf):
         return True
-    
+
     # ZIP-based Office documents (DOCX/XLSX/PPTX/EPUB) - check uncompressed
     if buf.startswith(b"PK\x03\x04"):
         # Look for Office markers in first 64KB
         head = buf[:65536]
-        if (b"[Content_Types].xml" in head or 
-            b"word/" in head or 
-            b"xl/" in head or 
+        if (b"[Content_Types].xml" in head or
+            b"word/" in head or
+            b"xl/" in head or
             b"ppt/" in head or
             b"META-INF/" in head):  # EPUB
             return True
-    
+
     # Try decompression for nested assets
     dec = _try_decompress(buf)
     if dec:
@@ -133,14 +133,14 @@ def looks_benign_media(buf: bytes) -> bool:
             if head.startswith("<svg"):
                 return True
             # Office docs inside ZLIB
-            if (b"[Content_Types].xml" in dec[:65536] or 
-                b"word/" in dec[:65536] or 
-                b"xl/" in dec[:65536] or 
+            if (b"[Content_Types].xml" in dec[:65536] or
+                b"word/" in dec[:65536] or
+                b"xl/" in dec[:65536] or
                 b"ppt/" in dec[:65536]):
                 return True
         except Exception:
             pass
-    
+
     return False
 
 
@@ -148,11 +148,11 @@ def looks_public_material(buf: bytes) -> bool:
     """Check if decoded buffer is public key material"""
     if not buf or len(buf) < 16:
         return False
-    
+
     head = buf[:4096]
     if any(marker in head for marker in PUBLIC_MARKERS):
         return True
-    
+
     # Check text format
     try:
         txt = head.decode("utf-8", errors="ignore")
@@ -160,7 +160,7 @@ def looks_public_material(buf: bytes) -> bool:
             return True
     except Exception:
         pass
-    
+
     return False
 
 

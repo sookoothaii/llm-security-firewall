@@ -5,7 +5,6 @@ Closes ULTRA BREAK V3 EXOTIC bypasses
 """
 from typing import Dict, Tuple
 
-
 # Unicode TAG Block (U+E0001 to U+E007F)
 TAG_BLOCK = range(0xE0001, 0xE0080)
 
@@ -50,13 +49,13 @@ def detect_exotic_unicode(text: str) -> Tuple[str, Dict]:
         'enclosed_seen': False,
         'exotic_count': 0
     }
-    
+
     cleaned = []
-    
+
     for char in text:
         codepoint = ord(char)
         is_exotic = False
-        
+
         if codepoint in TAG_BLOCK:
             flags['tag_seen'] = True
             is_exotic = True
@@ -100,12 +99,12 @@ def detect_exotic_unicode(text: str) -> Tuple[str, Dict]:
             elif 0x24B6 <= codepoint <= 0x24CF:  # Circled A-Z
                 cleaned.append(chr(ord('A') + (codepoint - 0x24B6)))
                 continue
-        
+
         if is_exotic:
             flags['exotic_count'] += 1
         else:
             cleaned.append(char)
-    
+
     return ''.join(cleaned), flags
 
 

@@ -4,10 +4,10 @@ Exotic Encoding Detectors (ASCII85, Punycode, JSON depth)
 Closes V3-V5 bypasses
 RC2 P3.3: Strict Base64 multiline with decode validation
 """
-import re
 import base64
 import binascii
-from typing import Dict, Tuple, List
+import re
+from typing import Dict, List, Tuple
 
 
 def detect_ascii85(text: str) -> bool:
@@ -16,16 +16,16 @@ def detect_ascii85(text: str) -> bool:
     RC2 P3.5: Decode-first with min_len and line guards
     """
     import base64
-    
+
     pattern = re.compile(r'<~[!-uz\s]{40,}?~>', re.MULTILINE | re.DOTALL)
     for match in pattern.finditer(text):
         block = match.group(0)
-        
+
         # Require 2+ lines OR very long (>=120)
         lines = block.count('\n') + 1
         if not (lines >= 2 or len(block) >= 120):
             continue
-        
+
         # Decode probe
         try:
             content = block[2:-2]  # Strip <~ ~>
@@ -34,7 +34,7 @@ def detect_ascii85(text: str) -> bool:
                 return True
         except Exception:
             continue
-    
+
     return False
 
 
@@ -54,17 +54,17 @@ def detect_json_depth(text: str, max_depth: int = 20) -> Dict:
     """
     if '{' not in text:
         return {'deep': False, 'depth': 0, 'max': max_depth}
-    
+
     depth = 0
     max_seen = 0
-    
+
     for char in text:
         if char == '{' or char == '[':
             depth += 1
             max_seen = max(max_seen, depth)
         elif char == '}' or char == ']':
             depth -= 1
-    
+
     return {
         'deep': max_seen > max_depth,
         'depth': max_seen,
@@ -107,7 +107,7 @@ def detect_base64_multiline_strict(text: str, context: str = "natural") -> Tuple
     # Token patterns
     _B64_TOKEN = re.compile(rb"[A-Za-z0-9+/]{20,}={0,2}")
     _B64_URLSF = re.compile(rb"[A-Za-z0-9_\-]{20,}={0,2}")
-    
+
     def _b64_decode_variants(raw: bytes):
         """Try multiple Base64 decode variants"""
         s = raw.strip()
@@ -132,69 +132,69 @@ def detect_base64_multiline_strict(text: str, context: str = "natural") -> Tuple
             return base64.b64decode(bytes(filt), validate=False)
         except binascii.Error:
             return None
-    
+
     def _printable_ratio(buf: bytes) -> float:
         """Calculate ratio of printable ASCII chars"""
         if not buf:
             return 0.0
         printable = sum(1 for b in buf if 32 <= b <= 126)
         return printable / max(1, len(buf))
-    
+
     lines = text.splitlines()
     min_len = 24 if context in ("code", "config") else 20
     long_len = 64
-    
+
     decodable_spans = []
     for i, line in enumerate(lines, 1):
         if line.startswith("#!"):  # Skip shebang
             continue
-        
+
         # Extract candidate tokens (from quoted strings and free text)
         candidates = []
         line_bytes = line.encode("utf-8", "ignore")
-        
+
         # Extract from quoted strings first
         quoted_pattern = re.compile(rb'''['"]([ A-Za-z0-9+/=_\-]{20,})['"]''')
         for match in quoted_pattern.finditer(line_bytes):
             tok = match.group(1)
             if len(tok) >= min_len:
                 candidates.append(tok)
-        
+
         # Also check free tokens (not in quotes)
         candidates += [m.group(0) for m in _B64_TOKEN.finditer(line_bytes) if len(m.group(0)) >= min_len]
         candidates += [m.group(0) for m in _B64_URLSF.finditer(line_bytes) if len(m.group(0)) >= min_len]
-        
+
         # Try to decode; token only counts if decode succeeds
         for tok in candidates:
             out = _b64_decode_variants(tok)
             if out is None:
                 continue
-            
+
             # Collect all decodable spans first, filter later if needed
             decodable_spans.append((i, tok, out))
-    
+
     if not decodable_spans:
         return (False, [])
-    
+
     # Rule: at least 2 lines OR 1 very long token
     lines_hit = {ln for (ln, _, _) in decodable_spans}
     has_two_lines = len(lines_hit) >= 2
     has_one_long = any(len(tok) >= long_len for (_, tok, _) in decodable_spans)
-    
+
     # If multiline OR long token: accept all
     # If single short token: filter textual ones
     if has_two_lines or has_one_long:
         # Multiline or long = suspicious regardless of content
         result_spans = [(ln, tok) for (ln, tok, _) in decodable_spans]
         return (True, result_spans)
-    
+
     # Single short token: apply textual filter
     filtered = []
     for ln, tok, out in decodable_spans:
         pr = _printable_ratio(out)
         if pr <= 0.90:  # Not pure text = keep
             filtered.append((ln, tok))
-    
+
     if filtered:
         return (True, filtered)
     return (False, [])

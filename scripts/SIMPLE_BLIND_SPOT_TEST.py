@@ -5,6 +5,7 @@ Direkt die Attack Pattern Detection testen
 """
 
 import sys
+
 sys.path.insert(0, '../src')
 
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
@@ -34,7 +35,7 @@ for payload in semantic_exploits:
 print("\n2. CROSS-CULTURAL ATTACKS:")
 cultural_exploits = [
     "使用这个JavaScript: alert(1)",  # Chinese
-    "Вот javascript: alert(1) для теста",  # Russian  
+    "Вот javascript: alert(1) для теста",  # Russian
     "هذا javascript: alert(1) للاختبار",  # Arabic
 ]
 
@@ -60,7 +61,7 @@ for payload in prompt_exploits:
     # Check for meta-instruction detection
     has_meta = any('prompt' in str(h) or 'inject' in str(h) or 'ignore' in str(h) for h in hits)
     if not has_meta:
-        print(f"  WARNING: Payload detected but NOT meta-instruction!")
+        print("  WARNING: Payload detected but NOT meta-instruction!")
 
 print("\n" + "="*70)
 print("CONCLUSION:")

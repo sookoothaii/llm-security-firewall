@@ -4,11 +4,11 @@ METRIKEN JETZT - Keine Ausreden!
 Nutzt existierende Test-Infrastruktur
 """
 
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-import time
 from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
 
 # Test corpus - realistisch
@@ -37,7 +37,7 @@ for i, text in enumerate(test_texts):
     except Exception as e:
         print(f"Error on text {i}: {e}")
         continue
-    
+
     if (i+1) % 20 == 0:
         print(f"{i+1}/100 completed")
 
@@ -65,7 +65,7 @@ print(f"p95:    {p95:.3f} ms")
 print(f"p99:    {p99:.3f} ms")
 print(f"Max:    {max_t:.3f} ms")
 print("")
-print(f"RC3 Target:  p95 <= 12.0 ms")
+print("RC3 Target:  p95 <= 12.0 ms")
 print(f"Actual p95:  {p95:.3f} ms")
 print(f"Status:      {'✓ PASS' if p95 <= 12 else '✗ FAIL'}")
 print(f"Gap:         {p95 - 12:.3f} ms {'under' if p95 <= 12 else 'over'} target")

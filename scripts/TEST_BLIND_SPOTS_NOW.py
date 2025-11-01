@@ -5,52 +5,54 @@ Ehrlicher Test der 3 CRITICAL Gaps
 """
 
 import sys
+
 sys.path.insert(0, '../src')
 
+from llm_firewall.detectors.attack_patterns import scan_attack_patterns
+from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
+from llm_firewall.detectors.entropy import entropy_signal
+from llm_firewall.detectors.homoglyph_spoof import detect_homoglyph_spoof
+from llm_firewall.detectors.identifiers import scan_identifiers
+from llm_firewall.detectors.transport_indicators import scan_transport_indicators
+from llm_firewall.detectors.unicode_exotic import detect_exotic_unicode
 from llm_firewall.detectors.unicode_hardening import strip_bidi_zw
 from llm_firewall.normalizers.encoding_chain import try_decode_chain
-from llm_firewall.detectors.entropy import entropy_signal
-from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
-from llm_firewall.detectors.transport_indicators import scan_transport_indicators
-from llm_firewall.detectors.identifiers import scan_identifiers
-from llm_firewall.detectors.homoglyph_spoof import detect_homoglyph_spoof
-from llm_firewall.detectors.unicode_exotic import detect_exotic_unicode
-from llm_firewall.detectors.attack_patterns import scan_attack_patterns
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
+
 
 def run_pipeline(text: str):
     """Full detection pipeline"""
     hits = []
-    
+
     text_clean = strip_bidi_zw(text)
     # Ensure text_clean is a string
     if isinstance(text_clean, dict):
         text_clean = text_clean.get('text', text)
     if not isinstance(text_clean, str):
         text_clean = str(text_clean)
-    
+
     decoded, stages, _, _ = try_decode_chain(text_clean)
-    
+
     if stages > 0:
         hits.append(f'chain_decoded_{stages}_stages')
-    
+
     hits.extend(entropy_signal(text_clean))
     hits.extend(dense_alphabet_flag(text_clean))
     hits.extend(scan_transport_indicators(text_clean))
     hits.extend(scan_identifiers(text_clean))
-    
+
     # Homoglyph returns bool, not list
     homoglyph_result = detect_homoglyph_spoof(text_clean)
     if homoglyph_result:
         hits.append('homoglyph_spoof')
-    
+
     hits.extend(detect_exotic_unicode(text_clean))
     hits.extend(scan_attack_patterns(text_clean))
-    
+
     ctx = classify_context(text_clean)
     action, risk, contrib = decide_action_otb(text_clean, hits, ctx)
-    
+
     return action, risk, hits, ctx
 
 # ============================================================================
@@ -73,11 +75,11 @@ semantic_exploits = [
 semantic_bypasses = 0
 for i, payload in enumerate(semantic_exploits):
     action, risk, hits, ctx = run_pipeline(payload)
-    
+
     # Problem: System erkennt Payload aber nicht Context-Mismatch
     # Expected: BLOCK (config context + attack payload = mismatch)
     # Actual: Könnte PASS wenn dampening applied
-    
+
     if action == 'PASS':
         semantic_bypasses += 1
         print(f"\n[{i+1}] BYPASS - Semantic Context Exploit:")
@@ -110,11 +112,11 @@ cultural_exploits = [
 cultural_bypasses = 0
 for i, payload in enumerate(cultural_exploits):
     action, risk, hits, ctx = run_pipeline(payload)
-    
+
     # Problem: System erkennt ASCII attack keywords aber NICHT non-ASCII keywords
     # Expected: BLOCK (attack keywords in any language)
     # Actual: Könnte PASS wenn non-ASCII keywords nicht erkannt
-    
+
     if action == 'PASS':
         cultural_bypasses += 1
         print(f"\n[{i+1}] BYPASS - Cross-Cultural Attack:")
@@ -147,11 +149,11 @@ prompt_injection_exploits = [
 prompt_injection_bypasses = 0
 for i, payload in enumerate(prompt_injection_exploits):
     action, risk, hits, ctx = run_pipeline(payload)
-    
+
     # Problem: System erkennt payload aber NICHT meta-instructions
     # Expected: BLOCK (prompt injection + payload = double risk)
     # Actual: Erkennt nur payload, nicht meta-attack
-    
+
     if action == 'PASS':
         prompt_injection_bypasses += 1
         print(f"\n[{i+1}] BYPASS - Prompt Injection:")
@@ -163,7 +165,7 @@ for i, payload in enumerate(prompt_injection_exploits):
         # Check if meta-instruction was detected
         meta_detected = any('prompt' in h or 'inject' in h or 'ignore' in h for h in hits)
         if not meta_detected:
-            print(f"  WARNING: Caught payload but NOT meta-instruction!")
+            print("  WARNING: Caught payload but NOT meta-instruction!")
 
 print(f"\nPrompt Injection ASR: {prompt_injection_bypasses}/{len(prompt_injection_exploits)} = {prompt_injection_bypasses/len(prompt_injection_exploits)*100:.1f}%")
 
@@ -181,14 +183,14 @@ print(f"\nTotal Tests: {total_tests}")
 print(f"Total Bypasses: {total_bypasses}")
 print(f"Overall Blind Spots ASR: {total_bypasses/total_tests*100:.1f}%")
 
-print(f"\nBreakdown:")
+print("\nBreakdown:")
 print(f"  Semantic Context:  {semantic_bypasses}/{len(semantic_exploits)} = {semantic_bypasses/len(semantic_exploits)*100:.1f}% ASR")
 print(f"  Cross-Cultural:    {cultural_bypasses}/{len(cultural_exploits)} = {cultural_bypasses/len(cultural_exploits)*100:.1f}% ASR")
 print(f"  Prompt Injection:  {prompt_injection_bypasses}/{len(prompt_injection_exploits)} = {prompt_injection_bypasses/len(prompt_injection_exploits)*100:.1f}% ASR")
 
 if total_bypasses > 0:
     print(f"\n💀 CRITICAL GAPS CONFIRMED - {total_bypasses} bypasses found!")
-    print(f"These are UNTESTED attack vectors from original testing suite.")
+    print("These are UNTESTED attack vectors from original testing suite.")
 else:
-    print(f"\n✅ NO BYPASSES - System handles these vectors!")
+    print("\n✅ NO BYPASSES - System handles these vectors!")
 

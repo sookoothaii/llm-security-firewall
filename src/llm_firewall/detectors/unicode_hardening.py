@@ -38,7 +38,7 @@ def strip_bidi_zw(text: str):
     seen_zw = False
     seen_fullwidth = False
     scripts = detect_scripts(text)
-    
+
     out = []
     for ch in text:
         if ch in BIDI_CTLS:
@@ -55,7 +55,7 @@ def strip_bidi_zw(text: str):
                 out.append(chr(ord(ch) - 0xfee0))
                 continue
         out.append(ch)
-    
+
     return "".join(out), {
         "bidi_seen": seen_bidi,
         "zw_seen": seen_zw,

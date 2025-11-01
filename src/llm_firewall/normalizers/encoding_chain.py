@@ -57,13 +57,13 @@ def _dec_b85(s: str):
             return base64.a85decode(s, adobe=True)
         except Exception:
             pass
-    
+
     # Try RFC 1924 (Z85-compatible)
     try:
         return base64.a85decode(s, adobe=False, ignorechars=" \t\r\n")
     except Exception:
         pass
-    
+
     # Try pure b85decode
     try:
         return base64.b85decode(s)
@@ -131,7 +131,7 @@ def try_decode_chain(text: str, max_stages: int = 3, max_total_bytes: int = 6553
     used = 0
     stages = 0
     last_buffer = None
-    
+
     for _ in range(max_stages):
         cands = sniff_encodings(cur)
         if not cands:
@@ -151,7 +151,7 @@ def try_decode_chain(text: str, max_stages: int = 3, max_total_bytes: int = 6553
                 except Exception:
                     pass
             break
-        
+
         decoded_any = False
         for enc in cands:
             dec = DECODER.get(enc)
@@ -175,9 +175,9 @@ def try_decode_chain(text: str, max_stages: int = 3, max_total_bytes: int = 6553
                 break
             except Exception:
                 continue
-        
+
         if not decoded_any:
             break
-    
+
     return cur, stages, used, last_buffer
 

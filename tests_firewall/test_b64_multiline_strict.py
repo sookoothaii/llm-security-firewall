@@ -9,7 +9,10 @@ from pathlib import Path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root / "src"))
 
-from llm_firewall.detectors.exotic_encodings import detect_base64_multiline, detect_base64_multiline_strict
+from llm_firewall.detectors.exotic_encodings import (
+    detect_base64_multiline,
+    detect_base64_multiline_strict,
+)
 
 
 def test_short_strings_in_code_do_not_trigger():

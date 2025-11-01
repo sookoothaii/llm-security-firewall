@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """TEST ATTACK PATTERNS - SOFORT"""
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
@@ -23,7 +24,7 @@ for category, payload in attacks:
     attack_hits = scan_attack_patterns(payload)
     ctx = classify_context(payload)
     action, risk, contrib = decide_action_otb(attack_hits, ctx, text=payload)
-    
+
     print(f"\n{category}: {payload}")
     print(f"  Hits: {attack_hits}")
     print(f"  Risk: {risk:.3f}")

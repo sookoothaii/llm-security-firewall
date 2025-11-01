@@ -3,19 +3,17 @@
 Tests for OTB FPR Recovery Gates
 MSG, BMV, K-of-N, Executability Probe
 """
-import pytest
-from llm_firewall.gates.msg_guard import msg_decide, _perturbations
-from llm_firewall.gates.benign_vault import BenignVault, simhash, hamming_distance
-from llm_firewall.gates.executability_probe import check_executability, _extract_code_fence
-from llm_firewall.policy.risk_weights_v2 import calculate_risk_score, FEATURE_FAMILIES
-from llm_firewall.preprocess.context import classify_context
+from llm_firewall.gates.benign_vault import BenignVault, hamming_distance, simhash
+from llm_firewall.gates.executability_probe import check_executability
+from llm_firewall.gates.msg_guard import _perturbations, msg_decide
+from llm_firewall.policy.risk_weights_v2 import FEATURE_FAMILIES, calculate_risk_score
 
 
 def test_msg_perturbations():
     """MSG: Perturbations generated correctly"""
     text = "Hello   world\n```python\ndef foo():\n    pass\n```"
     perts = _perturbations(text)
-    
+
     assert len(perts) == 5
     assert text in perts
     # Check whitespace collapse (all spaces collapsed to single)
@@ -27,7 +25,7 @@ def test_msg_stable_decision():
     """MSG: Stable decision passes through"""
     def stable_scan(text, meta):
         return ("WARN", 2.0, {})
-    
+
     action, risk, _ = msg_decide(stable_scan, "test", {})
     assert action == "WARN"
     assert risk == 2.0
@@ -36,7 +34,7 @@ def test_msg_stable_decision():
 def test_msg_unstable_downgrades():
     """MSG: Unstable WARN/BLOCK downgraded to PASS"""
     call_count = [0]
-    
+
     def unstable_scan(text, meta):
         call_count[0] += 1
         # Different results for different perturbations (only 2 WARN out of 5)
@@ -44,7 +42,7 @@ def test_msg_unstable_downgrades():
             return ("WARN", 2.0, {})
         else:
             return ("PASS", 0.0, {})
-    
+
     action, risk, contrib = msg_decide(unstable_scan, "test", {})
     assert action == "PASS"
     # Check for msg_guard key OR check that action was downgraded
@@ -70,10 +68,10 @@ def test_hamming_distance():
 def test_benign_vault_add_and_check():
     """BMV: Add text and check for near matches"""
     vault = BenignVault(hamming_threshold=3)
-    
+
     vault.add_text("def hello(): return 42")
     assert vault.is_near_benign("def hello(): return 42")  # Exact match
-    
+
     vault.add_text("x = [1, 2, 3]")
     assert vault.is_near_benign("x = [1, 2, 3]")  # Exact match
 
@@ -104,9 +102,9 @@ def test_k_of_n_single_family():
     """K-of-N Gate: Single family downgrades"""
     hits = ['bidi_controls', 'zero_width_chars']  # Only Unicode family
     ctx = {'context': 'natural', 'is_dev_placeholder': False}
-    
+
     risk, contrib = calculate_risk_score(hits, ctx)
-    
+
     # Should have k_of_n_gate penalty
     assert 'k_of_n_gate' in contrib
     assert risk < 2.0  # Downgraded
@@ -116,9 +114,9 @@ def test_k_of_n_multiple_families():
     """K-of-N Gate: Multiple families pass"""
     hits = ['bidi_controls', 'base64_secret']  # Unicode + Transport
     ctx = {'context': 'natural', 'is_dev_placeholder': False}
-    
+
     risk, contrib = calculate_risk_score(hits, ctx)
-    
+
     # Should NOT have k_of_n_gate penalty
     assert 'k_of_n_gate' not in contrib
 
@@ -127,9 +125,9 @@ def test_k_of_n_strong_bypass():
     """K-of-N Gate: STRONG signals bypass gate"""
     hits = ['pgp_armor']  # STRONG, single family
     ctx = {'context': 'natural', 'is_dev_placeholder': False}
-    
+
     risk, contrib = calculate_risk_score(hits, ctx)
-    
+
     # Should NOT have k_of_n_gate penalty (STRONG present)
     assert 'k_of_n_gate' not in contrib
 

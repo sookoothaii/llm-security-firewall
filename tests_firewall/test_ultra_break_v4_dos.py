@@ -4,20 +4,19 @@ ULTRA BREAK V4 - DoS/Latency/Stability
 TIMEOUT > 0.8s = DoS vulnerability
 Zalgo, Bidi-Storm, Fullwidth-Flood, Regex-Backtracking, Surrogate-Soup
 """
-import pytest
-import time
-import sys
 import os
+import sys
+import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
+from llm_firewall.detectors.entropy import entropy_signal
+from llm_firewall.detectors.homoglyph_spoof import latin_spoof_score
+from llm_firewall.detectors.unicode_exotic import detect_exotic_unicode
 from llm_firewall.detectors.unicode_hardening import strip_bidi_zw
 from llm_firewall.normalizers.encoding_chain import try_decode_chain
 from llm_firewall.normalizers.unescape_u import has_json_u_escapes, unescape_json_u
-from llm_firewall.detectors.homoglyph_spoof import latin_spoof_score
-from llm_firewall.detectors.unicode_exotic import detect_exotic_unicode
-from llm_firewall.detectors.entropy import entropy_signal
-from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
 
@@ -27,36 +26,39 @@ TIMEOUT_LIMIT = 0.8  # seconds
 def run_detectors_timed(text: str) -> tuple:
     """Run detectors with timing - FULL P3 suite + RC2 P4"""
     start = time.perf_counter()
-    
+
     hits = []
-    
+
     # RC2 P4.2: Transport-Indicators Complete
     from llm_firewall.detectors.transport_indicators import scan_transport_indicators
     hits.extend(scan_transport_indicators(text))
-    
+
     # RC2 P4.4: Identifiers Detector
     from llm_firewall.detectors.identifiers import scan_identifiers
     hits.extend(scan_identifiers(text))
-    
+
     # V3-V5 EXOTIC ENCODINGS
-    from llm_firewall.detectors.exotic_encodings import detect_json_depth, detect_base64_multiline
+    from llm_firewall.detectors.exotic_encodings import (
+        detect_base64_multiline,
+        detect_json_depth,
+    )
     from llm_firewall.detectors.idna_punycode import detect_idna_punycode
     from llm_firewall.normalizers.ascii85 import detect_and_decode_ascii85
-    
+
     # ASCII85
     ascii85_info = detect_and_decode_ascii85(text)
     if ascii85_info['detected']: hits.append('ascii85_detected')
-    
+
     # IDNA/Punycode
     idna_info = detect_idna_punycode(text)
     if idna_info['punycode_found']: hits.append('punycode_detected')
     if idna_info['homoglyph_in_url']: hits.append('url_homoglyph_detected')
-    
+
     json_depth_info = detect_json_depth(text, max_depth=20)
     if json_depth_info['deep']: hits.append('json_depth_excessive')
-    
+
     if detect_base64_multiline(text): hits.append('base64_multiline_detected')
-    
+
     # JSON-U
     if has_json_u_escapes(text):
         hits.append('json_u_escape_seen')
@@ -64,12 +66,12 @@ def run_detectors_timed(text: str) -> tuple:
         if changed:
             hits.append('json_u_escape_decoded')
             text = decoded_u
-    
+
     # Homoglyph
     ratio, counts = latin_spoof_score(text)
     if counts['changed'] >= 1: hits.append('homoglyph_spoof_ge_1')
     if ratio >= 0.20: hits.append('homoglyph_spoof_ratio_ge_20')
-    
+
     # Exotic Unicode
     cleaned_exotic, exotic_flags = detect_exotic_unicode(text)
     if exotic_flags['tag_seen']: hits.append('unicode_tag_seen')
@@ -79,38 +81,38 @@ def run_detectors_timed(text: str) -> tuple:
     if exotic_flags['ligature_seen']: hits.append('unicode_ligature_seen')
     if exotic_flags['math_alpha_seen']: hits.append('unicode_math_alpha_seen')
     if exotic_flags['enclosed_seen']: hits.append('unicode_enclosed_seen')
-    
+
     # Decode
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
         hits.append(f'chain_decoded_{stages}_stages')
         hits.append('base64_secret')
-    
+
     # Unicode standard
     _, flags = strip_bidi_zw(text)
     if flags.get('bidi_seen'): hits.append('bidi_controls')
     if flags.get('zw_seen'): hits.append('zero_width_chars')
     if flags.get('fullwidth_seen'): hits.append('fullwidth_forms')
     if flags.get('mixed_scripts'): hits.append('mixed_scripts')
-    
+
     # Density
     if entropy_signal(text, threshold=4.0): hits.append('high_entropy')
     if dense_alphabet_flag(text): hits.append('dense_alphabet')
-    
+
     elapsed = time.perf_counter() - start
-    
+
     return hits, elapsed
 
 
 def _assert_blocked_fast(payload: str, desc: str):
     """PASS = BYPASS, TIMEOUT > 0.8s = DoS"""
     ctx = classify_context(payload)
-    
+
     start = time.perf_counter()
     hits, detection_time = run_detectors_timed(payload)
     action, risk, _ = decide_action_otb(hits, ctx, text=payload)
     total_time = time.perf_counter() - start
-    
+
     assert total_time <= TIMEOUT_LIMIT, f"DoS {desc}: {total_time:.3f}s > {TIMEOUT_LIMIT}s"
     assert action in ('WARN', 'BLOCK'), f"BYPASS {desc}: {action} risk={risk:.2f} hits={len(hits)} time={total_time:.3f}s"
 

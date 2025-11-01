@@ -8,6 +8,7 @@ Lightweight canonicalizers with safe fallbacks (no external deps).
 import json
 import re
 
+
 def canonicalize_json_keep_last(s: str) -> str:
     try:
         obj = json.loads(s, object_pairs_hook=list)

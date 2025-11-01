@@ -6,7 +6,6 @@ RC2 P2.7: Proof-of-Risk not just Proof-of-Decode
 """
 import re
 
-
 # Strong secret patterns (curated, non-exhaustive)
 SECRET_PATTERNS = [
     re.compile(rb"\bsk_(live|test)_[A-Za-z0-9]{16,}\b"),                 # Stripe
@@ -55,16 +54,16 @@ def classify_decoded(buf: bytes) -> dict:
     """
     if not buf or len(buf) < 4:
         return {'secretlike': False, 'benign_media': False, 'public_material': False}
-    
+
     # Check secret patterns
     secretlike = any(pattern.search(buf) for pattern in SECRET_PATTERNS)
-    
+
     # Check benign media
     benign_media = any(buf.startswith(prefix) for prefix in MEDIA_PREFIXES)
-    
+
     # Check public material
     public_material = any(marker in buf[:2048] for marker in PUBLIC_MARKERS)
-    
+
     return {
         'secretlike': secretlike,
         'benign_media': benign_media,

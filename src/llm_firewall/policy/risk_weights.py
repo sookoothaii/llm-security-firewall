@@ -71,15 +71,15 @@ def calculate_risk_score(hits: list, context_meta: dict) -> tuple:
     """
     context = context_meta.get('context', 'natural')
     is_dev = context_meta.get('is_dev_placeholder', False)
-    
+
     # Dev placeholder → zero risk (lab only)
     if is_dev:
         return 0.0, {'dev_placeholder': -99}
-    
+
     dampen = CONTEXT_DAMPEN[context]
     contributions = {}
     total = 0.0
-    
+
     for hit in hits:
         # Determine signal strength
         if hit in STRONG_SIGNALS:
@@ -99,7 +99,7 @@ def calculate_risk_score(hits: list, context_meta: dict) -> tuple:
             base_score = 0.1
             factor = dampen['WEAK']
             strength = 'WEAK'
-        
+
         score = base_score * factor
         total += score
         contributions[hit] = {
@@ -108,7 +108,7 @@ def calculate_risk_score(hits: list, context_meta: dict) -> tuple:
             'strength': strength,
             'context': context
         }
-    
+
     return total, contributions
 
 def decide_action(hits: list, context_meta: dict, warn_threshold: float = 1.5, block_threshold: float = 2.5) -> tuple:
@@ -125,13 +125,13 @@ def decide_action(hits: list, context_meta: dict, warn_threshold: float = 1.5, b
         (action, risk_score, contributions)
     """
     risk, contrib = calculate_risk_score(hits, context_meta)
-    
+
     if risk >= block_threshold:
         action = 'BLOCK'
     elif risk >= warn_threshold:
         action = 'WARN'
     else:
         action = 'PASS'
-    
+
     return action, risk, contrib
 

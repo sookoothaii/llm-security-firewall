@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import sys
 from pathlib import Path
+
 repo_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(repo_root / "src"))
 
-from llm_firewall.normalizers.unescape_u import has_json_u_escapes, unescape_json_u
 from llm_firewall.detectors.homoglyph_spoof import latin_spoof_score
+from llm_firewall.normalizers.unescape_u import has_json_u_escapes, unescape_json_u
 
 # Test JSON-U
 payload1 = r'{"key":"\u005b\u005bSECRET\u005d\u005d"}'

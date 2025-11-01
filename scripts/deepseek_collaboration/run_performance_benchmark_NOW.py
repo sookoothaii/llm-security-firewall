@@ -4,11 +4,10 @@ IMMEDIATE Performance Benchmark - REAL METRICS NOW
 Keine Ausreden, echte Zahlen!
 """
 
-import sys
-import time
-import statistics
-import os
 import importlib.util
+import os
+import statistics
+import time
 
 # Direct module loading
 base_path = os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'llm_firewall')
@@ -45,13 +44,13 @@ classify_context = context_mod.classify_context
 def run_full_pipeline(text: str):
     """Full pipeline wie in Tests"""
     hits = []
-    
+
     text_clean = strip_bidi_zw(text)
     decoded_text, stages, decode_bytes, buffer = try_decode_chain(text_clean)
-    
+
     if stages > 0:
         hits.append(f'chain_decoded_{stages}_stages')
-    
+
     hits.extend(entropy_signal(text_clean))
     hits.extend(dense_alphabet_flag(text_clean))
     hits.extend(scan_transport_indicators(text_clean))
@@ -61,10 +60,10 @@ def run_full_pipeline(text: str):
     exotic_sig, exotic_dict = detect_exotic_unicode(text_clean)
     if exotic_sig:
         hits.append(exotic_sig)
-    
+
     ctx = classify_context(text_clean)
     action, risk, contrib = decide_action_otb(text_clean, hits, ctx)
-    
+
     return action, risk, hits
 
 # Test Corpus
@@ -93,10 +92,10 @@ for i, text in enumerate(test_texts):
     start = time.perf_counter()
     action, risk, hits = run_full_pipeline(text)
     end = time.perf_counter()
-    
+
     latency_ms = (end - start) * 1000
     times.append(latency_ms)
-    
+
     if i % 20 == 0:
         print(f"Progress: {i}/{len(test_texts)}")
 
@@ -116,6 +115,6 @@ print(f"p50:   {p50:.2f} ms")
 print(f"p95:   {p95:.2f} ms")
 print(f"p99:   {p99:.2f} ms")
 print(f"Max:   {max_lat:.2f} ms")
-print(f"\nRC3 Target: p95 <= 12ms")
+print("\nRC3 Target: p95 <= 12ms")
 print(f"Status: {'PASS' if p95 <= 12 else 'FAIL'} (p95 = {p95:.2f}ms)")
 

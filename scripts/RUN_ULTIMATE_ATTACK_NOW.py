@@ -2,16 +2,16 @@
 """
 ULTIMATE ATTACK - JETZT SOFORT AUSFUEHREN
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import base64
-import random
-import time
-from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
+
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
+from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
 
 # ATTACK PAYLOADS
 attacks = [
@@ -56,7 +56,7 @@ for i, (category, payload) in enumerate(attacks):
     hits, elapsed = run_detectors_timed(payload)
     ctx = classify_context(payload)
     action, risk, contrib = decide_action_otb(hits, ctx, text=payload)
-    
+
     result = {
         'category': category,
         'payload': payload[:50],
@@ -64,7 +64,7 @@ for i, (category, payload) in enumerate(attacks):
         'risk': risk,
         'hits': len(hits)
     }
-    
+
     if action == 'BLOCK':
         blocked += 1
     elif action == 'WARN':
@@ -72,7 +72,7 @@ for i, (category, payload) in enumerate(attacks):
     else:
         passed += 1
         print(f"BYPASS {i+1}: {category} - {payload[:40]}... risk={risk:.2f}")
-    
+
     results.append(result)
 
 total = len(attacks)

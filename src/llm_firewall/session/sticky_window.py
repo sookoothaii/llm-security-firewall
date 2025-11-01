@@ -8,6 +8,7 @@ Prevents quick WARN->PASS flip via filler text
 """
 from collections import defaultdict
 
+
 class StickyWindow:
     """
     Session-level sticky decision enforcement
@@ -19,7 +20,7 @@ class StickyWindow:
         """
         self.ttl_turns = ttl_turns
         self.history = defaultdict(list)  # session_id -> [(turn, action), ...]
-    
+
     def decide(self, session_id: str, turn: int, current_action: str) -> str:
         """
         Enforce sticky elevated action
@@ -33,22 +34,22 @@ class StickyWindow:
             Enforced action (may be elevated from current)
         """
         history = self.history[session_id]
-        
+
         # Clean old history (outside TTL window)
         history[:] = [(t, a) for t, a in history if turn - t < self.ttl_turns]
-        
+
         # Check if previous turns had WARN/BLOCK
         recent_elevated = [a for t, a in history if a in ('WARN', 'BLOCK')]
-        
+
         # Add current
         history.append((turn, current_action))
-        
+
         # Enforce: if any recent WARN/BLOCK, minimum is WARN
         if recent_elevated and current_action == 'PASS':
             return 'WARN'
-        
+
         return current_action
-    
+
     def reset(self, session_id: str):
         """Clear history for session"""
         if session_id in self.history:

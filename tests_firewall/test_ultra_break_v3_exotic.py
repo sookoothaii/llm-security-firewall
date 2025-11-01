@@ -4,18 +4,17 @@ ULTRA BREAK V3 - EXOTIC VECTORS
 Unicode TAG Block, Variation Selectors, JWT-Split, IDNA/Punycode, Metamorph
 """
 import base64
-import pytest
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
+from llm_firewall.detectors.entropy import entropy_signal
+from llm_firewall.detectors.homoglyph_spoof import latin_spoof_score
 from llm_firewall.detectors.unicode_hardening import strip_bidi_zw
 from llm_firewall.normalizers.encoding_chain import try_decode_chain
 from llm_firewall.normalizers.unescape_u import has_json_u_escapes, unescape_json_u
-from llm_firewall.detectors.homoglyph_spoof import latin_spoof_score
-from llm_firewall.detectors.entropy import entropy_signal
-from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
 
@@ -23,40 +22,41 @@ from llm_firewall.preprocess.context import classify_context
 def run_detectors(text: str) -> list:
     """Full detector suite with P2 Fix Pack + V3 Exotic + V3-V5 Fixes + RC2 P4 + RC3 Attack Patterns"""
     hits = []
-    
+
     # RC3 CRITICAL: Attack Pattern Detector
     from llm_firewall.detectors.attack_patterns import scan_attack_patterns
     hits.extend(scan_attack_patterns(text))
-    
+
     # RC2 P4.2: Transport-Indicators Complete
     from llm_firewall.detectors.transport_indicators import scan_transport_indicators
     hits.extend(scan_transport_indicators(text))
-    
+
     # RC2 P4.4: Identifiers Detector
     from llm_firewall.detectors.identifiers import scan_identifiers
     hits.extend(scan_identifiers(text))
-    
+
     # V3-V5 EXOTIC ENCODINGS
     from llm_firewall.detectors.exotic_encodings import (
-        detect_ascii85, detect_punycode, detect_json_depth, detect_base64_multiline
+        detect_base64_multiline,
+        detect_json_depth,
     )
     from llm_firewall.detectors.idna_punycode import detect_idna_punycode
     from llm_firewall.normalizers.ascii85 import detect_and_decode_ascii85
-    
+
     # ASCII85
     ascii85_info = detect_and_decode_ascii85(text)
     if ascii85_info['detected']: hits.append('ascii85_detected')
-    
+
     # IDNA/Punycode
     idna_info = detect_idna_punycode(text)
     if idna_info['punycode_found']: hits.append('punycode_detected')
     if idna_info['homoglyph_in_url']: hits.append('url_homoglyph_detected')
-    
+
     json_depth_info = detect_json_depth(text, max_depth=20)
     if json_depth_info['deep']: hits.append('json_depth_excessive')
-    
+
     if detect_base64_multiline(text): hits.append('base64_multiline_detected')
-    
+
     # JSON-U
     if has_json_u_escapes(text):
         hits.append('json_u_escape_seen')
@@ -64,12 +64,12 @@ def run_detectors(text: str) -> list:
         if changed:
             hits.append('json_u_escape_decoded')
             text = decoded_u
-    
+
     # Homoglyph
     ratio, counts = latin_spoof_score(text)
     if counts['changed'] >= 1: hits.append('homoglyph_spoof_ge_1')
     if ratio >= 0.20: hits.append('homoglyph_spoof_ratio_ge_20')
-    
+
     # V3 EXOTIC UNICODE
     from llm_firewall.detectors.unicode_exotic import detect_exotic_unicode
     cleaned_exotic, exotic_flags = detect_exotic_unicode(text)
@@ -80,24 +80,24 @@ def run_detectors(text: str) -> list:
     if exotic_flags['ligature_seen']: hits.append('unicode_ligature_seen')
     if exotic_flags['math_alpha_seen']: hits.append('unicode_math_alpha_seen')
     if exotic_flags['enclosed_seen']: hits.append('unicode_enclosed_seen')
-    
+
     # Decode
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
         hits.append(f'chain_decoded_{stages}_stages')
         hits.append('base64_secret')
-    
+
     # Unicode standard
     _, flags = strip_bidi_zw(text)
     if flags.get('bidi_seen'): hits.append('bidi_controls')
     if flags.get('zw_seen'): hits.append('zero_width_chars')
     if flags.get('fullwidth_seen'): hits.append('fullwidth_forms')
     if flags.get('mixed_scripts'): hits.append('mixed_scripts')
-    
+
     # Density
     if entropy_signal(text, threshold=4.0): hits.append('high_entropy')
     if dense_alphabet_flag(text): hits.append('dense_alphabet')
-    
+
     return hits
 
 
@@ -215,7 +215,6 @@ def test_qp_soft_breaks():
 # BASE85 VARIANTS
 def test_ascii85_adobe():
     """ASCII85: Adobe variant <~...~>"""
-    import base64
     # Simulate ASCII85 (we don't have stdlib for this, use pattern)
     payload = "<~9jqo^BlbD-BleB1DJ+*+F(f,q~>[[SECRET]]"
     _assert_blocked(payload, "ASCII85 Adobe")

@@ -25,7 +25,7 @@ def decode_punycode_host(host: str) -> Tuple[bool, str]:
     """
     if 'xn--' not in host.lower():
         return False, host
-    
+
     try:
         # Python builtin IDNA codec
         decoded = host.encode('ascii').decode('idna')
@@ -47,20 +47,20 @@ def detect_idna_punycode(text: str) -> Dict:
         }
     """
     hosts = extract_hosts(text)
-    
+
     if not hosts:
         return {'punycode_found': False, 'hosts': [], 'decoded_hosts': [], 'homoglyph_in_url': False}
-    
+
     punycode_found = False
     decoded_hosts = []
     homoglyph_in_url = False
-    
+
     for host in hosts:
         is_punycode, decoded = decode_punycode_host(host)
         if is_punycode:
             punycode_found = True
             decoded_hosts.append(decoded)
-        
+
         # Check for Cyrillic/Greek in hostname (homoglyph spoof)
         for char in host:
             cp = ord(char)
@@ -69,7 +69,7 @@ def detect_idna_punycode(text: str) -> Dict:
             if (0x0400 <= cp <= 0x04FF) or (0x0370 <= cp <= 0x03FF):
                 homoglyph_in_url = True
                 break
-    
+
     return {
         'punycode_found': punycode_found,
         'hosts': hosts,

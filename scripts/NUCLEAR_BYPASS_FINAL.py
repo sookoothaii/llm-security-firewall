@@ -2,16 +2,18 @@
 """
 NUCLEAR BYPASS - ABSOLUT HAERTESTER TEST
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import base64
 import random
-from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
+
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
+from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
 
 # NUCLEAR LEVEL
 nuclear = []
@@ -28,6 +30,7 @@ payload = "DROP TABLE"
 step1 = payload.encode().hex()
 step2 = base64.b64encode(step1.encode()).decode()
 import urllib.parse
+
 step3 = urllib.parse.quote(step2)
 step4 = base64.b64encode(step3.encode()).decode()
 nuclear.append(("quad_enc", step4))
@@ -74,7 +77,7 @@ for category, payload in nuclear:
         all_hits = list(base_hits) + attack_hits
         ctx = classify_context(payload)
         action, risk, _ = decide_action_otb(all_hits, ctx, text=payload)
-        
+
         if action == 'PASS':
             bypasses.append((category, risk))
             print(f"NUCLEAR BYPASS: {category} - risk={risk:.3f}")

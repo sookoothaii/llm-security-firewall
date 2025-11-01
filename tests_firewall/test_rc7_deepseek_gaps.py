@@ -3,19 +3,22 @@
 RC7: DeepSeek Gaps Testing
 Indirect Execution + Multi-Modal Bypasses
 """
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from llm_firewall.detectors.indirect_execution import scan_indirect_and_multimodal
-from llm_firewall.detectors.emoji_normalize import normalize_emoji_homoglyphs, detect_emoji_homoglyphs
-from llm_firewall.detectors.multilingual_keywords import scan_multilingual_attacks
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
-from llm_firewall.normalizers.encoding_chain import try_decode_chain
-from llm_firewall.detectors.unicode_hardening import strip_bidi_zw
-from llm_firewall.detectors.entropy import entropy_signal
 from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
+from llm_firewall.detectors.emoji_normalize import (
+    detect_emoji_homoglyphs,
+    normalize_emoji_homoglyphs,
+)
+from llm_firewall.detectors.entropy import entropy_signal
+from llm_firewall.detectors.indirect_execution import scan_indirect_and_multimodal
+from llm_firewall.detectors.multilingual_keywords import scan_multilingual_attacks
+from llm_firewall.detectors.unicode_hardening import strip_bidi_zw
+from llm_firewall.normalizers.encoding_chain import try_decode_chain
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
 
@@ -23,39 +26,39 @@ from llm_firewall.preprocess.context import classify_context
 def run_detectors(text: str) -> list:
     """Full pipeline RC3+RC5+RC6+RC7"""
     hits = []
-    
+
     # RC5 Emoji
     normalized_text, emoji_meta = normalize_emoji_homoglyphs(text)
     hits.extend(detect_emoji_homoglyphs(text))
     if emoji_meta['changed']:
         text = normalized_text
-    
+
     # RC6 Multilingual
     hits.extend(scan_multilingual_attacks(text))
-    
+
     # RC7 Indirect+MultiModal
     hits.extend(scan_indirect_and_multimodal(text))
-    
+
     # RC3 Attack Patterns
     hits.extend(scan_attack_patterns(text))
-    
+
     # Encoding chain
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
         hits.append(f'chain_decoded_{stages}_stages')
         hits.append('base64_secret')
-    
+
     # Unicode
     _, flags = strip_bidi_zw(text)
     if flags.get('bidi_seen'): hits.append('bidi_controls')
     if flags.get('zw_seen'): hits.append('zero_width_chars')
     if flags.get('fullwidth_seen'): hits.append('fullwidth_forms')
     if flags.get('mixed_scripts'): hits.append('mixed_scripts')
-    
+
     # Density
     if entropy_signal(text, threshold=4.0): hits.append('high_entropy')
     if dense_alphabet_flag(text): hits.append('dense_alphabet')
-    
+
     return hits
 
 

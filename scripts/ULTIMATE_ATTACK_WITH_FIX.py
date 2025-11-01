@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """ULTIMATE ATTACK MIT ATTACK PATTERN DETECTOR"""
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import base64
-from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
+
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
+from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
 
 attacks = [
     ("sql", "' OR '1'='1'; DROP TABLE users--"),
@@ -39,16 +41,16 @@ passed = 0
 for i, (category, payload) in enumerate(attacks):
     # Base detectors
     base_hits, elapsed = run_detectors_timed(payload)
-    
+
     # ADD Attack Pattern Detection
     attack_hits = scan_attack_patterns(payload)
-    
+
     # Combine
     all_hits = list(base_hits) + attack_hits
-    
+
     ctx = classify_context(payload)
     action, risk, contrib = decide_action_otb(all_hits, ctx, text=payload)
-    
+
     if action == 'BLOCK':
         blocked += 1
     elif action == 'WARN':

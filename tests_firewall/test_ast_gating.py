@@ -9,7 +9,10 @@ from pathlib import Path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root / "src"))
 
-from llm_firewall.preprocess.extract_literals import extract_py_literals_and_comments, extract_scannable_parts
+from llm_firewall.preprocess.extract_literals import (
+    extract_py_literals_and_comments,
+    extract_scannable_parts,
+)
 
 
 def test_extracts_string_literals():

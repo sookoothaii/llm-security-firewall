@@ -20,7 +20,7 @@ def extract_py_literals_and_comments(src: str) -> List[Tuple[str, int]]:
     """
     if not src:
         return []
-    
+
     out = []
     try:
         rdr = io.BytesIO(src.encode("utf-8", errors="ignore")).readline
@@ -31,7 +31,7 @@ def extract_py_literals_and_comments(src: str) -> List[Tuple[str, int]]:
         # Tokenize can fail on malformed code
         # Fallback: scan full text
         return [(src, 1)]
-    
+
     return out
 
 
@@ -63,7 +63,7 @@ def extract_scannable_parts(text: str, context: str = "natural") -> List[str]:
                 else:
                     parts.append(content)
             return [p for p in parts if p]
-    
+
     # Fallback or non-code: scan full text
     return [text]
 

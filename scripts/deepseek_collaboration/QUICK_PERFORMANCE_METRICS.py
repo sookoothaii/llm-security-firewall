@@ -6,6 +6,7 @@ Keine Ausreden - direkt aus DoS Tests kopiert
 
 import sys
 import time
+
 sys.path.insert(0, '../../')
 
 # Import direkt aus working test file
@@ -34,10 +35,10 @@ for i, text in enumerate(test_corpus):
     start = time.perf_counter()
     action, risk, hits = run_detectors_timed(text)
     end = time.perf_counter()
-    
+
     latency_ms = (end - start) * 1000
     times.append(latency_ms)
-    
+
     if (i+1) % 20 == 0:
         print(f"Progress: {i+1}/{len(test_corpus)}")
 
@@ -59,7 +60,7 @@ print(f"p50:   {p50:.2f} ms")
 print(f"p95:   {p95:.2f} ms")
 print(f"p99:   {p99:.2f} ms")
 print(f"Max:   {max_lat:.2f} ms")
-print(f"\nRC3 Target: p95 <= 12ms")
+print("\nRC3 Target: p95 <= 12ms")
 print(f"Status: {'PASS' if p95 <= 12 else 'FAIL'} (p95 = {p95:.2f}ms)")
 print(f"Gap:    {p95 - 12:.2f}ms {'below' if p95 <= 12 else 'above'} target")
 

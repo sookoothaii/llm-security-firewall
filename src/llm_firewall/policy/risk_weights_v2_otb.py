@@ -3,11 +3,11 @@
 Risk-Weights V2 + OTB Gates Integration
 Combines V2 with MSG, BMV, K-of-N, Executability Probe
 """
-from typing import Tuple, Dict, Any
+from typing import Any, Dict, Tuple
 
-from llm_firewall.policy.risk_weights_v2 import decide_action as v2_decide
-from llm_firewall.gates.msg_guard import msg_decide
 from llm_firewall.gates.benign_vault import get_vault
+from llm_firewall.gates.msg_guard import msg_decide
+from llm_firewall.policy.risk_weights_v2 import decide_action as v2_decide
 
 
 def decide_action_otb(hits: list, context_meta: dict, text: str = '',
@@ -36,20 +36,20 @@ def decide_action_otb(hits: list, context_meta: dict, text: str = '',
         vault = get_vault()
         has_strong = any(hit in STRONG_SIGNALS for hit in hits)
         # RC2 P4.7: Also check for critical signals that shouldn't be bypassed
-        critical_signals = {'base64_secret', 'chain_decoded_1_stages', 'chain_decoded_2_stages', 
+        critical_signals = {'base64_secret', 'chain_decoded_1_stages', 'chain_decoded_2_stages',
                           'chain_decoded_3_stages', 'bidi_controls', 'comment_split_b64'}
         has_critical = any(hit in critical_signals for hit in hits)
-        
+
         if vault.is_near_benign(text) and not has_strong and not has_critical:
             # Early PASS or heavy dampening
             return ('PASS', 0.0, {'bmv': 'Near benign pattern, no STRONG/CRITICAL signals'})
-    
+
     # V2 decision with text for executability probe
     def v2_scan(txt: str, meta: dict) -> Tuple[str, float, Dict]:
-        return v2_decide(hits, meta, text=txt, 
+        return v2_decide(hits, meta, text=txt,
                         warn_threshold=warn_threshold,
                         block_threshold=block_threshold)
-    
+
     # MSG wrapper if enabled
     if use_msg:
         action, risk, contrib = msg_decide(v2_scan, text, context_meta)
@@ -57,6 +57,6 @@ def decide_action_otb(hits: list, context_meta: dict, text: str = '',
         action, risk, contrib = v2_decide(hits, context_meta, text=text,
                                         warn_threshold=warn_threshold,
                                         block_threshold=block_threshold)
-    
+
     return action, risk, contrib
 
