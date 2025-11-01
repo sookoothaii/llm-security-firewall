@@ -1,0 +1,38 @@
+name: Feature Flags Protection
+
+# Enforce all flags=false in config/flags.yaml until Shadow Phase complete
+# Prevents accidental behavior changes during shadow deployment
+
+on:
+  pull_request:
+    paths:
+      - 'config/flags.yaml'
+  push:
+    branches:
+      - main
+      - 'release/**'
+    paths:
+      - 'config/flags.yaml'
+
+jobs:
+  verify-flags-disabled:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Verify all flags are false
+        run: |
+          # Check that all ff_ flags are set to false
+          if grep -E "^\s+ff_.*:\s*true" config/flags.yaml; then
+            echo "ERROR: Feature flags must be false during shadow phase"
+            echo "Found enabled flags above. All flags must be false until shadow validation complete."
+            exit 1
+          fi
+          echo "SUCCESS: All feature flags are disabled (false)"
+      
+      - name: Verify flags.yaml syntax
+        run: |
+          pip install pyyaml
+          python -c "import yaml; yaml.safe_load(open('config/flags.yaml'))"
+          echo "SUCCESS: flags.yaml is valid YAML"
+

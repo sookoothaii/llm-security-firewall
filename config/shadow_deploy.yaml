@@ -12,12 +12,17 @@ runtime:
     # Evidence ledger for forensic analysis
     evidence_ledger: on
     
-    # Fields to log per detection
+    # Fields to log per detection (stratified analysis)
     fields:
       - ctx                   # Context (documentation/generic)
+      - doc_like              # Short doc-like snippet
       - exec_ctx              # Execution context present
+      - has_codefence         # Contains code fence (```)
+      - has_net_api           # Contains network API calls
+      - has_js_attr           # Contains JavaScript attributes
       - risk                  # Risk score
-      - top_signals           # Top 3 detector hits
+      - action                # PASS/WARN/BLOCK
+      - top_signals           # Top 5 detector hits (for analysis)
       - families              # Active feature families
       - contrib               # Signal contributions
     
@@ -53,11 +58,30 @@ gates:
     # ASR gate (enforced)
     asr_overall_wilson_upper_max: 5.00
     
-    # FPR gate (advisory during shadow phase)
+    # FPR gate (stratified - PRIMARY)
     fpr:
-      mode: advisory          # Don't block deploys, just warn
-      target_upper_max: 1.50
-      min_samples: 1000       # Need statistical confidence
+      mode: advisory          # Don't block deploys during shadow
+      
+      # Stratified targets (measured separately)
+      stratify:
+        - pure_doc            # Primary gate: Upper <=1.50%
+        - doc_with_codefence  # Secondary: Upper <=1.50%
+        - doc_with_exec       # Excluded (educational content)
+        - code_cfg            # Advisory: Upper <=1.00%
+      
+      targets:
+        pure_doc_upper_max: 1.50
+        doc_with_codefence_upper_max: 1.50
+        code_cfg_upper_max: 1.00
+      
+      min_samples:
+        pure_doc: 1000        # Need statistical confidence
+        doc_with_codefence: 1000
+        code_cfg: 500
+      
+      # Exclude from FPR gate (not "benign")
+      exclude:
+        - doc_with_exec       # Educational attack examples (TRUE positives)
   
   # Runtime thresholds (same as production-candidate)
   thresholds:
@@ -80,13 +104,24 @@ monitoring:
       - signal_frequencies
       - context_distribution
   
-  # Alerts
+  # Alerts (stratified)
   alerts:
-    # FPR spike detection
-    - name: fpr_spike
-      condition: fpr_rate > 0.05  # 5%
-      window: 1h
+    # FPR spike detection (stratified)
+    - name: fpr_pure_doc_spike
+      condition: fpr_pure_doc_upper > 0.02  # 2.0%
+      window: 24h
+      action: freeze_rollout
+    
+    - name: fpr_codefence_spike
+      condition: fpr_doc_with_codefence_upper > 0.02  # 2.0%
+      window: 24h
       action: notify
+    
+    # Appeal rate (proxy for real FPs)
+    - name: appeal_rate_high
+      condition: appeals_rate > 0.005  # 0.5%
+      window: 24h
+      action: freeze_rollout
     
     # Latency degradation
     - name: latency_p99_high
@@ -130,28 +165,36 @@ telemetry:
     unknown_signals: 5        # per day
 
 deployment:
-  # Progressive rollout
+  # Progressive rollout (stratified gates)
   rollout:
     - phase: canary
       traffic: 0.01           # 1%
       duration: 24h
       gates:
-        - fpr < 0.10
-        - latency_p99 < 100
+        - asr_overall_upper <= 5.00
+        - fpr_pure_doc_upper <= 2.00  # Relaxed for canary
+        - fpr_doc_with_codefence_upper <= 1.50
+        - latency_p99 < 60
+        - no_crashes
     
     - phase: shadow
       traffic: 0.10           # 10%
       duration: 72h
       gates:
-        - fpr < 0.05
+        - asr_overall_upper <= 5.00
+        - fpr_pure_doc_upper <= 1.50  # Target gate
+        - fpr_doc_with_codefence_upper <= 1.50
+        - sustained_days: 3   # 3 consecutive days stable
         - no_crashes
     
     - phase: expansion
       traffic: 0.50           # 50%
       duration: 1week
       gates:
-        - fpr < 0.03
-        - asr_validated
+        - asr_overall_upper <= 5.00
+        - fpr_pure_doc_upper <= 1.50
+        - sustained_days: 3
+        - appeals_rate <= 0.005  # 0.5%
     
     - phase: full
       traffic: 1.0            # 100%
