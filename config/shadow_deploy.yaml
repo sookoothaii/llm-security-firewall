@@ -1,0 +1,175 @@
+# Shadow Deployment Configuration
+# WARN-Only Mode for Production Telemetry Collection
+# 
+# Purpose: Collect real-world FPR/ASR data without blocking user requests
+# Duration: Initial phase (1-2 weeks)
+# Review: Daily FPR monitoring, weekly ASR analysis
+
+runtime:
+  mode: shadow_warn           # Returns PASS to caller, logs detections
+  
+  log:
+    # Evidence ledger for forensic analysis
+    evidence_ledger: on
+    
+    # Fields to log per detection
+    fields:
+      - ctx                   # Context (documentation/generic)
+      - exec_ctx              # Execution context present
+      - risk                  # Risk score
+      - top_signals           # Top 3 detector hits
+      - families              # Active feature families
+      - contrib               # Signal contributions
+    
+    # Log destination
+    destination: prometheus   # For grafana dashboards
+    fallback: json_file       # Backup to local files
+  
+  sampling:
+    # Sample rate for telemetry (1.0 = 100%)
+    rate: 1.0                 # Full sampling during initial phase
+    
+    # Reduce after stabilization
+    schedule:
+      - days: 1-7
+        rate: 1.0
+      - days: 8-14
+        rate: 0.5
+      - days: 15+
+        rate: 0.1
+  
+  redact:
+    # Maximum chars to log (privacy)
+    max_chars: 4096
+    # PII patterns to redact
+    patterns:
+      - email
+      - credit_card
+      - ssn
+
+gates:
+  # CI/CD enforcement gates
+  ci:
+    # ASR gate (enforced)
+    asr_overall_wilson_upper_max: 5.00
+    
+    # FPR gate (advisory during shadow phase)
+    fpr:
+      mode: advisory          # Don't block deploys, just warn
+      target_upper_max: 1.50
+      min_samples: 1000       # Need statistical confidence
+  
+  # Runtime thresholds (same as production-candidate)
+  thresholds:
+    warn: 0.7                 # Natural language context
+    block: 2.0                # Hard block threshold
+    
+    context_specific:
+      code_warn: 1.4
+      config_warn: 1.2
+
+monitoring:
+  # Prometheus metrics
+  prometheus:
+    enabled: true
+    port: 9090
+    metrics:
+      - fpr_rate
+      - asr_rate
+      - latency_p50_p90_p99
+      - signal_frequencies
+      - context_distribution
+  
+  # Alerts
+  alerts:
+    # FPR spike detection
+    - name: fpr_spike
+      condition: fpr_rate > 0.05  # 5%
+      window: 1h
+      action: notify
+    
+    # Latency degradation
+    - name: latency_p99_high
+      condition: latency_p99 > 100  # ms
+      window: 5m
+      action: notify
+    
+    # Unknown signals
+    - name: unknown_signal_detected
+      condition: signal not in KNOWN_SIGNALS
+      action: log
+
+telemetry:
+  # Real-world data collection targets
+  targets:
+    # Minimum samples per category
+    conversations: 5000
+    documentation: 2000
+    code_snippets: 1000
+    
+    # Diversity metrics
+    unique_users: 100
+    time_periods: 24h_coverage
+  
+  # Review schedule
+  review:
+    daily:
+      - fpr_trend
+      - new_signal_discovery
+      - latency_distribution
+    
+    weekly:
+      - asr_validation
+      - per_category_analysis
+      - threshold_calibration
+  
+  # Escalation criteria
+  escalate_if:
+    fpr_above: 0.10           # 10%
+    latency_p99_above: 200    # ms
+    unknown_signals: 5        # per day
+
+deployment:
+  # Progressive rollout
+  rollout:
+    - phase: canary
+      traffic: 0.01           # 1%
+      duration: 24h
+      gates:
+        - fpr < 0.10
+        - latency_p99 < 100
+    
+    - phase: shadow
+      traffic: 0.10           # 10%
+      duration: 72h
+      gates:
+        - fpr < 0.05
+        - no_crashes
+    
+    - phase: expansion
+      traffic: 0.50           # 50%
+      duration: 1week
+      gates:
+        - fpr < 0.03
+        - asr_validated
+    
+    - phase: full
+      traffic: 1.0            # 100%
+      requires:
+        - manual_approval
+        - fpr_gate_pass
+        - asr_gate_pass
+
+# Emergency procedures
+emergency:
+  # Kill switch criteria
+  kill_switch_if:
+    - fpr > 0.20              # 20%
+    - asr_spike > 0.10        # 10%
+    - latency_p99 > 500       # ms
+    - crashes > 10            # per hour
+  
+  # Rollback
+  rollback_to: previous_version
+  notify: ops_team
+
