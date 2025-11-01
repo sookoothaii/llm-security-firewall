@@ -70,7 +70,7 @@ jobs:
         pip install ruff mypy types-PyYAML types-requests
     
     - name: Run Ruff
-      run: ruff check src/ tests/
+      run: ruff check .
     
     - name: Run MyPy
       run: mypy src/ --ignore-missing-imports
@@ -141,6 +141,7 @@ jobs:
     
     - name: Lint Markdown files
       run: markdownlint-cli2 "**/*.md"
+      continue-on-error: false
     
     - name: Check links (lychee)
       uses: lycheeverse/lychee-action@v1
