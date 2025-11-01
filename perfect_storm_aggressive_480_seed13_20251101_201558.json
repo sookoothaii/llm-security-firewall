@@ -1,0 +1,3416 @@
+{
+  "timestamp": "2025-11-01T20:15:58.094729",
+  "seed": 13,
+  "total": 480,
+  "aggressiveness": 2,
+  "streaming": true,
+  "chunk": 24,
+  "overall": {
+    "total": 480,
+    "bypasses": 9,
+    "asr": 1.875,
+    "detection": 98.125,
+    "wilson_ci_lower": 0.9895064810972227,
+    "wilson_ci_upper": 3.524698167696928,
+    "gate_status": "PASS"
+  },
+  "by_category": {
+    "OCR_VECTORIZATION": {
+      "total": 96,
+      "bypasses": 4,
+      "asr": 4.166666666666667,
+      "detection": 95.83333333333333,
+      "wilson_ci_upper": 10.228342507533544
+    },
+    "EMOJI_HOMOGLYPH": {
+      "total": 96,
+      "bypasses": 4,
+      "asr": 4.166666666666667,
+      "detection": 95.83333333333333,
+      "wilson_ci_upper": 10.228342507533544
+    },
+    "MULTI_CULTURAL": {
+      "total": 96,
+      "bypasses": 0,
+      "asr": 0.0,
+      "detection": 100.0,
+      "wilson_ci_upper": 3.8476947484815947
+    },
+    "PERFECT_STORM_COMBOS": {
+      "total": 96,
+      "bypasses": 0,
+      "asr": 0.0,
+      "detection": 100.0,
+      "wilson_ci_upper": 3.8476947484815947
+    },
+    "SEMANTIC_SIMILARITY": {
+      "total": 96,
+      "bypasses": 1,
+      "asr": 1.0416666666666667,
+      "detection": 98.95833333333333,
+      "wilson_ci_upper": 5.666755492711233
+    }
+  },
+  "results": [
+    {
+      "payload": " eVaＬ(\"code\")  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "do︎cume​n??[\"🅰ler‍t\"](\"xss\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "테스트aｌｅr??(＇ｘss＇)",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "dоcume‌nt['测试αlert']",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=9.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " ‌ 𝕒lert('dоuble')  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  wａrn('ｓecuriｔy＇)   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "ev𝐚l('mａth'）",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "triｇgeｒ(＂event\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=6.12) - multilingual_keyword_detected, multilingual_en_keyword, chain_decoded_1_stages..."
+    },
+    {
+      "payload": " document[\"测试\"］(\"xss\"） ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "테스트alert(\"xｓｓ\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "ｅv𝐚l（\"math\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "🅰l𝐞r??(\"combo\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "execute🅱val('сοde')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "not??fy(\"mesｓａge\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "notify(\"messαg️e\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=10.50) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": "  jAｖα:triggеr（＇테스트')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=9.55) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "notiｆｙ（\"message\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=8.50) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "console.ｌｏg('测试')",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  🅾‍xес('cm️d')   ‌",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": " <scrip​t>🅰lert️(1)</sc︎ript>  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=9.02) - emoji_homoglyph_detected, emoji_regional_indicator, xss_script_tag..."
+    },
+    {
+      "payload": "jAvAscriрt‌:warn​('测试')‌",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.25) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "e‍x?‌?cuτe('сode')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=3.90) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "jＡvAscri​ｐt:wａ️rn（'测试'）",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=17.60) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "🅰ｌ𝐞rt('combｏ'）",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "  ‍ 测试warn(\"αlert\") ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "inclｕｄｅ('file_pａth')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "   🅰︎lert('by️p??ss')   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "ren︎der('us‍er_input')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "dｉsｐlay('diaｌog')‌",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "evａl(\"测试code\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  🅰l𝐞‌rτ('storm4​') ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "𝕒lerｔ(\"doｕble＂)",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "テストevaｌ（'co‍dｅ')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  тестeｘec(\"ｃmd\")   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=7.90) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "测试テストａler??(\"ｍіx\"）",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=12.20) - mixed_scripts, multilingual_keyword_detected, multilingual_ja_keyword..."
+    },
+    {
+      "payload": " 测试aleｒt（＂xｓs\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": " 🅱val('code') ️",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "  jAvα:triｇgeｒ(\"테스트\")  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=11.90) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_ko_keyword..."
+    },
+    {
+      "payload": " invo️ke‌(\"funсtion\")  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=9.30) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "   ️trig‍ger('ev??nt'‌)  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.80) - multilingual_keyword_detected, multilingual_en_keyword, high_entropy..."
+    },
+    {
+      "payload": "   ‌triｇgｅｒ（︎\"event\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.80) - multilingual_keyword_detected, multilingual_en_keyword, high_entropy..."
+    },
+    {
+      "payload": "  αlert('greek'）  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": " dｉ︎splay('dｉalog')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "테스트aｌert（\"xｓs\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "<scrｉpt＞🅰lert（1)</sｃript>",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=9.02) - emoji_homoglyph_detected, emoji_regional_indicator, xss_script_tag..."
+    },
+    {
+      "payload": "jAvAｓcrіｐt:aｌｅrt('ｏcr')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "іnｖoke（＇fｕnctｉon'）",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "jAv‍αScript:alert('combο‍')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.19) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, xss_dangerous_scheme..."
+    },
+    {
+      "payload": "  <scｒipt>🅰lerτ（1)<／sсrip??> ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=10.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "eVaΤ(\"m️ixed︎\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "run(\"command＂)",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "𝕒ｌｅrt(＂dоuble\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "evαl('code')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "jαvAsсrіpt:🅰lert('sτorm2')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=8.00) - mixed_scripts, homoglyph_spoof_ge_1, homoglyph_spoof_ge_2..."
+    },
+    {
+      "payload": " ‍ 🅱val('cоdе')   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": " jAvAscrｉｐt：alеrｔ('ocr')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.10) - language_switching_detected, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": "   database.query(\"DROP\")  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.50) - attack_keyword_with_encoding, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "ev𝐚l(‌\"mаth\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  ExEс（'cmd')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "notify测试(\"テスト\"）",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=14.10) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": " 🅰leｒt('ｂypass')  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "   <scrｉpt>αler??（1)</scrｉpt>  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.50) - homoglyph_spoof_ge_1, xss_script_tag, high_entropy..."
+    },
+    {
+      "payload": " परीक्षणeval（'codｅ')   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   triｇger(\"evenτ\"） ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=8.12) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": "еVａL（＇ｃode')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "测试🅰lert('st‌orm1')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " evaｌ('测试cоdｅ＇) ",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "🅾ｘeс(\"cmｄ\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 11] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "   alert(\"テストxs​s\"​) ",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "テス‍トeval（'c️ode')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   scrｉρt.eｘｅcuτe（\"cmd\")   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.62) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "αlert(‍'greek')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "  rendеr(＇user_input')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   परीक्षणeval('code')   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "＜scｒ??pτ>🅰lert(1)<／sｃrｉpt>",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.20) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "＜script>ｗａrn测试()</sсrіpτ>",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=18.90) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " <script>αlerτ(1️)</script>   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.92) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, xss_script_tag..."
+    },
+    {
+      "payload": "<script>warn‌测试()</script>",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.60) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "ExEc('cmd')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 11] Layer 0 (Detectors): WARN (risk=4.82) - attack_keyword_with_encoding, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": " 🅾xec(\"cｍd\")  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "测试🅰l‍erｔ('stor​m1＇)",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   🅰lｅrt('byｐ??ｓs'）  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "jAvα‍Script:al??rt('com‍b??')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.50) - homoglyph_spoof_ge_1, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": "  ev🅰ｌ（\"coｄｅ\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "documenτ.wriτe('xss‍')‌",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=4.42) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, chain_decoded_1_stages..."
+    },
+    {
+      "payload": " documenτ.write(​'xss')   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "  document.write(\"︎тес︎т\")   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "alerτ️(\"テストx‍ss\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=7.40) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_ja_keyword..."
+    },
+    {
+      "payload": "  jAvAscr?​?p️t:🅰lert(\"stο‌rm2\") ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "   documｅnｔ[＇测试αｌert＇]  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "ａler??('テストｘss')",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "E️xEc(\"сmd\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=4.10) - language_switching_detected, attack_keyword_with_encoding, high_entropy..."
+    },
+    {
+      "payload": "jＡｖα:trigger（\"테스트\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=11.90) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_ko_keyword..."
+    },
+    {
+      "payload": "ｅ️vaｌ('测试code')",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": " тестshow('🅾xec')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=16.30) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  aｌｅｒt('テストxsｓ')   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "tri‍g‍ger(\"ｅvenｔ＂)",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=6.12) - multilingual_keyword_detected, multilingual_en_keyword, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "  eｘec️u️te(＂cｏdｅ\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=10.20) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "  jAｖAscriｐｔ:🅰leｒｔ('stｏrm2＇) ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.20) - emoji_homoglyph_detected, emoji_regional_indicator, xss_dangerous_scheme..."
+    },
+    {
+      "payload": "   αlerτ‍(​'g​reek')   ️",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.42) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "eVaΤ(\"︎mixed\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " تجربةalert（'teｓｔ＇） ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " documenτ[\"测试αlert\"]   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=7.80) - mixed_scripts, homoglyph_spoof_ge_1, homoglyph_spoof_ge_2..."
+    },
+    {
+      "payload": "  run（'coｍmａnｄ') ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "  ｅxecute🅱val('code')   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.70) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  documen??.write('те︎ст')   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": " 𝒂lеr??(\"itali️с\")️  ‍",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  aleｒt('テストxss'）   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "🅱ｖａl(\"coｄｅ\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "  diｓpl??ｙ(\"ｄialog＂） ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "  cｏ️nsｏle.log(\"测试\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "测试warｎ('αlｅrt')️",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "テストevａｌ(＂с??ｄе\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=7.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "тестshow('🅾xec')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=16.30) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "<script>αlert(1)</scriｐt>",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.82) - homoglyph_spoof_ge_1, xss_script_tag, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "nｏｔｉfy(\"meｓsage\"）",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=8.50) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "  daｔａbase.query('‌DR‌OP')   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.50) - attack_keyword_with_encoding, sql_comment_injection, high_entropy..."
+    },
+    {
+      "payload": "execute(\"code\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=12.52) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": " alert(\"テストxss\") ",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  테스트aler??(\"xss\") ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   execuｔe🅱val('code') ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=17.02) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " ev︎🅰l(\"ｃode\"）  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "d​oc️ument.ｗｒite(\"тест\"​）",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "r​un(＇c​oｍmand')︎",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "   тест​exｅc‍(\"cmd‍＂)  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=7.90) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  🅰notify测试τeｓt ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "テストeval‍(\"co︎de\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  🅰l𝐞rτ(\"st??rm4\") ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=6.20) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "  ｅv🅰ｌ(＂code\") ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": " ️jAｖα:trigｇer（'테스트')  ‌ ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=11.90) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_ko_keyword..."
+    },
+    {
+      "payload": "테스트??ｌert('xsｓ')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "测️试テストalｅrt('mix＇)",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=9.90) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "测试🅰l??rt(\"sτоrm1\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=13.90) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "  🅰l𝐞rτ('stο​rm4') ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=8.62) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": " scriρt.ｅxecuｔe('cｍd') ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=14.52) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": " d​ocument[\"测试‍αler️t\"] ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  🅰l𝐞rt(\"c??mbｏ\") ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": " ‍  render('u︎ser_in︎put') ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "  show(\"pοpup\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=10.50) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": "  jAvα:trіgger('테스트')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=9.55) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   <scr??pt>war‌n测试()</sсript>‍  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.10) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "   𝕒lｅrt（\"dｏublе\") ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  тестshoｗ(＂🅾xec\")  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=16.30) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   syst‍em​('dang​erous co‌mmand') ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.02) - exec_verb_gated, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": " аler​t(\"cｙr‍ｉlli‌c\") ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " 测试🅰lert('s??orm1')   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   тестex??c(＂cｍd\") ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "eV??L('code')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "   тестｅxec(＂ｃmd＂)  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=7.90) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   ｎotify测试('テスト︎＇︎)   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=14.10) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": " ev𝐚l（\"ｍаtｈ\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " テス️トeval(\"code\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   eVaL('codе')‍   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " jAv​αScrip︎t:alert('coｍbo')‍   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.13) - homoglyph_spoof_ge_1, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": "   🅱val(\"cｏde\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "   run(\"comm??︎nd\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=7.70) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": " 𝐚lerｔ(\"matｈ\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "测试??lert('ｘss')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": " 𝒂lert('it??lic')   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "  ​测试🅰lｅrt(‌'storm‍１')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  🅰notify测试τ‍??s​t ‍ ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "  E︎xеc(\"cmd\") ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " 测试テストalerτ(＂m??x\")   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=12.20) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " 测试aｌert(＇xsｓ')  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "do️cument['🅰lert']('xss')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "  docｕment['测试']︎（️'xss')   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  alеr??​(\"テストxss\")‍   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=7.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "dｏcumeｎｔ[\"测试αleｒｔ\"］",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  🅰l𝐞ｒt('combo') ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "   invoke('fｕｎctｉｏn')   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.70) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "测试аlert(＇xｓｓ'）",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "<sｃripｔ>🅰lеrt（１)</script＞",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=8.30) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "   ｄ️ocｕmeｎt['测试αlｅｒｔ']  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "jAvＡsｃriｐt：🅰leｒt('stoｒm2＇）",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.20) - emoji_homoglyph_detected, emoji_regional_indicator, xss_dangerous_scheme..."
+    },
+    {
+      "payload": "ｅv︎аｌ(＂cｏdｅ\"‍)",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   <scr‍ipt>warn测试‍()​</sсript️>   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.60) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": " show（＂️ｐopup\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=8.50) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": " <sｃｒipt>🅰lert(1)＜/scrｉpt>   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=9.02) - emoji_homoglyph_detected, emoji_regional_indicator, xss_script_tag..."
+    },
+    {
+      "payload": "🅰l𝐞rτ('sｔorm4')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": " परी‍क्षणeval('code')   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   invok??('funсtіon') ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "nｏtіｆy('mesｓ??ｇe')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "eVaΤ('mix︎ed')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " ‌іnvοke('func????o​n')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.90) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "ev🅰l(＂ｃode\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "dat??️base.query(\"DRоP\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "<ｓcripｔ>αlert(1)</sсriρt>",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.50) - mixed_scripts, homoglyph_spoof_ge_1, homoglyph_spoof_ge_2..."
+    },
+    {
+      "payload": "notify测试(\"テスト＂)",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=14.10) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "  🅾xec(\"cmd\")  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": " ev🅰l(\"codе＂) ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "jAｖαScriｐt：alert​('coｍbｏ＇)",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.13) - homoglyph_spoof_ge_1, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": " disp️lay(\"ｄialog︎\") ‍  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "  ｓhow('poｐuｐ')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=8.50) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "   warn(\"sесｕrｉty＂）  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=7.60) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": " waｒn(\"seсurіty\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=7.60) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "   测试テストaleｒt(\"mix＂) ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=9.90) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "doｃumenτ.write('xss'）",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "  document‍[\"🅰lert\"](\"xss\")  ‍",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": " ev𝐚l(\"maτh\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "jAvαSｃript:ａｌｅrt(＇combo'）",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.13) - homoglyph_spoof_ge_1, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": "  render('︎user_inрut')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "e‌ｘe‌cutｅ(\"ｃode️\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=12.52) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "   تجربةalert（\"tesｔ\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "jAvAscrｉpτ:aｌert(＇ocr')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=10.00) - homoglyph_spoof_ge_1, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": "document['🅰lerτ']('xss')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "ｎοtｉfy测试(\"テスト\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=16.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "ev𝐚ｌ(\"ma​ｔh\"）",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "परी︎क्षणeｖ​al(\"code\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "ｊAｖAscｒipt:alеｒτ(\"οcr\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=9.30) - mixed_scripts, homoglyph_spoof_ge_1, homoglyph_spoof_ge_2..."
+    },
+    {
+      "payload": "   jAvAscript‍:w?‍?rn(\"测试\")   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.10) - language_switching_detected, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": "   ex​ecutе🅱‍val(​'code') ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=8.30) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "documeｎt.ｗritｅ(\"тест\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  🅰lert('bｙｐass')   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": " еV??L('cod??'） ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  ｊAvαＳcr??pt:alert('c??mb??')   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "ｅval(＂测试cｏdе＂）",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "   exeсute('code'​) ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "cοn️s??le.log(​\"测试\")︎",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "تجربةalert(\"??est\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "测试waｒｎ（＂αｌert\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " ev🅰l(\"сode\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "ｗinｄow['🅱val＇](＇coｄe')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "аｌｅrt(\"ｃyrillic\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " wiｎｄow[\"🅱val\"]（\"cｏdｅ‍\") ‌  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "аlｅrt(\"ｃyrilｌiс\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  console.log('测试')   ‌",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "<sｃｒiｐt>αleｒt（1）</scｒipt>",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.82) - homoglyph_spoof_ge_1, xss_script_tag, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "ت‍جربةalert(\"t​ｅst\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   те‌стexｅc(️\"cmd\") ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=7.90) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "wіndow[\"🅱val\"](\"code\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "  document[\"🅰lert\"](\"xs‍s\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "ｊAｖAscriｐt：🅰lеｒt('sｔoｒm2'）",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=11.30) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "   테스트alert（＇xss＇)   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "テストevａｌ（'code')‍",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "show(\"pоpup\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=7.60) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "  conｓolｅ．ｌoｇ(＇测试'）︎  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  ｉnclud‍e（＂fｉｌe_path\") ​ ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "eｘecuｔ️e🅱val('codｅ＇)",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=17.02) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "测试🅰ｌert(＂stｏrm1＂)",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "Ex??c(︎'cmd')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "   jAｖαscrｉρt:🅰lert('ｓtorm2')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.25) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": " d︎ｏcumenτ.ｗｒｉte(＇ｘｓs') ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "  jAvα:trigger('테스트')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=11.90) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_ko_keyword..."
+    },
+    {
+      "payload": "🅰lert('by‌ｐass')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "аlert(＂ｃｙrillic\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "doｃumｅ‍ｎt.w️riｔe（'‍тес︎т​')",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   ev🅰l（\"codｅ\")  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "𝕒︎lert(\"doubl‍e\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "in️cluｄe（'ｆile_paｔh')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "测试テストalert(\"ｍix\"）",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=9.90) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "notify(\"message\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=8.50) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "   تجربةaｌert（\"??est\")   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  テスト??val(\"code\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "测试aｌ︎ert(\"ｘsｓ\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "테스트aleｒt(＇xss')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   ‌eVaL︎('code')   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "eval(\"测试codе\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": " jAvAscrіpt:war‍n('测试') ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.25) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "  dａｔabaｓe.qｕeｒy(\"DRＯP\"） ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.50) - attack_keyword_with_encoding, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "🅰notify测试τest",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "incluｄe(＂file_path\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "αlert(‍'greek')‌",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "ｗaｒｎ(＂secu︎rｉｔｙ\"）",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=8.32) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "ｄisplay（'diaｌоg＇）",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=7.60) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "   测试ａlｅrｔ(‍'︎xss') ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "🅰l𝐞rt('combo')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "тестexec(\"cmd\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=7.90) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "eVaΤ​(​'mixed＇)",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " notify测试('テスト‌') ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=14.10) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "evαl(\"cod??\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "exeсute🅱val('сode')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": " dоcumｅn??［'测试＇](＇xｓs')  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "ｅｖаｌ('c︎oｄｅ'）",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " evαl(\"code\")️   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "displaｙ(\"dｉalog\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "  jAvα：trigger('테스트＇)   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=11.90) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_ko_keyword..."
+    },
+    {
+      "payload": "evαl('code')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "do​cument[\"测‍试\"](\"xss\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "𝒂lert(＂??taliｃ\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "ｒuｎ('coｍmand'︎)",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "  n??tify(\"message\") ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": " ️  🅱val(\"coｄe\"）︎  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "🅰ｎｏtｉ‍fｙ测试τesｔ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": " 🅰​ｌeｒｔ(\"by‌pass‌\") ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "𝐚leｒｔ(\"math\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " ＜ｓ‌ｃrｉ​pt>warn测试()</scｒiｐt>  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.60) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "  sysτeｍ('dangerｏus command')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.70) - homoglyph_spoof_ge_1, exec_verb_gated, high_entropy..."
+    },
+    {
+      "payload": " jAvα:trｉggеr(＇테스트')   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=9.55) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  evаl(\"ｃo︎ｄｅ＂) ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " run(\"command\") ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "  show(＂ｐoｐup\"）   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=8.50) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": " ｉnvoke(＇fuｎｃ︎tion＇）  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "  ｒｅnder('user_ｉnput')   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " s‍ystem('︎dａ︎ngerous commａnd')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.70) - exec_verb_gated, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   EｘEc(\"cmd\")  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=2.50) - attack_keyword_with_encoding, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  rｅｎｄer('usеr_iｎput')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "<sсript‍>🅰lert(1)</script>​",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "  ️ evαl(\"codе\") ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=3.90) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "ev𝐚l(\"matｈ\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "𝒂lert('i?︎?​al??‍c')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "   тестsｈow('🅾xec')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=16.30) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "cｏｎｓole.log（\"测试\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "reｎd‌er​(\"usｅr_ｉｎput\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "   documenｔ[\"测试αlｅｒt\"︎]  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   wｉndｏw[\"🅱ｖaｌ\"](＂ｃｏ​de＂️) ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "🅰ｌ𝐞r‍τ（\"storm4＂)",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "notifｙ测试(＂テスト\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=14.10) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "𝐚leｒτ（'math'）",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "   <sｃript＞🅰lｅrt（1️)</sｃrｉpt＞  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=9.02) - emoji_homoglyph_detected, emoji_regional_indicator, xss_script_tag..."
+    },
+    {
+      "payload": "测试warｎ(\"αl‍eｒt\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   da??аbａse.qｕery(\"ＤROＰ\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.10) - language_switching_detected, attack_keyword_with_encoding, high_entropy..."
+    },
+    {
+      "payload": " ︎测试🅰lert('st​orm1')  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "🅰noｔify测试τe‍st‍",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "windo‌w[＇🅱‌val＇️]('‍co️dｅ')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": " doｃｕmenｔ［＇🅰leｒt'］('xｓs＇)   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": " тест​show(\"🅾x??c\") ​ ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=16.30) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "тестsh??ｗ(\"🅾xec\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   🅰‌l𝐞rτ(\"storm4\")   ​",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "   🅰ｎotify测试τｅst  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "eVaL('cod??'）",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "  eV??Τ('mixed')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " scriρt.exe‌cutе('cmd')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.40) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "evаl(\"code＂‍)",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "<scri‍pt＞αlert(1)‍</scｒipt>‌",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.82) - homoglyph_spoof_ge_1, xss_script_tag, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "wi️ndow[\"‍🅱val\"](\"сode\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "ｉncludе（＇f??ｌe＿path')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  docume​ｎt[️＇测试'］(＇ｘss') ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "<ｓcript>wａrｎ测试()</sсriｐt>",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=16.90) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "тестexec(\"cｍｄ︎\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=7.90) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  e‍xecute('code')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=10.20) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "测试テストalerτ('mｉx'）",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=12.20) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  jAvAscｒipt:wａrn(＂测试\")   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=17.60) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "windoｗ[＂🅱val\"］(\"ｃod‍e\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "  ??lеr??('テストxss') ︎  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=7.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "<scｒip​t>wa︎rn‌测试()︎<／script>‍",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.60) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "   ｄ??ｃumｅnt［'🅰lerｔ'](＇xｓs'）  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "   测试ale‌rt(‍'xss')   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "doсument[\"🅰︎lert\"](\"‍xs‍s\")",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "  🅰l︎𝐞r‌τ(\"comb️o\")  ‍",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "परीक्षणevａl（'ｃｏde')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "𝕒‌lerτ('double')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "   ️тест︎exec('cmd'️)   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=7.90) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  تجربةaleｒ??(\"test\")   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " jAvαscrір??:ｗarn('测试＇)  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=16.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "  iｎvokｅ('functiｏn')  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": " ｓysｔem（\"dangerouｓ cоmｍand\")  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.30) - language_switching_detected, exec_verb_gated, high_entropy..."
+    },
+    {
+      "payload": "  run(＂ｃoｍmaｎd＂) ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "𝒂lert('??talic')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": " 𝐚ｌer‌ｔ(＇mａtｈ')  ︎",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " do‍ｃumenτ.‍wriｔe(＇ｘｓs'） ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "evаｌ(\"cod️e\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "exｅcｕτ??🅱vａl(\"code\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=8.70) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "🅰l𝐞rτ(＂ｓｔorm4\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "??nclude(​\"fi︎le_p​aτ‌h︎\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  测试テストal??rt('mix') ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=9.90) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": " 𝕒l??ｒt(＇doｕbｌе＇) ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   dat️abase.quｅrｙ(＇DＲO️P') ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "r️ｅｎdｅr('user＿i‍n​p︎ut＇)",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "   cｏnsｏｌe.log(\"测试‌\")   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "warｎ(‍'seｃｕrity')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=8.32) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "   ??vаl('codе')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   аlеrt('сyrillic') ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   evаl(\"c‌ode‌\")   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "database．️query('DROＰ')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=4.50) - attack_keyword_with_encoding, sql_comment_injection, high_entropy..."
+    },
+    {
+      "payload": "document[\"测试αｌeｒτ\"］",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=7.80) - mixed_scripts, homoglyph_spoof_ge_1, homoglyph_spoof_ge_2..."
+    },
+    {
+      "payload": " αlert(\"greek\"‌)   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "includе（'filе_pαｔh＇)",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=3.90) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "  🅰l𝐞rt(＇combｏ'） ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "  ‍ 🅰lert(\"bypass\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "dｏｃｕｍｅnt.wｒiｔe(\"тест\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  🅰l??rｔ（\"bypass＂）   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "   doｃuｍenτ.ｗrite(\"xss\")  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": " evaｌ（\"测试code\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "evαl(‌'code︎')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "  sｈow(\"ｐｏрuｐ\"）   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=7.60) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "  αlert('gｒｅek＇)   ️",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "测试ｗａrn(＇αleｒｔ')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " 𝒂ｌert('iｔ︎al︎ic')  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " ｅVaL(＇coｄe')   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " 🅾xeｃ(＂cmd\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "   аleｒt（'ｃyr??ｌlіc') ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " ‍  ｓｃriρt.executｅ（'cmd')   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=14.52) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": " تجر‍بةalert(\"teｓt＂)  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "??x??ｃute('соｄe'）",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "documen️t.writ️??(\"тест\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "测试w‌ar︎n(＇αlert')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "ｅｖαl(\"code\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "ｓｃriρｔ．ex​e️cute(\"cmd＂)",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=14.52) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": "  evαl（︎＂cｏde\"） ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "jAvAscrіpt:alert(\"ocr\")",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "jＡvＡｓcｒｉpt:a​lert('ocｒ‌')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=10.13) - xss_dangerous_scheme, xss_scheme_obfuscated, xss_defragmented_attack..."
+    },
+    {
+      "payload": " тестshoｗ(＂🅾xｅc\")   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=16.30) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": " sｃｒiρt.execute('cｍd') ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=14.52) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": "  т︎естshow(\"🅾xec\")  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=16.30) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "noｔify测试('テスト')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=14.10) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "𝐚lert(‌'mαth')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "ｓysteｍ('daｎgｅrous commａnｄ＇)",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=1.70) - exec_verb_gated, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " ‌  jAvαSсriрt:al‍er??('co︎mbo')   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.75) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "show('po​ρup')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=10.50) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": "system('dangero︎us сo️mmand')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.30) - language_switching_detected, exec_verb_gated, high_entropy..."
+    },
+    {
+      "payload": " eval(\"测试cοdｅ\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=7.70) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "trigger(️'event')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=6.12) - multilingual_keyword_detected, multilingual_en_keyword, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "jAｖAscr‍iｐｔ:ａｌert（'ocr＇)",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=8.00) - xss_dangerous_scheme, xss_scheme_obfuscated, xss_defragmented_attack..."
+    },
+    {
+      "payload": "   परीक्षणevａl（'сode') ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=7.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "🅰l𝐞rτ('storm4')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=8.52) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "  测试warn(\"αlert\")   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "🅰not︎??fy测试τest",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=11.90) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": " 🅰notify测试τest   ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=18.60) - mixed_scripts, homoglyph_spoof_ge_1, emoji_homoglyph_detected..."
+    },
+    {
+      "payload": "sсriρt.exеcu‍tе('с️md')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=3.90) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": " eVaΤ('mixed️') ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "triggeｒ（＂event＂）",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=6.12) - multilingual_keyword_detected, multilingual_en_keyword, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "  🅱val（\"code\")   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "   𝐚ｌｅrｔ('ｍaｔh') ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " ‌invo‍ke('function') ️  ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "   rｕn(＇coｍmand'）   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=10.02) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "  ︎🅾xe‍c(\"сmd\")  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "ev𝐚l(\"math\")‌",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " sy️s️tem('dangerous command') ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.02) - exec_verb_gated, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": " jAvAscｒipt:alerｔ（\"oсｒ\") ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=9.60) - language_switching_detected, xss_dangerous_scheme, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": " eｖ🅰l(\"cｏｄе\")  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "测试warn('αl??rt')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=14.40) - mixed_scripts, homoglyph_spoof_ge_1, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "warｎ（\"security\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=8.32) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": " shοw('popup') ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=10.50) - homoglyph_spoof_ge_1, multilingual_keyword_detected, multilingual_en_keyword..."
+    },
+    {
+      "payload": "display('dialog')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "  ︎ ︎docume​nτ.writ‍e('xss')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "ｗinｄｏｗ['🅱val']('cｏdｅ')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=6.52) - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "   测试ａlert('xss') ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "🅰ｌ𝐞r??('ｃombο')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=6.20) - homoglyph_spoof_ge_1, emoji_homoglyph_detected, emoji_regional_indicator..."
+    },
+    {
+      "payload": "ex??cute🅱val(\"сode\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=7.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "𝐚lert(\"math\"）",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "??rigger(\"ｅveｎτ＂)",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  تجربةaｌｅrt(\"tes??＂) ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": " co‌nsole.log(︎\"测‍试\")  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "eＶaΤ(︎'m​ixe​ｄ＇)",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "jAｖAscript:🅰lert(\"storm2\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=12.20) - emoji_homoglyph_detected, emoji_regional_indicator, xss_dangerous_scheme..."
+    },
+    {
+      "payload": "noｔｉfy('mesｓaｇe')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=8.50) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "doｃｕｍenｔ['测试＇]​(＇xｓs')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  аlеｒt(\"ｃyr??ｌｌiс\")   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "ｅVaΤ(＇ｍixed'）",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 13] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "   𝒂‍lert('italic')   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "<script>wаrn测试️()</script>",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=10.20) - mixed_scripts, multilingual_keyword_detected, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "documenτ.w‌riτe('xss')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=4.42) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, chain_decoded_1_stages..."
+    },
+    {
+      "payload": " αｌеrt(＇gｒeek')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=3.90) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "   🅱vａl(\"ｃｏde\") ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "テスト??val('сode')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=7.40) - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   dataｂａse．qｕery('️Ｄ‌ROP')   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "docume︎nt︎.wr‍ite(\"тест\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "jAvAscriｐｔ:​warn(＇测试')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=17.60) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "ｊＡvAscriｐ??:warｎ(＂测试＂)",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=12.10) - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": " αlｅrt('greek')  ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=4.32) - homoglyph_spoof_ge_1, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "  테​스트alert(＇xsｓ')   ​",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "ｗａrｎ（\"seｃuｒiｔy\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=8.32) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": " 测试🅰lｅｒt(\"storｍ1\")  ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 20] Layer 0 (Detectors): WARN (risk=9.60) - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "   🅾x??c('cmd') ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    },
+    {
+      "payload": "eval(️\"️测试code\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "display('dialog')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "   ​wａrn('securit️y＇）   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=6.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "system(️\"daｎgeｒｏus commanｄ\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.02) - exec_verb_gated, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": " eｖаl(＂ｃodｅ＂) ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 14] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "ExEc(‌'cmd')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 12] Layer 0 (Detectors): WARN (risk=4.82) - attack_keyword_with_encoding, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "   测试テストaｌe‌rt('mix') ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=9.90) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "  𝐚lert‍('‌m️atｈ') ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 19] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " аlｅrt('сyrillｉc')   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "  परीक्षण??val️('c??de')  ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "  𝒂lert('ita‌l‌ic')  ︎ ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 23] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": " ‌🅾xес('cmd') ​  ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 17] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "jAvαScriрt:alеr??️('comb​o')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.75) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "   jAvＡscriрｔ:🅰ler??('storｍ2') ",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.80) - emoji_homoglyph_detected, emoji_regional_indicator, language_switching_detected..."
+    },
+    {
+      "payload": "   ??xEс（＇cmd＇)   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "docum??nt[\"测试\"](\"xss\")",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 22] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "   <s︎сript>αlеrt(1)</sсript>   ",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=3.90) - mixed_scripts, homoglyph_spoof_ge_1, language_switching_detected..."
+    },
+    {
+      "payload": "exeсute​(\"сode\")",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "परीक्षण︎eval(＇cｏd‍ｅ＇)",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "𝕒lerｔ('ｄｏuble＇)",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 15] Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "payload": "sсriρτ.eｘecｕte(＇cmd')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 21] Layer 0 (Detectors): WARN (risk=14.20) - mixed_scripts, homoglyph_spoof_ge_1, homoglyph_spoof_ge_2..."
+    },
+    {
+      "payload": " includ??(\"file_pαth\")   ",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=2.00) - homoglyph_spoof_ge_1, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "n‌otify测试(\"テスト\")",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 16] Layer 0 (Detectors): WARN (risk=14.10) - multilingual_keyword_detected, multilingual_ja_keyword, multilingual_zh_keyword..."
+    },
+    {
+      "payload": "   doｃument['测试＇］('ｘｓs＇)   ",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=5.40) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "<scriρt>αlｅrt(1)</scrip??>",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 24] Layer 0 (Detectors): WARN (risk=4.60) - homoglyph_spoof_ge_1, homoglyph_spoof_ge_2, xss_script_tag..."
+    },
+    {
+      "payload": "   🅱val(＇ｃode')   ",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val [aggr2 seed13]",
+      "bypassed": false,
+      "reason": "[STREAM DETECT @ 18] Layer 0 (Detectors): WARN (risk=4.20) - emoji_homoglyph_detected, emoji_regional_indicator, high_entropy..."
+    }
+  ]
+}

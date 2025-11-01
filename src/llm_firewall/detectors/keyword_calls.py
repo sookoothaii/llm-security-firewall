@@ -4,7 +4,7 @@ Detects function calls with up to 2 non-word chars between letters
 FPR-safe: Only matches in function call context (before opening paren)
 """
 import re
-from typing import List, Dict, Set
+from typing import List, Set
 
 
 def fuzzy_call_regex(word: str, max_gap: int = 2) -> re.Pattern:

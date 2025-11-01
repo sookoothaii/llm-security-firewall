@@ -62,7 +62,8 @@ if rc_hits and any(critical_pattern in rc_hits):
 ### RC8 Bypass Test (4 Known Perfect Storm Bypasses)
 
 **BEFORE Integration:**
-```
+
+```text
 notify('message')       -> BYPASSED (100%)
 display('dialog')       -> BYPASSED (100%)
 show('popup')           -> BYPASSED (100%)
@@ -70,7 +71,8 @@ system('dangerous')     -> BYPASSED (100%)
 ```
 
 **AFTER Integration:**
-```
+
+```text
 notify('message')       -> DETECTED (multilingual_en_keyword) ✅
 display('dialog')       -> DETECTED (multilingual_en_keyword) ✅
 show('popup')           -> DETECTED (multilingual_en_keyword) ✅

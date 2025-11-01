@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-11-01T20:29:01.272182",
+  "total": 136,
+  "blocks": 28,
+  "fpr": 20.58823529411765,
+  "wilson_ci_lower": 14.645903630852755,
+  "wilson_ci_upper": 28.14651293188679,
+  "gate_status": "FAIL",
+  "misses": [
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\AUTOMATED_MONITORING_COMPLETE_20251006.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=12.50) - multilingual_keyword_detected, multilingual_en_keyword, exec_verb_gated..."
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\COMPLIANCE_RECALCULATION_REPORT_20251008.md",
+      "reason": "Ensemble: Pattern explicitly blocked. Pattern: Blacklisted category: chem_weapons"
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\CROSS_MODEL_RECOGNITION_SCIENTIFIC_REPORT_20250920.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=8.00) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\PERFECT_STORM_VALIDATION_20251101_061919.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=1.78) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\PERFECT_STORM_VALIDATION_20251101_062927.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=1.78) - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\SCIENTIFIC_ANTI_GAMING_100_PERCENT_COMPLETE.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=3.70) - exec_verb_gated, encoding_near_attack_keyword, high_entropy..."
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\SECURITY_HARDENING_COMPLETE_20251006.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=19.40) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\SYSTEM_CLEANUP_REPORT_20251005.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=14.20) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "file": "..\\..\\PROJECT_HUB\\reports\\UTF8_FIX_COMPLETE.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=17.20) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "file": ".\\ATTACK_TESTING_COMPLETE_2025_10_31.md",
+      "reason": "Ensemble: Pattern explicitly blocked. Pattern: Blacklisted category: cyber_offense"
+    },
+    {
+      "file": ".\\ATTACK_TEST_SUMMARY_2025_10_31.md",
+      "reason": "Ensemble: Pattern explicitly blocked. Pattern: HOTFIX: Regex matched triple_backticks: ```text Test Suite | Variants | ASR | Status ====="
+    },
+    {
+      "file": ".\\BYPASSES_FOUND_2025_10_31.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=2.15) - sql_comment_injection, xss_scheme_obfuscated, attack_keyword_with_encoding..."
+    },
+    {
+      "file": ".\\DEPLOYMENT_SUMMARY.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=14.84) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "file": ".\\HARDCORE_REDTEAM_SUMMARY_2025_10_31.md",
+      "reason": "Ensemble: Pattern explicitly blocked. Pattern: Blacklisted category: cyber_offense"
+    },
+    {
+      "file": ".\\OTB_BYPASS_REPORT_2025_10_31.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=0.97) - sql_comment_injection, encoding_near_attack_keyword, attack_keyword_with_encoding..."
+    }
+  ],
+  "config": {
+    "paths": [
+      "..\\..\\docs",
+      "..\\..\\PROJECT_HUB\\reports",
+      "."
+    ],
+    "exts": [
+      ".md",
+      ".txt"
+    ],
+    "maxlen": 1000
+  }
+}

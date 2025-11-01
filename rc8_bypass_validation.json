@@ -1,0 +1,34 @@
+[
+  {
+    "payload": "notify('message')",
+    "desc": "notify statt alert",
+    "is_safe": false,
+    "reason": "Layer 0 (RC Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword...",
+    "action": "BLOCK/WARN",
+    "bypassed": false
+  },
+  {
+    "payload": "display('dialog')",
+    "desc": "display statt alert",
+    "is_safe": false,
+    "reason": "Layer 0 (RC Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword",
+    "action": "BLOCK/WARN",
+    "bypassed": false
+  },
+  {
+    "payload": "show('popup')",
+    "desc": "show statt alert",
+    "is_safe": false,
+    "reason": "Layer 0 (RC Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword...",
+    "action": "BLOCK/WARN",
+    "bypassed": false
+  },
+  {
+    "payload": "system('dangerous command')",
+    "desc": "system call",
+    "is_safe": true,
+    "reason": "Ensemble: Only 0/3 layers flagged (need 2+). Safe.",
+    "action": "ALLOW",
+    "bypassed": true
+  }
+]

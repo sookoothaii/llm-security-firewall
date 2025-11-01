@@ -1,7 +1,6 @@
 """Benign Corpus FPR Evaluation"""
 import argparse
 import json
-import math
 import os
 import glob
 from datetime import datetime

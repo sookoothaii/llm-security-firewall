@@ -10,7 +10,7 @@ DOC_TOKS = (
     "usage", "installation", "example", "examples", "parameters", "argument",
     "api", "return", "output", "input", "note", "notes", "warning", "license",
     "requirements", "changelog", "configuration", "config", "localhost",
-    "127.0.0.1", "0.0.0.0", "curl", "wget", "request", "response", "tutorial",
+    "127.0.0.1", "0.0.0.0", "curl", "wget", "request", "response", "tutorial",  # nosec B104
     "documentation", "readme", "guide", "quickstart", "getting started"
 )
 

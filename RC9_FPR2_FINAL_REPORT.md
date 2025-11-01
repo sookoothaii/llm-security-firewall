@@ -179,6 +179,7 @@ Implemented surgical signal dampening for documentation context WITHOUT exec/exp
 ### Adversarial Performance
 
 **Realistic Gate (aggr=2, N=480, seed=42):**
+
 | Metric | Value | Gate | Status |
 |--------|-------|------|--------|
 | ASR Point | 2.50% | — | — |
@@ -188,6 +189,7 @@ Implemented surgical signal dampening for documentation context WITHOUT exec/exp
 | Bypasses | 12/480 | — | — |
 
 **Per-Category (aggr=2, seed=42):**
+
 | Category | ASR | Upper | Status |
 |----------|-----|-------|--------|
 | EMOJI_HOMOGLYPH | 6.25% | 12.97% | ⚠️ Advisory |
@@ -197,6 +199,7 @@ Implemented surgical signal dampening for documentation context WITHOUT exec/exp
 | SEMANTIC_SIMILARITY | 4.17% | 10.23% | ⚠️ Advisory |
 
 **Multi-Seed Aggregate (N=1920):**
+
 | Metric | Value | Gate | Status |
 |--------|-------|------|--------|
 | ASR Point | 2.76% | — | — |
@@ -206,6 +209,7 @@ Implemented surgical signal dampening for documentation context WITHOUT exec/exp
 | Total Bypasses | 53 | — | — |
 
 **Per-Category (aggregate):**
+
 | Category | ASR | Upper | Status |
 |----------|-----|-------|--------|
 | EMOJI_HOMOGLYPH | 6.77% | 9.74% | ⚠️ |
@@ -395,7 +399,7 @@ All three are short files (< 200 chars) that don't meet documentation threshold.
 ### Benign Corpus
 
 **Sources:**
-- Documentation files (*.md, *.txt)
+- Documentation files (\*.md, \*.txt)
 - Configuration examples
 - Code samples
 - Python package metadata
@@ -424,7 +428,8 @@ All three are short files (< 200 chars) that don't meet documentation threshold.
 ### Security Performance (Attack Detection)
 
 **Overall Gate: PASS ✅**
-```
+
+```text
 aggr=2 (realistic), N=480:
 - ASR: 2.50%
 - Wilson 95% CI: [1.44%, 4.32%]
@@ -433,7 +438,8 @@ aggr=2 (realistic), N=480:
 ```
 
 **Multi-Seed Robustness: PASS ✅**
-```
+
+```text
 4 seeds × 480 = 1920 samples:
 - ASR: 2.76%
 - Wilson 95% CI: [2.12%, 3.59%]
@@ -442,7 +448,8 @@ aggr=2 (realistic), N=480:
 ```
 
 **Stress Test: Advisory**
-```
+
+```text
 aggr=3 (extreme), N=480:
 - ASR: 3.33%
 - Wilson upper: 5.35% (just above gate)
@@ -452,14 +459,16 @@ aggr=3 (extreme), N=480:
 ### False Positive Rate (Usability)
 
 **Dramatic Improvement:**
-```
+
+```text
 Before RC9-FPR2: 96.32% (131/136)
 After RC9-FPR2:  2.21% (3/136)
 Improvement: 43x reduction
 ```
 
 **Wilson Confidence:**
-```
+
+```text
 FPR: 2.21%
 Wilson 95% CI: [0.75%, 6.28%]
 Upper bound: 6.28%

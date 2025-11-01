@@ -1,0 +1,463 @@
+{
+  "timestamp": "2025-11-01T18:56:59.702270",
+  "overall": {
+    "total": 60,
+    "bypasses": 13,
+    "asr": 21.666666666666668,
+    "detection": 78.33333333333333
+  },
+  "by_category": {
+    "MULTI_CULTURAL": {
+      "total": 12,
+      "bypasses": 1,
+      "asr": 8.333333333333332,
+      "detection": 91.66666666666667
+    },
+    "EMOJI_HOMOGLYPH": {
+      "total": 12,
+      "bypasses": 0,
+      "asr": 0.0,
+      "detection": 100.0
+    },
+    "OCR_VECTORIZATION": {
+      "total": 12,
+      "bypasses": 8,
+      "asr": 66.66666666666666,
+      "detection": 33.33333333333334
+    },
+    "SEMANTIC_SIMILARITY": {
+      "total": 12,
+      "bypasses": 4,
+      "asr": 33.33333333333333,
+      "detection": 66.66666666666667
+    },
+    "PERFECT_STORM_COMBOS": {
+      "total": 12,
+      "bypasses": 0,
+      "asr": 0.0,
+      "detection": 100.0
+    }
+  },
+  "results": [
+    {
+      "payload": "\u6d4b\u8bd5alert('xss')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese + alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "console.log('\u6d4b\u8bd5')",
+      "category": "MULTI_CULTURAL",
+      "desc": "console.log + Chinese",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "eval('\u6d4b\u8bd5code')",
+      "category": "MULTI_CULTURAL",
+      "desc": "eval + Chinese",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "\u30c6\u30b9\u30c8eval('code')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Japanese + eval",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "alert('\u30c6\u30b9\u30c8xss')",
+      "category": "MULTI_CULTURAL",
+      "desc": "alert + Japanese",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_ja_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "\u0442\u0435\u0441\u0442exec('cmd')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Russian + exec",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "document.write('\u0442\u0435\u0441\u0442')",
+      "category": "MULTI_CULTURAL",
+      "desc": "document.write + Russian",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_ru_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "\u062a\u062c\u0631\u0628\u0629alert('test')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Arabic + alert",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "\u092a\u0930\u0940\u0915\u094d\u0937\u0923eval('code')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Hindi + eval",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_hi_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "\ud14c\uc2a4\ud2b8alert('xss')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Korean + alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "\u6d4b\u8bd5\u30c6\u30b9\u30c8alert('mix')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Chinese+Japanese+alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_ja_keyword..."
+    },
+    {
+      "payload": "document['\u6d4b\u8bd5']('xss')",
+      "category": "MULTI_CULTURAL",
+      "desc": "Bracket + Chinese",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "\ud83c\udd70lert('bypass')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + lert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "ev\ud83c\udd70l('code')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Emoji A + l",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "\ud83c\udd71val('code')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji B + val",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "\ud83c\udd7exec('cmd')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji O + xec",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "\ud835\udc1alert('math')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Bold a + lert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_math_alphanumeric, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "ev\ud835\udc1al('math')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "ev + Math a + l",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_math_alphanumeric, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "\ud835\udc82lert('italic')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Italic a + lert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_math_alphanumeric, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "\ud835\udd52lert('double')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Math Double a + lert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_math_alphanumeric, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "\ud83c\udd70l\ud835\udc1ert('combo')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Emoji A + math e",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, emoji_math_alphanumeric..."
+    },
+    {
+      "payload": "document['\ud83c\udd70lert']('xss')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Bracket + emoji",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "window['\ud83c\udd71val']('code')",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "window + emoji",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, chain_decoded_1_stages..."
+    },
+    {
+      "payload": "<script>\ud83c\udd70lert(1)</script>",
+      "category": "EMOJI_HOMOGLYPH",
+      "desc": "Script + emoji",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, xss_script_tag..."
+    },
+    {
+      "payload": "jAvAscript:alert('ocr')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "jAvAscript scheme",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - xss_scheme_obfuscated, xss_dangerous_scheme, xss_defragmented_attack..."
+    },
+    {
+      "payload": "eVaL('code')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "eVaL case",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "ExEc('cmd')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ExEc case",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - attack_keyword_with_encoding, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "payload": "\u03b1lert('greek')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "alpha as a",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "ev\u03b1l('code')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + alpha + l",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "documen\u03c4.write('xss')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "tau as t",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "scri\u03c1t.execute('cmd')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "rho as p",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "\u0430lert('cyrillic')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Cyrillic a",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "ev\u0430l('code')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "ev + Cyrillic a",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "jAv\u03b1Script:alert('combo')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "eVa\u03a4('mixed')",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Case + Greek Tau",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "<script>\u03b1lert(1)</script>",
+      "category": "OCR_VECTORIZATION",
+      "desc": "Script + Greek",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - xss_script_tag, high_entropy, dense_alphabet"
+    },
+    {
+      "payload": "warn('security')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "warn statt alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "notify('message')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "notify statt alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "execute('code')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "execute statt eval",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "display('dialog')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "display statt alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "show('popup')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "show statt alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "payload": "run('command')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "run statt exec",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "invoke('function')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "invoke statt call",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_en_keyword, multilingual_code_keyword..."
+    },
+    {
+      "payload": "trigger('event')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "trigger statt fire",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "system('dangerous command')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "system call",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "database.query('DROP')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "database query",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - attack_keyword_with_encoding, sql_comment_injection, high_entropy..."
+    },
+    {
+      "payload": "render('user_input')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "render untrusted",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "include('file_path')",
+      "category": "SEMANTIC_SIMILARITY",
+      "desc": "include external",
+      "bypassed": true,
+      "reason": "BYPASSED"
+    },
+    {
+      "payload": "\u6d4b\u8bd5\ud83c\udd70lert('storm1')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Emoji+alert",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "jAvAscript:\ud83c\udd70lert('storm2')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Emoji+scheme",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, xss_scheme_obfuscated..."
+    },
+    {
+      "payload": "\u6d4b\u8bd5warn('\u03b1lert')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Chinese+Semantic+Greek",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "\ud83c\udd70l\ud835\udc1er\u03c4('storm4')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Math+Greek",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, emoji_math_alphanumeric..."
+    },
+    {
+      "payload": "notify\u6d4b\u8bd5('\u30c6\u30b9\u30c8')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Chinese+Japanese",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "jAvAscript:warn('\u6d4b\u8bd5')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Semantic+Chinese",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "execute\ud83c\udd71val('code')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Semantic+Emoji+eval",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "\u0442\u0435\u0441\u0442show('\ud83c\udd7exec')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Russian+Semantic+Emoji",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    },
+    {
+      "payload": "document['\u6d4b\u8bd5\u03b1lert']",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Bracket+Chinese+Greek",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "<script>warn\u6d4b\u8bd5()</script>",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Tag+Semantic+Chinese",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_zh_keyword, multilingual_en_keyword..."
+    },
+    {
+      "payload": "jAv\u03b1:trigger('\ud14c\uc2a4\ud2b8')",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Case+Greek+Semantic+Korean",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - multilingual_keyword_detected, multilingual_ko_keyword, language_switching_detected..."
+    },
+    {
+      "payload": "\ud83c\udd70notify\u6d4b\u8bd5\u03c4est",
+      "category": "PERFECT_STORM_COMBOS",
+      "desc": "Emoji+Semantic+Chinese+Greek",
+      "bypassed": false,
+      "reason": "Layer 0 (Detectors): Attack patterns detected - emoji_homoglyph_detected, emoji_regional_indicator, multilingual_keyword_detected..."
+    }
+  ]
+}

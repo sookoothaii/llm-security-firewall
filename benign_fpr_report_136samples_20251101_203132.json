@@ -1,0 +1,43 @@
+{
+  "timestamp": "2025-11-01T20:31:32.577891",
+  "total": 136,
+  "blocks": 5,
+  "fpr": 3.676470588235294,
+  "wilson_ci_lower": 1.5803853341031542,
+  "wilson_ci_upper": 8.317670752211647,
+  "gate_status": "FAIL",
+  "misses": [
+    {
+      "file": ".\\data\\README_datacard.md",
+      "reason": "Layer 0 (Detectors): WARN (risk=1.90) - multilingual_keyword_detected, multilingual_en_keyword, multilingual_xss_keyword..."
+    },
+    {
+      "file": ".\\integration_snippet.txt",
+      "reason": "Layer 0 (Detectors): WARN (risk=4.13) - encoding_near_attack_keyword, chain_decoded_1_stages, base64_secret..."
+    },
+    {
+      "file": ".\\src\\llm_security_firewall.egg-info\\entry_points.txt",
+      "reason": "Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "file": ".\\src\\llm_security_firewall.egg-info\\requires.txt",
+      "reason": "Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "file": ".\\src\\llm_security_firewall.egg-info\\top_level.txt",
+      "reason": "Layer 0 (Detectors): WARN (risk=2.32) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    }
+  ],
+  "config": {
+    "paths": [
+      "..\\..\\docs",
+      "..\\..\\PROJECT_HUB\\reports",
+      "."
+    ],
+    "exts": [
+      ".md",
+      ".txt"
+    ],
+    "maxlen": 1000
+  }
+}
