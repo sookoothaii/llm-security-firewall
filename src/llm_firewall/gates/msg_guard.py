@@ -54,7 +54,7 @@ def msg_decide(
             results.append(("PASS", 0.0))
 
     # Count votes per action
-    action_counts = {}
+    action_counts: dict[str, int] = {}
     for action, _ in results:
         action_counts[action] = action_counts.get(action, 0) + 1
 

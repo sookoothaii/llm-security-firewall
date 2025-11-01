@@ -7,7 +7,7 @@ Parse code in fences (JSON, YAML, Python) - parse-OK → dampen MED/WEAK
 import ast
 import json
 import re
-from typing import Dict, Tuple
+from typing import Any, Dict, Tuple
 
 
 def _extract_code_fence(text: str) -> Tuple[str, str]:
@@ -88,7 +88,7 @@ def is_parseable(code: str, language: str) -> bool:
     return _parse_yaml_heuristic(code)
 
 
-def check_executability(text: str, has_strong: bool) -> Dict[str, any]:
+def check_executability(text: str, has_strong: bool) -> Dict[str, Any]:
     """
     Check if code in fences is parseable
 

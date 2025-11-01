@@ -52,7 +52,7 @@ PUBLIC_MARKERS = (
 )
 
 
-def _sniff_magic(buf: bytes) -> str:
+def _sniff_magic(buf: bytes) -> str | None:
     """Sniff magic signature from buffer"""
     if not buf or len(buf) < 4:
         return None
@@ -75,7 +75,7 @@ def _sniff_magic(buf: bytes) -> str:
     return None
 
 
-def _try_decompress(buf: bytes, cap: int = 100000) -> bytes:
+def _try_decompress(buf: bytes, cap: int = 100000) -> bytes | None:
     """Try to decompress GZIP/ZLIB for nested assets with multiple wbits variants"""
     if not buf or len(buf) < 4:
         return None
@@ -127,15 +127,15 @@ def looks_benign_media(buf: bytes) -> bool:
 
     # Try decompression for nested assets
     dec = _try_decompress(buf)
-    if dec:
+    if dec is not None:
         if _sniff_magic(dec):
             return True
         # Check for SourceMap JSON or SVG after decompression
         try:
-            head = dec[:4096].decode("utf-8", errors="ignore").lstrip()
-            if head.startswith("{") and ("mappings" in head or "sourceRoot" in head):
+            head_str = dec[:4096].decode("utf-8", errors="ignore").lstrip()
+            if head_str.startswith("{") and ("mappings" in head_str or "sourceRoot" in head_str):
                 return True
-            if head.startswith("<svg"):
+            if head_str.startswith("<svg"):
                 return True
             # Office docs inside ZLIB
             if (

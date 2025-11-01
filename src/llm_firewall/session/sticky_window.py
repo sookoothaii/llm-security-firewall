@@ -21,7 +21,7 @@ class StickyWindow:
             ttl_turns: Number of turns to maintain elevated action
         """
         self.ttl_turns = ttl_turns
-        self.history = defaultdict(list)  # session_id -> [(turn, action), ...]
+        self.history: dict[str, list[tuple[int, str]]] = defaultdict(list)  # session_id -> [(turn, action), ...]
 
     def decide(self, session_id: str, turn: int, current_action: str) -> str:
         """

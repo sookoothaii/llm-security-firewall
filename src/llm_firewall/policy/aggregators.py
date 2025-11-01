@@ -131,7 +131,7 @@ def get_family_counts(hits: List[str]) -> Dict[str, int]:
     Returns:
         Dict mapping family -> signal count
     """
-    family_counts = defaultdict(int)
+    family_counts: dict[str, int] = defaultdict(int)
 
     for hit in hits:
         family = get_signal_family(hit)

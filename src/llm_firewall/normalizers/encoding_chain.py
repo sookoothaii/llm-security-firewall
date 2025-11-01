@@ -69,7 +69,7 @@ def _dec_b85(s: str):
 
     # Try RFC 1924 (Z85-compatible)
     try:
-        return base64.a85decode(s, adobe=False, ignorechars=" \t\r\n")
+        return base64.a85decode(s, adobe=False, ignorechars=b" \t\r\n")
     except Exception:
         pass
 

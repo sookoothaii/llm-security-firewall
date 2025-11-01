@@ -5,6 +5,7 @@ Conservative, context-sensitive policy with attribution gates
 """
 
 import os
+from typing import Any
 
 # Signal strength categories (CONSERVATIVE)
 STRONG_SIGNALS = {
@@ -318,16 +319,14 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = "") -> tupl
         return 0.0, {"dev_placeholder": -99}
 
     # RC2 P4.6: Documentation/Test-Examples → severe dampening (prevents FP on security docs)
+    contributions: dict[str, Any] = {}
     if is_documentation or context == "documentation":
         # Return low risk but not zero (still detect obvious attacks)
         # Apply extreme dampening factor
         doc_dampen = 0.15
-        contributions = {
-            "documentation_context": "Severe dampening (security docs/examples)"
-        }
+        contributions["documentation_context"] = "Severe dampening (security docs/examples)"
     else:
         doc_dampen = 1.0
-        contributions = {}
 
     dampen = CONTEXT_DAMPEN.get(
         context, CONTEXT_DAMPEN["natural"]
@@ -487,8 +486,8 @@ def decide_action(
     hits: list,
     context_meta: dict,
     text: str = "",
-    warn_threshold: float = None,
-    block_threshold: float = None,
+    warn_threshold: float | None = None,
+    block_threshold: float | None = None,
 ) -> tuple:
     """
     Make final decision with context-aware weights (V2)

@@ -119,7 +119,7 @@ def passes_tri_key_gate(hit: str, hits: list) -> bool:
 HYSTERESIS_MARGIN = 0.05  # ±5% around thresholds
 
 
-def apply_hysteresis(score: float, previous_decision: str = None) -> str:
+def apply_hysteresis(score: float, previous_decision: str | None = None) -> str:
     """
     Apply hysteresis to prevent flip-flop near thresholds.
 

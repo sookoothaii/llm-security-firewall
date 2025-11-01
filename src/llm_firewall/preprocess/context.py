@@ -137,7 +137,7 @@ def classify_context(text: str) -> dict:
 # =============================================================================
 
 # Session state (simple dict for now, can be Redis/DB later)
-_session_context = {}
+_session_context: dict[str, dict[str, str]] = {}
 
 
 def detect_fence_blocks(text: str) -> Dict[str, list]:

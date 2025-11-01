@@ -15,8 +15,8 @@ def decide_action_otb(
     hits: list,
     context_meta: dict,
     text: str = "",
-    warn_threshold: float = None,
-    block_threshold: float = None,
+    warn_threshold: float | None = None,
+    block_threshold: float | None = None,
     use_msg: bool = True,
     use_bmv: bool = True,
 ) -> Tuple[str, float, Dict[str, Any]]:

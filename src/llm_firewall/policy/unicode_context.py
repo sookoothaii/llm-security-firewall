@@ -27,7 +27,7 @@ def _in_ranges(cp: int, ranges) -> bool:
     return False
 
 
-def _family(cp: int) -> str:
+def _family(cp: int) -> str | None:
     """Get Unicode family"""
     if _in_ranges(cp, RANGES["COMBINING"]):
         return "COMBINING"
@@ -73,8 +73,8 @@ def analyze_unicode_placement(text: str) -> Dict[str, float]:
     no_comments = COMMENT_RE.sub("", no_strings)
 
     # Count exotic chars in identifiers vs strings/comments
-    fam_id_counts = {}
-    fam_sc_counts = {}
+    fam_id_counts: dict[str, int] = {}
+    fam_sc_counts: dict[str, int] = {}
     id_mixed = 0
 
     # Analyze identifiers

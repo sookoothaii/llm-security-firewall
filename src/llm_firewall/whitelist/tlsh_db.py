@@ -29,7 +29,7 @@ class TLSHDB:
         """
         self.path = path
         self.dist_threshold = dist_threshold
-        self._hashes = set()
+        self._hashes: set[str] = set()
         self._loaded = False
 
     def load(self):
