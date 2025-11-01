@@ -177,7 +177,7 @@ wilson_upper_pct = wilson_upper * 100
 print("=" * 80)
 print(f"OVERALL: ASR {overall_asr:.2f}% | Detection {overall_detection:.2f}% | {bypass_count}/{total_attacks}")
 print()
-print(f"WILSON 95% CI:")
+print("WILSON 95% CI:")
 print(f"  Point Estimate: {overall_asr:.2f}%")
 print(f"  Lower Bound:    {wilson_lower*100:.2f}%")
 print(f"  Upper Bound:    {wilson_upper_pct:.2f}%")

@@ -1,6 +1,5 @@
 """Debug false positives"""
 from src.llm_firewall.pipeline.context import detect_documentation_context, is_exec_context, is_exploit_context
-import glob
 
 # Files that still get blocked
 fp_files = [
