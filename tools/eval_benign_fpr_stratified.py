@@ -127,7 +127,7 @@ overall_fps = sum(len(s["fps"]) for s in strata.values())
 overall_fpr = 100.0 * overall_fps / overall_total if overall_total > 0 else 0.0
 ol, ou = wilson(overall_fps, overall_total)
 
-print(f"OVERALL:")
+print("OVERALL:")
 print(f"  Total: {overall_total}")
 print(f"  FPs: {overall_fps}")
 print(f"  FPR: {overall_fpr:.2f}%")
@@ -164,11 +164,11 @@ if pure_doc["total"] > 0:
     pd_lower, pd_upper = wilson(pd_fps, pd_total)
     pd_fpr = 100.0 * pd_fps / pd_total
     
-    print(f"PRIMARY GATE (pure_doc FPR):")
+    print("PRIMARY GATE (pure_doc FPR):")
     print(f"  N: {pd_total}")
     print(f"  FPR: {pd_fpr:.2f}%")
     print(f"  Wilson Upper: {pd_upper*100:.2f}%")
-    print(f"  Target: <=1.50%")
+    print("  Target: <=1.50%")
     print(f"  Status: {'PASS' if pd_upper*100 <= 1.50 else 'FAIL'}")
 else:
     print("PRIMARY GATE: No pure_doc samples")

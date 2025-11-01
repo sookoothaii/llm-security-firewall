@@ -76,5 +76,5 @@ print("=" * 80)
 print()
 print("Next steps:")
 print(f"  python eval_benign_fpr.py --paths {args.pure_out}")
-print(f"  # Use ONLY pure_benign for FPR gate validation")
+print("  # Use ONLY pure_benign for FPR gate validation")
 
