@@ -129,3 +129,40 @@ def is_exploit_context(text: str, context: str = "generic") -> bool:
     # In generic context, exploit words alone are suspicious
     return True
 
+
+def detect_short_snippet_like_docs(text: str) -> bool:
+    """
+    Detect if text is short snippet that looks like documentation/metadata.
+    Used for FPR reduction on package metadata, config snippets, etc.
+    
+    Returns True if:
+    - Text is < 200 chars
+    - No exec context (function calls, script tags, etc)
+    - No network URLs
+    - Contains benign markers (entry_points, metadata, etc)
+    OR is very short neutral text (<=40 words)
+    """
+    t = text.strip()
+    if len(t) >= 200:
+        return False
+    
+    # Not doc-like if contains exec context
+    if is_exec_context(t, "generic"):
+        return False
+    
+    # Not doc-like if contains URLs
+    if SCHEME.search(t):
+        return False
+    
+    # Benign markers in package metadata / readme snippets
+    benign_markers = (
+        "entry_points", "console_scripts", "top_level", "usage", "example",
+        "install", "requirements", "metadata", "version", "license",
+        "description", "author", "keywords", "classifier"
+    )
+    if any(m in t.lower() for m in benign_markers):
+        return True
+    
+    # Very short, neutral text - treat as doc-like
+    return len(t.split()) <= 40
+

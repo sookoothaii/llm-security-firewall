@@ -489,9 +489,13 @@ class SecurityFirewall:
         
         # Only call ensemble if Layer 0 passed (safer unicode handling)
         if self.ensemble_validator:
-            # RC9-FPR1: Skip ensemble for documentation (pattern blacklists too aggressive)
-            if context == "documentation" and not (is_exec or is_exploit):
-                return True, "Documentation context - passed through firewall"
+            # RC9-FPR1/FPR3: Skip ensemble for documentation + short doc-like snippets
+            # (pattern blacklists too aggressive for benign metadata)
+            from llm_firewall.pipeline.context import detect_short_snippet_like_docs
+            is_doc_like = (context == "documentation") or detect_short_snippet_like_docs(raw_text)
+            
+            if is_doc_like and not (is_exec or is_exploit):
+                return True, "Documentation/metadata context - passed through firewall"
             
             # Sanitize text for ensemble layers (avoid surrogate issues in transformers)
             text_safe = text.encode('utf-8', errors='replace').decode('utf-8')

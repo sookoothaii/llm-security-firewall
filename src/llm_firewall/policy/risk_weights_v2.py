@@ -7,6 +7,9 @@ Conservative, context-sensitive policy with attribution gates
 import os
 from typing import Any
 
+# Context helpers for RC9-FPR3
+from llm_firewall.pipeline.context import is_exec_context
+
 # Signal strength categories (CONSERVATIVE)
 STRONG_SIGNALS = {
     "pgp_armor": 2.0,
@@ -498,6 +501,40 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = "") -> tupl
         contributions["doc_dampen_applied"] = (
             f"Documentation context: {doc_dampen}x dampening"
         )
+    
+    # RC9-FPR3: Short snippet doc-like dampening (fixes package metadata FPs)
+    # Apply additional dampening for short doc-like snippets without exec context
+    from llm_firewall.pipeline.context import detect_short_snippet_like_docs
+    doc_like = detect_short_snippet_like_docs(text) if text else False
+    exec_ctx = is_exec_context(text, context) if text else False
+    
+    if doc_like and not exec_ctx:
+        # Zero out non-critical signals in doc-like short snippets
+        zero_keys = {
+            "multilingual_keyword_detected", "multilingual_en_keyword",
+            "multilingual_code_keyword", "multilingual_xss_keyword",
+            "jailbreak_phrase_hit", "emoji_homoglyph_detected",
+            "homoglyph_spoof_ge_1", "dense_alphabet", "high_entropy",
+            "chain_decoded_1_stages", "base64_secret",
+            "xss_dangerous_scheme", "ssrf_internal",
+            "encoding_near_attack_keyword", "attack_keyword_with_encoding",
+            "doc_keyword_seen", "encoding_in_docs", "doc_localhost_example",
+        }
+        
+        dampened_count = 0
+        for k in zero_keys:
+            if k in contributions and isinstance(contributions[k], dict):
+                dampened_val = contributions[k].get("dampened", 0)
+                if dampened_val > 0:
+                    total -= dampened_val  # Remove from total
+                    contributions[k]["dampened"] = 0.0
+                    contributions[k]["doc_like_zeroed"] = True
+                    dampened_count += 1
+        
+        if dampened_count > 0:
+            contributions["doc_like_dampening"] = (
+                f"Short doc-like snippet: zeroed {dampened_count} signals"
+            )
 
     # RC8.1: Legacy test compatibility - add alias keys (no logic change)
     if (
