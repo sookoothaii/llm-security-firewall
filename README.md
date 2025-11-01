@@ -5,7 +5,7 @@
 **Creator:** Joerg Bollwahn  
 **Version:** 5.0.0  
 **License:** MIT  
-**Status:** Development testing complete. 833/853 tests passed (97.7%). Perfect Storm: ASR 6.7%, Detection 93.3% (synthetic attacks). GPT-5 structured attacks: 100% detection. MyPy clean. CI GREEN (3.12/3.13/3.14). Production validation pending (ASR/FPR/latency measurement on real traffic needed).
+**Status:** RC9-FPR4 baseline frozen (tag: rc9-fpr4-clean). Tests: 833/853 (97.7%), MyPy clean, CI GREEN (3.12/3.13/3.14). ASR: 2.76% (N=1920 multi-seed, Wilson Upper 3.59%, GATE PASS). FPR (stratified, N=1020): doc_with_codefence 0.14% (Upper 0.79%, GATE PASS), pure_doc 2.31% (Upper 4.69%, N=303). Latency: P99 53ms. Shadow deployment ready (WARN-only mode, stratified KPIs, baseline protected).
 
 ---
 
