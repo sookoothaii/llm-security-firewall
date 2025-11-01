@@ -106,7 +106,7 @@ line-length = 88
 [tool.ruff.lint]
 # Ignored rules:
 # S101: assert in tests (pytest standard)
-# S105: test passwords/secrets (fixtures - censored)
+# S105: test passwords/secrets (test fixtures only)
 # E501: line length (handled by formatter)
 # S110/S112: try-except-pass (defensive coding)
 # E722: bare except (legacy code)
