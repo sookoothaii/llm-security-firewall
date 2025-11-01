@@ -401,6 +401,12 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = '') -> tupl
     if doc_dampen < 1.0:
         contributions['doc_dampen_applied'] = f'Documentation context: {doc_dampen}x dampening'
     
+    # RC8.1: Legacy test compatibility - add alias keys (no logic change)
+    if 'high_entropy_suppressed' in contributions or 'dense_alphabet_suppressed' in contributions:
+        contributions.setdefault('two_key_gate', 'Two-Key Gate (Transport/Unicode/STRONG requirement not met)')
+        contributions.setdefault('high_entropy_gate', 'High-entropy features gated')
+        contributions.setdefault('dense_alphabet_gate', 'Dense-alphabet features gated')
+    
     return total, contributions
 
 def decide_action(hits: list, context_meta: dict, text: str = '', 

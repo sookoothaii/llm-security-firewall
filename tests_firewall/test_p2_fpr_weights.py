@@ -38,15 +38,15 @@ def test_co_occurrence_gate_with_transport():
 
 def test_indicator_gate_code_context():
     """Indicator Gate: <2 indicators in code without STRONG"""
-    # Single MEDIUM indicator in code
-    hits = ['bidi_controls']
+    # Single MEDIUM indicator in code (bidi_controls moved to STRONG in RC2, use zero_width_chars)
+    hits = ['zero_width_chars']  # MEDIUM signal
     ctx = {'context': 'code', 'is_dev_placeholder': False}
     
     risk, contrib = calculate_risk_score(hits, ctx)
     
     # Should trigger Indicator Gate penalty
     assert 'indicator_gate' in contrib
-    assert risk <= MEDIUM_SIGNALS['bidi_controls'] * 0.5 * 0.5  # dampened + gate
+    assert risk <= MEDIUM_SIGNALS['zero_width_chars'] * 0.5 * 0.5  # dampened + gate
 
 
 def test_indicator_gate_with_strong():
