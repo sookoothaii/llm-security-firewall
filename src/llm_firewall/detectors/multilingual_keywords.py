@@ -69,6 +69,26 @@ MULTILINGUAL_KEYWORDS = {
     '콘솔': ('console', 'ko', 'debug'),   # konsol = console
     '문서': ('document', 'ko', 'dom'),    # munseo = document
     '창': ('window', 'ko', 'dom'),        # chang = window
+    
+    # English Semantic Synonyms (RC8 - Semantic Gap Closure)
+    # Closes 4 remaining Perfect Storm bypasses (warn/notify/show variants)
+    'warn': ('alert', 'en', 'xss'),
+    'warning': ('alert', 'en', 'xss'),
+    'notify': ('alert', 'en', 'xss'),
+    'notification': ('alert', 'en', 'xss'),
+    'show': ('alert', 'en', 'xss'),
+    'display': ('alert', 'en', 'xss'),
+    'message': ('alert', 'en', 'xss'),
+    'popup': ('alert', 'en', 'xss'),
+    'prompt': ('prompt', 'en', 'xss'),
+    'confirm': ('confirm', 'en', 'xss'),
+    'evaluate': ('eval', 'en', 'code'),
+    'assess': ('eval', 'en', 'code'),
+    'execute': ('exec', 'en', 'code'),
+    'run': ('exec', 'en', 'code'),
+    'invoke': ('exec', 'en', 'code'),
+    'call': ('exec', 'en', 'code'),
+    'launch': ('exec', 'en', 'code'),
 }
 
 
