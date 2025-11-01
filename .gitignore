@@ -56,6 +56,14 @@ benign_educational/
 benign_fpr_stratified_*.json
 analyze_stratified.py
 RC9_FPR3_COMPLETION_REPORT.md
+external_benign/
+hak_gal_benign/
+fp_telemetry_analysis.json
+test_external_benign/
+test_compare*.json
+test_badges.md
+asr_upper.txt
+pr_comment.md
 
 
 

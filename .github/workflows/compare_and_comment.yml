@@ -1,0 +1,106 @@
+name: Compare Benign FPR + PR Comment
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ci-compare-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compare-and-comment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install project + tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install langid || true
+
+      - name: Sanity check tools
+        run: |
+          test -f tools/enrich_external_benign.py
+          test -f tools/eval_external_benign_fpr.py
+          test -f tools/ci_gate_external_fpr.py
+          test -f tools/compare_benign_fpr.py
+          test -f Makefile
+
+      - name: Prepare corpora
+        run: |
+          # Expected: both directories in repo or as submodules/artifacts
+          # external_benign/indexes/metadata.csv
+          # hak_gal_benign/indexes/metadata.csv
+          test -f external_benign/indexes/metadata.csv || { echo "missing external_benign/indexes/metadata.csv"; exit 2; }
+          test -f hak_gal_benign/indexes/metadata.csv || { echo "missing hak_gal_benign/indexes/metadata.csv"; exit 2; }
+
+      - name: Enrich + Eval + Gate (External)
+        run: |
+          make ci-external \
+            PYTHON=python \
+            ROOT=external_benign \
+            INCSV=external_benign/indexes/metadata.csv \
+            OUTCSV=external_benign/indexes/metadata_enriched.csv \
+            FPROUT=external_benign/indexes/fpr_external_stratified.json \
+            UPPER_CODEFENCE=0.015 \
+            UPPER_PURE=0.020 \
+            MIN_N_PER_CLASS=300
+
+      - name: Enrich + Eval (HAK_GAL)
+        run: |
+          python tools/enrich_external_benign.py \
+            --root hak_gal_benign \
+            --in-csv hak_gal_benign/indexes/metadata.csv \
+            --out-csv hak_gal_benign/indexes/metadata_enriched.csv
+          python tools/eval_external_benign_fpr.py \
+            --root hak_gal_benign \
+            --csv  hak_gal_benign/indexes/metadata_enriched.csv \
+            --json-out hak_gal_benign/indexes/fpr_hakgal_stratified.json
+
+      - name: Compare + Markdown
+        run: |
+          python tools/compare_benign_fpr.py \
+            --external-json external_benign/indexes/fpr_external_stratified.json \
+            --hakgal-json   hak_gal_benign/indexes/fpr_hakgal_stratified.json \
+            --upper-codefence 0.015 \
+            --upper-pure      0.020 \
+            --min-n           300 \
+            --md-out   external_benign/indexes/fpr_compare.md \
+            --json-out external_benign/indexes/fpr_compare.json
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benign-fpr-compare-${{ github.run_id }}
+          path: |
+            external_benign/indexes/metadata_enriched.csv
+            external_benign/indexes/fpr_external_stratified.json
+            external_benign/indexes/fpr_compare.json
+            external_benign/indexes/fpr_compare.md
+            hak_gal_benign/indexes/metadata_enriched.csv
+            hak_gal_benign/indexes/fpr_hakgal_stratified.json
+
+      - name: Post PR Comment (create or update)
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: external_benign/indexes/fpr_compare.md
+          edit-mode: replace
+
