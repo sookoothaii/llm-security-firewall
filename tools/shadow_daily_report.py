@@ -3,10 +3,8 @@ Shadow Deployment Daily Report
 Generates stratified FPR/ASR metrics with Wilson CI per class
 """
 import argparse
-import json
 from datetime import datetime, timedelta
 from collections import defaultdict
-import glob
 
 def wilson(b, n, z=1.96):
     """Wilson score interval"""
@@ -95,11 +93,11 @@ print("=" * 80)
 codefence = example_strata["doc_with_codefence"]
 cf_fpr = 100.0 * codefence["flagged"] / codefence["total"]
 cf_lower, cf_upper = wilson(codefence["flagged"], codefence["total"])
-print(f"doc_with_codefence (Primary):")
+print("doc_with_codefence (Primary):")
 print(f"  N: {codefence['total']}")
 print(f"  FPR: {cf_fpr:.2f}%")
 print(f"  Wilson Upper: {cf_upper*100:.2f}%")
-print(f"  Target: <=1.50%")
+print("  Target: <=1.50%")
 print(f"  Status: {'PASS' if cf_upper*100 <= 1.50 else 'FAIL'}")
 print()
 
@@ -107,11 +105,11 @@ print()
 pure = example_strata["pure_doc"]
 pd_fpr = 100.0 * pure["flagged"] / pure["total"]
 pd_lower, pd_upper = wilson(pure["flagged"], pure["total"])
-print(f"pure_doc (Primary):")
+print("pure_doc (Primary):")
 print(f"  N: {pure['total']}")
 print(f"  FPR: {pd_fpr:.2f}%")
 print(f"  Wilson Upper: {pd_upper*100:.2f}%")
-print(f"  Target: <=1.50%")
+print("  Target: <=1.50%")
 print(f"  Status: {'PASS' if pd_upper*100 <= 1.50 else 'FAIL'}")
 print()
 
