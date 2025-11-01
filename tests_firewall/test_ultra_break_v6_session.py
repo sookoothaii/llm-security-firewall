@@ -130,7 +130,6 @@ def test_slow_roll_bidi_progressive():
 def test_session_context_drift_natural_to_code():
     """Session: Start natural, drift to code"""
     # Turn 1: Natural
-    payload1 = "Let me show you this API key:"
 
     # Turn 2: Code (contains secret)
     secret = base64.b64encode(b"[[S]]").decode()
@@ -142,7 +141,6 @@ def test_session_context_drift_natural_to_code():
 def test_session_red_herring():
     """Session: Red herring before attack"""
     # Turn 1: Benign code
-    payload1 = "```python\ndef hello(): return 'world'\n```"
 
     # Turn 2: Attack in similar context
     secret = base64.b64encode(b"[[S]]").decode()
@@ -155,7 +153,6 @@ def test_session_red_herring():
 def test_ewma_dilution_benign_flood():
     """EWMA: Dilute with benign messages"""
     # Simulate benign flood (would dilute EWMA)
-    benign = ["Hello", "How are you", "Nice weather", "Great!", "Thanks"]
 
     # Then attack
     payload = "\u202e[[SECRET]]\u202c"

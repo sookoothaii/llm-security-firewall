@@ -57,7 +57,7 @@ def test_msg_stable_malicious():
     payload = "\u202e[[HARMFUL_INTENT]]\u202c"
 
     ctx = classify_context(payload)
-    hits = run_detectors(payload)
+    run_detectors(payload)
 
     def scanner(txt, meta):
         h = run_detectors(txt)
@@ -189,7 +189,7 @@ def test_msg_metamorphic_evasion():
     payload = "{'key':'[[HARMFUL]]'}"
 
     ctx = classify_context(payload)
-    hits = run_detectors(payload)
+    run_detectors(payload)
 
     def scanner(txt, meta):
         h = run_detectors(txt)

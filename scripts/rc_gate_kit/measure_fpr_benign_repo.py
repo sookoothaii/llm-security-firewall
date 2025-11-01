@@ -126,7 +126,7 @@ def run_detectors_inline(text: str, context: str = "natural") -> list:
             # RC2 P3.2c: Context hints for benign media (data-URI, sourceMaps, fonts)
             # Upgrade decoded_unspecified to decoded_benign_media if context clearly benign
             if risk_class == "decoded_unspecified":
-                text_lower = text.lower()
+                text.lower()
                 if (
                     b"data:image/" in text.encode("utf-8", errors="ignore")
                     or b"data:font/" in text.encode("utf-8", errors="ignore")

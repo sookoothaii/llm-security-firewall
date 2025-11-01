@@ -350,7 +350,7 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = "") -> tupl
         "unicode_tag_seen",
         "unicode_vs_seen",
     }
-    has_unicode_obfuscation = any(hit in unicode_obfuscation_signals for hit in hits)
+    any(hit in unicode_obfuscation_signals for hit in hits)
 
     # Check for Transport/Decode indicators
     has_transport_decode = any(hit in TRANSPORT_DECODE_INDICATORS for hit in hits)

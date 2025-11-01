@@ -60,7 +60,7 @@ def test_context_code_stricter_than_natural():
     # 22-char token: triggers in natural, not in code
     tok = "SGVsbG9Xb3JsZFRlc3Qx"  # 20 chars, decodable
     text = f'value = "{tok}"\n'
-    det_natural = detect_base64_multiline(text, context="natural")
+    detect_base64_multiline(text, context="natural")
     det_code = detect_base64_multiline(text, context="code")
     # Both might be False if too short or too textual, but code should be stricter
     assert det_code is False  # 20 chars < 24 threshold

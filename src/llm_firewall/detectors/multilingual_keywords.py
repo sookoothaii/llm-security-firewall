@@ -25,7 +25,7 @@ MULTILINGUAL_KEYWORDS = {
     "文档": ("document", "zh", "dom"),  # wéndàng = document
     "窗口": ("window", "zh", "dom"),  # chuāngkǒu = window
     # Japanese (Hiragana/Katakana)
-    "警告": ("alert", "ja", "xss"),  # keikoku = alert/warning (same kanji as Chinese)
+    # Note: 警告 shared with Chinese (same kanji), covered above
     "評価": ("eval", "ja", "code"),  # hyōka = evaluate
     "実行": ("exec", "ja", "code"),  # jikkō = execute
     "テスト": ("test", "ja", "test"),  # tesuto = test (katakana)

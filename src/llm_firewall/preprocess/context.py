@@ -74,7 +74,6 @@ def classify_context(text: str) -> dict:
 
     # Dev placeholders (DISABLED - causes false negatives in tests)
     # Only enable in pure FPR measurement contexts
-    dev_patterns = []
 
     is_dev = False  # Disabled for now
 

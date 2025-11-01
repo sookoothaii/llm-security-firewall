@@ -77,7 +77,7 @@ def build_vault_from_attrib_csv(
         print(f"ERROR: CSV not found: {attrib_csv}")
         return
 
-    vault = BenignVault()
+    BenignVault()
 
     # Note: CSV contains FALSE POSITIVES, so we need the BENIGN corpus
     # This function is for future use when we have PASS samples logged
