@@ -32,13 +32,14 @@ def load_sem_syn_20() -> Dict[str, Any]:
 
 
 def scan_phrases(text: str, phrases: List[str]) -> List[str]:
-    """Scan for phrase matches (normalized)"""
+    """Scan for phrase matches (normalized, exact substring)"""
     t = normalize(text)
     hits = []
     for p in phrases:
         if not p:
             continue
-        if normalize(p) in t:
+        p_norm = normalize(p)
+        if p_norm in t:
             hits.append(p)
     return hits
 
