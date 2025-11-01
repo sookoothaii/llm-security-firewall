@@ -67,6 +67,38 @@ STRONG_SIGNALS = {
     "multilingual_high_density": 2.5,  # Multiple multilingual keywords (deliberate)
     "language_switching_detected": 1.6,  # Mixed scripts (ASCII + CJK/Cyrillic/etc)
     "language_switching_high_complexity": 2.0,  # ≥3 different scripts mixed
+    "exec_verb_gated": 1.7,  # RC8.1: system/execute/run/invoke/launch as function call (gated to avoid FPR)
+    # Fuzzy Function Call Detection (fullwidth/gap-resistant)
+    "fuzzy_call:alert": 2.0,    # STRONG-
+    "fuzzy_call:eval": 2.0,
+    "fuzzy_call:exec": 1.9,
+    "fuzzy_call:execute": 1.9,
+    "fuzzy_call:run": 1.7,
+    "fuzzy_call:system": 1.8,
+    "fuzzy_call:prompt": 2.1,
+    "fuzzy_call:confirm": 2.1,
+    "fuzzy_call:display": 1.6,
+    "fuzzy_call:show": 1.6,
+    "fuzzy_call:notify": 1.6,
+    "fuzzy_call:trigger": 1.8,
+    # Emoji-bridged fuzzy calls (e.g., a🅰lert -> alert after emoji strip)
+    "fuzzy_call_emoji_bridged:alert": 1.9,
+    "fuzzy_call_emoji_bridged:eval": 1.9,
+    "fuzzy_call_emoji_bridged:exec": 1.8,
+    "fuzzy_call_emoji_bridged:execute": 1.8,
+    "fuzzy_call_emoji_bridged:run": 1.6,
+    "fuzzy_call_emoji_bridged:system": 1.7,
+    "fuzzy_call_emoji_bridged:prompt": 2.0,
+    "fuzzy_call_emoji_bridged:confirm": 2.0,
+    "fuzzy_call_emoji_bridged:display": 1.5,
+    "fuzzy_call_emoji_bridged:show": 1.5,
+    "fuzzy_call_emoji_bridged:notify": 1.5,
+    "fuzzy_call_emoji_bridged:trigger": 1.7,
+    # RC9-FPR1: Documentation context signals (weak/telemetry)
+    "doc_weak_signals_seen": 0.3,  # Weak signals in doc context (telemetry)
+    "doc_localhost_example": 0.0,  # Localhost in docs (telemetry only)
+    "encoding_in_docs": 0.2,  # Encoding examples in docs (very weak)
+    "doc_context_dampening_applied": 0.0,  # Telemetry: dampening was applied
     # RC8 JAILBREAK PHRASES: SemSyn-20 Lexicon (Policy-Bypass & Jailbreak Detection)
     "jailbreak_phrase_detected": 2.2,  # Jailbreak/policy-bypass phrase detected
     "jailbreak_bypass_policy": 2.5,  # Explicit policy bypass request

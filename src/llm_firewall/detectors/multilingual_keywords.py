@@ -83,6 +83,7 @@ MULTILINGUAL_KEYWORDS = {
     "invoke": ("exec", "en", "code"),
     "call": ("exec", "en", "code"),
     "launch": ("exec", "en", "code"),
+    "trigger": ("fire", "en", "event"),  # RC8.2: trigger statt fire
 }
 
 
@@ -159,6 +160,29 @@ def detect_language_switching(text: str) -> List[str]:
     return hits
 
 
+def detect_exec_verb_gated(text: str) -> List[str]:
+    """
+    Detect exec verbs (system, execute, run, invoke, launch) 
+    ONLY when used as function calls to avoid FPR.
+    RC8.1 Fix for system() bypass.
+    """
+    import re
+    FUNC_CALL = re.compile(r"\b([A-Za-z_]\w*)\s*\(", re.U)
+    EXEC_VERB = re.compile(r"\b(system|execute|run|invoke|launch)\b", re.I)
+    
+    hits = []
+    if EXEC_VERB.search(text) and FUNC_CALL.search(text):
+        # Check if exec verb is actually in function call position
+        for match in EXEC_VERB.finditer(text):
+            verb = match.group(0)
+            # Look ahead for opening paren
+            rest = text[match.end():match.end()+10]
+            if re.match(r'\s*\(', rest):
+                hits.append("exec_verb_gated")
+                break
+    return hits
+
+
 def scan_multilingual_attacks(text: str) -> List[str]:
     """
     Main function: Detect multilingual attack patterns.
@@ -170,6 +194,7 @@ def scan_multilingual_attacks(text: str) -> List[str]:
 
     hits.extend(detect_multilingual_keywords(text))
     hits.extend(detect_language_switching(text))
+    hits.extend(detect_exec_verb_gated(text))
 
     return hits
 

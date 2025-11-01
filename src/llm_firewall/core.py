@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import logging
 import math
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -34,6 +35,41 @@ from llm_firewall.safety.llm_judge import LLMJudgeDetector
 from llm_firewall.safety.perplexity_detector import PerplexityDetector
 from llm_firewall.safety.validator import SafetyValidator
 from llm_firewall.trust.domain_scorer import DomainTrustScorer
+
+# RC5/RC6/RC7/RC8 Detectors (Integration)
+from llm_firewall.detectors.emoji_normalize import (
+    normalize_emoji_homoglyphs,
+    detect_emoji_homoglyphs,
+)
+from llm_firewall.detectors.multilingual_keywords import scan_multilingual_attacks
+from llm_firewall.detectors.indirect_execution import scan_indirect_and_multimodal
+
+# Core Detectors (Complete Pipeline Integration)
+from llm_firewall.detectors.attack_patterns import scan_attack_patterns
+from llm_firewall.normalizers.encoding_chain import try_decode_chain
+from llm_firewall.detectors.unicode_hardening import strip_bidi_zw
+from llm_firewall.detectors.entropy import entropy_signal
+from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
+
+# Policy & Context (Risk Aggregation)
+from llm_firewall.preprocess.context import classify_context
+from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
+
+# Early Canonicalization & Fuzzy Detection
+from llm_firewall.pipeline.normalize import (
+    early_canon,
+    transport_light,
+    comment_join_in_quotes,
+)
+from llm_firewall.detectors.keyword_calls import detect_fuzzy_calls
+
+# Context Detection (RC9-FPR1)
+from llm_firewall.pipeline.context import (
+    detect_documentation_context,
+    is_exec_context,
+    is_network_context,
+    is_exploit_context,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -324,10 +360,143 @@ class SecurityFirewall:
         Returns:
             (is_safe, reason) tuple
         """
-        # Use ensemble voting if enabled
+        # Layer 0: Complete Detector Pipeline (RC + Core Detectors)
+        all_hits = []
+        contrib = {}
+        
+        # Step 0: Early Canonicalization (NFKC + ZW strip) - before ALL detectors
+        raw_text = text
+        text = early_canon(text)
+        
+        # Step 0.5: Transport Light (URL %XX, QP =HH) - only in quotes, FPR-safe
+        text = transport_light(text, contrib)
+        text = comment_join_in_quotes(text)
+        
+        # Step 0.6: Context Detection (RC9-FPR1/FPR2 - reduce false positives in docs)
+        context_meta = detect_documentation_context(text)
+        context = context_meta["ctx"]  # "documentation" or "generic"
+        is_exec = is_exec_context(text, context)  # Context-aware exec detection
+        is_network = is_network_context(text)
+        is_exploit = is_exploit_context(text, context)  # Context-aware exploit detection
+        
+        # Pre-normalization: Unicode (Bidi, ZW, Fullwidth, Greek Homoglyphs)
+        # Note: early_canon already handles FULLWIDTH→ASCII, this catches remaining patterns
+        text_prenorm, prenorm_flags = strip_bidi_zw(text)
+        if prenorm_flags.get("bidi_seen"):
+            all_hits.append("bidi_controls")
+        if prenorm_flags.get("zw_seen"):
+            all_hits.append("zero_width_chars")
+        if prenorm_flags.get("fullwidth_seen"):
+            all_hits.append("fullwidth_forms")
+        if prenorm_flags.get("mixed_scripts"):
+            all_hits.append("mixed_scripts")
+        if prenorm_flags.get("homoglyph_spoof_ge_1"):
+            all_hits.append("homoglyph_spoof_ge_1")
+        if prenorm_flags.get("homoglyph_spoof_ge_2"):
+            all_hits.append("homoglyph_spoof_ge_2")
+        
+        # Use normalized text for all subsequent detectors
+        text = text_prenorm
+        
+        # RC5: Emoji Homoglyphs (Pre-processing + Detection)
+        normalized_text, emoji_meta = normalize_emoji_homoglyphs(text)
+        emoji_hits = detect_emoji_homoglyphs(text)
+        all_hits.extend(emoji_hits)
+        if emoji_meta["changed"]:
+            text = normalized_text  # Use normalized text for subsequent layers
+        
+        # RC6: Multilingual + RC8: Semantic Synonyms + Fuzzy Calls
+        ml_hits = scan_multilingual_attacks(text)
+        all_hits.extend(ml_hits)
+        
+        # Fuzzy Function Call Detection (gaps/fullwidth-resistant)
+        fuzzy_hits = detect_fuzzy_calls(text)
+        all_hits.extend(fuzzy_hits)
+        
+        # RC7: Indirect Execution + MultiModal
+        indirect_hits = scan_indirect_and_multimodal(text)
+        all_hits.extend(indirect_hits)
+        
+        # Core: Attack Patterns (jAvAscript, XSS, SQL, etc)
+        attack_hits = scan_attack_patterns(text)
+        all_hits.extend(attack_hits)
+        
+        # Core: Encoding Chain Detection
+        decoded, stages, _, buf = try_decode_chain(text)
+        if stages >= 1:
+            all_hits.append(f"chain_decoded_{stages}_stages")
+            all_hits.append("base64_secret")
+        
+        # Core: Statistical Signals (already using normalized text)
+        if entropy_signal(text, threshold=4.0):
+            all_hits.append("high_entropy")
+        if dense_alphabet_flag(text):
+            all_hits.append("dense_alphabet")
+        
+        # RC9-FPR2: Surgical signal dampening (invasive, context-aware)
+        # Dampen ONLY in documentation context WITHOUT exec/exploit markers
+        if context == "documentation" and not (is_exec or is_exploit):
+            # Whitelist: Signals that stay STRONG even in docs (actual exploits)
+            CRITICAL_IN_DOCS = {
+                "xss_script_tag", "xss_event_handler",
+                "chain_decoded_3_stages", "rce_log4j_jndi",
+                "indirect_function_constructor", "indirect_dynamic_import",
+                "indirect_prototype_pollution", "sql_injection",
+            }
+            
+            # Carefully check xss_dangerous_scheme (only keep if in attributes)
+            # Check emoji_homoglyph only if followed by actual call
+            dampened_hits = []
+            
+            for hit in all_hits:
+                # Critical patterns - always keep
+                if hit in CRITICAL_IN_DOCS:
+                    dampened_hits.append(hit)
+                
+                # xss_dangerous_scheme - only if truly in attribute/executable position
+                elif hit == "xss_dangerous_scheme":
+                    # Check if javascript: is in href/src attribute
+                    if re.search(r'(?i)\b(?:href|src)\s*=\s*["\']?\s*javascript\s*:', text):
+                        dampened_hits.append(hit)
+                    # else: dampened (just mentioned in text)
+                
+                # emoji_homoglyph - only if actual obfuscated call detected
+                elif hit.startswith("emoji_") or hit.startswith("fuzzy_call_emoji"):
+                    # Keep if fuzzy call was detected (actual obfuscation attempt)
+                    if any(h.startswith("fuzzy_call") for h in all_hits):
+                        dampened_hits.append(hit)
+                    # else: dampened (emoji mentioned in example)
+                
+                # ALL other signals - dampen to 0.0 in doc context
+                # (multilingual, encoding, path, ssrf, exec_verb, homoglyph, entropy, etc)
+                else:
+                    pass  # Dampened
+            
+            # Replace with dampened hits
+            all_hits = dampened_hits
+        
+        # Risk Aggregation & Decision
+        if all_hits:
+            ctx = classify_context(text)
+            action, risk, _ = decide_action_otb(all_hits, ctx, text=text)
+            
+            if action in ("WARN", "BLOCK"):
+                # Return immediately - don't call ensemble (avoid unicode surrogate issues)
+                return (
+                    False,
+                    f"Layer 0 (Detectors): {action} (risk={risk:.2f}) - {', '.join(all_hits[:3])}{'...' if len(all_hits) > 3 else ''}"
+                )
+        
+        # Only call ensemble if Layer 0 passed (safer unicode handling)
         if self.ensemble_validator:
+            # RC9-FPR1: Skip ensemble for documentation (pattern blacklists too aggressive)
+            if context == "documentation" and not (is_exec or is_exploit):
+                return True, "Documentation context - passed through firewall"
+            
+            # Sanitize text for ensemble layers (avoid surrogate issues in transformers)
+            text_safe = text.encode('utf-8', errors='replace').decode('utf-8')
             return self.ensemble_validator.validate(
-                text,
+                text_safe,
                 self.safety_validator,
                 self.embedding_detector,
                 self.perplexity_detector,
