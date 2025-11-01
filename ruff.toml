@@ -8,7 +8,7 @@ line-length = 88
 # Ignored rules (with justification):
 ignore = [
     "S101",  # assert in tests (pytest standard)
-    "S105",  # test passwords/secrets (test fixtures only)
+    "S105",  # hardcoded passwords in test fixtures only
     "E501",  # line length (handled by formatter)
     "S110",  # try-except-pass (defensive coding)
     "S112",  # try-except-continue (defensive coding)
