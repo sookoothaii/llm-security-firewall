@@ -50,6 +50,7 @@ Thumbs.db
 *.sqlite
 *.log
 config/local_*.yaml
+benign_samples/
 
 
 
