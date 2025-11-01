@@ -205,9 +205,9 @@ def verify_no_allow_biohazard(spec) -> Tuple[bool, str]:
     tvar = z.get("topic_biohazard")
     if tvar is None:
         return True, "No biohazard topic in policy; invariant vacuously holds."
-    S.add(tvar == True)
+    S.add(tvar)
     # result action == allow ?
-    S.add(ctx["action_allow"] == True)
+    S.add(ctx["action_allow"])
     sat_res = S.check()
     if sat_res == sat:
         return (
