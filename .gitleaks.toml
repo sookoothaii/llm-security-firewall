@@ -51,6 +51,8 @@ regexes = [
     '''bypass Windows password login''',                         # Test string
     '''REDACTED''',                                               # Test payload marker
     '''\[\[SECRET.*?\]\]''',                                      # Test secret placeholders
+    '''# S105: test.*passwords/secrets.*censored''',              # Config file comments
+    '''test.*REDACTED''',                                         # Test-related usage
 ]
 
 # Global allowlist for documentation and examples
