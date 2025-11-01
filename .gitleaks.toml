@@ -63,6 +63,8 @@ paths = [
     '''.*\.txt$''',
     '''.*\.yaml$''',
     '''.*\.yml$''',
+    '''pyproject\.toml$''',            # Config file (ruff S105 comment contains test marker word)
+    '''ruff\.toml$''',                 # Lint config (comment contains test marker word)
     '''LICENSE''',
     '''data/.*\.csv$''',              # Test data CSV files
     '''data/.*\.jsonl$''',             # Adversarial test data (synthetic secrets)
