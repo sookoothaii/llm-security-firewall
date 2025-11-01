@@ -11,18 +11,22 @@
 
 ## Abstract
 
-Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 8 Phase 3b SOTA research components plus 6 Phase 4 encoding/transport detectors plus 2 Phase 5 advanced components plus 4 RC5/RC6/RC7 attack surface detectors plus 2 RC8 semantic/jailbreak detectors. Total: 42 detection components. Perfect Storm testing: 93.3% detection rate, 6.7% ASR on 60 attack variants (synthetic, development environment). GPT-5 structured attacks: 100% detection (50/50).
+Bidirectional firewall framework addressing three LLM attack surfaces: input protection (HUMAN→LLM), output protection (LLM→HUMAN), and memory integrity (long-term storage). Implementation includes 9 core defense layers plus 7 Phase 2 hardening components plus 4 Phase 3 operational resilience components plus 8 Phase 3b SOTA research components plus 6 Phase 4 encoding/transport detectors plus 2 Phase 5 advanced components plus 4 RC5/RC6/RC7 attack surface detectors plus 2 RC8 semantic/jailbreak detectors plus 4 RC9 FPR reduction components. Total: 46 detection components. Multi-seed validation (N=1920): ASR 2.76%, Wilson Upper 3.59% (GATE PASS). Stratified FPR (N=1020): doc_with_codefence 0.14% (Upper 0.79%, GATE PASS), pure_doc 2.31% (Upper 4.69%, N=303). Latency P99: 53ms.
 
-**Validation Results:**
-- **Perfect Storm (RC5/RC6/RC7):** 93.3% detection (56/60), ASR 6.7% (4/60)
-  - Emoji-Homoglyph attacks: 12/12 detected (100%)
-  - Multilingual attacks: 12/12 detected (100%)
-  - Indirect execution: 11/12 detected (91.7%)
-  - Context poisoning: 11/12 detected (91.7%)
-  - Semantic synonyms: 8/12 detected (66.7%) - remaining gap
-- **GPT-5 Structured Attacks:** 50/50 (100%)
-- **Stage 4/5 Hard Challenges:** 18/18 + 3 XPASS (100%)
-- **Overall Improvement:** Baseline 45% ASR → 6.7% ASR (-85% reduction)
+**Validation Results (RC9-FPR4):**
+- **Multi-Seed ASR (N=1920, seeds: 7/13/42/99, aggr=2):** 2.76% point, Wilson Upper 3.59% - **GATE PASS** (<5.00%)
+  - EMOJI_HOMOGLYPH: 6.77%, Upper 9.74% (advisory)
+  - MULTI_CULTURAL: 0.00%, Upper 0.99% (PASS)
+  - OCR_VECTORIZATION: 2.08%, Upper 4.06% (PASS)
+  - PERFECT_STORM_COMBOS: 0.00%, Upper 0.99% (PASS)
+  - SEMANTIC_SIMILARITY: 4.95%, Upper 7.60% (advisory)
+- **Stratified FPR (N=1020 benign corpus):**
+  - doc_with_codefence (N=717): 0.14%, Wilson Upper **0.79%** - **GATE PASS** (<1.50%)
+  - pure_doc (N=303): 2.31%, Wilson Upper 4.69% - shadow validation needed
+  - doc_with_exec (N=14): 100% - expected (educational attack examples)
+- **Latency (N=5000):** P99 53ms overall, <1ms for blocked paths
+- **Regression Tests:** 114/114 critical paths PASSED (GPT-5 67/67, RC7 33/33, Tri-Key 14/14)
+- **Overall Evolution:** Baseline ASR 45% → RC8 6.7% → RC9 2.76% (-94% total reduction)
 
 **Implemented Components:**
 - Pattern-based input detection (43 patterns: 28 intent across 7 categories + 15 evasion across 4 categories)
@@ -47,25 +51,28 @@ Bidirectional firewall framework addressing three LLM attack surfaces: input pro
 - **RC5/RC6/RC7 Attack Surface Expansion (2025-11-01):** Emoji-homoglyph normalization (Regional Indicators + Mathematical Alphanumeric), multilingual keyword detection (50+ keywords across 7 languages), indirect execution detection (meta-commands), context poisoning detection (language switching attacks)
 - **RC8 Semantic/Jailbreak Detection (2025-11-01):** XSS semantic synonyms (17 keywords: warn/notify/show/display/message/prompt/confirm/evaluate/execute/run/invoke/call/launch), SemSyn-20 jailbreak phrase lexicon (20 clusters, 4 intents: bypass_policy, evaluation_disclaimer, jailbreak_roleplay, harmless_cover, EN/DE support)
 
-**Test Results (v5.0.0):**
+**Test Results (v5.0.0 + RC9):**
 - **Full Test Suite:** 833/853 passed (97.7%), 9 skipped, 2 xfailed, 3 xpassed
-- **Perfect Storm Suite:** 56/60 detected (93.3%), ASR 6.7%
-  - 12/12 Emoji-Homoglyph (100%)
-  - 12/12 Multilingual (100%)
-  - 11/12 Indirect Execution (91.7%)
-  - 11/12 Context Poisoning (91.7%)
-  - 10/12 Semantic variants (83.3%) - remaining gap
+- **Multi-Seed Validation (N=1920):** ASR 2.76%, Wilson Upper 3.59% - **GATE PASS**
+  - Per-category: 3/5 categories with Upper <5.00%
+  - Emoji-Homoglyph: 6.77%, Upper 9.74% (advisory)
+  - Multi-Cultural: 0.00%, Upper 0.99% (PASS)
+  - OCR-Vectorization: 2.08%, Upper 4.06% (PASS)
+- **Stratified FPR (N=1020 benign):**
+  - doc_with_codefence (N=717): 0.14%, Upper 0.79% - **GATE PASS** (<1.50%)
+  - pure_doc (N=303): 2.31%, Upper 4.69% - needs shadow validation
+  - doc_with_exec (N=14): 100% - expected (educational examples)
 - **Regression Tests (critical):** 114/114 passed (100%)
   - GPT-5 Hardcore Red-Team: 67/67
   - RC7 DeepSeek Gaps: 33/33
   - Tri-Key Enforcement: 14/14
-- **GPT-5 Structured Attacks:** 50/50 (100%)
-- **Stage 4/5 Hard Challenges:** 18/18 + 3 XPASS
+- **Short Snippet Tests:** 12/12 passed (package metadata handling)
 - **Type Safety:** MyPy clean
 - **CI Status:** GREEN (Python 3.12/3.13/3.14)
 - **Execution Time:** 60s for full suite
+- **Latency:** P99 53ms overall, <1ms blocked paths (N=5000)
 
-Note: Tested on synthetic attacks in development environment only. Production validation pending on real traffic.
+Note: ASR tested on synthetic attacks (development environment, N=1920 multi-seed). FPR tested on HAK_GAL project documentation (N=1020, stratified by content class). Production validation on real traffic pending via shadow deployment.
 
 ## Overview
 
@@ -130,7 +137,7 @@ Note: Phase 3 components implemented but training data generation for GuardNet p
 
 3. **Context Poisoning Detector (RC7)** - Language switching attack detection for context manipulation. Patterns: rapid language transitions, documentation markers in non-English, mixed-script identifiers, cultural homoglyphs (Cyrillic А → Latin A). Implementation: `src/llm_firewall/detectors/context_poisoning.py` (142 LOC). Result: 11/12 attacks detected (91.7%).
 
-**Status:** RC5/RC6/RC7 components validated on Perfect Storm test suite (60 variants). 93.3% detection rate achieved. Remaining gap: semantic synonyms (warn→alert, notify→show) require embedding-based detection.
+**Status (RC9):** Full pipeline integration complete. RC5/RC6/RC7/RC8 detectors integrated into SecurityFirewall.validate_input(). Multi-seed validation: ASR 2.76% (Upper 3.59%, GATE PASS). FPR reduction via documentation context dampening: 96.32% → 2.71% (43x improvement). Stratified measurement: doc_with_codefence production-ready (0.79% Upper). Shadow deployment prepared with baseline freeze (tag: rc9-fpr4-clean).
 
 **Optional Components:**
 
@@ -458,16 +465,39 @@ See `src/llm_firewall/guardnet/`, `src/llm_firewall/text/obfuscation_guard.py`, 
 
 See `src/llm_firewall/gates/safety_sandwich_v2.py`, `src/llm_firewall/gates/secrets_heuristics.py`, `deploy/prometheus/rules_safety_sandwich.yaml`, `deploy/grafana/dashboard_safety_sandwich.json`.
 
-### Performance Measurements
-- Perfect Storm ASR: 6.7% (56/60 detected, 4 semantic synonym gaps)
-- Perfect Storm Detection: 93.3% (development environment, synthetic attacks)
-- Structured Attack ASR: 0.0% (GPT-5 Red-Team 50/50, Stage 4/5 18/18)
-- FPR: Not measured on benign corpus (previous estimate 0.18% on limited test set)
+### Performance Measurements (RC9-FPR4 Baseline)
+
+**Adversarial (Multi-Seed):**
+- ASR Point: 2.76% (N=1920, aggr=2 realistic)
+- Wilson 95% CI: [2.12%, 3.59%]
+- Upper Bound: 3.59%
+- **Gate: PASS** (3.59% < 5.00% target)
+
+**Benign (Stratified, N=1020):**
+- doc_with_codefence (N=717, 71% of corpus):
+  - FPR: 0.14%, Wilson Upper: **0.79%** - **GATE PASS** (<1.50%)
+  - 1 FP out of 717 samples
+- pure_doc (N=303, 29% of corpus):
+  - FPR: 2.31%, Wilson Upper: 4.69% - shadow validation needed
+  - 7 FPs out of 303 samples
+- doc_with_exec (N=14):
+  - FPR: 100% - expected (educational attack examples, not false positives)
+
+**Latency (N=5000):**
+- Mean: 7.57ms
+- P50: 0.48ms
+- P90: 41.55ms
+- P99: 53.18ms
+- Blocked paths: <1ms (fast-fail in Layer 0)
+- Passed paths: 71.95ms (full pipeline)
+
+**Other Metrics:**
 - Critical-Leak@20: Measurable via Safety-Sandwich v2 (not validated in production)
 - ECE: Not measured
 - Brier Score: Not measured
-- Latency: Not measured on RC5/RC6/RC7 detectors (previous baseline 3-120ms per layer)
 - Kill-switch: Design exists, not validated under load
+
+**Note:** Measurements on synthetic attacks (adversarial) and HAK_GAL project documentation (benign). External corpus validation pending via shadow deployment.
 
 ### Dependencies
 - Python: >= 3.12 (tested: 3.12/3.13/3.14, in CI: 3.15.0-alpha.1 with known scipy build issues)
