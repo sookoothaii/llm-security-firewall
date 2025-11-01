@@ -1,4 +1,5 @@
 """Tests for advanced Unicode hardening (GPT-5 design)."""
+
 import pathlib
 import sys
 
@@ -35,7 +36,7 @@ def test_confusable_mapping():
 
 def test_zero_width_stripped():
     """Test zero-width character removal."""
-    text = "sk\u200D-live\u200B-ABCD"
+    text = "sk\u200d-live\u200b-ABCD"
     stripped, had, used = strip_default_ignorable(text)
 
     assert had is True, "Should detect zero-width"
@@ -104,4 +105,3 @@ def test_no_false_positive_clean_text():
     assert result["severity_uplift"] == 0.0
     assert result["had_ignorable"] is False
     assert len(result["bidi_positions"]) == 0
-

@@ -90,7 +90,7 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
                 FROM personality_profiles
                 WHERE person_name = %s
                 """,
-                (user_id,)
+                (user_id,),
             )
             row = cur.fetchone()
 
@@ -121,15 +121,11 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
                 evidence_requirement=row[20],
                 confidence_score=row[21],
                 interaction_count=row[22],
-                context_tags=row[23] or []
+                context_tags=row[23] or [],
             )
 
     def log_interaction(
-        self,
-        user_id: str,
-        interaction_type: str,
-        content: str,
-        outcome: str
+        self, user_id: str, interaction_type: str, content: str, outcome: str
     ) -> int:
         """Log interaction to PostgreSQL."""
         with self.conn.cursor() as cur:
@@ -140,17 +136,14 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
                 VALUES (%s, %s, %s, %s)
                 RETURNING id
                 """,
-                (user_id, interaction_type, content, outcome)
+                (user_id, interaction_type, content, outcome),
             )
             interaction_id = cur.fetchone()[0]
             self.conn.commit()
             return interaction_id
 
     def adapt_response(
-        self,
-        user_id: str,
-        draft_response: str,
-        context: Optional[str] = None
+        self, user_id: str, draft_response: str, context: Optional[str] = None
     ) -> str:
         """
         Adapt response based on personality profile.
@@ -177,8 +170,9 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
         if profile.emoji_tolerance < 0.1:
             # Remove emojis for low tolerance users
             import re
+
             # Remove common emojis (simplified)
-            adapted = re.sub(r'[\\U0001F600-\\U0001F64F]', '', adapted)
+            adapted = re.sub(r"[\\U0001F600-\\U0001F64F]", "", adapted)
 
         # Adapt based on formality
         if profile.formality_preference > 0.7:
@@ -187,4 +181,3 @@ class PostgreSQLPersonalityAdapter(PersonalityPort):
             adapted = adapted.replace("don't", "do not")
 
         return adapted
-

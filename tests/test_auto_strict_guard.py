@@ -1,4 +1,5 @@
 """Tests for auto-strict guard."""
+
 import time
 
 from llm_firewall.session.auto_strict_guard import AutoStrictGuard
@@ -63,4 +64,3 @@ def test_auto_strict_stats():
     stats = guard.get_stats()
     assert stats["is_strict"] is True
     assert stats["strict_until"] is not None
-

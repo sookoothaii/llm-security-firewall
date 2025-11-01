@@ -1,4 +1,5 @@
 """Lightweight YAML anchor/alias expansion for cross-line secret detection."""
+
 from __future__ import annotations
 
 import re
@@ -55,4 +56,3 @@ def expand_yaml_aliases(
         out.append(ALIAS.sub(_sub, ln))
 
     return "\n".join(out)
-

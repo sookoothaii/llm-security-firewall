@@ -160,4 +160,3 @@ class MultiModalAuthenticator:
             metadata=combined_metadata,
             is_human=total_confidence >= threshold,
         )
-

@@ -7,7 +7,7 @@ Nutzt existierende Test-Infrastruktur
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
 
@@ -22,7 +22,7 @@ test_texts = [
     "javascript:alert('xss')",
     "\u202ehidden",  # Bidi
     "const x = 'test';",
-    "Die API nutzt JWT"
+    "Die API nutzt JWT",
 ] * 10  # 100 texts
 
 print("=== ECHTE METRIKEN - 100 TEXTS ===\n")
@@ -38,8 +38,8 @@ for i, text in enumerate(test_texts):
         print(f"Error on text {i}: {e}")
         continue
 
-    if (i+1) % 20 == 0:
-        print(f"{i+1}/100 completed")
+    if (i + 1) % 20 == 0:
+        print(f"{i + 1}/100 completed")
 
 # METRIKEN
 times_sorted = sorted(times_ms)
@@ -55,9 +55,9 @@ p99 = times_sorted[p99_idx]
 min_t = min(times_ms)
 max_t = max(times_ms)
 
-print("\n" + "="*60)
+print("\n" + "=" * 60)
 print("PERFORMANCE METRIKEN (Full Pipeline, N=100):")
-print("="*60)
+print("=" * 60)
 print(f"Min:    {min_t:.3f} ms")
 print(f"Mean:   {mean:.3f} ms")
 print(f"Median: {p50:.3f} ms")
@@ -70,5 +70,4 @@ print(f"Actual p95:  {p95:.3f} ms")
 print(f"Status:      {'✓ PASS' if p95 <= 12 else '✗ FAIL'}")
 print(f"Gap:         {p95 - 12:.3f} ms {'under' if p95 <= 12 else 'over'} target")
 print("")
-print(f"Throughput:  ~{1000/mean:.1f} requests/second")
-
+print(f"Throughput:  ~{1000 / mean:.1f} requests/second")

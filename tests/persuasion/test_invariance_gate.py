@@ -52,4 +52,3 @@ def test_agreement_allows():
     res = gate.evaluate(text)
     assert res.action == "allow"
     assert res.decision_original == res.decision_restated
-

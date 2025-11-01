@@ -16,6 +16,7 @@ Usage:
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import argparse
@@ -25,15 +26,33 @@ import random
 from typing import Dict, List
 
 CLASSES = [
-    "authority","commitment_consistency","liking","reciprocity",
-    "scarcity_urgency","social_proof","unity_identity","none",
+    "authority",
+    "commitment_consistency",
+    "liking",
+    "reciprocity",
+    "scarcity_urgency",
+    "social_proof",
+    "unity_identity",
+    "none",
 ]
 
 BLOCKLIST = {
     # keep dataset clean of sensitive procedural topics
-    "bomb","weapon","explosive","attack","exploit","malware",
-    "drug","synthesize","recipe","poison","dox","hack","bypass"
+    "bomb",
+    "weapon",
+    "explosive",
+    "attack",
+    "exploit",
+    "malware",
+    "drug",
+    "synthesize",
+    "recipe",
+    "poison",
+    "dox",
+    "hack",
+    "bypass",
 }
+
 
 def _load_templates(path: pathlib.Path) -> Dict[str, dict]:
     if not path.exists():
@@ -56,7 +75,9 @@ def _safe_text(text: str) -> bool:
     return not any(term in tl for term in BLOCKLIST)
 
 
-def generate_samples(templates_path: pathlib.Path, n_per_class: int, lang: str) -> List[dict]:
+def generate_samples(
+    templates_path: pathlib.Path, n_per_class: int, lang: str
+) -> List[dict]:
     """Generate n_per_class samples per class from templates"""
     templates = _load_templates(templates_path)
     if not templates:
@@ -79,11 +100,7 @@ def generate_samples(templates_path: pathlib.Path, n_per_class: int, lang: str) 
             if not _safe_text(text):
                 continue
 
-            samples.append({
-                "text": text,
-                "label": cls,
-                "lang": lang
-            })
+            samples.append({"text": text, "label": cls, "lang": lang})
 
     return samples
 
@@ -133,6 +150,7 @@ def main():
 
     # Class distribution
     from collections import Counter
+
     counts = Counter(s["label"] for s in all_samples)
     print("\nClass distribution:")
     for cls in CLASSES:
@@ -141,4 +159,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -40,4 +40,3 @@ def requires_safety_wrap(text: str, threshold: float = 2.0) -> bool:
     if SAFE_GUARDS.search(text or ""):
         return False
     return instructionality_score(text) >= threshold
-

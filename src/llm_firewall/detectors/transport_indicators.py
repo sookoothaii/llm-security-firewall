@@ -19,20 +19,21 @@ from typing import List
 # RFC 2047: MIME Encoded-Words
 # =============================================================================
 
+
 def scan_rfc2047_encoded(text: str) -> List[str]:
     """
     Detect RFC 2047 encoded-words: =?charset?encoding?data?=
-    
+
     Example: =?UTF-8?B?SGVsbG8=?=
-    
+
     Used in email headers to hide payloads.
     """
     # RFC 2047 pattern: =?charset?Q|B?encoded_text?=
-    pattern = r'=\?[^?]+\?[BQ]\?[^?]+\?='
+    pattern = r"=\?[^?]+\?[BQ]\?[^?]+\?="
     matches = re.findall(pattern, text, re.IGNORECASE)
 
     if matches:
-        return ['rfc2047_encoded']
+        return ["rfc2047_encoded"]
     return []
 
 
@@ -40,20 +41,21 @@ def scan_rfc2047_encoded(text: str) -> List[str]:
 # IDNA Punycode
 # =============================================================================
 
+
 def scan_idna_punycode(text: str) -> List[str]:
     """
     Detect IDNA Punycode domains: xn--<encoded>
-    
+
     Example: xn--nxasmq6b (Greek domain)
-    
+
     Used for homoglyph domain attacks.
     """
     # Punycode starts with xn-- followed by ASCII
-    pattern = r'\bxn--[a-z0-9]+\b'
+    pattern = r"\bxn--[a-z0-9]+\b"
     matches = re.findall(pattern, text, re.IGNORECASE)
 
     if matches:
-        return ['idna_punycode']
+        return ["idna_punycode"]
     return []
 
 
@@ -61,10 +63,11 @@ def scan_idna_punycode(text: str) -> List[str]:
 # Fullwidth Base64
 # =============================================================================
 
+
 def scan_fullwidth_b64(text: str) -> List[str]:
     """
     Detect Fullwidth forms mixed with Base64 patterns.
-    
+
     Combines Unicode obfuscation + Transport encoding.
     """
     # Check for fullwidth chars (U+FF00 to U+FFEF)
@@ -73,8 +76,8 @@ def scan_fullwidth_b64(text: str) -> List[str]:
     if has_fullwidth:
         # Check for Base64-like patterns (may be fullwidth encoded)
         # Look for = padding or long alphanumeric sequences
-        if '=' in text or re.search(r'[A-Za-z0-9]{16,}', text):
-            return ['fullwidth_b64']
+        if "=" in text or re.search(r"[A-Za-z0-9]{16,}", text):
+            return ["fullwidth_b64"]
 
     return []
 
@@ -83,29 +86,30 @@ def scan_fullwidth_b64(text: str) -> List[str]:
 # Comment-Split Base64
 # =============================================================================
 
+
 def scan_comment_split_b64(text: str) -> List[str]:
     """
     Detect Base64 split across comments/whitespace.
-    
+
     Example:
     ```
     aGVs  // part1
     bG8=  // part2
     ```
-    
+
     Or fragmented in string assignments:
     ```
     key = 'W1tTRUNS'  # Part 1
     key += 'RVRdXQ==' # Part 2
     ```
-    
+
     Fragmentation to evade single-line Base64 detectors.
     """
     import base64
 
     # ADJACENT-only B64 lines separated by comment lines
-    comment_pattern = re.compile(r'^\s*(#|//)')  # Comment at line start
-    b64_token = re.compile(r'[A-Za-z0-9+/=]{8,}')
+    comment_pattern = re.compile(r"^\s*(#|//)")  # Comment at line start
+    b64_token = re.compile(r"[A-Za-z0-9+/=]{8,}")
 
     lines = text.splitlines()
     if len(lines) < 3:
@@ -131,7 +135,7 @@ def scan_comment_split_b64(text: str) -> List[str]:
 
         # Check if lines between are comments or empty
         between_is_comment = all(
-            comment_pattern.search(lines[j]) or lines[j].strip() == ''
+            comment_pattern.search(lines[j]) or lines[j].strip() == ""
             for j in range(line1_idx + 1, line2_idx)
         )
 
@@ -142,7 +146,7 @@ def scan_comment_split_b64(text: str) -> List[str]:
         parts1 = b64_token.findall(lines[line1_idx])
         parts2 = b64_token.findall(lines[line2_idx])
 
-        joined = ''.join(parts1 + parts2)
+        joined = "".join(parts1 + parts2)
         if len(joined) < 16:
             continue
 
@@ -150,10 +154,10 @@ def scan_comment_split_b64(text: str) -> List[str]:
             dec = base64.b64decode(joined, validate=True)
             if len(dec) >= 8:
                 # Secret marker gate
-                secret_markers = [b'SECRET', b'TOKEN', b'[[', b'{{', b'PASS', b'KEY']
+                secret_markers = [b"SECRET", b"TOKEN", b"[[", b"{{", b"PASS", b"KEY"]
                 has_marker = any(m in dec.upper() for m in secret_markers)
                 if has_marker or len(joined) >= 24:
-                    return ['comment_split_b64']
+                    return ["comment_split_b64"]
         except Exception:
             pass
 
@@ -164,30 +168,31 @@ def scan_comment_split_b64(text: str) -> List[str]:
 # Quoted-Printable Multiline
 # =============================================================================
 
+
 def scan_qp_multiline(text: str) -> List[str]:
     """
     Detect Quoted-Printable encoding across multiple lines.
-    
+
     Example:
     ```
     =48=65=6C=6C=6F=
     =20=57=6F=72=6C=64
     ```
-    
+
     Soft line breaks (=\n) used for fragmentation.
     """
     # QP pattern: =XX where XX is hex
     # Look for =\n (soft line break) or multiple =XX sequences
 
     # Soft line break pattern (= at end of line)
-    soft_breaks = re.findall(r'=\s*\n', text)
+    soft_breaks = re.findall(r"=\s*\n", text)
     if soft_breaks:
-        return ['qp_multiline']
+        return ["qp_multiline"]
 
     # Multiple QP sequences
-    qp_sequences = re.findall(r'=[0-9A-Fa-f]{2}', text)
+    qp_sequences = re.findall(r"=[0-9A-Fa-f]{2}", text)
     if len(qp_sequences) >= 8:  # At least 8 QP chars
-        return ['qp_multiline']
+        return ["qp_multiline"]
 
     return []
 
@@ -196,10 +201,11 @@ def scan_qp_multiline(text: str) -> List[str]:
 # Unified Scanner
 # =============================================================================
 
+
 def scan_transport_indicators(text: str) -> List[str]:
     """
     Scan for advanced transport indicators.
-    
+
     Returns list of signal names.
     """
     signals = []
@@ -212,4 +218,3 @@ def scan_transport_indicators(text: str) -> List[str]:
     signals.extend(scan_qp_multiline(text))
 
     return signals
-

@@ -18,6 +18,7 @@ class BiometricProfile:
 
     WORLD-FIRST: Behavioral authentication for LLM interfaces.
     """
+
     user_id: str
 
     # Surface Features (6D)
@@ -66,6 +67,7 @@ class BiometricProfile:
 @dataclass
 class AuthenticationResult:
     """Result of biometric authentication."""
+
     authenticated: bool
     confidence: float
     anomaly_score: float
@@ -79,20 +81,13 @@ class BiometricsPort(ABC):
 
     @abstractmethod
     def authenticate(
-        self,
-        user_id: str,
-        message: str,
-        context: Optional[Dict] = None
+        self, user_id: str, message: str, context: Optional[Dict] = None
     ) -> AuthenticationResult:
         """Authenticate user based on behavioral patterns."""
         pass
 
     @abstractmethod
-    def update_baseline(
-        self,
-        user_id: str,
-        force: bool = False
-    ) -> Dict:
+    def update_baseline(self, user_id: str, force: bool = False) -> Dict:
         """Update behavioral baseline."""
         pass
 
@@ -103,11 +98,7 @@ class BiometricsPort(ABC):
 
     @abstractmethod
     def log_message(
-        self,
-        user_id: str,
-        message: str,
-        metadata: Optional[Dict] = None
+        self, user_id: str, message: str, metadata: Optional[Dict] = None
     ) -> int:
         """Log message for behavioral analysis."""
         pass
-

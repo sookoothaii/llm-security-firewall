@@ -24,6 +24,7 @@ from torch.utils.data import DataLoader, Dataset
 
 try:
     from transformers import AutoTokenizer, get_cosine_schedule_with_warmup
+
     HAS_TRANSFORMERS = True
 except ImportError:
     HAS_TRANSFORMERS = False
@@ -40,7 +41,7 @@ from llm_firewall.guardnet.model import (
 class JsonlDataset(Dataset):
     """
     JSONL dataset for guard model training.
-    
+
     Expected format per line:
     {
         "text": str,
@@ -140,7 +141,9 @@ class JsonlDataset(Dataset):
         return {
             "policy": torch.tensor(policy_map[lab["policy"]], dtype=torch.long),
             "intent": torch.tensor(intent_map[lab["intent"]], dtype=torch.long),
-            "actionability": torch.tensor(action_map[lab["actionability"]], dtype=torch.long),
+            "actionability": torch.tensor(
+                action_map[lab["actionability"]], dtype=torch.long
+            ),
             "obfuscation": torch.tensor(obf_vec, dtype=torch.float32),
         }
 
@@ -159,7 +162,7 @@ def train_guardnet(
 ) -> FirewallNet:
     """
     Train GuardNet model.
-    
+
     Args:
         train_path: Path to training JSONL
         val_path: Path to validation JSONL
@@ -171,12 +174,14 @@ def train_guardnet(
         warmup_ratio: Warmup ratio for scheduler (default: 0.1)
         device: Device ("cpu", "cuda", "mps")
         save_path: Optional path to save trained model
-    
+
     Returns:
         Trained FirewallNet model
     """
     if not HAS_TRANSFORMERS:
-        raise ImportError("transformers required. Install with: pip install transformers")
+        raise ImportError(
+            "transformers required. Install with: pip install transformers"
+        )
 
     # Setup
     tokenizer = AutoTokenizer.from_pretrained(encoder_name)  # nosec B615
@@ -229,8 +234,12 @@ def train_guardnet(
             # Multi-task loss
             loss_policy = ce_loss(outputs["policy"], labels["policy"].to(device))
             loss_intent = ce_loss(outputs["intent"], labels["intent"].to(device))
-            loss_action = ce_loss(outputs["actionability"], labels["actionability"].to(device))
-            loss_obf = bce_loss(outputs["obfuscation"], labels["obfuscation"].to(device))
+            loss_action = ce_loss(
+                outputs["actionability"], labels["actionability"].to(device)
+            )
+            loss_obf = bce_loss(
+                outputs["obfuscation"], labels["obfuscation"].to(device)
+            )
 
             # Weighted sum (equal weights for now, can be tuned)
             loss = loss_policy + loss_intent + loss_action + loss_obf
@@ -244,7 +253,9 @@ def train_guardnet(
             train_loss += loss.item()
 
             if (batch_idx + 1) % 10 == 0:
-                print(f"Epoch {epoch+1}/{epochs} | Batch {batch_idx+1}/{len(dl_train)} | Loss: {loss.item():.4f}")
+                print(
+                    f"Epoch {epoch + 1}/{epochs} | Batch {batch_idx + 1}/{len(dl_train)} | Loss: {loss.item():.4f}"
+                )
 
         avg_train_loss = train_loss / len(dl_train)
 
@@ -262,15 +273,21 @@ def train_guardnet(
 
                 loss_policy = ce_loss(outputs["policy"], labels["policy"].to(device))
                 loss_intent = ce_loss(outputs["intent"], labels["intent"].to(device))
-                loss_action = ce_loss(outputs["actionability"], labels["actionability"].to(device))
-                loss_obf = bce_loss(outputs["obfuscation"], labels["obfuscation"].to(device))
+                loss_action = ce_loss(
+                    outputs["actionability"], labels["actionability"].to(device)
+                )
+                loss_obf = bce_loss(
+                    outputs["obfuscation"], labels["obfuscation"].to(device)
+                )
 
                 loss = loss_policy + loss_intent + loss_action + loss_obf
                 val_loss += loss.item()
 
         avg_val_loss = val_loss / len(dl_val) if len(dl_val) > 0 else 0.0
 
-        print(f"Epoch {epoch+1}/{epochs} | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}")
+        print(
+            f"Epoch {epoch + 1}/{epochs} | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}"
+        )
 
     # Save model
     if save_path:
@@ -279,4 +296,3 @@ def train_guardnet(
         print(f"Model saved to {save_path}")
 
     return model
-

@@ -1,4 +1,5 @@
 """Tests for Base85/Z85 encoding detection."""
+
 import pathlib
 import sys
 
@@ -69,4 +70,3 @@ def test_is_probably_base85():
     # False negatives (too short / wrong alphabet)
     assert is_probably_base85("abc") is False
     assert is_probably_base85("😀😁😂") is False
-

@@ -5,6 +5,7 @@ Input CSV: text,label  (label in {0,1})
 Usage:
     python tools/calibrate_thresholds.py data/dev_split.csv
 """
+
 import csv
 import json
 import sys
@@ -27,7 +28,9 @@ def load_dataset(path: Path) -> List[Tuple[str, int]]:
     return rows
 
 
-def youden_j(fprs: List[float], tprs: List[float], thresholds: List[float]) -> Tuple[float, float]:
+def youden_j(
+    fprs: List[float], tprs: List[float], thresholds: List[float]
+) -> Tuple[float, float]:
     """
     Find optimal threshold via Youden's J statistic.
     J = TPR - FPR (maximizes sensitivity + specificity)
@@ -113,7 +116,11 @@ def calibrate(path_csv: Path, max_gap: int = 3):
     sensitivity = tp / P if P else 0.0
     specificity = tn / N if N else 0.0
     precision = tp / (tp + fp) if (tp + fp) else 0.0
-    f1 = 2 * precision * sensitivity / (precision + sensitivity) if (precision + sensitivity) else 0.0
+    f1 = (
+        2 * precision * sensitivity / (precision + sensitivity)
+        if (precision + sensitivity)
+        else 0.0
+    )
 
     # Output results
     result = {
@@ -127,14 +134,14 @@ def calibrate(path_csv: Path, max_gap: int = 3):
             "tp": tp,
             "fp": fp,
             "fn": fn,
-            "tn": tn
+            "tn": tn,
         },
         "dataset_stats": {
             "total_samples": len(labels),
             "positives": P,
             "negatives": N,
-            "prevalence": round(P / len(labels), 4)
-        }
+            "prevalence": round(P / len(labels), 4),
+        },
     }
 
     print("\n" + "=" * 60)
@@ -158,7 +165,3 @@ if __name__ == "__main__":
         sys.exit(1)
 
     calibrate(Path(sys.argv[1]))
-
-
-
-

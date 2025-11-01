@@ -6,6 +6,7 @@ to distinguish real provider keys from low-entropy fakes.
 
 Coverage: Closes adv_011 (fake_provider_low_entropy)
 """
+
 from __future__ import annotations
 
 import zlib
@@ -16,6 +17,7 @@ from typing import TypedDict
 
 class ProviderSpec(TypedDict):
     """Provider grammar specification."""
+
     alphabet: str
     min_len: int
     max_len: int
@@ -23,10 +25,26 @@ class ProviderSpec(TypedDict):
 
 # Provider-specific grammar specs (GPT-5)
 PROVIDER_SPECS: dict[str, ProviderSpec] = {
-    "sk-live": {"alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "min_len": 48, "max_len": 51},  # noqa: E501
-    "sk-test": {"alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "min_len": 48, "max_len": 51},  # noqa: E501
-    "ghp_": {"alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "min_len": 36, "max_len": 255},  # noqa: E501
-    "gho_": {"alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "min_len": 36, "max_len": 255},  # noqa: E501
+    "sk-live": {
+        "alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        "min_len": 48,
+        "max_len": 51,
+    },  # noqa: E501
+    "sk-test": {
+        "alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        "min_len": 48,
+        "max_len": 51,
+    },  # noqa: E501
+    "ghp_": {
+        "alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        "min_len": 36,
+        "max_len": 255,
+    },  # noqa: E501
+    "gho_": {
+        "alphabet": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        "min_len": 36,
+        "max_len": 255,
+    },  # noqa: E501
 }
 
 
@@ -152,4 +170,3 @@ def is_weak_secret_provider(text: str) -> bool:
                     return True
 
     return False
-

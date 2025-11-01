@@ -13,6 +13,7 @@ from typing import List, Optional
 @dataclass
 class PersonalityProfile:
     """Personality profile with 20 dimensions."""
+
     user_id: str
 
     # Big Five
@@ -55,22 +56,14 @@ class PersonalityPort(ABC):
 
     @abstractmethod
     def log_interaction(
-        self,
-        user_id: str,
-        interaction_type: str,
-        content: str,
-        outcome: str
+        self, user_id: str, interaction_type: str, content: str, outcome: str
     ) -> int:
         """Log interaction for profile learning."""
         pass
 
     @abstractmethod
     def adapt_response(
-        self,
-        user_id: str,
-        draft_response: str,
-        context: Optional[str] = None
+        self, user_id: str, draft_response: str, context: Optional[str] = None
     ) -> str:
         """Adapt response based on personality profile."""
         pass
-

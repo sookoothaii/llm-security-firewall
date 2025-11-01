@@ -24,34 +24,28 @@ MODULE_MAPPING = {
     "evidence_pipeline.py": "evidence/pipeline.py",
     "ground_truth_scorer.py": "evidence/ground_truth_scorer.py",
     "source_verifier.py": "evidence/source_verifier.py",
-
     # Safety
     "safety_validator.py": "safety/validator.py",
     "text_preproc.py": "safety/text_preproc.py",
-
     # Trust
     "domain_trust_scorer.py": "trust/domain_scorer.py",
     "nli_consistency.py": "trust/nli_consistency.py",
     "content_hasher.py": "trust/content_hasher.py",
-
     # Fusion
     "dempster_shafer_fusion.py": "fusion/dempster_shafer.py",
     "adaptive_threshold.py": "fusion/adaptive_threshold.py",
     "robbins_monro_controller.py": "fusion/robbins_monro.py",
-
     # Monitoring
     "snapshot_canaries.py": "monitoring/canaries.py",
     "shingle_hasher.py": "monitoring/shingle_hasher.py",
     "influence_budget.py": "monitoring/influence_budget.py",
     "influence_budget_repo.py": "monitoring/influence_budget_repo.py",
     "explain_why.py": "monitoring/explain_why.py",
-
     # Engines
     "decision_engine_complete.py": "engines/decision_engine.py",
     "explanation_formatter.py": "engines/explanation_formatter.py",
     "feedback_learner.py": "engines/feedback_learner.py",
     "statistics_tracker.py": "engines/statistics_tracker.py",
-
     # Utils
     "types.py": "utils/types.py",
 }
@@ -100,7 +94,7 @@ def copy_module(source_name: str, target_path: str):
         return
 
     # Read source
-    with open(source_file, 'r', encoding='utf-8') as f:
+    with open(source_file, "r", encoding="utf-8") as f:
         content = f.read()
 
     # Adjust imports
@@ -108,7 +102,7 @@ def copy_module(source_name: str, target_path: str):
 
     # Write target
     target_file.parent.mkdir(parents=True, exist_ok=True)
-    with open(target_file, 'w', encoding='utf-8') as f:
+    with open(target_file, "w", encoding="utf-8") as f:
         f.write(content)
 
     print(f"  ✓ {source_name} → {target_path}")
@@ -223,9 +217,9 @@ def main():
             shutil.copy2(source, target)
             print(f"  ✓ {mon_file}")
 
-    print("\n" + "="*50)
+    print("\n" + "=" * 50)
     print("✅ EXTRACTION COMPLETE!")
-    print("="*50)
+    print("=" * 50)
     print("\nNext steps:")
     print("1. Copy test files (adjust imports)")
     print("2. Create CLI tool (llm-firewall command)")
@@ -243,11 +237,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-

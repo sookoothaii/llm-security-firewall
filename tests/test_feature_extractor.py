@@ -1,4 +1,5 @@
 """Tests for GuardNet feature extractor."""
+
 import pathlib
 import sys
 
@@ -15,7 +16,9 @@ def test_dimensions_and_bounds():
     """Test feature vector has correct dimensions and values in bounds."""
     out = extract_features("Hello world! Visit https://example.com :)")
     assert len(out.x) == FEATURE_DIM
-    assert all(0.0 <= v <= 1.0 for v in out.x), f"Features out of bounds: {[i for i,v in enumerate(out.x) if not (0<=v<=1)]}"
+    assert all(0.0 <= v <= 1.0 for v in out.x), (
+        f"Features out of bounds: {[i for i, v in enumerate(out.x) if not (0 <= v <= 1)]}"
+    )
 
 
 def test_obfuscation_and_secrets_signals():

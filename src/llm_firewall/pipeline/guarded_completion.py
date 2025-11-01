@@ -223,4 +223,3 @@ async def guarded_completion(
         output = draft_complete
 
     return decision, output, cap_info
-

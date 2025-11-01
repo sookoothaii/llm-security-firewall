@@ -6,6 +6,7 @@ Only allows when explicit benign markers (commit/SHA/UUID labels) detected.
 
 Coverage: Closes adv_028, adv_029, adv_030 (UUID/Git/SHA false positives)
 """
+
 from __future__ import annotations
 
 import re
@@ -22,11 +23,11 @@ SHA256_RE = re.compile(r"\b[a-fA-F0-9]{64}\b")
 BENIGN_LEFT_CTX = re.compile(
     r"^\s*(commit|rev|revision|changeset|sha256|sha-256|checksum|digest|uuid|id|"
     r"object|ref|hash|fingerprint|etag|content-md5)\s*[:=]\s*$",
-    re.I
+    re.I,
 )
 BENIGN_INLINE_CTX = re.compile(
     r"(commit|sha256|checksum|uuid|rev(?:ision)?|etag|git|digest|fingerprint|content-md5)",
-    re.I
+    re.I,
 )
 
 # Base64 structural markers (GPT-5)
@@ -34,13 +35,12 @@ BASE64_IMAGE_STRUCTURAL = re.compile(
     r"(data:image/(png|jpeg|gif|webp);base64,|"
     r"src\s*=\s*[\"']data:image/[^\"']+;base64,|"
     r"Content-Type:\s*image/)",
-    re.I
+    re.I,
 )
 
 # Suspicious context (overrides benign)
 SUSPICIOUS_INLINE_CTX = re.compile(
-    r"(secret|token|api[_-]?key|bearer|x-api-key|authorization|passwd|password)",
-    re.I
+    r"(secret|token|api[_-]?key|bearer|x-api-key|authorization|passwd|password)", re.I
 )
 
 
@@ -199,4 +199,3 @@ def whitelist_decision(text: str) -> tuple[bool, str]:
                 return True, "sha256_benign_context"
 
     return False, ""
-

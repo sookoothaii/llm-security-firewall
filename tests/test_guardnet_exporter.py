@@ -1,4 +1,5 @@
 """Tests for GuardNet metrics exporter."""
+
 import pathlib
 import sys
 
@@ -22,4 +23,3 @@ def test_metrics_low_coverage_detection():
     m = GuardNetMetrics("test", cov_threshold=0.6)
     # 2 out of 4 below threshold
     m.observe_batch([0.1, 0.2, 0.3, 0.4], [0.5, 0.7, 0.4, 0.8])
-

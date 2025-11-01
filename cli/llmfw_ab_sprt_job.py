@@ -9,6 +9,7 @@ Exit codes:
 - 1: continue (insufficient evidence)
 - 2: accept_H0 OR fpr_not_ok (DO NOT SHIP)
 """
+
 # English-only code
 from __future__ import annotations
 
@@ -30,6 +31,7 @@ try:
     from llm_firewall.eval.ab_sprt import (
         fpr_guard as _fpr_guard_real,
     )
+
     _HAS_SPRT_MODULE = True
 except Exception:
     _HAS_SPRT_MODULE = False
@@ -72,11 +74,7 @@ if not _HAS_SPRT_MODULE:
                 return ("accept_H1", p_a, p_b)  # B worse (A better)
             return ("continue", p_a, p_b)
 
-    def fpr_guard(
-        cfg: Any,
-        a_fp: int, b_fp: int,
-        a_n: int, b_n: int
-    ) -> bool:
+    def fpr_guard(cfg: Any, a_fp: int, b_fp: int, a_n: int, b_n: int) -> bool:
         if a_n == 0 or b_n == 0:
             return True
         fpr_a = a_fp / a_n
@@ -211,12 +209,8 @@ def run_job(
 
 
 def main():
-    ap = argparse.ArgumentParser(
-        description="Nightly A/B SPRT for GuardNet pipeline"
-    )
-    ap.add_argument(
-        "--dataset", required=True, help="JSONL with paired A/B decisions"
-    )
+    ap = argparse.ArgumentParser(description="Nightly A/B SPRT for GuardNet pipeline")
+    ap.add_argument("--dataset", required=True, help="JSONL with paired A/B decisions")
     ap.add_argument("--alpha", type=float, default=0.05)
     ap.add_argument("--beta", type=float, default=0.2)
     ap.add_argument(
@@ -240,4 +234,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

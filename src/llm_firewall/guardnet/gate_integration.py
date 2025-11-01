@@ -38,6 +38,7 @@ class GuardNetOutput:
         risk_score: Calibrated risk score [0, 1] for Conformal Stacker
         coverage: Conformal coverage (1 - alpha) for uncertainty quantification
     """
+
     policy: Literal["block", "allow_high_level", "allow"]
     policy_probs: list[float]
     intent: Literal["jailbreak", "injection", "dual_use", "persuasion", "benign"]
@@ -125,13 +126,17 @@ def compute_risk_uplift(
     # Intent risk (weighted by probability)
     intent_risk = sum(
         guard_output.intent_probs[i] * intent_weights.get(intent, 0.0)
-        for i, intent in enumerate(["jailbreak", "injection", "dual_use", "persuasion", "benign"])
+        for i, intent in enumerate(
+            ["jailbreak", "injection", "dual_use", "persuasion", "benign"]
+        )
     )
 
     # Obfuscation risk (sum of detected techniques)
     obf_risk = sum(
         guard_output.obfuscation_probs[i] * obf_weights.get(obf, 0.0)
-        for i, obf in enumerate(["base64", "leet", "homoglyph", "zwc", "mixed_script", "emoji_burst"])
+        for i, obf in enumerate(
+            ["base64", "leet", "homoglyph", "zwc", "mixed_script", "emoji_burst"]
+        )
     )
 
     # Policy risk (block = high, allow = low)
@@ -174,7 +179,10 @@ def should_early_abort(
     # Check obfuscation
     detected_abort_obf = set(guard_output.obfuscation) & abort_obfuscations
     if detected_abort_obf:
-        return (True, f"High-risk obfuscation detected: {', '.join(detected_abort_obf)}")
+        return (
+            True,
+            f"High-risk obfuscation detected: {', '.join(detected_abort_obf)}",
+        )
 
     # Check policy (block always aborts)
     if guard_output.policy == "block":
@@ -203,6 +211,7 @@ def should_fallback_to_judges(
 
 # Example integration workflow
 
+
 def gate_1_pipeline(
     text: str,
     guardnet_session,  # ONNX InferenceSession
@@ -226,7 +235,9 @@ def gate_1_pipeline(
         Dict with final decision and metadata
     """
     # 1. Run GuardNet inference
-    tokens = tokenizer(text, truncation=True, padding="max_length", max_length=256, return_tensors="np")
+    tokens = tokenizer(
+        text, truncation=True, padding="max_length", max_length=256, return_tensors="np"
+    )
     feat_vec = np.array([features], dtype=np.float32)  # (1, feat_dim)
 
     outputs = guardnet_session.run(
@@ -235,7 +246,7 @@ def gate_1_pipeline(
             "input_ids": tokens["input_ids"],
             "attention_mask": tokens["attention_mask"],
             "feat_vec": feat_vec,
-        }
+        },
     )
 
     # Decode outputs (simplified - in production use decode_outputs from model.py)
@@ -247,7 +258,9 @@ def gate_1_pipeline(
     guard_output = GuardNetOutput(
         policy=["block", "allow_high_level", "allow"][policy_idx],
         policy_probs=policy_logits[0].tolist(),
-        intent=["jailbreak", "injection", "dual_use", "persuasion", "benign"][intent_idx],
+        intent=["jailbreak", "injection", "dual_use", "persuasion", "benign"][
+            intent_idx
+        ],
         intent_probs=intent_logits[0].tolist(),
         actionability="procedural",  # placeholder
         actionability_probs=action_logits[0].tolist(),
@@ -281,5 +294,3 @@ def gate_1_pipeline(
         "abort_reason": abort_reason,
         "use_judges_fallback": use_judges,
     }
-
-

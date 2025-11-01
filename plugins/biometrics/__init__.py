@@ -24,6 +24,10 @@ from .biometrics_adapter import PostgreSQLBiometricsAdapter
 from .biometrics_module import BiometricsModule
 from .biometrics_port import BiometricProfile, BiometricsPort
 
-__all__ = ['BiometricsModule', 'BiometricsPort', 'BiometricProfile', 'PostgreSQLBiometricsAdapter']
-__version__ = '1.0.0'
-
+__all__ = [
+    "BiometricsModule",
+    "BiometricsPort",
+    "BiometricProfile",
+    "PostgreSQLBiometricsAdapter",
+]
+__version__ = "1.0.0"

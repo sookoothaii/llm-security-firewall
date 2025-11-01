@@ -1,6 +1,7 @@
 """
 Base64 secret sniffing: decode bounded chunks and search for provider anchors.
 """
+
 from __future__ import annotations
 
 import base64
@@ -81,9 +82,6 @@ def detect_base64_secret(text: str) -> dict[str, Any]:
             findings["windows"].append((m.start(), m.end()))
 
     cov = sum(e - s for (s, e) in findings["windows"]) / max(1, len(text))
-    findings["score"] = (
-        float(min(1.0, 0.5 + 0.5 * cov)) if findings["windows"] else 0.0
-    )
+    findings["score"] = float(min(1.0, 0.5 + 0.5 * cov)) if findings["windows"] else 0.0
 
     return findings
-

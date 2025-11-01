@@ -21,6 +21,7 @@ from llm_firewall.guardnet.model import FirewallNet
 
 try:
     import onnx
+
     HAS_ONNX = True
 except ImportError:
     HAS_ONNX = False
@@ -53,8 +54,7 @@ def export_onnx(
     """
     if not HAS_ONNX:
         raise ImportError(
-            "onnx package required for export. "
-            "Install with: pip install onnx"
+            "onnx package required for export. Install with: pip install onnx"
         )
 
     model.eval()
@@ -175,8 +175,7 @@ def load_onnx_session(onnx_path: str, providers: Optional[list[str]] = None):
         import onnxruntime as ort
     except ImportError:
         raise ImportError(
-            "onnxruntime required for inference. "
-            "Install with: pip install onnxruntime"
+            "onnxruntime required for inference. Install with: pip install onnxruntime"
         )
 
     if providers is None:
@@ -190,5 +189,3 @@ def load_onnx_session(onnx_path: str, providers: Optional[list[str]] = None):
     print(f"  Output names: {[out.name for out in session.get_outputs()]}")
 
     return session
-
-

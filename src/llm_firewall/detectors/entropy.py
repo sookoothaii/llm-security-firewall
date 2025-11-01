@@ -5,6 +5,7 @@ Weak risk factor for high-entropy content
 
 DoS-safe O(n) calculation
 """
+
 import math
 from collections import Counter
 
@@ -12,13 +13,13 @@ from collections import Counter
 def shannon_bits_per_char(text: str, window_size: int = 100) -> float:
     """
     Calculate Shannon entropy (bits per character)
-    
+
     High entropy (>4.5 bits/char) suggests encoded content
-    
+
     Args:
         text: Input text
         window_size: Sample window (DoS protection)
-    
+
     Returns:
         Entropy in bits/char
     """
@@ -41,18 +42,14 @@ def shannon_bits_per_char(text: str, window_size: int = 100) -> float:
 
     return entropy
 
+
 def entropy_signal(text: str, threshold: float = 4.5) -> dict:
     """
     Entropy-based weak signal
-    
+
     Returns:
         Detection flag if entropy exceeds threshold
     """
     H = shannon_bits_per_char(text)
 
-    return {
-        'high_entropy': H >= threshold,
-        'entropy_bits': H,
-        'threshold': threshold
-    }
-
+    return {"high_entropy": H >= threshold, "entropy_bits": H, "threshold": threshold}

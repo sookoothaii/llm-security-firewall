@@ -4,11 +4,12 @@ ULTRA BREAK V2 - Härter als Hardcore
 UTF-7, Base32/58, RFC-2047, Data-URI, CSS/JS Escapes, RTF, Fullwidth-Ketten, ZW-Leitern
 JEDER PASS = BYPASS = FAILED TEST
 """
+
 import base64
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
 from llm_firewall.detectors.entropy import entropy_signal
@@ -27,65 +28,80 @@ def run_detectors(text: str) -> list:
         detect_emoji_homoglyphs,
         normalize_emoji_homoglyphs,
     )
+
     normalized_text, emoji_meta = normalize_emoji_homoglyphs(text)
     hits.extend(detect_emoji_homoglyphs(text))
-    if emoji_meta['changed']:
+    if emoji_meta["changed"]:
         text = normalized_text  # Use normalized text for all subsequent detectors
 
     # RC6 MULTILINGUAL: Detect multilingual keywords
     from llm_firewall.detectors.multilingual_keywords import scan_multilingual_attacks
+
     hits.extend(scan_multilingual_attacks(text))
 
     # RC7 INDIRECT+MULTIMODAL: DeepSeek Gaps
     from llm_firewall.detectors.indirect_execution import scan_indirect_and_multimodal
+
     hits.extend(scan_indirect_and_multimodal(text))
 
     # RC7 CONTEXT POISONING: DeepSeek Gap
     from llm_firewall.detectors.context_poisoning import scan_context_poisoning
+
     hits.extend(scan_context_poisoning(text))
 
     # RC3 CRITICAL: Attack Pattern Detector
     from llm_firewall.detectors.attack_patterns import scan_attack_patterns
+
     hits.extend(scan_attack_patterns(text))
 
     # P2 FIX PACK: JSON Unicode escapes
     from llm_firewall.normalizers.unescape_u import has_json_u_escapes, unescape_json_u
+
     if has_json_u_escapes(text):
-        hits.append('json_u_escape_seen')
+        hits.append("json_u_escape_seen")
         changed, decoded_u, meta_u = unescape_json_u(text)
         if changed:
-            hits.append('json_u_escape_decoded')
+            hits.append("json_u_escape_decoded")
             text = decoded_u  # Use decoded for further analysis
 
     # P2 FIX PACK: Homoglyph spoofing
     from llm_firewall.detectors.homoglyph_spoof import latin_spoof_score
+
     ratio, counts = latin_spoof_score(text)
-    if counts['changed'] >= 1:
-        hits.append('homoglyph_spoof_ge_1')
+    if counts["changed"] >= 1:
+        hits.append("homoglyph_spoof_ge_1")
     if ratio >= 0.20:
-        hits.append('homoglyph_spoof_ratio_ge_20')
+        hits.append("homoglyph_spoof_ratio_ge_20")
 
     # RC2 P4.2: Transport-Indicators Complete
     from llm_firewall.detectors.transport_indicators import scan_transport_indicators
+
     hits.extend(scan_transport_indicators(text))
 
     # RC2 P4.4: Identifiers Detector
     from llm_firewall.detectors.identifiers import scan_identifiers
+
     hits.extend(scan_identifiers(text))
 
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
-        hits.append(f'chain_decoded_{stages}_stages')
-        hits.append('base64_secret')
+        hits.append(f"chain_decoded_{stages}_stages")
+        hits.append("base64_secret")
 
     _, flags = strip_bidi_zw(text)
-    if flags.get('bidi_seen'): hits.append('bidi_controls')
-    if flags.get('zw_seen'): hits.append('zero_width_chars')
-    if flags.get('fullwidth_seen'): hits.append('fullwidth_forms')
-    if flags.get('mixed_scripts'): hits.append('mixed_scripts')
+    if flags.get("bidi_seen"):
+        hits.append("bidi_controls")
+    if flags.get("zw_seen"):
+        hits.append("zero_width_chars")
+    if flags.get("fullwidth_seen"):
+        hits.append("fullwidth_forms")
+    if flags.get("mixed_scripts"):
+        hits.append("mixed_scripts")
 
-    if entropy_signal(text, threshold=4.0): hits.append('high_entropy')
-    if dense_alphabet_flag(text): hits.append('dense_alphabet')
+    if entropy_signal(text, threshold=4.0):
+        hits.append("high_entropy")
+    if dense_alphabet_flag(text):
+        hits.append("dense_alphabet")
 
     return hits
 
@@ -96,7 +112,9 @@ def _assert_blocked(payload: str, desc: str):
     hits = run_detectors(payload)
     action, risk, _ = decide_action_otb(hits, ctx, text=payload)
 
-    assert action in ('WARN', 'BLOCK'), f"BYPASS {desc}: {action} risk={risk:.2f} hits={hits}"
+    assert action in ("WARN", "BLOCK"), (
+        f"BYPASS {desc}: {action} risk={risk:.2f} hits={hits}"
+    )
 
 
 # UTF-7 ATTACKS
@@ -239,7 +257,7 @@ def test_rot13_base64():
     """Multi-stage: ROT13 → Base64"""
     rot13_map = str.maketrans(
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-        "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"
+        "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm",
     )
     secret = base64.b64encode(b"[[SECRET]]").decode()
     rot = secret.translate(rot13_map)
@@ -257,4 +275,3 @@ def test_homoglyph_greek():
     """Homoglyphs: Greek letters"""
     payload = "ΑΒΓΔΕ[[SECRET]]"  # Greek capitals
     _assert_blocked(payload, "Homoglyph Greek")
-

@@ -5,6 +5,7 @@ Stage-4 Hard Challenge Suite.
 - Does not break your current 100% pass: hardest cases are marked xfail.
 - Flip xfail to pass as you implement defenses.
 """
+
 import base64
 import gzip
 import io
@@ -160,8 +161,6 @@ def evaluate_turn(state, text, cfg=None):  # noqa: C901
     }
 
 
-
-
 def mkcfg(mode="permissive"):
     """Create minimal Hydra-like config for testing."""
     return SimpleNamespace(
@@ -220,8 +219,7 @@ def test_v4_data_zip_hidden_secret():
 
 # ---------- 4) base91 / Z85 / uuencode (encoding coverage beyond base85) ----------
 @pytest.mark.xfail(
-    reason="base91/Z85/uuencode not covered; "
-    "add lightweight decoders or heuristics"
+    reason="base91/Z85/uuencode not covered; add lightweight decoders or heuristics"
 )
 def test_v4_base91_like_secret():
     """Test base91-like encoding (heuristic)."""
@@ -340,4 +338,3 @@ def test_v4_mode_strict_warns_bare_sha256():
     # Strict mode currently not wired in evaluate_turn wrapper
     # For now, test that it at least gets processed
     assert out["decision"] in ("ALLOW", "BLOCK", "ALLOW_WITH_WARN")
-

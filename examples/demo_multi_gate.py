@@ -16,7 +16,7 @@ Date: 2025-10-30
 
 import sys
 
-sys.path.insert(0, 'src')
+sys.path.insert(0, "src")
 
 import json
 from datetime import datetime
@@ -31,9 +31,9 @@ from llm_firewall.core.types import ModelContext
 from llm_firewall.judges.nli_consistency import NLIConsistencyJudge
 from llm_firewall.judges.policy_judge import PolicyJudge
 
-print("="*60)
+print("=" * 60)
 print("Multi-Gate Architecture Demo")
-print("="*60)
+print("=" * 60)
 print()
 
 # Setup context
@@ -43,7 +43,7 @@ ctx = ModelContext(
     user_id="demo_user",
     model_id="gpt-4",
     prompt_hash="abc123",
-    time_utc=datetime.now()
+    time_utc=datetime.now(),
 )
 
 # Example: Policy bypass attempt
@@ -71,17 +71,15 @@ reports = []
 for judge in judges:
     report = judge.score(ctx, prompt, draft)
     reports.append(report)
-    print(f"  {report.name}: risk={report.risks.overall.value:.3f}, severity={report.risks.overall.severity.name}, latency={report.latency_ms:.1f}ms")
+    print(
+        f"  {report.name}: risk={report.risks.overall.value:.3f}, severity={report.risks.overall.severity.name}, latency={report.latency_ms:.1f}ms"
+    )
 
 print()
 
 # Aggregate with conformal stacker
 print("Aggregating risks...")
-config = AggregationConfig(
-    coverage=0.90,
-    abstain_band="S2",
-    deny_band="S3"
-)
+config = AggregationConfig(coverage=0.90, abstain_band="S2", deny_band="S3")
 stacker = ConformalRiskStacker(config, default_qhat_provider)
 agg = stacker.aggregate(reports)
 
@@ -99,17 +97,14 @@ print()
 
 # Print JSON summary
 summary = {
-    "context": {
-        "session_id": ctx.session_id,
-        "request_id": ctx.request_id
-    },
+    "context": {"session_id": ctx.session_id, "request_id": ctx.request_id},
     "judges": [
         {
             "name": r.name,
             "risk": round(r.risks.overall.value, 3),
             "band": r.risks.overall.band,
             "severity": r.risks.overall.severity.name,
-            "latency_ms": round(r.latency_ms, 2)
+            "latency_ms": round(r.latency_ms, 2),
         }
         for r in reports
     ],
@@ -117,17 +112,16 @@ summary = {
         "overall_risk": round(agg.overall.value, 3),
         "band": agg.overall.band,
         "severity": agg.overall.severity.name,
-        "qhat": round(agg.conformal_qhat, 3)
+        "qhat": round(agg.conformal_qhat, 3),
     },
-    "decision": decision.value
+    "decision": decision.value,
 }
 
-print("="*60)
+print("=" * 60)
 print("Summary (JSON):")
-print("="*60)
+print("=" * 60)
 print(json.dumps(summary, indent=2))
 print()
-print("="*60)
+print("=" * 60)
 print("SUCCESS - Multi-Gate Architecture works!")
-print("="*60)
-
+print("=" * 60)

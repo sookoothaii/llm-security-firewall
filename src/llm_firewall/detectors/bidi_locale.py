@@ -7,6 +7,7 @@ Detects:
 
 Coverage: Closes adv_002, adv_038, adv_043, adv_046
 """
+
 from __future__ import annotations
 
 import re
@@ -14,11 +15,11 @@ from typing import Any
 
 # Bidirectional text control characters
 BIDI_CTLS = {
-    "\u202A": "LRE",  # Left-to-Right Embedding
-    "\u202B": "RLE",  # Right-to-Left Embedding
-    "\u202D": "LRO",  # Left-to-Right Override
-    "\u202E": "RLO",  # Right-to-Left Override
-    "\u202C": "PDF",  # Pop Directional Formatting
+    "\u202a": "LRE",  # Left-to-Right Embedding
+    "\u202b": "RLE",  # Right-to-Left Embedding
+    "\u202d": "LRO",  # Left-to-Right Override
+    "\u202e": "RLO",  # Right-to-Left Override
+    "\u202c": "PDF",  # Pop Directional Formatting
     "\u2066": "LRI",  # Left-to-Right Isolate
     "\u2067": "RLI",  # Right-to-Left Isolate
     "\u2068": "FSI",  # First Strong Isolate
@@ -90,7 +91,7 @@ def bidi_isolate_wrap_hit(s: str, anchors: list[str]) -> bool:
 def bidi_proximity_uplift(
     s: str,
     anchors: list[str],
-    radius: int = 16  # GPT-5: increased from 8
+    radius: int = 16,  # GPT-5: increased from 8
 ) -> bool:
     """
     Check if bidi controls occur near provider anchors.
@@ -152,4 +153,3 @@ def detect_bidi_locale(text: str) -> dict[str, Any]:
         "locale_hits": locale_count,
         "severity_uplift": min(1.0, uplift),
     }
-

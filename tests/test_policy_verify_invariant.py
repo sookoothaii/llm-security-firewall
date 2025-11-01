@@ -23,6 +23,7 @@ def test_invariant_holds_for_base_policy():
     ok, msg = verify_no_allow_biohazard(spec)
     assert ok, msg
 
+
 def test_invariant_violation_detected():
     # Create a minimal policy that violates the invariant
     policy_yaml = {
@@ -34,13 +35,14 @@ def test_invariant_violation_detected():
                 "then": {"action": "allow"},
             }
         ],
-        "defaults": {"action": "block"}
+        "defaults": {"action": "block"},
     }
 
     spec = parse_yaml_spec(policy_yaml)
     ok, msg = verify_no_allow_biohazard(spec)
     assert not ok, "Should detect invariant violation"
     assert "allow" in msg.lower() and "biohazard" in msg.lower()
+
 
 def test_invariant_holds_with_block():
     # Policy that blocks biohazard
@@ -53,12 +55,13 @@ def test_invariant_holds_with_block():
                 "then": {"action": "block"},
             }
         ],
-        "defaults": {"action": "allow"}
+        "defaults": {"action": "allow"},
     }
 
     spec = parse_yaml_spec(policy_yaml)
     ok, msg = verify_no_allow_biohazard(spec)
     assert ok, msg
+
 
 if __name__ == "__main__":
     test_invariant_holds_for_base_policy()
@@ -71,4 +74,3 @@ if __name__ == "__main__":
     print("✓ test_invariant_holds_with_block passed")
 
     print("\nAll policy verify tests passed!")
-

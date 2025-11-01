@@ -1,4 +1,5 @@
 """Tests for E-Value Session Risk (Beta-Mixture Martingale)."""
+
 import pathlib
 import sys
 
@@ -80,4 +81,3 @@ def test_slow_roll_detection():
     # Should detect after accumulation
     # With 6 hits in 11 turns, E-value should be high
     assert state.e_value > 10.0, "E-value should grow significantly"
-

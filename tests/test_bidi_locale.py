@@ -1,4 +1,5 @@
 """Tests for Bidi controls and locale-aware labels."""
+
 import pathlib
 import sys
 
@@ -15,7 +16,7 @@ from llm_firewall.detectors.bidi_locale import (  # noqa: E402
 def test_bidi_controls_flag():
     """Test bidi control detection."""
     # RLO (Right-to-Left Override)
-    text_rlo = "\u202E abc \u202C"
+    text_rlo = "\u202e abc \u202c"
     assert bidi_controls_present(text_rlo) is True
 
     # FSI (First Strong Isolate)
@@ -28,7 +29,7 @@ def test_bidi_controls_flag():
 
 def test_bidi_rlo_wrap():
     """Test RLO wrap attack (adv_002)."""
-    text = "\u202E dcb a0987654321-FEDCBA-evil sk-live-"
+    text = "\u202e dcb a0987654321-FEDCBA-evil sk-live-"
 
     assert bidi_controls_present(text) is True
     result = detect_bidi_locale(text)
@@ -63,7 +64,7 @@ def test_locale_labels_chinese():
 
 def test_detect_bidi_locale_combined():
     """Test combined bidi + locale detection."""
-    text = "\u202E密码 sk-live\u202C"
+    text = "\u202e密码 sk-live\u202c"
 
     result = detect_bidi_locale(text)
     assert result["has_bidi"] is True
@@ -80,4 +81,3 @@ def test_no_false_positive():
 
     result = detect_bidi_locale(text)
     assert result["severity_uplift"] == 0.0
-

@@ -16,6 +16,7 @@ from typing import Any, Dict, List, Literal, Optional
 # Optional metrics (no-op fallback if prometheus_client not installed)
 try:
     from prometheus_client import Counter, Gauge, Histogram
+
     HAS_PROMETHEUS = True
 except ImportError:  # pragma: no cover
     HAS_PROMETHEUS = False
@@ -23,10 +24,13 @@ except ImportError:  # pragma: no cover
     class _NoOp:
         def labels(self, *_, **__):
             return self
+
         def inc(self, *_, **__):
             pass
+
         def observe(self, *_, **__):
             pass
+
         def set(self, *_, **__):
             pass
 
@@ -39,6 +43,7 @@ except ImportError:  # pragma: no cover
     def Histogram(*_, **__):  # type: ignore[no-redef,misc]
         return _NoOp()
 
+
 # Internal imports
 from llm_firewall.gates.secrets_heuristics import analyze_secrets, redact_text
 from llm_firewall.text.obfuscation_guard import analyze_obfuscation
@@ -50,39 +55,40 @@ FinalDecision = Literal["PROMOTE", "SAFETY_WRAP", "QUARANTINE", "REJECT"]
 _SANDWICH_TOK = Counter(
     "llmfw_sandwich_tokens_processed_total",
     "Tokens processed by Safety-Sandwich",
-    ["model"]
+    ["model"],
 )
 _SANDWICH_ABORTS = Counter(
     "llmfw_sandwich_aborts_total",
     "Total early-aborts by Safety-Sandwich",
-    ["model", "reason"]
+    ["model", "reason"],
 )
 _SANDWICH_REDACT = Counter(
     "llmfw_sandwich_redactions_total",
     "Total redactions issued by Safety-Sandwich",
-    ["model", "kind"]
+    ["model", "kind"],
 )
 _SANDWICH_CRITN = Counter(
     "llmfw_sandwich_critical_leak_at_n_total",
     "Critical leak occurred within first N tokens",
-    ["model", "n"]
+    ["model", "n"],
 )
 _SANDWICH_MODE = Gauge(
     "llmfw_sandwich_mode",
     "Final decision mode (0=PROMOTE,1=SAFETY_WRAP,2=QUARANTINE,3=REJECT)",
-    ["model"]
+    ["model"],
 )
 _SANDWICH_LAT = Histogram(
     "llmfw_sandwich_eval_duration_seconds",
     "Per-check evaluation time (wallclock)",
     ["model"],
-    buckets=(0.001, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 1.0)
+    buckets=(0.001, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 1.0),
 )
 
 
 @dataclass
 class SafetySandwichConfig:
     """Configuration for Safety-Sandwich v2"""
+
     model_name: str = "unknown"
 
     # Critical-leak metric window
@@ -106,6 +112,7 @@ class SafetySandwichConfig:
 @dataclass
 class SandwichState:
     """Internal state of Safety-Sandwich"""
+
     tokens_seen: int = 0
     aborted: bool = False
     abort_reason: Optional[str] = None
@@ -141,7 +148,7 @@ class SafetySandwichV2:
         text = "".join(self._buf)
         if len(text) <= self.cfg.max_window_chars:
             return text
-        return text[-self.cfg.max_window_chars:]
+        return text[-self.cfg.max_window_chars :]
 
     def _metrics_decision_mode(self, mode: FinalDecision) -> None:
         """Record final decision mode to Prometheus"""
@@ -187,8 +194,7 @@ class SafetySandwichV2:
                 and not self.state.critical_leak_fired
             ):
                 _SANDWICH_CRITN.labels(
-                    self.cfg.model_name,
-                    str(self.cfg.critical_leak_n)
+                    self.cfg.model_name, str(self.cfg.critical_leak_n)
                 ).inc()
                 self.state.critical_leak_fired = True
 
@@ -198,10 +204,9 @@ class SafetySandwichV2:
         if sec.severity >= self.cfg.redact_secrets_severity:
             # Require safety wrap (redact current token)
             self.state.require_wrap = True
-            self.state.redactions.append({
-                "kind": "secrets",
-                "token_index": self.state.tokens_seen
-            })
+            self.state.redactions.append(
+                {"kind": "secrets", "token_index": self.state.tokens_seen}
+            )
             _SANDWICH_REDACT.labels(self.cfg.model_name, "secrets").inc()
             return "redact"
 
@@ -263,4 +268,3 @@ class SafetySandwichV2:
             "critical_leak_fired": self.state.critical_leak_fired,
             "redactions": self.state.redactions,
         }
-

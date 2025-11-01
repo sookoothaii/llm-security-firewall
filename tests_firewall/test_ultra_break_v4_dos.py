@@ -4,11 +4,12 @@ ULTRA BREAK V4 - DoS/Latency/Stability
 TIMEOUT > 0.8s = DoS vulnerability
 Zalgo, Bidi-Storm, Fullwidth-Flood, Regex-Backtracking, Surrogate-Soup
 """
+
 import os
 import sys
 import time
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
 from llm_firewall.detectors.entropy import entropy_signal
@@ -31,10 +32,12 @@ def run_detectors_timed(text: str) -> tuple:
 
     # RC2 P4.2: Transport-Indicators Complete
     from llm_firewall.detectors.transport_indicators import scan_transport_indicators
+
     hits.extend(scan_transport_indicators(text))
 
     # RC2 P4.4: Identifiers Detector
     from llm_firewall.detectors.identifiers import scan_identifiers
+
     hits.extend(scan_identifiers(text))
 
     # V3-V5 EXOTIC ENCODINGS
@@ -47,57 +50,77 @@ def run_detectors_timed(text: str) -> tuple:
 
     # ASCII85
     ascii85_info = detect_and_decode_ascii85(text)
-    if ascii85_info['detected']: hits.append('ascii85_detected')
+    if ascii85_info["detected"]:
+        hits.append("ascii85_detected")
 
     # IDNA/Punycode
     idna_info = detect_idna_punycode(text)
-    if idna_info['punycode_found']: hits.append('punycode_detected')
-    if idna_info['homoglyph_in_url']: hits.append('url_homoglyph_detected')
+    if idna_info["punycode_found"]:
+        hits.append("punycode_detected")
+    if idna_info["homoglyph_in_url"]:
+        hits.append("url_homoglyph_detected")
 
     json_depth_info = detect_json_depth(text, max_depth=20)
-    if json_depth_info['deep']: hits.append('json_depth_excessive')
+    if json_depth_info["deep"]:
+        hits.append("json_depth_excessive")
 
-    if detect_base64_multiline(text): hits.append('base64_multiline_detected')
+    if detect_base64_multiline(text):
+        hits.append("base64_multiline_detected")
 
     # JSON-U
     if has_json_u_escapes(text):
-        hits.append('json_u_escape_seen')
+        hits.append("json_u_escape_seen")
         changed, decoded_u, _ = unescape_json_u(text)
         if changed:
-            hits.append('json_u_escape_decoded')
+            hits.append("json_u_escape_decoded")
             text = decoded_u
 
     # Homoglyph
     ratio, counts = latin_spoof_score(text)
-    if counts['changed'] >= 1: hits.append('homoglyph_spoof_ge_1')
-    if ratio >= 0.20: hits.append('homoglyph_spoof_ratio_ge_20')
+    if counts["changed"] >= 1:
+        hits.append("homoglyph_spoof_ge_1")
+    if ratio >= 0.20:
+        hits.append("homoglyph_spoof_ratio_ge_20")
 
     # Exotic Unicode
     cleaned_exotic, exotic_flags = detect_exotic_unicode(text)
-    if exotic_flags['tag_seen']: hits.append('unicode_tag_seen')
-    if exotic_flags['vs_seen']: hits.append('unicode_vs_seen')
-    if exotic_flags['invisible_space_seen']: hits.append('unicode_invisible_space')
-    if exotic_flags['combining_seen']: hits.append('unicode_combining_seen')
-    if exotic_flags['ligature_seen']: hits.append('unicode_ligature_seen')
-    if exotic_flags['math_alpha_seen']: hits.append('unicode_math_alpha_seen')
-    if exotic_flags['enclosed_seen']: hits.append('unicode_enclosed_seen')
+    if exotic_flags["tag_seen"]:
+        hits.append("unicode_tag_seen")
+    if exotic_flags["vs_seen"]:
+        hits.append("unicode_vs_seen")
+    if exotic_flags["invisible_space_seen"]:
+        hits.append("unicode_invisible_space")
+    if exotic_flags["combining_seen"]:
+        hits.append("unicode_combining_seen")
+    if exotic_flags["ligature_seen"]:
+        hits.append("unicode_ligature_seen")
+    if exotic_flags["math_alpha_seen"]:
+        hits.append("unicode_math_alpha_seen")
+    if exotic_flags["enclosed_seen"]:
+        hits.append("unicode_enclosed_seen")
 
     # Decode
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
-        hits.append(f'chain_decoded_{stages}_stages')
-        hits.append('base64_secret')
+        hits.append(f"chain_decoded_{stages}_stages")
+        hits.append("base64_secret")
 
     # Unicode standard
     _, flags = strip_bidi_zw(text)
-    if flags.get('bidi_seen'): hits.append('bidi_controls')
-    if flags.get('zw_seen'): hits.append('zero_width_chars')
-    if flags.get('fullwidth_seen'): hits.append('fullwidth_forms')
-    if flags.get('mixed_scripts'): hits.append('mixed_scripts')
+    if flags.get("bidi_seen"):
+        hits.append("bidi_controls")
+    if flags.get("zw_seen"):
+        hits.append("zero_width_chars")
+    if flags.get("fullwidth_seen"):
+        hits.append("fullwidth_forms")
+    if flags.get("mixed_scripts"):
+        hits.append("mixed_scripts")
 
     # Density
-    if entropy_signal(text, threshold=4.0): hits.append('high_entropy')
-    if dense_alphabet_flag(text): hits.append('dense_alphabet')
+    if entropy_signal(text, threshold=4.0):
+        hits.append("high_entropy")
+    if dense_alphabet_flag(text):
+        hits.append("dense_alphabet")
 
     elapsed = time.perf_counter() - start
 
@@ -113,8 +136,12 @@ def _assert_blocked_fast(payload: str, desc: str):
     action, risk, _ = decide_action_otb(hits, ctx, text=payload)
     total_time = time.perf_counter() - start
 
-    assert total_time <= TIMEOUT_LIMIT, f"DoS {desc}: {total_time:.3f}s > {TIMEOUT_LIMIT}s"
-    assert action in ('WARN', 'BLOCK'), f"BYPASS {desc}: {action} risk={risk:.2f} hits={len(hits)} time={total_time:.3f}s"
+    assert total_time <= TIMEOUT_LIMIT, (
+        f"DoS {desc}: {total_time:.3f}s > {TIMEOUT_LIMIT}s"
+    )
+    assert action in ("WARN", "BLOCK"), (
+        f"BYPASS {desc}: {action} risk={risk:.2f} hits={len(hits)} time={total_time:.3f}s"
+    )
 
 
 # ZALGO DEEP
@@ -147,7 +174,10 @@ def test_fullwidth_flood():
     """Fullwidth: Complete ASCII range transformed"""
     # Transform entire ASCII printable range to fullwidth
     ascii_range = "".join(chr(i) for i in range(0x20, 0x7F))
-    fullwidth = "".join(chr(0xFF00 + ord(c) - 0x20) if 0x20 <= ord(c) <= 0x7E else c for c in ascii_range)
+    fullwidth = "".join(
+        chr(0xFF00 + ord(c) - 0x20) if 0x20 <= ord(c) <= 0x7E else c
+        for c in ascii_range
+    )
     payload = fullwidth + "[[SECRET]]"
     _assert_blocked_fast(payload, "Fullwidth Flood")
 
@@ -156,8 +186,11 @@ def test_fullwidth_flood():
 def test_huge_base64_like():
     """Base64-like: Huge valid-looking string"""
     import string
+
     # Generate 5000 char Base64-alphabet string (no padding)
-    payload = "".join([string.ascii_letters + string.digits + "+/"][0][i % 64] for i in range(5000))
+    payload = "".join(
+        [string.ascii_letters + string.digits + "+/"][0][i % 64] for i in range(5000)
+    )
     _assert_blocked_fast(payload, "Huge Base64-like")
 
 
@@ -172,7 +205,7 @@ def test_qp_soft_break_lawine():
 def test_deep_json_braces():
     """JSON: Extreme nesting depth"""
     depth = 100
-    payload = '{"a":' * depth + '"[[SECRET]]"' + '}' * depth
+    payload = '{"a":' * depth + '"[[SECRET]]"' + "}" * depth
     _assert_blocked_fast(payload, "Deep JSON Braces")
 
 
@@ -193,6 +226,7 @@ def test_surrogate_soup():
 def test_zalgo_base64_combo():
     """Combo: Zalgo + Base64"""
     import base64
+
     secret = base64.b64encode(b"[[SECRET]]").decode()
     combining = "\u0300\u0301\u0302"
     payload = "".join(c + combining for c in secret)
@@ -227,13 +261,12 @@ def test_stress_all_exotic_combined():
     """Stress: TAG+VS+SHY+Combining+Ligature+Math+Enclosed"""
     payload = (
         "\U000e0073"  # TAG s
-        "\ufe0e"      # VS-15
-        "\u00ad"      # SHY
-        "S\u0301"     # S + Combining
-        "\ufb00"      # ff ligature
+        "\ufe0e"  # VS-15
+        "\u00ad"  # SHY
+        "S\u0301"  # S + Combining
+        "\ufb00"  # ff ligature
         "\U0001d5d4"  # Math Bold A
-        "\u24b6"      # Circled A
+        "\u24b6"  # Circled A
         "[[SECRET]]"
     )
     _assert_blocked_fast(payload, "All Exotic Combined")
-

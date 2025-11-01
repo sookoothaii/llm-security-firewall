@@ -93,7 +93,7 @@ class CAREModule:
         user_id: str,
         facts_attempted: int,
         facts_supported: int,
-        cognitive_state: Optional[Dict] = None
+        cognitive_state: Optional[Dict] = None,
     ) -> int:
         """
         Log research session outcome.
@@ -137,4 +137,3 @@ class CAREModule:
             Statistics dictionary (sessions, success rate, model status)
         """
         return self.adapter.get_stats()
-

@@ -1,4 +1,5 @@
 """Tests for Safety-Sandwich v2 metrics integration."""
+
 import pathlib
 import sys
 
@@ -63,9 +64,9 @@ def test_clean_text_continues():
     actions = [ss.feed_token(t) for t in tokens]
 
     # All should be continue
-    assert all(
-        a == "continue" for a in actions
-    ), f"Expected all continue, got {actions}"
+    assert all(a == "continue" for a in actions), (
+        f"Expected all continue, got {actions}"
+    )
 
 
 def test_finalize_decision_modes():
@@ -79,4 +80,3 @@ def test_finalize_decision_modes():
 
     decision = ss.finalize()
     assert decision in ("PROMOTE", "SAFETY_WRAP", "QUARANTINE", "REJECT")
-

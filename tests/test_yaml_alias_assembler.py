@@ -1,4 +1,5 @@
 """Tests for YAML alias assembler."""
+
 from llm_firewall.session.yaml_alias_assembler import expand_yaml_aliases
 
 
@@ -41,4 +42,3 @@ def test_no_aliases_passthrough():
     text = "just normal text\nno yaml here"
     expanded = expand_yaml_aliases(text)
     assert expanded == text
-

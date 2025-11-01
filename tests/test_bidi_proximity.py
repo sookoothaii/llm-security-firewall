@@ -1,4 +1,5 @@
 """Tests for bidi proximity uplift."""
+
 import pathlib
 import sys
 
@@ -11,7 +12,7 @@ from llm_firewall.detectors.bidi_locale import bidi_proximity_uplift  # noqa: E4
 def test_bidi_near_provider_prefix():
     """Test bidi control near sk-live triggers uplift (adv_013)."""
     # RLO near sk-live
-    text = "prefix \u202E sk-live-ABCD \u202C suffix"
+    text = "prefix \u202e sk-live-ABCD \u202c suffix"
 
     result = bidi_proximity_uplift(text, ["sk-live"], radius=8)
     assert result is True, "Bidi near anchor should uplift"
@@ -20,7 +21,7 @@ def test_bidi_near_provider_prefix():
 def test_bidi_far_from_anchor_no_uplift():
     """Test bidi control far from anchor doesn't trigger."""
     # Bidi at position 5, sk-live at position 50
-    text = "aaaa \u202E bbb " + ("x" * 40) + " sk-live-ABCD"
+    text = "aaaa \u202e bbb " + ("x" * 40) + " sk-live-ABCD"
 
     result = bidi_proximity_uplift(text, ["sk-live"], radius=8)
     assert result is False, "Bidi far from anchor should not uplift"
@@ -32,4 +33,3 @@ def test_no_bidi_no_uplift():
 
     result = bidi_proximity_uplift(text, ["sk-live"], radius=8)
     assert result is False
-

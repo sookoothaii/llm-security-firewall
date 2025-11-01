@@ -3,6 +3,7 @@
 ASCII85 (Adobe variant) Decoder
 Closes ASCII85 bypass
 """
+
 import re
 from typing import List, Tuple
 
@@ -11,7 +12,7 @@ def extract_ascii85_spans(text: str) -> List[str]:
     """
     Extract ASCII85 spans (<~...~>)
     """
-    pattern = r'<~(.+?)~>'
+    pattern = r"<~(.+?)~>"
     matches = re.findall(pattern, text, re.DOTALL)
     return matches
 
@@ -19,22 +20,24 @@ def extract_ascii85_spans(text: str) -> List[str]:
 def decode_ascii85(encoded: str, max_bytes: int = 65536) -> Tuple[bool, bytes]:
     """
     Decode ASCII85 (Adobe variant)
-    
+
     Returns:
         (success, decoded_bytes)
     """
     # Remove whitespace
-    encoded = ''.join(encoded.split())
+    encoded = "".join(encoded.split())
 
     if not encoded:
-        return False, b''
+        return False, b""
 
     # ASCII85 alphabet
-    valid_chars = set('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~')
+    valid_chars = set(
+        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~"
+    )
 
     # Check all chars valid
     if not all(c in valid_chars for c in encoded):
-        return False, b''
+        return False, b""
 
     result = []
     i = 0
@@ -42,13 +45,13 @@ def decode_ascii85(encoded: str, max_bytes: int = 65536) -> Tuple[bool, bytes]:
     try:
         while i < len(encoded):
             # Special case: 'z' = four null bytes
-            if encoded[i] == 'z':
+            if encoded[i] == "z":
                 result.extend([0, 0, 0, 0])
                 i += 1
                 continue
 
             # Normal 5-char group
-            group = encoded[i:i+5]
+            group = encoded[i : i + 5]
             if len(group) < 2:  # Need at least 2 chars
                 break
 
@@ -70,13 +73,13 @@ def decode_ascii85(encoded: str, max_bytes: int = 65536) -> Tuple[bool, bytes]:
         return True, bytes(result)
 
     except Exception:
-        return False, b''
+        return False, b""
 
 
 def detect_and_decode_ascii85(text: str, max_bytes: int = 65536) -> dict:
     """
     Detect and decode ASCII85
-    
+
     Returns:
         {
             'detected': bool,
@@ -88,7 +91,12 @@ def detect_and_decode_ascii85(text: str, max_bytes: int = 65536) -> dict:
     spans = extract_ascii85_spans(text)
 
     if not spans:
-        return {'detected': False, 'spans': [], 'decoded_any': False, 'total_decoded_bytes': 0}
+        return {
+            "detected": False,
+            "spans": [],
+            "decoded_any": False,
+            "total_decoded_bytes": 0,
+        }
 
     decoded_any = False
     total_bytes = 0
@@ -100,9 +108,8 @@ def detect_and_decode_ascii85(text: str, max_bytes: int = 65536) -> dict:
             total_bytes += len(decoded_bytes)
 
     return {
-        'detected': True,
-        'spans': spans,
-        'decoded_any': decoded_any,
-        'total_decoded_bytes': total_bytes
+        "detected": True,
+        "spans": spans,
+        "decoded_any": decoded_any,
+        "total_decoded_bytes": total_bytes,
     }
-

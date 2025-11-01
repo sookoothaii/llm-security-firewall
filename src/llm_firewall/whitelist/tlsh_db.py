@@ -4,12 +4,14 @@ TLSH Whitelist Database
 RC2 P4.1: Fuzzy hash matching for benign patterns
 Apache-2.0 License for TLSH
 """
+
 import os
 from pathlib import Path
 from typing import Optional
 
 try:
     import tlsh
+
     TLSH_AVAILABLE = True
 except ImportError:
     TLSH_AVAILABLE = False
@@ -43,7 +45,7 @@ class TLSHDB:
         with open(self.path, "r", encoding="utf-8") as f:
             for line in f:
                 h = line.strip()
-                if h and not h.startswith('#'):
+                if h and not h.startswith("#"):
                     self._hashes.add(h)
 
         self._loaded = True
@@ -51,10 +53,10 @@ class TLSHDB:
     def is_benign(self, buf: bytes) -> bool:
         """
         Check if buffer matches whitelist
-        
+
         Args:
             buf: Decoded buffer to check
-            
+
         Returns:
             True if matches benign whitelist
         """
@@ -88,7 +90,7 @@ class TLSHDB:
     def add_to_whitelist(self, buf: bytes) -> Optional[str]:
         """
         Add buffer to whitelist
-        
+
         Returns:
             TLSH hash if successful, None otherwise
         """
@@ -113,4 +115,3 @@ class TLSHDB:
             f.write("# RC2 P4.1: Fuzzy hash for benign patterns\n\n")
             for h in sorted(self._hashes):
                 f.write(f"{h}\n")
-

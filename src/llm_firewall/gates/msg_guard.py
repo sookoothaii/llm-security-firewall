@@ -3,6 +3,7 @@
 Metamorphic-Stability Guard (MSG)
 WARN/BLOCK only if decision remains stable under harmless perturbations
 """
+
 from typing import Any, Callable, Dict, List, Tuple
 
 
@@ -20,21 +21,26 @@ def _perturbations(text: str) -> List[str]:
     perturbations.append(text.replace("```", ""))
 
     # Zero-width strip
-    perturbations.append(text.replace("\u200b", "").replace("\u200c", "").replace("\u200d", ""))
+    perturbations.append(
+        text.replace("\u200b", "").replace("\u200c", "").replace("\u200d", "")
+    )
 
     return perturbations
 
 
-def msg_decide(scan_fn: Callable[[str, Dict], Tuple[str, float, Dict]],
-              text: str, meta: Dict[str, Any]) -> Tuple[str, float, Dict]:
+def msg_decide(
+    scan_fn: Callable[[str, Dict], Tuple[str, float, Dict]],
+    text: str,
+    meta: Dict[str, Any],
+) -> Tuple[str, float, Dict]:
     """
     Stability guard wrapper for firewall decisions
-    
+
     Args:
         scan_fn: Function that returns (action, risk_score, contributions)
         text: Input text
         meta: Context metadata
-    
+
     Returns:
         (action, risk_score, contributions) with stability check applied
     """
@@ -64,17 +70,28 @@ def msg_decide(scan_fn: Callable[[str, Dict], Tuple[str, float, Dict]],
     orig_action, orig_risk, orig_contrib = scan_fn(text, meta)
 
     # Critical signals that indicate deliberate evasion (shouldn't need full stability)
-    critical_patterns = ['chain_decoded', 'base64_secret', 'bidi_controls', 'comment_split_b64']
-    has_critical_in_original = any(any(cp in str(k) for cp in critical_patterns)
-                                   for k in orig_contrib.keys())
+    critical_patterns = [
+        "chain_decoded",
+        "base64_secret",
+        "bidi_controls",
+        "comment_split_b64",
+    ]
+    has_critical_in_original = any(
+        any(cp in str(k) for cp in critical_patterns) for k in orig_contrib.keys()
+    )
 
     # Threshold: 3/5 normally, 2/5 if critical signals present
     required_votes = 2 if has_critical_in_original else 3
 
     if majority_action in ("WARN", "BLOCK") and majority_count < required_votes:
         # Not stable → downgrade to PASS
-        return ("PASS", 0.0, {"msg_guard": f"Decision unstable ({majority_count}/{len(results)} votes), downgraded to PASS"})
+        return (
+            "PASS",
+            0.0,
+            {
+                "msg_guard": f"Decision unstable ({majority_count}/{len(results)} votes), downgraded to PASS"
+            },
+        )
 
     # Return original result if stable
     return orig_action, orig_risk, orig_contrib
-

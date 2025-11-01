@@ -1,4 +1,5 @@
 """Archive-in-Base64 sniff (gzip/zip)."""
+
 from __future__ import annotations
 
 import base64
@@ -135,4 +136,3 @@ def detect_archive_secret(text: str) -> dict[str, Any]:
                     break
 
     return out
-

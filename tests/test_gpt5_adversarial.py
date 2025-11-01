@@ -5,6 +5,7 @@ This suite tests INFRASTRUCTURE (not detection perfection).
 All tests PASS if they run successfully.
 Detection results are logged and summarized.
 """
+
 import json
 import pathlib
 import sys
@@ -112,9 +113,7 @@ def should_detect_secret(text: str) -> bool:
     findings_comp = analyze_secrets(compact)
 
     has_secrets = (
-        len(findings_norm.hits) > 0
-        or len(findings_comp.hits) > 0
-        or weak_provider
+        len(findings_norm.hits) > 0 or len(findings_comp.hits) > 0 or weak_provider
     )
 
     # Uplift from bidi/locale
@@ -160,22 +159,23 @@ def test_adversarial_case(case):
     detected = should_detect_secret(payload)
 
     # Determine correctness
-    detection_correct = (
-        (expected == "should_block" and detected) or
-        (expected == "should_allow" and not detected)
+    detection_correct = (expected == "should_block" and detected) or (
+        expected == "should_allow" and not detected
     )
 
     # Store result globally
-    _RESULTS.append({
-        "id": case_id,
-        "severity": severity,
-        "attack_type": attack_type,
-        "detected": detected,
-        "expected": expected,
-        "correct": detection_correct,
-        "weakness": weakness,
-        "payload_preview": payload[:80]
-    })
+    _RESULTS.append(
+        {
+            "id": case_id,
+            "severity": severity,
+            "attack_type": attack_type,
+            "detected": detected,
+            "expected": expected,
+            "correct": detection_correct,
+            "weakness": weakness,
+            "payload_preview": payload[:80],
+        }
+    )
 
     # Test infrastructure works → PASS
 
@@ -208,19 +208,21 @@ def test_adversarial_summary_stats():
             failed_cases.append(r)
 
     # Print formatted summary (ASCII only for Windows console)
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print(" GPT-5 ADVERSARIAL SUITE - DETECTION RESULTS")
-    print("="*70)
+    print("=" * 70)
     print(f" Total Cases:       {total}")
     print(f" [+] Correct:       {correct_count} ({detection_rate:.1f}%)")
-    print(f" [-] Incorrect:     {incorrect_count} ({100-detection_rate:.1f}%)")
+    print(f" [-] Incorrect:     {incorrect_count} ({100 - detection_rate:.1f}%)")
     print()
     print(" By Severity:")
     for sev in ["critical", "high", "medium", "low"]:
         if sev in by_severity:
             s = by_severity[sev]
             rate = 100 * s["correct"] / s["total"]
-            print(f"   {sev.upper():10s}: {s['correct']:2d}/{s['total']:2d} ({rate:5.1f}%)")  # noqa: E501
+            print(
+                f"   {sev.upper():10s}: {s['correct']:2d}/{s['total']:2d} ({rate:5.1f}%)"
+            )  # noqa: E501
 
     if failed_cases:
         print()
@@ -229,12 +231,12 @@ def test_adversarial_summary_stats():
             print(f"   [{r['severity'].upper()}] {r['id']}: {r['attack_type']}")
             print(f"       -> {r['weakness'][:65]}...")
         if len(failed_cases) > 5:
-            print(f"   ... and {len(failed_cases)-5} more")
+            print(f"   ... and {len(failed_cases) - 5} more")
 
-    print("="*70)
+    print("=" * 70)
     msg = " [PASS] TEST INFRASTRUCTURE: All {0} tests ran successfully"
     print(msg.format(total))
-    print("="*70)
+    print("=" * 70)
 
     # Clear results for next run
     _RESULTS.clear()

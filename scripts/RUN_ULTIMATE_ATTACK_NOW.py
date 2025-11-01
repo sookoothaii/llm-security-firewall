@@ -2,10 +2,11 @@
 """
 ULTIMATE ATTACK - JETZT SOFORT AUSFUEHREN
 """
+
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import base64
 
@@ -43,9 +44,9 @@ attacks = [
     ("bidi", "\u202aalert('xss')"),
 ]
 
-print("="*60)
+print("=" * 60)
 print("ULTIMATE ATTACK - RUNNING NOW")
-print("="*60)
+print("=" * 60)
 
 blocked = 0
 passed = 0
@@ -58,31 +59,30 @@ for i, (category, payload) in enumerate(attacks):
     action, risk, contrib = decide_action_otb(hits, ctx, text=payload)
 
     result = {
-        'category': category,
-        'payload': payload[:50],
-        'action': action,
-        'risk': risk,
-        'hits': len(hits)
+        "category": category,
+        "payload": payload[:50],
+        "action": action,
+        "risk": risk,
+        "hits": len(hits),
     }
 
-    if action == 'BLOCK':
+    if action == "BLOCK":
         blocked += 1
-    elif action == 'WARN':
+    elif action == "WARN":
         warned += 1
     else:
         passed += 1
-        print(f"BYPASS {i+1}: {category} - {payload[:40]}... risk={risk:.2f}")
+        print(f"BYPASS {i + 1}: {category} - {payload[:40]}... risk={risk:.2f}")
 
     results.append(result)
 
 total = len(attacks)
-print("\n" + "="*60)
+print("\n" + "=" * 60)
 print("ERGEBNISSE:")
-print("="*60)
+print("=" * 60)
 print(f"Total:   {total}")
-print(f"BLOCKED: {blocked} ({blocked/total*100:.1f}%)")
-print(f"WARNED:  {warned} ({warned/total*100:.1f}%)")
-print(f"PASSED:  {passed} ({passed/total*100:.1f}%)")
-print(f"\nASR (Attack Success Rate): {passed/total*100:.1f}%")
-print(f"Block Rate: {blocked/total*100:.1f}%")
-
+print(f"BLOCKED: {blocked} ({blocked / total * 100:.1f}%)")
+print(f"WARNED:  {warned} ({warned / total * 100:.1f}%)")
+print(f"PASSED:  {passed} ({passed / total * 100:.1f}%)")
+print(f"\nASR (Attack Success Rate): {passed / total * 100:.1f}%")
+print(f"Block Rate: {blocked / total * 100:.1f}%")

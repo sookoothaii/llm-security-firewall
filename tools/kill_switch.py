@@ -37,7 +37,7 @@ def kill_switch(
     domains: list[str],
     last_n_adapters: int = 5,
     last_m_promotions: int = 200,
-    dry_run: bool = False
+    dry_run: bool = False,
 ):
     """
     Execute kill-switch procedure.
@@ -135,7 +135,9 @@ def kill_switch(
                 if not dry_run:
                     cur.execute(query, (domains, now, dry_run))
                     event_id = cur.fetchone()
-                    print(f"  Ledger event created: {event_id[0] if event_id else 'N/A'}")
+                    print(
+                        f"  Ledger event created: {event_id[0] if event_id else 'N/A'}"
+                    )
                 else:
                     print("  Would create ledger event")
 
@@ -172,19 +174,29 @@ Examples:
 
   # Custom limits
   python tools/kill_switch.py --dsn "postgresql://..." --domains SCIENCE --last-n-adapters 10 --last-m-promotions 500
-        """
+        """,
     )
 
-    ap.add_argument("--dsn", required=True,
-                    help="PostgreSQL connection string")
-    ap.add_argument("--domains", nargs="+", required=True,
-                    help="Domains to affect (SCIENCE, MEDICINE, etc.)")
-    ap.add_argument("--last-n-adapters", type=int, default=5,
-                    help="Number of recent adapters to unmount per domain (default: 5)")
-    ap.add_argument("--last-m-promotions", type=int, default=200,
-                    help="Number of recent promotions to demote (default: 200)")
-    ap.add_argument("--dry-run", action="store_true",
-                    help="Dry-run mode (no changes)")
+    ap.add_argument("--dsn", required=True, help="PostgreSQL connection string")
+    ap.add_argument(
+        "--domains",
+        nargs="+",
+        required=True,
+        help="Domains to affect (SCIENCE, MEDICINE, etc.)",
+    )
+    ap.add_argument(
+        "--last-n-adapters",
+        type=int,
+        default=5,
+        help="Number of recent adapters to unmount per domain (default: 5)",
+    )
+    ap.add_argument(
+        "--last-m-promotions",
+        type=int,
+        default=200,
+        help="Number of recent promotions to demote (default: 200)",
+    )
+    ap.add_argument("--dry-run", action="store_true", help="Dry-run mode (no changes)")
 
     args = ap.parse_args()
 
@@ -203,10 +215,9 @@ Examples:
         domains=args.domains,
         last_n_adapters=args.last_n_adapters,
         last_m_promotions=args.last_m_promotions,
-        dry_run=args.dry_run
+        dry_run=args.dry_run,
     )
 
 
 if __name__ == "__main__":
     main()
-

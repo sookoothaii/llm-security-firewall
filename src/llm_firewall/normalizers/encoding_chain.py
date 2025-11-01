@@ -12,14 +12,20 @@ import re
 ALPH_B64 = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=")
 ALPH_B32 = set("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=")
 ALPH_B58 = set("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-ALPH_B85 = set("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~")
-ALPH_B91 = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~\"")
+ALPH_B85 = set(
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~"
+)
+ALPH_B91 = set(
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~"'
+)
+
 
 def _ratio_in_set(s: str, alphabet: set) -> float:
     if not s:
         return 0.0
     hits = sum(1 for ch in s if ch in alphabet)
     return hits / max(1, len(s))
+
 
 def sniff_encodings(s: str):
     """Return candidate encodings ordered by likelihood."""
@@ -35,24 +41,27 @@ def sniff_encodings(s: str):
         cand.append(("binhex", 0.7))
     return [k for k, _ in sorted(cand, key=lambda x: x[1], reverse=True) if _ >= 0.6]
 
+
 def _dec_b64(s: str):
     pad = (-len(s)) % 4
     try:
-        return base64.b64decode(s + ("="*pad), validate=False)
+        return base64.b64decode(s + ("=" * pad), validate=False)
     except Exception:
         raise
+
 
 def _dec_b32(s: str):
     pad = (-len(s)) % 8
     try:
-        return base64.b32decode(s + ("="*pad), casefold=True)
+        return base64.b32decode(s + ("=" * pad), casefold=True)
     except Exception:
         raise
+
 
 def _dec_b85(s: str):
     """Decode Base85/ASCII85 with multiple format support"""
     # Try Adobe ASCII85 (<~...~>) first
-    if s.startswith('<~') and s.endswith('~>'):
+    if s.startswith("<~") and s.endswith("~>"):
         try:
             return base64.a85decode(s, adobe=True)
         except Exception:
@@ -70,20 +79,26 @@ def _dec_b85(s: str):
     except Exception:
         raise
 
+
 def _extract_b64_spans(text: str):
     """Extract potential Base64 spans from text for recursive decode"""
     # Look for base64-like sequences (min 20 chars)
-    pattern = r'[A-Za-z0-9+/]{20,}={0,2}'
+    pattern = r"[A-Za-z0-9+/]{20,}={0,2}"
     matches = re.findall(pattern, text)
     return matches
+
 
 def _dec_qp(s: str, max_bytes: int):
     s2 = s.replace("=\r\n", "")
     out = bytearray()
     i = 0
     while i < len(s2):
-        if s2[i] == "=" and i+2 < len(s2) and all(c in "0123456789ABCDEFabcdef" for c in s2[i+1:i+3]):
-            out.append(int(s2[i+1:i+3], 16))
+        if (
+            s2[i] == "="
+            and i + 2 < len(s2)
+            and all(c in "0123456789ABCDEFabcdef" for c in s2[i + 1 : i + 3])
+        ):
+            out.append(int(s2[i + 1 : i + 3], 16))
             i += 3
         else:
             out.append(ord(s2[i]))
@@ -91,6 +106,7 @@ def _dec_qp(s: str, max_bytes: int):
         if len(out) > max_bytes:
             raise ValueError("qp budget exceeded")
     return bytes(out)
+
 
 def _dec_uu(s: str, max_bytes: int):
     lines = s.splitlines()
@@ -104,12 +120,13 @@ def _dec_uu(s: str, max_bytes: int):
             break
         if in_body:
             try:
-                out.extend(binascii.a2b_uu((ln+"\n").encode("ascii")))
+                out.extend(binascii.a2b_uu((ln + "\n").encode("ascii")))
                 if len(out) > max_bytes:
                     raise ValueError("uu budget exceeded")
             except binascii.Error:
                 continue
     return bytes(out)
+
 
 DECODER = {
     "b64": lambda s, m: _dec_b64(s),
@@ -120,6 +137,7 @@ DECODER = {
     "uu": lambda s, m: _dec_uu(s, m),
     "binhex": lambda s, m: None,
 }
+
 
 def try_decode_chain(text: str, max_stages: int = 3, max_total_bytes: int = 65536):
     """
@@ -180,4 +198,3 @@ def try_decode_chain(text: str, max_stages: int = 3, max_total_bytes: int = 6553
             break
 
     return cur, stages, used, last_buffer
-

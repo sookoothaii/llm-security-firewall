@@ -71,10 +71,7 @@ class BiometricsModule:
         self.adapter = adapter
 
     def authenticate(
-        self,
-        user_id: str,
-        message: str,
-        context: Optional[Dict] = None
+        self, user_id: str, message: str, context: Optional[Dict] = None
     ) -> AuthenticationResult:
         """
         Authenticate user based on behavioral patterns.
@@ -89,11 +86,7 @@ class BiometricsModule:
         """
         return self.adapter.authenticate(user_id, message, context)
 
-    def update_baseline(
-        self,
-        user_id: str,
-        force: bool = False
-    ) -> Dict:
+    def update_baseline(self, user_id: str, force: bool = False) -> Dict:
         """
         Update behavioral baseline.
 
@@ -126,10 +119,7 @@ class BiometricsModule:
         return self.adapter.get_profile(user_id)
 
     def log_message(
-        self,
-        user_id: str,
-        message: str,
-        metadata: Optional[Dict] = None
+        self, user_id: str, message: str, metadata: Optional[Dict] = None
     ) -> int:
         """
         Log message for behavioral analysis.
@@ -143,4 +133,3 @@ class BiometricsModule:
             Message ID
         """
         return self.adapter.log_message(user_id, message, metadata)
-

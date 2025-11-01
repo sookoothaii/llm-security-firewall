@@ -3,6 +3,7 @@
 Benign Motif Vault (BMV) via SimHash
 Stores recurring benign patterns, dampens risk for near matches (Hamming ≤3)
 """
+
 import hashlib
 import json
 from collections import defaultdict
@@ -13,11 +14,11 @@ from typing import Iterable, Optional
 def simhash(tokens: Iterable[str], bits: int = 64) -> int:
     """
     Compute SimHash fingerprint
-    
+
     Args:
         tokens: Tokenized text
         bits: Hash size (default 64)
-    
+
     Returns:
         SimHash integer
     """
@@ -26,7 +27,7 @@ def simhash(tokens: Iterable[str], bits: int = 64) -> int:
     for token in tokens:
         # Use blake2b for deterministic hashing
         h_bytes = hashlib.blake2b(token.encode("utf-8"), digest_size=8).digest()
-        h_int = int.from_bytes(h_bytes, byteorder='big')
+        h_int = int.from_bytes(h_bytes, byteorder="big")
 
         for i in range(bits):
             if (h_int >> i) & 1:
@@ -38,7 +39,7 @@ def simhash(tokens: Iterable[str], bits: int = 64) -> int:
     fingerprint = 0
     for i, val in enumerate(vector):
         if val > 0:
-            fingerprint |= (1 << i)
+            fingerprint |= 1 << i
 
     return fingerprint
 
@@ -70,13 +71,13 @@ class BenignVault:
         if len(self.hashes) > self._load_limit:
             # Remove least frequent
             sorted_hashes = sorted(self.hashes.items(), key=lambda x: x[1])
-            for h_to_remove, _ in sorted_hashes[:len(sorted_hashes) // 10]:
+            for h_to_remove, _ in sorted_hashes[: len(sorted_hashes) // 10]:
                 del self.hashes[h_to_remove]
 
     def is_near_benign(self, text: str) -> bool:
         """
         Check if text is near a benign pattern
-        
+
         Returns:
             True if Hamming distance ≤ threshold to any stored pattern
         """
@@ -96,12 +97,12 @@ class BenignVault:
     def save(self, path: Path):
         """Save vault to JSON file"""
         data = {
-            'hashes': {hex(k): v for k, v in self.hashes.items()},
-            'bits': self.bits,
-            'threshold': self.hamming_threshold
+            "hashes": {hex(k): v for k, v in self.hashes.items()},
+            "bits": self.bits,
+            "threshold": self.hamming_threshold,
         }
         path.parent.mkdir(parents=True, exist_ok=True)
-        with open(path, 'w', encoding='utf-8') as f:
+        with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f)
 
     def load(self, path: Path):
@@ -109,12 +110,14 @@ class BenignVault:
         if not path.exists():
             return
 
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        self.bits = data.get('bits', 64)
-        self.hamming_threshold = data.get('threshold', 3)
-        self.hashes = defaultdict(int, {int(k, 16): v for k, v in data.get('hashes', {}).items()})
+        self.bits = data.get("bits", 64)
+        self.hamming_threshold = data.get("threshold", 3)
+        self.hashes = defaultdict(
+            int, {int(k, 16): v for k, v in data.get("hashes", {}).items()}
+        )
 
 
 # Global vault instance
@@ -127,8 +130,9 @@ def get_vault() -> BenignVault:
     if _vault is None:
         _vault = BenignVault()
         # Try to load from default location
-        default_path = Path(__file__).parent.parent.parent / "artifacts" / "benign_vault.json"
+        default_path = (
+            Path(__file__).parent.parent.parent / "artifacts" / "benign_vault.json"
+        )
         if default_path.exists():
             _vault.load(default_path)
     return _vault
-

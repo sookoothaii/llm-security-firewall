@@ -1,2 +1,1 @@
 """Adapters - infrastructure implementations."""
-

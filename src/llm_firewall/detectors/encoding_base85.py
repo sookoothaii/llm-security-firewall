@@ -8,6 +8,7 @@ Detects:
 
 Coverage: Closes adv_008, adv_045
 """
+
 from __future__ import annotations
 
 import math
@@ -19,9 +20,7 @@ from typing import Any
 _A85_DELIM = re.compile(r"<~([\s\S]{5,})~>")
 
 # Broad character class for Z85/Base85 candidates
-_BASE85_CHARS = re.compile(
-    r"^[0-9A-Za-z\.\-:;\+\=\^!\*/\?\&<>\(\)\[\]\{\}@%\$,]+$"
-)
+_BASE85_CHARS = re.compile(r"^[0-9A-Za-z\.\-:;\+\=\^!\*/\?\&<>\(\)\[\]\{\}@%\$,]+$")
 
 
 def shannon_entropy(s: str) -> float:
@@ -73,8 +72,7 @@ def detect_base85(text: str) -> dict[str, Any]:
     # 2) Z85 / naked Base85: sliding windows (conservative)
     # Look for long runs (≥20) of base85-ish alphabet
     for run in re.finditer(
-        r"[0-9A-Za-z\.\-:;\+\=\^!\*/\?\&<>\(\)\[\]\{\}@%\$,]{20,}",
-        text
+        r"[0-9A-Za-z\.\-:;\+\=\^!\*/\?\&<>\(\)\[\]\{\}@%\$,]{20,}", text
     ):
         frag = run.group(0)
         if is_probably_base85(frag):

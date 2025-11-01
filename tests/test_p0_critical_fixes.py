@@ -1,4 +1,5 @@
 """Tests for P0 critical fixes (Base85, Unicode Hardening, Pre-Scan)."""
+
 import pathlib
 import sys
 
@@ -29,7 +30,7 @@ def test_adv_045_composition_triple_threat():
 
 def test_adv_002_bidi_rlo_wrap():
     """Test Bidi RLO detection and severity uplift."""
-    s = "\u202E dcb a0987654321-FEDCBA-evil sk-live-"
+    s = "\u202e dcb a0987654321-FEDCBA-evil sk-live-"
     info = harden_text_for_scanning(s)
     assert info["severity_uplift"] >= 0.9, "Bidi should trigger high severity"
     assert len(info["bidi_positions"]) > 0
@@ -102,4 +103,3 @@ def test_no_false_positive_on_clean():
     assert info["severity_uplift"] == 0.0
     assert info["had_ignorable"] is False
     assert len(info["bidi_positions"]) == 0
-

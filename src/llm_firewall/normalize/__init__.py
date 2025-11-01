@@ -1,4 +1,5 @@
 """Normalization utilities for LLM Firewall."""
+
 from llm_firewall.normalize.prescan import squash_delims
 from llm_firewall.normalize.unicode_hardening import (
     confusable_skeleton,
@@ -16,4 +17,3 @@ __all__ = [
     "strip_default_ignorable",
     "remove_spaces_punct",
 ]
-

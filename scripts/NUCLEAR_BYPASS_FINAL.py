@@ -2,10 +2,11 @@
 """
 NUCLEAR BYPASS - ABSOLUT HAERTESTER TEST
 """
+
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import base64
 import random
@@ -21,7 +22,7 @@ nuclear = []
 # 1. Random char injection everywhere
 base = "DROP TABLE users"
 for i in range(5):
-    mutated = ''.join(c + random.choice(['', '\u200b', ' ', '/**/']) for c in base)
+    mutated = "".join(c + random.choice(["", "\u200b", " ", "/**/"]) for c in base)
     nuclear.append(("random_inject", mutated))
 
 # 2. Every encoding combined
@@ -38,11 +39,11 @@ nuclear.append(("quad_enc", step4))
 # 3. Every Unicode trick
 base = "javascript:alert(1)"
 uni_tricks = [
-    base.replace('a', '\u0430'),  # Cyrillic
-    '\u202e' + base + '\u202c',  # Bidi
-    '\u200b'.join(base),  # ZW every char
-    ''.join(c + '\u0336' for c in base),  # Combining every char
-    base.replace('a', '\uff41'),  # Fullwidth
+    base.replace("a", "\u0430"),  # Cyrillic
+    "\u202e" + base + "\u202c",  # Bidi
+    "\u200b".join(base),  # ZW every char
+    "".join(c + "\u0336" for c in base),  # Combining every char
+    base.replace("a", "\uff41"),  # Fullwidth
 ]
 for trick in uni_tricks:
     nuclear.append(("uni_trick", trick))
@@ -62,12 +63,18 @@ ws_types = "DROP\u00a0TABLE\u2003users\u2009"  # NBSP, EM Space, Thin Space
 nuclear.append(("ws_types", ws_types))
 
 # 7. Encoding in fragments
-frag_enc = "D" + base64.b64encode(b"R").decode() + "OP " + base64.b64encode(b"TA").decode() + "BLE"
+frag_enc = (
+    "D"
+    + base64.b64encode(b"R").decode()
+    + "OP "
+    + base64.b64encode(b"TA").decode()
+    + "BLE"
+)
 nuclear.append(("frag_enc2", frag_enc))
 
-print("="*70)
+print("=" * 70)
 print(f"NUCLEAR BYPASS TEST - {len(nuclear)} ATTACKS")
-print("="*70)
+print("=" * 70)
 
 bypasses = []
 for category, payload in nuclear:
@@ -78,7 +85,7 @@ for category, payload in nuclear:
         ctx = classify_context(payload)
         action, risk, _ = decide_action_otb(all_hits, ctx, text=payload)
 
-        if action == 'PASS':
+        if action == "PASS":
             bypasses.append((category, risk))
             print(f"NUCLEAR BYPASS: {category} - risk={risk:.3f}")
     except Exception as e:
@@ -86,9 +93,8 @@ for category, payload in nuclear:
 
 print(f"\nTotal: {len(nuclear)}")
 print(f"Bypasses: {len(bypasses)}")
-print(f"ASR: {len(bypasses)/len(nuclear)*100:.1f}%")
-print(f"Detection: {(len(nuclear)-len(bypasses))/len(nuclear)*100:.1f}%")
+print(f"ASR: {len(bypasses) / len(nuclear) * 100:.1f}%")
+print(f"Detection: {(len(nuclear) - len(bypasses)) / len(nuclear) * 100:.1f}%")
 
 if not bypasses:
     print("\n*** SYSTEM HAELT NUCLEAR ATTACKS! UNBREAKABLE! ***")
-

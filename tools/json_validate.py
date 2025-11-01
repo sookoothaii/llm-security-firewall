@@ -8,7 +8,11 @@ def check_regex(path: Path) -> int:
     arr = json.loads(path.read_text(encoding="utf-8"))
     ids = [x.get("id") for x in arr if isinstance(x, dict)]
     dups = sorted({i for i in ids if ids.count(i) > 1 and i is not None})
-    miss = [x.get("id") for x in arr if isinstance(x, dict) and not {"id","regex","category"}.issubset(x.keys())]
+    miss = [
+        x.get("id")
+        for x in arr
+        if isinstance(x, dict) and not {"id", "regex", "category"}.issubset(x.keys())
+    ]
     if dups:
         print(f"[regex] duplicate ids in {path}: {dups}")
         return 1
@@ -17,6 +21,7 @@ def check_regex(path: Path) -> int:
         return 1
     print(f"[regex] OK: {path}")
     return 0
+
 
 def check_intents(path: Path) -> int:
     obj = json.loads(path.read_text(encoding="utf-8"))
@@ -28,6 +33,7 @@ def check_intents(path: Path) -> int:
         return 1
     print(f"[intents] OK: {path}")
     return 0
+
 
 if __name__ == "__main__":
     code = 0

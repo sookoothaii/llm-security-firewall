@@ -10,6 +10,7 @@ Exit codes:
   0 OK
   2 Invariant violated or unsatisfied
 """
+
 from __future__ import annotations
 
 import argparse
@@ -26,22 +27,39 @@ def _collect_atoms(spec) -> Dict[str, Any]:
     domains = set()
     tokens = set()
     for r in spec.rules:
+
         def visit(c: PolicyCond):
             if c.leaf:
                 if c.leaf.kind == "topic_in":
-                    vals = c.leaf.value if isinstance(c.leaf.value, list) else [c.leaf.value]
+                    vals = (
+                        c.leaf.value
+                        if isinstance(c.leaf.value, list)
+                        else [c.leaf.value]
+                    )
                     topics.update(map(str, vals))
                 elif c.leaf.kind == "domain_is":
                     domains.add(str(c.leaf.value))
                 elif c.leaf.kind == "contains_any":
-                    vals = c.leaf.value if isinstance(c.leaf.value, list) else [c.leaf.value]
+                    vals = (
+                        c.leaf.value
+                        if isinstance(c.leaf.value, list)
+                        else [c.leaf.value]
+                    )
                     tokens.update(map(str, vals))
             elif c.all:
-                for cc in c.all: visit(cc)
+                for cc in c.all:
+                    visit(cc)
             elif c.any:
-                for cc in c.any: visit(cc)
+                for cc in c.any:
+                    visit(cc)
+
         visit(r.when)
-    return {"topics": sorted(topics), "domains": sorted(domains), "tokens": sorted(tokens)}
+    return {
+        "topics": sorted(topics),
+        "domains": sorted(domains),
+        "tokens": sorted(tokens),
+    }
+
 
 def _as_z3(spec) -> Tuple[Any, Dict[str, Any]]:
     try:
@@ -63,6 +81,7 @@ def _as_z3(spec) -> Tuple[Any, Dict[str, Any]]:
 
     def enc_leaf(lf: PolicyLeaf):
         from z3 import BoolVal, Or
+
         if lf.kind == "topic_in":
             vs = lf.value if isinstance(lf.value, list) else [lf.value]
             return Or(*[z.get(f"topic_{str(v)}", BoolVal(False)) for v in vs])
@@ -73,53 +92,77 @@ def _as_z3(spec) -> Tuple[Any, Dict[str, Any]]:
             return Or(*[z.get(f"tok_{str(v)}", BoolVal(False)) for v in vs])
         if lf.kind == "user_age":
             s = str(lf.value).strip()
-            if s.startswith("<="): return z["user_age"] <= int(s[2:])
-            if s.startswith(">="): return z["user_age"] >= int(s[2:])
-            if s.startswith("<"):  return z["user_age"] <  int(s[1:])
-            if s.startswith(">"):  return z["user_age"] >  int(s[1:])
-            if s.isdigit():        return z["user_age"] == int(s)
+            if s.startswith("<="):
+                return z["user_age"] <= int(s[2:])
+            if s.startswith(">="):
+                return z["user_age"] >= int(s[2:])
+            if s.startswith("<"):
+                return z["user_age"] < int(s[1:])
+            if s.startswith(">"):
+                return z["user_age"] > int(s[1:])
+            if s.isdigit():
+                return z["user_age"] == int(s)
             return BoolVal(False)
         return BoolVal(False)
 
     def enc_cond(c: PolicyCond):
         from z3 import And, BoolVal, Or
-        if c.leaf: return enc_leaf(c.leaf)
-        if c.all:  return And(*[enc_cond(x) for x in c.all])
-        if c.any:  return Or(*[enc_cond(x) for x in c.any])
+
+        if c.leaf:
+            return enc_leaf(c.leaf)
+        if c.all:
+            return And(*[enc_cond(x) for x in c.all])
+        if c.any:
+            return Or(*[enc_cond(x) for x in c.any])
         return BoolVal(False)
 
     # first-match-wins: rule i fires if when_i and no earlier when_j true
     whens = [enc_cond(r.when) for r in spec.rules]
     fires = []
     from z3 import And, Not
+
     for i, r in enumerate(spec.rules):
         no_prior = And(*[Not(whens[j]) for j in range(i)])
         fires.append(And(whens[i], no_prior))
 
     # final action
     from z3 import If
+
     # walk in order; if none, fallback defaults
     act_expr = None
     for i, r in enumerate(spec.rules):
         a = r.action
         this = fires[i]
         if act_expr is None:
-            act_expr = If(this, BoolVal(a=="allow"), BoolVal(False))
-            act_ah = If(this, BoolVal(a=="allow_high_level"), BoolVal(False))
-            act_bl = If(this, BoolVal(a=="block"), BoolVal(False))
+            act_expr = If(this, BoolVal(a == "allow"), BoolVal(False))
+            act_ah = If(this, BoolVal(a == "allow_high_level"), BoolVal(False))
+            act_bl = If(this, BoolVal(a == "block"), BoolVal(False))
         else:
-            act_expr = If(this, BoolVal(a=="allow"), act_expr)
-            act_ah   = If(this, BoolVal(a=="allow_high_level"), act_ah)
-            act_bl   = If(this, BoolVal(a=="block"), act_bl)
+            act_expr = If(this, BoolVal(a == "allow"), act_expr)
+            act_ah = If(this, BoolVal(a == "allow_high_level"), act_ah)
+            act_bl = If(this, BoolVal(a == "block"), act_bl)
     # defaults if nothing fires -> respect defaults.action
     if act_expr is None:
         from z3 import BoolVal
+
         act_expr = BoolVal(False)
-        act_ah   = BoolVal(False)
-        act_bl   = BoolVal(False)
+        act_ah = BoolVal(False)
+        act_bl = BoolVal(False)
     # Build solver
     S = Solver()
-    return (S, {"z":z, "fires":fires, "whens":whens, "action_allow":act_expr, "act_ah":act_ah, "act_bl":act_bl, "atoms":atoms})
+    return (
+        S,
+        {
+            "z": z,
+            "fires": fires,
+            "whens": whens,
+            "action_allow": act_expr,
+            "act_ah": act_ah,
+            "act_bl": act_bl,
+            "atoms": atoms,
+        },
+    )
+
 
 def verify_no_allow_biohazard(spec) -> Tuple[bool, str]:
     """Returns (ok, message). ok=True means invariant holds."""
@@ -129,19 +172,33 @@ def verify_no_allow_biohazard(spec) -> Tuple[bool, str]:
         bio_ids = []
         top_allow_prio = None
         for r in spec.rules:
+
             def mentions_bio(c: PolicyCond) -> bool:
                 if c.leaf and c.leaf.kind == "topic_in":
-                    vals = c.leaf.value if isinstance(c.leaf.value, list) else [c.leaf.value]
+                    vals = (
+                        c.leaf.value
+                        if isinstance(c.leaf.value, list)
+                        else [c.leaf.value]
+                    )
                     return any(str(v) == "biohazard" for v in vals)
                 return any(mentions_bio(x) for x in (c.all or c.any or []))
+
             if r.action == "allow" and mentions_bio(r.when):
                 bio_ids.append(r.id)
-                top_allow_prio = r.priority if top_allow_prio is None else min(top_allow_prio, r.priority)
+                top_allow_prio = (
+                    r.priority
+                    if top_allow_prio is None
+                    else min(top_allow_prio, r.priority)
+                )
         if bio_ids:
-            return False, f"Fallback detected 'allow' rule(s) for biohazard at priority {top_allow_prio}: {bio_ids}"
+            return (
+                False,
+                f"Fallback detected 'allow' rule(s) for biohazard at priority {top_allow_prio}: {bio_ids}",
+            )
         return True, "Fallback static check passed (no explicit allow on biohazard)."
 
     from z3 import sat
+
     z = ctx["z"]
     S = z3
     # require topic=biohazard true; others unconstrained
@@ -153,8 +210,12 @@ def verify_no_allow_biohazard(spec) -> Tuple[bool, str]:
     S.add(ctx["action_allow"] == True)
     sat_res = S.check()
     if sat_res == sat:
-        return False, "Invariant violated: there exists an assignment with topic=biohazard and final action=allow."
+        return (
+            False,
+            "Invariant violated: there exists an assignment with topic=biohazard and final action=allow.",
+        )
     return True, "Invariant holds: topic=biohazard cannot lead to final action=allow."
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -166,6 +227,6 @@ def main():
     print(msg)
     sys.exit(0 if ok else 2)
 
+
 if __name__ == "__main__":
     main()
-

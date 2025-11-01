@@ -4,6 +4,7 @@ Fit meta-ensemble with Platt scaling for A3 arm.
 Trains LogisticRegression on dev set, applies Platt scaling,
 computes ECE/Brier for gate validation.
 """
+
 from __future__ import annotations
 
 import csv
@@ -37,7 +38,7 @@ def load_dev(csv_path: Path) -> Tuple[List[List[float]], List[int]]:
         detectors = {
             "emb_sim": float(row.get("emb_sim", 0.0)),
             "ppl_anom": float(row.get("ppl_anom", 0.0)),
-            "llm_judge": float(row.get("llm_judge", 0.0))
+            "llm_judge": float(row.get("llm_judge", 0.0)),
         }
 
         feats = compute_features(text, detectors=detectors)
@@ -71,14 +72,14 @@ def fit_and_calibrate(X: List[List[float]], y: List[int], out_dir: Path):
     base.fit(X_arr, y_arr)
 
     # Platt scaling
-    calibrated = CalibratedClassifierCV(base, method='sigmoid', cv=3)
+    calibrated = CalibratedClassifierCV(base, method="sigmoid", cv=3)
     calibrated.fit(X_arr, y_arr)
 
     # Get Platt-calibrated probabilities
     probs_platt = calibrated.predict_proba(X_arr)[:, 1]
 
     # Beta/Isotonic calibration (after Platt for lower Brier)
-    iso = IsotonicRegression(out_of_bounds='clip')
+    iso = IsotonicRegression(out_of_bounds="clip")
     probs = iso.fit_transform(probs_platt, y_arr)
 
     # Compute ECE
@@ -86,7 +87,11 @@ def fit_and_calibrate(X: List[List[float]], y: List[int], out_dir: Path):
     ece = 0.0
     for b in range(n_bins):
         lo, hi = b / n_bins, (b + 1) / n_bins
-        idx = [i for i, p in enumerate(probs) if lo <= p < hi or (b == n_bins - 1 and p == 1.0)]
+        idx = [
+            i
+            for i, p in enumerate(probs)
+            if lo <= p < hi or (b == n_bins - 1 and p == 1.0)
+        ]
         if not idx:
             continue
         conf = sum(probs[i] for i in idx) / len(idx)
@@ -116,7 +121,15 @@ def fit_and_calibrate(X: List[List[float]], y: List[int], out_dir: Path):
     model_meta = {
         "coef": coef,
         "intercept": intercept,
-        "features": ["emb_sim", "ppl_anom", "llm_judge", "intent_lex", "intent_margin", "pattern_score", "evasion_density"]
+        "features": [
+            "emb_sim",
+            "ppl_anom",
+            "llm_judge",
+            "intent_lex",
+            "intent_margin",
+            "pattern_score",
+            "evasion_density",
+        ],
     }
     (out_dir / "model_meta.json").write_text(json.dumps(model_meta, indent=2))
 
@@ -138,12 +151,18 @@ def fit_and_calibrate(X: List[List[float]], y: List[int], out_dir: Path):
 
 if __name__ == "__main__":
     import argparse
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--dev_csv", required=True, help="Dev CSV with features")
-    ap.add_argument("--lex_base", default="src/llm_firewall/lexicons", help="Lexicon base (unused in this version)")
-    ap.add_argument("--out_dir", default="src/artifacts/meta", help="Output directory for artifacts")
+    ap.add_argument(
+        "--lex_base",
+        default="src/llm_firewall/lexicons",
+        help="Lexicon base (unused in this version)",
+    )
+    ap.add_argument(
+        "--out_dir", default="src/artifacts/meta", help="Output directory for artifacts"
+    )
     args = ap.parse_args()
 
     X, y = load_dev(Path(args.dev_csv))
     fit_and_calibrate(X, y, Path(args.out_dir))
-

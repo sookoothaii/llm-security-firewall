@@ -3,6 +3,7 @@
 RC2 P3.1 Mini-Tests
 Quick validation of placement-aware Unicode + Proof-of-Risk
 """
+
 import sys
 from pathlib import Path
 
@@ -27,26 +28,32 @@ def _test_action(text: str, expected_actions: tuple) -> None:
     # Decode
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
-        hits.append(f'chain_decoded_{stages}_stages')
+        hits.append(f"chain_decoded_{stages}_stages")
         if buf:
             risk_class = classify_decoded(buf)
             hits.append(risk_class)
 
     # Exotic Unicode
     _, exotic_flags = detect_exotic_unicode(text)
-    if exotic_flags['ligature_seen']: hits.append('unicode_ligature_seen')
-    if exotic_flags['math_alpha_seen']: hits.append('unicode_math_alpha_seen')
-    if exotic_flags['enclosed_seen']: hits.append('unicode_enclosed_seen')
+    if exotic_flags["ligature_seen"]:
+        hits.append("unicode_ligature_seen")
+    if exotic_flags["math_alpha_seen"]:
+        hits.append("unicode_math_alpha_seen")
+    if exotic_flags["enclosed_seen"]:
+        hits.append("unicode_enclosed_seen")
 
     # Mixed scripts (for homoglyph detection)
     from llm_firewall.detectors.unicode_hardening import strip_bidi_zw
+
     _, flags = strip_bidi_zw(text)
-    if flags.get('mixed_scripts'): hits.append('mixed_scripts')
+    if flags.get("mixed_scripts"):
+        hits.append("mixed_scripts")
 
     action, risk, contrib = decide_action(hits, ctx, text=text)
 
-    assert action in expected_actions, \
+    assert action in expected_actions, (
         f"Expected {expected_actions}, got {action} (risk={risk:.2f}, hits={hits})"
+    )
 
 
 def test_media_b64_is_pass_or_warn_in_code():
@@ -55,16 +62,17 @@ def test_media_b64_is_pass_or_warn_in_code():
     text = """/* PNG image */
 iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==
 """
-    _test_action(text, ('PASS', 'WARN'))
+    _test_action(text, ("PASS", "WARN"))
 
 
 def test_secretlike_blocks_in_code():
     """Decoded secret-like content should block"""
     import base64
+
     secret = b"sk_live_XXXXXXXXXXXXXXXX"
     encoded = base64.b64encode(secret).decode()
     text = f"# Config\nAPI_KEY={encoded}"
-    _test_action(text, ('BLOCK',))
+    _test_action(text, ("BLOCK",))
 
 
 def test_exotic_in_comment_neutralized():
@@ -76,7 +84,7 @@ def test_exotic_in_comment_neutralized():
 def normal_function():
     pass
 """
-    _test_action(text, ('PASS', 'WARN'))
+    _test_action(text, ("PASS", "WARN"))
 
 
 def test_exotic_in_identifier_is_warn_or_block():
@@ -85,7 +93,7 @@ def test_exotic_in_identifier_is_warn_or_block():
 int 𝐱𝟙 = 1;  // Math bold
 var 𝑷𝒘 = 2;  // Math script
 """
-    _test_action(text, ('WARN', 'BLOCK'))
+    _test_action(text, ("WARN", "BLOCK"))
 
 
 def test_mixed_script_identifier_blocks():
@@ -94,7 +102,7 @@ def test_mixed_script_identifier_blocks():
     text = """
 int раssword = 1;  // Cyrillic 'a' in 'password'
 """
-    _test_action(text, ('WARN', 'BLOCK'))
+    _test_action(text, ("WARN", "BLOCK"))
 
 
 def test_bidi_natural_blocks():
@@ -106,10 +114,13 @@ def test_bidi_natural_blocks():
 
     _, flags = strip_bidi_zw(text)
     hits = []
-    if flags.get('bidi_seen'): hits.append('bidi_controls')
+    if flags.get("bidi_seen"):
+        hits.append("bidi_controls")
 
     action, risk, _ = decide_action(hits, ctx, text=text)
-    assert action in ('WARN', 'BLOCK'), f"Bidi should warn/block in natural, got {action}"
+    assert action in ("WARN", "BLOCK"), (
+        f"Bidi should warn/block in natural, got {action}"
+    )
 
 
 if __name__ == "__main__":
@@ -152,4 +163,3 @@ if __name__ == "__main__":
         print(f"[X] test_bidi_natural_blocks: {e}")
 
     print("\nRC2 P3.1 Mini-Tests COMPLETE")
-

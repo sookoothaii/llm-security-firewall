@@ -8,6 +8,7 @@ Output: proba [N, K] float32 (softmax over classes)  (name: 'proba')
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import pathlib
@@ -18,14 +19,19 @@ import onnx
 from onnx import TensorProto, helper
 
 
-def build_onnx(W: np.ndarray, b: np.ndarray, out_path: Union[str, pathlib.Path], input_dim: int | None = None):
+def build_onnx(
+    W: np.ndarray,
+    b: np.ndarray,
+    out_path: Union[str, pathlib.Path],
+    input_dim: int | None = None,
+):
     K, D = W.shape
     if input_dim is None:
         input_dim = D
     assert D == input_dim
 
     features = helper.make_tensor_value_info("features", TensorProto.FLOAT, [None, D])
-    proba     = helper.make_tensor_value_info("proba", TensorProto.FLOAT, [None, K])
+    proba = helper.make_tensor_value_info("proba", TensorProto.FLOAT, [None, K])
 
     helper.make_tensor("W", TensorProto.FLOAT, [K, D], W.flatten().tolist())
     b_init = helper.make_tensor("b", TensorProto.FLOAT, [K], b.flatten().tolist())
@@ -37,7 +43,7 @@ def build_onnx(W: np.ndarray, b: np.ndarray, out_path: Union[str, pathlib.Path],
 
     mm = helper.make_node("MatMul", ["features", "Wt"], ["logits"], name="matmul")
     add = helper.make_node("Add", ["logits", "b"], ["logits_b"], name="add_bias")
-    sm  = helper.make_node("Softmax", ["logits_b"], ["proba"], name="softmax", axis=1)
+    sm = helper.make_node("Softmax", ["logits_b"], ["proba"], name="softmax", axis=1)
 
     graph = helper.make_graph(
         nodes=[mm, add, sm],
@@ -51,8 +57,9 @@ def build_onnx(W: np.ndarray, b: np.ndarray, out_path: Union[str, pathlib.Path],
         graph,
         producer_name="hak_gal_firewall",
         ir_version=9,
-        opset_imports=[helper.make_opsetid("", 17)]  # Opset 17 stable, widely supported
+        opset_imports=[
+            helper.make_opsetid("", 17)
+        ],  # Opset 17 stable, widely supported
     )
     onnx.checker.check_model(model)
     onnx.save(model, str(out_path))
-

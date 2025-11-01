@@ -3,19 +3,20 @@ r"""
 JSON Unicode Escape Decoder (\uXXXX with Surrogate-Pair support)
 Closes JSON-Unicode-Escape bypass (test_ultra_break_v2)
 """
+
 import re
 from typing import Dict, Tuple
 
 
 def has_json_u_escapes(text: str) -> bool:
     r"""Quick check for \uXXXX patterns"""
-    return '\\u' in text and bool(re.search(r'\\u[0-9a-fA-F]{4}', text))
+    return "\\u" in text and bool(re.search(r"\\u[0-9a-fA-F]{4}", text))
 
 
 def unescape_json_u(text: str) -> Tuple[bool, str, Dict]:
     r"""
     Decode JSON Unicode escapes (\uXXXX) including surrogate pairs
-    
+
     Returns:
         (changed, decoded_text, metadata)
     """
@@ -44,7 +45,7 @@ def unescape_json_u(text: str) -> Tuple[bool, str, Dict]:
             return match.group(0)  # Invalid codepoint - keep escaped
 
     # First pass: decode simple escapes
-    decoded = re.sub(r'\\u([0-9a-fA-F]{4})', replace_escape, text)
+    decoded = re.sub(r"\\u([0-9a-fA-F]{4})", replace_escape, text)
 
     # Second pass: handle surrogate pairs
     def replace_surrogate_pair(match):
@@ -67,16 +68,18 @@ def unescape_json_u(text: str) -> Tuple[bool, str, Dict]:
         return match.group(0)
 
     # Look for \\uD[8-B][0-9A-F]{2}\\uD[C-F][0-9A-F]{2} (surrogate pair pattern)
-    decoded = re.sub(r'\\u([dD][8-9a-bA-B][0-9a-fA-F]{2})\\u([dD][c-fC-F][0-9a-fA-F]{2})',
-                    replace_surrogate_pair, decoded)
+    decoded = re.sub(
+        r"\\u([dD][8-9a-bA-B][0-9a-fA-F]{2})\\u([dD][c-fC-F][0-9a-fA-F]{2})",
+        replace_surrogate_pair,
+        decoded,
+    )
 
     changed = decoded != text
 
     metadata = {
-        'json_u_escapes_found': changes,
-        'surrogate_pairs': surrogate_pairs,
-        'changed': changed
+        "json_u_escapes_found": changes,
+        "surrogate_pairs": surrogate_pairs,
+        "changed": changed,
     }
 
     return changed, decoded, metadata
-

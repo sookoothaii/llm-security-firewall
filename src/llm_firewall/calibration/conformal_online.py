@@ -7,6 +7,7 @@ Assumptions:
 - Per-bucket histograms with exponential time-decay (gamma).
 - Low-traffic fallback to global; ultimate fallback to conservative quantile.
 """
+
 from __future__ import annotations
 
 import bisect
@@ -41,7 +42,7 @@ class _Hist:
         """Apply exponential decay to all bins."""
         if gamma >= 1.0:
             return
-        g = gamma ** steps
+        g = gamma**steps
         self.mass = [m * g for m in self.mass]
         self.total *= g
 
@@ -107,9 +108,7 @@ class OnlineConformalCalibrator:
         h.add(score, weight)
         self._global.add(score, weight)
 
-    def get_threshold(
-        self, bucket: str, alpha: Optional[float] = None
-    ) -> float:
+    def get_threshold(self, bucket: str, alpha: Optional[float] = None) -> float:
         """Return q-hat threshold for given bucket at level alpha (upper quantile)."""
         a = self.cfg.alpha if alpha is None else alpha
         a = max(min(a, 0.5), 1e-6)  # sanity
@@ -126,10 +125,7 @@ class OnlineConformalCalibrator:
     def p_value(self, bucket: str, score: float) -> float:
         """Weighted p-value = P(S >= score) using histogram tail."""
         h = self._hist(bucket)
-        if (
-            h.total < self.cfg.min_weight
-            and self._global.total >= self.cfg.min_weight
-        ):
+        if h.total < self.cfg.min_weight and self._global.total >= self.cfg.min_weight:
             h = self._global
         if h.total <= 0.0:
             return 1.0
@@ -146,12 +142,9 @@ class OnlineConformalCalibrator:
         return score > thr
 
     # convenience: multi-bucket update
-    def bulk_update(
-        self, items: Iterable[Tuple[str, float, float]]
-    ) -> None:
+    def bulk_update(self, items: Iterable[Tuple[str, float, float]]) -> None:
         """
         items: iterable of (bucket, score, weight)
         """
         for b, s, w in items:
             self.update(b, s, w)
-

@@ -25,6 +25,5 @@ print("Base64 Split Test:")
 print(f"  Payload length: {len(payload2)}")
 print(f"  Detected: {result2}")
 print("  Lines:")
-for i, line in enumerate(payload2.split('\n')):
+for i, line in enumerate(payload2.split("\n")):
     print(f"    {i}: {repr(line[:50])}")
-

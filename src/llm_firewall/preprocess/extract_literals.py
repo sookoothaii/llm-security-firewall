@@ -3,6 +3,7 @@
 Extract String Literals and Comments from Code
 RC2 P4.3: AST-Gating to avoid false positives on identifiers
 """
+
 import io
 import tokenize
 from typing import List, Tuple
@@ -11,10 +12,10 @@ from typing import List, Tuple
 def extract_py_literals_and_comments(src: str) -> List[Tuple[str, int]]:
     """
     Extract string literals and comments from Python source
-    
+
     Args:
         src: Python source code
-        
+
     Returns:
         List of (content, line_number) tuples
     """
@@ -38,11 +39,11 @@ def extract_py_literals_and_comments(src: str) -> List[Tuple[str, int]]:
 def extract_scannable_parts(text: str, context: str = "natural") -> List[str]:
     """
     Extract scannable parts based on context
-    
+
     Args:
         text: Input text
         context: Context type (code, config, natural)
-        
+
     Returns:
         List of text parts to scan (literals/comments for code, full text otherwise)
     """
@@ -58,7 +59,7 @@ def extract_scannable_parts(text: str, context: str = "natural") -> List[str]:
                     parts.append(content[3:-3])
                 elif content.startswith(('"', "'")):
                     parts.append(content[1:-1])
-                elif content.startswith('#'):
+                elif content.startswith("#"):
                     parts.append(content[1:])
                 else:
                     parts.append(content)
@@ -66,4 +67,3 @@ def extract_scannable_parts(text: str, context: str = "natural") -> List[str]:
 
     # Fallback or non-code: scan full text
     return [text]
-

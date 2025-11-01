@@ -1,4 +1,5 @@
 """Tests for policy mode switching (permissive vs strict)."""
+
 from types import SimpleNamespace
 
 from llm_firewall.heuristics.provider_complexity import (
@@ -72,4 +73,3 @@ def test_no_provider_prefix():
     text = "just some random text with AAAAAAAAAAAAAAAA"
     assert is_weak_secret_provider(text) is False
     assert is_strong_secret_provider(text) is False
-

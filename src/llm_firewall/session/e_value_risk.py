@@ -18,6 +18,7 @@ References:
 - Grünwald et al. (2023): Game-Theoretic Statistics
 - Howard & Ramdas (2021): Time-Uniform Confidence Sequences
 """
+
 from __future__ import annotations
 
 import time
@@ -31,6 +32,7 @@ class SessionRiskState:
 
     Tracks Bernoulli sequence (hit=1, miss=0) with null H0: p ≤ p0.
     """
+
     session_id: str
     n: int = 0  # Total turns
     s: int = 0  # Hits (secret-evidence turns)
@@ -82,9 +84,8 @@ def update_evalue(state: SessionRiskState, hit: bool) -> SessionRiskState:
             state.e_value = 1.0
         else:
             # LR: (p_hat/p0)^s * ((1-p_hat)/(1-p0))^(n-s)
-            lr = (
-                (p_hat / state.p0) ** state.s
-                * ((1 - p_hat) / (1 - state.p0)) ** (state.n - state.s)
+            lr = (p_hat / state.p0) ** state.s * ((1 - p_hat) / (1 - state.p0)) ** (
+                state.n - state.s
             )
             # Cap at 1e300 to avoid overflow
             state.e_value = float(min(1e300, lr))

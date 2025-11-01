@@ -23,6 +23,7 @@ import torch.nn as nn
 
 try:
     from transformers import AutoModel
+
     HAS_TRANSFORMERS = True
 except ImportError:
     HAS_TRANSFORMERS = False
@@ -31,10 +32,10 @@ except ImportError:
 class FeatureMLP(nn.Module):
     """
     MLP for engineered features.
-    
+
     Input: Numeric feature vector (zwc_density, base64_frac, etc.)
     Output: Hidden representation for fusion
-    
+
     Architecture: LayerNorm -> Linear -> GELU -> Linear
     """
 
@@ -56,7 +57,7 @@ class FeatureMLP(nn.Module):
         """
         Args:
             x: (B, in_dim) feature tensor
-        
+
         Returns:
             (B, hidden_dim) hidden representation
         """
@@ -66,7 +67,7 @@ class FeatureMLP(nn.Module):
 class FirewallNet(nn.Module):
     """
     GuardNet: Proactive firewall guard model.
-    
+
     Two-tower architecture:
     - Text tower: Transformer encoder (CLS token as text representation)
     - Feature tower: MLP over engineered features
@@ -76,7 +77,7 @@ class FirewallNet(nn.Module):
         * Intent: {jailbreak, injection, dual_use, persuasion, benign} (5 classes)
         * Actionability: {procedural, advisory, descriptive} (3 classes)
         * Obfuscation: {base64, leet, homoglyph, zwc, mixed_script, emoji_burst} (6 classes, multi-label)
-    
+
     ONNX-exportable with dynamic batch and sequence dimensions.
     """
 
@@ -118,8 +119,12 @@ class FirewallNet(nn.Module):
 
         # Multi-task heads
         self.head_policy = nn.Linear(fused_dim, 3)  # {block, allow_high_level, allow}
-        self.head_intent = nn.Linear(fused_dim, 5)  # {jailbreak, injection, dual_use, persuasion, benign}
-        self.head_action = nn.Linear(fused_dim, 3)  # {procedural, advisory, descriptive}
+        self.head_intent = nn.Linear(
+            fused_dim, 5
+        )  # {jailbreak, injection, dual_use, persuasion, benign}
+        self.head_action = nn.Linear(
+            fused_dim, 3
+        )  # {procedural, advisory, descriptive}
         self.head_obf = nn.Linear(fused_dim, obf_k)  # multi-label obfuscation
 
     def forward(
@@ -130,12 +135,12 @@ class FirewallNet(nn.Module):
     ) -> Dict[str, torch.Tensor]:
         """
         Forward pass.
-        
+
         Args:
             input_ids: (B, T) tokenized text
             attention_mask: (B, T) attention mask
             feat_vec: (B, feat_dim) engineered features
-        
+
         Returns:
             Dict with keys:
                 - policy: (B, 3) logits
@@ -171,7 +176,14 @@ class FirewallNet(nn.Module):
 POLICY_LABELS = ["block", "allow_high_level", "allow"]
 INTENT_LABELS = ["jailbreak", "injection", "dual_use", "persuasion", "benign"]
 ACTIONABILITY_LABELS = ["procedural", "advisory", "descriptive"]
-OBFUSCATION_LABELS = ["base64", "leet", "homoglyph", "zwc", "mixed_script", "emoji_burst"]
+OBFUSCATION_LABELS = [
+    "base64",
+    "leet",
+    "homoglyph",
+    "zwc",
+    "mixed_script",
+    "emoji_burst",
+]
 
 
 def decode_outputs(
@@ -180,11 +192,11 @@ def decode_outputs(
 ) -> Dict[str, Any]:
     """
     Decode model outputs to human-readable predictions.
-    
+
     Args:
         outputs: Dict from forward() with logits
         temperature: Temperature for softmax (default: 1.0, use calibrated value in production)
-    
+
     Returns:
         Dict with:
             - policy: str (predicted class)
@@ -201,10 +213,10 @@ def decode_outputs(
     # Single-label tasks: softmax + argmax
     policy_probs = F.softmax(outputs["policy"] / temperature, dim=-1)[0].tolist()
     policy_idx = int(outputs["policy"].argmax(dim=-1).item())
-    
+
     intent_probs = F.softmax(outputs["intent"] / temperature, dim=-1)[0].tolist()
     intent_idx = int(outputs["intent"].argmax(dim=-1).item())
-    
+
     action_probs = F.softmax(outputs["actionability"] / temperature, dim=-1)[0].tolist()
     action_idx = int(outputs["actionability"].argmax(dim=-1).item())
 
@@ -222,4 +234,3 @@ def decode_outputs(
         "obfuscation": obf_predicted,
         "obfuscation_probs": obf_probs,
     }
-

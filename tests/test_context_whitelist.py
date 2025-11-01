@@ -1,4 +1,5 @@
 """Tests for context whitelist FP reduction."""
+
 import pathlib
 import sys
 
@@ -40,4 +41,3 @@ def test_suspicious_context_overrides():
     """Test suspicious keywords override benign markers."""
     allow, _ = whitelist_decision("api_key commit: abc123def456")
     assert allow is False, "Suspicious context should override"
-

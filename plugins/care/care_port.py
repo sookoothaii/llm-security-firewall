@@ -14,6 +14,7 @@ from typing import Dict, Optional
 @dataclass
 class ReadinessScore:
     """Cognitive readiness assessment result."""
+
     user_id: str
     readiness_score: float  # 0.0-1.0
     recommendation: str  # READY, MARGINAL, NOT_READY
@@ -25,6 +26,7 @@ class ReadinessScore:
 @dataclass
 class SessionOutcome:
     """Research session outcome for CARE learning."""
+
     session_id: str
     user_id: str
     facts_attempted: int
@@ -49,7 +51,7 @@ class CAREPort(ABC):
         user_id: str,
         facts_attempted: int,
         facts_supported: int,
-        cognitive_state: Optional[Dict] = None
+        cognitive_state: Optional[Dict] = None,
     ) -> int:
         """Log research session outcome."""
         pass
@@ -63,4 +65,3 @@ class CAREPort(ABC):
     def get_stats(self) -> Dict:
         """Get CARE system statistics."""
         pass
-

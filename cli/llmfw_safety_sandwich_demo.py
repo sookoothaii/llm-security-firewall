@@ -21,7 +21,7 @@ from llm_firewall.gates.safety_sandwich_v2 import (  # noqa: E402
 def main():
     """
     Read from stdin, stream through Safety-Sandwich, print decision
-    
+
     Exit codes:
         0: PROMOTE or SAFETY_WRAP
         1: QUARANTINE
@@ -34,7 +34,7 @@ def main():
         critical_leak_n=20,
         abort_secrets_severity=0.70,
         redact_secrets_severity=0.40,
-        quarantine_obfuscation_severity=0.75
+        quarantine_obfuscation_severity=0.75,
     )
 
     sw = SafetySandwichV2(cfg)
@@ -68,4 +68,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-

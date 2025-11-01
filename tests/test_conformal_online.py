@@ -1,4 +1,5 @@
 """Tests for online conformal calibration."""
+
 import pathlib
 import random
 import sys
@@ -66,4 +67,3 @@ def test_bulk_update():
     # Should not raise and buckets should have data
     assert oc._hist("bucket_a").total > 0
     assert oc._hist("bucket_b").total > 0
-

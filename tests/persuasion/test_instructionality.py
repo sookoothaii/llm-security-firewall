@@ -37,4 +37,3 @@ def test_requires_safety_wrap_false_benign():
     """Test benign text doesn't require wrapping"""
     text = "Here's a general overview of the concept."
     assert requires_safety_wrap(text) is False
-

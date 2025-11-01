@@ -15,11 +15,14 @@ try:
     import torch
 
     from llm_firewall.guardnet.model import FeatureMLP, FirewallNet
+
     HAS_TORCH = True
 except ImportError:
     HAS_TORCH = False
 
-pytestmark = pytest.mark.skipif(not HAS_TORCH, reason="torch not installed (optional dependency)")
+pytestmark = pytest.mark.skipif(
+    not HAS_TORCH, reason="torch not installed (optional dependency)"
+)
 
 
 def test_feature_mlp_shape():
@@ -33,7 +36,9 @@ def test_feature_mlp_shape():
 
     out = mlp(x)
 
-    assert out.shape == (batch_size, hidden_dim), f"Expected shape ({batch_size}, {hidden_dim}), got {out.shape}"
+    assert out.shape == (batch_size, hidden_dim), (
+        f"Expected shape ({batch_size}, {hidden_dim}), got {out.shape}"
+    )
 
 
 def test_firewallnet_forward_shapes():
@@ -58,10 +63,18 @@ def test_firewallnet_forward_shapes():
         outputs = model(input_ids, attention_mask, feat_vec)
 
     # Validate output shapes
-    assert outputs["policy"].shape == (batch_size, 3), f"Policy shape mismatch: {outputs['policy'].shape}"
-    assert outputs["intent"].shape == (batch_size, 5), f"Intent shape mismatch: {outputs['intent'].shape}"
-    assert outputs["actionability"].shape == (batch_size, 3), f"Actionability shape mismatch: {outputs['actionability'].shape}"
-    assert outputs["obfuscation"].shape == (batch_size, obf_k), f"Obfuscation shape mismatch: {outputs['obfuscation'].shape}"
+    assert outputs["policy"].shape == (batch_size, 3), (
+        f"Policy shape mismatch: {outputs['policy'].shape}"
+    )
+    assert outputs["intent"].shape == (batch_size, 5), (
+        f"Intent shape mismatch: {outputs['intent'].shape}"
+    )
+    assert outputs["actionability"].shape == (batch_size, 3), (
+        f"Actionability shape mismatch: {outputs['actionability'].shape}"
+    )
+    assert outputs["obfuscation"].shape == (batch_size, obf_k), (
+        f"Obfuscation shape mismatch: {outputs['obfuscation'].shape}"
+    )
 
 
 def test_firewallnet_forward_different_seq_len():
@@ -117,8 +130,12 @@ def test_firewallnet_gradient_flow():
     loss.backward()
 
     # Check that gradients exist for key parameters
-    assert model.encoder.embeddings.word_embeddings.weight.grad is not None, "Encoder gradients missing"
-    assert model.feat_mlp.net[1].weight.grad is not None, "Feature MLP gradients missing"
+    assert model.encoder.embeddings.word_embeddings.weight.grad is not None, (
+        "Encoder gradients missing"
+    )
+    assert model.feat_mlp.net[1].weight.grad is not None, (
+        "Feature MLP gradients missing"
+    )
     assert model.alpha_gate.weight.grad is not None, "Gate gradients missing"
     assert model.head_policy.weight.grad is not None, "Policy head gradients missing"
 
@@ -138,4 +155,3 @@ if __name__ == "__main__":
     print("✓ test_firewallnet_gradient_flow passed")
 
     print("\nAll tests passed!")
-

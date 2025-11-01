@@ -4,6 +4,7 @@ Unicode Placement Analysis
 Distinguishes exotic Unicode in identifiers/hosts (risky) vs strings/comments (benign)
 RC2 P3.0: Context-aware exotic Unicode scoring
 """
+
 import re
 from typing import Dict, Set
 
@@ -28,16 +29,20 @@ def _in_ranges(cp: int, ranges) -> bool:
 
 def _family(cp: int) -> str:
     """Get Unicode family"""
-    if _in_ranges(cp, RANGES["COMBINING"]): return "COMBINING"
-    if _in_ranges(cp, RANGES["LIGATURES"]): return "LIGATURES"
-    if _in_ranges(cp, RANGES["MATH"]): return "MATH"
-    if _in_ranges(cp, RANGES["ENCLOSED"]): return "ENCLOSED"
+    if _in_ranges(cp, RANGES["COMBINING"]):
+        return "COMBINING"
+    if _in_ranges(cp, RANGES["LIGATURES"]):
+        return "LIGATURES"
+    if _in_ranges(cp, RANGES["MATH"]):
+        return "MATH"
+    if _in_ranges(cp, RANGES["ENCLOSED"]):
+        return "ENCLOSED"
     return None
 
 
 def _has_mixed_script(token: str) -> bool:
     """Check for Latin + Cyrillic/Greek mix (spoofing)"""
-    has_lat = any(('A' <= ch <= 'Z' or 'a' <= ch <= 'z') for ch in token)
+    has_lat = any(("A" <= ch <= "Z" or "a" <= ch <= "z") for ch in token)
     has_cyr = any(_in_ranges(ord(ch), RANGES["CYRILLIC"]) for ch in token)
     has_grk = any(_in_ranges(ord(ch), RANGES["GREEK"]) for ch in token)
     return has_lat and (has_cyr or has_grk)
@@ -46,26 +51,26 @@ def _has_mixed_script(token: str) -> bool:
 def analyze_unicode_placement(text: str) -> Dict[str, float]:
     """
     Analyze where exotic Unicode appears
-    
+
     Returns:
         {
             'id_density.FAMILY': float (0-1),
-            'sc_density.FAMILY': float (0-1),  
+            'sc_density.FAMILY': float (0-1),
             'id_mixed_script': float (0/1)
         }
     """
     # Simple tokenization (identifiers vs strings/comments)
     # Identifier pattern: word-like
-    IDENT_RE = re.compile(r'\b[A-Za-z_]\w*\b')
+    IDENT_RE = re.compile(r"\b[A-Za-z_]\w*\b")
     STRING_RE = re.compile(r'["\']([^"\'\\]|\\.)*["\']')
-    COMMENT_RE = re.compile(r'(#|//).*?$', re.MULTILINE)
+    COMMENT_RE = re.compile(r"(#|//).*?$", re.MULTILINE)
 
     # Extract identifiers
-    identifiers = ' '.join(IDENT_RE.findall(text))
+    identifiers = " ".join(IDENT_RE.findall(text))
 
     # Remove strings and comments for "code" portion
-    no_strings = STRING_RE.sub('', text)
-    no_comments = COMMENT_RE.sub('', no_strings)
+    no_strings = STRING_RE.sub("", text)
+    no_comments = COMMENT_RE.sub("", no_strings)
 
     # Count exotic chars in identifiers vs strings/comments
     fam_id_counts = {}
@@ -109,18 +114,20 @@ def analyze_unicode_placement(text: str) -> Dict[str, float]:
 def adjust_unicode_signals(signals: Set[str], text: str, ctx: str) -> Set[str]:
     """
     Adjust exotic Unicode signals based on placement
-    
+
     Args:
         signals: Current signal set
         text: Original text
         ctx: Context (code/config/natural)
-    
+
     Returns:
         Adjusted signal set
     """
     exotic_signals = {
-        'unicode_combining_seen', 'unicode_ligature_seen',
-        'unicode_math_alpha_seen', 'unicode_enclosed_seen'
+        "unicode_combining_seen",
+        "unicode_ligature_seen",
+        "unicode_math_alpha_seen",
+        "unicode_enclosed_seen",
     }
 
     if not any(s in signals for s in exotic_signals):
@@ -138,7 +145,9 @@ def adjust_unicode_signals(signals: Set[str], text: str, ctx: str) -> Set[str]:
         for fam in ("MATH", "ENCLOSED", "LIGATURES", "COMBINING")
     )
 
-    if ctx in {"code", "config"} and id_density_total >= 0.05:  # RC2 P3.1: stricter (0.06 → 0.05)
+    if (
+        ctx in {"code", "config"} and id_density_total >= 0.05
+    ):  # RC2 P3.1: stricter (0.06 → 0.05)
         result.add("unicode_exotic_identifier_risky")
 
     # Benign case: Low density in strings/comments (RC2 P3.1: stricter)
@@ -157,4 +166,3 @@ def adjust_unicode_signals(signals: Set[str], text: str, ctx: str) -> Set[str]:
         result.add("unicode_exotic_sc_benign")
 
     return result
-

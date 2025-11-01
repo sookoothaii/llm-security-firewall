@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """FIX 4 BYPASSES - DIREKT"""
+
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import base64
 
@@ -29,6 +30,5 @@ for payload in tests:
     ctx = classify_context(payload)
     action, risk, _ = decide_action_otb(all_hits, ctx, text=payload)
 
-    status = "FIXED" if action != 'PASS' else "BYPASS"
+    status = "FIXED" if action != "PASS" else "BYPASS"
     print(f"{status}: risk={risk:.3f} action={action} hits={len(all_hits)}")
-

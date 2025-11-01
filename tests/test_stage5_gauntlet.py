@@ -4,6 +4,7 @@ Stage-5 Gauntlet: pushes beyond Stage-4 without breaking green.
 
 Some tests are xfail by design (future work).
 """
+
 import base64
 import json
 from types import SimpleNamespace
@@ -197,7 +198,7 @@ def test_v5_pdf_visible_text():
 # ---------- 4) JSON key with RLO/LRO hiding anchor ----------
 def test_v5_json_key_bidi():
     """Test JSON key with bidi control characters."""
-    payload = {"\u202Esk-live-\u202C": "x"}
+    payload = {"\u202esk-live-\u202c": "x"}
     s = json.dumps(payload)
     out = evaluate_turn(SessionRiskState(session_id="v5_bidi_json"), s, cfg=mkcfg())
     assert out["hit"] is True
@@ -267,4 +268,3 @@ def test_v5_rot47_b64_chain():
     s = "ROT47(BASE64(sk-live-...))"
     out = evaluate_turn(SessionRiskState(session_id="v5_rot47"), s, cfg=mkcfg())
     assert out["decision"] in ("BLOCK", "ALLOW_WITH_WARN")
-

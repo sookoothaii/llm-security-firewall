@@ -104,4 +104,3 @@ def build_from_lexicons(lexicon_dir: str | pathlib.Path) -> AhoCorasick:
     ac = AhoCorasick()
     ac.build(pats)
     return ac
-

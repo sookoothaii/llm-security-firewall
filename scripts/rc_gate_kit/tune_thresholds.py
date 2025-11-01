@@ -4,6 +4,7 @@
 Threshold Grid Search
 Lightweight grid search for WARN/BLOCK thresholds + dampening factors
 """
+
 import sys
 from itertools import product
 from pathlib import Path
@@ -32,37 +33,50 @@ except ImportError:
         from llm_firewall.normalizers.encoding_chain import decode_chain
 
         hits = []
-        if detect_bidi_controls(text): hits.append('bidi_controls')
-        if detect_zero_width(text): hits.append('zero_width_chars')
-        if detect_fullwidth(text): hits.append('fullwidth_forms')
-        if detect_mixed_scripts(text): hits.append('mixed_scripts')
+        if detect_bidi_controls(text):
+            hits.append("bidi_controls")
+        if detect_zero_width(text):
+            hits.append("zero_width_chars")
+        if detect_fullwidth(text):
+            hits.append("fullwidth_forms")
+        if detect_mixed_scripts(text):
+            hits.append("mixed_scripts")
 
         decoded, stages, _ = decode_chain(text)
-        if stages >= 1: hits.append(f'chain_decoded_{stages}_stages')
+        if stages >= 1:
+            hits.append(f"chain_decoded_{stages}_stages")
 
         entropy = calculate_entropy(text)
-        if entropy > 4.0: hits.append('high_entropy')
+        if entropy > 4.0:
+            hits.append("high_entropy")
 
-        if detect_dense_alphabet(text): hits.append('dense_alphabet')
+        if detect_dense_alphabet(text):
+            hits.append("dense_alphabet")
 
         return hits
 
 
-def evaluate_config(benign_samples: list, attack_samples: list,
-                   warn_th: float, block_th: float,
-                   dampen_code_med: float, dampen_code_weak: float) -> dict:
+def evaluate_config(
+    benign_samples: list,
+    attack_samples: list,
+    warn_th: float,
+    block_th: float,
+    dampen_code_med: float,
+    dampen_code_weak: float,
+) -> dict:
     """
     Evaluate one configuration
-    
+
     Returns:
         {'fpr': float, 'asr': float}
     """
     # Patch dampening factors temporarily
     from llm_firewall.policy import risk_weights_v2
+
     original_dampen = risk_weights_v2.CONTEXT_DAMPEN.copy()
 
-    risk_weights_v2.CONTEXT_DAMPEN['code']['MEDIUM'] = dampen_code_med
-    risk_weights_v2.CONTEXT_DAMPEN['code']['WEAK'] = dampen_code_weak
+    risk_weights_v2.CONTEXT_DAMPEN["code"]["MEDIUM"] = dampen_code_med
+    risk_weights_v2.CONTEXT_DAMPEN["code"]["WEAK"] = dampen_code_weak
 
     # Evaluate benign
     benign_fp = 0
@@ -91,16 +105,18 @@ def evaluate_config(benign_samples: list, attack_samples: list,
     # Restore original
     risk_weights_v2.CONTEXT_DAMPEN = original_dampen
 
-    return {'fpr': fpr, 'asr': asr}
+    return {"fpr": fpr, "asr": asr}
 
 
-def grid_search(benign_corpus: str = "data/benign_corpus.txt",
-               attack_corpus: str = "data/redteam_corpus.txt",
-               max_fpr: float = 2.0,
-               max_asr: float = 5.0) -> dict:
+def grid_search(
+    benign_corpus: str = "data/benign_corpus.txt",
+    attack_corpus: str = "data/redteam_corpus.txt",
+    max_fpr: float = 2.0,
+    max_asr: float = 5.0,
+) -> dict:
     """
     Lightweight grid search
-    
+
     Returns:
         Best configuration dict
     """
@@ -114,12 +130,12 @@ def grid_search(benign_corpus: str = "data/benign_corpus.txt",
         print(f"ERROR: Benign corpus not found: {benign_corpus}")
         return {}
 
-    with open(benign_corpus, 'r', encoding='utf-8') as f:
+    with open(benign_corpus, "r", encoding="utf-8") as f:
         benign_samples = [line.strip() for line in f if line.strip()]
 
     attack_samples = []
     if Path(attack_corpus).exists():
-        with open(attack_corpus, 'r', encoding='utf-8') as f:
+        with open(attack_corpus, "r", encoding="utf-8") as f:
             attack_samples = [line.strip() for line in f if line.strip()]
     else:
         print(f"WARNING: Attack corpus not found: {attack_corpus}")
@@ -134,28 +150,30 @@ def grid_search(benign_corpus: str = "data/benign_corpus.txt",
     dampen_code_meds = [0.4, 0.5, 0.6]
     dampen_code_weaks = [0.15, 0.2, 0.25]
 
-    grid = list(product(warn_thresholds, block_thresholds,
-                       dampen_code_meds, dampen_code_weaks))
+    grid = list(
+        product(warn_thresholds, block_thresholds, dampen_code_meds, dampen_code_weaks)
+    )
 
     print(f"Grid size: {len(grid)} configurations")
     print("Searching...\n")
 
     best_config = None
-    best_score = float('inf')  # Minimize FPR + ASR
+    best_score = float("inf")  # Minimize FPR + ASR
 
     for idx, (warn_th, block_th, damp_med, damp_weak) in enumerate(grid):
         if idx % 10 == 0:
-            print(f"  Progress: {idx}/{len(grid)} ({100*idx/len(grid):.1f}%)")
+            print(f"  Progress: {idx}/{len(grid)} ({100 * idx / len(grid):.1f}%)")
 
         # Skip invalid configs
         if warn_th >= block_th:
             continue
 
-        result = evaluate_config(benign_samples, attack_samples,
-                                warn_th, block_th, damp_med, damp_weak)
+        result = evaluate_config(
+            benign_samples, attack_samples, warn_th, block_th, damp_med, damp_weak
+        )
 
-        fpr = result['fpr']
-        asr = result['asr']
+        fpr = result["fpr"]
+        asr = result["asr"]
 
         # Check constraints
         if fpr <= max_fpr and asr <= max_asr:
@@ -163,13 +181,13 @@ def grid_search(benign_corpus: str = "data/benign_corpus.txt",
             if score < best_score:
                 best_score = score
                 best_config = {
-                    'warn_threshold': warn_th,
-                    'block_threshold': block_th,
-                    'dampen_code_med': damp_med,
-                    'dampen_code_weak': damp_weak,
-                    'fpr': fpr,
-                    'asr': asr,
-                    'score': score
+                    "warn_threshold": warn_th,
+                    "block_threshold": block_th,
+                    "dampen_code_med": damp_med,
+                    "dampen_code_weak": damp_weak,
+                    "fpr": fpr,
+                    "asr": asr,
+                    "score": score,
                 }
 
     print(f"  Progress: {len(grid)}/{len(grid)} (100.0%)\n")
@@ -189,8 +207,12 @@ def grid_search(benign_corpus: str = "data/benign_corpus.txt",
         print("\n=== ENV SETTINGS ===")
         print(f"export P2_WARN_TH={best_config['warn_threshold']}")
         print(f"export P2_BLOCK_TH={best_config['block_threshold']}")
-        print(f"# Manual: Set CTX['code']['MED']={best_config['dampen_code_med']} in risk_weights_v2.py")
-        print(f"# Manual: Set CTX['code']['WEAK']={best_config['dampen_code_weak']} in risk_weights_v2.py")
+        print(
+            f"# Manual: Set CTX['code']['MED']={best_config['dampen_code_med']} in risk_weights_v2.py"
+        )
+        print(
+            f"# Manual: Set CTX['code']['WEAK']={best_config['dampen_code_weak']} in risk_weights_v2.py"
+        )
     else:
         print("❌ No configuration found meeting constraints")
         print(f"   Try relaxing max_fpr ({max_fpr}%) or max_asr ({max_asr}%)")
@@ -198,17 +220,18 @@ def grid_search(benign_corpus: str = "data/benign_corpus.txt",
     return best_config or {}
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description='Grid search for thresholds')
-    parser.add_argument('--benign', default='data/benign_corpus.txt',
-                       help='Benign corpus path')
-    parser.add_argument('--attack', default='data/redteam_corpus.txt',
-                       help='Attack corpus path')
-    parser.add_argument('--max-fpr', type=float, default=2.0,
-                       help='Max FPR target (%)')
-    parser.add_argument('--max-asr', type=float, default=5.0,
-                       help='Max ASR target (%)')
+
+    parser = argparse.ArgumentParser(description="Grid search for thresholds")
+    parser.add_argument(
+        "--benign", default="data/benign_corpus.txt", help="Benign corpus path"
+    )
+    parser.add_argument(
+        "--attack", default="data/redteam_corpus.txt", help="Attack corpus path"
+    )
+    parser.add_argument("--max-fpr", type=float, default=2.0, help="Max FPR target (%)")
+    parser.add_argument("--max-asr", type=float, default=5.0, help="Max ASR target (%)")
     args = parser.parse_args()
 
     result = grid_search(args.benign, args.attack, args.max_fpr, args.max_asr)
@@ -217,4 +240,3 @@ if __name__ == '__main__':
         sys.exit(0)
     else:
         sys.exit(1)
-

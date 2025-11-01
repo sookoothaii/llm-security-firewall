@@ -9,24 +9,32 @@ from typing import Dict, List
 
 # Unicode control / bidi ranges
 BIDI_CONTROLS = [
-    "\u202A", "\u202B", "\u202D", "\u202E", "\u202C",  # LRE, RLE, LRO, RLO, PDF
-    "\u2066", "\u2067", "\u2068", "\u2069",           # LRI, RLI, FSI, PDI
+    "\u202a",
+    "\u202b",
+    "\u202d",
+    "\u202e",
+    "\u202c",  # LRE, RLE, LRO, RLO, PDF
+    "\u2066",
+    "\u2067",
+    "\u2068",
+    "\u2069",  # LRI, RLI, FSI, PDI
 ]
 ZWC_RE = re.compile(r"[\u200B-\u200D\uFEFF]")  # ZWSP, ZWNJ, ZWJ, BOM
 # Script buckets (coarse); enough for mixed-script detection
-LATIN_RE    = re.compile(r"[A-Za-z]")
+LATIN_RE = re.compile(r"[A-Za-z]")
 CYRILLIC_RE = re.compile(r"[\u0400-\u04FF]")
-GREEK_RE    = re.compile(r"[\u0370-\u03FF]")
-ARABIC_RE   = re.compile(r"[\u0600-\u06FF]")
-CJK_RE      = re.compile(r"[\u4E00-\u9FFF]")
-HEBREW_RE   = re.compile(r"[\u0590-\u05FF]")
+GREEK_RE = re.compile(r"[\u0370-\u03FF]")
+ARABIC_RE = re.compile(r"[\u0600-\u06FF]")
+CJK_RE = re.compile(r"[\u4E00-\u9FFF]")
+HEBREW_RE = re.compile(r"[\u0590-\u05FF]")
 
 BASE64_RE = re.compile(r"(?:[A-Za-z0-9+/]{16,}={0,2})")
-HEX_RUN_RE = re.compile(r"(?:[0-9A-Fa-f]{2}){8,}")      # ≥16 hex chars (8 bytes+)
-URL_ENC_RE = re.compile(r"(?:%[0-9A-Fa-f]{2}){6,}")     # ≥6 %HH sequences
+HEX_RUN_RE = re.compile(r"(?:[0-9A-Fa-f]{2}){8,}")  # ≥16 hex chars (8 bytes+)
+URL_ENC_RE = re.compile(r"(?:%[0-9A-Fa-f]{2}){6,}")  # ≥6 %HH sequences
 
 # Loose ROT13 suspicion (common tokens in ROT13)
 ROT13_MARKERS = {"uryyb", "lbh", "frperg", "cvpbire", "ivfvg", "anzr", "grfg"}
+
 
 @dataclass(frozen=True)
 class ObfuscationFindings:
@@ -45,6 +53,7 @@ class ObfuscationFindings:
     def to_dict(self) -> Dict:
         return asdict(self)
 
+
 def _script_hits(s: str) -> Dict[str, int]:
     return {
         "latin": len(LATIN_RE.findall(s)),
@@ -55,6 +64,7 @@ def _script_hits(s: str) -> Dict[str, int]:
         "hebrew": len(HEBREW_RE.findall(s)),
     }
 
+
 def _mixed_ratio(hits: Dict[str, int]) -> float:
     total_letters = sum(hits.values())
     if total_letters == 0:
@@ -63,7 +73,8 @@ def _mixed_ratio(hits: Dict[str, int]) -> float:
     # share of non-dominant scripts
     return max(0.0, (total_letters - dominant) / total_letters)
 
-def _confusables_suspected(s: str, hits: Dict[str,int]) -> bool:
+
+def _confusables_suspected(s: str, hits: Dict[str, int]) -> bool:
     # simple heuristic: latin + cyrillic co-occur within same word boundaries
     if hits["latin"] > 0 and hits["cyrillic"] > 0:
         # token-level check
@@ -71,6 +82,7 @@ def _confusables_suspected(s: str, hits: Dict[str,int]) -> bool:
             if LATIN_RE.search(tok) and CYRILLIC_RE.search(tok):
                 return True
     return False
+
 
 def _has_gzip_magic_in_base64(s: str) -> bool:
     for m in BASE64_RE.finditer(s):
@@ -83,10 +95,12 @@ def _has_gzip_magic_in_base64(s: str) -> bool:
             continue
     return False
 
+
 def _rot13_suspected(s: str) -> bool:
     # quick scan for typical rot13-words presence
     low = s.lower()
     return any(tok in low for tok in ROT13_MARKERS)
+
 
 def analyze_obfuscation(text: str) -> ObfuscationFindings:
     zwc_count = len(ZWC_RE.findall(text))
@@ -112,7 +126,7 @@ def analyze_obfuscation(text: str) -> ObfuscationFindings:
     sev += min(1.0, len(urlsp) / 6.0) * 0.05
     sev = min(1.0, sev + (0.1 if gz else 0.0) + (0.05 if rot13sus else 0.0))
 
-    mixed_scripts = [k for k,v in hits.items() if v>0]
+    mixed_scripts = [k for k, v in hits.items() if v > 0]
     return ObfuscationFindings(
         zwc_count=zwc_count,
         bidi_count=bidi_count,
@@ -126,5 +140,3 @@ def analyze_obfuscation(text: str) -> ObfuscationFindings:
         gzip_magic_in_base64=gz,
         severity=round(sev, 3),
     )
-
-

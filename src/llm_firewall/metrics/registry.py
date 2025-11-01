@@ -1,8 +1,10 @@
 """Central Prometheus metrics registry for LLM Firewall."""
+
 from __future__ import annotations
 
 try:
     from prometheus_client import Counter, Gauge, Histogram
+
     _HAS_PROMETHEUS = True
 except Exception:  # pragma: no cover
     _HAS_PROMETHEUS = False
@@ -10,12 +12,16 @@ except Exception:  # pragma: no cover
     class _Noop:
         def __init__(self, *_, **__):
             pass
+
         def labels(self, *_, **__):
             return self
+
         def inc(self, *_, **__):
             pass
+
         def set(self, *_, **__):
             pass
+
         def observe(self, *_, **__):
             pass
 
@@ -119,4 +125,3 @@ FIREWALL_DECISION_LATENCY = Histogram(
     labelnames=("decision",),
     buckets=(1, 2, 5, 10, 25, 50, 100, 250, 500, 1000),
 )
-

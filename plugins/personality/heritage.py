@@ -45,7 +45,7 @@ class HeritageTracker:
         entity_type: str,
         entity_id: str,
         creator_id: str,
-        metadata: Optional[Dict[str, Any]] = None
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> int:
         """
         Track creation of an entity with heritage information.
@@ -67,13 +67,7 @@ class HeritageTracker:
                 VALUES (%s, %s, %s, %s, %s)
                 RETURNING id
                 """,
-                (
-                    entity_type,
-                    entity_id,
-                    creator_id,
-                    datetime.now(),
-                    metadata or {}
-                )
+                (entity_type, entity_id, creator_id, datetime.now(), metadata or {}),
             )
             record_id = cur.fetchone()[0]
             self.conn.commit()
@@ -102,18 +96,18 @@ class HeritageTracker:
                 WHERE entity_id = %s
                 ORDER BY created_at ASC
                 """,
-                (entity_id,)
+                (entity_id,),
             )
             records = cur.fetchall()
 
             return [
                 {
-                    'id': r[0],
-                    'entity_type': r[1],
-                    'entity_id': r[2],
-                    'creator_id': r[3],
-                    'created_at': r[4],
-                    'metadata': r[5]
+                    "id": r[0],
+                    "entity_type": r[1],
+                    "entity_id": r[2],
+                    "creator_id": r[3],
+                    "created_at": r[4],
+                    "metadata": r[5],
                 }
                 for r in records
             ]
@@ -142,17 +136,17 @@ class HeritageTracker:
                 FROM heritage_records
                 WHERE creator_id = %s
                 """,
-                (creator_id,)
+                (creator_id,),
             )
             row = cur.fetchone()
 
             return {
-                'creator_id': creator_id,
-                'total_entities': row[0],
-                'entity_types': row[1],
-                'first_creation': row[2],
-                'last_creation': row[3],
-                'legacy_span_days': (row[3] - row[2]).days if row[2] and row[3] else 0
+                "creator_id": creator_id,
+                "total_entities": row[0],
+                "entity_types": row[1],
+                "first_creation": row[2],
+                "last_creation": row[3],
+                "legacy_span_days": (row[3] - row[2]).days if row[2] and row[3] else 0,
             }
 
 
@@ -169,4 +163,3 @@ CREATE TABLE IF NOT EXISTS heritage_records (
     INDEX idx_creator_id (creator_id)
 );
 """
-

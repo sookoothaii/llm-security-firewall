@@ -1,4 +1,5 @@
 """Tests for enhanced secrets heuristics (P0#3)."""
+
 import pathlib
 import sys
 
@@ -14,22 +15,22 @@ def test_provider_patterns_enhanced():
     text1 = "sk-proj-ABCDEF1234567890ABCDEF1234567890"
     result1 = analyze_secrets(text1)
     assert result1.patterns_matched > 0
-    assert any("openai" in h.get('type', '') for h in result1.hits)
+    assert any("openai" in h.get("type", "") for h in result1.hits)
 
     # GitHub variants
     text2 = "gho_1234567890ABCDEF1234567890ABCDEF1234"
     result2 = analyze_secrets(text2)
-    assert any("github" in h.get('type', '') for h in result2.hits)
+    assert any("github" in h.get("type", "") for h in result2.hits)
 
     # HuggingFace
     text3 = "hf_ABCDEFGHIJ1234567890ABCDEFGHIJ1234567890"
     result3 = analyze_secrets(text3)
-    assert any("huggingface" in h.get('type', '') for h in result3.hits)
+    assert any("huggingface" in h.get("type", "") for h in result3.hits)
 
     # AWS
     text4 = "AKIAIOSFODNN7EXAMPLE"
     result4 = analyze_secrets(text4)
-    assert any("aws" in h.get('type', '') for h in result4.hits)
+    assert any("aws" in h.get("type", "") for h in result4.hits)
 
     # JWT
     text5 = (
@@ -37,7 +38,7 @@ def test_provider_patterns_enhanced():
         "eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
     )
     result5 = analyze_secrets(text5)
-    assert any("jwt" in h.get('type', '') for h in result5.hits)
+    assert any("jwt" in h.get("type", "") for h in result5.hits)
 
 
 def test_base32_base58_hex_detection():
@@ -67,9 +68,9 @@ def test_severity_scoring():
     result = analyze_secrets(text)
     assert 0.0 <= result.severity <= 1.0
     # PEM should have high severity
-    pem_hits = [h for h in result.hits if 'pem' in h.get('type', '').lower()]
+    pem_hits = [h for h in result.hits if "pem" in h.get("type", "").lower()]
     if pem_hits:
-        assert pem_hits[0]['severity'] >= 0.9
+        assert pem_hits[0]["severity"] >= 0.9
 
 
 def test_empty_and_clean_text():
@@ -80,4 +81,3 @@ def test_empty_and_clean_text():
 
     result_clean = analyze_secrets("Hello world, this is a clean message.")
     assert result_clean.severity <= 0.3  # Should be low or zero
-

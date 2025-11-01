@@ -1,4 +1,5 @@
 """Tests for policy decode budgets and auto-strict guard."""
+
 from types import SimpleNamespace
 
 from llm_firewall.policy_config import from_hydra
@@ -55,4 +56,3 @@ def test_policy_defaults():
     assert policy.auto_strict_alarm_threshold == 3
     assert policy.auto_strict_window_seconds == 300  # 5 min
     assert policy.auto_strict_duration_seconds == 300  # 5 min
-

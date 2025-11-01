@@ -12,6 +12,7 @@ Output: data/l3_train.jsonl
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 import json
 import random
 from pathlib import Path
@@ -89,6 +90,7 @@ REQUESTS = ["background information", "a summary", "context"]
 TOPICS = ["machine learning", "climate change", "economics", "history"]
 CONCEPTS = ["neural networks", "photosynthesis", "democracy"]
 
+
 def generate_samples(n_per_class: int = 100) -> list:
     """Generate n_per_class samples for each class"""
     samples = []
@@ -116,6 +118,7 @@ def generate_samples(n_per_class: int = 100) -> list:
     random.shuffle(samples)
     return samples
 
+
 def main():
     random.seed(42)  # Reproducible
 
@@ -133,10 +136,11 @@ def main():
     print(f"[OK] Saved to: {output_path}")
     print("\nClass distribution:")
     from collections import Counter
+
     counts = Counter(s["label"] for s in samples)
     for cls, count in sorted(counts.items()):
         print(f"  {cls:25}: {count:3} samples")
 
+
 if __name__ == "__main__":
     main()
-

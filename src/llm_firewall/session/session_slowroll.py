@@ -1,4 +1,5 @@
 """Session slow-roll assembler for cross-turn fragment detection."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -26,6 +27,7 @@ def update_assembler(st: Any, text: str) -> dict[str, bool]:
     Returns:
         Dictionary with partial, complete, and assembled_strong flags
     """
+
     # Inline compact_alnum to avoid circular imports
     def compact_alnum(s: str) -> str:
         return "".join(ch for ch in s if ch.isalnum())
@@ -74,4 +76,3 @@ def update_assembler(st: Any, text: str) -> dict[str, bool]:
         "complete": complete,
         "assembled_strong": assembled_strong,
     }
-

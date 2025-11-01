@@ -3,11 +3,12 @@
 ULTRA BREAK V3 - EXOTIC VECTORS
 Unicode TAG Block, Variation Selectors, JWT-Split, IDNA/Punycode, Metamorph
 """
+
 import base64
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
 from llm_firewall.detectors.entropy import entropy_signal
@@ -25,14 +26,17 @@ def run_detectors(text: str) -> list:
 
     # RC3 CRITICAL: Attack Pattern Detector
     from llm_firewall.detectors.attack_patterns import scan_attack_patterns
+
     hits.extend(scan_attack_patterns(text))
 
     # RC2 P4.2: Transport-Indicators Complete
     from llm_firewall.detectors.transport_indicators import scan_transport_indicators
+
     hits.extend(scan_transport_indicators(text))
 
     # RC2 P4.4: Identifiers Detector
     from llm_firewall.detectors.identifiers import scan_identifiers
+
     hits.extend(scan_identifiers(text))
 
     # V3-V5 EXOTIC ENCODINGS
@@ -45,58 +49,79 @@ def run_detectors(text: str) -> list:
 
     # ASCII85
     ascii85_info = detect_and_decode_ascii85(text)
-    if ascii85_info['detected']: hits.append('ascii85_detected')
+    if ascii85_info["detected"]:
+        hits.append("ascii85_detected")
 
     # IDNA/Punycode
     idna_info = detect_idna_punycode(text)
-    if idna_info['punycode_found']: hits.append('punycode_detected')
-    if idna_info['homoglyph_in_url']: hits.append('url_homoglyph_detected')
+    if idna_info["punycode_found"]:
+        hits.append("punycode_detected")
+    if idna_info["homoglyph_in_url"]:
+        hits.append("url_homoglyph_detected")
 
     json_depth_info = detect_json_depth(text, max_depth=20)
-    if json_depth_info['deep']: hits.append('json_depth_excessive')
+    if json_depth_info["deep"]:
+        hits.append("json_depth_excessive")
 
-    if detect_base64_multiline(text): hits.append('base64_multiline_detected')
+    if detect_base64_multiline(text):
+        hits.append("base64_multiline_detected")
 
     # JSON-U
     if has_json_u_escapes(text):
-        hits.append('json_u_escape_seen')
+        hits.append("json_u_escape_seen")
         changed, decoded_u, _ = unescape_json_u(text)
         if changed:
-            hits.append('json_u_escape_decoded')
+            hits.append("json_u_escape_decoded")
             text = decoded_u
 
     # Homoglyph
     ratio, counts = latin_spoof_score(text)
-    if counts['changed'] >= 1: hits.append('homoglyph_spoof_ge_1')
-    if ratio >= 0.20: hits.append('homoglyph_spoof_ratio_ge_20')
+    if counts["changed"] >= 1:
+        hits.append("homoglyph_spoof_ge_1")
+    if ratio >= 0.20:
+        hits.append("homoglyph_spoof_ratio_ge_20")
 
     # V3 EXOTIC UNICODE
     from llm_firewall.detectors.unicode_exotic import detect_exotic_unicode
+
     cleaned_exotic, exotic_flags = detect_exotic_unicode(text)
-    if exotic_flags['tag_seen']: hits.append('unicode_tag_seen')
-    if exotic_flags['vs_seen']: hits.append('unicode_vs_seen')
-    if exotic_flags['invisible_space_seen']: hits.append('unicode_invisible_space')
-    if exotic_flags['combining_seen']: hits.append('unicode_combining_seen')
-    if exotic_flags['ligature_seen']: hits.append('unicode_ligature_seen')
-    if exotic_flags['math_alpha_seen']: hits.append('unicode_math_alpha_seen')
-    if exotic_flags['enclosed_seen']: hits.append('unicode_enclosed_seen')
+    if exotic_flags["tag_seen"]:
+        hits.append("unicode_tag_seen")
+    if exotic_flags["vs_seen"]:
+        hits.append("unicode_vs_seen")
+    if exotic_flags["invisible_space_seen"]:
+        hits.append("unicode_invisible_space")
+    if exotic_flags["combining_seen"]:
+        hits.append("unicode_combining_seen")
+    if exotic_flags["ligature_seen"]:
+        hits.append("unicode_ligature_seen")
+    if exotic_flags["math_alpha_seen"]:
+        hits.append("unicode_math_alpha_seen")
+    if exotic_flags["enclosed_seen"]:
+        hits.append("unicode_enclosed_seen")
 
     # Decode
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
-        hits.append(f'chain_decoded_{stages}_stages')
-        hits.append('base64_secret')
+        hits.append(f"chain_decoded_{stages}_stages")
+        hits.append("base64_secret")
 
     # Unicode standard
     _, flags = strip_bidi_zw(text)
-    if flags.get('bidi_seen'): hits.append('bidi_controls')
-    if flags.get('zw_seen'): hits.append('zero_width_chars')
-    if flags.get('fullwidth_seen'): hits.append('fullwidth_forms')
-    if flags.get('mixed_scripts'): hits.append('mixed_scripts')
+    if flags.get("bidi_seen"):
+        hits.append("bidi_controls")
+    if flags.get("zw_seen"):
+        hits.append("zero_width_chars")
+    if flags.get("fullwidth_seen"):
+        hits.append("fullwidth_forms")
+    if flags.get("mixed_scripts"):
+        hits.append("mixed_scripts")
 
     # Density
-    if entropy_signal(text, threshold=4.0): hits.append('high_entropy')
-    if dense_alphabet_flag(text): hits.append('dense_alphabet')
+    if entropy_signal(text, threshold=4.0):
+        hits.append("high_entropy")
+    if dense_alphabet_flag(text):
+        hits.append("dense_alphabet")
 
     return hits
 
@@ -106,7 +131,9 @@ def _assert_blocked(payload: str, desc: str):
     ctx = classify_context(payload)
     hits = run_detectors(payload)
     action, risk, _ = decide_action_otb(hits, ctx, text=payload)
-    assert action in ('WARN', 'BLOCK'), f"BYPASS {desc}: {action} risk={risk:.2f} hits={hits}"
+    assert action in ("WARN", "BLOCK"), (
+        f"BYPASS {desc}: {action} risk={risk:.2f} hits={hits}"
+    )
 
 
 # UNICODE TAG BLOCK (U+E0001 to U+E007F)
@@ -190,7 +217,7 @@ def test_base64_rot13_base64():
     """3-stage: Base64 → ROT13 → Base64"""
     rot13_map = str.maketrans(
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-        "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"
+        "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm",
     )
     inner = base64.b64encode(b"[[SECRET]]").decode()
     middle = inner.translate(rot13_map)
@@ -253,4 +280,3 @@ def test_enclosed_alphanumerics():
     """Enclosed: Circled/Parenthesized chars"""
     payload = "\u24b6\u24b7\u24b8[[SECRET]]"  # Circled A, B, C
     _assert_blocked(payload, "Enclosed Alphanumerics")
-

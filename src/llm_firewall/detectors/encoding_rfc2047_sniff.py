@@ -1,4 +1,5 @@
 """RFC 2047 encoded-words detector."""
+
 from __future__ import annotations
 
 import base64
@@ -55,4 +56,3 @@ def detect_rfc2047(text: str) -> dict[str, Any]:
             hits.append((m.start(), m.end()))
 
     return {"has_secret": bool(hits), "windows": hits}
-

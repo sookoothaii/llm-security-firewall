@@ -3,6 +3,7 @@
 Build TLSH Whitelist from Benign Corpus
 RC2 P4.1: Hash benign decoded buffers for fuzzy matching
 """
+
 import sys
 from pathlib import Path
 
@@ -33,7 +34,7 @@ def main():
 
     for i, chunk in enumerate(corpus):
         if (i + 1) % 100 == 0:
-            print(f"  Progress: {i+1}/{len(corpus)}")
+            print(f"  Progress: {i + 1}/{len(corpus)}")
 
         # Try to decode
         decoded_text, stages, _, buf = try_decode_chain(chunk)
@@ -66,6 +67,5 @@ def main():
     print(f"Use in code: TLSHDB('{output}', dist_threshold=85)")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-

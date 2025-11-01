@@ -42,4 +42,3 @@ def test_fallback_when_no_verb():
     obj = N.restate_neutral(text)
     # Should still produce something reasonable
     assert len(obj["restated"]) > 10
-

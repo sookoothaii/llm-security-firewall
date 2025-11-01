@@ -1,4 +1,5 @@
 """Auto-strict guard: temporary policy escalation on alarm waves."""
+
 from __future__ import annotations
 
 import time
@@ -71,4 +72,3 @@ class AutoStrictGuard:
             "threshold": self.threshold,
             "strict_until": self._strict_until if self.should_be_strict() else None,
         }
-

@@ -1,11 +1,13 @@
 # English-only code
 """GuardNet Prometheus metrics exporter."""
+
 from __future__ import annotations
 
 from typing import Iterable
 
 try:
     from prometheus_client import Counter, Gauge
+
     _HAS_PROMETHEUS = True
 except Exception:  # pragma: no cover
     _HAS_PROMETHEUS = False
@@ -13,10 +15,13 @@ except Exception:  # pragma: no cover
     class _Noop:
         def __init__(self, *_, **__):
             pass
+
         def labels(self, *_, **__):
             return self
+
         def inc(self, *_, **__):
             pass
+
         def set(self, *_, **__):
             pass
 
@@ -24,9 +29,7 @@ except Exception:  # pragma: no cover
     Counter = _Noop  # type: ignore
     Gauge = _Noop  # type: ignore
 
-_G_INFER = Counter(
-    "guardnet_inferences_total", "GuardNet inferences", ["model"]
-)
+_G_INFER = Counter("guardnet_inferences_total", "GuardNet inferences", ["model"])
 _G_LOW_COV = Counter(
     "guardnet_low_coverage_total",
     "GuardNet low coverage decisions",
@@ -37,14 +40,13 @@ _G_RISK_MEAN = Gauge(
     "Mean risk_overall over window",
     ["model"],
 )
-_G_COV_MEAN = Gauge(
-    "guardnet_coverage_mean", "Mean coverage over window", ["model"]
-)
+_G_COV_MEAN = Gauge("guardnet_coverage_mean", "Mean coverage over window", ["model"])
 _G_LOW_COV_FRAC = Gauge(
     "guardnet_low_coverage_fraction",
     "Fraction of low-coverage outputs",
     ["model"],
 )
+
 
 class GuardNetMetrics:
     """Prometheus metrics collector for GuardNet inference."""
@@ -72,7 +74,6 @@ class GuardNetMetrics:
         low = sum(1 for x in c if x < self.cov_threshold)
         _G_INFER.labels(self.model).inc(n)
         _G_LOW_COV.labels(self.model).inc(low)
-        _G_RISK_MEAN.labels(self.model).set(sum(r)/n)
-        _G_COV_MEAN.labels(self.model).set(sum(c)/n)
+        _G_RISK_MEAN.labels(self.model).set(sum(r) / n)
+        _G_COV_MEAN.labels(self.model).set(sum(c) / n)
         _G_LOW_COV_FRAC.labels(self.model).set(low / n)
-

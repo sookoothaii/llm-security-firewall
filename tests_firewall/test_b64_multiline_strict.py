@@ -3,6 +3,7 @@
 Unit tests for strict Base64 multiline detector
 RC2 P3.3: Validates decode-based detection, context-awareness
 """
+
 import sys
 from pathlib import Path
 
@@ -24,15 +25,15 @@ def test_short_strings_in_code_do_not_trigger():
 
 def test_shebang_and_imports_do_not_trigger():
     """Shebang and imports should NOT trigger"""
-    text = '#!/usr/bin/env python3\nimport sys\n'
+    text = "#!/usr/bin/env python3\nimport sys\n"
     det = detect_base64_multiline(text, context="code")
     assert det is False
 
 
 def test_two_decodable_lines_trigger():
     """Two decodable Base64 tokens on different lines SHOULD trigger"""
-    s1 = "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5"      # decodable
-    s2 = "aGlzIHJlYXNvbiwgYnV0IGJ5IHRoaXMgc2luZ3VsYXI="      # decodable
+    s1 = "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5"  # decodable
+    s2 = "aGlzIHJlYXNvbiwgYnV0IGJ5IHRoaXMgc2luZ3VsYXI="  # decodable
     text = f'/* a */ "{s1}"\n/* b */ "{s2}"\n'
     det = detect_base64_multiline(text, context="code")
     assert det is True
@@ -40,7 +41,7 @@ def test_two_decodable_lines_trigger():
 
 def test_single_long_token_triggers():
     """Single long (>=64 chars) decodable token SHOULD trigger"""
-    tok = "TWFu" * 20 + "=="   # >= 64 chars total
+    tok = "TWFu" * 20 + "=="  # >= 64 chars total
     text = f'const B = "{tok}";\n'
     det = detect_base64_multiline(text, context="code")
     assert det is True
@@ -87,17 +88,20 @@ def test_non_decodable_high_ratio_ignored():
 def test_real_attack_multiline_detected():
     """Real attack: split Base64 secret across lines"""
     import base64
+
     # Realistic secret: longer payload
-    secret_full = base64.b64encode(b"[[SECRET_TOKEN_ATTACK_LONG_PAYLOAD_FOR_TESTING]]").decode()
-    part1 = secret_full[:len(secret_full)//2]
-    part2 = secret_full[len(secret_full)//2:]
+    secret_full = base64.b64encode(
+        b"[[SECRET_TOKEN_ATTACK_LONG_PAYLOAD_FOR_TESTING]]"
+    ).decode()
+    part1 = secret_full[: len(secret_full) // 2]
+    part2 = secret_full[len(secret_full) // 2 :]
     text = f'key = "{part1}"\nkey += "{part2}"\n'
     det = detect_base64_multiline(text, context="code")
     # Should detect if parts are individually >= 24 chars
     assert det is True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import pytest
-    pytest.main([__file__, '-v'])
 
+    pytest.main([__file__, "-v"])

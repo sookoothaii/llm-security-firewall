@@ -1,4 +1,5 @@
 """Tests for InputEnsemble with online conformal calibration."""
+
 import pathlib
 import sys
 
@@ -17,9 +18,7 @@ def test_decide_returns_qhat_and_label_changes_with_updates():
     ens = InputEnsemble(
         weights={"safety": 1.0, "embed": 1.0, "pplx": 1.0},
         threshold=0.9,
-        bucket_cfg=BucketConfig(
-            alpha=0.1, gamma=0.97, bins=64, min_weight=20.0
-        ),
+        bucket_cfg=BucketConfig(alpha=0.1, gamma=0.97, bins=64, min_weight=20.0),
     )
     # same risk before and after; threshold changes with calibration data
     s = DetectorScores(safety=0.6, embed=0.4, pplx=0.5)  # agg -> 0.6
@@ -85,4 +84,3 @@ def test_weighted_aggregation():
 
     # ens1 weights safety higher -> risk dominated by safety score
     assert r1 > r2, f"Safety-weighted should be higher: {r1} vs {r2}"
-

@@ -1,4 +1,5 @@
 """Detector modules for LLM Firewall."""
+
 from llm_firewall.detectors.bidi_locale import (
     bidi_controls_present,
     detect_bidi_locale,
@@ -14,4 +15,3 @@ __all__ = [
     "locale_label_hits",
     "scan_transport_indicators",
 ]
-

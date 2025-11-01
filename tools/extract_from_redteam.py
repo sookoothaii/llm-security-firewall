@@ -1,4 +1,5 @@
 """Extract real jailbreaks from redteam report for ablation study"""
+
 import csv
 import json
 from pathlib import Path
@@ -29,13 +30,15 @@ def extract(report_dir: Path, out_csv: Path):
     for i, item in enumerate(attacks):
         jlb = item.get("jailbreak", "")
         if jlb:
-            rows.append({
-                "text": jlb,
-                "label": 1,
-                "emb_sim": 0.80,
-                "ppl_anom": 0.65,
-                "llm_judge": 0.85
-            })
+            rows.append(
+                {
+                    "text": jlb,
+                    "label": 1,
+                    "emb_sim": 0.80,
+                    "ppl_anom": 0.65,
+                    "llm_judge": 0.85,
+                }
+            )
         if (i + 1) % 20 == 0:
             print(f"  Extracted {i + 1}/{len(attacks)} attacks...")
 
@@ -57,25 +60,23 @@ def extract(report_dir: Path, out_csv: Path):
     ]
 
     # Expand to match jailbreak count
-    n_benign_needed = len([r for r in rows if r['label'] == 1])
+    n_benign_needed = len([r for r in rows if r["label"] == 1])
     for i in range(n_benign_needed):
         t = benign_templates[i % len(benign_templates)]
         if i >= len(benign_templates):
             t = f"{t} (variant {i})"
-        rows.append({
-            "text": t,
-            "label": 0,
-            "emb_sim": 0.05,
-            "ppl_anom": 0.02,
-            "llm_judge": 0.0
-        })
+        rows.append(
+            {"text": t, "label": 0, "emb_sim": 0.05, "ppl_anom": 0.02, "llm_judge": 0.0}
+        )
 
     print(f"  Total benign added: {len([r for r in rows if r['label'] == 0])}")
 
     # Write
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     with out_csv.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["text", "label", "emb_sim", "ppl_anom", "llm_judge"])
+        writer = csv.DictWriter(
+            f, fieldnames=["text", "label", "emb_sim", "ppl_anom", "llm_judge"]
+        )
         writer.writeheader()
         writer.writerows(rows)
 
@@ -89,7 +90,3 @@ if __name__ == "__main__":
     out_csv = Path("data/real_redteam.csv")
 
     extract(report_dir, out_csv)
-
-
-
-

@@ -30,7 +30,7 @@ from llm_firewall.core import FirewallConfig, SecurityFirewall
 app = FastAPI(
     title="LLM Security Firewall Demo",
     description="Minimal example of firewall integration",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # Load minimal configuration (in-memory mode, no DB required)
@@ -40,11 +40,13 @@ firewall = SecurityFirewall(config)
 
 class ChatMessage(BaseModel):
     """Chat message schema"""
+
     message: str
 
 
 class ChatResponse(BaseModel):
     """Chat response schema"""
+
     response: str
     firewall_decision: str
     confidence: float
@@ -71,17 +73,13 @@ async def firewall_input_middleware(request: Request, call_next):
                     content={
                         "error": "Input blocked by firewall",
                         "reason": reason,
-                        "blocked_by": "input_firewall"
-                    }
+                        "blocked_by": "input_firewall",
+                    },
                 )
         except Exception as e:
             # Fail-closed: reject on error
             return JSONResponse(
-                status_code=500,
-                content={
-                    "error": "Firewall error",
-                    "message": str(e)
-                }
+                status_code=500, content={"error": "Firewall error", "message": str(e)}
             )
 
     # Continue processing
@@ -107,7 +105,7 @@ async def chat_endpoint(message: ChatMessage):
     decision = firewall.validate_evidence(
         content=llm_response,
         sources=[],  # No external sources in this simple example
-        kb_facts=[]  # No KB facts in this simple example
+        kb_facts=[],  # No KB facts in this simple example
     )
 
     # Map decision to string
@@ -122,7 +120,7 @@ async def chat_endpoint(message: ChatMessage):
     return ChatResponse(
         response=llm_response,
         firewall_decision=decision_str,
-        confidence=decision.confidence
+        confidence=decision.confidence,
     )
 
 
@@ -138,8 +136,8 @@ async def health_check():
         "firewall": {
             "memory_drift": has_drift,
             "canary_scores": scores,
-            "active_alerts": len(alerts)
-        }
+            "active_alerts": len(alerts),
+        },
     }
 
 
@@ -152,15 +150,13 @@ async def root():
         "endpoints": {
             "POST /chat": "Send chat message (input + output validation)",
             "GET /health": "Health check with firewall status",
-            "GET /docs": "OpenAPI documentation"
+            "GET /docs": "OpenAPI documentation",
         },
         "example_request": {
             "url": "http://localhost:8000/chat",
             "method": "POST",
-            "body": {
-                "message": "Hello, how are you?"
-            }
-        }
+            "body": {"message": "Hello, how are you?"},
+        },
     }
 
 
@@ -171,7 +167,8 @@ if __name__ == "__main__":
     print("API Documentation: http://localhost:8000/docs")
     print("Health Check: http://localhost:8000/health")
     print("\nExample request:")
-    print('  curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d \'{"message": "Hello!"}\'')
+    print(
+        '  curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d \'{"message": "Hello!"}\''
+    )
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
-

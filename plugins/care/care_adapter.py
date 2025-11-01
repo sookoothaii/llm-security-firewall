@@ -73,7 +73,7 @@ class PostgreSQLCAREAdapter(CAREPort):
             # Check if model exists
             cur.execute(
                 "SELECT trained_on_n_sessions FROM care_readiness_model WHERE user_id = %s",
-                (user_id,)
+                (user_id,),
             )
             row = cur.fetchone()
 
@@ -85,7 +85,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                     recommendation="MARGINAL",
                     factors={"insufficient_data": True},
                     timestamp=datetime.now(),
-                    model_confidence=0.0
+                    model_confidence=0.0,
                 )
 
             # Calculate readiness based on recent patterns
@@ -98,7 +98,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                 WHERE user_id = %s
                 AND timestamp > NOW() - INTERVAL '7 days'
                 """,
-                (user_id,)
+                (user_id,),
             )
             row = cur.fetchone()
 
@@ -122,10 +122,10 @@ class PostgreSQLCAREAdapter(CAREPort):
                 recommendation=recommendation,
                 factors={
                     "avg_success_7d": avg_success,
-                    "recent_sessions": recent_sessions
+                    "recent_sessions": recent_sessions,
                 },
                 timestamp=datetime.now(),
-                model_confidence=0.7
+                model_confidence=0.7,
             )
 
     def log_session(
@@ -134,7 +134,7 @@ class PostgreSQLCAREAdapter(CAREPort):
         user_id: str,
         facts_attempted: int,
         facts_supported: int,
-        cognitive_state: Optional[Dict] = None
+        cognitive_state: Optional[Dict] = None,
     ) -> int:
         """Log research session to PostgreSQL."""
         success_rate = facts_supported / max(facts_attempted, 1)
@@ -151,20 +151,23 @@ class PostgreSQLCAREAdapter(CAREPort):
                 RETURNING id
                 """,
                 (
-                    session_id, user_id, facts_attempted, facts_supported, success_rate,
-                    cognitive_state.get('hyperfocus', 0.5),
-                    cognitive_state.get('satisfaction', 0.5),
-                    cognitive_state.get('arousal', 0.5),
-                    cognitive_state.get('engagement', 0.5)
-                )
+                    session_id,
+                    user_id,
+                    facts_attempted,
+                    facts_supported,
+                    success_rate,
+                    cognitive_state.get("hyperfocus", 0.5),
+                    cognitive_state.get("satisfaction", 0.5),
+                    cognitive_state.get("arousal", 0.5),
+                    cognitive_state.get("engagement", 0.5),
+                ),
             )
             session_log_id = cur.fetchone()[0]
             self.conn.commit()
 
             # Check if model needs retraining
             cur.execute(
-                "SELECT COUNT(*) FROM care_sessions WHERE user_id = %s",
-                (user_id,)
+                "SELECT COUNT(*) FROM care_sessions WHERE user_id = %s", (user_id,)
             )
             n_sessions = cur.fetchone()[0]
 
@@ -186,7 +189,7 @@ class PostgreSQLCAREAdapter(CAREPort):
                     trained_on_n_sessions = %s,
                     last_training = NOW()
                 """,
-                (user_id, "v1.0", n_sessions, n_sessions)
+                (user_id, "v1.0", n_sessions, n_sessions),
             )
             self.conn.commit()
 
@@ -206,14 +209,14 @@ class PostgreSQLCAREAdapter(CAREPort):
                 ORDER BY avg_success DESC
                 LIMIT 1
                 """,
-                (user_id,)
+                (user_id,),
             )
             row = cur.fetchone()
 
             if not row:
                 return {
-                    'suggestion': 'insufficient_data',
-                    'rationale': 'Not enough sessions to suggest optimal time'
+                    "suggestion": "insufficient_data",
+                    "rationale": "Not enough sessions to suggest optimal time",
                 }
 
             optimal_hour = int(row[0])
@@ -221,10 +224,10 @@ class PostgreSQLCAREAdapter(CAREPort):
             n_sessions = row[2]
 
             return {
-                'suggestion': f"{optimal_hour:02d}:00",
-                'avg_success': avg_success,
-                'n_sessions': n_sessions,
-                'rationale': f"Pattern shows {avg_success:.0%} success at {optimal_hour:02d}:00 (based on {n_sessions} sessions)"
+                "suggestion": f"{optimal_hour:02d}:00",
+                "avg_success": avg_success,
+                "n_sessions": n_sessions,
+                "rationale": f"Pattern shows {avg_success:.0%} success at {optimal_hour:02d}:00 (based on {n_sessions} sessions)",
             }
 
     def get_stats(self) -> Dict:
@@ -241,16 +244,13 @@ class PostgreSQLCAREAdapter(CAREPort):
             )
             row = cur.fetchone()
 
-            cur.execute(
-                "SELECT COUNT(*) FROM care_readiness_model"
-            )
+            cur.execute("SELECT COUNT(*) FROM care_readiness_model")
             models_trained = cur.fetchone()[0]
 
             return {
-                'total_sessions': row[0],
-                'success_rate': row[1] if row[1] else 0.0,
-                'total_users': row[2],
-                'models_trained': models_trained,
-                'model_ready': models_trained > 0
+                "total_sessions": row[0],
+                "success_rate": row[1] if row[1] else 0.0,
+                "total_users": row[2],
+                "models_trained": models_trained,
+                "model_ready": models_trained > 0,
             }
-

@@ -15,6 +15,7 @@ Outputs:
 Creator: Joerg Bollwahn
 License: MIT
 """
+
 from __future__ import annotations
 
 import json
@@ -37,10 +38,13 @@ DATA = ROOT / "data" / "l3_train.jsonl"
 MODEL_DIR = ROOT / "models"
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
+
 def main():
     if not DATA.exists():
         print(f"ERROR: Training data not found at {DATA}")
-        print("Create data/l3_train.jsonl with format: {\"text\": \"...\", \"label\": \"authority\"|...}")
+        print(
+            'Create data/l3_train.jsonl with format: {"text": "...", "label": "authority"|...}'
+        )
         sys.exit(1)
 
     vec = HashVectorizer(n_features=2**18)
@@ -49,7 +53,9 @@ def main():
     with open(DATA, "r", encoding="utf-8") as f:
         for line in f:
             obj = json.loads(line)
-            texts.append(obj["text"])  # no harmful content required; use benign paraphrases
+            texts.append(
+                obj["text"]
+            )  # no harmful content required; use benign paraphrases
             labels.append(obj["label"])  # must be in CLASSES
 
     print(f"Loaded {len(texts)} training samples")
@@ -57,10 +63,17 @@ def main():
     X = vec.transform(texts)
     y = np.array([CLASSES.index(y_) for y_ in labels], dtype=np.int64)
 
-    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    Xtr, Xte, ytr, yte = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
 
     clf = LogisticRegression(
-        penalty="l2", C=2.0, solver="lbfgs", multi_class="multinomial", max_iter=1000, n_jobs=None
+        penalty="l2",
+        C=2.0,
+        solver="lbfgs",
+        multi_class="multinomial",
+        max_iter=1000,
+        n_jobs=None,
     )
 
     print("Training...")
@@ -70,9 +83,11 @@ def main():
     print("\n=== EVALUATION ===\n")
     print(classification_report(yte, y_pred, target_names=CLASSES))
 
-    W = clf.coef_.astype(np.float32)      # shape [K, D]
-    b = clf.intercept_.astype(np.float32) # shape [K]
-    np.savez(MODEL_DIR / "persuasion_l3_weights.npz", W=W, b=b, classes=np.array(CLASSES))
+    W = clf.coef_.astype(np.float32)  # shape [K, D]
+    b = clf.intercept_.astype(np.float32)  # shape [K]
+    np.savez(
+        MODEL_DIR / "persuasion_l3_weights.npz", W=W, b=b, classes=np.array(CLASSES)
+    )
 
     # Import here to avoid circular dependency
     sys.path.insert(0, str(ROOT / "scripts"))
@@ -83,6 +98,6 @@ def main():
     print(f"\n[OK] Saved: {MODEL_DIR / 'persuasion_l3.onnx'}")
     print(f"[OK] Saved: {MODEL_DIR / 'persuasion_l3_weights.npz'}")
 
+
 if __name__ == "__main__":
     main()
-

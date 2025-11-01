@@ -6,13 +6,13 @@ Direkt die Attack Pattern Detection testen
 
 import sys
 
-sys.path.insert(0, '../src')
+sys.path.insert(0, "../src")
 
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
 
-print("="*70)
+print("=" * 70)
 print("BLIND SPOTS TEST - Attack Pattern Detection Only")
-print("="*70)
+print("=" * 70)
 
 # ============================================================================
 # Test 1: Semantic Context (System erkennt Payload aber nicht Context-Mismatch)
@@ -59,14 +59,15 @@ for payload in prompt_exploits:
     print(f"  Payload: {payload[:60]}...")
     print(f"  Detected: {hits if hits else 'NONE'}")
     # Check for meta-instruction detection
-    has_meta = any('prompt' in str(h) or 'inject' in str(h) or 'ignore' in str(h) for h in hits)
+    has_meta = any(
+        "prompt" in str(h) or "inject" in str(h) or "ignore" in str(h) for h in hits
+    )
     if not has_meta:
         print("  WARNING: Payload detected but NOT meta-instruction!")
 
-print("\n" + "="*70)
+print("\n" + "=" * 70)
 print("CONCLUSION:")
 print("- Semantic Context: Payload detected, but context-mismatch NOT detected")
 print("- Cross-Cultural: ASCII patterns work, non-ASCII keywords bypass")
 print("- Prompt Injection: Payload detected, but meta-instructions NOT detected")
-print("="*70)
-
+print("=" * 70)

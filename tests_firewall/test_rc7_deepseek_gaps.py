@@ -3,10 +3,11 @@
 RC7: DeepSeek Gaps Testing
 Indirect Execution + Multi-Modal Bypasses
 """
+
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from llm_firewall.detectors.attack_patterns import scan_attack_patterns
 from llm_firewall.detectors.dense_alphabet import dense_alphabet_flag
@@ -30,7 +31,7 @@ def run_detectors(text: str) -> list:
     # RC5 Emoji
     normalized_text, emoji_meta = normalize_emoji_homoglyphs(text)
     hits.extend(detect_emoji_homoglyphs(text))
-    if emoji_meta['changed']:
+    if emoji_meta["changed"]:
         text = normalized_text
 
     # RC6 Multilingual
@@ -45,19 +46,25 @@ def run_detectors(text: str) -> list:
     # Encoding chain
     decoded, stages, _, buf = try_decode_chain(text)
     if stages >= 1:
-        hits.append(f'chain_decoded_{stages}_stages')
-        hits.append('base64_secret')
+        hits.append(f"chain_decoded_{stages}_stages")
+        hits.append("base64_secret")
 
     # Unicode
     _, flags = strip_bidi_zw(text)
-    if flags.get('bidi_seen'): hits.append('bidi_controls')
-    if flags.get('zw_seen'): hits.append('zero_width_chars')
-    if flags.get('fullwidth_seen'): hits.append('fullwidth_forms')
-    if flags.get('mixed_scripts'): hits.append('mixed_scripts')
+    if flags.get("bidi_seen"):
+        hits.append("bidi_controls")
+    if flags.get("zw_seen"):
+        hits.append("zero_width_chars")
+    if flags.get("fullwidth_seen"):
+        hits.append("fullwidth_forms")
+    if flags.get("mixed_scripts"):
+        hits.append("mixed_scripts")
 
     # Density
-    if entropy_signal(text, threshold=4.0): hits.append('high_entropy')
-    if dense_alphabet_flag(text): hits.append('dense_alphabet')
+    if entropy_signal(text, threshold=4.0):
+        hits.append("high_entropy")
+    if dense_alphabet_flag(text):
+        hits.append("dense_alphabet")
 
     return hits
 
@@ -67,7 +74,9 @@ def _assert_blocked(payload: str, desc: str):
     ctx = classify_context(payload)
     hits = run_detectors(payload)
     action, risk, _ = decide_action_otb(hits, ctx, text=payload)
-    assert action in ('WARN', 'BLOCK'), f"BYPASS {desc}: {action} risk={risk:.2f} hits={hits}"
+    assert action in ("WARN", "BLOCK"), (
+        f"BYPASS {desc}: {action} risk={risk:.2f} hits={hits}"
+    )
 
 
 # INDIRECT EXECUTION TESTS
@@ -108,7 +117,10 @@ def test_indirect_dynamic_import():
 
 def test_indirect_prototype_pollution():
     """Object.prototype.x = 'alert'"""
-    _assert_blocked("Object.prototype.pwned = 'alert'; window[Object.prototype.pwned]('xss')", "Prototype pollution")
+    _assert_blocked(
+        "Object.prototype.pwned = 'alert'; window[Object.prototype.pwned]('xss')",
+        "Prototype pollution",
+    )
 
 
 def test_indirect_eval_call():
@@ -144,7 +156,9 @@ def test_multimodal_mathml_script():
 
 def test_multimodal_mathml_action():
     """<maction>"""
-    _assert_blocked("<math><maction actiontype='toggle'>alert(1)</maction></math>", "MathML action")
+    _assert_blocked(
+        "<math><maction actiontype='toggle'>alert(1)</maction></math>", "MathML action"
+    )
 
 
 def test_multimodal_css_import_javascript():
@@ -164,44 +178,63 @@ def test_multimodal_css_expression():
 
 def test_multimodal_css_url_javascript():
     """url('javascript:')"""
-    _assert_blocked("div { background: url('javascript:alert(1)'); }", "CSS url javascript")
+    _assert_blocked(
+        "div { background: url('javascript:alert(1)'); }", "CSS url javascript"
+    )
 
 
 def test_multimodal_style_script_combo():
     """<style> + <script>"""
-    _assert_blocked("<style>@import 'x'</style><script>alert(1)</script>", "Style+Script combo")
+    _assert_blocked(
+        "<style>@import 'x'</style><script>alert(1)</script>", "Style+Script combo"
+    )
 
 
 def test_multimodal_svg_external():
     """<svg href='http://evil'>"""
-    _assert_blocked("<svg><a href='http://evil.com/xss.js'>click</a></svg>", "SVG external ref")
+    _assert_blocked(
+        "<svg><a href='http://evil.com/xss.js'>click</a></svg>", "SVG external ref"
+    )
 
 
 # COMBO ATTACKS (Indirect + Multi-Modal)
 def test_combo_svg_indirect():
     """<svg><script>window['al'+'ert']</script>"""
-    _assert_blocked("<svg><script>window['al'+'ert'](1)</script></svg>", "SVG + Indirect")
+    _assert_blocked(
+        "<svg><script>window['al'+'ert'](1)</script></svg>", "SVG + Indirect"
+    )
 
 
 def test_combo_mathml_function_constructor():
     """<math><script>Function('alert')</script>"""
-    _assert_blocked("<math><script>Function('alert(1)')()</script></math>", "MathML + Constructor")
+    _assert_blocked(
+        "<math><script>Function('alert(1)')()</script></math>", "MathML + Constructor"
+    )
 
 
 def test_combo_css_settimeout():
     """CSS + setTimeout string"""
-    _assert_blocked("<style>@import 'x'</style><script>setTimeout('alert(1)', 0)</script>", "CSS + setTimeout")
+    _assert_blocked(
+        "<style>@import 'x'</style><script>setTimeout('alert(1)', 0)</script>",
+        "CSS + setTimeout",
+    )
 
 
 # ADVANCED COMBOS (3+ vectors)
 def test_combo_svg_emoji_indirect():
     """SVG + Emoji + Indirect"""
-    _assert_blocked("<svg><script>window['🅰lert'.normalize()]('x')</script></svg>", "SVG+Emoji+Indirect")
+    _assert_blocked(
+        "<svg><script>window['🅰lert'.normalize()]('x')</script></svg>",
+        "SVG+Emoji+Indirect",
+    )
 
 
 def test_combo_mathml_multilingual_import():
     """MathML + Chinese + Dynamic Import"""
-    _assert_blocked("<math><script>import('data:text/javascript,测试alert(1)')</script></math>", "MathML+Chinese+Import")
+    _assert_blocked(
+        "<math><script>import('data:text/javascript,测试alert(1)')</script></math>",
+        "MathML+Chinese+Import",
+    )
 
 
 # CONTEXT POISONING TESTS
@@ -220,7 +253,9 @@ def test_context_poison_html_comment_script():
 
 def test_context_poison_code_split():
     """Code-comment split attack"""
-    _assert_blocked("const x='al'; // comment\nconst y='ert'; window[x+y]('xss');", "Code split")
+    _assert_blocked(
+        "const x='al'; // comment\nconst y='ert'; window[x+y]('xss');", "Code split"
+    )
 
 
 def test_context_poison_python_docstring():
@@ -236,15 +271,20 @@ def test_context_poison_example_function_constructor():
 # DEEP COMBOS (4+ vectors)
 def test_deep_combo_svg_emoji_multilingual_indirect():
     """SVG + Emoji + Chinese + Indirect (4 concepts)"""
-    _assert_blocked("<svg><script>window['🅰l'+'ert']('测试')</script></svg>", "Deep combo 4")
+    _assert_blocked(
+        "<svg><script>window['🅰l'+'ert']('测试')</script></svg>", "Deep combo 4"
+    )
 
 
 def test_deep_combo_mathml_context_poison_import():
     """MathML + Context Poison + Dynamic Import + Chinese"""
-    _assert_blocked("/** @example test */ <math><script>import('data:text/javascript,测试alert(1)')</script></math>", "Deep combo 4+")
+    _assert_blocked(
+        "/** @example test */ <math><script>import('data:text/javascript,测试alert(1)')</script></math>",
+        "Deep combo 4+",
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import pytest
-    sys.exit(pytest.main([__file__, '-v']))
 
+    sys.exit(pytest.main([__file__, "-v"]))

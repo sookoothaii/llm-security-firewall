@@ -235,4 +235,3 @@ MAX_RESPONSE_TIME_MS = 30000  # Slower = timeout/suspicious
 # Target performance (from paper)
 TARGET_HUMAN_PASS_RATE = 0.90  # 90%+ for humans
 TARGET_MLLM_PASS_RATE = 0.31  # <31% for SoTA MLLMs
-

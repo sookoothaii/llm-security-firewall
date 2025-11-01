@@ -21,6 +21,5 @@ from .care_adapter import PostgreSQLCAREAdapter
 from .care_module import CAREModule
 from .care_port import CAREPort, ReadinessScore
 
-__all__ = ['CAREModule', 'CAREPort', 'ReadinessScore', 'PostgreSQLCAREAdapter']
-__version__ = '1.0.0'
-
+__all__ = ["CAREModule", "CAREPort", "ReadinessScore", "PostgreSQLCAREAdapter"]
+__version__ = "1.0.0"

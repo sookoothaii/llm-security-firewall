@@ -21,6 +21,5 @@ from .personality_adapter import PostgreSQLPersonalityAdapter
 from .personality_module import PersonalityModule
 from .personality_port import PersonalityPort
 
-__all__ = ['PersonalityModule', 'PersonalityPort', 'PostgreSQLPersonalityAdapter']
-__version__ = '1.0.0'
-
+__all__ = ["PersonalityModule", "PersonalityPort", "PostgreSQLPersonalityAdapter"]
+__version__ = "1.0.0"

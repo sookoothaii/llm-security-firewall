@@ -86,10 +86,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         self.conn = db_connection
 
     def authenticate(
-        self,
-        user_id: str,
-        message: str,
-        context: Optional[Dict] = None
+        self, user_id: str, message: str, context: Optional[Dict] = None
     ) -> AuthenticationResult:
         """Authenticate user based on behavioral patterns."""
         # Extract features from message
@@ -106,13 +103,11 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 anomaly_score=0.0,
                 anomaly_features=[],
                 threshold=0.7,
-                recommendation="CHALLENGE"  # Need more data
+                recommendation="CHALLENGE",  # Need more data
             )
 
         # Calculate anomaly score
-        anomaly_score, anomaly_features = self._calculate_anomaly(
-            features, baseline
-        )
+        anomaly_score, anomaly_features = self._calculate_anomaly(features, baseline)
 
         # Determine authentication result
         threshold = 0.7  # Default threshold
@@ -133,7 +128,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
             anomaly_score=anomaly_score,
             anomaly_features=anomaly_features,
             threshold=threshold,
-            recommendation=recommendation
+            recommendation=recommendation,
         )
 
     def _extract_features(self, message: str) -> Dict:
@@ -141,9 +136,15 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         # Surface Features
         typo_rate = self._calculate_typo_rate(message)
         message_length = len(message)
-        punctuation_density = len(re.findall(r'[.,!?;:]', message)) / max(len(message), 1)
-        capitalization_rate = sum(1 for c in message if c.isupper()) / max(len(message), 1)
-        emoji_rate = len(re.findall(r'[\U0001F600-\U0001F64F]', message)) / max(len(message), 1)
+        punctuation_density = len(re.findall(r"[.,!?;:]", message)) / max(
+            len(message), 1
+        )
+        capitalization_rate = sum(1 for c in message if c.isupper()) / max(
+            len(message), 1
+        )
+        emoji_rate = len(re.findall(r"[\U0001F600-\U0001F64F]", message)) / max(
+            len(message), 1
+        )
 
         # Vocabulary Features
         words = message.split()
@@ -151,23 +152,25 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         avg_word_length = sum(len(w) for w in words) / max(len(words), 1)
 
         # Interaction Features
-        is_question = '?' in message
-        is_directive = any(message.lower().startswith(w) for w in ['do', 'create', 'implement', 'fix'])
-        has_code_snippet = '```' in message or '`' in message
-        has_link = 'http' in message or 'www.' in message
+        is_question = "?" in message
+        is_directive = any(
+            message.lower().startswith(w) for w in ["do", "create", "implement", "fix"]
+        )
+        has_code_snippet = "```" in message or "`" in message
+        has_link = "http" in message or "www." in message
 
         return {
-            'typo_rate': typo_rate,
-            'message_length': message_length,
-            'punctuation_density': punctuation_density,
-            'capitalization_rate': capitalization_rate,
-            'emoji_rate': emoji_rate,
-            'unique_words': unique_words,
-            'avg_word_length': avg_word_length,
-            'is_question': is_question,
-            'is_directive': is_directive,
-            'has_code_snippet': has_code_snippet,
-            'has_link': has_link
+            "typo_rate": typo_rate,
+            "message_length": message_length,
+            "punctuation_density": punctuation_density,
+            "capitalization_rate": capitalization_rate,
+            "emoji_rate": emoji_rate,
+            "unique_words": unique_words,
+            "avg_word_length": avg_word_length,
+            "is_question": is_question,
+            "is_directive": is_directive,
+            "has_code_snippet": has_code_snippet,
+            "has_link": has_link,
         }
 
     def _calculate_typo_rate(self, message: str) -> float:
@@ -178,29 +181,28 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
             return 0.0
 
         # Count "suspicious" patterns (very simplified)
-        suspicious = sum(1 for w in words if len(w) > 15 or w.count('x') > 2)
+        suspicious = sum(1 for w in words if len(w) > 15 or w.count("x") > 2)
         return suspicious / len(words)
 
-    def _calculate_anomaly(
-        self,
-        features: Dict,
-        baseline: BiometricProfile
-    ) -> tuple:
+    def _calculate_anomaly(self, features: Dict, baseline: BiometricProfile) -> tuple:
         """Calculate anomaly score and identify anomalous features."""
         anomalies = []
         scores = []
 
         # Check message length
         if baseline.message_length_std > 0:
-            z_score = abs(features['message_length'] - baseline.message_length_mean) / baseline.message_length_std
+            z_score = (
+                abs(features["message_length"] - baseline.message_length_mean)
+                / baseline.message_length_std
+            )
             if z_score > 3:
-                anomalies.append('message_length')
+                anomalies.append("message_length")
                 scores.append(min(z_score / 5, 1.0))
 
         # Check typo rate
-        if abs(features['typo_rate'] - baseline.typo_rate) > 0.1:
-            anomalies.append('typo_rate')
-            scores.append(abs(features['typo_rate'] - baseline.typo_rate))
+        if abs(features["typo_rate"] - baseline.typo_rate) > 0.1:
+            anomalies.append("typo_rate")
+            scores.append(abs(features["typo_rate"] - baseline.typo_rate))
 
         # Average anomaly score
         if scores:
@@ -210,11 +212,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
 
         return avg_score, anomalies
 
-    def update_baseline(
-        self,
-        user_id: str,
-        force: bool = False
-    ) -> Dict:
+    def update_baseline(self, user_id: str, force: bool = False) -> Dict:
         """Update behavioral baseline from accumulated messages."""
         # This is a simplified version
         # Production would calculate all 27D features from message history
@@ -222,13 +220,12 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
         with self.conn.cursor() as cur:
             # Count messages
             cur.execute(
-                "SELECT COUNT(*) FROM cb_messages WHERE user_id = %s",
-                (user_id,)
+                "SELECT COUNT(*) FROM cb_messages WHERE user_id = %s", (user_id,)
             )
             n = cur.fetchone()[0]
 
             if n < 10 and not force:
-                return {'status': 'insufficient_data', 'n': n}
+                return {"status": "insufficient_data", "n": n}
 
             # Calculate statistics
             cur.execute(
@@ -240,7 +237,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 FROM cb_messages
                 WHERE user_id = %s
                 """,
-                (user_id,)
+                (user_id,),
             )
             row = cur.fetchone()
 
@@ -257,16 +254,16 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                     typo_rate_mean = %s,
                     last_updated = NOW()
                 """,
-                (user_id, n, row[0], row[1], row[2], n, row[0], row[1], row[2])
+                (user_id, n, row[0], row[1], row[2], n, row[0], row[1], row[2]),
             )
             self.conn.commit()
 
             return {
-                'status': 'updated',
-                'n': n,
-                'message_length_mean': row[0],
-                'message_length_std': row[1],
-                'typo_rate_mean': row[2]
+                "status": "updated",
+                "n": n,
+                "message_length_mean": row[0],
+                "message_length_std": row[1],
+                "typo_rate_mean": row[2],
             }
 
     def get_profile(self, user_id: str) -> Optional[BiometricProfile]:
@@ -281,7 +278,7 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 FROM cb_baseline
                 WHERE user_id = %s
                 """,
-                (user_id,)
+                (user_id,),
             )
             row = cur.fetchone()
 
@@ -320,14 +317,11 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 link_share_rate=0.0,  # Placeholder
                 baseline_n=row[1],
                 last_updated=row[5],
-                confidence_score=0.8 if row[1] > 50 else 0.5
+                confidence_score=0.8 if row[1] > 50 else 0.5,
             )
 
     def log_message(
-        self,
-        user_id: str,
-        message: str,
-        metadata: Optional[Dict] = None
+        self, user_id: str, message: str, metadata: Optional[Dict] = None
     ) -> int:
         """Log message to PostgreSQL."""
         features = self._extract_features(message)
@@ -343,16 +337,21 @@ class PostgreSQLBiometricsAdapter(BiometricsPort):
                 RETURNING id
                 """,
                 (
-                    user_id, message,
-                    features['typo_rate'], features['message_length'],
-                    features['punctuation_density'], features['capitalization_rate'],
-                    features['emoji_rate'], features['unique_words'],
-                    features['avg_word_length'], features['is_question'],
-                    features['is_directive'], features['has_code_snippet'],
-                    features['has_link']
-                )
+                    user_id,
+                    message,
+                    features["typo_rate"],
+                    features["message_length"],
+                    features["punctuation_density"],
+                    features["capitalization_rate"],
+                    features["emoji_rate"],
+                    features["unique_words"],
+                    features["avg_word_length"],
+                    features["is_question"],
+                    features["is_directive"],
+                    features["has_code_snippet"],
+                    features["has_link"],
+                ),
             )
             message_id = cur.fetchone()[0]
             self.conn.commit()
             return message_id
-

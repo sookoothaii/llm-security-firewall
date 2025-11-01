@@ -12,6 +12,7 @@ Coverage: Closes adv_002, adv_003, adv_012, adv_013, adv_038, adv_042, adv_050
 Creator: GPT-5 design, Claude implementation
 Date: 2025-10-30
 """
+
 from __future__ import annotations
 
 import unicodedata

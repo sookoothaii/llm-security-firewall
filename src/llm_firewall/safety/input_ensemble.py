@@ -198,9 +198,7 @@ class InputEnsemble:
             vals.append(self.w.get("pplx", 1.0) * s.pplx)
         return max(vals) if vals else 0.0
 
-    def _bucket_key(
-        self, domain: str, locale: str, tenant: str, model: str
-    ) -> str:
+    def _bucket_key(self, domain: str, locale: str, tenant: str, model: str) -> str:
         domain = (domain or "other").lower()
         locale = (locale or "und").lower()
         tenant = (tenant or "single").lower()

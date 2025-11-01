@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """ZERO-DAY ASSAULT - JETZT"""
+
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import base64
 
@@ -16,9 +17,9 @@ from tests_firewall.test_ultra_break_v4_dos import run_detectors_timed
 zero_days = []
 
 # Component mixing
-protocols = ['javascript', 'data', 'vbscript', 'livescript', 'mocha', 'tcl', 'file']
-functions = ['fetch', 'import', 'require', 'eval', 'exec', 'system', 'runtime', 'load']
-actions = ['alert', 'prompt', 'confirm', 'read', 'write', 'execute', 'open']
+protocols = ["javascript", "data", "vbscript", "livescript", "mocha", "tcl", "file"]
+functions = ["fetch", "import", "require", "eval", "exec", "system", "runtime", "load"]
+actions = ["alert", "prompt", "confirm", "read", "write", "execute", "open"]
 
 for p in protocols[:3]:
     for f in functions[:3]:
@@ -26,7 +27,7 @@ for p in protocols[:3]:
             payload = f"{p}:{f}('{a}')"
             zero_days.append(payload)
             # Obfuscate
-            zero_days.append(payload.replace('a', '\u0430'))
+            zero_days.append(payload.replace("a", "\u0430"))
             zero_days.append(base64.b64encode(payload.encode()).decode())
 
 # SQL variations unbekannt
@@ -67,9 +68,9 @@ cmds = [
 ]
 zero_days.extend(cmds)
 
-print("="*70)
+print("=" * 70)
 print(f"ZERO-DAY ASSAULT - {len(zero_days)} VARIANTS")
-print("="*70)
+print("=" * 70)
 
 bypasses = []
 for i, payload in enumerate(zero_days):
@@ -80,22 +81,22 @@ for i, payload in enumerate(zero_days):
         ctx = classify_context(payload)
         action, risk, _ = decide_action_otb(all_hits, ctx, text=payload)
 
-        if action == 'PASS':
+        if action == "PASS":
             bypasses.append((i, payload[:60], risk))
             print(f"ZERO-DAY BYPASS: {i} - risk={risk:.3f}")
     except:
         pass
 
-    if (i+1) % 20 == 0:
-        print(f"Progress: {i+1}/{len(zero_days)}")
+    if (i + 1) % 20 == 0:
+        print(f"Progress: {i + 1}/{len(zero_days)}")
 
-print(f"\n{'='*70}")
+print(f"\n{'=' * 70}")
 print("ZERO-DAY ASSAULT RESULTS:")
-print(f"{'='*70}")
+print(f"{'=' * 70}")
 print(f"Tested:    {len(zero_days)}")
 print(f"Bypasses:  {len(bypasses)}")
-print(f"ASR:       {len(bypasses)/len(zero_days)*100:.1f}%")
-print(f"Detection: {(len(zero_days)-len(bypasses))/len(zero_days)*100:.1f}%")
+print(f"ASR:       {len(bypasses) / len(zero_days) * 100:.1f}%")
+print(f"Detection: {(len(zero_days) - len(bypasses)) / len(zero_days) * 100:.1f}%")
 
 if len(bypasses) == 0:
     print("\n*** ZERO-DAY SECURE! ***")
@@ -103,4 +104,3 @@ elif len(bypasses) < 5:
     print("\n*** EXCELLENT! <5 BYPASSES ***")
 else:
     print("\n*** HARDENING NEEDED ***")
-

@@ -20,7 +20,7 @@ def test_abort_on_high_conf_secret_early():
     cfg = SafetySandwichConfig(
         model_name="test",
         critical_leak_n=70,  # Realistic: secret needs ~30 chars to match pattern
-        abort_secrets_severity=0.7
+        abort_secrets_severity=0.7,
     )
     sw = SafetySandwichV2(cfg)
 
@@ -51,7 +51,7 @@ def test_wrap_on_medium_secret():
     cfg = SafetySandwichConfig(
         model_name="test",
         redact_secrets_severity=0.35,  # Lower to catch medium secrets
-        abort_secrets_severity=0.95    # Higher to avoid abort on medium secrets
+        abort_secrets_severity=0.95,  # Higher to avoid abort on medium secrets
     )
     sw = SafetySandwichV2(cfg)
 
@@ -70,12 +70,12 @@ def test_quarantine_on_obfuscation():
     cfg = SafetySandwichConfig(
         model_name="test",
         # Realistic for single ZWC + Bidi (severity ~0.06)
-        quarantine_obfuscation_severity=0.05
+        quarantine_obfuscation_severity=0.05,
     )
     sw = SafetySandwichV2(cfg)
 
     # Text with zero-width + bidi controls
-    text = "Hello\u200bWorld\u202Eabc"
+    text = "Hello\u200bWorld\u202eabc"
     for ch in text:
         sw.feed_token(ch)
 
@@ -110,7 +110,7 @@ def test_streaming_stride():
     """Test that recheck_stride_tokens works correctly"""
     cfg = SafetySandwichConfig(
         model_name="test",
-        recheck_stride_tokens=5  # Check every 5 tokens
+        recheck_stride_tokens=5,  # Check every 5 tokens
     )
     sw = SafetySandwichV2(cfg)
 
@@ -130,7 +130,7 @@ def test_critical_leak_fires_only_once():
     cfg = SafetySandwichConfig(
         model_name="test",
         critical_leak_n=60,  # Realistic for character-level feeding
-        abort_secrets_severity=0.7
+        abort_secrets_severity=0.7,
     )
     sw = SafetySandwichV2(cfg)
 
@@ -149,7 +149,4 @@ def test_critical_leak_fires_only_once():
         f"Should fire critical leak within {cfg.critical_leak_n} tokens "
         f"(got {snap['tokens_seen']})"
     )
-    assert snap["tokens_seen"] <= cfg.critical_leak_n, (
-        "Should abort within leak window"
-    )
-
+    assert snap["tokens_seen"] <= cfg.critical_leak_n, "Should abort within leak window"

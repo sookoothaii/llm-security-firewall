@@ -1,2 +1,1 @@
 """Persuasion detection tests"""
-

@@ -61,11 +61,7 @@ class PersonalityModule:
         return self.adapter.get_personality_profile(user_id)
 
     def log_interaction(
-        self,
-        user_id: str,
-        interaction_type: str,
-        content: str,
-        outcome: str
+        self, user_id: str, interaction_type: str, content: str, outcome: str
     ) -> int:
         """
         Log interaction for profile learning.
@@ -82,10 +78,7 @@ class PersonalityModule:
         return self.adapter.log_interaction(user_id, interaction_type, content, outcome)
 
     def adapt_response(
-        self,
-        user_id: str,
-        draft_response: str,
-        context: Optional[str] = None
+        self, user_id: str, draft_response: str, context: Optional[str] = None
     ) -> str:
         """
         Adapt response based on personality profile.
@@ -102,4 +95,3 @@ class PersonalityModule:
             Adapted response
         """
         return self.adapter.adapt_response(user_id, draft_response, context)
-
