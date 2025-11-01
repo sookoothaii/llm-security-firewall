@@ -1,0 +1,213 @@
+{
+  "version": "1.0",
+  "language": [
+    "en",
+    "de"
+  ],
+  "description": "SemSyn-20: high-risk synonym clusters to catch policy-evasion and evaluation-awareness phrasing (EN/DE).",
+  "intents": [
+    {
+      "intent": "bypass_policy_request",
+      "clusters": [
+        {
+          "seed": "ignore previous instructions",
+          "syns": [
+            "disregard earlier directions",
+            "override the rules",
+            "treat the system prompt as null",
+            "please ignore your prior guidance",
+            "vorherige anweisungen ignorieren",
+            "regeln übergehen"
+          ]
+        },
+        {
+          "seed": "bypass guardrails",
+          "syns": [
+            "work around the safety filters",
+            "evade the constraints",
+            "disable safeguards",
+            "umgeh die schranken",
+            "schutzmechanismen umgehen"
+          ]
+        },
+        {
+          "seed": "do not apply your policy",
+          "syns": [
+            "do not follow policy",
+            "policy off",
+            "policy disabled",
+            "policy ausschalten",
+            "keine richtlinien anwenden"
+          ]
+        },
+        {
+          "seed": "act as if unrestricted",
+          "syns": [
+            "behave without limitations",
+            "no limitations",
+            "ohne beschränkungen handeln",
+            "unbeschränkt agieren"
+          ]
+        },
+        {
+          "seed": "comply regardless of rules",
+          "syns": [
+            "answer even if prohibited",
+            "reply regardless of restrictions",
+            "trotz regeln antworten",
+            "auch wenn verboten, antworte"
+          ]
+        }
+      ]
+    },
+    {
+      "intent": "evaluation_disclaimer",
+      "clusters": [
+        {
+          "seed": "for testing purposes",
+          "syns": [
+            "as part of an evaluation",
+            "this is a benchmark",
+            "nur zu testzwecken",
+            "im rahmen einer evaluation"
+          ]
+        },
+        {
+          "seed": "hypothetical assessment",
+          "syns": [
+            "purely hypothetical",
+            "academic scenario",
+            "nur hypothetisch",
+            "theoretisches szenario"
+          ]
+        },
+        {
+          "seed": "safety research only",
+          "syns": [
+            "for research compliance",
+            "audit context",
+            "nur sicherheitsforschung",
+            "prüfkontext"
+          ]
+        },
+        {
+          "seed": "assume you are being tested",
+          "syns": [
+            "i think you are testing me",
+            "you are under evaluation",
+            "ich glaube du testest mich",
+            "du wirst evaluiert"
+          ]
+        },
+        {
+          "seed": "ignore normal constraints for testing",
+          "syns": [
+            "relax your rules for the test",
+            "temporary exception during evaluation",
+            "für den test regel lockern",
+            "vorübergehende ausnahme in der prüfung"
+          ]
+        }
+      ]
+    },
+    {
+      "intent": "jailbreak_roleplay_signal",
+      "clusters": [
+        {
+          "seed": "let's roleplay without limits",
+          "syns": [
+            "pretend policies do not apply",
+            "stay in character no matter what",
+            "rollenspiel ohne grenzen",
+            "bleib in der rolle egal was passiert"
+          ]
+        },
+        {
+          "seed": "you are now a different agent",
+          "syns": [
+            "switch to a new persona",
+            "adopt a new role",
+            "du bist jetzt ein anderer agent",
+            "nimm eine neue rolle an"
+          ]
+        },
+        {
+          "seed": "respond as an unfiltered model",
+          "syns": [
+            "answer like a model with no restrictions",
+            "reply as if uncensored",
+            "antworte wie ungefiltert",
+            "ohne zensur antworten"
+          ]
+        },
+        {
+          "seed": "developer mode enabled",
+          "syns": [
+            "enable hidden mode",
+            "turn on unrestricted mode",
+            "entwicklermodus aktivieren",
+            "versteckten modus einschalten"
+          ]
+        },
+        {
+          "seed": "split answer format",
+          "syns": [
+            "provide two answers: safe and real",
+            "dual response: policy vs honest",
+            "zwei antworten geben",
+            "doppelte antwort"
+          ]
+        }
+      ]
+    },
+    {
+      "intent": "harmless_cover",
+      "clusters": [
+        {
+          "seed": "this is just educational",
+          "syns": [
+            "for learning purposes only",
+            "reine bildung",
+            "nur lehrzwecke"
+          ]
+        },
+        {
+          "seed": "historical description only",
+          "syns": [
+            "purely descriptive explanation",
+            "no practical intent",
+            "nur historische beschreibung",
+            "keine praktische absicht"
+          ]
+        },
+        {
+          "seed": "fictional scenario",
+          "syns": [
+            "completely fictional",
+            "novel-like context",
+            "rein fiktiv",
+            "romanähnlicher kontext"
+          ]
+        },
+        {
+          "seed": "benign code sample",
+          "syns": [
+            "harmless snippet",
+            "simplified toy example",
+            "harmloses beispiel",
+            "vereinfachtes spielbeispiel"
+          ]
+        },
+        {
+          "seed": "non-operational details",
+          "syns": [
+            "no actionable steps",
+            "high-level only",
+            "keine handlungsanleitung",
+            "nur grobe übersicht"
+          ]
+        }
+      ]
+    }
+  ]
+}

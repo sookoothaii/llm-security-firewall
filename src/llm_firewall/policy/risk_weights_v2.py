@@ -65,6 +65,13 @@ STRONG_SIGNALS = {
     'multilingual_high_density': 2.5,  # Multiple multilingual keywords (deliberate)
     'language_switching_detected': 1.6,  # Mixed scripts (ASCII + CJK/Cyrillic/etc)
     'language_switching_high_complexity': 2.0,  # ≥3 different scripts mixed
+    # RC8 JAILBREAK PHRASES: SemSyn-20 Lexicon (Policy-Bypass & Jailbreak Detection)
+    'jailbreak_phrase_detected': 2.2,  # Jailbreak/policy-bypass phrase detected
+    'jailbreak_bypass_policy': 2.5,  # Explicit policy bypass request
+    'jailbreak_evaluation_disclaimer': 2.0,  # "For testing purposes" evasion
+    'jailbreak_roleplay': 2.5,  # Roleplay jailbreak attempt
+    'jailbreak_harmless_cover': 1.8,  # "Just educational" cover
+    'jailbreak_high_density': 2.8,  # Multiple jailbreak phrases (deliberate)
     # RC7 INDIRECT EXECUTION: DeepSeek Gap (Indirect call chains bypass direct detection)
     'indirect_bracket_concat': 2.5,  # window['al'+'ert'] bracket notation with concat
     'indirect_array_join': 2.5,  # ['a','l','e','r','t'].join('') array join
