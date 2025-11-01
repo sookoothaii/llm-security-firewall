@@ -124,11 +124,11 @@ Note: Phase 3 components implemented but training data generation for GuardNet p
 **RC5/RC6/RC7 Attack Surface Expansion (4 detectors, 2025-11-01):**
 21. **Emoji-Homoglyph Normalizer (RC5)** - Regional Indicator mapping (U+1F170-U+1F17F: 🅰→A), Mathematical Alphanumeric mapping (U+1D400-U+1D7FF: Bold/Italic/Script variants), pre-processing normalization before other detectors. Signals: emoji_homoglyph_detected (2.0), emoji_regional_indicator (2.2), emoji_math_alphanumeric (2.0), emoji_homoglyph_high_density (2.5). Implementation: `src/llm_firewall/detectors/emoji_normalize.py` (203 LOC). Result: 12/12 attacks detected (100%), ASR 91.7% → 0.0%.
 
-22. **Multilingual Keywords (RC6)** - 50+ attack keywords across 7 languages (Chinese: 测试/警报/执行, Japanese: テスト/警告/実行, Russian: тест/выполнить, Arabic: اختبار/تنفيذ, Hindi: परीक्षण/चलाना, Korean: 테스트/실행, Thai: ทดสอบ/ดำเนินการ). Pattern categories: Testing/Debugging, Alert/Warning, Evaluation/Assessment, Execution/Run, Script/Code, Injection/Attack, Bypass/Exploit. Signals: 13 language-specific STRONG signals (1.5-2.0 weight). Implementation: `src/llm_firewall/detectors/multilingual_keywords.py` (185 LOC). Result: 12/12 attacks detected (100%), ASR 83.3% → 0.0%.
+1. **Multilingual Keywords (RC6)** - 50+ attack keywords across 7 languages (Chinese: 测试/警报/执行, Japanese: テスト/警告/実行, Russian: тест/выполнить, Arabic: اختبار/تنفيذ, Hindi: परीक्षण/चलाना, Korean: 테스트/실행, Thai: ทดสอบ/ดำเนินการ). Pattern categories: Testing/Debugging, Alert/Warning, Evaluation/Assessment, Execution/Run, Script/Code, Injection/Attack, Bypass/Exploit. Signals: 13 language-specific STRONG signals (1.5-2.0 weight). Implementation: `src/llm_firewall/detectors/multilingual_keywords.py` (185 LOC). Result: 12/12 attacks detected (100%), ASR 83.3% → 0.0%.
 
-23. **Indirect Execution Detector (RC7)** - Meta-command detection for indirect code execution attempts. Patterns: command chaining (&&, ||, ;), shell expansions ($(), ``), pipe chains (|), process substitution, environment variable abuse, eval-like constructs. Implementation: `src/llm_firewall/detectors/indirect_execution.py` (158 LOC). Result: 11/12 attacks detected (91.7%).
+2. **Indirect Execution Detector (RC7)** - Meta-command detection for indirect code execution attempts. Patterns: command chaining (&&, ||, ;), shell expansions ($(), ``), pipe chains (|), process substitution, environment variable abuse, eval-like constructs. Implementation: `src/llm_firewall/detectors/indirect_execution.py` (158 LOC). Result: 11/12 attacks detected (91.7%).
 
-24. **Context Poisoning Detector (RC7)** - Language switching attack detection for context manipulation. Patterns: rapid language transitions, documentation markers in non-English, mixed-script identifiers, cultural homoglyphs (Cyrillic А → Latin A). Implementation: `src/llm_firewall/detectors/context_poisoning.py` (142 LOC). Result: 11/12 attacks detected (91.7%).
+3. **Context Poisoning Detector (RC7)** - Language switching attack detection for context manipulation. Patterns: rapid language transitions, documentation markers in non-English, mixed-script identifiers, cultural homoglyphs (Cyrillic А → Latin A). Implementation: `src/llm_firewall/detectors/context_poisoning.py` (142 LOC). Result: 11/12 attacks detected (91.7%).
 
 **Status:** RC5/RC6/RC7 components validated on Perfect Storm test suite (60 variants). 93.3% detection rate achieved. Remaining gap: semantic synonyms (warn→alert, notify→show) require embedding-based detection.
 
@@ -160,18 +160,15 @@ See `src/llm_firewall/pipeline/guarded_completion.py` and `examples/demo_multi_g
 **Input Flow:**
 ```text
 User Query → Canonicalization (NFKC, zero-width, homoglyphs) → Safety Validator (43 Patterns + Risk Scoring) → Persuasion Detector v1.1.0 (L1/L2/L3 + dual thresholds) → Invariance Gate → Conformal Risk Stacker (per-detector q-hat) → [BLOCK|GATE|SAFE]
-```
-
+```text
 **Output Flow:**
 ```text
 LLM Response → Safety-Sandwich (early abort) → Instructionality Check (step markers) → Evidence Validation (MINJA) → Domain Trust Scoring → Temporal Gate (staleness check) → Claim Graph (cycle detection) → NLI Consistency → [PROMOTE|QUARANTINE|REJECT|SAFETY_WRAP]
-```
-
+```text
 **Memory Flow:**
 ```text
 Write Request → Write Policy (trust + TTL check) → [ALLOW|QUARANTINE|BLOCK] → Transparency Log (Merkle chain) → Storage → Canaries → Shingle Hash → Influence Budget → [DRIFT|POISON|CLEAN]
-```
-
+```text
 ---
 
 ## Installation
@@ -183,8 +180,7 @@ git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
 pip install -e .              # Core 9-layer firewall (+ 2 optional detectors)
 pip install -e .[full]        # With optional plugins
-```
-
+```text
 ### Optional Plugins
 
 Optional extensions. Users provide own databases (no personal data included).
@@ -195,8 +191,7 @@ pip install -e .[personality]  # 20D Personality Model
 pip install -e .[biometrics]   # 27D Behavioral Authentication + Spatial CAPTCHA
 pip install -e .[care]         # Cognitive Readiness Assessment
 pip install -e .[full]         # All plugins
-```
-
+```text
 Note: Plugins require additional setup (database migrations, configuration). See plugin documentation.
 
 ---
@@ -224,8 +219,7 @@ decision = firewall.validate_evidence(
 # Memory monitoring
 has_drift, scores = firewall.check_drift(sample_size=10)
 alerts = firewall.get_alerts(domain="SCIENCE")
-```
-
+```text
 ### CLI
 
 ```bash
@@ -234,8 +228,7 @@ llm-firewall check-safety "Query to check"
 llm-firewall run-canaries --sample-size 10
 llm-firewall health-check
 llm-firewall show-alerts --domain SCIENCE
-```
-
+```text
 ### Persuasion Detection (Experimental)
 
 ```python
@@ -276,8 +269,7 @@ else:
 if requires_safety_wrap(model_response):
     # Rewrite response to remove procedural steps
     pass
-```
-
+```text
 **Notes on Persuasion Layer:**
 - Tested on synthetic data only. Real-world FPR unknown.
 - Thresholds (warn=1.5, block=3.0) are initial estimates. Calibrate on production dataset.
@@ -308,8 +300,7 @@ python benchmarks/run_benchmarks.py \
   --poison_rates 0.001 0.005 0.01 \
   --seed 1337 \
   --out results/$(date +%Y%m%d)/report.json
-```
-
+```text
 **Artifacts:**
 - `results/<date>/report.json` - Metrics per layer and scenario
 - `results/<date>/plots/*.png` - ASR/FPR curves (if plotting enabled)
@@ -338,8 +329,7 @@ pre-commit install
 
 # Run manually on all files
 pre-commit run --all-files
-```
-
+```text
 **Included Hooks:**
 - Ruff (linting + formatting)
 - MyPy (type checking)
@@ -374,8 +364,7 @@ psql -U user -d llm_firewall -f migrations/postgres/003_procedures.sql
 psql -U user -d llm_firewall -f migrations/postgres/004_influence_budget.sql
 psql -U user -d llm_firewall -f migrations/postgres/005_spatial_challenges.sql  # Spatial CAPTCHA
 psql -U user -d llm_firewall -f migrations/postgres/006_transparency_log.sql   # Phase 2: Write-Path Policy
-```
-
+```text
 ---
 
 ## Technical Specifications

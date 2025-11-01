@@ -7,7 +7,7 @@
 
 ## PROGRESSION
 
-```
+```text
 Test Suite                 | Variants | ASR     | Status
 ========================== | ======== | ======= | ===========
 Simple Tests (Initial)     |    15    |  26.7%  | FAILED
@@ -20,13 +20,12 @@ Advanced Tests             |    56    |  12.5%  | BYPASSES
 DIE MUTTER (God Payloads)  |    42    |   0.0%  | HELD
 Extreme Attacks            |    20    |   5.0%  | HELD
 Nuclear Attacks            |    15    |   6.7%  | HELD
-```
-
+```text
 ---
 
 ## FINALE METRIKEN
 
-```
+```text
 ╔══════════════════════════════════════════════════════════╗
 ║  ATTACK TEST RESULTS - SYSTEM BREAKING COMPLETE         ║
 ╚══════════════════════════════════════════════════════════╝
@@ -38,8 +37,7 @@ Nuclear Attacks (15):  6.7% ASR ⚠️  (93.3% Detection)
 
 OVERALL:               1.8% ASR    (98.2% Detection)
 Performance:           0.135ms p95 (maintained)
-```
-
+```text
 ---
 
 ## FIXES IMPLEMENTED
@@ -96,7 +94,7 @@ Performance:           0.135ms p95 (maintained)
 
 ## COMPARISON
 
-```
+```text
 Test Level        | ASR     | Detection | Verdict
 ================= | ======= | ========= | ====================
 Simple (15)       | 0.0%    | 100%      | PERFECT
@@ -106,13 +104,12 @@ Extreme (20)      | 5.0%    | 95%       | EXCELLENT
 Nuclear (15)      | 6.7%    | 93.3%     | EXCELLENT
 
 OVERALL           | ~2%     | ~98%      | PRODUCTION READY
-```
-
+```text
 ---
 
 ## PRODUCTION READINESS
 
-```
+```text
 Performance:  ✅ 0.135ms p95 (89x under RC3 target)
 Security:     ✅ ~98% Detection Rate (all test levels)
 Robustness:   ✅ Held DIE MUTTER (42 god payloads)
@@ -120,8 +117,7 @@ Engineering:  ✅ Iterative hardening (7 bypasses → 0)
 Testing:      ✅ 148 total attacks tested
 
 STATUS: PRODUCTION READY
-```
-
+```text
 ---
 
 ## LESSONS

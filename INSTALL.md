@@ -4,8 +4,7 @@
 
 ```bash
 pip install llm-security-firewall
-```
-
+```text
 ## For Developers (from source)
 
 ### 1. Clone Repository
@@ -13,8 +12,7 @@ pip install llm-security-firewall
 ```bash
 git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
-```
-
+```text
 ### 2. Install Dependencies
 
 ```bash
@@ -32,8 +30,7 @@ pip install -e .
 
 # Or install dependencies manually
 pip install -r requirements.txt
-```
-
+```text
 ### 3. Database Setup
 
 #### PostgreSQL (Production)
@@ -50,8 +47,7 @@ psql -U your_user -d llm_firewall -f migrations/postgres/004_influence_budget.sq
 
 # Verify
 psql -U your_user -d llm_firewall -c "\dt"
-```
-
+```text
 #### SQLite (Development - coming in v1.1)
 
 SQLite support planned for v1.1. For now, use PostgreSQL.
@@ -66,8 +62,7 @@ cp config/evidence_pipeline.yaml config/my_config.yaml
 # - Database URL
 # - Thresholds
 # - Domain lists
-```
-
+```text
 ### 5. Verify Installation
 
 ```bash
@@ -79,8 +74,7 @@ python examples/01_basic_usage.py
 
 # Or use CLI
 llm-firewall health-check
-```
-
+```text
 ---
 
 ## Dependencies
@@ -111,8 +105,7 @@ firewall = SecurityFirewall(config)
 # Should work!
 is_safe, reason = firewall.validate_input("Hello, world!")
 print(f"Safe: {is_safe}, Reason: {reason}")
-```
-
+```text
 ---
 
 ## Troubleshooting
@@ -120,8 +113,7 @@ print(f"Safe: {is_safe}, Reason: {reason}")
 ### "Module 'blake3' not found"
 ```bash
 pip install blake3
-```
-
+```text
 ### "Can't connect to database"
 - Check PostgreSQL is running
 - Verify connection string in config

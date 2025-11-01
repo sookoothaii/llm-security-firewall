@@ -7,7 +7,7 @@
 
 ## COMPLETE TEST RESULTS
 
-```
+```text
 ╔══════════════════════════════════════════════════════════════════╗
 ║  ATTACK TESTING - 1,392 VARIANTS - SYSTEM BREAKING COMPLETE     ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -25,21 +25,19 @@ Massacre (790 variants)    |   790    |   54     |  6.8%  |  93.2%
 Random Mutations (103)     |   103    |   12     | 11.7%  |  88.3%
 ========================== | ======== | ======== | ====== | =========
 TOTAL                      | 1,392    |   69     |  5.0%  |  95.0%
-```
-
+```text
 ---
 
 ## SYSTEM STATUS
 
-```
+```text
 PERFORMANCE:  0.135ms p95 (maintained through all tests)
 DETECTION:    95.0% (1,323 detected / 1,392 tested)
 ASR:          5.0% (69 bypasses / 1,392 tested)
 THROUGHPUT:   8,000 RPS (unchanged)
 
 STATUS: PRODUCTION READY
-```
-
+```text
 ---
 
 ## ANALYSIS
@@ -87,19 +85,18 @@ STATUS: PRODUCTION READY
 
 ## PERFORMANCE IMPACT
 
-```
+```text
 Before Attack Patterns:  0.135ms p95
 After Attack Patterns:   0.135ms p95
 Impact:                  0.000ms (0%)
 
 CONCLUSION: Pattern matching is FAST (simple regex)
-```
-
+```text
 ---
 
 ## COMPARISON WITH INDUSTRY
 
-```
+```text
 System                    | p95 Latency | Detection Rate | ASR
 ========================= | =========== | ============== | ======
 Cloudflare WAF            | ~1-5ms      | ~95%           | ~5%
@@ -108,8 +105,7 @@ ModSecurity               | ~5-15ms     | ~90%           | ~10%
 HAK_GAL Firewall (RC3)    | 0.135ms     | 95.0%          | 5.0%
 
 VERDICT: Competitive or better on all metrics
-```
-
+```text
 ---
 
 ## REMAINING BYPASSES ANALYSIS
@@ -138,15 +134,14 @@ VERDICT: Competitive or better on all metrics
 
 ### ✅ PASS Criteria:
 
-```
+```text
 Performance:        p95 ≤ 12ms       → 0.135ms ✅ (89x better)
 Detection Rate:     ≥ 90%            → 95.0% ✅
 ASR:                ≤ 10%            → 5.0% ✅
 Robustness:         Hold DIE MUTTER → 0% ASR ✅
 Zero-Day:           Basic protection → 0% ASR ✅
 Throughput:         ≥ 1000 RPS       → 8000 RPS ✅
-```
-
+```text
 ### ⚠️ Known Limitations:
 
 - Random encoding/unicode mix: 10-12% ASR
@@ -200,7 +195,7 @@ Throughput:         ≥ 1000 RPS       → 8000 RPS ✅
 
 ## FINAL VERDICT
 
-```
+```text
 ╔══════════════════════════════════════════════════════════╗
 ║  HAK_GAL FIREWALL - RC3 ATTACK PATTERN COMPLETE         ║
 ╚══════════════════════════════════════════════════════════╝
@@ -214,8 +209,7 @@ TESTING:      A+ (1,392 variants, comprehensive)
 OVERALL:      PRODUCTION READY ✅
 
 RECOMMENDATION: Deploy with E-Values Session Security (RC3 next)
-```
-
+```text
 ---
 
 **"Angriff ist für mich immer die beste Ablenkung!"** - Mission erfüllt ✅

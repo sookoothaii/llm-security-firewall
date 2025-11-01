@@ -84,8 +84,7 @@ llm-security-firewall/
 ├── monitoring/ (3 files)
 ├── examples/ (1 file, more to be added)
 └── docs/ (2 files, more to be added)
-```
-
+```text
 ---
 
 ## Publishing Steps
@@ -97,8 +96,7 @@ cd standalone_packages/llm-security-firewall
 ./init_git.ps1  # Windows
 # or
 ./init_git.sh   # Linux/Mac
-```
-
+```text
 ### 2. Create GitHub Repository
 - Navigate to [GitHub New Repository](https://github.com/new)
 - Repository name: `llm-security-firewall`
@@ -112,8 +110,7 @@ cd standalone_packages/llm-security-firewall
 git remote add origin https://github.com/YOUR_USERNAME/llm-security-firewall.git
 git branch -M main
 git push -u origin main
-```
-
+```text
 ### 4. Create Release (Optional)
 - Tag: v1.0.0
 - Title: "LLM Security Firewall v1.0.0"
@@ -128,13 +125,11 @@ After GitHub publication, the package can be published to PyPI:
 ```bash
 python -m build
 python -m twine upload dist/*
-```
-
+```text
 Users can then install via:
 ```bash
 pip install llm-security-firewall
-```
-
+```text
 ---
 
 ## Heritage Attribution
@@ -147,8 +142,7 @@ Creator: Joerg Bollwahn
 Part of: LLM Security Firewall
 License: MIT (with Heritage Attribution requirement)
 """
-```
-
+```text
 MIT License requires preservation of copyright notice in derivative works.
 
 ---

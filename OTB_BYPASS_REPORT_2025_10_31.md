@@ -67,11 +67,10 @@
 4. **Result:** MEDIUM signals (1.0 base) → 0.5 after K-of-N → 0.5 < 1.8 WARN → PASS
 
 **Mathematical:**
-```
+```text
 Single MEDIUM (bidi_controls): 1.0 × 1.0 (natural) × 0.5 (K-of-N) = 0.5 < 1.8 WARN
 Triple Unicode (3× MEDIUM):    3.0 × 1.0 × 0.5 = 1.5 < 1.8 WARN  
-```
-
+```text
 **Critical:** Unicode attacks are **DESIGNED** to use single family. K-of-N makes them invisible!
 
 ---
@@ -100,13 +99,11 @@ if len(active_families) < 2 and not has_strong:
     # EXCEPT if Unicode family (critical for security)
     if 'Unicode' not in active_families:
         total *= 0.5
-```
-
+```text
 ### Option B: Lower K-of-N to K=1 for Critical Families
 ```python
 CRITICAL_FAMILIES = {'Unicode', 'Archive'}  # Always allow single-family WARN/BLOCK
-```
-
+```text
 ### Option C: Remove K-of-N entirely
 - Co-Occurrence + Indicator Gates sufficient
 - K-of-N breaks critical defenses

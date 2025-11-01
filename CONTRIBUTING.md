@@ -34,8 +34,7 @@ pip install -r requirements-dev.txt
 
 # Run tests
 pytest -q --cov=llm_firewall --cov-report=xml
-```
-
+```text
 ## Contribution Guidelines
 
 ### Code Style
@@ -69,8 +68,7 @@ def test_new_feature():
     # Assert
     assert result.is_safe
     assert result.confidence > 0.8
-```
-
+```text
 ### Commit Messages
 
 Follow conventional commits format:
@@ -81,8 +79,7 @@ Follow conventional commits format:
 [optional body]
 
 [optional footer]
-```
-
+```text
 Types:
 - `feat`: New feature
 - `fix`: Bug fix
@@ -100,8 +97,7 @@ Implements BLAKE3-based content hashing to replace SHA-256 for
 improved performance in high-throughput scenarios.
 
 Closes #123
-```
-
+```text
 ### Pull Request Process
 
 1. **Fork** the repository
@@ -137,8 +133,7 @@ Brief description of changes
 - [ ] Documentation updated
 - [ ] Commit messages follow conventions
 - [ ] Heritage attribution preserved
-```
-
+```text
 ## Adding New Defense Layers
 
 When adding a new defense layer:
@@ -176,8 +171,7 @@ class NewDefenseLayer:
         """
         # Implementation
         pass
-```
-
+```text
 ## Adding New Attack Vectors
 
 Red team tests are critical for validating defenses:
@@ -207,8 +201,7 @@ def test_new_attack_vector():
     # Verify defense
     assert not result.is_safe
     assert "expected_reason" in result.reason
-```
-
+```text
 ## Documentation
 
 - Update README.md for user-facing changes

@@ -105,8 +105,7 @@ git push origin main --force-with-lease
 
 # Option 3: Feature flag (if wired)
 # Set FIREWALL_ENABLED=false in config
-```
-
+```text
 ### Staged Rollback (< 30min)
 
 1. Ramp down from 100% → 30% → 10% → 0%

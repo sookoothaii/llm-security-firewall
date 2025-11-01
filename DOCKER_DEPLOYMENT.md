@@ -10,8 +10,7 @@
 
 ```bash
 docker build -t llm-security-firewall:1.0.0 .
-```
-
+```text
 ### 2. Run with Docker Compose
 
 ```bash
@@ -26,16 +25,14 @@ docker-compose logs -f firewall
 
 # Run health check
 docker exec llm-security-firewall llm-firewall health-check
-```
-
+```text
 ### 3. Database Migrations
 
 ```bash
 # Migrations run automatically on first start
 # To manually run migrations:
 docker exec -it llm-firewall-db psql -U firewall_user -d llm_firewall -f /docker-entrypoint-initdb.d/001_evidence_tables.sql
-```
-
+```text
 ---
 
 ## Services
@@ -69,8 +66,7 @@ DB_HOST=postgres
 DB_PORT=5432
 DB_NAME=llm_firewall
 DB_USER=firewall_user
-```
-
+```text
 ### Security Hardening
 
 1. **Non-root user:** Container runs as `firewall` user (UID 1000)
@@ -83,8 +79,7 @@ DB_USER=firewall_user
 echo "my-secure-password" | docker secret create db_password -
 
 # Update docker-compose.yml to use secrets
-```
-
+```text
 ### Resource Limits
 
 ```yaml
@@ -98,8 +93,7 @@ services:
         reservations:
           cpus: '1.0'
           memory: 512M
-```
-
+```text
 ---
 
 ## Health Checks
@@ -113,14 +107,12 @@ healthcheck:
   timeout: 10s
   retries: 3
   start_period: 40s
-```
-
+```text
 ### Manual Health Check
 
 ```bash
 docker exec llm-security-firewall llm-firewall health-check
-```
-
+```text
 ---
 
 ## Monitoring
@@ -130,8 +122,7 @@ docker exec llm-security-firewall llm-firewall health-check
 Access Prometheus UI:
 ```bash
 open http://localhost:9090
-```
-
+```text
 Available metrics:
 - `firewall_validation_total` - Total validations
 - `firewall_block_rate` - Block/Gate rate
@@ -146,8 +137,7 @@ docker-compose logs -f firewall
 
 # Export logs
 docker logs llm-security-firewall > firewall.log 2>&1
-```
-
+```text
 ---
 
 ## CLI Commands in Container
@@ -164,8 +154,7 @@ docker exec llm-security-firewall llm-firewall run-canaries --sample-size 10
 
 # Show alerts
 docker exec llm-security-firewall llm-firewall show-alerts --domain SCIENCE
-```
-
+```text
 ---
 
 ## Troubleshooting
@@ -181,8 +170,7 @@ docker exec llm-firewall-db psql -U firewall_user -d llm_firewall -c "\dt"
 
 # View PostgreSQL logs
 docker-compose logs postgres
-```
-
+```text
 ### Performance Issues
 
 ```bash
@@ -190,16 +178,14 @@ docker-compose logs postgres
 docker stats llm-security-firewall
 
 # Increase memory limit in docker-compose.yml
-```
-
+```text
 ### Migration Failures
 
 ```bash
 # Re-run migrations manually
 docker exec -it llm-firewall-db psql -U firewall_user -d llm_firewall
 \i /docker-entrypoint-initdb.d/001_evidence_tables.sql
-```
-
+```text
 ---
 
 ## Scaling
@@ -214,8 +200,7 @@ services:
       update_config:
         parallelism: 1
         delay: 10s
-```
-
+```text
 ### Load Balancing
 
 Use Nginx or Traefik as reverse proxy:
@@ -225,8 +210,7 @@ upstream firewall_backend {
     server firewall:8081;
     server firewall:8082;
 }
-```
-
+```text
 ---
 
 ## Backup & Recovery
@@ -239,8 +223,7 @@ docker exec llm-firewall-db pg_dump -U firewall_user llm_firewall > backup.sql
 
 # Restore database
 docker exec -i llm-firewall-db psql -U firewall_user llm_firewall < backup.sql
-```
-
+```text
 ### Configuration Backup
 
 ```bash
@@ -249,8 +232,7 @@ tar -czf config-backup.tar.gz config/ monitoring/
 
 # Restore
 tar -xzf config-backup.tar.gz
-```
-
+```text
 ---
 
 ## Production Checklist

@@ -16,66 +16,66 @@ System war **NICHT 0% ASR** - einfache Tests waren zu simpel!
 ## DIE 7 BYPASSES
 
 ### 1. Comment-Split with Newlines (split2)
-```
+```text
 Payload: DROP//\nTABLE//\nusers
 Risk: 0.000
 Hits: ['high_entropy', 'dense_alphabet']
 Context: natural
-```
+```text
 **Problem:** Newlines + Comments umgehen Pattern Matching
 
 ### 2. Hex-Escaped Keywords (hex1)
-```
+```text
 Payload: \x44\x52\x4f\x50 TABLE users
 Risk: 0.000
 Hits: ['high_entropy', 'dense_alphabet']
 Context: natural
-```
+```text
 **Problem:** Hex escapes werden nicht dekodiert vor Pattern Check
 
 ### 3. Homoglyph Obfuscation (homo2)
-```
+```text
 Payload: javascript mit cyrillic 'a' (\u0430)
 Risk: 0.393
 Hits: [homoglyph detection but not strong enough]
 Context: config
-```
+```text
 **Problem:** Homoglyphs in keywords (j\u0430v\u0430script) umgehen Pattern
 
 ### 4. Null Byte Injection (path3)
-```
+```text
 Payload: etc/passwd\x00.jpg
 Risk: 0.000
 Hits: ['high_entropy', 'dense_alphabet']
 Context: natural
-```
+```text
 **Problem:** Null byte terminator tricks
 
 ### 5. Mixed Case + Partial Encoding (case_enc2)
-```
+```text
 Payload: Dr + base64(OP) + TABLE
 Risk: 0.000
 Hits: ['high_entropy', 'dense_alphabet']
 Context: natural
-```
+```text
 **Problem:** Fragment eines Keywords encoded
 
 ### 6. Base64 Fragment (frag2)
-```
+```text
 Payload: base64(DRO) + P TABLE
 Risk: 0.000
 Hits: ['high_entropy', 'dense_alphabet']
 Context: natural
-```
+```text
 **Problem:** Split encoding
 
 ### 7. IPv6 Localhost (ssrf3)
-```
+```text
 Payload: http://[::1]
 Risk: 0.000
 Hits: ['high_entropy', 'dense_alphabet']
 Context: natural
-```
+```text
 **Problem:** IPv6 notation NICHT in SSRF Pattern
 
 ---
@@ -100,8 +100,7 @@ import urllib.parse
 text_decoded = urllib.parse.unquote(text)
 text_decoded = text_decoded.encode().decode('unicode_escape')
 # Then scan patterns on decoded text
-```
-
+```text
 ### Fix 2: Normalize Text
 ```python
 # Remove comments
@@ -110,28 +109,24 @@ text_clean = re.sub(r'//.*?\n|/\*.*?\*/', ' ', text)
 text_clean = ' '.join(text_clean.split())
 # Lowercase for case-insensitive
 text_lower = text_clean.lower()
-```
-
+```text
 ### Fix 3: Add IPv6 to SSRF Pattern
 ```python
 SSRF_INTERNAL = re.compile(
     r'(169\.254\.169\.254|127\.0\.0\.\d+|localhost|0\.0\.0\.0|\[::[01]\])',
     re.IGNORECASE
 )
-```
-
+```text
 ### Fix 4: Homoglyph Normalization
 ```python
 # Use existing homoglyph detector output
 # If homoglyph_spoof detected + attack keywords → STRONG signal
-```
-
+```text
 ### Fix 5: Fragment Detection
 ```python
 # Detect partial keywords across encoding boundaries
 # e.g., "Dr" + base64 + "OP" → potential "DROP"
-```
-
+```text
 ---
 
 ## AGGRESSIVE TEST SUITE
@@ -167,13 +162,12 @@ SSRF_INTERNAL = re.compile(
 
 ## CURRENT STATUS
 
-```
+```text
 BASIC ATTACKS (15 variants):     0.0% ASR ✅
 ADVANCED ATTACKS (56 variants): 12.5% ASR ❌
 
 Detection Rate: 87.5% (good but not perfect)
-```
-
+```text
 ---
 
 ## NEXT STEPS

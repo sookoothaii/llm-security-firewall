@@ -137,8 +137,7 @@ CREATE TABLE personality_profiles (
     bullshit_tolerance FLOAT,
     -- ... other dimensions
 );
-```
-
+```text
 **User Responsibility:**
 - Create database
 - Run schema
@@ -160,8 +159,7 @@ LLM Security Firewall (running locally)
 User's Application
     ↓
 User's Database
-```
-
+```text
 **NO external data transmission by default.**
 
 ### Optional External Calls
@@ -197,8 +195,7 @@ test_profile = PersonalityProfile(
     directness=0.95,
     bullshit_tolerance=0.0
 )
-```
-
+```text
 ### Test Data Characteristics
 
 - ✅ Synthetic profiles
@@ -337,7 +334,7 @@ Framework design allows compliance with most privacy laws:
    ALTER SYSTEM SET ssl = on;
    ```
 
-2. **Encrypted Connections**
+1. **Encrypted Connections**
    ```python
    conn = psycopg3.connect(
        "postgresql://user:pass@host/db",
@@ -345,7 +342,7 @@ Framework design allows compliance with most privacy laws:
    )
    ```
 
-3. **Access Control**
+2. **Access Control**
    - Use strong passwords
    - Rotate credentials
    - Limit access by IP

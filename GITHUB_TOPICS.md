@@ -9,8 +9,7 @@ ai-safety
 adversarial-robustness
 firewall
 python
-```
-
+```text
 ## Technical Topics
 ```text
 dempster-shafer
@@ -18,8 +17,7 @@ conformal-prediction
 memory-safety
 evidence-fusion
 natural-language-processing
-```
-
+```text
 ## Domain Topics
 ```text
 machine-learning
@@ -27,15 +25,13 @@ security
 deep-learning
 nlp
 cybersecurity
-```
-
+```text
 ## Framework Topics
 ```text
 pytorch
 postgresql
 prometheus-monitoring
-```
-
+```text
 ---
 
 ## How to Add Topics on GitHub
@@ -51,8 +47,7 @@ prometheus-monitoring
 
 ```text
 llm-security, ai-safety, adversarial-robustness, firewall, python, dempster-shafer, conformal-prediction, memory-safety, evidence-fusion, natural-language-processing, machine-learning, security, deep-learning, nlp, cybersecurity, postgresql, prometheus-monitoring
-```
-
+```text
 ---
 
 **Note:** Topics improve discoverability in GitHub search and trending pages.

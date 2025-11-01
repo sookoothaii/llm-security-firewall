@@ -10,11 +10,10 @@
 
 The following distribution files are in `dist/`:
 
-```
+```text
 llm_security_firewall-5.0.0rc1.tar.gz  (source distribution)
 llm_security_firewall-5.0.0rc1-py3-none-any.whl  (wheel, platform-independent)
-```
-
+```text
 ---
 
 ## Option A: TestPyPI (RECOMMENDED FIRST)
@@ -23,11 +22,11 @@ TestPyPI is a separate instance for testing. Safe to experiment!
 
 ### 1. Create TestPyPI Account
 
-Visit: https://test.pypi.org/account/register/
+Visit: <https://test.pypi.org/account/register/>
 
 ### 2. Create API Token
 
-1. Go to: https://test.pypi.org/manage/account/token/
+1. Go to: <https://test.pypi.org/manage/account/token/>
 2. Click "Add API token"
 3. Name: `llm-security-firewall-test`
 4. Scope: "Entire account" (for first upload) or specific project
@@ -44,8 +43,7 @@ cd "D:\MCP Mods\HAK_GAL_HEXAGONAL\standalone_packages\llm-security-firewall"
 
 # Upload (will prompt for token)
 twine upload --repository testpypi dist/*
-```
-
+```text
 When prompted:
 - Username: `__token__`
 - Password: `pypi-...` (your TestPyPI token)
@@ -57,8 +55,7 @@ When prompted:
 pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ llm-security-firewall
 
 # Note: --extra-index-url needed for dependencies (numpy, scipy, etc.)
-```
-
+```text
 ### 5. Verify Installation
 
 ```bash
@@ -66,8 +63,7 @@ python -c "import llm_firewall; print(llm_firewall.__version__)"
 # Should print: 5.0.0rc1
 
 llm-firewall --version
-```
-
+```text
 ---
 
 ## Option B: Production PyPI (AFTER TestPyPI Success)
@@ -76,11 +72,11 @@ llm-firewall --version
 
 ### 1. Create PyPI Account
 
-Visit: https://pypi.org/account/register/
+Visit: <https://pypi.org/account/register/>
 
 ### 2. Create API Token
 
-1. Go to: https://pypi.org/manage/account/token/
+1. Go to: <https://pypi.org/manage/account/token/>
 2. Click "Add API token"
 3. Name: `llm-security-firewall-prod`
 4. Scope: "Entire account" (for first upload) or specific project
@@ -97,8 +93,7 @@ cd "D:\MCP Mods\HAK_GAL_HEXAGONAL\standalone_packages\llm-security-firewall"
 
 # Upload
 twine upload dist/*
-```
-
+```text
 When prompted:
 - Username: `__token__`
 - Password: `pypi-...` (your Production PyPI token)
@@ -107,11 +102,10 @@ When prompted:
 
 ```bash
 pip install llm-security-firewall
-```
-
+```text
 ### 5. Package Will Be Available At:
 
-- https://pypi.org/project/llm-security-firewall/
+- <https://pypi.org/project/llm-security-firewall/>
 - `pip install llm-security-firewall` works globally
 
 ---
@@ -127,8 +121,7 @@ description = "Bidirectional Security Framework for Human/LLM Interfaces - 9 Cor
 authors = [{name = "Joerg Bollwahn", email = "info@hakgal.org"}]
 license = {text = "MIT"}
 requires-python = ">=3.12"
-```
-
+```text
 **Keywords:**
 - llm, security, firewall, ai-safety
 - adversarial-robustness, memory-poisoning
@@ -153,8 +146,7 @@ Replace:
 git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
 pip install -e .
-```
-
+```text
 With:
 ```markdown
 # Install from PyPI
@@ -164,8 +156,7 @@ pip install llm-security-firewall
 git clone https://github.com/sookoothaii/llm-security-firewall
 cd llm-security-firewall
 pip install -e .
-```
-
+```text
 ---
 
 ## Troubleshooting
@@ -190,11 +181,10 @@ pip install -e .
 ### License Warnings (seen during build)
 
 These are WARNINGS, not ERRORS:
-```
+```text
 SetuptoolsDeprecationWarning: `project.license` as a TOML table is deprecated
 SetuptoolsDeprecationWarning: License classifiers are deprecated
-```
-
+```text
 **Fix (optional, not blocking):**
 
 Change in `pyproject.toml`:
@@ -204,14 +194,12 @@ license = {text = "MIT"}
 
 # TO:
 license = "MIT"  # Simple string (requires setuptools>=77.0.0)
-```
-
+```text
 And remove classifier:
 ```toml
 # REMOVE this line:
 "License :: OSI Approved :: MIT License",
-```
-
+```text
 ---
 
 ## Current Status

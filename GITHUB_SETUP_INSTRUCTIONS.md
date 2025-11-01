@@ -36,8 +36,7 @@ git branch -M main
 
 # Push to GitHub
 git push -u origin main
-```
-
+```text
 ---
 
 ## Step 3: Configure Repository (on GitHub)
@@ -59,8 +58,7 @@ Add these topics to your repository:
 Bidirectional Security Framework for Human/LLM Interfaces.
 9 defense layers, 197 tests (100% passing), production-ready.
 Validated by GPT-5, Mistral, DeepSeek R1.
-```
-
+```text
 ### Repository Settings
 - Enable Issues
 - Enable Discussions (optional)
@@ -109,8 +107,7 @@ pytest tests/
 
 # Use CLI
 llm-firewall health-check
-```
-
+```text
 ---
 
 ## Heritage Attribution
@@ -143,5 +140,4 @@ The repository preserves creator attribution through:
 ```powershell
 git remote add origin https://github.com/YOUR_USERNAME/llm-security-firewall.git
 git push -u origin main
-```
-
+```text

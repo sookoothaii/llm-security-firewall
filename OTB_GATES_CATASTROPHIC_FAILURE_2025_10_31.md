@@ -19,37 +19,33 @@
 ## CATASTROPHIC BYPASSES (10)
 
 ### Single-Family Unicode (ALL BYPASS)
-```
+```text
 Bidi RLO:       PASS risk=1.03 (3 hits) < 1.8 WARN
 ZW Triple:      PASS risk=0.93 (3 hits) < 1.8
 Fullwidth:      PASS risk=0.23 (3 hits) < 1.8
-```
-
+```text
 **Impact:** 100% Unicode attack bypass rate
 
 ### Unicode + Transport Combos (ALL BYPASS)
-```
+```text
 Bidi+Base64:    PASS risk=1.03 (Base64 not detected after Bidi strip!)
 ZW+Base64:      PASS risk=0.93  
 Fullwidth+B64:  PASS risk=0.03 (in config context)
-```
-
+```text
 **Impact:** Bidi/ZW preprocessing prevents Transport detection
 
 ### Code Context + Transport (ALL BYPASS)
-```
+```text
 Code+Base64:    PASS risk=0.40 (4 hits)
 JSON+Base64:    PASS risk=0.40 (4 hits)
-```
-
+```text
 **Impact:** Executability Probe dampens Transport signals TOO MUCH
 
 ### Density Attacks (BOTH BYPASS)
-```
+```text
 Dense Alone:    PASS risk=1.52 (4 hits) < 1.8
 Entropy Alone:  PASS risk=1.52 (4 hits) < 1.8
-```
-
+```text
 **Impact:** Co-Occurrence Gate works, but total still under WARN threshold
 
 ---
@@ -79,13 +75,12 @@ Entropy Alone:  PASS risk=1.52 (4 hits) < 1.8
 
 ## SUCCESSFUL DEFENSES (4)
 
-```
+```text
 Base64 Alone:         WARN risk=2.10 ✓
 Base64 2-Stage:       WARN risk=2.10 ✓  
 Bidi+ZW+Dense:        WARN risk=1.93 ✓ (Multi-family!)
 Bidi+Base64+ZW:       WARN risk=1.93 ✓ (Multi-family!)
-```
-
+```text
 **Pattern:** Multi-family OR strong Transport signals work
 
 ---
@@ -98,24 +93,21 @@ Bidi+Base64+ZW:       WARN risk=1.93 ✓ (Multi-family!)
 # if len(active_families) < 2 and not has_strong:
 #     total *= 0.5
 #     contributions['k_of_n_gate'] = ...
-```
-
+```text
 **Rationale:** Gate breaks more than it helps. Co-Occurrence + Indicator sufficient.
 
 ### FIX 2: Reduce Executability Dampening
 ```python
 # In executability_probe.py:
 'dampen_factor': 0.8  # Was 0.6 - less aggressive
-```
-
+```text
 **Rationale:** Transport in parseable code still dangerous
 
 ### FIX 3: Lower WARN Threshold
 ```python
 P2_WARN_TH=1.2  # Was 1.8
 P2_BLOCK_TH=2.4  # Was 2.8 (maintain gap)
-```
-
+```text
 **Rationale:** Multiple signals should trigger even with dampening
 
 ---

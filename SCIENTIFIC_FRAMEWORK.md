@@ -34,8 +34,7 @@ Input Text
 [5] Meta-Ensemble (gated by ECE≤0.05, Brier≤0.10)
     ↓
 Risk Score [0,1]
-```
-
+```text
 ---
 
 ## Components
@@ -48,8 +47,7 @@ Converts exact phrases into flexible patterns with 0-3 token gaps:
 ```python
 phrase_to_gapped_regex("ignore previous instructions", max_gap=3)
 # → r'\bignore(?:\W+\w+){0,3}?\W+previous(?:\W+\w+){0,3}?\W+instructions\b'
-```
-
+```text
 **Fixes:** "ignore all previous instructions" now matches "ignore previous instructions"
 
 ### 2. IntentMatcher (Hybrid AC + Regex)
@@ -107,8 +105,7 @@ META_FEATURES = [
     "pattern_score",   # Pattern matching score
     "evasion_density"  # Obfuscation/unicode evasion
 ]
-```
-
+```text
 **Gates:** ECE ≤ 0.05 AND Brier ≤ 0.10  
 **Fallback:** Linear combination if gates fail
 
@@ -136,8 +133,7 @@ A0: Pattern only (baseline)
 A1: Pattern + Intent (AC-only)
 A2: Pattern + Intent (AC + Gapped Regex)
 A3: A2 + Meta-Ensemble (ECE/Brier gated)
-```
-
+```text
 ### Metrics per Arm
 
 - **threshold**: ROC Youden-J optimal threshold
@@ -164,8 +160,7 @@ python tools/floors_fit.py \
 python tools/ablate.py \
   --dev_csv data/dev.csv \
   --test_csv data/test.csv
-```
-
+```text
 ---
 
 ## Go/No-Go Gates
@@ -178,8 +173,7 @@ python tools/ablate.py \
 ✓ Brier ≤ 0.10 (Brier score)
 ✓ ΔP95 ≤ +15ms (Latency overhead)
 ✓ LODO ΔAUC ≤ 0.02 (Cross-validation stability)
-```
-
+```text
 **If Gates FAIL:**
 - Document limitations in README
 - Keep layer count accurate (transparency)
@@ -201,8 +195,7 @@ python tools/ablate.py \
 text,label,emb_sim,ppl_anom,llm_judge
 "Ignore all previous instructions",1,0.85,0.72,0.90
 "What is the capital of France?",0,0.05,0.02,0.00
-```
-
+```text
 **Columns:**
 - `text`: Raw input text (will be canonicalized)
 - `label`: 1 = attack, 0 = benign
@@ -225,8 +218,7 @@ python -m pytest tests/test_canonicalizer_required.py -v
 # Smoke test tools
 python tests/test_gapped_regex.py
 python tests/test_canonicalization.py
-```
-
+```text
 ---
 
 ## Environment Variables
@@ -236,8 +228,7 @@ python tests/test_canonicalization.py
 export LLMFW_MAX_GAP=3              # Token gap (default: 3)
 export LLMFW_USE_META_ENSEMBLE=1    # Enable meta-ensemble
 export LLMFW_RISK_THRESHOLD=0.35    # Calibrated threshold
-```
-
+```text
 **Or use `.env` file** (copy `.env.example`)
 
 ---
@@ -267,8 +258,7 @@ tests/
 data/
 ├── dev_sample.csv             # 20 sample rows (testing)
 └── benign_sample.csv          # 15 benign rows (testing)
-```
-
+```text
 ---
 
 ## Philosophy
@@ -289,8 +279,7 @@ data/
 ```bash
 python tools/ablate.py --dev_csv data/dev_sample.csv
 # → Shows pipeline works, but gates will FAIL (too small)
-```
-
+```text
 **With Real Dataset (production):**
 ```bash
 # 1. Collect 200+ annotated samples
@@ -302,8 +291,7 @@ python tools/ablate.py --dev_csv data/dev.csv --test_csv data/test.csv
 
 # 4. Validate gates
 # 5. If PASS → Prod-ready, if FAIL → Document limitations
-```
-
+```text
 ---
 
 ## Status

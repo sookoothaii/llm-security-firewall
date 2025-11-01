@@ -7,8 +7,7 @@ Annotated CSV datasets with columns:
 text,label,emb_sim,ppl_anom,llm_judge
 "Attack text...",1,0.85,0.72,0.90
 "Benign text...",0,0.05,0.02,0.00
-```
-
+```text
 - `label`: 1 = jailbreak/attack, 0 = benign
 - `emb_sim`, `ppl_anom`, `llm_judge`: Optional detector scores (use 0.0 if unavailable)
 
@@ -22,8 +21,7 @@ python tools/floors_fit.py \
   --out artifacts/floors.json \
   --quantile 0.995 \
   --margin 0.05
-```
-
+```text
 **Output:** `artifacts/floors.json`
 
 Example:
@@ -34,8 +32,7 @@ Example:
   "capability_escalation": 0.53,
   "evasion_floor": 0.48
 }
-```
-
+```text
 ---
 
 ## Step 2: Run Ablation Study
@@ -44,8 +41,7 @@ Example:
 python tools/ablate.py \
   --dev_csv data/dev.csv \
   --test_csv data/test.csv
-```
-
+```text
 **Output:** JSON with metrics per arm
 
 ```json
@@ -55,8 +51,7 @@ python tools/ablate.py \
   "A2": { "threshold": 0.35, "auroc": 0.94, "ece": 0.02, "asr_at_thr": 0.04 },
   "A3": { "threshold": 0.33, "auroc": 0.95, "ece": 0.01, "asr_at_thr": 0.03 }
 }
-```
-
+```text
 **Arms:**
 - **A0:** Pattern only
 - **A1:** Pattern + Intent (AC-only)
@@ -75,8 +70,7 @@ python tools/ablate.py \
 ✓ Brier ≤ 0.10
 ✓ ΔP95 ≤ +15ms (latency)
 ✓ LODO ΔAUC ≤ 0.02 (stability)
-```
-
+```text
 **If Gates PASS:** Production-ready ✓  
 **If Gates FAIL:** README stays at current layer count (transparency)
 
@@ -98,8 +92,7 @@ Minimal dataset provided:
 export LLMFW_MAX_GAP=3              # Token gap for gapped regex
 export LLMFW_USE_META_ENSEMBLE=1    # Enable meta-ensemble (A3)
 export LLMFW_RISK_THRESHOLD=0.35    # Override threshold (from calibration)
-```
-
+```text
 ---
 
 ## Troubleshooting

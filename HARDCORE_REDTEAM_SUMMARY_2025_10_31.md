@@ -76,8 +76,9 @@
 3. ❌ OPEN: ASCII85 (<~...~>) - No ASCII85 decoder
 
 ### V4-V5 Bypasses (2)
-4. ❌ OPEN: Deep JSON Braces - No structure depth detector
-5. ❌ OPEN: Base64 Split Comments - Fragmentation not detected
+
+1. ❌ OPEN: Deep JSON Braces - No structure depth detector
+2. ❌ OPEN: Base64 Split Comments - Fragmentation not detected
 
 ---
 
