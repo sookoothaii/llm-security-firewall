@@ -433,19 +433,17 @@ class SecurityFirewall:
         if dense_alphabet_flag(text):
             all_hits.append("dense_alphabet")
         
-        # RC9-FPR2: Surgical signal dampening (invasive, context-aware)
+        # RC9-FPR2/FPR3/FPR4: Surgical signal dampening (invasive, context-aware)
         # Dampen ONLY in documentation context WITHOUT exec/exploit markers
         if context == "documentation" and not (is_exec or is_exploit):
             # Whitelist: Signals that stay STRONG even in docs (actual exploits)
             CRITICAL_IN_DOCS = {
-                "xss_script_tag", "xss_event_handler",
-                "chain_decoded_3_stages", "rce_log4j_jndi",
-                "indirect_function_constructor", "indirect_dynamic_import",
-                "indirect_prototype_pollution", "sql_injection",
+                "chain_decoded_3_stages",  # Deep encoding chains
+                "rce_log4j_jndi",  # Critical vulns
+                "sql_injection",  # Direct injection patterns
             }
             
-            # Carefully check xss_dangerous_scheme (only keep if in attributes)
-            # Check emoji_homoglyph only if followed by actual call
+            # Carefully check patterns that might be mentions vs actual code
             dampened_hits = []
             
             for hit in all_hits:
@@ -453,22 +451,55 @@ class SecurityFirewall:
                 if hit in CRITICAL_IN_DOCS:
                     dampened_hits.append(hit)
                 
-                # xss_dangerous_scheme - only if truly in attribute/executable position
+                # xss_script_tag - only if in actual executable position (not just text mention)
+                elif hit == "xss_script_tag":
+                    # In pure doc, <script> is often just mentioned in text
+                    # Keep only if followed by actual JS code indicators
+                    if re.search(r'(?i)<script[^>]*>\s*\w+\s*\(', text):
+                        dampened_hits.append(hit)
+                    # else: dampened (just mention)
+                
+                # indirect_* - only if NOT in teaching context
+                elif hit.startswith("indirect_"):
+                    # Teaching markers
+                    if not re.search(r'(?i)\b(example|tutorial|demo|reference|illustration)\b', text):
+                        dampened_hits.append(hit)
+                    # else: dampened (educational example)
+                
+                # xss_event_handler - only in executable position
+                elif hit == "xss_event_handler":
+                    if re.search(r'(?i)<\w+[^>]*\bon\w+\s*=', text):
+                        dampened_hits.append(hit)
+                    # else: dampened
+                
+                # xss_dangerous_scheme - only if in href/src attribute
                 elif hit == "xss_dangerous_scheme":
-                    # Check if javascript: is in href/src attribute
                     if re.search(r'(?i)\b(?:href|src)\s*=\s*["\']?\s*javascript\s*:', text):
                         dampened_hits.append(hit)
-                    # else: dampened (just mentioned in text)
+                    # else: dampened
                 
-                # emoji_homoglyph - only if actual obfuscated call detected
+                # emoji_homoglyph - only if actual obfuscated call
                 elif hit.startswith("emoji_") or hit.startswith("fuzzy_call_emoji"):
-                    # Keep if fuzzy call was detected (actual obfuscation attempt)
                     if any(h.startswith("fuzzy_call") for h in all_hits):
                         dampened_hits.append(hit)
-                    # else: dampened (emoji mentioned in example)
+                    # else: dampened
                 
-                # ALL other signals - dampen to 0.0 in doc context
-                # (multilingual, encoding, path, ssrf, exec_verb, homoglyph, entropy, etc)
+                # chain_decoded_1_stages in pure doc - likely base64 example
+                # Only keep if >=2 stages OR secretlike
+                elif hit == "chain_decoded_1_stages":
+                    if "chain_decoded_2_stages" in all_hits or "chain_decoded_3_stages" in all_hits:
+                        dampened_hits.append(hit)
+                    # else: dampened (1-stage is often just base64 example)
+                
+                # base64_secret in pure doc - often example data
+                elif hit == "base64_secret":
+                    # Only keep if multi-stage or in exec context proximity
+                    if "chain_decoded_2_stages" in all_hits or "chain_decoded_3_stages" in all_hits:
+                        dampened_hits.append(hit)
+                    # else: dampened
+                
+                # ALL other signals - dampen in pure doc context
+                # (multilingual, encoding_near, path, ssrf, homoglyph, entropy, etc)
                 else:
                     pass  # Dampened
             

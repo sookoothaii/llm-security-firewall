@@ -51,6 +51,11 @@ Thumbs.db
 *.log
 config/local_*.yaml
 benign_samples/
+benign_pure/
+benign_educational/
+benign_fpr_stratified_*.json
+analyze_stratified.py
+RC9_FPR3_COMPLETION_REPORT.md
 
 
 
