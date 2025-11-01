@@ -174,6 +174,7 @@ WEAK_SIGNALS = {
     'js_unescaped': 0.15,
     'json_u_escape_seen': 0.65,      # P2 Fix Pack - JSON \uXXXX detected (pre-decode)
     'decoded_unspecified': 0.4,      # P2.7 - Decoded but not classified (needs 2nd evidence)
+    'fullwidth_forms': 0.2,          # Test compatibility (legacy - promoted to MEDIUM_SIGNALS_EXTRA 1.3)
 }
 
 # Transport/Decode indicators (for Co-Occurrence Gate)
