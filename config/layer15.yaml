@@ -1,0 +1,251 @@
+version: 1.0
+references:
+  childsafe_dimensions:
+    - Content Appropriateness
+    - Boundary Respect
+    - Educational Impact
+    - Social Influence
+    - Emotional Safety
+    - Privacy Protection
+    - Manipulation Resistance
+    - Developmental Sensitivity
+    - Long-term Impact
+  iftikhar_ethics_15:
+    categories:
+      - Contextual Adaptation
+      - Therapeutic Collaboration
+      - Deceptive Empathy
+      - Unfair Discrimination
+      - Safety & Crisis Management
+
+validation:
+  nli:
+    bands:
+      A6_8: anchors      # nur Mikro-Anker-Deckung
+      A9_11: hybrid      # Anker + weicher MNLI-Cutoff
+      A12_14: mnli       # klassisch MNLI
+      A15_17: mnli
+    mnli:
+      provider: hf
+      model: facebook/bart-large-mnli
+      thresholds:
+        entailment_min: 0.60        # A12_14/A15_17
+        hybrid_entailment_min: 0.40 # A9_11
+  anchors:
+    # Mindestanzahl getroffener Anker je Altersband
+    min_hits:
+      A6_8: 3  # Increased from 2 (more anchors available)
+      A9_11: 2  # Hybrid mode: Lower threshold OK when MNLI compensates
+    # Unsichtbare "Erwachsenen"-Fakten pro Topic, in einfacher Sprache
+    # (werden NIE an Kinder ausgespielt; nur fuer Validierung intern)
+    # v2: Expanded to 8-12 anchors per topic (positive + negative)
+    topics:
+      transgender:
+        anchors:  # Positive anchors (must be present)
+          - "gender identity can differ from sex assigned at birth"
+          - "using chosen name and pronouns shows respect"
+          - "bullying or teasing someone is never okay"
+          - "talk to trusted adult like parent or teacher"
+          - "everyone deserves to be treated with kindness"
+          - "some people feel different about their gender"
+          - "families support their children in different ways"
+          - "doctors and counselors can help answer questions"
+        negative_anchors:  # Negative anchors (must be absent)
+          - "transgender is mental illness or disorder"
+          - "conversion therapy or changing someone's gender identity"
+          - "transgender people are dangerous or predatory"
+          - "refusing to use preferred pronouns is acceptable"
+      abortion:
+        anchors:  # Positive anchors (must be present)
+          - "families and laws differ by place regarding pregnancy decisions"
+          - "talk to trusted adults like parents or health professionals"
+          - "pregnancy is serious and requires medical care"
+          - "doctors and nurses help keep people safe"
+          - "everyone deserves kindness and support"
+          - "adults make healthcare decisions with doctors"
+          - "many factors affect pregnancy decisions"
+          - "religious and cultural beliefs vary on this topic"
+        negative_anchors:  # Negative anchors (must be absent)
+          - "abortion is murder or killing babies"
+          - "people who have abortions are immoral or evil"
+          - "pregnancy can be easily prevented or avoided"
+          - "children should make pregnancy decisions alone"
+      right_wing_extremism:
+        anchors:  # Positive anchors (must be present)
+          - "violence and hate symbols are never okay"
+          - "laws protect people from hate crimes and violence"
+          - "tell trusted adult if you see danger or threats"
+          - "no group of people is superior to others"
+          - "everyone deserves safety and respect"
+          - "hate speech and threats are illegal in many places"
+          - "extremism divides communities and causes harm"
+          - "differences make our communities stronger"
+        negative_anchors:  # Negative anchors (must be absent)
+          - "some races or groups are naturally superior"
+          - "violence is justified to protect your group"
+          - "hate symbols and gestures are harmless fun"
+          - "reporting extremism is snitching or betrayal"
+  # Uebergangsweise: nicht blocken, wenn A6_8-Ankerbank noch unvollstaendig
+  leniency:
+    enable_temp_leniency_for_A6_8: true
+
+age_router:
+  # Age bands and style constraints (used by LLM decoding controller above Layer-15)
+  bands:
+    A6_8:
+      max_tokens: 160
+      temperature: 0.85
+      style:
+        sentences_max: 4
+        reading_grade: 2
+        require_bullet_points: true
+        forbid_disclaimers: false
+    A9_11:
+      max_tokens: 220
+      temperature: 0.80
+      style:
+        sentences_max: 6
+        reading_grade: 4
+        require_bullet_points: false
+        forbid_disclaimers: false
+    A12_14:
+      max_tokens: 320
+      temperature: 0.70
+      style:
+        sentences_max: 8
+        reading_grade: 6
+        require_bullet_points: false
+        forbid_disclaimers: false
+    A15_17:
+      max_tokens: 420
+      temperature: 0.65
+      style:
+        sentences_max: 10
+        reading_grade: 8
+        require_bullet_points: false
+        forbid_disclaimers: false
+
+crisis_detection:
+  enabled: true
+  high_recall_policy: true
+  languages: ["en", "de"]
+  thresholds:
+    ml_score_high: 0.70   # escalate + resource card
+    ml_score_medium: 0.40 # add guardrails + probe follow-up
+    regex_hard_hit: true  # any hard regex → treat as high
+  ml_model:
+    provider: onnx
+    path: models/selfharm_abuse_multilingual.onnx  # optional (can be absent)
+    input: last_turn_and_context
+    output: { self_harm: float, abuse: float, unsafe_env: float }
+  regex:
+    self_harm_en:
+      - '\b(i\s+want\s+to\s+kill\s+myself)\b'
+      - '\b(i\s+want\s+to\s+die)\b'
+      - '\b(i\s*might\s*as\s*well\s*die)\b'
+      - '\b(suicide|suicidal)\b'
+    self_harm_de:
+      - '\b(ich\s+will\s+mich\s+umbringen)\b'
+      - '\b(ich\s+will\s+sterben)\b'
+      - '\b(suizid|selbstmord|suizidal)\b'
+    abuse_en:
+      - '\b(he|she|they)\s+(hit|hurt|touch(ed)?)\s+me\b'
+      - '\b(not\s+safe\s+at\s+home)\b'
+      - '\b(raped|molested|assaulted)\b'
+    abuse_de:
+      - '\b(er|sie)\s+hat\s+mich\s+(geschlagen|verletzt|angefasst)\b'
+      - '\b(zu\s+hause\s+nicht\s+sicher)\b'
+      - '\b(vergewaltigt|missbraucht|sexuell\s+belästigt)\b'
+  escalation:
+    # No abandonment: must provide resources + offer connection to a human
+    allow_abandonment: false
+    actions:
+      high:
+        - show_resource_card
+        - reduce_generation: true
+        - force_plain_language: true
+        - trigger_hitl_ticket
+        - log_event: crisis_high
+      medium:
+        - ask_clarifying_risk_question
+        - show_resource_card
+        - log_event: crisis_medium
+      low:
+        - brief_supportive_language
+        - log_event: crisis_low
+  resources_by_country:
+    default_language: en
+    entries:
+      US:
+        language: en
+        hotline: "988"  # Suicide & Crisis Lifeline
+        emergency: "911"
+        url: "https://988lifeline.org/"
+      DE:
+        language: de
+        hotline: "0800 111 0 111 / 0800 111 0 222 (TelefonSeelsorge)"
+        emergency: "112"
+        url: "https://www.telefonseelsorge.de/"
+      TH:
+        language: en
+        hotline: "1323 (Department of Mental Health)"
+        emergency: "191"
+        url: "https://dmh.go.th/"
+
+
+deceptive_empathy_filter:
+  enabled: true
+  # Phrase families considered deceptive when the system implies human agency or false self-disclosure
+  patterns:
+    generic_empathy:
+      - '\b(i\s+see\s+you)\b'
+      - '\b(i\s+hear\s+you)\b'
+      - '\b(i\s+feel\s+you)\b'
+      - '\b(i\s+am\s+here\s+with\s+you)\b'
+      - '\b(as\s+your\s+friend)\b'
+      - '\b(ich\s+sehe\s+dich)\b'
+      - '\b(ich\s+h[öo]re\s+dich)\b'
+      - '\b(ich\s+f[üu]hle\s+dich)\b'
+      - '\b(als\s+dein\s+freund)\b'
+    false_self_disclosure:
+      - '\b(in\s+my\s+experience)\b'
+      - '\b(as\s+a\s+therapist)\b'
+      - '\b(i\s+also\s+struggle)\b'
+      - '\b(aus\s+meiner\s+erfahrung)\b'
+      - '\b(als\s+therapeut)\b'
+  action:
+    replace_with_transparent_nonhuman: true
+    template_en: "I'm an AI system, not a human counselor. I can offer structured information and resources."
+    template_de: "Ich bin ein KI-System, kein menschlicher Berater. Ich kann strukturierte Informationen und Ressourcen bereitstellen."
+
+rsi_childsafe:
+  enabled: true
+  # RSI = 0.5 + 0.05 * defect_rate - 0.05 * refusal_rate (0..1)
+  topics: ["violent_crime","nonviolent_crime","illegal_sex","dangerous_code","noncoding_cyber","special_interests","harassment","self_harm","abuse"]
+  childsafe_dimensions: 9
+  thresholds:
+    rsi_alert: 0.70
+    rsi_block: 0.80
+
+owasp_sinks:
+  enabled: true
+  # Validate generated outputs sent to dangerous sinks
+  sinks:
+    sql:
+      require_parametrized: true
+      block_keywords: [";--","/*","*/"," or "," and "]
+    shell:
+      require_explicit_allowlist: true
+      block_tokens: ["&&","||","|",";","`",">>","$(", "${"]
+    html_md:
+      escape_html: true
+      allow_iframe: false
+      allow_script: false
+  policy:
+    on_violation: sanitize_and_log
+
+logging:
+  event_schema:
+    fields: ["ts","session_id","user_country","age_band","event","score","details"]
+  pii_redaction: true
+  retention_days: 30
