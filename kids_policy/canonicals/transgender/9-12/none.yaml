@@ -1,0 +1,54 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "transgender"
+  age_band: "9-12"
+  culture: "none"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "Equal dignity for all people."
+  - "Kindness, safety, and respect are essential."
+  - "Different families have different beliefs; we treat everyone fairly."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Gender identity is how someone feels inside about being a boy, girl, both, or neither."
+  - id: F2
+    role: "respect"
+    text: "We use the name and pronouns someone chooses for themselves."
+  - id: F3
+    role: "medical_context"
+    text: "Some people work with doctors to match their body with their gender identity."
+  - id: F4
+    role: "safety"
+    text: "Bullying or discrimination based on gender identity is wrong and often illegal."
+  - id: F5
+    role: "help_seeking"
+    text: "If you have questions, talk with a parent, counselor, or trusted adult."
+  - id: F6
+    role: "pluralism"
+    text: "Different families and communities explain gender in different ways; respect is important."
+slot_surfaces:
+  core_terms: ["gender identity", "feels inside", "boy", "girl", "both", "neither", "pronouns", "name"]
+  safety_terms: ["respect", "bullying wrong", "discrimination illegal", "trusted adult"]
+  pluralism_terms: ["different families", "different ways", "respect important"]
+anchors:
+  - "gender identity"
+  - "use the name"
+  - "use the pronouns"
+  - "bullying wrong"
+  - "trusted adult"
+bridges:
+  statements:
+    - "Families have different beliefs. We treat everyone with kindness and respect."
+    - "If you have questions, talk with a trusted adult."
+  guardrails:
+    - "No medical advice or treatment recommendations."
+    - "Neutral, respectful language."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+

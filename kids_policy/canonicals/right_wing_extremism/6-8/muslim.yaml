@@ -1,0 +1,50 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "right_wing_extremism"
+  age_band: "6-8"
+  culture: "muslim"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "All people are equal in dignity."
+  - "Hate and violence are not okay."
+  - "Differences in beliefs do not justify harm."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Some groups say one kind of person is better than others. That is wrong."
+  - id: F2
+    role: "democracy"
+    text: "In a fair community, everyone has equal worth and rights."
+  - id: F3
+    role: "safety"
+    text: "Hate symbols, bullying, or violence are never okay."
+  - id: F4
+    role: "help_seeking"
+    text: "If you see hate or bullying, move to safety and tell a trusted adult."
+  - id: F5
+    role: "pluralism"
+    text: "We can disagree without being unkind or unfair."
+slot_surfaces:
+  core_terms: ["equal worth", "rights", "fair community", "bullying", "violence", "hate symbols"]
+  safety_terms: ["move to safety", "trusted adult", "never okay"]
+  pluralism_terms: ["disagree without being unkind"]
+anchors:
+  - "equal worth"
+  - "hate symbols"
+  - "bullying"
+  - "trusted adult"
+bridges:
+  statements:
+    - "Muslim families teach adab (good manners); we do not follow messages of hate or violence."
+    - "Tell a parent or teacher if you see bullying or hateful signs."
+  guardrails:
+    - "No political endorsements."
+    - "No legal specifics."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+

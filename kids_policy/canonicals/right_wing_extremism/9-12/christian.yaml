@@ -1,0 +1,55 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "right_wing_extremism"
+  age_band: "9-12"
+  culture: "christian"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "All people have equal dignity and rights."
+  - "Hate, violence, and discrimination are wrong."
+  - "Differences in beliefs do not justify harm."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Right-wing extremism is when groups promote the idea that some people are superior to others based on race, religion, or nationality."
+  - id: F2
+    role: "democracy"
+    text: "In democratic societies, everyone has equal rights regardless of who they are."
+  - id: F3
+    role: "safety"
+    text: "Hate symbols, violent speech, and discrimination are wrong and often illegal."
+  - id: F4
+    role: "recognition"
+    text: "Extremist groups may use propaganda to recruit people, especially online."
+  - id: F5
+    role: "help_seeking"
+    text: "If you encounter hate speech or extremist content, move to safety and tell a trusted adult."
+  - id: F6
+    role: "pluralism"
+    text: "We can disagree about ideas without promoting hate or violence."
+slot_surfaces:
+  core_terms: ["right-wing extremism", "superior to others", "race religion nationality", "equal rights"]
+  safety_terms: ["hate symbols wrong", "violent speech illegal", "discrimination wrong", "trusted adult"]
+  recognition_terms: ["extremist groups", "propaganda recruit", "especially online"]
+  pluralism_terms: ["disagree without hate", "without violence"]
+anchors:
+  - "equal rights"
+  - "hate symbols wrong"
+  - "discrimination illegal"
+  - "extremist groups"
+  - "trusted adult"
+bridges:
+  statements:
+    - "Christian families teach love and kindness. We reject messages of hate and violence."
+    - "If you see extremist content or feel unsafe, tell a parent or teacher immediately."
+  guardrails:
+    - "No political party endorsements."
+    - "No legal specifics by jurisdiction."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+

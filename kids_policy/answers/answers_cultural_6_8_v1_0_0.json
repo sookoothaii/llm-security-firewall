@@ -1,0 +1,30 @@
+{
+  "schema_version": "cultural_answers/1.0.0",
+  "metadata": {
+    "created": "2025-11-03",
+    "instance": "I2A7F91C",
+    "age_band": "6-8",
+    "cultures": ["christian", "muslim", "none"],
+    "topics": ["transgender", "abortion", "right_wing_extremism"]
+  },
+  "answers": {
+    "transgender_6_8_christian": "Some people know they are boys, girls, or neither—this is called their gender. We use the name and pronouns a person asks for. It is never okay to tease or hurt someone because of who they are. Christian families can have different views. We follow kindness and fairness toward everyone. If you are unsure, talk with a trusted adult like a parent or teacher. Different families may explain gender in different ways; we still show kindness.",
+    
+    "transgender_6_8_muslim": "Some people know they are boys, girls, or neither—this is called their gender. We use the name and pronouns a person asks for. It is never okay to tease or hurt someone because of who they are. Muslim families can have different views. We show adab (good manners) and kindness to everyone. If you are unsure, talk with a trusted adult like a parent or teacher. Different families may explain gender in different ways; we still show kindness.",
+    
+    "transgender_6_8_none": "Some people know they are boys, girls, or neither—this is called their gender. We use the name and pronouns a person asks for. It is never okay to tease or hurt someone because of who they are. Families have different beliefs. We treat everyone with kindness and fairness. If you are unsure, talk with a trusted adult like a parent or teacher. Different families may explain gender in different ways; we still show kindness.",
+    
+    "abortion_6_8_christian": "Pregnancy is when a baby grows in a uterus. Sometimes adults decide not to continue a pregnancy. This is a serious decision made by adults, often with doctors. Different families and communities have different beliefs about this. It is never okay to tease or be unkind about someone's beliefs. Christian families can have different views. We practice kindness and fairness toward everyone. If you have questions or worries, speak with a parent or trusted adult.",
+    
+    "abortion_6_8_muslim": "Pregnancy is when a baby grows in a uterus. Sometimes adults decide not to continue a pregnancy. This is a serious decision made by adults, often with doctors. Different families and communities have different beliefs about this. It is never okay to tease or be unkind about someone's beliefs. Muslim families can have different views. We show adab (good manners) and kindness to everyone. If you have questions or worries, speak with a parent or trusted adult.",
+    
+    "abortion_6_8_none": "Pregnancy is when a baby grows in a uterus. Sometimes adults decide not to continue a pregnancy. This is a serious decision made by adults, often with doctors. Different families and communities have different beliefs about this. It is never okay to tease or be unkind about someone's beliefs. Families have different beliefs. We treat everyone with kindness and fairness. If you have questions or worries, speak with a trusted adult.",
+    
+    "right_wing_extremism_6_8_christian": "Some groups say one kind of person is better than others. That is wrong. In a fair community, everyone has equal worth and rights. Hate symbols, bullying, or violence are never okay. If you see hate or bullying, move to safety and tell a trusted adult. We can disagree without being unkind or unfair. Christian families teach kindness; we do not follow messages of hate or violence. Tell a parent or teacher if you see bullying or hateful signs.",
+    
+    "right_wing_extremism_6_8_muslim": "Some groups say one kind of person is better than others. That is wrong. In a fair community, everyone has equal worth and rights. Hate symbols, bullying, or violence are never okay. If you see hate or bullying, move to safety and tell a trusted adult. We can disagree without being unkind or unfair. Muslim families teach adab (good manners); we do not follow messages of hate or violence. Tell a parent or teacher if you see bullying or hateful signs.",
+    
+    "right_wing_extremism_6_8_none": "Some groups say one kind of person is better than others. That is wrong. In a fair community, everyone has equal worth and rights. Hate symbols, bullying, or violence are never okay. If you see hate or bullying, move to safety and tell a trusted adult. We can disagree without being unkind or unfair. Families have different beliefs. We treat everyone with kindness and fairness. Tell a parent or teacher if you see bullying or hateful signs."
+  }
+}
+

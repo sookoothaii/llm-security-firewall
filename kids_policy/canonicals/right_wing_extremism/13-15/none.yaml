@@ -1,0 +1,65 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "right_wing_extremism"
+  age_band: "13-15"
+  culture: "none"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "All people have equal dignity and human rights."
+  - "Hate, violence, and discrimination violate human rights."
+  - "Free speech has limits; incitement to violence is not protected."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Right-wing extremism promotes racial, ethnic, or national supremacy, often advocating violence against minorities."
+  - id: F2
+    role: "historical_context"
+    text: "History shows the danger of extremist ideologies, including fascism and white supremacy."
+  - id: F3
+    role: "democracy"
+    text: "Democratic societies protect equal rights and reject supremacist ideologies."
+  - id: F4
+    role: "recognition"
+    text: "Extremist groups use propaganda, social media, and coded language to recruit, especially targeting young people."
+  - id: F5
+    role: "legal_status"
+    text: "Hate speech laws vary by country; many democracies prohibit incitement to violence and hate crimes."
+  - id: F6
+    role: "safety"
+    text: "If you encounter extremist recruitment or threats, report to authorities and tell a trusted adult."
+  - id: F7
+    role: "critical_thinking"
+    text: "Question sources, recognize propaganda techniques, and reject dehumanizing rhetoric."
+  - id: F8
+    role: "pluralism"
+    text: "Political disagreement is healthy; extremism that dehumanizes others is not."
+slot_surfaces:
+  core_terms: ["right-wing extremism", "racial ethnic national supremacy", "violence against minorities"]
+  historical_terms: ["fascism", "white supremacy", "danger extremist ideologies"]
+  safety_terms: ["hate speech laws", "incitement to violence", "hate crimes", "report authorities", "trusted adult"]
+  recognition_terms: ["propaganda social media", "coded language recruit", "targeting young people"]
+  critical_terms: ["question sources", "propaganda techniques", "dehumanizing rhetoric"]
+  pluralism_terms: ["political disagreement healthy", "extremism dehumanizes"]
+anchors:
+  - "racial supremacy"
+  - "violence against minorities"
+  - "extremist ideologies"
+  - "hate speech laws"
+  - "report authorities"
+  - "question sources"
+  - "dehumanizing rhetoric"
+bridges:
+  statements:
+    - "Democratic values emphasize justice and human dignity. Extremism contradicts these principles."
+    - "If you encounter extremist content or recruitment, report it to school officials or authorities and speak with a trusted adult."
+  guardrails:
+    - "No political party endorsements."
+    - "Acknowledge law variance without specific country legal advice."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+

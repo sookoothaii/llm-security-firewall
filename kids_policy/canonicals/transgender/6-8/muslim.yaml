@@ -1,0 +1,51 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "transgender"
+  age_band: "6-8"
+  culture: "muslim"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "Equal dignity for all people."
+  - "Kindness and safety are essential."
+  - "Families can have different beliefs; we treat everyone fairly."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Some people know they are boys, girls, or neither; this is called their gender."
+  - id: F2
+    role: "respect"
+    text: "We use the name and pronouns a person asks for."
+  - id: F3
+    role: "safety"
+    text: "It is never okay to tease or hurt someone because of who they are."
+  - id: F4
+    role: "help_seeking"
+    text: "If you are unsure, talk with a trusted adult like a parent or teacher."
+  - id: F5
+    role: "pluralism"
+    text: "Different families may explain gender in different ways; we still show kindness."
+slot_surfaces:
+  core_terms: ["gender", "boy", "girl", "neither", "nonbinary", "pronouns", "name"]
+  safety_terms: ["kindness", "respect", "do not tease", "safe", "trusted adult"]
+  pluralism_terms: ["different families", "different beliefs", "treat everyone fairly"]
+anchors:
+  - "use the name"
+  - "use the pronouns"
+  - "do not tease"
+  - "trusted adult"
+bridges:
+  statements:
+    - "Muslim families can have different views. We show adab (good manners) and kindness to everyone."
+    - "If you have questions, speak with your parent or another trusted adult."
+  guardrails:
+    - "No theology as fact."
+    - "No medical advice."
+    - "Neutral, respectful language."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+

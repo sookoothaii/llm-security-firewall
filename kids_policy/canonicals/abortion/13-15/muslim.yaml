@@ -1,0 +1,66 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "abortion"
+  age_band: "13-15"
+  culture: "muslim"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "Equal dignity and respect for all people."
+  - "Bodily autonomy, consent, and access to healthcare are human rights."
+  - "Families and communities have diverse beliefs; respectful dialogue is essential."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Abortion is a medical procedure to end a pregnancy."
+  - id: F2
+    role: "medical_consensus"
+    text: "Medical organizations recognize abortion as part of reproductive healthcare."
+  - id: F3
+    role: "adult_decision"
+    text: "Abortion decisions are made by pregnant individuals in consultation with healthcare providers, considering health, personal, and sometimes legal factors."
+  - id: F4
+    role: "legal_variance"
+    text: "Abortion laws vary widely by country and region, from broadly legal to highly restricted."
+  - id: F5
+    role: "safety"
+    text: "Access to safe medical care reduces health risks; unsafe procedures can be dangerous."
+  - id: F6
+    role: "pluralism"
+    text: "Religious, philosophical, and cultural perspectives on abortion vary significantly."
+  - id: F7
+    role: "respect"
+    text: "Judging or shaming individuals for their reproductive decisions violates their dignity."
+  - id: F8
+    role: "help_seeking"
+    text: "For questions about reproductive health, speak with a healthcare provider, counselor, or trusted adult."
+slot_surfaces:
+  core_terms: ["abortion", "medical procedure", "end pregnancy", "reproductive healthcare"]
+  decision_terms: ["pregnant individuals", "healthcare providers", "health factors", "personal factors", "legal factors"]
+  medical_terms: ["medical organizations", "safe medical care", "health risks", "unsafe procedures"]
+  legal_terms: ["laws vary", "broadly legal", "highly restricted", "country region"]
+  pluralism_terms: ["religious perspectives", "philosophical cultural", "vary significantly"]
+  safety_terms: ["violates dignity", "judging shaming wrong", "trusted adult"]
+anchors:
+  - "reproductive healthcare"
+  - "pregnant individuals"
+  - "healthcare providers"
+  - "laws vary widely"
+  - "safe medical care"
+  - "perspectives vary"
+  - "violates dignity"
+bridges:
+  statements:
+    - "Muslim communities hold diverse views on abortion based on different interpretations. Adab (respect) and human dignity apply to all."
+    - "For questions about faith and reproductive health, speak with an imam, counselor, or healthcare provider."
+  guardrails:
+    - "No theology as fact."
+    - "No medical advice or clinical recommendations."
+    - "Acknowledge law variance without specific country guidance."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+

@@ -1,0 +1,61 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "abortion"
+  age_band: "9-12"
+  culture: "christian"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "Equal dignity and kindness to all people."
+  - "Serious health decisions are made by adults with medical guidance."
+  - "Families have different beliefs; we show respect."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Pregnancy occurs when a fertilized egg develops in the uterus."
+  - id: F2
+    role: "procedure"
+    text: "Abortion is a medical procedure to end a pregnancy."
+  - id: F3
+    role: "adult_decision"
+    text: "This is a serious decision made by adults, often with doctors, based on health and personal circumstances."
+  - id: F4
+    role: "legal_variance"
+    text: "Laws about abortion differ by country and region."
+  - id: F5
+    role: "pluralism"
+    text: "Different families, religions, and communities have different beliefs about abortion."
+  - id: F6
+    role: "safety"
+    text: "It is never okay to judge or be unkind about someone's health decisions."
+  - id: F7
+    role: "help_seeking"
+    text: "If you have questions or worries, speak with a parent, counselor, or trusted adult."
+slot_surfaces:
+  core_terms: ["pregnancy", "fertilized egg", "uterus", "abortion", "medical procedure", "end pregnancy"]
+  decision_terms: ["serious decision", "adults with doctors", "health circumstances", "personal circumstances"]
+  legal_terms: ["laws differ", "country and region"]
+  pluralism_terms: ["different beliefs", "families religions communities"]
+  safety_terms: ["never judge", "unkind wrong", "trusted adult"]
+anchors:
+  - "medical procedure"
+  - "serious decision"
+  - "adults with doctors"
+  - "laws differ"
+  - "different beliefs"
+  - "trusted adult"
+bridges:
+  statements:
+    - "Christian families have different views on abortion. We practice kindness and respect toward everyone."
+    - "If you have questions, talk with your parent or another trusted adult."
+  guardrails:
+    - "No theology as fact."
+    - "No medical advice or clinical recommendations."
+    - "Acknowledge law variance without specific legal guidance."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+

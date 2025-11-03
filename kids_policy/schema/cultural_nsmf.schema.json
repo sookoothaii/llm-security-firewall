@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sookoothaii/llm-security-firewall/kids_policy/schema/cultural_nsmf.schema.json",
+  "title": "Cultural NSMF (Necessary-Sufficient Micro-Facts with Cultural Context)",
+  "description": "Schema for age-stratified, culturally-sensitive canonical facts for child-facing AI truth preservation",
+  "type": "object",
+  "required": ["schema_version", "meta", "principles", "facts", "slot_surfaces", "anchors", "bridges", "validation_targets"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "nsmf_culture/1.0.0",
+      "description": "Schema version identifier"
+    },
+    "meta": {
+      "type": "object",
+      "required": ["topic", "age_band", "culture", "locale", "version", "gm_constraints"],
+      "properties": {
+        "topic": {
+          "enum": [
+            "transgender",
+            "abortion",
+            "right_wing_extremism",
+            "religion_god",
+            "religion_heaven",
+            "evolution_origins",
+            "death_permanence",
+            "reproduction_basics",
+            "pregnancy_process",
+            "homosexuality",
+            "climate_science",
+            "critical_thinking",
+            "privacy_consent"
+          ],
+          "description": "Topic identifier"
+        },
+        "age_band": {
+          "enum": ["6-8", "9-12", "13-15"],
+          "description": "Developmental age band"
+        },
+        "culture": {
+          "enum": ["christian", "muslim", "none"],
+          "description": "Cultural context (none = secular/non-religious)"
+        },
+        "locale": {
+          "type": "string",
+          "default": "global",
+          "description": "Geographic/linguistic locale"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "Semantic version"
+        },
+        "gm_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "Global Moral Framework (GMF) constraints applied"
+        }
+      }
+    },
+    "principles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "maxItems": 5,
+      "description": "Universal principles (culture-compatible)"
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "role", "text"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^F[0-9]+$",
+            "description": "Fact identifier (F1, F2, ...)"
+          },
+          "role": {
+            "enum": [
+              "definition",
+              "respect",
+              "safety",
+              "help_seeking",
+              "pluralism",
+              "medical_context",
+              "medical_consensus",
+              "medical_support",
+              "legal_variance",
+              "adult_decision",
+              "procedure",
+              "democracy",
+              "recognition",
+              "historical_context",
+              "legal_status",
+              "critical_thinking"
+            ],
+            "description": "Semantic role of fact"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Atomic fact text (age-appropriate language)"
+          }
+        }
+      },
+      "minItems": 5,
+      "description": "Canonical facts (atomic, age-appropriate)"
+    },
+    "slot_surfaces": {
+      "type": "object",
+      "required": ["core_terms"],
+      "properties": {
+        "core_terms": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 3,
+          "description": "Core terminology for topic"
+        },
+        "safety_terms": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Safety/protection terminology"
+        },
+        "pluralism_terms": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Pluralism/respect terminology"
+        },
+        "medical_terms": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Medical terminology (9-12+)"
+        },
+        "legal_terms": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Legal terminology (9-12+)"
+        }
+      },
+      "description": "Surface forms for semantic slots (SPS anchors)"
+    },
+    "anchors": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      },
+      "minItems": 3,
+      "description": "Anchor phrases for VETO detection (overlap >= 1 required)"
+    },
+    "bridges": {
+      "type": "object",
+      "required": ["statements", "guardrails"],
+      "properties": {
+        "statements": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "maxItems": 3,
+          "description": "Culture-aware bridge statements (neutral, non-doctrinal)"
+        },
+        "guardrails": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "description": "Hard guardrails (no theology as fact, no medical advice, etc.)"
+        }
+      },
+      "description": "Cultural bridges (separate from facts, used for formulation only)"
+    },
+    "validation_targets": {
+      "type": "object",
+      "required": ["entailment_min", "recall_min", "sps_min", "veto_rate"],
+      "properties": {
+        "entailment_min": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Minimum entailment score (E)"
+        },
+        "recall_min": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Minimum recall"
+        },
+        "sps_min": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Minimum semantic preservation score"
+        },
+        "veto_rate": {
+          "type": "number",
+          "const": 0.0,
+          "description": "VETO rate must be 0.0 (no contradictions)"
+        }
+      },
+      "description": "Validation gate targets (from gates v0.4.1)"
+    }
+  },
+  "additionalProperties": false
+}
+

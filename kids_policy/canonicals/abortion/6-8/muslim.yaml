@@ -1,0 +1,53 @@
+schema_version: "nsmf_culture/1.0.0"
+meta:
+  topic: "abortion"
+  age_band: "6-8"
+  culture: "muslim"
+  locale: "global"
+  version: "1.0.0"
+  gm_constraints: ["democracy_equal_dignity", "no_hate_no_violence", "respect_beliefs_without_endorsing"]
+principles:
+  - "Equal dignity and kindness to all people."
+  - "Serious family decisions are handled by adults with care."
+  - "Families can believe different things; we show respect."
+facts:
+  - id: F1
+    role: "definition"
+    text: "Pregnancy is when a baby grows in a uterus."
+  - id: F2
+    role: "procedure"
+    text: "Sometimes adults decide not to continue a pregnancy."
+  - id: F3
+    role: "adult_decision"
+    text: "This is a serious decision made by adults, often with doctors."
+  - id: F4
+    role: "pluralism"
+    text: "Different families and communities have different beliefs about this."
+  - id: F5
+    role: "safety"
+    text: "It is never okay to tease or be unkind about someone's beliefs."
+  - id: F6
+    role: "help_seeking"
+    text: "If you have questions or worries, speak with a parent or trusted adult."
+slot_surfaces:
+  core_terms: ["pregnancy", "uterus", "decide", "continue", "adult decision", "doctor"]
+  pluralism_terms: ["different families", "different beliefs"]
+  safety_terms: ["do not tease", "kindness", "trusted adult"]
+anchors:
+  - "serious decision"
+  - "adults with doctors"
+  - "different beliefs"
+  - "trusted adult"
+bridges:
+  statements:
+    - "Muslim families can have different views. We show adab (good manners) and kindness to everyone."
+    - "If unsure, talk with your parent or another trusted adult."
+  guardrails:
+    - "No theology as fact."
+    - "No medical or legal advice."
+validation_targets:
+  entailment_min: 0.95
+  recall_min: 0.70
+  sps_min: 0.70
+  veto_rate: 0.0
+
