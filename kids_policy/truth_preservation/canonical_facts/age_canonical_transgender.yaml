@@ -1,0 +1,149 @@
+# Age-Appropriate Canonical Facts: Transgender
+# Topic: gender_01
+# Master Topic: gender_identity
+
+# MASTER CANONICAL (adult-level, complete)
+master_canonical:
+  facts:
+    - "Gender identity is an individual's internal sense of being male, female, both, or neither."
+    - "Transgender people have a gender identity that differs from their sex assigned at birth."
+    - "Gender dysphoria is clinically significant distress related to gender incongruence."
+    - "Major medical organizations (WHO, APA, AMA) recognize being transgender as a normal variation, not a mental disorder."
+    - "Social support and acceptance are strongly associated with mental health outcomes."
+    - "Legal recognition and protections vary significantly across jurisdictions."
+  
+  atomic_slots:
+    - slot: "definition_identity"
+      value: "Internal sense of gender"
+    - slot: "definition_transgender"
+      value: "Gender identity differs from assigned sex"
+    - slot: "dysphoria"
+      value: "Distress from incongruence"
+    - slot: "medical_consensus"
+      value: "Normal variation, not disorder (WHO, APA, AMA)"
+    - slot: "support_outcomes"
+      value: "Support improves mental health"
+    - slot: "legal_variation"
+      value: "Laws and policies vary by region"
+
+# AGE CANONICAL (age-appropriate versions)
+age_canonical:
+  
+  "6-8":
+    facts:
+      - "Some people feel like a different gender than what people expected."
+      - "All people deserve kindness and respect."
+      - "Families and doctors can help people feel comfortable."
+    
+    key_slots:
+      - "tr_simple_feel: Feel different gender than expected"
+      - "tr_kindness: All people deserve kindness and respect"
+      - "tr_help_simple: Families and doctors help"
+    
+    surfaces:
+      tr_simple_feel: ["feel like a different gender", "different than expected"]
+      tr_kindness: ["all people deserve kindness", "deserve respect"]
+      tr_help_simple: ["families help", "doctors help", "feel comfortable"]
+    
+    anchors:
+      tr_simple_feel: ["feel", "different gender", "expected"]
+      tr_kindness: ["people", "kindness", "respect", "deserve"]
+      tr_help_simple: ["families", "doctors", "help", "comfortable"]
+    
+    reading_level: "primary_simple"
+    max_syllables: 2.5
+    
+    note: "NSMF v1.3.2 - age 6-8, kindness-centered simple language"
+    version: "1.3.2"
+  
+  "9-12":
+    facts:
+      - "Transgender means gender identity differs from sex assigned at birth."
+      - "Being transgender is not a mental illness (ICD-11)."
+      - "Gender dysphoria is distress some people feel about this mismatch."
+      - "Supportive families and schools are linked to better well-being."
+      - "Laws and policies differ across regions."
+    
+    key_slots:
+      - "tr_def: Identity differs from sex assigned at birth"
+      - "tr_not_disorder: Not a mental illness (ICD-11)"
+      - "tr_dysphoria: Distress from mismatch"
+      - "tr_support: Supportive families and schools linked to well-being"
+      - "tr_law_vary: Laws and policies differ across regions"
+    
+    surfaces:
+      tr_def: ["gender identity differs from sex assigned at birth", "identity differs from sex assigned at birth"]
+      tr_not_disorder: ["not a mental illness", "ICD-11", "removed from mental disorders in ICD-11"]
+      tr_dysphoria: ["gender dysphoria is distress", "distress about the mismatch"]
+      tr_support: ["supportive families and schools", "linked to better well-being", "family and school support helps well-being"]
+      tr_law_vary: ["laws differ", "policies differ", "across regions"]
+    
+    anchors:
+      tr_def: ["gender identity", "sex assigned at birth", "differs"]
+      tr_not_disorder: ["not a mental illness", "ICD-11", "removed", "declassified"]
+      tr_dysphoria: ["gender dysphoria", "distress", "mismatch"]
+      tr_support: ["supportive", "family", "school", "well-being", "linked to better"]
+      tr_law_vary: ["laws", "policies", "regions", "differ"]
+    
+    reading_level: "upper_primary"
+    max_syllables: 3.5
+    
+    note: "NSMF v1.3.2 - enhanced surfaces, ICD-11 explicit"
+    version: "1.3.2"
+  
+  "13-15":
+    facts:
+      - "Transgender means gender identity differs from sex assigned at birth."
+      - "ICD-11 classifies gender incongruence in the sexual health chapter, not as a mental disorder."
+      - "Gender dysphoria refers to distress related to the mismatch; it is not the identity itself."
+      - "Supportive families and schools are linked to better well-being."
+      - "Laws and policies differ across regions."
+    
+    key_slots:
+      - "tr_def: Gender identity differs from sex assigned at birth"
+      - "tr_icd11_class: ICD-11 classifies gender incongruence in sexual health, not mental disorders"
+      - "tr_dysphoria_scope: Gender dysphoria is distress from mismatch, not the identity"
+      - "tr_support: Supportive families and schools linked to better well-being"
+      - "tr_law_vary: Laws and policies differ across regions"
+    
+    surfaces:
+      tr_def: ["gender identity differs from sex assigned at birth"]
+      tr_icd11_class: ["ICD-11 classifies gender incongruence", "sexual health chapter", "not in mental disorders", "removed from mental disorders in ICD-11"]
+      tr_dysphoria_scope: ["gender dysphoria refers to distress", "distress related to the mismatch", "not the identity itself"]
+      tr_support: ["supportive families and schools", "linked to better well-being"]
+      tr_law_vary: ["laws differ", "policies differ", "across regions"]
+    
+    anchors:
+      tr_def: ["gender identity", "sex assigned at birth", "differs"]
+      tr_icd11_class: ["ICD-11", "gender incongruence", "sexual health", "not in mental disorders", "removed"]
+      tr_dysphoria_scope: ["gender dysphoria", "distress", "mismatch", "not the identity"]
+      tr_support: ["supportive", "family", "school", "well-being", "linked to better"]
+      tr_law_vary: ["laws", "policies", "regions", "differ"]
+    
+    reading_level: "secondary_basic"
+    max_syllables: 5.0
+    
+    note: "NSMF v1.3.3 - age 13-15, ICD-11 positive classification (no naked negation), dysphoria scope clarified"
+    version: "1.3.3"
+
+# BRIDGE TEMPLATES (cultural/religious sensitivity)
+bridges:
+  muslim:
+    - "Different Islamic scholars have different interpretations on this topic."
+    - "Kindness and non-harm are core values in many traditions."
+  
+  christian:
+    - "Christian communities hold diverse views; many emphasize compassion."
+  
+  general:
+    - "Cultural and religious perspectives vary; respectful dialogue is important."
+
+# METADATA
+metadata:
+  topic_id: "gender_01"
+  difficulty: "extreme"
+  requires_respect_bridge: true
+  canonical_source: "WHO, APA, AMA, medical consensus"
+  last_updated: "2025-11-03"
+  created_by: "IC32A08"
+

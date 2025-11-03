@@ -1,0 +1,148 @@
+# Age-Appropriate Canonical Facts: Creation vs Big Bang
+# Topic: creation_01
+# Master Topic: cosmology_theology
+
+# MASTER CANONICAL (adult-level, complete)
+master_canonical:
+  facts:
+    - "Big Bang theory describes the universe expanding from an extremely hot, dense state ~13.8 billion years ago."
+    - "Evidence includes cosmic microwave background radiation, galaxy redshift, and primordial element abundances."
+    - "The theory explains HOW the universe evolved, not WHY it exists or what caused the initial state."
+    - "Religious creation narratives address meaning, purpose, and ultimate causes."
+    - "Many theologians and scientists see Big Bang and creation as compatible (e.g., Georges Lemaitre, Catholic priest and physicist)."
+    - "Intelligent Design is not accepted as science due to lack of testability and naturalistic explanations."
+  
+  atomic_slots:
+    - slot: "bigbang_definition"
+      value: "Universe expanded from hot dense state ~13.8 Gya"
+    - slot: "bigbang_evidence"
+      value: "CMB, redshift, element abundances"
+    - slot: "science_scope_how"
+      value: "Science answers HOW, not WHY"
+    - slot: "religion_scope_why"
+      value: "Religion addresses meaning, purpose, ultimate cause"
+    - slot: "compatibility"
+      value: "Many see science and faith as compatible"
+    - slot: "ID_not_science"
+      value: "Intelligent Design lacks scientific testability"
+
+# AGE CANONICAL (age-appropriate versions)
+age_canonical:
+  
+  "6-8":
+    facts:
+      - "Scientists say the universe started very small and got bigger."
+      - "Religious stories tell us God created everything."
+      - "Some people believe both are true in different ways."
+    
+    key_slots:
+      - "cb_science_simple: Universe started small, got bigger"
+      - "cb_religion_simple: God created everything"
+      - "cb_both: Both can be true in different ways"
+    
+    surfaces:
+      cb_science_simple: ["universe started very small", "got bigger"]
+      cb_religion_simple: ["God created everything", "religious stories"]
+      cb_both: ["both are true", "true in different ways"]
+    
+    anchors:
+      cb_science_simple: ["universe", "started small", "got bigger"]
+      cb_religion_simple: ["God", "created", "everything"]
+      cb_both: ["both", "true", "different ways"]
+    
+    reading_level: "primary_simple"
+    max_syllables: 2.5
+    
+    note: "NSMF v1.3.2 - age 6-8, simple compatibility message"
+    version: "1.3.2"
+  
+  "9-12":
+    facts:
+      - "The Big Bang model says the universe expanded from a hot dense state."
+      - "Evidence includes cosmic microwave background radiation."
+      - "Many religious people see no conflict between the Big Bang and belief in God as creator."
+    
+    key_slots:
+      - "cb_def: Universe expanded from hot dense state"
+      - "cb_cmb: Evidence includes cosmic microwave background"
+      - "cb_faith_bridge: Religious people see no conflict with God as creator"
+    
+    reading_level: "upper_primary"
+    max_syllables: 3.5
+    
+    surfaces:
+      cb_def: ["hot dense state", "expanded", "universe expanded", "Big Bang model"]
+      cb_cmb: ["cosmic microwave background", "CMB", "background radiation", "evidence includes"]
+      cb_faith_bridge: ["see no conflict", "Big Bang and belief in God", "God as creator", "religious people"]
+    
+    anchors:
+      cb_def: ["hot", "dense", "expanded", "Big Bang"]
+      cb_cmb: ["cosmic microwave background", "CMB", "evidence", "radiation"]
+      cb_faith_bridge: ["no conflict", "Big Bang", "God", "creator", "religious"]
+    
+    reading_level: "upper_primary"
+    max_syllables: 3.5
+    
+    note: "NSMF v1.3.4-patch - enhanced surfaces for recall+entailment"
+    version: "1.3.4"
+  
+  "13-15":
+    facts:
+      - "Big Bang theory describes the universe expanding from an extremely hot, dense state approximately 13.8 billion years ago."
+      - "Evidence includes cosmic microwave background radiation, galactic redshift, and observed abundances of light elements."
+      - "The theory addresses HOW the universe evolved, not WHY it exists or what caused the initial singularity."
+      - "Religious creation narratives (Genesis, Quran, Vedas) address questions of meaning, purpose, and ultimate causation."
+      - "Many scientists and theologians (e.g., Georges Lemaitre) see Big Bang and divine creation as compatible."
+      - "Intelligent Design is not considered science because it invokes non-naturalistic explanations and lacks testability."
+    
+    key_slots:
+      - "cb_bigbang_theory: Expansion from hot dense state 13.8 Gya"
+      - "cb_evidence_detail: CMB, redshift, element abundances"
+      - "cb_science_how: Science addresses HOW, not WHY"
+      - "cb_religion_why: Religion addresses meaning, purpose, causation"
+      - "cb_compatibility: Many see Big Bang and creation as compatible"
+      - "cb_id_not_science: ID not science (non-naturalistic, not testable)"
+    
+    surfaces:
+      cb_bigbang_theory: ["expanding from hot dense state", "13.8 billion years ago"]
+      cb_evidence_detail: ["cosmic microwave background", "CMB", "galactic redshift", "light elements"]
+      cb_science_how: ["HOW the universe evolved", "not WHY"]
+      cb_religion_why: ["meaning", "purpose", "ultimate causation", "Genesis", "Quran", "Vedas"]
+      cb_compatibility: ["see Big Bang and creation as compatible", "Georges Lemaitre"]
+      cb_id_not_science: ["Intelligent Design", "not science", "non-naturalistic", "lacks testability"]
+    
+    anchors:
+      cb_bigbang_theory: ["Big Bang", "expanding", "hot dense", "13.8 billion"]
+      cb_evidence_detail: ["CMB", "cosmic microwave", "redshift", "elements"]
+      cb_science_how: ["HOW", "WHY", "universe evolved"]
+      cb_religion_why: ["meaning", "purpose", "causation", "narratives"]
+      cb_compatibility: ["compatible", "Lemaitre", "scientists", "theologians"]
+      cb_id_not_science: ["Intelligent Design", "not science", "testability"]
+    
+    reading_level: "secondary_basic"
+    max_syllables: 5.0
+    
+    note: "NSMF v1.3.2 - age 13-15, full cosmology with compatibility discussion"
+    version: "1.3.2"
+
+# BRIDGE TEMPLATES (cultural/religious sensitivity)
+bridges:
+  christian:
+    - "Many Christians see the Big Bang as the method God used to create the universe."
+    - "Georges Lemaitre, who proposed the Big Bang theory, was a Catholic priest."
+  
+  muslim:
+    - "Many Muslims interpret Quranic verses as compatible with an expanding universe."
+  
+  jewish:
+    - "Jewish tradition often embraces both scientific discovery and theological meaning."
+
+# METADATA
+metadata:
+  topic_id: "creation_01"
+  difficulty: "extreme"
+  requires_respect_bridge: true
+  canonical_source: "cosmology, theology, scientific_consensus"
+  last_updated: "2025-11-03"
+  created_by: "IC32A08"
+

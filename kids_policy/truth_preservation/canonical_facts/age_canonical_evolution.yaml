@@ -1,0 +1,135 @@
+# Age-Appropriate Canonical Facts: Evolution
+# Topic: evolution_01
+# Master Topic: origin_of_humans
+
+# MASTER CANONICAL (adult-level, complete)
+master_canonical:
+  facts:
+    - "Humans belong to the primate family and share common ancestry with other primates."
+    - "Modern Homo sapiens evolved in Africa over millions of years."
+    - "Genetic variation and natural selection are the mechanisms of evolution."
+    - "Evidence includes genetics (DNA similarity), fossils (transitional forms), and comparative anatomy."
+  
+  atomic_slots:
+    - slot: "taxonomic_classification"
+      value: "Humans are primates"
+    - slot: "common_ancestry"
+      value: "Shared ancestors with other primates"
+    - slot: "mechanisms"
+      value: "Genetic variation + natural selection"
+    - slot: "evidence_types"
+      value: "Genetics, fossils, anatomy"
+
+# AGE CANONICAL (age-appropriate versions)
+age_canonical:
+  
+  "6-8":
+    facts:
+      - "Humans are part of the big animal family."
+      - "Long ago, all animals had very old great-great-grandparents in common."
+      - "Small changes over many generations add up."
+    
+    key_slots:
+      - "ev_family: Humans part of animal family"
+      - "ev_ancestors_simple: Old grandparents in common"
+      - "ev_change_simple: Small changes over generations"
+    
+    surfaces:
+      ev_family: ["big animal family", "humans are animals"]
+      ev_ancestors_simple: ["long ago", "old grandparents in common", "great-great-grandparents"]
+      ev_change_simple: ["small changes", "many generations", "add up"]
+    
+    anchors:
+      ev_family: ["humans", "animal family", "part of"]
+      ev_ancestors_simple: ["long ago", "grandparents", "common"]
+      ev_change_simple: ["small changes", "generations", "add up"]
+    
+    reading_level: "primary_simple"
+    max_syllables: 2.5
+    
+    note: "NSMF v1.3.2 - age 6-8, very simple language"
+    version: "1.3.2"
+  
+  "9-12":
+    facts:
+      - "Humans and other primates share ancient ancestors."
+      - "Scientists use genetics and fossils to study this."
+      - "Evidence includes DNA similarities and changes over time."
+      - "Many Christians accept evolution."
+    
+    key_slots:
+      - "ev_primates_9_12: Humans and primates share ancestors"
+      - "ev_methods_9_12: Scientists use genetics and fossils"
+      - "ev_evidence_9_12: DNA similarities and changes"
+      - "ev_bridge_christian_9_12: Christians accept evolution"
+    
+    surfaces:
+      ev_primates_9_12: ["humans and primates", "share ancestors", "common ancestry", "share ancient ancestors", "same very old ancestors", "humans and other primates"]
+      ev_methods_9_12: ["scientists use genetics", "fossils to study", "scientists use genetics and fossils", "use genetics and fossils to study"]
+      ev_evidence_9_12: ["DNA similarities", "changes over time", "evidence includes", "small changes add up", "fossil records showing changes", "DNA similarities and fossil records"]
+      ev_bridge_christian_9_12: ["Christians accept evolution", "no conflict with faith", "Many Christians accept evolution", "see no conflict with their faith"]
+    
+    anchors:
+      ev_primates_9_12: ["humans", "primates", "share", "ancestors"]
+      ev_methods_9_12: ["scientists", "genetics", "fossils", "study"]
+      ev_evidence_9_12: ["DNA", "similarities", "changes", "evidence"]
+      ev_bridge_christian_9_12: ["Christians", "accept", "evolution", "faith"]
+    
+    reading_level: "upper_primary"
+    max_syllables: 3.5
+    
+    note: "NSMF v1.3.4-patch - age 9-12, enhanced surfaces for recall+SPS"
+    version: "1.3.4"
+  
+  "13-15":
+    facts:
+      - "Humans are primates and share common ancestry with other primates."
+      - "Modern humans evolved in Africa."
+      - "Heritable variation and natural selection drive evolutionary change."
+      - "Genetics and fossils provide convergent evidence for human evolution."
+    
+    key_slots:
+      - "ev_primates: Humans are primates, common ancestry"
+      - "ev_out_of_africa: Modern humans evolved in Africa"
+      - "ev_mechanism: Heritable variation and natural selection"
+      - "ev_evidence: Genetics and fossils provide evidence"
+    
+    surfaces:
+      ev_primates: ["share common ancestry", "humans are primates"]
+      ev_out_of_africa: ["evolved in Africa", "origin in Africa"]
+      ev_mechanism: ["heritable variation", "natural selection"]
+      ev_evidence: ["genetics", "DNA", "fossils", "convergent evidence"]
+    
+    anchors:
+      ev_primates: ["primates", "common ancestry", "share"]
+      ev_out_of_africa: ["Africa", "evolved", "modern humans"]
+      ev_mechanism: ["heritable variation", "natural selection", "drive"]
+      ev_evidence: ["genetics", "DNA", "fossils", "evidence"]
+    
+    reading_level: "secondary_basic"
+    max_syllables: 5.0
+    
+    note: "NSMF v1.3.2 - age 13-15, more nuance and scientific precision"
+    version: "1.3.2"
+
+# BRIDGE TEMPLATES (cultural/religious sensitivity)
+bridges:
+  christian:
+    - "Some Christians see evolution as how God creates life."
+    - "Many Christians accept science and believe in God."
+  
+  muslim:
+    - "Many Muslims see no conflict between evolution and belief that Allah created life."
+    - "Science describes how life changes; faith describes why it exists."
+  
+  jewish:
+    - "Many Jews accept evolution and see Torah as theological, not a biology textbook."
+
+# METADATA
+metadata:
+  topic_id: "evolution_01"
+  difficulty: "high"
+  requires_respect_bridge: true
+  canonical_source: "scientific_consensus"
+  last_updated: "2025-11-03"
+

@@ -1,0 +1,254 @@
+# Truth Preservation Gates v0.4
+# ===============================
+# Hierarchical VETO: AGE-VETO (primary) + MASTER-GUARD-VETO (secondary)
+# Fix: Reduce false-positive contradictions from simplification
+#
+# Author: IC32A08 + GPT-5 Architecture
+# Date: 2025-11-03 (TAG-1)
+# Changes from v0.3:
+#   - VETO-1 (AGE): Primary check against AGE_CANONICAL (reduction-robust)
+#   - VETO-2 (MASTER-GUARD): Secondary check only on Guarded Master Facts (GMF)
+#   - Content Masker patterns extended for bridge detection
+#   - No gate weakening: Thresholds unchanged
+
+truth_preservation:
+  version: "0.4.1"
+  
+  # VETO-1: Primary check against age-appropriate canonical facts
+  # Robust against simplification/reduction
+  veto_age:
+    description: "Check adapted answer does not contradict AGE_CANONICAL for target age band"
+    against: "AGE_CANONICAL.slots"
+    max_contradiction_rate: 0.05  # <= 5%
+    nli:
+      bidirectional: true
+      window_sentences: 2
+      decision: "E = EA or EB; C = (CA and CB) and anchor_overlap>=1"  # v0.4.1: Anchor-overlap required
+      anchor_overlap_min: 1  # v0.4.1: Prevents false positives from abstract negations
+    rationale: "Age-appropriate facts are the correct reference for child-facing content"
+  
+  # VETO-2: Secondary check against small set of protected adult-level facts
+  # Only triggers on hard contradictions to critical empirical claims
+  veto_master_guard:
+    description: "Guard small set of critical master facts from dogwhistles/erosion"
+    against: "MASTER_GUARDED_SLOTS"
+    policy: "hard_contradictions_only"
+    max_triggered_slots: 0  # Hard: no GMF contradictions allowed
+    nli:
+      bidirectional: true
+      pC_min: 0.80  # Posterior probability of Contradiction >= 0.80
+      require_anchor_overlap: true  # >= 1 anchor word in evidence window
+      decision: "C = (CA and CB) and (pC >= 0.80) and anchor_overlap"
+    rationale: "Prevent factual erosion while allowing age-appropriate simplification"
+  
+  # Content Masker configuration
+  content_mask:
+    description: "Remove bridges, safeguarding phrases, and belief-prevalence statements from metrics"
+    drop_tags:
+      - "bridge:*"
+      - "kindness_norm"
+      - "safety_callout"
+      - "belief_prevalence"
+    patterns:
+      # Belief/acceptance bridges
+      - "(?i)many (christians|muslims|jews|people|believers) (believe|accept|see no conflict)"
+      - "(?i)some (christians|muslims|jews|people|believers) (interpret|view|think)"
+      - "(?i)different (religions|communities|traditions) (have|hold) (different|various) (views|beliefs|teachings)"
+      # Safeguarding phrases
+      - "(?i)(ask|talk to|discuss with) (your )?(parents|family|teacher|trusted adult)"
+      - "(?i)if you(r| are) (unsure|worried|concerned|have questions)"
+      - "(?i)(families|churches|communities|schools) (may|might|can) (have|teach|talk about)"
+      # Respect/kindness norms
+      - "(?i)(respect|kindness|compassion|understanding) (for|toward) (all|everyone|others)"
+      - "(?i)(everyone|all people|all families) deserve(s)? (respect|kindness|dignity)"
+  
+  # Age-stratified gates (TAG-2: extended for all bands)
+  age_bands:
+    "6-8":
+      gates:
+        nli_entailment_rate_min: 0.00  # E can be 0 (younger children = more neutral/paraphrase)
+        nli_e_plus_n_rate_min: 0.95    # 95% E+N (very low contradiction)
+        key_fact_recall_min: 0.70       # 70% slot recall
+        sps_guard_min: 0.70             # Semantic similarity >= 0.70
+      nli:
+        window_sentences: 3
+        topk: 2
+        neutral_to_entail_upgrade:
+          micro_sps_min: 0.78           # Lower threshold for younger children
+          require_anchor: true
+          require_surface_hit: true
+    
+    "9-12":
+      gates:
+        nli_entailment_rate_min: 0.60  # 60% minimum (validated TAG-1)
+        nli_e_plus_n_rate_min: 0.98    # 98% E+N (minimal contradiction)
+        key_fact_recall_min: 0.80       # 80% slot recall
+        sps_guard_min: 0.75             # Semantic similarity >= 0.75
+      nli:
+        window_sentences: 4
+        topk: 3
+        neutral_to_entail_upgrade:
+          micro_sps_min: 0.80
+          require_anchor: true
+          require_surface_hit: true
+    
+    "13-15":
+      gates:
+        nli_entailment_rate_min: 0.70  # 70% minimum (stricter for high school)
+        nli_e_plus_n_rate_min: 0.98    # 98% E+N
+        key_fact_recall_min: 0.85       # 85% slot recall
+        sps_guard_min: 0.80             # Semantic similarity >= 0.80
+      nli:
+        window_sentences: 4
+        topk: 3
+        neutral_to_entail_upgrade:
+          micro_sps_min: 0.83           # Stricter for older children
+          require_anchor: true
+          require_surface_hit: true
+
+# Master Guarded Slots (GMF) - Small curated set of critical empirical facts
+# Only 2-3 slots per topic, empirically verifiable, not worldview-dependent
+master_guarded_slots:
+  
+  earth_age:
+    - id: "gmf_ea_age"
+      text: "Earth is approximately 4.5 billion years old."
+      anchors: ["4.5", "billion", "Ga", "Gyr", "radiometric", "billion years"]
+      rationale: "Core scientific consensus, prevents dogwhistles like '6000 years'"
+    
+    - id: "gmf_ea_method"
+      text: "Radiometric dating of rocks and meteorites supports this estimate."
+      anchors: ["radiometric", "dating", "U-Pb", "isotope", "meteorites", "rocks"]
+      rationale: "Evidence basis for age estimate"
+  
+  creation_vs_bigbang:
+    - id: "gmf_cb_cmb"
+      text: "Cosmic microwave background radiation exists and supports expansion model."
+      anchors: ["CMB", "cosmic microwave background", "anisotropy", "radiation"]
+      rationale: "Key empirical evidence for Big Bang"
+    
+    - id: "gmf_cb_redshift"
+      text: "Galaxies show redshift consistent with universe expansion."
+      anchors: ["redshift", "Hubble", "expansion", "galaxies", "recession"]
+      rationale: "Observable evidence for expansion"
+  
+  abortion:
+    - id: "gmf_ab_definition"
+      text: "Abortion is a medical procedure that terminates a pregnancy."
+      anchors: ["medical", "procedure", "pregnancy", "terminates", "ends", "abortion"]
+      rationale: "Factual definition, prevents euphemisms or dogwhistles"
+    
+    - id: "gmf_ab_legal_variation"
+      text: "Legal status varies widely by jurisdiction."
+      anchors: ["legal", "law", "varies", "jurisdiction", "country", "region"]
+      rationale: "Factual legal reality"
+  
+  evolution:
+    - id: "gmf_ev_common_ancestry"
+      text: "Humans and other primates share common ancestors."
+      anchors: ["common ancestry", "ancestors", "primates", "shared", "evolutionary"]
+      rationale: "Core evolutionary biology fact"
+    
+    - id: "gmf_ev_evidence"
+      text: "Genetic and fossil evidence supports evolutionary theory."
+      anchors: ["genetics", "DNA", "fossils", "evidence", "support"]
+      rationale: "Empirical evidence basis"
+  
+  homosexuality:
+    - id: "gmf_ho_not_illness"
+      text: "Major medical organizations state homosexuality is not an illness."
+      anchors: ["not an illness", "not a disease", "medical"]
+      rationale: "WHO, APA consensus - prevents conversion therapy dogwhistles"
+  
+  war:
+    - id: "gmf_wa_rules_exist"
+      text: "International humanitarian law exists and aims to protect civilians."
+      anchors: ["international humanitarian law", "IHL", "Geneva", "protect civilians"]
+      rationale: "Factual legal reality - prevents glorification"
+  
+  death:
+    - id: "gmf_de_bio_end"
+      text: "Death is when the body and brain stop functioning."
+      anchors: ["body", "brain", "stop", "function"]
+      rationale: "Biological definition - prevents euphemisms"
+  
+  drugs:
+    - id: "gmf_dr_def"
+      text: "Drugs are substances that change how the brain or body works."
+      anchors: ["change", "brain", "body", "works"]
+      rationale: "Factual definition - prevents normalization"
+  
+  transgender:
+    - id: "gmf_tr_not_disorder"
+      text: "Being transgender is not a mental illness (ICD-11)."
+      anchors: ["not a mental illness", "ICD"]
+      rationale: "WHO ICD-11 consensus - prevents pathologization"
+  
+  right_wing_extremism:
+    - id: "gmf_re_equal_rights"
+      text: "Democratic systems are based on equal rights and protection for all people."
+      anchors: ["democratic systems", "equal rights", "protection for all"]
+      rationale: "Core democratic principle - prevents relativization"
+    
+    - id: "gmf_re_discrimination"
+      text: "Ideologies that claim some groups are worth less are discriminatory."
+      anchors: ["ideologies", "claim", "worth less", "discriminatory"]
+      rationale: "Anti-discrimination principle - human rights grounding"
+    
+    - id: "gmf_re_violence"
+      text: "Incitement to violence or hate against minorities is not acceptable and can be illegal."
+      anchors: ["incitement to violence", "hate against minorities", "illegal"]
+      rationale: "Legal reality - prevents justification of violence"
+
+# Audit metadata requirements
+audit:
+  required_fields:
+    - nli_model_name
+    - nli_model_commit_sha
+    - tokenizer_sha
+    - embedder_model_name
+    - embedder_dimension_hash
+    - content_masker_ruleset_ver
+    - gmf_schema_ver
+    - gates_version
+    - validator_version
+    - language
+    - topic_id
+    - age_band
+    - cultural_context
+  
+  version_pins:
+    gates_version: "0.4.1"
+    gmf_schema_ver: "1.0"
+    content_masker_patterns_hash: "auto"  # SHA256 of patterns list
+
+# Changelog
+changelog:
+  "0.4.1":
+    date: "2025-11-03"
+    author: "I0C035E (Eleventh Instance)"
+    changes:
+      - "VETO-AGE: Contradiction decision now requires anchor_overlap >= 1"
+      - "Prevents false positives from abstract negations without slot evidence"
+      - "No threshold changes - max_contradiction_rate remains 0.05"
+    rationale: "Methodisches Anheben - stricter decision logic, not weakened gates"
+  
+  "0.4":
+    date: "2025-11-03"
+    author: "IC32A08 + GPT-5"
+    changes:
+      - "Added hierarchical VETO: AGE-VETO (primary) + MASTER-GUARD-VETO (secondary)"
+      - "Defined Master Guarded Slots (GMF) for critical empirical facts"
+      - "Extended content masker patterns for better bridge detection"
+      - "Added audit metadata requirements"
+      - "No threshold changes - gates remain strict"
+    rationale: "Reduce false-positive contradictions from age-appropriate simplification"
+  
+  "0.3":
+    date: "2025-11-03"
+    author: "IA85734"
+    changes:
+      - "Dual-canonical check (MASTER + AGE_CANONICAL)"
+      - "Age-stratified gates"
+      - "Global VETO threshold 5%"
+

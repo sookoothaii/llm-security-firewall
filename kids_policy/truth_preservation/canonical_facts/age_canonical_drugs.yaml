@@ -1,0 +1,132 @@
+# Age-Appropriate Canonical Facts: Drugs
+# Topic: health / drugs_01
+# Master Topic: substance_use
+
+# MASTER CANONICAL (adult-level, complete)
+master_canonical:
+  facts:
+    - "Drugs are substances that alter brain chemistry and body function."
+    - "Categories include legal (alcohol, tobacco, caffeine), prescription (opioids, stimulants), and illegal (cocaine, heroin)."
+    - "All drugs carry risks including dependence, health damage, and impaired judgment."
+    - "Medicine uses some substances therapeutically under medical supervision."
+    - "Addiction is a medical condition, not a moral failure."
+  
+  atomic_slots:
+    - slot: "definition"
+      value: "Substances altering brain/body function"
+    - slot: "categories"
+      value: "Legal (alcohol, tobacco), prescription, illegal"
+    - slot: "risks"
+      value: "Dependence, health damage, impaired judgment"
+    - slot: "medical_use"
+      value: "Some used therapeutically under supervision"
+    - slot: "addiction_medical"
+      value: "Addiction is medical condition"
+
+# AGE CANONICAL (age-appropriate versions)
+age_canonical:
+  
+  "6-8":
+    facts:
+      - "Some substances can change how your body or brain works."
+      - "Medicines should be used only with a doctor's help."
+      - "It is important to keep medicines away from children."
+    
+    key_slots:
+      - "dr_simple_def: Substances change body or brain"
+      - "dr_doctor_only: Medicines only with doctor"
+      - "dr_keep_safe: Keep medicines away from children"
+    
+    surfaces:
+      dr_simple_def: ["change how your body works", "change how your brain works"]
+      dr_doctor_only: ["only with a doctor", "doctor's help"]
+      dr_keep_safe: ["keep medicines away", "away from children"]
+    
+    anchors:
+      dr_simple_def: ["change", "body", "brain", "works"]
+      dr_doctor_only: ["doctor", "only with", "help"]
+      dr_keep_safe: ["keep away", "medicines", "children"]
+    
+    reading_level: "primary_simple"
+    max_syllables: 2.5
+    
+    note: "NSMF v1.3.2 - age 6-8, safety-focused simple language"
+    version: "1.3.2"
+  
+  "9-12":
+    facts:
+      - "Drugs are substances that change how the brain or body works."
+      - "Some drugs are medicines used with a doctor's guidance."
+      - "Non-medical drug use can cause harm and dependence."
+      - "Legal status differs by country; alcohol and nicotine are drugs."
+    
+    key_slots:
+      - "dr_def: Substances change brain or body"
+      - "dr_medicine: Medicines with doctor guidance"
+      - "dr_risks: Harm and dependence"
+      - "dr_law: Legal status varies, alcohol/nicotine are drugs"
+    
+    surfaces:
+      dr_def: ["change how the brain works", "change how the body works", "affect the brain or body"]
+      dr_medicine: ["medicines used with a doctor's guidance", "used with a doctor", "prescribed by a doctor"]
+      dr_risks: ["non-medical use", "cause harm", "dependence", "addiction"]
+      dr_law: ["legal status differs", "by country", "alcohol and nicotine are drugs"]
+    
+    anchors:
+      dr_def: ["change", "brain", "body", "works", "affect"]
+      dr_medicine: ["medicine", "doctor", "guidance", "prescribed"]
+      dr_risks: ["non-medical", "harm", "dependence", "addiction"]
+      dr_law: ["legal status", "country", "alcohol", "nicotine", "drugs"]
+    
+    reading_level: "upper_primary"
+    max_syllables: 3.5
+    
+    note: "NSMF v1.3.2 - surfaces added, regression fix"
+    version: "1.3.2"
+  
+  "13-15":
+    facts:
+      - "Drugs are substances that affect brain or body function."
+      - "Some drugs are prescribed medicines used under medical supervision."
+      - "Non-medical use can cause harm, dependence, or addiction."
+      - "Legal status differs by country; alcohol and nicotine are drugs."
+    
+    key_slots:
+      - "dr_def: Drugs affect brain or body function"
+      - "dr_medical_use: Prescribed medicines under supervision"
+      - "dr_risks: Harm, dependence, addiction"
+      - "dr_law: Legal status differs, alcohol/nicotine are drugs"
+    
+    surfaces:
+      dr_def: ["affect brain function", "affect body function"]
+      dr_medical_use: ["prescribed", "medical supervision"]
+      dr_risks: ["harm", "dependence", "addiction"]
+      dr_law: ["legal status differs", "alcohol and nicotine are drugs"]
+    
+    anchors:
+      dr_def: ["affect", "brain", "body", "function"]
+      dr_medical_use: ["prescribed", "medical supervision", "medicines"]
+      dr_risks: ["harm", "dependence", "addiction"]
+      dr_law: ["legal status", "country", "alcohol", "nicotine", "drugs"]
+    
+    reading_level: "secondary_basic"
+    max_syllables: 5.0
+    
+    note: "NSMF v1.3.2 - age 13-15, scientific precision with nuance"
+    version: "1.3.2"
+
+# BRIDGE TEMPLATES (cultural/religious sensitivity)
+bridges:
+  general:
+    - "Different cultures and religions have different rules about substances."
+    - "Family values and laws both matter when making choices."
+
+# METADATA
+metadata:
+  topic_id: "drugs_01"
+  difficulty: "high"
+  requires_respect_bridge: false
+  canonical_source: "medical, public_health"
+  last_updated: "2025-11-03"
+  created_by: "IC32A08"
+
