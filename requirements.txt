@@ -18,6 +18,8 @@ psycopg[binary]>=3.1.0          # PostgreSQL (production)
 sentence-transformers>=2.2.0    # Embedding detector
 torch>=2.0.0                    # Perplexity detector
 transformers>=4.30.0            # GPT-2 for perplexity
+onnx>=1.14.0                    # ONNX model format
+onnxruntime>=1.16.0             # ONNX inference (Layer 15 Crisis Detection + GuardNet)
 
 # Optional: Monitoring
 # prometheus-client>=0.17.0

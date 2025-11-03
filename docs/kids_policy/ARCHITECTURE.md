@@ -136,7 +136,7 @@ if canonical_sha != expected_sha:
 
 ## Dataflow (Unified)
 
-```
+```text
 User Input
   |
   v
@@ -340,7 +340,7 @@ if flags.kids_policy.enabled and ctx.topic in KIDS_TOPICS:
 
 **Principle:** Increase canonical coverage to raise pass rates, NOT lower gates.
 
-**Rationale:** 
+**Rationale:**
 - Maintains rigor
 - Prevents gate erosion
 - SPS rises through richer canonicals (I0C035E discovery)
@@ -539,4 +539,6 @@ if flags.kids_policy.enabled and ctx.topic in KIDS_TOPICS:
 ---
 
 **Status:** Policy-Plane architecture complete. Router integration pending.
+
+
 

@@ -104,3 +104,5 @@ class MetacognitiveResult:
     def __post_init__(self):
         if not (0.0 <= self.risk_score <= 1.0):
             raise ValueError(f"risk_score must be in [0,1], got {self.risk_score}")
+
+

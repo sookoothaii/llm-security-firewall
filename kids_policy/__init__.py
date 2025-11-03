@@ -12,8 +12,9 @@ __version__ = "0.1.0"
 __author__ = "Joerg Bollwahn"
 
 from .truth_preservation.validators.truth_preservation_validator_v2_3 import (
-    TruthPreservationValidator,
+    TruthPreservationValidatorV2_3,
+    ValidationResult,
 )
 
-__all__ = ["TruthPreservationValidator"]
+__all__ = ["TruthPreservationValidatorV2_3", "ValidationResult"]
 

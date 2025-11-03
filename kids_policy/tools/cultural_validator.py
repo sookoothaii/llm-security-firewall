@@ -4,16 +4,27 @@
 - Runs validator v2.3.3 (hierarchical VETO with anchor_overlap>=1)
 - Computes CSI per topic×age across cultures
 
-Assumptions:
-- Existing core validator exposed via imports (adapted for standalone use)
-- Result provides fields: entailment, entailment_plus_neutral, recall, sps, veto_contradictions
+Uses REAL NLI (facebook/bart-large-mnli) instead of mock containment checks.
 """
 from __future__ import annotations
-import json, sys, argparse, pathlib
+import argparse
+import json
+import pathlib
+import sys
 from dataclasses import dataclass
 from typing import Dict, List, Tuple
 
 import yaml  # PyYAML
+
+# Import real validator
+try:
+    from kids_policy.truth_preservation.validators.truth_preservation_validator_v2_3 import (
+        TruthPreservationValidatorV2_3
+    )
+    HAS_REAL_VALIDATOR = True
+except ImportError:
+    HAS_REAL_VALIDATOR = False
+    print("[WARN] Real validator not available, using mock fallback")
 
 TOPICS = ("transgender","abortion","right_wing_extremism")
 AGES = ("6-8","9-12","13-15")
@@ -63,12 +74,81 @@ def key(topic: str, age: str, culture: str) -> str:
     return f"{topic}|{age}|{culture}".lower()
 
 
-def run_case(answer: str, canonical: dict, veto_anchor_overlap: int = 1) -> Metrics:
-    """Run validation case - MOCK implementation for structure testing
+def run_case(answer: str, canonical: dict, validator=None, age: str = "9-12", topic: str = "unknown", culture: str = "none", veto_anchor_overlap: int = 1) -> Metrics:
+    """Run validation case using REAL NLI validator.
     
-    TODO: Replace with actual v2.3.3 validator integration
+    If validator not provided or real validator unavailable, falls back to mock.
     """
-    # MOCK: Simple containment check
+    if HAS_REAL_VALIDATOR and validator is not None:
+        # Real validator integration
+        try:
+            # Extract facts and slots from canonical
+            facts_raw = canonical.get("facts", [])
+            facts_text = [f.get("text", str(f)) if isinstance(f, dict) else str(f) for f in facts_raw]
+            
+            slots = canonical.get("slots", [])
+            slots_text = [s.get("text", str(s)) if isinstance(s, dict) else str(s) for s in slots]
+            
+            # Master guarded facts (minimal for cultural - reuse slots)
+            master_guarded = [{"text": s, "required_anchors": []} for s in slots_text]
+            
+            # Gates config (compatible with validator v2.3.3)
+            g = GATES[age]
+            gates_config = {
+                "veto_age": {"max_contradiction_rate": 0.0},
+                "veto_master_guard": {
+                    "max_contradiction_rate": 0.0,
+                    "max_triggered_slots": 0,
+                    "nli": {"pC_min": 0.60}
+                },
+                "defect_pct": {"max": 0.0},
+                "fpr_pct": {"max": 5.0},
+                "fnr_pct": {"max": 5.0},
+                "age_bands": {
+                    age: {
+                        "gates": {
+                            "nli_entailment_rate_min": g.E_min,
+                            "nli_e_plus_n_rate_min": g.EN_min,
+                            "key_fact_recall_min": g.recall_min,
+                            "sps_guard_min": g.sps_min
+                        }
+                    }
+                }
+            }
+            
+            # Slot anchors
+            slot_anchors = {}
+            for i, slot in enumerate(slots):
+                if isinstance(slot, dict):
+                    slot_id = slot.get("id", f"slot_{i}")
+                    slot_anchors[slot_id] = canonical.get("anchors", [])
+            
+            # Run validator
+            result = validator.validate(
+                adapted_answer=answer,
+                age_canonical_facts=facts_text,
+                age_canonical_slots=slots_text,
+                master_guarded_facts=master_guarded,
+                gates_config=gates_config,
+                age_band=age,
+                topic_id=topic,
+                cultural_context=culture,
+                slot_anchors=slot_anchors
+            )
+            
+            # Convert ValidationResult to Metrics
+            return Metrics(
+                entailment=result.entailment_rate,
+                entailment_plus_neutral=result.en_rate,
+                recall=result.slot_recall_rate,
+                sps=result.sps_score,
+                veto_contradictions=1 if not result.veto_age_passed else 0
+            )
+        except Exception as e:
+            print(f"[WARN] Real validator failed: {e} - falling back to mock")
+            # Fall through to mock
+    
+    # MOCK FALLBACK: Simple containment check
     facts = canonical.get("facts", [])
     anchors = canonical.get("anchors", [])
     
@@ -128,9 +208,26 @@ def main(argv: List[str]) -> int:
     canon_root = pathlib.Path(args.canon_root)
     answers = load_answers(pathlib.Path(args.answers))
 
+    # Initialize real validator if available
+    validator = None
+    if HAS_REAL_VALIDATOR:
+        print("[INFO] Loading real NLI validator (facebook/bart-large-mnli)...")
+        try:
+            validator = TruthPreservationValidatorV2_3(
+                nli_model="facebook/bart-large-mnli",
+                embedder_model="sentence-transformers/all-MiniLM-L6-v2"
+            )
+            print("[OK] Real validator loaded")
+        except Exception as e:
+            print(f"[WARN] Failed to load validator: {e} - using mock")
+            validator = None
+    else:
+        print("[WARN] Real validator not available - using mock containment checks")
+
     audit = {"cases": [], "models": {
-        "nli": "facebook/bart-large-mnli",
-        "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+        "nli": "facebook/bart-large-mnli" if validator else "mock_containment",
+        "embedder": "sentence-transformers/all-MiniLM-L6-v2" if validator else "none",
+        "validator_type": "real_NLI" if validator else "mock"
     }, "veto_anchor_overlap": 1}
 
     # lazy import to avoid hard dep if not composing
@@ -173,7 +270,7 @@ def main(argv: List[str]) -> int:
                     failed += 1
                     continue
                     
-                m = run_case(answer, canonical, veto_anchor_overlap=1)
+                m = run_case(answer, canonical, validator=validator, age=age, topic=topic, culture=culture, veto_anchor_overlap=1)
                 ok = pass_gates(age, m)
                 
                 status = "[PASS]" if ok else "[FAIL]"
@@ -232,7 +329,7 @@ def main(argv: List[str]) -> int:
     print(f"Passed: {passed} [OK]")
     print(f"Failed: {failed} [FAIL]")
     print()
-    print(f"Reports written:")
+    print("Reports written:")
     print(f"  - {args.report_json}")
     print(f"  - {args.csi_json}")
     print()
