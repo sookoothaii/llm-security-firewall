@@ -39,14 +39,14 @@ jobs:
 
       - name: Gate (A3 vs A0)
         run: |
-          python - << 'PY'
-import json, sys
-res=json.load(open('ablation.json'))
-a0, a3 = res["A0"], res["A3"]
-ok_cal = (a3["ece"]<=0.05 and a3["brier"]<=0.10)
-ok_asr = (a3["asr_at_thr"] <= a0["asr_at_thr"]*0.90)
-print("A0:",a0)
-print("A3:",a3)
-print(f"Gate: ECE={a3['ece']:.3f}<=0.05? {a3['ece']<=0.05}, Brier={a3['brier']:.3f}<=0.10? {a3['brier']<=0.10}, ASR={a3['asr_at_thr']:.2%}<=90%*{a0['asr_at_thr']:.2%}? {ok_asr}")
-sys.exit(0 if (ok_cal and ok_asr) else 1)
-PY
+          python3 -c "
+          import json, sys
+          res = json.load(open('ablation.json'))
+          a0, a3 = res['A0'], res['A3']
+          ok_cal = (a3['ece'] <= 0.05 and a3['brier'] <= 0.10)
+          ok_asr = (a3['asr_at_thr'] <= a0['asr_at_thr'] * 0.90)
+          print('A0:', a0)
+          print('A3:', a3)
+          print(f\"Gate: ECE={a3['ece']:.3f}<=0.05? {a3['ece']<=0.05}, Brier={a3['brier']:.3f}<=0.10? {a3['brier']<=0.10}, ASR={a3['asr_at_thr']:.2%}<=90%*{a0['asr_at_thr']:.2%}? {ok_asr}\")
+          sys.exit(0 if (ok_cal and ok_asr) else 1)
+          "
