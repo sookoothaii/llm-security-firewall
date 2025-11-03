@@ -68,11 +68,11 @@ Eight research questions from I0C035E TAG-2 work were evaluated against publishe
 Full 137-source bibliography available in `research_qa_findings.md` (lines 354-365).
 
 Key sources:
-- Safe-Child-LLM [74], ChildSafe [12], MinorBench [72]
-- SBERTScore [23][104], ContraGen [100], HalluTree [102]
-- CulturalBench [111], BEATS [73]
-- Industry practices: OpenAI [31][37], Anthropic [32][38], Meta [64][67]
-- Regulatory: COPPA 2025 [21][24], EU AI Act [22][25], 5Rights [19]
+- Safe-Child-LLM, ChildSafe, MinorBench (child safety benchmarks)
+- SBERTScore, ContraGen, HalluTree (factuality validation)
+- CulturalBench, BEATS (cultural sensitivity)
+- Industry practices: OpenAI, Anthropic, Meta
+- Regulatory: COPPA 2025, EU AI Act, 5Rights
 
 ---
 

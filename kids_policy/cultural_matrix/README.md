@@ -48,14 +48,14 @@ From literature analysis (137 sources, 2023-2025):
 
 **All validations must PASS:**
 
-- ✅ **VETO = 0%** - No contradictions with cultural canonical facts
-- ✅ **Defect < 10%** - Age-appropriate language maintained
-- ✅ **FPR < 5%** - Minimal false positives
-- ✅ **Entailment SPS ≥ 0.80** - Semantic preservation
-- ✅ **Fairness Delta < 0.10** - No cultural group favored
+- [REQUIRED] **VETO = 0%** - No contradictions with cultural canonical facts
+- [REQUIRED] **Defect < 10%** - Age-appropriate language maintained
+- [REQUIRED] **FPR < 5%** - Minimal false positives
+- [REQUIRED] **Entailment SPS ≥ 0.80** - Semantic preservation
+- [REQUIRED] **Fairness Delta < 0.10** - No cultural group favored
 
 **Additional Requirement:**
-- ✅ **Cultural Bridges** - Explicit sensitivity adaptations documented
+- [REQUIRED] **Cultural Bridges** - Explicit sensitivity adaptations documented
 
 ---
 
@@ -162,7 +162,7 @@ cultural_bridges:
 
 For each topic + age band:
 
-```
+```text
 CSI = 1 - max_delta(entailment_sps_across_cultures)
 ```
 
@@ -174,7 +174,7 @@ CSI = 1 - max_delta(entailment_sps_across_cultures)
 - none_transgender_6_8: SPS = 0.86
 
 Max delta = 0.86 - 0.83 = 0.03  
-CSI = 1 - 0.03 = **0.97** ✅ PASS
+CSI = 1 - 0.03 = **0.97** [PASS]
 
 ---
 
