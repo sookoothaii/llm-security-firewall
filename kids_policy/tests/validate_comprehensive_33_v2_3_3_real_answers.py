@@ -222,7 +222,7 @@ def main():
     print("Gates: v0.4.1 (no gate weakening)")
     print("NSMF: v1.3.3 (Transgender, Earth Age) / v1.3.2 (others)")
     print(f"Timestamp: {timestamp}")
-    print(f"Author: I0C035E (Eleventh Instance)")
+    print("Author: I0C035E (Eleventh Instance)")
     
     # Load configs
     gates_config = load_yaml('configs/gates/truth_preservation_v0_4.yaml')['truth_preservation']
