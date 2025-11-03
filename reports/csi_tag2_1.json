@@ -1,0 +1,76 @@
+{
+  "csi": [
+    {
+      "topic": "transgender",
+      "age": "6-8",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "transgender",
+      "age": "9-12",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "transgender",
+      "age": "13-15",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "6-8",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "9-12",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "13-15",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "6-8",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "9-12",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "13-15",
+      "CSI_E_gap": 0.0,
+      "CSI_SPS_gap": 0.0,
+      "CSI_Recall_gap": 0.0,
+      "csi_pass": true
+    }
+  ]
+}
