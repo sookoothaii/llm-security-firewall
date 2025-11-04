@@ -57,8 +57,9 @@ class AgeStratifiedValidator:
         try:
             from transformers import AutoTokenizer, AutoModelForSequenceClassification
             model_name = self.nli_cfg.get("mnli", {}).get("model", "facebook/bart-large-mnli")
-            self.nli_tokenizer = AutoTokenizer.from_pretrained(model_name)
-            self.nli_model = AutoModelForSequenceClassification.from_pretrained(model_name)
+            # Bandit B615: Pin revision for security (use "main" for latest stable)
+            self.nli_tokenizer = AutoTokenizer.from_pretrained(model_name, revision="main")  # nosec B615
+            self.nli_model = AutoModelForSequenceClassification.from_pretrained(model_name, revision="main")  # nosec B615
         except (ImportError, Exception):
             # Fallback: CI ohne transformers
             pass

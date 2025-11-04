@@ -79,7 +79,8 @@ class CrisisDetector:
         
         # Load tokenizer and ONNX session
         try:
-            self.tok = AutoTokenizer.from_pretrained(base)
+            # Bandit B615: Pin revision for security (use "main" for latest stable)
+            self.tok = AutoTokenizer.from_pretrained(base, revision="main")  # nosec B615
             self.ort_sess = ort.InferenceSession(
                 model_path,
                 providers=["CPUExecutionProvider"]

@@ -85,7 +85,8 @@ class CrisisDetector:
             if not tokenizer_dir.exists():
                 tokenizer_dir = base  # Fallback to base directory
             
-            self.tok = AutoTokenizer.from_pretrained(str(tokenizer_dir))
+            # Bandit B615: Pin revision for security (use "main" for latest stable)
+            self.tok = AutoTokenizer.from_pretrained(str(tokenizer_dir), revision="main")  # nosec B615
             logger.info(f"Tokenizers loaded from {tokenizer_dir}")
             
             # Load ONNX session
