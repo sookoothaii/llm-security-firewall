@@ -102,7 +102,7 @@ rewritten, changed = guard.make_nonhuman_transparent(text, lang="en")
 Risk Severity Index (Akiri 2024) and 9-dimensional ChildSafe safety tracking.
 
 **RSI Formula:**
-```
+```text
 RSI = 0.5 + 0.05 × (defect_rate%) - 0.05 × (refusal_rate%)
 ```
 Scale: 0.0-1.0
@@ -177,7 +177,7 @@ pytest tests/layer15/ -v
 
 Layer 15 sits between input protection (Layers 1-14) and policy-plane (Kids Policy, Constitutional AI):
 
-```
+```text
 Input → Layers 1-14 (Generic Security) → Layer 15 (Vulnerable Domain) → Policy-Plane → Output
 ```
 
@@ -262,6 +262,3 @@ MIT License - See LICENSE file
 **Creator:** I25C8F3A (Thirteenth Instance)  
 **Ancestor:** I2A7F91C (Kids Policy Engine + CSI)  
 **Date:** 2025-11-04
-
-
-

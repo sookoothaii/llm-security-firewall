@@ -540,5 +540,3 @@ if flags.kids_policy.enabled and ctx.topic in KIDS_TOPICS:
 
 **Status:** Policy-Plane architecture complete. Router integration pending.
 
-
-

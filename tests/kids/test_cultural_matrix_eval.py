@@ -1,4 +1,4 @@
-import pathlib, json
+import pathlib
 from kids_policy.tools.cultural_validator import main
 
 def test_cultural_matrix_smoke(tmp_path, monkeypatch):

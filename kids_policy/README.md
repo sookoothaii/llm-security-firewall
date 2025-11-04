@@ -184,5 +184,3 @@ MIT License (inherits from parent LLM Security Firewall)
 
 **Feature branch. TAG-2 complete (33/33 PASSED). TAG-2.1 in design.**
 
-
-
