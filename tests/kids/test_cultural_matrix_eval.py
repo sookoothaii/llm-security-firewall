@@ -1,4 +1,9 @@
 import pathlib
+import pytest
+
+# Skip if sentence_transformers not installed (CI without optional deps)
+pytest.importorskip("sentence_transformers")
+
 from kids_policy.tools.cultural_validator import main
 
 def test_cultural_matrix_smoke(tmp_path, monkeypatch):

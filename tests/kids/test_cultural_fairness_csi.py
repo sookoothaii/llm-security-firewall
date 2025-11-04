@@ -1,3 +1,8 @@
+import pytest
+
+# Skip if sentence_transformers not installed (CI without optional deps)
+pytest.importorskip("sentence_transformers")
+
 from kids_policy.tools.cultural_validator import compute_csi, Metrics
 
 def test_csi_computation():
