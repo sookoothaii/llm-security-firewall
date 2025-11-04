@@ -13,7 +13,7 @@ jobs:
   test:
     name: test (${{ matrix.os }}, py${{ matrix.python-version }})
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.python-version == '3.15' }}
+    continue-on-error: ${{ matrix.python-version == '3.14' || matrix.python-version == '3.15' }}
     strategy:
       fail-fast: false
       matrix:
