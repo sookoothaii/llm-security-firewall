@@ -11,7 +11,7 @@ Inspired by Kimi k2's hierarchical memory architecture.
 
 import time
 from collections import deque, defaultdict
-from typing import List, Dict, Any, TYPE_CHECKING
+from typing import List, Dict, Any, TYPE_CHECKING, Optional
 from dataclasses import dataclass, field
 
 if TYPE_CHECKING:
@@ -19,6 +19,66 @@ if TYPE_CHECKING:
 else:
     # Lazy import to avoid circular dependencies
     ToolEvent = None
+
+
+class MarkovChain:
+    """
+    Simple Markov Chain for phase transition anomaly detection.
+    
+    Tracks transition probabilities between kill-chain phases.
+    Used to detect anomalous transitions (e.g., Phase 1 → Phase 4 directly).
+    """
+    
+    def __init__(self):
+        """Initialize empty transition matrix."""
+        # transition_counts[from_phase][to_phase] = count
+        self.transition_counts: Dict[int, Dict[int, int]] = defaultdict(lambda: defaultdict(int))
+        self.total_transitions = 0
+    
+    def add(self, from_phase: int, to_phase: int):
+        """Record a phase transition."""
+        self.transition_counts[from_phase][to_phase] += 1
+        self.total_transitions += 1
+    
+    def probability(self, from_phase: int, to_phase: int) -> float:
+        """
+        Calculate transition probability P(to_phase | from_phase).
+        
+        Returns:
+            Probability (0.0 to 1.0), or 0.01 if transition never observed (default)
+        """
+        if from_phase not in self.transition_counts:
+            return 0.01  # Default: rare transition
+        
+        from_counts = self.transition_counts[from_phase]
+        total_from = sum(from_counts.values())
+        
+        if total_from == 0:
+            return 0.01
+        
+        count = from_counts.get(to_phase, 0)
+        prob = float(count) / total_from
+        
+        # If never observed, return small default probability
+        if prob == 0.0:
+            return 0.01
+        
+        return prob
+    
+    def is_anomalous(self, from_phase: int, to_phase: int, threshold: float = 0.01) -> bool:
+        """
+        Check if a transition is anomalous (probability < threshold).
+        
+        Args:
+            from_phase: Source phase
+            to_phase: Target phase
+            threshold: Minimum probability to consider normal
+            
+        Returns:
+            True if transition is anomalous
+        """
+        prob = self.probability(from_phase, to_phase)
+        return prob < threshold
 
 
 @dataclass
@@ -43,6 +103,10 @@ class HierarchicalMemory:
     tool_counts: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
     start_time: float = field(default_factory=time.time)
     
+    # FIX: Markov-Chain für Anomalie-Erkennung
+    phase_transitions: MarkovChain = field(default_factory=MarkovChain)
+    recent_phases: deque = field(default_factory=lambda: deque(maxlen=50))
+    
     def add_event(self, event):
         """
         Add a new event to memory.
@@ -53,16 +117,28 @@ class HierarchicalMemory:
         self.tactical_buffer.append(event)
         
         # 2. Determine phase from event category
-        # We need to get phase from the event or calculate it
         phase = self._get_phase_from_event(event)
         
-        # 3. Update Strategic Stats
+        # 3. FIX: Update Markov-Chain (Anomalie-Erkennung)
+        if self.recent_phases:
+            prev_phase = self.recent_phases[-1]
+            self.phase_transitions.add(prev_phase, phase)
+            
+            # Prüfe auf anomale Übergänge (z.B. Phase 1 → Phase 4 direkt)
+            if self.phase_transitions.is_anomalous(prev_phase, phase, threshold=0.01):
+                # Sofortiger Risiko-Schub, weil Übergang verdächtig
+                self.latent_risk_multiplier = min(3.0, self.latent_risk_multiplier + 0.5)
+        
+        # 4. Update Strategic Stats
         self.tool_counts[event.tool] += 1
         if phase > self.max_phase_ever:
             self.max_phase_ever = phase
-            
-        # 4. Update Latent Risk (The "Grudge" Logic)
+        
+        # 5. Update Latent Risk (The "Grudge" Logic)
         self._update_latent_risk(phase)
+        
+        # 6. Track recent phases for Markov-Chain
+        self.recent_phases.append(phase)
     
     def _get_phase_from_event(self, event) -> int:
         """

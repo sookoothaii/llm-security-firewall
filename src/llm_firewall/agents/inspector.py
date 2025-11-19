@@ -20,10 +20,23 @@ from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
-# Globales Gedächtnis für Argument-Fragmente (Hash Set)
-# FIX: SHA-256 statt MD5 (Kollisions-resistent)
-# In Prod: Redis Bloom Filter. Hier: Python Set.
-FRAGMENT_MEMORY: Set[bytes] = set()  # Store bytes (SHA-256 digest), not hex strings
+# FIX: Count-Min Sketch statt Set (O(1) Insert/Lookup, 10KB RAM)
+try:
+    from datasketch import CountMinSketch
+    COUNT_MIN_AVAILABLE = True
+except ImportError:
+    COUNT_MIN_AVAILABLE = False
+    logger.warning("datasketch not available, falling back to Set-based fragment memory")
+
+# Globales Gedächtnis für Argument-Fragmente
+# FIX: Count-Min Sketch (10KB RAM, O(1) Insert/Lookup)
+if COUNT_MIN_AVAILABLE:
+    FRAGMENT_SKETCH = CountMinSketch(width=1000, depth=5)  # 10KB RAM
+    FRAGMENT_MEMORY_LEGACY: Set[bytes] = set()  # Fallback
+else:
+    FRAGMENT_SKETCH = None
+    FRAGMENT_MEMORY_LEGACY: Set[bytes] = set()  # Fallback to Set
+
 MAX_FRAGMENT_MEMORY = 10000
 
 
@@ -127,35 +140,43 @@ class ArgumentInspector:
         # Convert arguments to string
         arg_str = str(arguments)
         
-        # 1. MEMORY CHECK (Gegen "Distributed Exfiltration")
+        # 1. MEMORY CHECK (Gegen "Distributed Exfiltration") - FIX: Count-Min Sketch
         # Wir prüfen, ob wir Teile dieses Strings schon mal gesehen haben
         hashes = self._get_rolling_hashes(arg_str)
-        known_count = 0
-        new_hashes = []
+        collision_count = 0
         
-        for h in hashes:
-            if h in FRAGMENT_MEMORY:
-                known_count += 1
-            else:
-                new_hashes.append(h)
+        # FIX: Use Count-Min Sketch (O(1) Insert/Lookup) statt Set
+        if COUNT_MIN_AVAILABLE and FRAGMENT_SKETCH is not None:
+            for frag_hash in hashes:
+                # Prüfe via Count-Min Sketch (O(1)!)
+                count = FRAGMENT_SKETCH[frag_hash]
+                if count > 0:
+                    collision_count += 1
+                # Increment count in sketch
+                FRAGMENT_SKETCH[frag_hash] += 1
+        else:
+            # Fallback: Set-based (legacy)
+            known_count = 0
+            new_hashes = []
+            for h in hashes:
+                if h in FRAGMENT_MEMORY_LEGACY:
+                    known_count += 1
+                else:
+                    new_hashes.append(h)
+            for h in new_hashes:
+                FRAGMENT_MEMORY_LEGACY.add(h)
+            if len(FRAGMENT_MEMORY_LEGACY) > MAX_FRAGMENT_MEMORY:
+                FRAGMENT_MEMORY_LEGACY.clear()
+                logger.warning("Fragment memory cleared (exceeded limit)")
+            collision_count = known_count
         
-        # Add new hashes to memory
-        for h in new_hashes:
-            FRAGMENT_MEMORY.add(h)
-        
-        # Rolling buffer: Remove oldest if we exceed limit
-        if len(FRAGMENT_MEMORY) > MAX_FRAGMENT_MEMORY:
-            # Simple strategy: Clear and rebuild (in production, use proper LRU)
-            FRAGMENT_MEMORY.clear()
-            logger.warning("Fragment memory cleared (exceeded limit)")
-        
-        # Wenn >20% des Strings bekannt sind oder >5 Fragmente (Replay Attack)
-        if len(hashes) > 5 and known_count > 5:
-            reasons.append(f"Distributed Attack Pattern: {known_count} repeating fragments")
-            max_risk = max(max_risk, 0.9)
+        # Wenn >2 Fragmente kollidieren → verteilter Angriff!
+        if len(hashes) > 5 and collision_count >= 2:
+            reasons.append(f"Cross-turn fragment collision: {collision_count}")
+            max_risk = max(max_risk, 0.95)
             forced_phase = 4
             logger.warning(
-                f"Argument Inspector: Distributed Attack detected ({known_count} fragment replays). "
+                f"Argument Inspector: Distributed Attack detected ({collision_count} fragment collisions). "
                 f"Escalating to Phase 4."
             )
         

@@ -75,7 +75,11 @@ class AgenticCampaignDetector:
         cat = (event.category or "").lower().strip()
         return self.config.category_map.get(cat, 1)  # Default Phase 1
     
-    def _compute_high_watermark(self, events: List[ToolEvent]) -> float:
+    def _compute_high_watermark(
+        self, 
+        events: List[ToolEvent], 
+        max_reached_phase: Optional[int] = None
+    ) -> float:
         """
         Calculates the historic maximum severity (High-Watermark).
         
@@ -85,13 +89,26 @@ class AgenticCampaignDetector:
         the score is set to the corresponding floor and remains there,
         even if noise events follow.
         
+        Memory Optimization: If max_reached_phase is provided (from sliding window),
+        it takes precedence over scanning events. This preserves the watermark
+        even when old events are removed.
+        
         Args:
-            events: List of all campaign events (history)
+            events: List of all campaign events (history, may be truncated)
+            max_reached_phase: Optional maximum phase ever reached (from session state)
             
         Returns:
             High-Watermark floor score (0.0 if no critical phase reached)
         """
-        if not events or not self.config.use_high_watermark:
+        if not self.config.use_high_watermark:
+            return 0.0
+        
+        # Use provided max_reached_phase if available (from sliding window state)
+        if max_reached_phase is not None and max_reached_phase > 0:
+            return self.config.phase_floors.get(max_reached_phase, 0.0)
+        
+        # Fallback: Scan events to find max phase
+        if not events:
             return 0.0
         
         max_phase = 0
@@ -114,6 +131,7 @@ class AgenticCampaignDetector:
         pretext_signals: Optional[List[str]] = None,
         scope: Optional[str] = None,
         authorized: Optional[bool] = None,
+        max_reached_phase: Optional[int] = None,
     ) -> CampaignResult:
         """
         Detect agentic campaign from tool events.
@@ -155,13 +173,16 @@ class AgenticCampaignDetector:
         final_risk = base_risk
         
         # 3. High-Watermark Application (The GTG-1002 Fix)
+        # Use max_reached_phase if provided (from sliding window state), otherwise scan events
         current_max_phase = 0
-        if events:
+        if max_reached_phase is not None and max_reached_phase > 0:
+            current_max_phase = max_reached_phase
+        elif events:
             current_max_phase = max(self._get_phase_for_event(e) for e in events)
         
         if self.config.use_phase_floor:
             floor = (
-                self._compute_high_watermark(events)
+                self._compute_high_watermark(events, max_reached_phase=max_reached_phase)
                 if self.config.use_high_watermark
                 else 0.0
             )
