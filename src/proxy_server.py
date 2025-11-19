@@ -805,7 +805,18 @@ if HAS_FASTAPI:
         Returns:
             JSON with memory statistics
         """
+        # Try cache first
         memory = SESSION_STORE.get(session_id)
+        
+        # If not in cache, try loading from storage
+        if memory is None and storage_manager is not None:
+            try:
+                memory = storage_manager.load_session(session_id)
+                if memory:
+                    SESSION_STORE[session_id] = memory  # Cache it
+            except Exception as e:
+                logger.warning(f"Failed to load session {session_id} from storage for admin: {e}")
+        
         if memory is None:
             return {"error": "Session not found"}
         return memory.get_stats()
