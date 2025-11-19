@@ -12,7 +12,7 @@ Inspired by Kimi k2's hierarchical memory architecture.
 import time
 import logging
 from collections import deque, defaultdict
-from typing import List, Dict, Any, TYPE_CHECKING, Optional
+from typing import List, Dict, Any, TYPE_CHECKING, Optional, Set
 from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
@@ -96,6 +96,9 @@ class HierarchicalMemory:
     
     session_id: str
     
+    # Constants
+    MAX_FRAGMENT_HISTORY = 10000  # Memory Bomb Protection Cap
+
     # Layer 1: Tactical (Kurzzeitgedächtnis)
     # Behält die letzten 50 Events für RC10b Muster-Erkennung
     tactical_buffer: deque = field(default_factory=lambda: deque(maxlen=50))
@@ -109,13 +112,88 @@ class HierarchicalMemory:
     # FIX: Markov-Chain für Anomalie-Erkennung
     phase_transitions: MarkovChain = field(default_factory=MarkovChain)
     recent_phases: deque = field(default_factory=lambda: deque(maxlen=50))
-    
+
+    # Behavioral Rehabilitation (Risk Decay)
+    last_decay_update: float = field(default_factory=time.time)
+    half_life_seconds: float = 24 * 3600  # 24 hours default
+    min_risk_floor: float = 1.0
+
+    # Memory Bomb Protection: LRU Cache for fragments
+    fragment_set: Set[str] = field(default_factory=set)
+    fragment_queue: deque = field(default_factory=deque)
+
+    def _apply_temporal_decay(self):
+        """
+        Apply temporal decay to latent risk multiplier.
+        
+        Risk decays towards 1.0 (min_risk_floor) over time.
+        Formula: risk = risk * (0.5 ^ (elapsed / half_life))
+        """
+        now = time.time()
+        elapsed = now - self.last_decay_update
+        
+        if elapsed <= 0 or self.latent_risk_multiplier <= self.min_risk_floor:
+            self.last_decay_update = now
+            return
+
+        # Apply decay
+        decay_factor = 0.5 ** (elapsed / self.half_life_seconds)
+        
+        # Don't drop below floor (or current floor based on max phase)
+        # Re-calculate dynamic floor based on max_phase_ever
+        dynamic_floor = 1.0
+        if self.max_phase_ever == 4:
+            dynamic_floor = 2.0
+        elif self.max_phase_ever == 3:
+            dynamic_floor = 1.5
+        elif self.max_phase_ever == 2:
+            dynamic_floor = 1.2
+            
+        effective_floor = max(self.min_risk_floor, dynamic_floor)
+        
+        # Apply decay but respect floor
+        # Note: If risk is already above floor, it decays towards floor.
+        # If risk is at floor, it stays at floor.
+        new_risk = max(effective_floor, (self.latent_risk_multiplier - effective_floor) * decay_factor + effective_floor)
+        
+        # If current risk was simply high but not due to floor, standard decay applies
+        # Simplified: Decay towards 1.0, but clamp at effective_floor
+        # Standard formula: value(t) = start_value * (0.5 ^ (t/half_life))
+        # But we want it to decay towards 1.0, not 0.0.
+        # So: (risk - 1.0) decays towards 0.
+        
+        excess_risk = self.latent_risk_multiplier - 1.0
+        if excess_risk > 0:
+            decayed_excess = excess_risk * decay_factor
+            self.latent_risk_multiplier = max(effective_floor, 1.0 + decayed_excess)
+        
+        self.last_decay_update = now
+
+    def add_fragment(self, fragment_hash: str):
+        """
+        Add a fragment hash to the memory with LRU eviction.
+        Protects against OOM attacks by limiting total stored fragments.
+        """
+        if fragment_hash in self.fragment_set:
+            return
+            
+        self.fragment_set.add(fragment_hash)
+        self.fragment_queue.append(fragment_hash)
+        
+        # Enforce Memory Limit (LRU Eviction)
+        while len(self.fragment_queue) > self.MAX_FRAGMENT_HISTORY:
+            oldest = self.fragment_queue.popleft()
+            self.fragment_set.discard(oldest)
+
     def add_event(self, event):
         """
         Add a new event to memory.
         
         Updates both tactical buffer and strategic profile.
         """
+        # 0. Apply temporal decay BEFORE adding new risk
+        self._apply_temporal_decay()
+
         # 1. Update Tactical Buffer
         self.tactical_buffer.append(event)
         
@@ -204,8 +282,17 @@ class HierarchicalMemory:
         Returns:
             Adjusted risk score (capped at 1.0)
         """
+        # Apply temporal decay before returning current risk
+        self._apply_temporal_decay()
         return min(1.0, base_risk * self.latent_risk_multiplier)
     
+    def get_risk_score(self) -> float:
+        """
+        Get current latent risk multiplier (after decay).
+        """
+        self._apply_temporal_decay()
+        return self.latent_risk_multiplier
+
     def get_history(self) -> List:
         """
         Get tactical buffer history.
@@ -222,6 +309,9 @@ class HierarchicalMemory:
         Returns:
             Dictionary with memory stats
         """
+        # Apply decay before showing stats
+        self._apply_temporal_decay()
+        
         return {
             "session_id": self.session_id,
             "tactical_buffer_size": len(self.tactical_buffer),
@@ -229,7 +319,9 @@ class HierarchicalMemory:
             "latent_risk_multiplier": round(self.latent_risk_multiplier, 3),
             "total_events": sum(self.tool_counts.values()),
             "unique_tools": len(self.tool_counts),
-            "session_age_seconds": round(time.time() - self.start_time, 2)
+            "session_age_seconds": round(time.time() - self.start_time, 2),
+            "last_decay_update": self.last_decay_update,
+            "fragment_count": len(self.fragment_set)
         }
     
     def to_dict(self) -> Dict[str, Any]:
@@ -249,13 +341,22 @@ class HierarchicalMemory:
         for event in self.tactical_buffer:
             # Events are ToolEvent objects - serialize to dict
             if hasattr(event, '__dict__'):
-                tactical_buffer_list.append({
+                event_dict = {
                     'tool': getattr(event, 'tool', ''),
                     'category': getattr(event, 'category', ''),
-                    'target': getattr(event, 'target', ''),
+                    'target': getattr(event, 'target', None),
                     'timestamp': getattr(event, 'timestamp', 0.0),
-                    'run_id': getattr(event, 'run_id', '')
-                })
+                }
+                # Only add run_id if it exists
+                if hasattr(event, 'run_id'):
+                    event_dict['run_id'] = getattr(event, 'run_id', '')
+                # Add success if it exists
+                if hasattr(event, 'success'):
+                    event_dict['success'] = getattr(event, 'success', True)
+                # Add metadata if it exists
+                if hasattr(event, 'metadata'):
+                    event_dict['metadata'] = getattr(event, 'metadata', {})
+                tactical_buffer_list.append(event_dict)
             else:
                 tactical_buffer_list.append(str(event))
         
@@ -268,6 +369,9 @@ class HierarchicalMemory:
         # Serialize recent phases (deque → list)
         recent_phases_list = list(self.recent_phases)
         
+        # Serialize fragment queue (deque → list)
+        fragment_queue_list = list(self.fragment_queue)
+
         return {
             "session_id": self.session_id,
             "tactical_buffer": tactical_buffer_list,
@@ -276,7 +380,9 @@ class HierarchicalMemory:
             "tool_counts": dict(self.tool_counts),  # defaultdict → dict
             "start_time": self.start_time,
             "phase_transitions": phase_transitions_dict,
-            "recent_phases": recent_phases_list
+            "recent_phases": recent_phases_list,
+            "last_decay_update": self.last_decay_update,  # Persist decay timestamp
+            "fragment_queue": fragment_queue_list
         }
     
     @classmethod
@@ -298,6 +404,10 @@ class HierarchicalMemory:
         memory.latent_risk_multiplier = data.get("latent_risk_multiplier", 1.0)
         memory.tool_counts = defaultdict(int, data.get("tool_counts", {}))
         memory.start_time = data.get("start_time", time.time())
+        memory.last_decay_update = data.get("last_decay_update", time.time())
+        
+        # Apply decay immediately to account for offline time
+        memory._apply_temporal_decay()
         
         # Restore tactical buffer (list → deque)
         tactical_buffer_list = data.get("tactical_buffer", [])
@@ -305,20 +415,25 @@ class HierarchicalMemory:
         for event_dict in tactical_buffer_list:
             # Reconstruct ToolEvent from dict
             # Note: We need to import ToolEvent here to avoid circular dependencies
-            if TYPE_CHECKING or ToolEvent is not None:
-                try:
-                    from llm_firewall.detectors.tool_killchain import ToolEvent
-                    event = ToolEvent(
-                        tool=event_dict.get('tool', ''),
-                        category=event_dict.get('category', ''),
-                        target=event_dict.get('target', ''),
-                        timestamp=event_dict.get('timestamp', time.time()),
-                        run_id=event_dict.get('run_id', '')
-                    )
-                    memory.tactical_buffer.append(event)
-                except Exception as e:
-                    logger.warning(f"Could not reconstruct ToolEvent from dict: {e}")
-            else:
+            try:
+                from llm_firewall.detectors.tool_killchain import ToolEvent
+                # Build kwargs dict, only including valid parameters
+                kwargs = {
+                    'tool': event_dict.get('tool', ''),
+                    'category': event_dict.get('category', ''),
+                    'target': event_dict.get('target', None),
+                    'timestamp': event_dict.get('timestamp', time.time()),
+                }
+                # Add optional parameters if they exist in the dict
+                if 'success' in event_dict:
+                    kwargs['success'] = event_dict['success']
+                if 'metadata' in event_dict:
+                    kwargs['metadata'] = event_dict['metadata']
+                
+                event = ToolEvent(**kwargs)
+                memory.tactical_buffer.append(event)
+            except Exception as e:
+                logger.warning(f"Could not reconstruct ToolEvent from dict: {e}")
                 # Fallback: just store the dict
                 memory.tactical_buffer.append(event_dict)
         
@@ -336,5 +451,9 @@ class HierarchicalMemory:
         memory.recent_phases = deque(maxlen=50)
         memory.recent_phases.extend(recent_phases_list)
         
-        return memory
+        # Restore fragment queue and set
+        fragment_queue_list = data.get("fragment_queue", [])
+        memory.fragment_queue = deque(fragment_queue_list)
+        memory.fragment_set = set(fragment_queue_list)
 
+        return memory

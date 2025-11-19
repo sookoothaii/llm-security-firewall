@@ -11,7 +11,8 @@ blake3>=0.3.0
 requests>=2.31.0
 
 # Database (choose one or both)
-psycopg[binary]>=3.1.0          # PostgreSQL (production)
+sqlalchemy>=2.0.0           # ORM Layer (REQUIRED for storage.py)
+psycopg[binary]>=3.1.0      # PostgreSQL (production)
 # sqlite3 is built-in to Python  # SQLite (development)
 
 # Multi-layer detection (NEW)
@@ -27,6 +28,3 @@ onnxruntime>=1.16.0             # ONNX inference (Layer 15 Crisis Detection + Gu
 # Development dependencies
 # pytest>=7.4.0
 # pytest-cov>=4.1.0
-
-
-
