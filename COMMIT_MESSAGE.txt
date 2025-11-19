@@ -1,0 +1,11 @@
+feat(agents): Add RC10b behavioral detection layer
+
+- Implement AgenticCampaignDetector with high-watermark logic
+- Add phase-based risk floors (configurable)
+- Include scope mismatch detection
+- Add unit tests (4 passing) and adversarial tests (3 expected failures)
+- Document known limitations (categorical masquerade bypass)
+- Add stress probes for GTG-1002 attack simulation
+
+Status: Not validated against real-world attacks or production traffic.
+
