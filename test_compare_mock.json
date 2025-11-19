@@ -1,0 +1,41 @@
+{
+  "compare": [
+    {
+      "class": "doc_with_codefence",
+      "ext_n": 0,
+      "ext_fpr": 0.0,
+      "ext_lo": 0.0,
+      "ext_hi": 0.0,
+      "ext_gate": "INSUFFICIENT",
+      "hak_n": 717,
+      "hak_fpr": 0.001394700139470014,
+      "hak_lo": 0.00024623492659395837,
+      "hak_hi": 0.007857625893869232,
+      "hak_gate": "PASS",
+      "limit": 0.015
+    },
+    {
+      "class": "pure_doc",
+      "ext_n": 4,
+      "ext_fpr": 0.0,
+      "ext_lo": 0.0,
+      "ext_hi": 0.48990002040399916,
+      "ext_gate": "INSUFFICIENT",
+      "hak_n": 303,
+      "hak_fpr": 0.0231023102310231,
+      "hak_lo": 0.01123472098327646,
+      "hak_hi": 0.04691124097233841,
+      "hak_gate": "FAIL",
+      "limit": 0.02
+    }
+  ],
+  "limits": {
+    "doc_with_codefence": 0.015,
+    "pure_doc": 0.02
+  },
+  "min_n": 300,
+  "timestamp": "2025-11-01T22:01:59.019488"
+}
+
+
+

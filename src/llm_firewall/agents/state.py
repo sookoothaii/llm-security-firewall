@@ -8,7 +8,7 @@ Supports in-memory (testing) and persistent (Redis/DB) backends.
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 from llm_firewall.detectors.tool_killchain import ToolEvent
 

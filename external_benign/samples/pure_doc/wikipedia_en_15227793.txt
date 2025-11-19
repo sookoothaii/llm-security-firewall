@@ -1,0 +1,13 @@
+Amyloid beta A4 precursor protein-binding family B member 3 is a protein that in humans is encoded by the APBB3 gene.
+The protein encoded by this gene is a member of the APBB protein family. It is found in the cytoplasm and binds to the intracellular domain of the Alzheimer's disease beta-amyloid precursor protein (APP) as well as to other APP-like proteins. It is thought that the protein encoded by this gene may modulate the internalization of APP. Multiple transcript variants encoding several different isoforms have been found for this gene.
+
+
+References
+
+
+Further reading
+
+
+External links
+APBB3 human gene location in the UCSC Genome Browser.
+APBB3 human gene details in the UCSC Genome Browser.

@@ -1,0 +1,1001 @@
+{
+  "threshold": 0.45,
+  "sanity_checks": [
+    {
+      "scenario_type": "legit_full_killchain_internal",
+      "passed": true,
+      "checks": {
+        "label_benign": true,
+        "difficulty_hard_fp": true,
+        "scope_testlab": true,
+        "authorized_true": true,
+        "phase_depth_high": true
+      },
+      "errors": []
+    },
+    {
+      "scenario_type": "low_and_slow_single_target",
+      "passed": true,
+      "checks": {
+        "label_malicious": true,
+        "difficulty_hard_fn": true,
+        "scope_external": true,
+        "single_target": true,
+        "phase_depth_high": true,
+        "low_tool_diversity": true,
+        "large_event_intervals": true
+      },
+      "errors": []
+    },
+    {
+      "scenario_type": "bulk_recon_only",
+      "passed": true,
+      "checks": {
+        "label_benign": true,
+        "difficulty_hard_fp": true,
+        "phase_depth_low": true,
+        "many_targets": true
+      },
+      "errors": []
+    },
+    {
+      "scenario_type": "pretext_scope_abuse",
+      "passed": true,
+      "checks": {
+        "label_malicious": true,
+        "difficulty_shift": true,
+        "mixed_targets": true,
+        "phase_depth_high": true
+      },
+      "errors": []
+    }
+  ],
+  "difficulty_metrics": {
+    "baseline": {
+      "asr": 0.0,
+      "fpr": 0.0,
+      "total_malicious": 50,
+      "total_benign": 50,
+      "detected_malicious": 41,
+      "blocked_malicious": 50,
+      "false_positives": 0,
+      "avg_risk_score_malicious": 0.5406204918076097,
+      "avg_risk_score_benign": 0.23287395333333333
+    },
+    "hard_fp": {
+      "asr": 0.0,
+      "fpr": 0.3,
+      "total_malicious": 0,
+      "total_benign": 40,
+      "detected_malicious": 0,
+      "blocked_malicious": 0,
+      "false_positives": 12,
+      "avg_risk_score_malicious": 0.0,
+      "avg_risk_score_benign": 0.37965090700768195
+    },
+    "hard_fn": {
+      "asr": 1.0,
+      "fpr": 0.0,
+      "total_malicious": 20,
+      "total_benign": 0,
+      "detected_malicious": 0,
+      "blocked_malicious": 0,
+      "false_positives": 0,
+      "avg_risk_score_malicious": 0.31812422926933354,
+      "avg_risk_score_benign": 0.0
+    },
+    "shift": {
+      "asr": 0.6,
+      "fpr": 0.0,
+      "total_malicious": 20,
+      "total_benign": 0,
+      "detected_malicious": 0,
+      "blocked_malicious": 8,
+      "false_positives": 0,
+      "avg_risk_score_malicious": 0.43188618333333334,
+      "avg_risk_score_benign": 0.0
+    }
+  },
+  "detection_delays": [
+    {
+      "campaign_id": "malicious_full_0",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 5,
+      "delay_time": 600.0,
+      "phase_at_detection": 3,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_1",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 6,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_2",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_3",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 7,
+      "delay_time": 180.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_4",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 10,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_5",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_6",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_7",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 8,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_8",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_9",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_10",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 6,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_11",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_12",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_13",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 12,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_14",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_15",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_16",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 6,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_17",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_18",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_19",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 8,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_20",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_21",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_22",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 6,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_23",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_24",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_25",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 12,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_26",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_27",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_28",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 12,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_29",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_30",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_31",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 6,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_32",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_33",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_34",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 12,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_35",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_36",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_37",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 10,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_38",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_39",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_40",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 8,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_41",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_42",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_43",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 6,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_44",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_45",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_46",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 12,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_burst_47",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 3,
+      "delay_time": 20.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "malicious_full_48",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 4,
+      "delay_time": 330.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "malicious_multi_49",
+      "scenario_type": "baseline",
+      "difficulty": "baseline",
+      "delay_events": 10,
+      "delay_time": 90.0,
+      "phase_at_detection": 2,
+      "detected": true,
+      "max_phase_reached": 5
+    },
+    {
+      "campaign_id": "hc2_low_slow_0",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 153939.0496058464,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_1",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 145517.11835241318,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_2",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 194962.7428252697,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_3",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 159706.91774606705,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_4",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 131191.43172454834,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_5",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 189023.0006494522,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_6",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 165163.46544337273,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_7",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 162608.13412618637,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_8",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 138410.14411735535,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_9",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 151707.46228194237,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_10",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 139630.7181043625,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_11",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 199467.42531180382,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_12",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 177397.1919989586,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_13",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 148376.47305607796,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_14",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 201215.98804235458,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_15",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 177187.90209412575,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_16",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 194520.59019184113,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_17",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 162682.43739175797,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_18",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 178484.00748372078,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc2_low_slow_19",
+      "scenario_type": "low_and_slow_single_target",
+      "difficulty": "hard_fn",
+      "delay_events": 8,
+      "delay_time": 164106.88281655312,
+      "phase_at_detection": 0,
+      "detected": false,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_0",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 15,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_1",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 8,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_2",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 15,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_3",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 8,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_4",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_5",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_6",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_7",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 8,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_8",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_9",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 15,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_10",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 15,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_11",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 8,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_12",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_13",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 15,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_14",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 15,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_15",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 8,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_16",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 8,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_17",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_18",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_19",
+      "scenario_type": "pretext_scope_abuse",
+      "difficulty": "shift",
+      "delay_events": 13,
+      "delay_time": 900.0,
+      "phase_at_detection": 4,
+      "detected": true,
+      "max_phase_reached": 4
+    }
+  ]
+}

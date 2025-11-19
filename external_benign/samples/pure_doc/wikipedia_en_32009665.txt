@@ -1,0 +1,8 @@
+In molecular biology the BED-type zinc finger domain is a protein domain which was named after the Drosophila proteins BEAF and DREF, is found in one or more copies in cellular regulatory factors and transposases from plants, animals and fungi. The BED finger is an about 50 to 60 amino acid residues domain that contains a characteristic motif with two highly conserved aromatic positions, as well as a shared pattern of cysteines and histidines that is predicted to form a zinc finger. As diverse BED fingers are able to bind DNA, it has been suggested that DNA-binding is the general function of this domain. Some proteins known to contain a BED domain include animal, plant and fungi AC1 and Hobo-like transposases; Caenorhabditis elegans Dpy-20 protein, a predicted cuticular gene transcriptional regulator; Drosophila BEAF (boundary element-associated factor), thought to be involved in chromatin insulation; Drosophila DREF, a transcriptional regulator for S-phase genes; and tobacco 3AF1 and tomato E4/E8-BP1, light- and ethylene-regulated DNA binding proteins that contain two BED fingers. Most genes in this family are believed to have evolved from the hAT family of DNA transposons.
+
+
+See also
+Zinc finger bed-type containing 5
+
+
+References

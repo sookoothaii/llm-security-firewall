@@ -1,0 +1,53 @@
+# LLM_INIT_FALLBACK_PROTOCOL.md
+## Automatisches Fallback-System für LLM Initialisierung
+
+### Problem-Detection-Chain:
+```python
+fallback_chain = [
+    {
+        "try": "hak-gal:search_knowledge 'ProjectHubMasterLocation'",
+        "fail": "hak-gal:search_knowledge 'MCP Mods path'"
+    },
+    {
+        "try": "hak-gal:list_files 'D:\\MCP Mods\\HAK_GAL_HEXAGONAL'",
+        "fail": "hak-gal:list_files 'D:\\' | grep -i 'mcp\\|hak'"
+    },
+    {
+        "try": "hak-gal:project_hub_digest",
+        "fail": "hak-gal:kb_stats + hak-gal:get_recent_facts"
+    }
+]
+```
+
+### Auto-Recovery bei häufigen Fehlern:
+
+1. **MCP//Mods Fehler:**
+   - Automatisch beide Varianten testen
+   - "MCP Mods" UND "MCP/Mods" UND "MCP\\Mods"
+
+2. **Fehlende Auth-Tokens:**
+   - Erst ohne Token versuchen
+   - Dann User nach Token fragen
+   - Token: 515f57956e7bd15ddc3817573598f190
+
+3. **Knowledge Base nicht erreichbar:**
+   - Fallback auf Filesystem-Suche
+   - PROJECT_HUB/*.md Dateien direkt lesen
+
+### Session-State-Preservation:
+Nach JEDER erfolgreichen Initialisierung:
+```
+hak-gal:add_fact "LastSuccessfulInit(date:{heute}, agent:{agent_name}, path:{validated_path}, facts:{count})"
+```
+
+### Error-Messages mit Lösungen:
+```
+FEHLER: "Pfad nicht gefunden"
+LÖSUNG: "Suche 'CommonPathErrorMCPMods' in Knowledge Base"
+
+FEHLER: "Write disabled"
+LÖSUNG: "Auth-Token needed: Ask user for token"
+
+FEHLER: "Protocol not found"
+LÖSUNG: "Try: hak-gal:search_knowledge 'LLMInitBootstrap'"
+```

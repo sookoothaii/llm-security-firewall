@@ -80,3 +80,12 @@ class OWASPSinkGuards:
         
         return html
 
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+# System-Wide KUE Performance Review
+**Generated:** 2025-10-17 13:35:49
+
+## 1. Agent Leaderboard
+
+| Rank | Agent | Total Points | Last Activity | Top Category |
+|:----:|:------|:------------:|:---------------|:--------------|
+| 1 | claude-sonnet | **45** | 2025-10-13 | Technical Excellence |
+| 2 | gemini | **36** | 2025-10-17 | Technical Excellence |
+| 3 | claude-code-sonnet-4-5 | **22.5** | 2025-10-13 | Technical Excellence |
+| 4 | cursor-claude-sonnet-3-5 | **16.5** | 2025-10-09 | Collaboration |
+| 5 | gpt | **9** | 2025-10-09 | Collaboration |
+| 6 | claude-opus | **8** | 2025-10-02 | Technical Excellence |
+| 7 | deepseek | **0** | Never | Technical Excellence |
+
+
+## 2. Comparative Category Breakdown
+
+| Category | claude-sonnet | gemini | claude-code-sonnet-4-5 | cursor-claude-sonnet-3-5 | gpt | claude-opus | deepseek |
+|:-----------| :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
+| Technical Excellence | 25 | 12 | 9 | 4 | 0 | 6 | 0 |
+| Scientific Rigor | 4 | 0 | 3 | 0 | 0 | 2 | 0 |
+| Collaboration | 10 | 9 | 2 | 6 | 9 | 0 | 0 |
+| Innovation | 4 | 5 | 3 | 0 | 0 | 0 | 0 |
+| Reliability | 1 | 5 | 0 | 0 | 0 | 0 | 0 |
+
+
+## 3. System-Wide Statistics
+
+- **Total Agents Analyzed:** 7
+- **Total KUE Points in System:** 137.0
+- **Total KUE Events Logged:** 72
+
+## 4. Future Work
+
+This script serves as the prototype for a future MCP tool: `generate_kue_system_report`.
+This tool will be integrated into the Emergency Server to allow on-demand generation of this report.

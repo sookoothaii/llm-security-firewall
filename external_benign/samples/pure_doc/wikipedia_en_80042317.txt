@@ -1,0 +1,27 @@
+buildingSMART Data Dictionary (bSDD) is a service provided by buildingSMART which offers free data dictionaries for the international standardization of construction planning. The structure of bSDD was defined by the Nonprofit organization Buildingsmart and is used to describe objects and their attributes in a BIM process.
+
+
+Aim
+The aim of bSDD is to enable architects and planners to exchange and share building data across different specialists and language boundaries and thus avoid misunderstandings caused by different interpretations of terms. The bSDD standard extends the more general IFC. Software developers can access and use the dictionaries.
+In May 2025 over 300 dictionaries are available, including IFC, extensions to it such as Airport Domain IFC extension module or classification systems like Uniclass.
+
+
+Structure
+The main structural parts of bSDD are:
+
+Dictionary: A dictionary is a collection of classes:
+Class: A class describes the various object types, such as Bag drop or Baggage conveyor in airport planning. A class contains properties:
+Property: A property describes a part of a class, e.g. color or weight. Related properties are organized in a group:
+GroupOfProperties: A group organizes related properties, e.g. environmental properties or electrical properties.
+
+
+Creating and managing a directory
+Every dictionary in bSDD must be published in the name of a registered organization. As soon as the content is activated, it receives an unchangeable URI. This means that the content remains permanently in bSDD and cannot be deleted - this ensures stable use of the dictionary. It is only possible to change the status to inactive if it is no longer to be used - however, the dictionary remains permanently.
+
+
+External links
+List of Dictionaries
+What is bSDD?
+
+
+References

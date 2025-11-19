@@ -1,0 +1,209 @@
+{
+  "timestamp": "2025-11-01T22:01:59.019488",
+  "baseline": {
+    "total": 1020,
+    "fps": 8,
+    "fpr": 0.7843137254901961,
+    "wilson_upper": 1.5400108451464103
+  },
+  "simulated_gates": {
+    "fps_eliminated": 8,
+    "fps_remaining": 0,
+    "fpr_estimated": 0.0,
+    "reduction_percent": 100.0
+  },
+  "detailed_fps": [
+    {
+      "file": "0340_SINGLE_ENTRY.md",
+      "ctx": "generic",
+      "ctx_score": 0,
+      "exec_ctx": false,
+      "exploit_ctx": false,
+      "has_codefence": false,
+      "fence_langs": [],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 0,
+      "content_length": 392,
+      "signals": [
+        "attack_keyword_with_encoding"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "attack_keyword_with_encoding"
+      ],
+      "gates_fired": []
+    },
+    {
+      "file": "0625_START_HERE_LLM.md",
+      "ctx": "generic",
+      "ctx_score": 0,
+      "exec_ctx": false,
+      "exploit_ctx": false,
+      "has_codefence": false,
+      "fence_langs": [],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 0,
+      "content_length": 391,
+      "signals": [
+        "attack_keyword_with_encoding",
+        "chain_decoded_1_stages"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "attack_keyword_with_encoding",
+        "chain_decoded_1_stages"
+      ],
+      "gates_fired": []
+    },
+    {
+      "file": "0785_german_cleanup_report.md",
+      "ctx": "generic",
+      "ctx_score": 0,
+      "exec_ctx": false,
+      "exploit_ctx": false,
+      "has_codefence": false,
+      "fence_langs": [],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 0,
+      "content_length": 279,
+      "signals": [
+        "chain_decoded_1_stages"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "chain_decoded_1_stages"
+      ],
+      "gates_fired": []
+    },
+    {
+      "file": "0940_run_live.md",
+      "ctx": "generic",
+      "ctx_score": 0,
+      "exec_ctx": false,
+      "exploit_ctx": false,
+      "has_codefence": false,
+      "fence_langs": [],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 0,
+      "content_length": 309,
+      "signals": [
+        "chain_decoded_1_stages"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "chain_decoded_1_stages"
+      ],
+      "gates_fired": []
+    },
+    {
+      "file": "0094_integration_snippet.txt",
+      "ctx": "generic",
+      "ctx_score": 0,
+      "exec_ctx": true,
+      "exploit_ctx": false,
+      "has_codefence": false,
+      "fence_langs": [],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 0,
+      "content_length": 336,
+      "signals": [
+        "chain_decoded_1_stages",
+        "encoding_near_attack_keyword"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "chain_decoded_1_stages",
+        "encoding_near_attack_keyword"
+      ],
+      "gates_fired": []
+    },
+    {
+      "file": "0168_SNAPSHOT_README.txt",
+      "ctx": "generic",
+      "ctx_score": 0,
+      "exec_ctx": true,
+      "exploit_ctx": false,
+      "has_codefence": false,
+      "fence_langs": [],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 0,
+      "content_length": 323,
+      "signals": [
+        "encoding_near_attack_keyword"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "encoding_near_attack_keyword"
+      ],
+      "gates_fired": []
+    },
+    {
+      "file": "0729_NEW_SESSION_START_COMMAND.txt",
+      "ctx": "generic",
+      "ctx_score": 0,
+      "exec_ctx": true,
+      "exploit_ctx": false,
+      "has_codefence": false,
+      "fence_langs": [],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 0,
+      "content_length": 374,
+      "signals": [
+        "attack_keyword_with_encoding",
+        "chain_decoded_1_stages"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "attack_keyword_with_encoding",
+        "chain_decoded_1_stages"
+      ],
+      "gates_fired": []
+    },
+    {
+      "file": "0895_README_HAK_GAL_V2_2_MACHINE_POLICY.md",
+      "ctx": "documentation",
+      "ctx_score": 3,
+      "exec_ctx": false,
+      "exploit_ctx": false,
+      "has_codefence": true,
+      "fence_langs": [
+        "python"
+      ],
+      "has_net_api": false,
+      "has_js_attr": false,
+      "distance_to_call": null,
+      "decoded_has_exec": false,
+      "num_b64_strings": 5,
+      "content_length": 4000,
+      "signals": [
+        "indirect_function_constructor"
+      ],
+      "fp_eliminated": true,
+      "gates_suppressed": [
+        "indirect_function_constructor"
+      ],
+      "gates_fired": []
+    }
+  ]
+}

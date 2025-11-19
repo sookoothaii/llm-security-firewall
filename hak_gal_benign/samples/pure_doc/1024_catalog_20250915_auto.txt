@@ -1,0 +1,45 @@
+---
+title: "PROJECT_HUB Catalog"
+created: "2025-09-15T00:08:01.415500Z"
+author: "system-cleanup"
+topics: ["snapshots"]
+tags: ["catalog", "index"]
+privacy: "internal"
+summary_200: |-
+  Auto-generated catalog of all PROJECT_HUB documents. Contains 375 entries
+  sorted by modification date. Includes path, title, topics, tags, size, and modification time.
+---
+
+# PROJECT_HUB Catalog
+
+Generated: 2025-09-15T00:08:01.415500+00:00
+Total Documents: 375
+
+## Document Index
+
+| Path | Title | Topics | Modified |
+|------|-------|--------|----------|
+| TECHNICAL_REPORTS\meta_tools_tech_report_v1.md | Meta Tools Tech Report V1 | meta | 2025-09-15 |
+| reports\LLM_DELEGATION_EVIDENCE_20250911.md | Llm Delegation Evidence 20250911 | technical_reports | 2025-09-15 |
+| reports\PERFORMANCE_OPTIMIZATION_TECHNICAL_REPORT_20250911.md | Performance Optimization Technical Report 20250911 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORTS\DB_Architecture_Analysis_20250830.md | Db Architecture Analysis 20250830 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORTS\Complete_Architecture_Documentation_20250830.md | Complete Architecture Documentation 20250830 | technical_reports | 2025-09-15 |
+| docs\technical_reports\HANDOVERS\2025-09-02_GROWTH_ENGINE_DEBUGGING_SESSION.md | 2025-09-02 Growth Engine Debugging Session | technical_reports | 2025-09-15 |
+| docs\technical_reports\HANDOVERS\2025-09-02_INTELLIGENT_GROWTH_ENGINE.md | 2025-09-02 Intelligent Growth Engine | technical_reports | 2025-09-15 |
+| docs\technical_reports\HANDOVERS\2025-09-02_EXTENDED_KNOWLEDGE_ARCHITECTURE.md | 2025-09-02 Extended Knowledge Architecture | technical_reports | 2025-09-15 |
+| docs\technical_reports\HANDOVERS\2025-09-02_EXTENDED_SELF_VALIDATING_SYSTEM.md | 2025-09-02 Extended Self Validating System | technical_reports | 2025-09-15 |
+| docs\technical_reports\WEBSOCKET_PROBLEM_DEEP_ANALYSIS.md | Websocket Problem Deep Analysis | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNISCHER_REPORT_VOLLSTA_ENDIGE_45_TOOLS_VERIFICATION_20250923.md | Technischer Report Vollsta Endige 45 Tools Verification 20250923 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECH_REPORT_HAKGAL_MCP_20250815.md | Tech Report Hakgal Mcp 20250815 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_SYSTEM_OPERATIONAL_20250818.md | Technical Report System Operational 20250818 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_TEMPERATURE_OPTIMIZATION_20250821.md | Technical Report Temperature Optimization 20250821 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_STARTUP_V6_20250820.md | Technical Report Startup V6 20250820 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_MULTI_AGENT_INTEGRATION_2025-08-25.md | Technical Report Multi Agent Integration 2025-08-25 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_PHASE1_HARDENING_20250817.md | Technical Report Phase1 Hardening 20250817 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_LLM_INTEGRATION_2025.md | Technical Report Llm Integration 2025 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_MULTI_AGENT_DELEGATION_2025-08-28.md | Technical Report Multi Agent Delegation 2025-08-28 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_LATEST.md | Technical Report Latest | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_LLM_FIX_SUCCESS_20250820.md | Technical Report Llm Fix Success 20250820 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_HRM_V6_20250820.md | Technical Report Hrm V6 20250820 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_INFRA_SETUP_20250817.md | Technical Report Infra Setup 20250817 | technical_reports | 2025-09-15 |
+| docs\technical_reports\TECHNICAL_REPORT_HRM_LEARNING_FIX.m

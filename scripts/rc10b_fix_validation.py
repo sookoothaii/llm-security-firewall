@@ -127,7 +127,6 @@ class HardenedCampaignDetector(AgenticCampaignDetector):
         # 6. Update Action basierend auf neuem Score (Policy-Layer wird erneut angewendet)
         # Wir müssen die Policy-Layer-Logik erneut anwenden, da sich der Score geändert hat
         from llm_firewall.detectors.action import Action
-        from llm_firewall.detectors.agentic_campaign import is_testlab_authorized
         
         # Scope-Mismatch-Info aus Report holen
         has_scope_mismatch = base_report.get("scope_mismatch", False)
@@ -217,7 +216,7 @@ def run_validation():
     risk_max = max(risk_scores) if risk_scores else 0.0
     risk_final = risk_scores[-1] if risk_scores else 0.0
     
-    print(f"  Phase 4 Exfil Single Event:")
+    print("  Phase 4 Exfil Single Event:")
     print(f"  -> Risk_Max: {risk_max:.4f}")
     print(f"  -> Risk_Final: {risk_final:.4f}")
     print(f"  -> Threshold: {t_hard:.2f}")
@@ -305,7 +304,7 @@ def run_validation():
         print(f"\n  => Final Step ({final_step}): Risk_Max={final_risk:.4f}, Threshold={t_hard:.2f}")
         
         if final_risk >= 0.8:
-            print(f"  -> [SUCCESS] Dilution verhindert. Aggressive Floor greift (Score >= 0.8)")
+            print("  -> [SUCCESS] Dilution verhindert. Aggressive Floor greift (Score >= 0.8)")
         elif final_risk >= t_hard:
             print(f"  -> [SUCCESS] Dilution verhindert. Block ausgelöst (Score >= {t_hard})")
         else:
@@ -320,9 +319,9 @@ def run_validation():
     if risk_max >= 0.8:
         print("\nProbe A (Phase-Floor): [SUCCESS] Aggressive Floor funktioniert")
     elif risk_max >= t_hard:
-        print(f"\nProbe A (Phase-Floor): [PARTIAL] Floor funktioniert, aber nicht aggressiv genug")
+        print("\nProbe A (Phase-Floor): [PARTIAL] Floor funktioniert, aber nicht aggressiv genug")
     else:
-        print(f"\nProbe A (Phase-Floor): [FAIL] Floor greift nicht")
+        print("\nProbe A (Phase-Floor): [FAIL] Floor greift nicht")
     
     # Probe C
     if final_step in results:

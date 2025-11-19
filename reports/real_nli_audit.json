@@ -1,0 +1,361 @@
+{
+  "cases": [
+    {
+      "topic": "transgender",
+      "age": "6-8",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.8927298188209534,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "transgender",
+      "age": "6-8",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.8390604257583618,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "transgender",
+      "age": "6-8",
+      "culture": "none",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.9951436519622803,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "transgender",
+      "age": "9-12",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.9672244191169739,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "transgender",
+      "age": "9-12",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.9380151033401489,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "transgender",
+      "age": "9-12",
+      "culture": "none",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.9911068081855774,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "transgender",
+      "age": "13-15",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.8887249231338501,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "transgender",
+      "age": "13-15",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.8658623099327087,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "transgender",
+      "age": "13-15",
+      "culture": "none",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.9192684888839722,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "6-8",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.8804646730422974,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "abortion",
+      "age": "6-8",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.8443862199783325,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "abortion",
+      "age": "6-8",
+      "culture": "none",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.9833060503005981,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "9-12",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.9404718279838562,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "9-12",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.922607421875,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "9-12",
+      "culture": "none",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.9756011366844177,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "13-15",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.9210351705551147,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "13-15",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.8885324001312256,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "abortion",
+      "age": "13-15",
+      "culture": "none",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.9382109045982361,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "6-8",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.8688909411430359,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "6-8",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.8164744973182678,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "6-8",
+      "culture": "none",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.9865520000457764,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "9-12",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.9571216702461243,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "9-12",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.951737105846405,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "9-12",
+      "culture": "none",
+      "metrics": {
+        "entailment": 0.0,
+        "entailment_plus_neutral": 0.0,
+        "recall": 1.0,
+        "sps": 0.9873026609420776,
+        "veto_contradictions": 0
+      },
+      "pass": false
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "13-15",
+      "culture": "christian",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.8730955123901367,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "13-15",
+      "culture": "muslim",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.8661583662033081,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    },
+    {
+      "topic": "right_wing_extremism",
+      "age": "13-15",
+      "culture": "none",
+      "metrics": {
+        "entailment": 1.0,
+        "entailment_plus_neutral": 1.0,
+        "recall": 1.0,
+        "sps": 0.9304817318916321,
+        "veto_contradictions": 0
+      },
+      "pass": true
+    }
+  ],
+  "models": {
+    "nli": "facebook/bart-large-mnli",
+    "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+    "validator_type": "real_NLI"
+  },
+  "veto_anchor_overlap": 1
+}

@@ -1,0 +1,214 @@
+{
+  "version": "1.0",
+  "language": [
+    "en",
+    "de"
+  ],
+  "description": "Security-Pretext Signals: Detects roleplay patterns used to deceive LLMs into believing they are helping legitimate security research (based on Anthropic Report 2025).",
+  "intents": [
+    {
+      "intent": "security_engineer_roleplay",
+      "clusters": [
+        {
+          "seed": "i am a security engineer",
+          "syns": [
+            "i'm a security engineer",
+            "we are security engineers",
+            "i work in cybersecurity",
+            "ich bin sicherheitsingenieur",
+            "wir sind sicherheitsingenieure",
+            "ich arbeite in der cybersicherheit"
+          ]
+        },
+        {
+          "seed": "i am a pentester",
+          "syns": [
+            "i'm a penetration tester",
+            "we are red teamers",
+            "i do ethical hacking",
+            "ich bin penetrationstester",
+            "wir sind red teamer",
+            "ich mache ethical hacking"
+          ]
+        },
+        {
+          "seed": "i am a security researcher",
+          "syns": [
+            "i'm a security researcher",
+            "we are security researchers",
+            "i conduct security research",
+            "ich bin sicherheitsforscher",
+            "wir sind sicherheitsforscher",
+            "ich führe sicherheitsforschung durch"
+          ]
+        },
+        {
+          "seed": "i work for a security company",
+          "syns": [
+            "we are a security firm",
+            "i'm from a cybersecurity company",
+            "our company does security audits",
+            "ich arbeite für eine sicherheitsfirma",
+            "wir sind eine cybersicherheitsfirma",
+            "unsere firma macht sicherheitsaudits"
+          ]
+        }
+      ]
+    },
+    {
+      "intent": "legitimate_pentest_claim",
+      "clusters": [
+        {
+          "seed": "we are conducting a legitimate penetration test",
+          "syns": [
+            "this is an authorized penetration test",
+            "we have permission to test this system",
+            "this is a legitimate security assessment",
+            "wir führen einen legitimen penetrationstest durch",
+            "dies ist ein autorisierter penetrationstest",
+            "wir haben erlaubnis dieses system zu testen"
+          ]
+        },
+        {
+          "seed": "we are performing a security audit",
+          "syns": [
+            "this is a security audit",
+            "we are auditing the security",
+            "this is part of our security audit",
+            "wir führen eine sicherheitsprüfung durch",
+            "dies ist eine sicherheitsprüfung",
+            "dies ist teil unserer sicherheitsprüfung"
+          ]
+        },
+        {
+          "seed": "we are testing our own infrastructure",
+          "syns": [
+            "this is our own system",
+            "we own this infrastructure",
+            "we are testing our own network",
+            "dies ist unser eigenes system",
+            "wir besitzen diese infrastruktur",
+            "wir testen unser eigenes netzwerk"
+          ]
+        },
+        {
+          "seed": "we have written authorization",
+          "syns": [
+            "we have written permission",
+            "we have authorization in writing",
+            "this is authorized by management",
+            "wir haben schriftliche erlaubnis",
+            "wir haben schriftliche autorisierung",
+            "dies ist von der führung autorisiert"
+          ]
+        }
+      ]
+    },
+    {
+      "intent": "simulate_attacker_request",
+      "clusters": [
+        {
+          "seed": "please simulate an attacker",
+          "syns": [
+            "simulate how an attacker would do this",
+            "act as if you are an attacker",
+            "pretend you are attacking this system",
+            "bitte simuliere einen angreifer",
+            "simuliere wie ein angreifer vorgehen würde",
+            "tu so als wärst du ein angreifer"
+          ]
+        },
+        {
+          "seed": "help me test this infrastructure",
+          "syns": [
+            "help me test the security",
+            "assist me in testing this system",
+            "help me check if this is secure",
+            "hilf mir diese infrastruktur zu testen",
+            "hilf mir die sicherheit zu testen",
+            "hilf mir zu prüfen ob dies sicher ist"
+          ]
+        },
+        {
+          "seed": "we need to find vulnerabilities",
+          "syns": [
+            "help us find security flaws",
+            "we need to identify weaknesses",
+            "help us discover vulnerabilities",
+            "wir müssen sicherheitslücken finden",
+            "hilf uns schwachstellen zu identifizieren",
+            "hilf uns vulnerabilitäten zu entdecken"
+          ]
+        },
+        {
+          "seed": "this is for defensive security",
+          "syns": [
+            "we are doing defensive security",
+            "this helps us defend better",
+            "we need this for our defense",
+            "wir machen defensive sicherheit",
+            "das hilft uns besser zu verteidigen",
+            "wir brauchen das für unsere verteidigung"
+          ]
+        }
+      ]
+    },
+    {
+      "intent": "harmless_security_cover",
+      "clusters": [
+        {
+          "seed": "we are just security researchers",
+          "syns": [
+            "we are only security researchers",
+            "we are just doing research",
+            "this is purely research",
+            "wir sind nur sicherheitsforscher",
+            "wir machen nur forschung",
+            "dies ist reine forschung"
+          ]
+        },
+        {
+          "seed": "this is for educational purposes",
+          "syns": [
+            "this is educational",
+            "we are learning",
+            "this is for learning",
+            "dies ist zu bildungszwecken",
+            "wir lernen",
+            "dies ist zum lernen"
+          ]
+        },
+        {
+          "seed": "we are testing our defenses",
+          "syns": [
+            "we are testing our security",
+            "this helps us improve security",
+            "we need to test our protections",
+            "wir testen unsere verteidigung",
+            "das hilft uns die sicherheit zu verbessern",
+            "wir müssen unsere schutzmaßnahmen testen"
+          ]
+        },
+        {
+          "seed": "this is a controlled environment",
+          "syns": [
+            "this is a test environment",
+            "we are in a lab",
+            "this is isolated",
+            "dies ist eine testumgebung",
+            "wir sind in einem labor",
+            "dies ist isoliert"
+          ]
+        }
+      ]
+    }
+  ],
+  "risk_weights": {
+    "security_engineer_roleplay": 1.2,
+    "legitimate_pentest_claim": 1.3,
+    "simulate_attacker_request": 1.5,
+    "harmless_security_cover": 1.1
+  },
+  "context_notes": "These signals should be combined with tool/kill-chain features for stronger detection. Alone, they indicate pretext but not necessarily malicious intent. Combined with high kill-chain phase or operator budget violations, they strongly indicate AI-orchestrated campaign."
+}
+

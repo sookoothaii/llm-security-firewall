@@ -1,0 +1,62 @@
+# Layer 15 Crisis Detection - Training & Export Pipeline
+# Credit: GPT-5 collaboration 2025-11-04
+
+DATA_DIR = data/layer15
+MODEL_DIR = models/layer15_crisis
+ONNX = models/selfharm_abuse_multilingual.onnx
+
+# Stage A: Self-Harm focus (multilingual)
+.PHONY: train export check test
+
+train:
+	python tools/layer15/train_layer15_crisis.py \
+		--train $(DATA_DIR)/train.jsonl \
+		--dev $(DATA_DIR)/dev.jsonl \
+		--outdir $(MODEL_DIR) \
+		--epochs 3 \
+		--bsz 16
+
+export:
+	python tools/layer15/export_onnx_layer15.py \
+		--model_dir $(MODEL_DIR) \
+		--onnx_out $(ONNX) \
+		--opset 17
+
+check:
+	@python -c "import onnx; onnx.checker.check_model('$(ONNX)'); print('[OK] ONNX model validation passed')"
+
+test:
+	pytest tests/layer15/ -v --tb=short
+
+# Full pipeline
+all: train export check test
+
+# Clean artifacts
+clean:
+	rm -rf $(MODEL_DIR)
+	rm -f $(ONNX)
+
+help:
+	@echo "Layer 15 Crisis Detection Pipeline"
+	@echo ""
+	@echo "Targets:"
+	@echo "  train  - Train xlm-roberta-base model (Stage A: Self-Harm)"
+	@echo "  export - Export trained model to ONNX (opset 17)"
+	@echo "  check  - Validate ONNX model structure"
+	@echo "  test   - Run PyTest suite"
+	@echo "  all    - Run full pipeline (train -> export -> check -> test)"
+	@echo "  clean  - Remove artifacts"
+	@echo ""
+	@echo "Prerequisites:"
+	@echo "  - Public datasets in $(DATA_DIR)/ (eRisk 2021, CLPsych, etc.)"
+	@echo "  - PyTorch, transformers, onnx, onnxruntime installed"
+
+
+
+
+
+
+
+
+
+

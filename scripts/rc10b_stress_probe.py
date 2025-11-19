@@ -29,7 +29,6 @@ from campaign_dataset import (
     CampaignLabel,
     CampaignScenario,
     Difficulty,
-    convert_scenario_to_tool_events,
 )
 from llm_firewall.detectors.agentic_campaign import AgenticCampaignDetector, CampaignDetectorConfig
 from llm_firewall.detectors.tool_killchain import ToolEvent
@@ -149,9 +148,9 @@ def run_phase_floor_probe(detector: AgenticCampaignDetector, t_hard: float = 0.5
     if results[4]["risk_max"] > t_hard and results[1]["risk_max"] < t_hard:
         print(f"  => SUCCESS: Phase-Floor hat Entscheidung gekippt (Phase 1: {results[1]['risk_max']:.4f} < {t_hard}, Phase 4: {results[4]['risk_max']:.4f} >= {t_hard})")
     elif delta < 0.1:
-        print(f"  => WARNING: Phase-Floor wirkungslos (Delta < 0.1)")
+        print("  => WARNING: Phase-Floor wirkungslos (Delta < 0.1)")
     else:
-        print(f"  => PARTIAL: Phase-Floor erhöht Score, aber kein Decision-Flip")
+        print("  => PARTIAL: Phase-Floor erhöht Score, aber kein Decision-Flip")
     
     return results
 
@@ -228,9 +227,9 @@ def run_scope_mismatch_probe(detector: AgenticCampaignDetector, t_hard: float = 
     print(f"\n  => Delta (Mismatch - Authorized): {delta:.4f}")
     
     if abs(delta) < 0.01:
-        print(f"  => WARNING: Scope-Mismatch-Feature wirkungslos (Delta ≈ 0)")
+        print("  => WARNING: Scope-Mismatch-Feature wirkungslos (Delta ≈ 0)")
     elif delta > 0.1:
-        print(f"  => SUCCESS: Scope-Mismatch erhöht Score signifikant (Delta > 0.1)")
+        print("  => SUCCESS: Scope-Mismatch erhöht Score signifikant (Delta > 0.1)")
     else:
         print(f"  => PARTIAL: Scope-Mismatch hat Effekt, aber klein (Delta = {delta:.4f})")
     
@@ -351,7 +350,7 @@ def run_gtg1002_simulation(detector: AgenticCampaignDetector, t_hard: float = 0.
             print(f"  => SUCCESS: Final Exfil wird geblockt (Risk >= {t_hard})")
         else:
             print(f"  => CRITICAL: Final Exfil wird NICHT geblockt (Risk < {t_hard})")
-            print(f"  => WARNING: Mögliches 'Verwässerungs'-Problem (Dilution) durch vorherige Noise-Events")
+            print("  => WARNING: Mögliches 'Verwässerungs'-Problem (Dilution) durch vorherige Noise-Events")
     
     return results
 
@@ -372,7 +371,7 @@ if __name__ == "__main__":
     print("="*70)
     print("RC10b Stress Probe - Kausalitäts- und Realitätsnähe-Tests")
     print("="*70)
-    print(f"\nConfiguration:")
+    print("\nConfiguration:")
     print(f"  use_phase_floor: {config.use_phase_floor}")
     print(f"  use_scope_mismatch: {config.use_scope_mismatch}")
     print(f"  use_policy_layer: {config.use_policy_layer}")

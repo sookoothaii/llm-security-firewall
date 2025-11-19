@@ -1,0 +1,132 @@
+In linear programming, a discipline within applied mathematics, a basic solution is any solution of a linear programming problem satisfying certain specified technical conditions.
+For a polyhedron 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  
+ and a vector 
+  
+    
+      
+        
+          
+            x
+          
+          
+            ∗
+          
+        
+        ∈
+        
+          
+            R
+          
+          
+            n
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ^{*}\in \mathbb {R} ^{n}}
+  
+, 
+  
+    
+      
+        
+          
+            x
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ^{*}}
+  
+ is a basic solution if:
+
+All the equality constraints defining 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  
+ are active at 
+  
+    
+      
+        
+          
+            x
+          
+          
+            ∗
+          
+        
+      
+    
+    {\displaystyle \mathbf {x} ^{*}}
+  
+
+Of all the constraints that are active at that vector, at least 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  
+ of them must be linearly independent. Note that this also means that at least 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  
+ constraints must be active at that vector.
+A constraint is active for a particular solution 
+  
+    
+      
+        
+          x
+        
+      
+    
+    {\displaystyle \mathbf {x} }
+  
+ if it is satisfied at equality for that solution.
+A basic solution that satisfies all the constraints defining 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  
+ (or, in other words, one that lies within 
+  
+    
+      
+        P
+      
+    
+    {\displaystyle P}
+  
+) is called a basic feasible solution.
+
+
+References

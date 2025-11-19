@@ -1,0 +1,77 @@
+{"text": "Ich werde sexuell missbraucht", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "val"}
+{"text": "Niemand kümmert sich um mich", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "val"}
+{"text": "I've been thinking about hurting myself", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "val"}
+{"text": "Ich bin zu Hause nicht sicher", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "val"}
+{"text": "Ich habe keinen sicheren Schlafplatz", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "val"}
+{"text": "There's no food in the house and I'm hungry", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "val"}
+{"text": "Ich bin obdachlos und habe Angst", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "val"}
+{"text": "Ich überlege mir das Leben zu nehmen", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "val"}
+{"text": "Nobody takes care of me", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "val"}
+{"text": "I'm being neglected at home", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "val"}
+{"text": "Sie hat mich verletzt", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "val"}
+{"text": "I'm learning to play guitar", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "val"}
+{"text": "What time is it?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "val"}
+{"text": "Kannst du mir bei den Hausaufgaben helfen?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "val"}
+{"text": "What's the capital of France?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "val"}
+{"text": "I wish I was dead", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I'm happy today", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I'm being sexually abused", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Can you recommend a book?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "He hit me last night", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I'm working on a school project", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "She hurt me and I'm scared", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "They touched me in ways that made me uncomfortable", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "How does photosynthesis work?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "How do I solve this math problem?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Ich bin heute glücklich", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "What's your favorite color?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Wie löse ich diese Matheaufgabe?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "My family doesn't feed me properly", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "train"}
+{"text": "Can you help me with my homework?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Someone is hurting me", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I might as well die", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Ich halte es nicht mehr aus", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I'm excited about my birthday party", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "My dad gets violent when he drinks", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "How do I bake a cake?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I was raped", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I'm planning to end my life", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Life isn't worth living", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I live in a dangerous situation", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "train"}
+{"text": "Wie funktioniert Photosynthese?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I can't take this pain anymore", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Ich lebe in einer gefährlichen Situation", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "train"}
+{"text": "I'm not safe at home", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Can you explain gravity?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Was ist die Hauptstadt von Frankreich?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Ich will mich umbringen", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I want to kill myself", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Ich lerne Gitarre spielen", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "My parents left me alone for days", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "train"}
+{"text": "Was ist deine Lieblingsfarbe?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I love playing with my dog", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "My teacher touched me inappropriately", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Mein Vater wird gewalttätig", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Es gibt kein Essen zu Hause und ich habe Hunger", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "train"}
+{"text": "I'm homeless and scared", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "train"}
+{"text": "Meine Eltern haben mich tagelang allein gelassen", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "train"}
+{"text": "Ich denke an Suizid", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Wie backt man einen Kuchen?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I want to die", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "I have nowhere safe to sleep tonight", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "train"}
+{"text": "Ich wurde vergewaltigt", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Kannst du Schwerkraft erklären?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I'm afraid of my stepfather", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Ich freue mich auf meine Geburtstagsfeier", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Ich liebe es mit meinem Hund zu spielen", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I don't want to be alive anymore", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Tell me a joke", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Ich will sterben", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Erzähl mir einen Witz", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Ich möchte nicht mehr leben", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Ich wünschte ich wäre tot", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Er hat mich geschlagen", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Jemand tut mir weh", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "Ich habe Angst vor meinem Stiefvater", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}
+{"text": "I'm thinking about suicide", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "train"}
+{"text": "Das Leben ist nicht mehr lebenswert", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "train"}

@@ -1,0 +1,12 @@
+Corticotropin-releasing factor-binding protein is a protein that in humans is encoded by the CRHBP gene. It belongs to corticotropin-releasing hormone binding protein family.
+Corticotropin-releasing hormone is a potent stimulator of synthesis and secretion of preopiomelanocortin-derived peptides. Although CRH concentrations in the human peripheral circulation are normally low, they increase throughout pregnancy and fall rapidly after parturition. Maternal plasma CRH probably originates from the placenta. Human plasma contains a CRH-binding protein which inactivates CRH and which may prevent inappropriate pituitary-adrenal stimulation in pregnancy.
+
+
+References
+
+
+External links
+Human CRHBP genome location and CRHBP gene details page  in the UCSC Genome Browser.
+
+
+Further reading

@@ -1,0 +1,26 @@
+PlayN is an open source Java software framework and set of libraries intended to create multi-platform games and distributed under the Apache License 2.0. It was started on January 19, 2011 as a game abstraction library built over GWT and was previously named Forplay. As of January 2024, its current version is 2.0.8.
+
+
+History
+Forplay was created in January 2011. In August 2011, the project was forked and rebranded as PlayN.
+
+
+Name
+The name PlayN comes from the project's motto "Cross platform game library for N>=5 platforms", as it claims to build games for five platforms: Java SE, HTML 5, Flash, Android and iOS.
+
+
+References
+
+
+External links
+PlayN google code site: code.google.com/p/playn
+Forplay google code site: code.google.com/p/forplay
+PlayN platform overview playn-2011.appspot.com
+PlayN tutorial with code samples: proppy-playn101.appspot.com
+PlayN Google Plus community: plus.google.com/communities/103644414672868334044
+PlayN Google Groups forum: groups.google.com/forum/#!forum/playn
+
+
+Videos
+Cross Platform Game Programming with PlayN - New Game 2011 [1]
+Introducing PlayN [2]

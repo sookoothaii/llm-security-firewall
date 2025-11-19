@@ -1,0 +1,37 @@
+---
+title: "Project Hub Catalog Update"
+topics: ["snapshots", "catalog"]
+tags: ["catalog", "index", "2025-09-17"]
+privacy: "internal"
+status: "active"
+---
+
+# Project Hub Catalog Update - 2025-09-17
+
+## New Documents Added
+
+| Path | Title | Summary_200 | Topics | Tags | Created_FS | Status |
+|------|-------|-------------|---------|------|------------|--------|
+| `docs/technical_reports/GENERATOR_OPTIMIZATION_THESIS_CONFLICT_RESOLUTION_20250917.md` | Generator Performance Optimization - Thesis Engine Conflict Resolution | Resolution of critical performance issue where fact generator dropped from 800 to 0 facts/min after Thesis Engine integration. Fixed generator displacement and format mismatch. Restored 800+ facts/min with 25% HasProperty distribution. | technical_reports, performance, optimization | generator, thesis-engine, performance, fact-generation | 2025-09-17T21:00:00Z | active |
+| `docs/technical_reports/CUDA_DISPLAY_FRONTEND_FIX_20250917.md` | CUDA Display Detection Frontend Fix | Resolution of incorrect CUDA status display in dashboard. Frontend hardcoded CUDA to false despite GPU being active. Fixed to dynamically read from backend API. | technical_reports, frontend, bug-fix | cuda, frontend, dashboard, gpu-detection | 2025-09-17T21:10:00Z | active |
+| `analysis/CRITICAL_PERFORMANCE_RECOVERY_ANALYSIS_20250917.md` | Critical Performance Recovery Analysis | Comprehensive analysis of system failure and recovery from 0 to 800+ facts/min. Identified generator displacement, format mismatch, and CUDA display issues. Implemented parallel architecture and format standardization. | analysis, performance, troubleshooting | generator, thesis-engine, cuda, debugging, performance-recovery | 2025-09-17T21:15:00Z | active |
+| `docs/handovers/TECHNICAL_HANDOVER_GENERATOR_FRONTEND_20250917.md` | Technical Handover - Generator and Frontend Systems | Maintenance documentation for fact generation system and dashboard. Covers monitoring, common issues, recovery procedures, and critical file locations. System generating 800+ facts/min via parallel execution. | handovers, technical, maintenance | generator, frontend, cuda, monitoring, troubleshooting | 2025-09-17T21:20:00Z | active |
+
+## System Status at Documentation Time
+
+- **Knowledge Base**: 30,179+ facts (growing at 800+ facts/min)
+- **Generator**: Parallel execution active, independent of Thesis Engine
+- **Frontend**: CUDA correctly displayed, all metrics operational
+- **HasProperty Distribution**: 25% (optimal, down from 78%)
+- **Predicate Diversity**: 15 active types across 5 domains
+
+## Key Achievements Documented
+
+1. **Performance Recovery**: 0 → 800+ facts/minute
+2. **Format Standardization**: 100% API acceptance rate
+3. **CUDA Detection**: Fixed frontend display issue
+4. **Parallel Architecture**: Generator runs independently
+5. **Quality Improvement**: HasProperty reduced from 78% to 25%
+
+---
+*Catalog update completed 2025-09-17T21:25:00Z*

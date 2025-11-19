@@ -6,7 +6,6 @@ Demonstrates how to integrate RC10b into an agent execution loop.
 """
 
 import time
-from typing import Optional
 
 from llm_firewall.agents.detector import AgenticCampaignDetector, CampaignResult
 from llm_firewall.agents.state import InMemoryStateStore, CampaignStateStore

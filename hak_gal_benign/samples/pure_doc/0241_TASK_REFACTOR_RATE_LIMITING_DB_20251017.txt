@@ -1,0 +1,29 @@
+# Task: Refactor Database Queries in `rate_limiting.py`
+
+**ID:** TASK-20251017-03
+**Status:** Completed
+**Assigned to:** Gemini (G25P)
+**Date:** 2025-10-17
+**Completion Date:** 2025-10-17
+
+## 1. Problem Description
+
+A code review of `src_hexagonal/rate_limiting.py` revealed that its database access patterns are outdated and not robust. The code manually manages database cursors without consistently using `try...finally` blocks. This creates a risk of "connection leaks" where database resources are not properly released if an error occurs during query execution.
+
+This inconsistency with more modern parts of the codebase represents technical debt and poses a risk to the long-term stability of the system.
+
+## 2. Impact
+
+- **Risk of Resource Leaks:** Unclosed cursors or connections can accumulate over time, potentially exhausting the database's connection pool and leading to system-wide performance degradation or outages.
+- **Inconsistent Codebase:** The presence of multiple database access patterns makes the code harder to read, maintain, and debug.
+
+## 3. Proposed Solution
+
+The database access logic within the `RateLimiter` and `RewardCapEnforcer` classes in `src_hexagonal/rate_limiting.py` will be refactored. Specifically, all methods performing database queries will be updated to use a `try...finally` block to ensure the database cursor is always closed, regardless of whether the query succeeds or fails.
+
+This will align the module with modern Python best practices for resource management.
+
+## 4. Expected Outcome
+
+- **Improved Stability:** The risk of database connection leaks will be eliminated, improving the long-term stability and reliability of the application.
+- **Improved Maintainability:** The code will be cleaner, more robust, and consistent with other parts of the system, making future maintenance easier.

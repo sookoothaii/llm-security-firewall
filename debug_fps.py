@@ -3,10 +3,11 @@ from src.llm_firewall.pipeline.context import detect_documentation_context, is_e
 
 # Files that still get blocked
 fp_files = [
-    "..\\..\\PROJECT_HUB\\reports\\AUTOMATED_MONITORING_COMPLETE_20251006.md",
+    # Removed private PROJECT_HUB reference for public sync
+    # "reports/AUTOMATED_MONITORING_COMPLETE_20251006.md",  # Example path
     ".\\DEPLOYMENT_SUMMARY.md",
     ".\\BYPASSES_FOUND_2025_10_31.md",
-    "..\\..\\PROJECT_HUB\\reports\\SECURITY_HARDENING_COMPLETE_20251006.md",
+    # "reports/SECURITY_HARDENING_COMPLETE_20251006.md",  # Example path
 ]
 
 for f in fp_files:

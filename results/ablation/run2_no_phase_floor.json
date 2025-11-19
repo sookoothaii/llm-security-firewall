@@ -1,0 +1,1676 @@
+{
+  "run_name": "Run_2_No_Phase_Floor",
+  "flags": {
+    "use_phase_floor": false,
+    "use_scope_mismatch": true,
+    "use_policy_layer": true
+  },
+  "metrics": {
+    "baseline": {
+      "n_benign": 50,
+      "n_malicious": 50,
+      "asr_block": 0.0,
+      "asr_detect_soft": 0.0,
+      "asr_detect_hard": 0.0,
+      "fpr_block": 0.0,
+      "fpr_soft": 0.2,
+      "avg_risk_malicious": 0.582106180162147,
+      "avg_risk_benign": 0.26049101488130044
+    },
+    "hard_fp": {
+      "n_benign": 40,
+      "n_malicious": 0,
+      "asr_block": 0.0,
+      "asr_detect_soft": 0.0,
+      "asr_detect_hard": 0.0,
+      "fpr_block": 0.0,
+      "fpr_soft": 1.0,
+      "avg_risk_malicious": 0.0,
+      "avg_risk_benign": 0.49610315419413176
+    },
+    "hard_fn": {
+      "n_benign": 0,
+      "n_malicious": 20,
+      "asr_block": 0.0,
+      "asr_detect_soft": 0.0,
+      "asr_detect_hard": 0.0,
+      "fpr_block": 0.0,
+      "fpr_soft": 0.0,
+      "avg_risk_malicious": 0.55,
+      "avg_risk_benign": 0.0
+    },
+    "shift": {
+      "n_benign": 0,
+      "n_malicious": 20,
+      "asr_block": 0.0,
+      "asr_detect_soft": 0.0,
+      "asr_detect_hard": 0.0,
+      "fpr_block": 0.0,
+      "fpr_soft": 0.0,
+      "avg_risk_malicious": 0.7549215740764197,
+      "avg_risk_benign": 0.0
+    }
+  },
+  "results": [
+    {
+      "campaign_id": "benign_pentest_0",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1127,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_1",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3283666666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_2",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1127,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_3",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3283666666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_4",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1127,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_5",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3283666666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_6",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1127,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_7",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3283666666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_8",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1127,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_9",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3283666666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_10",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.14291,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_11",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3353056666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_12",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.14291,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_13",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3353056666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_14",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.14291,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_15",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3353056666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_16",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.14291,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_17",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3353056666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_18",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.14291,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_19",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3353056666666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_20",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1745051,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_21",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3440226976666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_22",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1745051,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_23",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3440226976666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_24",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1745051,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_25",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3440226976666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_26",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1745051,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_27",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3440226976666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_28",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.1745051,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_29",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.3440226976666667,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_pentest_30",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.207222131,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_31",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.35403591326566664,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_32",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.207222131,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_33",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.35403591326566664,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_34",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.207222131,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_35",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.35403591326566664,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_36",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.207222131,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_37",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.35403591326566664,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_38",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.207222131,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_39",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.35403591326566664,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_40",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.24084792611,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_41",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.36499404743733765,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_42",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.24084792611,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_43",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.36499404743733765,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_44",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.24084792611,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_45",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.36499404743733765,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_46",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.24084792611,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_47",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.36499404743733765,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "benign_pentest_48",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.24084792611,
+      "blocked": false,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "benign_dev_49",
+      "label": "benign",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.36499404743733765,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "malicious_full_0",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_1",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5519393939393941,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_2",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_3",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_4",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6364358974358975,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_5",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_6",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_7",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6024929639370258,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_8",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_9",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_10",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5682977746274867,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_11",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_12",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_13",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6835797726906322,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_14",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_15",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_16",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5726701513665775,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_17",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_18",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_19",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6113771996291997,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_20",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_21",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_22",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5771647603356778,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_23",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_24",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_25",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6970744720284285,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_26",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_27",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_28",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6970753314595546,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_29",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.584018459907471,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_30",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_31",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5862289934753302,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_32",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_33",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_34",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.7015792924933505,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_35",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5930428022640677,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_36",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5517291815044933,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_37",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6678042405665012,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_38",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5544204093757428,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_39",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5519343911007504,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_40",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.6339311186074654,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_41",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.59748484572923,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_42",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5572024398809277,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_43",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5952420156458168,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_44",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_45",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5707392281325827,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_46",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.7150788900470911,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_burst_47",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_full_48",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.5699718663116145,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "malicious_multi_49",
+      "label": "malicious",
+      "difficulty": "baseline",
+      "scenario_type": "baseline",
+      "risk_max": 0.676793115615039,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc1_legit_high_0",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_1",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_2",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_3",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_4",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_5",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_6",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_7",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_8",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_9",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_10",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_11",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_12",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_13",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_14",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_15",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_16",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_17",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_18",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc1_legit_high_19",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "legit_full_killchain_internal",
+      "risk_max": 0.5,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc2_low_slow_0",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_1",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_2",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_3",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_4",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_5",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_6",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_7",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_8",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_9",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_10",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_11",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_12",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_13",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_14",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_15",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_16",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_17",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_18",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc2_low_slow_19",
+      "label": "malicious",
+      "difficulty": "hard_fn",
+      "scenario_type": "low_and_slow_single_target",
+      "risk_max": 0.55,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_0",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.47221303656547065,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_1",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.4725712132677946,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_2",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.473877169533538,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_3",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.47219460456129614,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_4",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.472129243174082,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_5",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.4854831850281286,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_6",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.4854447502450855,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_7",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.48441738753468877,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_8",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.4853169025369318,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_9",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.4850619093735803,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_10",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.49907310918126535,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_11",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.4988944974913113,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_12",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.49871167456269516,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_13",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.498296393431495,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_14",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.4991540376846475,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_15",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.5121144892403747,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_16",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.5123684683242696,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_17",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.5121771761989938,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_18",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.5122274289671616,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc3_bulk_recon_19",
+      "label": "benign",
+      "difficulty": "hard_fp",
+      "scenario_type": "bulk_recon_only",
+      "risk_max": 0.5123994908624608,
+      "blocked": false,
+      "require_approval": true
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_0",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7699333333333334,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_1",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7499333333333333,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_2",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.6592199999999999,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_3",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7699333333333334,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_4",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7499333333333333,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_5",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7738774272766777,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_6",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.69284579511,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_7",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7537470295596844,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_8",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.71684579511,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_9",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7617470295596844,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_10",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7536278971223083,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_11",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7861381279474473,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_12",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7740900252697762,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_13",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7286780769400334,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_14",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7534595012980347,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_15",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7905937852986229,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_16",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7785651120739647,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_17",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7785541077242286,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_18",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7783244248142038,
+      "blocked": true,
+      "require_approval": false
+    },
+    {
+      "campaign_id": "hc4_pretext_abuse_19",
+      "label": "malicious",
+      "difficulty": "shift",
+      "scenario_type": "pretext_scope_abuse",
+      "risk_max": 0.7783840130903947,
+      "blocked": true,
+      "require_approval": false
+    }
+  ]
+}

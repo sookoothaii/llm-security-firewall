@@ -1,0 +1,8 @@
+100.000 may represent either:
+
+the number 100000 (the point being a thousands separator, as common in many European countries)
+the number 100 known to six significant figures, i.e. 100±0.0005 (here the dot is a decimal separator, as commonly used in much of the English-speaking world)
+
+
+See also
+100000 (disambiguation)

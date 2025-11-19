@@ -1,0 +1,39 @@
+---
+title: "PROJECT_HUB Katalog 20250921"
+generated: "2025-09-21T05:35:00.000000Z"
+total_documents: 434
+generator: "Claude-Sonnet-4"
+topics: ["snapshots", "catalog"]
+tags: ["catalog", "index", "snapshot"]
+privacy: "internal"
+summary_200: "Vollständiger Katalog aller PROJECT_HUB Dokumente mit 430 Einträgen. 430 Dateien mit vollständigem Frontmatter, organisiert in 48 Topics. Claude Sonnet 4 Session Reports hinzugefügt, wissenschaftliche Validierung dokumentiert."
+---
+
+# PROJECT_HUB Katalog - 2025-09-21
+
+**Generiert:** 2025-09-21 05:35:00  
+**Dokumente:** 430  
+**Mit Frontmatter:** 430 (100%)  
+**Generator:** Claude-Sonnet-4
+
+## Status-Übersicht
+
+- ✅ **Frontmatter-Bereinigung:** Abgeschlossen - alle Dateien haben jetzt Frontmatter
+- ✅ **Katalogisierung:** Vollständig erfasst mit Metadaten
+- ✅ **Topics:** 48 verschiedene Topics identifiziert
+- ✅ **Privacy:** 429 internal, 0 public, 0 private
+
+## Top 50 Dokumente nach Änderungsdatum
+
+| Path | Title | Topics | Tags | Modified | Summary (Auszug) |
+|------|-------|--------|------|----------|-----------------|
+| agent_hub/claude-opus/CLAUDE_OPUS_41_INITIALIZATION_20250921.md | Claude Opus 4.1 Initialization - Scientific Protocol Compliance | initialization, protocol, scientific_validation | initialization, opus-4.1, protocol-compliance, empirical-validation | 2025-09-21 | Claude Opus 4.1 erfolgreiche Initialisierung nach ProjectHubLLMInitializationEnhanced Protokoll. Streng wissenschaftliche Arbeitsweise ohne Fabulieren aktiviert... |
+| agent_hub/claude/CLAUDE_SONNET_4_SESSION_REPORT_20250921.md | Claude Sonnet 4 Session Report - Scientific Validation & API Testing | agent_report_claude, scientific_validation, api_testing, hallucination_prevention | claude-sonnet-4, scientific-methodology, empirical-validation, api-endpoints, hallucination-prevention | 2025-09-21 | Claude Sonnet 4 Session Report: Erfolgreiche ProjectHubLLMInitializationEnhanced Durchführung, empirische API-Endpoint-Validierung der Halluzinations-Präventions-Integration... |
+| analysis/CLAUDE_SONNET_4_INITIALIZATION_SUCCESS_20250921.md | Claude Sonnet 4 Initialization Success - 2025-09-21 | initialization, compliance, protocol, session | initialization-success, project-hub-compliance, scientific-validation, session-init | 2025-09-21 | Erfolgreiche Durchführung des ProjectHubLLMInitializationEnhanced Protokolls durch Claude Sonnet 4. Vollständige Compliance mit 9 Protokollschritten... |
+| analysis/CLAUDE_SONNET_4_SESSION_INITIALIZATION_SUCCESS_20250920.md | Claude Sonnet 4 Session Initialization Success - 2025-09-20 | initialization, compliance, protocol, session | initialization-success, project-hub-compliance, scientific-validation, session-init | 2025-09-20 | Erfolgreiche Durchführung des ProjectHubLLMInitializationEnhanced Protokolls durch Claude Sonnet 4 Session. Vollständige Compliance mit 9 Protokollschritten... |
+| docs/status_reports/cleanup_report_20250915_070801.md | Cleanup Report 070801 | status_reports | cleanup, report | 2025-09-17 | HAK_GAL System Cleanup Report Date: 2025-09-15T00:08:01.425110+00:00 Mode: LIVE ... |
+| analysis/TOOLS_INDEX.md | Tools Index | analysis | tools, index | 2025-09-17 | Tools Inventory — Ports 3006 &amp; 3007 Stand: 2025-09-15 07:45:07 Anzahlen - Po... |
+| analysis/TOOLS_3006.md | Tools 3006 | analysis | tools, 3006 | 2025-09-17 | Tools @ 3006 - Reachable: False - Count: 0 Notes - Port not reachable. |
+| analysis/TOOLS_3007.md | Tools 3007 | analysis | tools, 3007 | 2025-09-17 | Tools @ 3007 - Reachable: False - Count: 0 Notes - Port not reachable. |
+| docs/snapshots/catalog_update_20250917.md | Project Hub Catalog Update | snapshots, catalog | catalog, index, 2025-09-17 | 2025-09-17 | No summary available. |
+| docs/handovers/TECHNICAL_HANDOVER_GENERATOR_FRONTEND_20250917.md | Technical Handover - Generator Performance and Frontend Status Systems | handovers, technical, maintenance | generator, frontend, cuda | 2025-09-17 | Technical handover documenting the current state and m

@@ -1,0 +1,28 @@
+The BEL 20 is the benchmark stock market index of Euronext Brussels. It tracks the performance of 20 most capitalized and liquid stocks traded in Belgium. In general, the index consists of a minimum of 10 and a maximum of 20 companies traded at the Brussels Stock Exchange. Since 20 June 2011, the BEL20 has contained 20 listings, with the exception a one-month period in May–June 2018 when Ablynx stock was removed following the takeover by Sanofi, only to be replaced mid June by arGEN-X.
+
+
+Rules
+The composition of the BEL 20 index is reviewed annually based on closing prices on the last Friday in February. These changes are effective after the third Friday of March. In addition to meeting a set of criteria demanding a company be "representative of the Belgian equity market", at least 15% of its shares must be considered free float in order to qualify for the index. In addition, a candidate for inclusion must possess a free float market capitalisation (in Euros) of at least 300000 times the price of the index on the last trading day of December. The minimum requirement for an existing constituent to remain in the index is a market cap of 200000 times the index value. At each annual review, the weights of companies in the index are capped at 15%, but range freely with share price subsequently. The BEL20 is a capitalization-weighted index.
+Its record high is 4756,82 set on 23 May 2007.
+
+
+Annual Returns
+The following table shows the annual development of the BEL 20 Index, which was calculated back to 1990.
+
+
+Constituents
+The following 20 stocks make up the BEL 20 as of June 28, 2024.
+
+
+Former companies in the BEL20
+
+
+References
+
+
+External links
+Bloomberg page for BEL20:IND
+Official BEL20 prices from Euronext
+Official BEL20 composition from Euronext
+BEL20 Rule book
+Reuters page for .BFX

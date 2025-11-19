@@ -1,0 +1,139 @@
+---
+title: "Workflow N8N Patterns"
+created: "2025-09-15T00:08:00.994662Z"
+author: "system-cleanup"
+topics: ["technical_reports"]
+tags: ["auto-generated"]
+privacy: "internal"
+summary_200: |-
+  Auto-generated frontmatter. Document requires review.
+---
+
+# Workflow Patterns: n8n Best Practices für HAK-GAL
+**Date**: 2025-09-16  
+**Purpose**: Mapping n8n workflow patterns to HAK-GAL WorkflowPro capabilities
+
+## Overview
+
+This document maps n8n's proven workflow patterns to HAK-GAL's WorkflowPro implementation, providing guidance for building robust, production-ready workflows.
+
+## 1. Persistent State Management
+
+### n8n Challenge
+- State is lost between workflow executions
+- Requires external databases (PostgreSQL, Redis)
+
+### HAK-GAL Solution
+WorkflowPro already includes comprehensive state management tools:
+
+```javascript
+// Available State Tools
+STATE_MANAGEMENT: {
+  tools: [
+    { id: 'get_global_state', params: { key: '', default: null }},
+    { id: 'set_global_state', params: { key: '', value: '' }, write: true},
+    { id: 'get_workflow_context', params: { context_path: '' }},
+    { id: 'set_workflow_context', params: { context_path: '', value: '' }, write: true},
+    { id: 'incr_counter', params: { counter_name: '', step: 1 }, write: true},
+    { id: 'atomic_transaction', params: { keys: [], operations: [] }, write: true}
+  ]
+}
+```
+
+### Implementation Pattern
+```yaml
+Workflow: Daily Report Generator
+Steps:
+  1. get_global_state → 'last_run_timestamp'
+  2. search_knowledge → query since last run
+  3. process data → generate report
+  4. set_global_state → update timestamp
+  5. atomic_transaction → ensure consistency
+```
+
+### Best Practice
+- Use `atomic_transaction` for critical state updates
+- Implement state versioning with timestamps
+- Regular state cleanup with `db_vacuum`
+
+## 2. Error Handling Across Node Boundaries
+
+### n8n Approach
+- Error Workflows
+- Error Trigger Nodes
+- Stop and Error Node
+
+### HAK-GAL Enhanced Error Handling
+
+```javascript
+ERROR_HANDLING: {
+  tools: [
+    { id: 'try_catch', params: { try_nodes: [], catch_nodes: [], finally_nodes: [] }},
+    { id: 'retry_with_backoff', params: { max_retries: 3, backoff_ms: 1000 }},
+    { id: 'circuit_breaker', params: { failure_threshold: 5, timeout_ms: 30000 }},
+    { id: 'fallback_chain', params: { fallback_nodes: [], default_value: null }},
+    { id: 'error_transform', params: { error_map: {}, default_success: true }}
+  ]
+}
+```
+
+### Error Workflow Pattern
+```yaml
+Main Workflow:
+  1. try_catch wrapper
+     - try: [risky_operation_1, risky_operation_2]
+     - catch: [log_error, notify_admin, trigger_error_workflow]
+     - finally: [cleanup_resources]
+
+Error Recovery Workflow:
+  1. get_global_state → 'error_context'
+  2. analyze error type
+  3. branch on error category:
+     - Network: retry_with_backoff
+     - Data: fallback_chain
+     - Critical: circuit_breaker + alert
+```
+
+### Recommended Implementation
+```typescript
+// Add to WorkflowDefinition
+interface WorkflowDefinition {
+  errorWorkflowId?: string;
+  errorHandling?: 'stop' | 'continue' | 'delegate';
+  maxRetries?: number;
+  retryDelay?: number;
+}
+```
+
+## 3. Loops in DAG Model
+
+### n8n Features
+- SplitInBatches for large datasets
+- IF-Nodes with branches
+- Automatic item processing
+
+### HAK-GAL Loop Patterns
+
+```javascript
+ITERATION: {
+  tools: [
+    { id: 'for_each', params: { array_field: 'items', batch_size: 1 }},
+    { id: 'split_in_batches', params: { batch_size: 10, reset: false }},
+    { id: 'loop_over_items', params: { max_iterations: 100 }},
+    { id: 'map_transform', params: { transform_expression: '{{ $item * 2 }}' }},
+    { id: 'reduce_aggregate', params: { operation: 'sum', field: 'value' }}
+  ]
+}
+```
+
+### Common Loop Patterns
+
+#### Pattern 1: Batch Processing Large Datasets
+```yaml
+Workflow: Process 10,000 KB Facts
+  1. get_facts_count → total items
+  2. split_in_batches → size: 100
+  3. for_each batch:
+     - process items
+     - set_global_state → progress counter
+  4. reduce_aggregate → compile

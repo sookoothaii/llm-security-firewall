@@ -1,0 +1,5 @@
+In organic chemistry, tolyl groups are functional groups related to toluene.  They have the general formula CH3C6H4−R. The change of the relative position of the methyl and the R substituent on the aromatic ring can generate three possible structural isomers: 1,2 (ortho), 1,3 (meta), and 1,4 (para). Tolyl groups are aryl groups which are commonly found in the structure of diverse chemical compounds. They are considered nonpolar and hydrophobic groups.
+The functionalization to include tolyl groups into compounds is often done by Williamson etherification, using tolyl alcohols as reagents, or by C-C coupling reactions. Tolyl sulfonates are excellent leaving groups in nucleophilic substitutions, for this reason, they are commonly generated as intermediaries to activate alcohols. To this end, 4-toluenesulfonyl chloride is reacted in the presence of a base with the corresponding alcohol.
+
+
+References

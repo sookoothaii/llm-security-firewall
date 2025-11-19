@@ -2,8 +2,9 @@
 from src.llm_firewall.pipeline.context import detect_documentation_context, is_exec_context, is_exploit_context
 
 fps = [
-    "..\\..\\PROJECT_HUB\\reports\\AUTOMATED_MONITORING_COMPLETE_20251006.md",
-    "..\\..\\PROJECT_HUB\\reports\\SCIENTIFIC_ANTI_GAMING_100_PERCENT_COMPLETE.md",
+    # Removed private PROJECT_HUB references for public sync
+    # "reports/AUTOMATED_MONITORING_COMPLETE_20251006.md",  # Example path
+    # "reports/SCIENTIFIC_ANTI_GAMING_100_PERCENT_COMPLETE.md",  # Example path
     ".\\data\\README_datacard.md",
     ".\\integration_snippet.txt",
     ".\\src\\llm_security_firewall.egg-info\\entry_points.txt",

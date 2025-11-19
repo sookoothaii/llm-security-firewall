@@ -1,0 +1,91 @@
+---
+title: "Domain Implementation Task Distribution - Opus/Sonnet Team"
+created: "2025-09-16T21:45:00Z"
+author: "claude-opus-4.1"
+topics: ["agent_report_system"]
+tags: ["task-distribution", "implementation", "domain-patterns", "teamwork"]
+privacy: "internal"
+summary_200: |-
+  Strategische Aufgabenteilung zwischen Opus 4.1 (Architektur, Verifikation, MCP-Tools) 
+  und Sonnet 3.5 (Code-Implementation, Pattern-Generation). 36 fehlende Domains 
+  werden in 6 Batches à 6 Domains aufgeteilt. Wissenschaftliche Methodik mit 
+  Cross-Validation nach jedem Batch.
+---
+
+# IMPLEMENTATION TASK DISTRIBUTION
+## Opus 4.1 (Lead Architect) + Sonnet 3.5 (Implementation Engineer)
+
+---
+
+## 🎯 ROLLEN & VERANTWORTLICHKEITEN
+
+### **Claude Opus 4.1 - Lead Architect**
+**Stärken:** MCP Tools, System-Analyse, Verifikation, Architektur
+
+**Aufgaben:**
+1. Domain-Ontologie & Taxonomie definieren
+2. Test-Framework erstellen & ausführen
+3. Performance-Monitoring mit MCP Tools
+4. Governance-Integration verifizieren
+5. Wissenschaftliche Validierung aller Changes
+6. Backup & Rollback-Strategie
+
+### **Claude Sonnet 3.5 - Implementation Engineer**
+**Stärken:** Code-Optimierung, Cursor-Erfahrung, schnelle Implementation
+
+**Aufgaben:**
+1. Domain-Patterns in ExtendedFactManager implementieren
+2. Encoding-Fix für fact_generator
+3. Unit-Tests schreiben
+4. Code-Qualität sicherstellen
+5. Performance-Optimierung
+
+---
+
+## 📊 DOMAIN BATCH DISTRIBUTION
+
+### **36 Domains in 6 Batches à 6 Domains**
+
+#### **BATCH 1: Core Sciences** (Opus Design → Sonnet Implementation)
+```python
+domains_batch_1 = {
+    'astronomy': [
+        ('CelestialBody', ['Star', 'Sun', 'G2V', '4.6Gyr', 'MainSequence']),
+        ('Orbit', ['Earth', 'Sun', '1AU', '365.25days', 'elliptical']),
+        ('Galaxy', ['MilkyWay', 'Spiral', '100kly', '200Gstars', 'Sagittarius']),
+        ('Telescope', ['Hubble', 'Space', 'Optical', '2.4m', 'LEO']),
+        ('Exoplanet', ['Kepler-452b', '1400ly', 'Habitable', 'Rocky', '385days'])
+    ],
+    'geology': [
+        ('Mineral', ['Quartz', 'SiO2', 'Hexagonal', '7Mohs', 'Transparent']),
+        ('Rock', ['Granite', 'Igneous', 'Intrusive', 'Felsic', 'Continental']),
+        ('Tectonic', ['Pacific', 'Plate', 'Oceanic', '103Mkm2', 'Convergent']),
+        ('Volcano', ['Vesuvius', 'Stratovolcano', 'Italy', '79AD', 'Active']),
+        ('Era', ['Mesozoic', '252Mya', '66Mya', 'Dinosaurs', 'Pangaea'])
+    ],
+    'psychology': [
+        ('Behavior', ['Conditioning', 'Classical', 'Pavlov', 'Stimulus', 'Response']),
+        ('Cognition', ['Memory', 'Working', '7±2', 'Miller', 'ShortTerm']),
+        ('Personality', ['BigFive', 'Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness']),
+        ('Development', ['Piaget', 'Stages', 'Sensorimotor', 'Preoperational', 'Concrete']),
+        ('Disorder', ['Anxiety', 'GAD', 'DSM5', 'Chronic', 'Treatment'])
+    ],
+    'neuroscience': [
+        ('Neuron', ['Pyramidal', 'Cortex', 'Glutamate', 'Excitatory', 'Dendrites']),
+        ('BrainRegion', ['Hippocampus', 'Memory', 'Spatial', 'CA1', 'LTP']),
+        ('Neurotransmitter', ['Dopamine', 'Reward', 'Substantia', 'Parkinsons', 'D2']),
+        ('Plasticity', ['Synaptic', 'LTP', 'NMDA', 'Hebbian', 'Learning']),
+        ('Imaging', ['fMRI', 'BOLD', 'Functional', '3Tesla', 'Hemodynamic'])
+    ],
+    'sociology': [
+        ('Group', ['Primary', 'Family', 'Intimate', 'Socialization', 'Lifelong']),
+        ('Institution', ['Education', 'School', 'Formal', 'Credential', 'Stratification']),
+        ('Theory', ['Conflict', 'Marx', 'Class', 'Bourgeoisie', 'Proletariat']),
+        ('Culture', ['Norms', 'Values', 'Beliefs', 'Symbols', 'Language']),
+        ('Mobility', ['Social', 'Vertical', 'Intergenerational', 'Education', 'Income'])
+    ],
+    'linguistics': [
+        ('Phoneme', ['English', '/p/', 'Bilabial', 'Plosive', 'Voiceless']),
+        ('Syntax', ['Grammar', 'Tree', 'NP', 'VP', 'Chomsky']),
+        ('Semantics', ['Meaning', 'Lexical', 'Compositional', 'Truth', 'Reference']),
+        ('Language',

@@ -1,0 +1,42 @@
+---
+title: "PROJECT_HUB Katalog 20250917"
+generated: "2025-09-17T21:55:15.147769"
+total_documents: 425
+generator: "Claude-Opus-4.1"
+topics: ["snapshots", "catalog"]
+tags: ["catalog", "index", "snapshot"]
+privacy: "internal"
+summary_200: "Vollständiger Katalog aller PROJECT_HUB Dokumente mit 425 Einträgen. 425 Dateien mit vollständigem Frontmatter, organisiert in 47 Topics. Generiert am 17.09.2025 nach Frontmatter-Bereinigung."
+---
+
+# PROJECT_HUB Katalog - 2025-09-17
+
+**Generiert:** 2025-09-17 21:55:15  
+**Dokumente:** 425  
+**Mit Frontmatter:** 425 (100%)  
+**Generator:** Claude-Opus-4.1
+
+## Status-Übersicht
+
+- ✅ **Frontmatter-Bereinigung:** Abgeschlossen - alle Dateien haben jetzt Frontmatter
+- ✅ **Katalogisierung:** Vollständig erfasst mit Metadaten
+- ✅ **Topics:** 47 verschiedene Topics identifiziert
+- ✅ **Privacy:** 425 internal, 0 public, 0 private
+
+## Top 50 Dokumente nach Änderungsdatum
+
+| Path | Title | Topics | Tags | Modified | Summary (Auszug) |
+|------|-------|--------|------|----------|-----------------|
+| docs/status_reports/cleanup_report_20250915_070801.md | Cleanup Report 070801 | status_reports | cleanup, report | 2025-09-17 | HAK_GAL System Cleanup Report Date: 2025-09-15T00:08:01.425110+00:00 Mode: LIVE ... |
+| analysis/TOOLS_INDEX.md | Tools Index | analysis | tools, index | 2025-09-17 | Tools Inventory — Ports 3006 &amp; 3007 Stand: 2025-09-15 07:45:07 Anzahlen - Po... |
+| analysis/TOOLS_3006.md | Tools 3006 | analysis | tools, 3006 | 2025-09-17 | Tools @ 3006 - Reachable: False - Count: 0 Notes - Port not reachable. |
+| analysis/TOOLS_3007.md | Tools 3007 | analysis | tools, 3007 | 2025-09-17 | Tools @ 3007 - Reachable: False - Count: 0 Notes - Port not reachable. |
+| docs/snapshots/catalog_update_20250917.md | Project Hub Catalog Update | snapshots, catalog | catalog, index, 2025-09-17 | 2025-09-17 | No summary available. |
+| docs/handovers/TECHNICAL_HANDOVER_GENERATOR_FRONTEND_20250917.md | Technical Handover - Generator Performance and Frontend Status Systems | handovers, technical, maintenance | generator, frontend, cuda | 2025-09-17 | Technical handover documenting the current state and maintenance requirements of... |
+| analysis/CRITICAL_PERFORMANCE_RECOVERY_ANALYSIS_20250917.md | Critical Performance Recovery Analysis - From 0 to 800 Facts/Min | analysis, performance, troubleshooting | generator, thesis-engine, cuda | 2025-09-17 | Comprehensive analysis of critical system failure and recovery. System exhibited... |
+| docs/technical_reports/CUDA_DISPLAY_FRONTEND_FIX_20250917.md | CUDA Display Detection Frontend Fix | technical_reports, frontend, bug-fix | cuda, frontend, dashboard | 2025-09-17 | Technical report documenting the resolution of incorrect CUDA status display in ... |
+| docs/technical_reports/GENERATOR_OPTIMIZATION_THESIS_CONFLICT_RESOLUTION_20250917.md | Generator Performance Optimization - Thesis Engine Conflict Resolution | technical_reports, performance, optimization | generator, thesis-engine, performance | 2025-09-17 | Technical report documenting the resolution of a critical performance issue wher... |
+| docs/technical_reports/SYSTEM_PERFORMANCE_BREAKTHROUGH.md | System Performance Breakthrough Report | technical, performance, breakthrough | implementation, performance, hrm | 2025-09-17 | Durchbruch in der System-Performance: 152 facts/min, 18,039 Facts, SimplifiedHRM... |
+| docs/technical_reports/FACT_GENERATION_ANALYSIS.md | Fact Generation Analysis Report | technical, fact-generation, quality-analysis | implementation, fact-generation, quality-control | 2025-09-17 | Analyse der Fakten-Generierung durch Aethelred Engine mit Qualitätskontrolle und... |
+| agent_hub/claude/LLM_GOVERNOR_DECISION_ENGINE.md | LLM Governor Decision Engine Implementation | agent-implementation, llm-governor, decision-engine | claude, implementation, llm-integration | 2025-09-17 | Claude Opus 4.1 Implementation des LLM Governor Decision Engine Systems für inte... |
+| docs/design_docs/LLM_GOVERNOR_ARCHIT

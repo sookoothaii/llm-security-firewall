@@ -1,0 +1,24 @@
+Perfluorooctane, also known as octadecafluorooctane, is a fluorocarbon liquid—a perfluorinated derivative of the hydrocarbon octane. It can be a good substitute for insulating oil in high voltage electronics. In addition to heat transfer applications, it has also been used as a breathable fluid in partial liquid ventilation.
+
+
+Production
+Perfluorooctane can be produced by the Fowler process or by electrochemical fluorination.
+
+
+Fowler process
+The Fowler process involves moderating the action of elemental fluorine with cobalt fluoride in the gas phase from octane.
+
+
+Electrochemical fluorination
+Electrolysis in hydrogen fluoride of nonanoic acid will produce both perfluorononanoic acid and perfluorooctane. Perfluorooctane manufactured this way is marketed under the name PF5080 (or FC77) by 3M as part of their Fluorinert range of heat transfer fluids.
+
+
+Applications
+Perfluorooctane is chemically inert, but has useful physical properties, leading to its employment in diverse areas:
+
+Heat transfer agent
+Dielectric fluid
+Tamponade in eye surgery
+
+
+References

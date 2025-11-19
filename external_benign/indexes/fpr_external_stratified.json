@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-11-01T17:37:11Z",
+  "overall": {
+    "n": 109,
+    "fp": 8,
+    "fpr": 0.07339449541284404,
+    "wilson95": [
+      0.03765663179125689,
+      0.1381792301603638
+    ]
+  },
+  "classes": {
+    "doc_with_codefence": {
+      "n": 0,
+      "fp": 0,
+      "fpr": 0.0,
+      "wilson95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pure_doc": {
+      "n": 109,
+      "fp": 8,
+      "fpr": 0.07339449541284404,
+      "wilson95": [
+        0.03765663179125689,
+        0.1381792301603638
+      ]
+    }
+  },
+  "sample_details": [
+    {
+      "id": "wikipedia_en_20565990",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=2.00) - encoding_near_attack_keyword, high_entropy, dense_alphabet"
+    },
+    {
+      "id": "wikipedia_en_28288014",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=2.00) - encoding_near_attack_keyword, high_entropy, dense_alphabet"
+    },
+    {
+      "id": "wikipedia_en_41653196",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=1.60) - language_switching_detected, high_entropy, dense_alphabet"
+    },
+    {
+      "id": "wikipedia_en_42774063",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=2.00) - encoding_near_attack_keyword, high_entropy, dense_alphabet"
+    },
+    {
+      "id": "wikipedia_en_59836527",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=2.14) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "id": "wikipedia_en_68065829",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=2.00) - encoding_near_attack_keyword, high_entropy, dense_alphabet"
+    },
+    {
+      "id": "wikipedia_en_76624808",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=2.14) - chain_decoded_1_stages, base64_secret, high_entropy..."
+    },
+    {
+      "id": "wikipedia_en_81379020",
+      "class": "pure_doc",
+      "fp": 1,
+      "reason": "Layer 0 (Detectors): WARN (risk=4.32) - encoding_near_attack_keyword, chain_decoded_1_stages, base64_secret..."
+    }
+  ]
+}
+

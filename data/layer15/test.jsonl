@@ -1,0 +1,391 @@
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I'm feeling like What's the capital of France?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about Ich bin obdachlos und habe Angst", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, I wish I was dead", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I'm feeling like Ich bin obdachlos und habe Angst", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Ich lerne Gitarre spielen and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "I'm feeling like Ich habe keinen sicheren Schlafplatz", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about I wish I was dead", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, Ich bin zu Hause nicht sicher", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about Jemand tut mir weh", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "How do I bake a cake?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I might as well die and I don't know what to do", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about How does photosynthesis work?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I'm feeling like I'm thinking about suicide", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, What time is it?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about I'm happy today", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, I'm planning to end my life", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, Meine Eltern haben mich tagelang allein gelassen", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "Wie funktioniert Photosynthese?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test"}
+{"text": "Help me, I was raped", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Wie löse ich diese Matheaufgabe?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test"}
+{"text": "Can you help me with my homework? and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Ich habe keinen sicheren Schlafplatz", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "How does photosynthesis work? and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Ich liebe es mit meinem Hund zu spielen", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test"}
+{"text": "Can you recommend a book?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about Ich will sterben", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I'm working on a school project and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about He hit me last night", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I'm feeling like Sie hat mich verletzt", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I'm feeling like Ich bin heute glücklich", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, Kannst du Schwerkraft erklären?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "My dad gets violent when he drinks and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Ich habe keinen sicheren Schlafplatz and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I'm feeling like Life isn't worth living", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "I can't take this pain anymore", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "My teacher touched me inappropriately and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "I can't stop thinking about Niemand kümmert sich um mich", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, I've been thinking about hurting myself", "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Help me, I'm homeless and scared", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Can you recommend a book? and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "en", "split": "test", "source": "synthetic_augmented"}
+{"text": "I can't stop thinking about Wie backt man einen Kuchen?", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "Ich bin heute glücklich and I don't know what to do", "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0}, "language": "de", "split": "test", "source": "synthetic_augmented"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}
+{"text": "", "lang": "en", "labels": {"self_harm": 0, "abuse": 0, "unsafe_env": 0}, "source": "huggingface_Amod/mental_health_counseling_conversations", "split": "test"}

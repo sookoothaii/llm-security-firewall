@@ -1,0 +1,28 @@
+Hydrofuramide is a condensation product of three molar equivalents of furfural with two molar equivalents of ammonia. Hydrofuramide is a crystalline solid with a melting point of 118-119 °C. The molecule may be described as a diimine with three pendant furanyl rings. Hydrofuramide is a versatile specialty chemical with applications in diverse areas, including rubber additives, pharmaceutical intermediates, preservatives, and rodenticides.
+
+
+Synthesis
+Hydrofuramide was prepared in 1960 by Kapur via the reaction of furfural with aqueous ammonia in chilled ethanol solution.
+
+
+Reactions
+The reactive imine double bonds of hydrofuramide are easily reduced. Reduction with aqueous sodium borohydride yields N,N-bisfurfuryl-2-furylmethanediamine, useful as an antihypertensive drug compound.
+Catalytic hydrogenation of hydrofuramide with Raney nickel in the presence of ammonia in ethanol yields mixtures of furfurylamine and difurfurylamine. By contrast, hydrogenation in acetic acid-ethanol, employing platinum oxide catalyst yielded the tertiary amine tri-furfurylamine after neutralization. Furthermore, lithium aluminium hydride reduction of hydrofuramide yields furfurin, a tetracyclic compound.
+
+
+Applications
+
+
+Rubber vulcanization
+Hydrofuramide has shown effectiveness as a synergist with zinc stearate in enhancing the rate of vulcanization of styrene-butadiene rubber. Similar synergistic effect was seen in the vulcanization of natural rubber with hydrofuramide-sulfenamide activator where introduction of hydrofuramide reduced induction time, scorch time, and optimum cure time.
+
+
+Raticide
+Hydrofuramide has been found to be selectively toxic to rats. For all types of rats the lethal dose is 1 g/kg body weight. The chemical is less toxic to guinea pigs and has little or no toxicity to swine, dogs, cats or birds.
+
+
+Food technology
+Development of a pink color in a modified Badouin test, employing hydrofuramide, is diagnostic for adulteration of butter with cheap hydrogenated vegetable oil.
+
+
+References

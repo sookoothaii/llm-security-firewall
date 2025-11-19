@@ -1,0 +1,49 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.7, pytest-8.4.2, pluggy-1.6.0 -- D:\MCP Mods\HAK_GAL_HEXAGONAL\.venv_hexa\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\MCP Mods\HAK_GAL_HEXAGONAL\standalone_packages\llm-security-firewall
+configfile: pytest.ini
+plugins: anyio-4.11.0
+collecting ... collected 853 items
+
+tests/gates/test_stream_guard.py::TestRollingWindowStreamGuard::test_guard_initialization PASSED [  0%]
+tests/gates/test_stream_guard.py::TestRollingWindowStreamGuard::test_start_stream PASSED [  0%]
+tests/gates/test_stream_guard.py::TestRollingWindowStreamGuard::test_safe_token_continues PASSED [  0%]
+tests/gates/test_stream_guard.py::TestRollingWindowStreamGuard::test_high_risk_token_aborts PASSED [  0%]
+tests/gates/test_stream_guard.py::TestRollingWindowStreamGuard::test_cumulative_risk_accumulates PASSED [  0%]
+tests/judges/test_nli_consistency.py::TestNLIConsistencyJudge::test_judge_initialization PASSED [  0%]
+tests/judges/test_nli_consistency.py::TestNLIConsistencyJudge::test_score_benign_text PASSED [  0%]
+tests/judges/test_nli_consistency.py::TestNLIConsistencyJudge::test_detects_policy_bypass PASSED [  0%]
+tests/judges/test_nli_consistency.py::TestNLIConsistencyJudge::test_detects_contradiction PASSED [  1%]
+tests/judges/test_persuasion_fusion.py::TestPersuasionFusionJudge::test_judge_initialization PASSED [  1%]
+tests/judges/test_persuasion_fusion.py::TestPersuasionFusionJudge::test_score_benign_text PASSED [  1%]
+tests/judges/test_persuasion_fusion.py::TestPersuasionFusionJudge::test_score_persuasive_text PASSED [  1%]
+tests/persuasion/test_ac_trie.py::test_ac_counts PASSED                  [  1%]
+tests/persuasion/test_ac_trie.py::test_ac_case_insensitive PASSED        [  1%]
+tests/persuasion/test_ac_trie.py::test_ac_no_false_positives PASSED      [  1%]
+tests/persuasion/test_instructionality.py::test_step_markers PASSED      [  1%]
+tests/persuasion/test_instructionality.py::test_no_steps PASSED          [  1%]
+tests/persuasion/test_instructionality.py::test_requires_safety_wrap_true PASSED [  2%]
+tests/persuasion/test_instructionality.py::test_requires_safety_wrap_false_with_guards PASSED [  2%]
+tests/persuasion/test_instructionality.py::test_requires_safety_wrap_false_benign PASSED [  2%]
+tests/persuasion/test_invariance_gate.py::test_divergence_blocks PASSED  [  2%]
+tests/persuasion/test_invariance_gate.py::test_warn_on_persuasion PASSED [  2%]
+tests/persuasion/test_invariance_gate.py::test_agreement_allows PASSED   [  2%]
+tests/persuasion/test_l3_classifier.py::test_predict_shapes PASSED       [  2%]
+tests/persuasion/test_l3_classifier.py::test_fallback_without_model PASSED [  2%]
+tests/persuasion/test_l3_classifier.py::test_predict_labels PASSED       [  3%]
+tests/persuasion/test_neutralizer.py::test_strip_and_restate_authority PASSED [  3%]
+tests/persuasion/test_neutralizer.py::test_extract_intent_simple PASSED  [  3%]
+tests/persuasion/test_neutralizer.py::test_pronoun_replacement PASSED    [  3%]
+tests/persuasion/test_neutralizer.py::test_fallback_when_no_verb PASSED  [  3%]
+tests/persuasion/test_persuasion_detector.py::test_basic_loading PASSED  [  3%]
+tests/persuasion/test_persuasion_detector.py::test_detect_authority PASSED [  3%]
+tests/persuasion/test_persuasion_detector.py::test_detect_roleplay PASSED [  3%]
+tests/persuasion/test_persuasion_detector.py::test_low_score_benign PASSED [  3%]
+tests/persuasion/test_persuasion_detector.py::test_detect_urgency PASSED [  4%]
+tests/persuasion/test_persuasion_detector.py::test_detect_flattery PASSED [  4%]
+tests/persuasion/test_persuasion_detector.py::test_detect_social_proof PASSED [  4%]
+tests/persuasion/test_persuasion_detector.py::test_decide_function PASSED [  4%]
+tests/persuasion/test_persuasion_detector.py::test_unicode_normalization PASSED [  4%]
+tests/red_team/test_fake_citation_attack.py::TestFakeCitationAttack::test_fake_doi_rejected PASSED [  4%]
+tests/red_team/test_fak

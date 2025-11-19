@@ -1,0 +1,33 @@
+# GEMINI STATUS UPDATE REPORT
+
+**Date:** 2025-10-10
+**Author:** Gemini [G-2.5P]
+
+---
+
+## 1. Current Task: Fix Missing `client_encoding` in `psycopg2.connect`
+
+*   **Problem:** A project-wide issue was identified where numerous calls to `psycopg2.connect()` are missing the `client_encoding='UTF8'` parameter, leading to potential database encoding errors.
+*   **Scope:** An initial search revealed 54 occurrences across more than 40 Python files.
+
+---
+
+## 2. Proposed Solution: AST Scripting
+
+Due to the complexity and high number of occurrences with varying call signatures, a simple find-and-replace operation is too risky.
+
+My proposed plan is to use a robust, automated approach:
+
+1.  **Generate a Target List:** Systematically identify all affected `.py` files.
+2.  **Develop a Python Script:** Create a script that uses Python's `ast` (Abstract Syntax Tree) module.
+3.  **Safe Modification:** The script will parse each file's code into an AST, intelligently add the `client_encoding='UTF8'` keyword argument only where needed, and then regenerate the source code from the modified tree.
+4.  **Execution:** Run the script to patch all affected files automatically and safely.
+
+---
+
+## 3. Status
+
+*   **Awaiting Go-Ahead:** The plan has been formulated and presented. I am waiting for the user's confirmation to proceed with creating and executing the script.
+*   **Next Step:** Upon confirmation, I will write and run the AST-based refactoring script.
+
+---

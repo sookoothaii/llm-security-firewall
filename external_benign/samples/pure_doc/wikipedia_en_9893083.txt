@@ -1,0 +1,21 @@
+Bill's Tomato Game is a puzzle video game for the Amiga, designed by Bill Pullan and published by Psygnosis in 1992. The artwork is by Lee Carus-Westcott and the music by Mike Clarke. The concept of the game is very similar to Sierra's The Incredible Machine.
+A planned Sega Mega Drive port was cancelled, but a prototype cart exists and was released online in 2014.
+
+
+Gameplay
+The game is fully mouse controlled. It requires the player to guide Terry the tomato up the vine of Sammy Squirrel and rescue his girlfriend Tracey from the squirrel's villainous clutches. The vine consists of 10 worlds of 10 levels each. Each level is represented as a non-scrolling screen in which the main objective is to create correct path for Terry's one and only jump from one side of the screen to the other. Level completion will occur only when Terry makes a successful jump and without touching the ground reaches the destination. The player can modify the jump's distance, height or angle with the use of various items (e.g. electric fans or trampolines) in order to overcome numerous obstacles. The player has a limited number of these items to use as well as a limited number of Terry's jumps that can be used during the trial and error experiments. There is also time limit for each level.
+
+
+Development
+According to the May 1991 issue of The One, Bill's Tomato Game was originally titled Tomato Game.
+
+
+Reception
+Computer Gaming World liked the game's graphics and puzzles, and called it "one of Psygnosis' best Amiga offerings of late ... the most entertaining and addictive Amiga title I have played in a long time".
+
+
+References
+
+
+External links
+Bill's Tomato Game at Lemon Amiga

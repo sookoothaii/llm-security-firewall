@@ -1,0 +1,56 @@
+---
+title: "PROJECT_HUB Katalog 20250915"
+generated: "2025-09-15T00:16:00"
+total_documents: 188
+generator: "Claude-Opus-4.1"
+topics: ["snapshots"]
+summary_200: |-
+  Daily catalog for PROJECT_HUB as of 2025-09-15; mirrors files, chapter counts, and latest
+  modifications. Canonical source for discovery; generated from filesystem timestamps per
+  Constitution §2. Includes chapter statistics and top-20 by modified date. Used by agents
+  to avoid duplication and to route new content via routing_table.json.
+---
+
+# PROJECT_HUB Katalog - 15.09.2025
+
+**Generiert:** 2025-09-15 00:16:00  
+**Dokumente:** 188  
+**Phase:** 1 (Minimal-Frontmatter)  
+**Mit Frontmatter:** 2 (die neuen Constitution-Dokumente)  
+**Ohne Frontmatter:** 186 (Bestandsdokumente)
+
+## Status-Übersicht
+
+- ✅ **Constitution angelegt:** PROJECT_HUB_CONSTITUTION.md & INITIATION_PROTOCOL.md
+- 📊 **Katalog generiert:** Dieser erste Katalog erfasst den IST-Zustand
+- 🏷️ **Mojo→C++ Alias:** 17 historische Mojo-Dokumente mit `cpp` Tag versehen
+- 📁 **12 Hauptkapitel:** Von `design_docs` bis `technical_reports`
+
+## Katalog-Tabelle (Top 20 nach Änderungsdatum)
+
+| Path | Title | Topics | Tags | Modified |
+|------|-------|--------|------|----------|
+| docs/meta/PROJECT_HUB_STORAGE_CONSTITUTION_AND_INITIATION_PROTOCOL.md | Storage Constitution & Initiation Protocol | meta | initiation, catalog | 2025-09-15 |
+| docs/meta/PROJECT_HUB_CONSTITUTION.md | PROJECT_HUB Constitution v1.0 | meta | constitution, ssot | 2025-09-15 |
+| docs/technical_reports/HANDOVERS/2025-09-02_GROWTH_ENGINE_DEBUGGING_SESSION.md | Growth Engine Debugging Session | technical_reports | - | 2025-09-02 |
+| docs/technical_reports/HANDOVERS/2025-09-02_INTELLIGENT_GROWTH_ENGINE.md | Intelligent Growth Engine | technical_reports | - | 2025-09-02 |
+| docs/technical_reports/HANDOVERS/2025-09-02_EXTENDED_SELF_VALIDATING_SYSTEM.md | Extended Self Validating System | technical_reports | - | 2025-09-02 |
+| docs/technical_reports/HANDOVERS/2025-09-02_EXTENDED_KNOWLEDGE_ARCHITECTURE.md | Extended Knowledge Architecture | technical_reports | - | 2025-09-02 |
+| docs/technical_reports/DB_Architecture_Analysis_20250830.md | DB Architecture Analysis | technical_reports | - | 2025-08-30 |
+| docs/technical_reports/Complete_Architecture_Documentation_20250830.md | Complete Architecture Documentation | technical_reports | - | 2025-08-30 |
+| docs/technical_reports/CLARIFICATION_REPORT_2025-08-29.md | Clarification Report | technical_reports | - | 2025-08-29 |
+| docs/technical_reports/SCALE_CONSOLIDATED_REPORT_2025-08-29.md | Scale Consolidated Report | technical_reports | - | 2025-08-29 |
+| docs/technical_reports/TECHNICAL_REPORT_FEEDBACK_FIX_20250828.md | Feedback Fix Report | technical_reports | - | 2025-08-28 |
+| docs/technical_reports/HAK_GAL_Technical_Compliance_Report_2025-08-28.md | HAK GAL Technical Compliance | technical_reports | - | 2025-08-28 |
+| docs/technical_reports/MULTI_AGENT_TOOL_TECHNICAL_REPORT_20250825.md | Multi Agent Tool Report | technical_reports | - | 2025-08-25 |
+| docs/technical_reports/TECHNICAL_REPORT_2025_08_25.md | Technical Report | technical_reports | - | 2025-08-25 |
+| docs/technical_reports/MULTI_AGENT_COMPREHENSIVE_REPORT_2025-08-25.md | Multi Agent Comprehensive Report | technical_reports | - | 2025-08-25 |
+| docs/technical_reports/DATABASE_CLEANUP_REPORT_20250824_094800.md | Database Cleanup Report | technical_reports | - | 2025-08-24 |
+| docs/technical_reports/HAK_GAL_Complete_Success_Report_2025-08-23.md | HAK GAL Complete Success | technical_reports | - | 2025-08-23 |
+| docs/system/SYSTEM_SNAPSHOT_20250817.md | System Snapshot | system | - | 2025-08-22 |
+| docs/snapshots/snapshot_20250822_performance_optimization.json | Performance Optimization Snapshot | snapshots | - | 2025-08-22 |
+| docs/snapshots/snapshot_20250822_performance_optimization.md | Performance Optimization Snapshot | snapshots | - | 2025-08-22 |
+
+*Zeigt erste 20 von 188 Dokumenten. Vollständiger Index in `catalog_index.json`*
+
+## St

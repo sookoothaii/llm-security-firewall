@@ -1,0 +1,9 @@
+Biotin/lipoyl attachment domain has a conserved lysine residue that binds biotin or lipoic acid. Biotin plays a catalytic role in some carboxyl transfer reactions and is covalently attached, via an amide bond, to a lysine residue in enzymes requiring this coenzyme. Lipoamide acyltransferases have an essential cofactor, lipoic acid, which is covalently bound via an amide linkage to a lysine group. The lipoic acid cofactor is found in a variety of proteins.
+
+
+Human proteins containing this domain
+ACACA;     ACACB;     DBT;       DLAT;      DLST;      DLSTP;     MCCC1;     PC;
+PCCA;      PDHX;
+
+
+References
