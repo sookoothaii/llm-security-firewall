@@ -10,9 +10,12 @@ Inspired by Kimi k2's hierarchical memory architecture.
 """
 
 import time
+import logging
 from collections import deque, defaultdict
 from typing import List, Dict, Any, TYPE_CHECKING, Optional
 from dataclasses import dataclass, field
+
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from llm_firewall.detectors.tool_killchain import ToolEvent
@@ -228,4 +231,110 @@ class HierarchicalMemory:
             "unique_tools": len(self.tool_counts),
             "session_age_seconds": round(time.time() - self.start_time, 2)
         }
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Serialize HierarchicalMemory to dictionary for persistence.
+        
+        Converts:
+        - deque → list
+        - defaultdict → dict
+        - MarkovChain → dict
+        
+        Returns:
+            Dictionary representation of the memory object
+        """
+        # Serialize tactical buffer (deque → list)
+        tactical_buffer_list = []
+        for event in self.tactical_buffer:
+            # Events are ToolEvent objects - serialize to dict
+            if hasattr(event, '__dict__'):
+                tactical_buffer_list.append({
+                    'tool': getattr(event, 'tool', ''),
+                    'category': getattr(event, 'category', ''),
+                    'target': getattr(event, 'target', ''),
+                    'timestamp': getattr(event, 'timestamp', 0.0),
+                    'run_id': getattr(event, 'run_id', '')
+                })
+            else:
+                tactical_buffer_list.append(str(event))
+        
+        # Serialize phase transitions (MarkovChain → dict)
+        phase_transitions_dict = {
+            'transition_counts': dict(self.phase_transitions.transition_counts),
+            'total_transitions': self.phase_transitions.total_transitions
+        }
+        
+        # Serialize recent phases (deque → list)
+        recent_phases_list = list(self.recent_phases)
+        
+        return {
+            "session_id": self.session_id,
+            "tactical_buffer": tactical_buffer_list,
+            "max_phase_ever": self.max_phase_ever,
+            "latent_risk_multiplier": self.latent_risk_multiplier,
+            "tool_counts": dict(self.tool_counts),  # defaultdict → dict
+            "start_time": self.start_time,
+            "phase_transitions": phase_transitions_dict,
+            "recent_phases": recent_phases_list
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'HierarchicalMemory':
+        """
+        Deserialize dictionary to HierarchicalMemory object.
+        
+        Args:
+            data: Dictionary representation from to_dict()
+            
+        Returns:
+            HierarchicalMemory instance
+        """
+        # Create instance
+        memory = cls(session_id=data.get("session_id", ""))
+        
+        # Restore basic fields
+        memory.max_phase_ever = data.get("max_phase_ever", 0)
+        memory.latent_risk_multiplier = data.get("latent_risk_multiplier", 1.0)
+        memory.tool_counts = defaultdict(int, data.get("tool_counts", {}))
+        memory.start_time = data.get("start_time", time.time())
+        
+        # Restore tactical buffer (list → deque)
+        tactical_buffer_list = data.get("tactical_buffer", [])
+        memory.tactical_buffer = deque(maxlen=50)
+        for event_dict in tactical_buffer_list:
+            # Reconstruct ToolEvent from dict
+            # Note: We need to import ToolEvent here to avoid circular dependencies
+            if TYPE_CHECKING or ToolEvent is not None:
+                try:
+                    from llm_firewall.detectors.tool_killchain import ToolEvent
+                    event = ToolEvent(
+                        tool=event_dict.get('tool', ''),
+                        category=event_dict.get('category', ''),
+                        target=event_dict.get('target', ''),
+                        timestamp=event_dict.get('timestamp', time.time()),
+                        run_id=event_dict.get('run_id', '')
+                    )
+                    memory.tactical_buffer.append(event)
+                except Exception as e:
+                    logger.warning(f"Could not reconstruct ToolEvent from dict: {e}")
+            else:
+                # Fallback: just store the dict
+                memory.tactical_buffer.append(event_dict)
+        
+        # Restore phase transitions (dict → MarkovChain)
+        phase_transitions_dict = data.get("phase_transitions", {})
+        memory.phase_transitions = MarkovChain()
+        memory.phase_transitions.transition_counts = defaultdict(
+            lambda: defaultdict(int),
+            {int(k): defaultdict(int, v) for k, v in phase_transitions_dict.get("transition_counts", {}).items()}
+        )
+        memory.phase_transitions.total_transitions = phase_transitions_dict.get("total_transitions", 0)
+        
+        # Restore recent phases (list → deque)
+        recent_phases_list = data.get("recent_phases", [])
+        memory.recent_phases = deque(maxlen=50)
+        memory.recent_phases.extend(recent_phases_list)
+        
+        return memory
 

@@ -10,6 +10,7 @@ License: MIT
 """
 
 import sys
+import os
 import logging
 import time
 import uuid
@@ -39,6 +40,9 @@ from llm_firewall.agents.config import RC10bConfig
 from llm_firewall.agents.inspector import ArgumentInspector
 from llm_firewall.agents.memory import HierarchicalMemory
 from llm_firewall.detectors.tool_killchain import ToolEvent
+
+# Import storage layer
+from llm_firewall.storage import StorageManager
 
 # Import kids_policy modules (with graceful fallback for TF issues)
 kids_policy_path = project_root / "kids_policy"
@@ -101,9 +105,13 @@ HAS_TRUTH_VALIDATOR = False
 TruthPreservationValidatorV2_3 = None
 ValidationResult = None
 
-# Global session store for RC10b (in-memory)
+# Global session store for RC10b (in-memory cache)
 # Key: session_id, Value: HierarchicalMemory
+# NOTE: This is now a cache layer - actual persistence is in StorageManager
 SESSION_STORE: Dict[str, HierarchicalMemory] = {}
+
+# Global storage manager (initialized in ProxyServer.__init__)
+storage_manager: Optional[StorageManager] = None
 
 # Maximum number of events to keep in history (sliding window)
 MAX_HISTORY_EVENTS = 50
@@ -195,6 +203,16 @@ class LLMProxyServer:
         # Initialize Argument Inspector (RC10c - DLP Lite)
         self.argument_inspector = ArgumentInspector()
         
+        # Initialize Storage Manager (Persistence Layer)
+        global storage_manager
+        database_url = os.getenv("DATABASE_URL", None)  # Default: None → SQLite
+        try:
+            storage_manager = StorageManager(connection_string=database_url)
+            logger.info(f"Storage: Initialized ({'PostgreSQL' if storage_manager.is_postgresql else 'SQLite'})")
+        except Exception as e:
+            logger.error(f"Storage: Failed to initialize: {e}. Falling back to in-memory only.", exc_info=True)
+            storage_manager = None
+        
         # Initialize Kids Policy Truth Preservation Validator (if available)
         self.truth_validator = None
         if HAS_TRUTH_VALIDATOR:
@@ -247,23 +265,49 @@ class LLMProxyServer:
         return str(uuid.uuid4())
     
     def _get_or_create_memory(self, session_id: str) -> HierarchicalMemory:
-        """Get or create hierarchical memory for a session."""
-        if session_id not in SESSION_STORE:
-            SESSION_STORE[session_id] = HierarchicalMemory(session_id=session_id)
-        return SESSION_STORE[session_id]
+        """
+        Get or create hierarchical memory for a session.
+        
+        Uses storage layer for persistence (survives server restarts).
+        Falls back to in-memory cache if storage unavailable.
+        """
+        # Check cache first (fast path)
+        if session_id in SESSION_STORE:
+            return SESSION_STORE[session_id]
+        
+        # Try to load from storage
+        if storage_manager is not None:
+            try:
+                memory = storage_manager.load_session(session_id)
+                if memory is not None:
+                    # Cache it
+                    SESSION_STORE[session_id] = memory
+                    logger.debug(f"Loaded session {session_id} from storage")
+                    return memory
+            except Exception as e:
+                logger.warning(f"Failed to load session {session_id} from storage: {e}")
+        
+        # Create new session
+        memory = HierarchicalMemory(session_id=session_id)
+        SESSION_STORE[session_id] = memory
+        
+        # Save to storage immediately
+        if storage_manager is not None:
+            try:
+                storage_manager.save_session(session_id, memory)
+            except Exception as e:
+                logger.warning(f"Failed to save new session {session_id} to storage: {e}")
+        
+        return memory
     
     def _get_session_history(self, session_id: str) -> List[ToolEvent]:
         """Get event history for a session (from tactical buffer)."""
-        memory = SESSION_STORE.get(session_id)
-        if memory is None:
-            return []
+        memory = self._get_or_create_memory(session_id)
         return memory.get_history()
     
     def _get_max_reached_phase(self, session_id: str) -> int:
         """Get the maximum kill-chain phase ever reached for a session."""
-        memory = SESSION_STORE.get(session_id)
-        if memory is None:
-            return 0
+        memory = self._get_or_create_memory(session_id)
         return memory.max_phase_ever
     
     def _add_event_to_session(self, session_id: str, event: ToolEvent):
@@ -273,9 +317,18 @@ class LLMProxyServer:
         Uses HierarchicalMemory which handles:
         - Tactical buffer (sliding window of 50 events)
         - Strategic profile (latent risk, max phase)
+        
+        Automatically persists to storage after update.
         """
         memory = self._get_or_create_memory(session_id)
         memory.add_event(event)
+        
+        # Persist to storage after update
+        if storage_manager is not None:
+            try:
+                storage_manager.save_session(session_id, memory)
+            except Exception as e:
+                logger.warning(f"Failed to persist session {session_id} after event: {e}")
     
     def _call_ollama(self, user_input: str) -> str:
         """
@@ -725,7 +778,7 @@ if HAS_FASTAPI:
             "uptime": round(time.time() - SERVER_START_TIME, 2),
             "total_requests": total_requests,
             "blocked_requests": blocked_count,
-            "active_sessions": len(SESSION_STORE),
+            "active_sessions": len(SESSION_STORE),  # Cache size (actual sessions may be in storage)
             "version": "1.0.0"
         }
     
