@@ -1,0 +1,203 @@
+"""
+Argument Inspector (RC10c) - The Elephant Memory
+================================================
+
+DLP Lite: Detects sensitive data in tool arguments.
+
+UPGRADE: P0 Fix - Cross-Turn Argument Correlation
+Prevents "Distributed Exfiltration" by tracking fragment replays.
+
+Prevents "Categorical Masquerade" attacks where benign tools
+(e.g., web_search) are used to exfiltrate secrets via arguments.
+"""
+
+import re
+import math
+import hashlib
+import logging
+from typing import Dict, Any, List, Set
+from dataclasses import dataclass
+
+logger = logging.getLogger(__name__)
+
+# Globales Gedächtnis für Argument-Fragmente (Hash Set)
+# In Prod: Redis Bloom Filter. Hier: Python Set.
+FRAGMENT_MEMORY: Set[str] = set()
+MAX_FRAGMENT_MEMORY = 10000
+
+
+@dataclass
+class InspectionResult:
+    """Result of argument inspection."""
+    is_suspicious: bool
+    risk_score_modifier: float  # 0.0 to 1.0
+    forced_phase: int  # 0 = no escalation, 4 = exfiltration
+    reasons: List[str]  # List of detection reasons
+    
+    # Backward compatibility fields
+    detected_patterns: List[str] = None
+    confidence: float = 0.0
+    recommendation: str = "ALLOW"
+    
+    def __post_init__(self):
+        """Initialize backward compatibility fields."""
+        if self.detected_patterns is None:
+            self.detected_patterns = []
+        if self.confidence == 0.0 and self.risk_score_modifier > 0:
+            self.confidence = self.risk_score_modifier
+        if self.recommendation == "ALLOW" and self.is_suspicious:
+            if self.risk_score_modifier >= 0.90:
+                self.recommendation = "BLOCK"
+            elif self.risk_score_modifier >= 0.70:
+                self.recommendation = "WARN"
+        if not self.detected_patterns and self.reasons:
+            self.detected_patterns = self.reasons
+
+
+class ArgumentInspector:
+    """
+    Inspects tool arguments for sensitive data patterns.
+    
+    RC10c: Semantic Gap Fix - Prevents argument injection attacks.
+    
+    UPGRADE: P0 Fix - Cross-Turn Argument Correlation
+    Detects distributed exfiltration by tracking fragment replays.
+    
+    Detects:
+    - AWS Keys (AKIA...)
+    - OpenAI Keys (sk-...)
+    - Private Keys (-----BEGIN...)
+    - High Entropy Strings (Base64 suspicion)
+    - Distributed Attack Patterns (Fragment replays)
+    """
+    
+    def __init__(self):
+        """Initialize inspector with pattern definitions."""
+        self.patterns = {
+            "AWS_KEY": r"AKIA[0-9A-Z]{16}",
+            "OPENAI_KEY": r"sk-[a-zA-Z0-9]{48}",
+            "PRIVATE_KEY": r"-----BEGIN (RSA|DSA|EC|OPENSSH) PRIVATE KEY-----",
+            "BASE64_LONG": r"([A-Za-z0-9+/]{4}){12,}"  # Long base64 strings
+        }
+    
+    def _get_rolling_hashes(self, text: str, window: int = 16) -> List[str]:
+        """
+        Erzeugt Hashes von Text-Fenstern.
+        
+        Args:
+            text: Input text to hash
+            window: Size of each window
+            
+        Returns:
+            List of MD5 hashes for each window
+        """
+        if len(text) < window:
+            return []
+        
+        hashes = []
+        # Step 4 für Performance (overlapping windows)
+        for i in range(0, len(text) - window + 1, 4):
+            chunk = text[i:i+window]
+            hashes.append(hashlib.md5(chunk.encode()).hexdigest())
+        return hashes
+    
+    def inspect(self, arguments: Dict[str, Any]) -> InspectionResult:
+        """
+        Inspect tool arguments for sensitive data patterns.
+        
+        UPGRADE: P0 Fix - Cross-Turn Argument Correlation
+        Detects distributed exfiltration by tracking fragment replays.
+        
+        Args:
+            arguments: Dictionary of tool arguments (e.g., {"query": "...", "url": "..."})
+            
+        Returns:
+            InspectionResult with detection status and confidence
+        """
+        reasons = []
+        max_risk = 0.0
+        forced_phase = 0
+        
+        # Convert arguments to string
+        arg_str = str(arguments)
+        
+        # 1. MEMORY CHECK (Gegen "Distributed Exfiltration")
+        # Wir prüfen, ob wir Teile dieses Strings schon mal gesehen haben
+        hashes = self._get_rolling_hashes(arg_str)
+        known_count = 0
+        new_hashes = []
+        
+        for h in hashes:
+            if h in FRAGMENT_MEMORY:
+                known_count += 1
+            else:
+                new_hashes.append(h)
+        
+        # Add new hashes to memory
+        for h in new_hashes:
+            FRAGMENT_MEMORY.add(h)
+        
+        # Rolling buffer: Remove oldest if we exceed limit
+        if len(FRAGMENT_MEMORY) > MAX_FRAGMENT_MEMORY:
+            # Simple strategy: Clear and rebuild (in production, use proper LRU)
+            FRAGMENT_MEMORY.clear()
+            logger.warning("Fragment memory cleared (exceeded limit)")
+        
+        # Wenn >20% des Strings bekannt sind oder >5 Fragmente (Replay Attack)
+        if len(hashes) > 5 and known_count > 5:
+            reasons.append(f"Distributed Attack Pattern: {known_count} repeating fragments")
+            max_risk = max(max_risk, 0.9)
+            forced_phase = 4
+            logger.warning(
+                f"Argument Inspector: Distributed Attack detected ({known_count} fragment replays). "
+                f"Escalating to Phase 4."
+            )
+        
+        # 2. REGEX CHECK
+        for label, pattern_str in self.patterns.items():
+            pattern = re.compile(pattern_str, re.IGNORECASE)
+            if pattern.search(arg_str):
+                reasons.append(f"Pattern match: {label}")
+                max_risk = max(max_risk, 0.95)
+                forced_phase = 4
+                logger.warning(
+                    f"Argument Inspector: Detected {label} in tool arguments."
+                )
+        
+        # 3. ENTROPY CHECK
+        if len(arg_str) > 50:
+            # Calculate Shannon entropy
+            char_counts = {}
+            for char in arg_str:
+                char_counts[char] = char_counts.get(char, 0) + 1
+            
+            prob = [float(count) / len(arg_str) for count in char_counts.values()]
+            entropy = -sum([p * math.log(p) / math.log(2.0) for p in prob if p > 0])
+            
+            if entropy > 5.8:  # High entropy threshold
+                reasons.append(f"High Entropy ({entropy:.2f})")
+                max_risk = max(max_risk, 0.7)
+                forced_phase = max(forced_phase, 3)
+        
+        return InspectionResult(
+            is_suspicious=len(reasons) > 0,
+            risk_score_modifier=max_risk,
+            forced_phase=forced_phase,
+            reasons=reasons
+        )
+    
+    def should_escalate_phase(self, inspection_result: InspectionResult) -> bool:
+        """
+        Determine if argument inspection should escalate event to Phase 4 (Exfiltration).
+        
+        Args:
+            inspection_result: Result from inspect() method
+            
+        Returns:
+            True if event should be treated as Phase 4 (Exfiltration)
+        """
+        # Escalate if high-confidence patterns detected or forced_phase is 4
+        return (
+            inspection_result.is_suspicious and
+            (inspection_result.risk_score_modifier >= 0.85 or inspection_result.forced_phase == 4)
+        )
