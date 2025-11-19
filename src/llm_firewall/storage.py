@@ -12,7 +12,7 @@ License: MIT
 import json
 import logging
 from datetime import datetime
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from pathlib import Path
 
 from sqlalchemy import create_engine, Column, String, DateTime, JSON, Text
@@ -59,8 +59,8 @@ class StorageManager:
                               If None, defaults to SQLite: 'sqlite:///./hak_gal.db'
         """
         if connection_string is None:
-            # Default: SQLite in project root
-            db_path = Path(__file__).parent.parent.parent / "hak_gal.db"
+            # Default: SQLite in project root (local-first)
+            db_path = Path(__file__).parent.parent.parent / "hakgal_firewall.db"
             connection_string = f"sqlite:///{db_path}"
             logger.info(f"Using default SQLite database: {db_path}")
         
@@ -231,4 +231,33 @@ class StorageManager:
         except Exception as e:
             logger.error(f"Storage: Fatal error deleting session {session_id}: {e}", exc_info=True)
             return False
+    
+    def get_all_sessions(self) -> List[Dict[str, Any]]:
+        """
+        Get all sessions from database.
+        
+        Returns:
+            List of dictionaries with session_id, data, and last_updated
+        """
+        try:
+            db_session = self.SessionLocal()
+            try:
+                all_sessions = db_session.query(SessionModel).all()
+                result = []
+                for session in all_sessions:
+                    result.append({
+                        "session_id": session.session_id,
+                        "data": session.data,
+                        "last_updated": session.last_updated.isoformat() if session.last_updated else None
+                    })
+                logger.debug(f"Storage: Retrieved {len(result)} sessions")
+                return result
+            except Exception as e:
+                logger.error(f"Storage: Error retrieving all sessions: {e}", exc_info=True)
+                return []
+            finally:
+                db_session.close()
+        except Exception as e:
+            logger.error(f"Storage: Fatal error retrieving all sessions: {e}", exc_info=True)
+            return []
 

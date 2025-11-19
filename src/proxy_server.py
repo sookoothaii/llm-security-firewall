@@ -821,6 +821,50 @@ if HAS_FASTAPI:
             return {"error": "Session not found"}
         return memory.get_stats()
     
+    @app.get("/admin/sessions")
+    async def admin_sessions():
+        """
+        Admin endpoint: Get all sessions from storage.
+        
+        Returns:
+            JSON array with all session data (session_id, data, last_updated)
+        """
+        if storage_manager is None:
+            return {"error": "Storage not available", "sessions": []}
+        
+        try:
+            sessions = storage_manager.get_all_sessions()
+            return {"sessions": sessions, "count": len(sessions)}
+        except Exception as e:
+            logger.error(f"Error retrieving all sessions: {e}", exc_info=True)
+            return {"error": str(e), "sessions": []}
+    
+    @app.delete("/admin/sessions/{session_id}")
+    async def admin_delete_session(session_id: str):
+        """
+        Admin endpoint: Delete a session from storage.
+        
+        Args:
+            session_id: Session identifier to delete
+            
+        Returns:
+            JSON with success status
+        """
+        if storage_manager is None:
+            return {"error": "Storage not available", "success": False}
+        
+        try:
+            # Remove from cache if present
+            if session_id in SESSION_STORE:
+                del SESSION_STORE[session_id]
+            
+            # Delete from storage
+            success = storage_manager.delete_session(session_id)
+            return {"success": success, "session_id": session_id}
+        except Exception as e:
+            logger.error(f"Error deleting session {session_id}: {e}", exc_info=True)
+            return {"error": str(e), "success": False, "session_id": session_id}
+    
     def run_server(host: str = "0.0.0.0", port: int = 8081):
         """Run the FastAPI server."""
         import uvicorn

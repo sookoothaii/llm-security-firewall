@@ -85,7 +85,111 @@ if logs:
             c1.plotly_chart(fig_pie, use_container_width=True)
             c2.plotly_chart(fig_line, use_container_width=True)
 
-# 3. Live Log Feed
+# 3. Active Sessions (NEW: Persistence Layer Integration)
+st.subheader("📊 Active Sessions (Risk Analysis)")
+
+try:
+    sessions_response = requests.get(f"{PROXY_URL}/admin/sessions", timeout=2).json()
+    sessions_data = sessions_response.get("sessions", [])
+    
+    if sessions_data:
+        # Process sessions data for display
+        sessions_list = []
+        for session in sessions_data:
+            session_id = session.get("session_id", "unknown")
+            data = session.get("data", {})
+            
+            # Extract risk metrics
+            latent_risk_multiplier = data.get("latent_risk_multiplier", 1.0)
+            max_phase_ever = data.get("max_phase_ever", 0)
+            tactical_buffer_size = len(data.get("tactical_buffer", []))
+            total_events = sum(data.get("tool_counts", {}).values())
+            last_updated = session.get("last_updated", "N/A")
+            
+            # Calculate risk score (0.0 - 1.0)
+            # Base risk from phase (0.0 - 0.8) + multiplier boost (0.0 - 0.2)
+            phase_risk = min(0.8, max_phase_ever * 0.2)
+            multiplier_boost = min(0.2, (latent_risk_multiplier - 1.0) * 0.1)
+            risk_score = min(1.0, phase_risk + multiplier_boost)
+            
+            sessions_list.append({
+                "Session ID": session_id[:16] + "..." if len(session_id) > 16 else session_id,
+                "Risk Score": f"{risk_score:.3f}",
+                "Max Phase": max_phase_ever,
+                "Risk Multiplier": f"{latent_risk_multiplier:.2f}",
+                "Events": total_events,
+                "Buffer Size": tactical_buffer_size,
+                "Last Updated": last_updated[:19] if isinstance(last_updated, str) and len(last_updated) > 19 else str(last_updated)[:19]
+            })
+        
+        if sessions_list:
+            sessions_df = pd.DataFrame(sessions_list)
+            
+            # Display with color coding for risk
+            def color_risk(val):
+                try:
+                    risk = float(val)
+                    if risk >= 0.7:
+                        return 'background-color: #da3633; color: white'  # High risk - red
+                    elif risk >= 0.4:
+                        return 'background-color: #bf8700; color: white'  # Medium risk - yellow
+                    else:
+                        return 'background-color: #238636; color: white'  # Low risk - green
+                except:
+                    return ''
+            
+            styled_df = sessions_df.style.applymap(color_risk, subset=['Risk Score'])
+            st.dataframe(styled_df, use_container_width=True, height=400)
+            
+            # Delete functionality
+            st.markdown("---")
+            st.subheader("🗑️ Session Management")
+            selected_session_id = st.selectbox(
+                "Select Session to Delete:",
+                options=[s["Session ID"] for s in sessions_list],
+                key="delete_session_select"
+            )
+            
+            if st.button("Delete Selected Session", type="primary"):
+                # Find full session_id from shortened display
+                full_session_id = None
+                for session in sessions_data:
+                    display_id = session.get("session_id", "")[:16] + "..." if len(session.get("session_id", "")) > 16 else session.get("session_id", "")
+                    if display_id == selected_session_id:
+                        full_session_id = session.get("session_id")
+                        break
+                
+                if full_session_id:
+                    try:
+                        delete_response = requests.delete(
+                            f"{PROXY_URL}/admin/sessions/{full_session_id}",
+                            timeout=2
+                        )
+                        if delete_response.status_code == 200:
+                            result = delete_response.json()
+                            if result.get("success"):
+                                st.success(f"✅ Session {selected_session_id} deleted successfully!")
+                                time.sleep(1)
+                                st.rerun()
+                            else:
+                                st.error(f"❌ Failed to delete session: {result.get('error', 'Unknown error')}")
+                        else:
+                            st.error(f"❌ HTTP {delete_response.status_code}: {delete_response.text}")
+                    except Exception as e:
+                        st.error(f"❌ Error deleting session: {e}")
+                else:
+                    st.warning("⚠️ Could not find full session ID")
+        else:
+            st.info("No sessions found in storage.")
+    else:
+        st.info("No active sessions.")
+        
+except requests.exceptions.RequestException as e:
+    st.warning(f"⚠️ Could not fetch sessions: {e}")
+except Exception as e:
+    st.error(f"❌ Error processing sessions: {e}")
+
+# 4. Live Log Feed
 st.subheader("🔍 Live Traffic Inspector")
 if logs:
     df = pd.DataFrame(logs)
