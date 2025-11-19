@@ -93,22 +93,26 @@ class HierarchicalMemory:
         - Floor: Suspicion never falls below a threshold based on worst phase ever seen
         - "Einmal Dieb, immer Dieb" - Once a thief, always a thief
         """
-        # UPDATE LATENT RISK (Kimi's Logic)
-        if current_phase >= 3:
-            # Sofortiger Anstieg bei Gefahr
-            self.latent_risk_multiplier = min(3.0, self.latent_risk_multiplier + 0.5)
-        else:
-            # Langsames Vergessen (Decay)
-            self.latent_risk_multiplier *= 0.99
-        
-        # Floor Enforcement (Das Elefanten-Gedächtnis)
-        # Einmal Dieb, immer Dieb
+        # UPDATE LATENT RISK (Kimi's Logic - FIXED)
+        # FIX: Floor must be calculated BEFORE decay to prevent multiplier from dropping below floor
+        # Calculate floor based on max_phase_ever (worst phase ever seen)
         floor = 1.0
         if self.max_phase_ever == 4:
             floor = 2.0  # Einmal Dieb, immer Dieb
         elif self.max_phase_ever == 3:
             floor = 1.5
+        elif self.max_phase_ever == 2:
+            floor = 1.2
         
+        if current_phase >= 3:
+            # Sofortiger Anstieg bei Gefahr
+            self.latent_risk_multiplier = min(3.0, self.latent_risk_multiplier + 0.5)
+        else:
+            # Langsames Vergessen (Decay), aber NIE unter Floor
+            # FIX: Apply floor BEFORE decay to prevent mathematical error
+            self.latent_risk_multiplier = max(floor, self.latent_risk_multiplier * 0.99)
+        
+        # Final floor enforcement (safety check)
         self.latent_risk_multiplier = max(floor, self.latent_risk_multiplier)
     
     def get_adjusted_risk(self, base_risk: float) -> float:

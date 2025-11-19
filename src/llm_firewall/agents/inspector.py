@@ -21,8 +21,9 @@ from dataclasses import dataclass
 logger = logging.getLogger(__name__)
 
 # Globales Gedächtnis für Argument-Fragmente (Hash Set)
+# FIX: SHA-256 statt MD5 (Kollisions-resistent)
 # In Prod: Redis Bloom Filter. Hier: Python Set.
-FRAGMENT_MEMORY: Set[str] = set()
+FRAGMENT_MEMORY: Set[bytes] = set()  # Store bytes (SHA-256 digest), not hex strings
 MAX_FRAGMENT_MEMORY = 10000
 
 
@@ -80,16 +81,18 @@ class ArgumentInspector:
             "BASE64_LONG": r"([A-Za-z0-9+/]{4}){12,}"  # Long base64 strings
         }
     
-    def _get_rolling_hashes(self, text: str, window: int = 16) -> List[str]:
+    def _get_rolling_hashes(self, text: str, window: int = 16) -> List[bytes]:
         """
         Erzeugt Hashes von Text-Fenstern.
+        
+        FIX: SHA-256 statt MD5 (Kollisions-resistent, Kimi's Requirement)
         
         Args:
             text: Input text to hash
             window: Size of each window
             
         Returns:
-            List of MD5 hashes for each window
+            List of SHA-256 digest bytes (8 bytes truncated for memory efficiency)
         """
         if len(text) < window:
             return []
@@ -98,7 +101,10 @@ class ArgumentInspector:
         # Step 4 für Performance (overlapping windows)
         for i in range(0, len(text) - window + 1, 4):
             chunk = text[i:i+window]
-            hashes.append(hashlib.md5(chunk.encode()).hexdigest())
+            # SHA-256, truncated to 8 bytes (64 bits) for memory efficiency
+            # Still collision-resistant for our use case
+            hash_digest = hashlib.sha256(chunk.encode()).digest()[:8]
+            hashes.append(hash_digest)
         return hashes
     
     def inspect(self, arguments: Dict[str, Any]) -> InspectionResult:
