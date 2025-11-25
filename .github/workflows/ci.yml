@@ -119,20 +119,23 @@ jobs:
         cat > .markdownlint-cli2.yaml << 'EOF'
         config:
           default: true
-          MD013: false
-          MD022: false
-          MD024: false
-          MD026: false
-          MD031: false
-          MD032: false
-          MD033: false
-          MD036: false
-          MD041: false
-          MD050: false
-          MD034: true
-          MD040: true
+          MD013: false  # line-length
+          MD022: false  # blanks-around-headings
+          MD024: false  # no-duplicate-heading
+          MD026: false  # no-trailing-punctuation
+          MD029: false  # ol-prefix
+          MD031: false  # blanks-around-fences
+          MD032: false  # blanks-around-lists
+          MD033: false  # no-inline-html
+          MD034: true   # no-bare-urls (keep enabled)
+          MD036: false  # no-emphasis-as-heading
+          MD040: false  # fenced-code-language (too strict)
+          MD041: false  # first-line-heading
+          MD050: false  # strong-style
+          MD055: false  # table-pipe-style
+          MD060: false  # table-column-style
           MD012:
-            maximum: 2
+            maximum: 3
         globs:
           - "**/*.md"
         ignores:

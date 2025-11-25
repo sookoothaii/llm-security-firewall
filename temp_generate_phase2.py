@@ -12,6 +12,7 @@ sys.path.insert(0, str(project_root / "src"))
 # Read and execute campaign_dataset.py
 # Create a namespace for execution
 import types
+
 campaign_module = types.ModuleType("campaign_dataset")
 campaign_module.__file__ = str(project_root / "data" / "campaign_dataset.py")
 sys.modules["campaign_dataset"] = campaign_module
@@ -49,10 +50,10 @@ print(f"[OK] Saved to {output_path}")
 
 # Breakdown
 from collections import Counter
+
 by_difficulty = Counter(s.difficulty.value for s in scenarios)
 by_label = Counter(s.label.value for s in scenarios)
 
-print(f"\nBreakdown:")
+print("\nBreakdown:")
 print(f"  By difficulty: {dict(by_difficulty)}")
 print(f"  By label: {dict(by_label)}")
-
