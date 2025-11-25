@@ -70,6 +70,9 @@ class DeceptiveEmpathyFilter:
             stripped,
             flags=re.I,
         )
+        # Remove "my friend" and standalone "friend" (case-insensitive)
+        stripped = re.sub(r"\bmy\s+friend\b", "", stripped, flags=re.I)
+        stripped = re.sub(r"\bfriend\b", "", stripped, flags=re.I)
         stripped = re.sub(
             r"\b(as\s+a\s+therapist|als\s+therapeut)\b", "", stripped, flags=re.I
         )

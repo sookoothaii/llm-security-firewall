@@ -233,7 +233,7 @@ owasp_sinks:
   sinks:
     sql:
       require_parametrized: true
-      block_keywords: [";--","/*","*/"," or "," and "]
+      block_keywords: [";--","/*","*/"," or "," and ","drop table","drop database","delete from","truncate table"]
     shell:
       require_explicit_allowlist: true
       block_tokens: ["&&","||","|",";","`",">>","$(", "${"]

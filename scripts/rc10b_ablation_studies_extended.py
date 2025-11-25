@@ -668,7 +668,15 @@ def main():
             t_hard=args.t_hard,
         )
 
-        filename = run_name.lower().replace(" ", "_") + ".json"
+        # Map run names to expected filenames for test compatibility
+        filename_map = {
+            "Run_2_No_Phase_Floor": "run2_no_phase_floor.json",
+            "Run_3_No_Scope_Mismatch": "run3_no_scope_mismatch.json",
+            "Run_4_No_Policy_Layer": "run4_no_policy_layer.json",
+        }
+        filename = filename_map.get(
+            run_name, run_name.lower().replace(" ", "_") + ".json"
+        )
         with open(output_dir / filename, "w") as f:
             json.dump(run_data, f, indent=2)
 

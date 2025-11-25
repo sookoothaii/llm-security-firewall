@@ -374,6 +374,10 @@ def detect_killchain_campaign(
     if len(state.targets) >= 5:
         signals.append("multi_target_campaign")
 
+    # Add killchain_campaign_detected signal when campaign is detected
+    if report["is_campaign"]:
+        signals.append("killchain_campaign_detected")
+
     return state, report
 
 
