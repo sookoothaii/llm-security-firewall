@@ -469,4 +469,4 @@ The repository is now in a state where all CI checks pass, providing a solid fou
 
 **Report Generated:** 2025-11-25
 **Author:** AI Assistant (Auto)
-**Repository:** https://github.com/sookoothaii/llm-security-firewall
+**Repository:** [LLM Security Firewall Repository](https://github.com/sookoothaii/llm-security-firewall)
