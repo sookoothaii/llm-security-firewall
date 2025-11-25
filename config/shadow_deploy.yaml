@@ -1,17 +1,17 @@
 # Shadow Deployment Configuration
 # WARN-Only Mode for Production Telemetry Collection
-# 
+#
 # Purpose: Collect real-world FPR/ASR data without blocking user requests
 # Duration: Initial phase (1-2 weeks)
 # Review: Daily FPR monitoring, weekly ASR analysis
 
 runtime:
   mode: shadow_warn           # Returns PASS to caller, logs detections
-  
+
   log:
     # Evidence ledger for forensic analysis
     evidence_ledger: on
-    
+
     # Fields to log per detection (stratified analysis)
     fields:
       - ctx                   # Context (documentation/generic)
@@ -25,15 +25,15 @@ runtime:
       - top_signals           # Top 5 detector hits (for analysis)
       - families              # Active feature families
       - contrib               # Signal contributions
-    
+
     # Log destination
     destination: prometheus   # For grafana dashboards
     fallback: json_file       # Backup to local files
-  
+
   sampling:
     # Sample rate for telemetry (1.0 = 100%)
     rate: 1.0                 # Full sampling during initial phase
-    
+
     # Reduce after stabilization
     schedule:
       - days: 1-7
@@ -42,7 +42,7 @@ runtime:
         rate: 0.5
       - days: 15+
         rate: 0.1
-  
+
   redact:
     # Maximum chars to log (privacy)
     max_chars: 4096
@@ -57,37 +57,37 @@ gates:
   ci:
     # ASR gate (enforced)
     asr_overall_wilson_upper_max: 5.00
-    
+
     # FPR gate (stratified - PRIMARY)
     fpr:
       mode: advisory          # Don't block deploys during shadow
-      
+
       # Stratified targets (measured separately)
       stratify:
         - pure_doc            # Primary gate: Upper <=1.50%
         - doc_with_codefence  # Secondary: Upper <=1.50%
         - doc_with_exec       # Excluded (educational content)
         - code_cfg            # Advisory: Upper <=1.00%
-      
+
       targets:
         pure_doc_upper_max: 1.50
         doc_with_codefence_upper_max: 1.50
         code_cfg_upper_max: 1.00
-      
+
       min_samples:
         pure_doc: 1000        # Need statistical confidence
         doc_with_codefence: 1000
         code_cfg: 500
-      
+
       # Exclude from FPR gate (not "benign")
       exclude:
         - doc_with_exec       # Educational attack examples (TRUE positives)
-  
+
   # Runtime thresholds (same as production-candidate)
   thresholds:
     warn: 0.7                 # Natural language context
     block: 2.0                # Hard block threshold
-    
+
     context_specific:
       code_warn: 1.4
       config_warn: 1.2
@@ -103,7 +103,7 @@ monitoring:
       - latency_p50_p90_p99
       - signal_frequencies
       - context_distribution
-  
+
   # Alerts (stratified)
   alerts:
     # FPR spike detection (stratified)
@@ -111,24 +111,24 @@ monitoring:
       condition: fpr_pure_doc_upper > 0.02  # 2.0%
       window: 24h
       action: freeze_rollout
-    
+
     - name: fpr_codefence_spike
       condition: fpr_doc_with_codefence_upper > 0.02  # 2.0%
       window: 24h
       action: notify
-    
+
     # Appeal rate (proxy for real FPs)
     - name: appeal_rate_high
       condition: appeals_rate > 0.005  # 0.5%
       window: 24h
       action: freeze_rollout
-    
+
     # Latency degradation
     - name: latency_p99_high
       condition: latency_p99 > 100  # ms
       window: 5m
       action: notify
-    
+
     # Unknown signals
     - name: unknown_signal_detected
       condition: signal not in KNOWN_SIGNALS
@@ -141,23 +141,23 @@ telemetry:
     conversations: 5000
     documentation: 2000
     code_snippets: 1000
-    
+
     # Diversity metrics
     unique_users: 100
     time_periods: 24h_coverage
-  
+
   # Review schedule
   review:
     daily:
       - fpr_trend
       - new_signal_discovery
       - latency_distribution
-    
+
     weekly:
       - asr_validation
       - per_category_analysis
       - threshold_calibration
-  
+
   # Escalation criteria
   escalate_if:
     fpr_above: 0.10           # 10%
@@ -176,7 +176,7 @@ deployment:
         - fpr_doc_with_codefence_upper <= 1.50
         - latency_p99 < 60
         - no_crashes
-    
+
     - phase: shadow
       traffic: 0.10           # 10%
       duration: 72h
@@ -186,7 +186,7 @@ deployment:
         - fpr_doc_with_codefence_upper <= 1.50
         - sustained_days: 3   # 3 consecutive days stable
         - no_crashes
-    
+
     - phase: expansion
       traffic: 0.50           # 50%
       duration: 1week
@@ -195,7 +195,7 @@ deployment:
         - fpr_pure_doc_upper <= 1.50
         - sustained_days: 3
         - appeals_rate <= 0.005  # 0.5%
-    
+
     - phase: full
       traffic: 1.0            # 100%
       requires:
@@ -211,8 +211,7 @@ emergency:
     - asr_spike > 0.10        # 10%
     - latency_p99 > 500       # ms
     - crashes > 10            # per hour
-  
+
   # Rollback
   rollback_to: previous_version
   notify: ops_team
-

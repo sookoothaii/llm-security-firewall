@@ -122,6 +122,6 @@ line-length = 88
 # S104: binding to all interfaces (examples only)
 # F601: duplicate dict keys (false positive in multilingual)
 ignore = [
-    "S101", "S105", "E501", "S110", "S112", "E722", 
+    "S101", "S105", "E501", "S110", "S112", "E722",
     "E402", "F841", "E701", "S104", "F601"
 ]

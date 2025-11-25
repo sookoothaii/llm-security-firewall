@@ -72,7 +72,7 @@ STRONG_SIGNALS = {
     "language_switching_high_complexity": 2.0,  # ≥3 different scripts mixed
     "exec_verb_gated": 1.7,  # RC8.1: system/execute/run/invoke/launch as function call (gated to avoid FPR)
     # Fuzzy Function Call Detection (fullwidth/gap-resistant)
-    "fuzzy_call:alert": 2.0,    # STRONG-
+    "fuzzy_call:alert": 2.0,  # STRONG-
     "fuzzy_call:eval": 2.0,
     "fuzzy_call:exec": 1.9,
     "fuzzy_call:execute": 1.9,
@@ -359,7 +359,9 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = "") -> tupl
         # Return low risk but not zero (still detect obvious attacks)
         # Apply extreme dampening factor
         doc_dampen = 0.15
-        contributions["documentation_context"] = "Severe dampening (security docs/examples)"
+        contributions["documentation_context"] = (
+            "Severe dampening (security docs/examples)"
+        )
     else:
         doc_dampen = 1.0
 
@@ -501,26 +503,37 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = "") -> tupl
         contributions["doc_dampen_applied"] = (
             f"Documentation context: {doc_dampen}x dampening"
         )
-    
+
     # RC9-FPR3: Short snippet doc-like dampening (fixes package metadata FPs)
     # Apply additional dampening for short doc-like snippets without exec context
     from llm_firewall.pipeline.context import detect_short_snippet_like_docs
+
     doc_like = detect_short_snippet_like_docs(text) if text else False
     exec_ctx = is_exec_context(text, context) if text else False
-    
+
     if doc_like and not exec_ctx:
         # Zero out non-critical signals in doc-like short snippets
         zero_keys = {
-            "multilingual_keyword_detected", "multilingual_en_keyword",
-            "multilingual_code_keyword", "multilingual_xss_keyword",
-            "jailbreak_phrase_hit", "emoji_homoglyph_detected",
-            "homoglyph_spoof_ge_1", "dense_alphabet", "high_entropy",
-            "chain_decoded_1_stages", "base64_secret",
-            "xss_dangerous_scheme", "ssrf_internal",
-            "encoding_near_attack_keyword", "attack_keyword_with_encoding",
-            "doc_keyword_seen", "encoding_in_docs", "doc_localhost_example",
+            "multilingual_keyword_detected",
+            "multilingual_en_keyword",
+            "multilingual_code_keyword",
+            "multilingual_xss_keyword",
+            "jailbreak_phrase_hit",
+            "emoji_homoglyph_detected",
+            "homoglyph_spoof_ge_1",
+            "dense_alphabet",
+            "high_entropy",
+            "chain_decoded_1_stages",
+            "base64_secret",
+            "xss_dangerous_scheme",
+            "ssrf_internal",
+            "encoding_near_attack_keyword",
+            "attack_keyword_with_encoding",
+            "doc_keyword_seen",
+            "encoding_in_docs",
+            "doc_localhost_example",
         }
-        
+
         dampened_count = 0
         for k in zero_keys:
             if k in contributions and isinstance(contributions[k], dict):
@@ -530,7 +543,7 @@ def calculate_risk_score(hits: list, context_meta: dict, text: str = "") -> tupl
                     contributions[k]["dampened"] = 0.0
                     contributions[k]["doc_like_zeroed"] = True
                     dampened_count += 1
-        
+
         if dampened_count > 0:
             contributions["doc_like_dampening"] = (
                 f"Short doc-like snippet: zeroed {dampened_count} signals"

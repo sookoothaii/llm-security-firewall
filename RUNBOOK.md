@@ -30,7 +30,7 @@
 ### High False Positive Rate (FPR > 0.2%)
 
 **Indicators:**
-- Alert: `FirewallFPRHigh` fires  
+- Alert: `FirewallFPRHigh` fires
 - Metric: `rate(firewall_false_positive_total[30m]) / rate(firewall_total_decisions[30m]) > 0.002`
 
 **Immediate Actions:**
@@ -145,7 +145,6 @@ git push origin main --force-with-lease
 
 ## Contact
 
-For operational issues: [on-call rotation]  
-For security reports: [security contact]  
+For operational issues: [on-call rotation]
+For security reports: [security contact]
 For development: Joerg Bollwahn
-

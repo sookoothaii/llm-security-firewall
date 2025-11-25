@@ -14,6 +14,7 @@ from llm_firewall.detectors.tool_killchain import ToolEvent
 
 class SecurityError(Exception):
     """Raised when a security policy violation is detected."""
+
     pass
 
 
@@ -27,7 +28,7 @@ def execute_agent_tool(
 ) -> None:
     """
     Execute an agent tool with RC10b protection.
-    
+
     Args:
         tool_name: Name of the tool to execute
         tool_category: Kill-chain category (e.g., "recon", "exfiltration")
@@ -35,7 +36,7 @@ def execute_agent_tool(
         detector: RC10b detector instance
         state_store: Campaign state store
         session_id: Session identifier
-        
+
     Raises:
         SecurityError: If the tool execution is blocked by the firewall
     """
@@ -46,31 +47,31 @@ def execute_agent_tool(
         target=target,
         timestamp=time.time(),
     )
-    
+
     # 2. Update State
     state_store.add_event(session_id, event)
     history = state_store.get_events(session_id)
-    
+
     # 3. Check Firewall
     result: CampaignResult = detector.detect(history)
-    
+
     print(
         f"Action: {tool_name:15s} | "
         f"Risk: {result.score:.2f} | "
         f"Decision: {result.decision:8s} | "
         f"Phase: {result.phase}"
     )
-    
+
     if result.reasons:
         print(f"  Reasons: {', '.join(result.reasons)}")
-    
+
     if result.is_blocked:
         raise SecurityError(
             f"Blocked by Firewall! "
             f"Risk: {result.score:.2f}, "
             f"Reasons: {', '.join(result.reasons)}"
         )
-    
+
     # 4. Execute (if allowed)
     # execute_tool(tool_name, target, ...)
     print(f"  -> Executing {tool_name} on {target}")
@@ -79,19 +80,19 @@ def execute_agent_tool(
 def simulate_gtg1002_attack():
     """
     Simulate a GTG-1002 Low-&-Slow attack.
-    
+
     This demonstrates how RC10b prevents dilution by noise events.
     """
     print("=" * 70)
     print("Simulating GTG-1002 Low-&-Slow Attack")
     print("=" * 70)
     print()
-    
+
     # Initialize
     detector = AgenticCampaignDetector()
     state_store = InMemoryStateStore()
     session_id = "user_123_session"
-    
+
     try:
         # Phase 1: Noise (30x benign operations)
         print("Phase 1: Generating noise (30x benign operations)...")
@@ -104,7 +105,7 @@ def simulate_gtg1002_attack():
                 state_store,
                 session_id,
             )
-        
+
         # Phase 2: Critical action (hidden)
         print("\nPhase 2: Critical action (hidden)...")
         execute_agent_tool(
@@ -115,7 +116,7 @@ def simulate_gtg1002_attack():
             state_store,
             session_id,
         )
-        
+
         # Phase 3: More noise
         print("\nPhase 3: More noise (10x benign operations)...")
         for i in range(10):
@@ -127,7 +128,7 @@ def simulate_gtg1002_attack():
                 state_store,
                 session_id,
             )
-        
+
         # Phase 4: Final exfiltration (should be blocked)
         print("\nPhase 4: Final exfiltration attempt...")
         execute_agent_tool(
@@ -138,9 +139,9 @@ def simulate_gtg1002_attack():
             state_store,
             session_id,
         )
-        
+
         print("\n[ERROR] Attack succeeded - this should not happen!")
-        
+
     except SecurityError as e:
         print(f"\n[SUCCESS] Attack stopped: {e}")
         print("\nHigh-Watermark prevented dilution by noise events.")
@@ -148,4 +149,3 @@ def simulate_gtg1002_attack():
 
 if __name__ == "__main__":
     simulate_gtg1002_attack()
-

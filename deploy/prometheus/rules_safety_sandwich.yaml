@@ -12,23 +12,23 @@ groups:
       # Hourly rates
       - record: job:llmfw_sandwich_critical_leak_at_n_rate1h
         expr: sum by (model, n) (rate(llmfw_sandwich_critical_leak_at_n_total[1h]))
-      
+
       - record: job:llmfw_sandwich_aborts_rate1h
         expr: sum by (model, reason) (rate(llmfw_sandwich_aborts_total[1h]))
-      
+
       - record: job:llmfw_sandwich_redactions_rate1h
         expr: sum by (model, kind) (rate(llmfw_sandwich_redactions_total[1h]))
-      
+
       - record: job:llmfw_sandwich_tokens_rate1h
         expr: sum by (model) (rate(llmfw_sandwich_tokens_processed_total[1h]))
-      
+
       # 28d SLO windows (rolling)
       - record: job:llmfw_sandwich_critical_leak_at_n_rate28d
         expr: sum by (model, n) (rate(llmfw_sandwich_critical_leak_at_n_total[28d]))
-      
+
       - record: job:llmfw_sandwich_aborts_rate28d
         expr: sum by (model, reason) (rate(llmfw_sandwich_aborts_total[28d]))
-      
+
       # Percentage: critical-leak@n relative to total tokens
       - record: job:llmfw_sandwich_critical_leak_percentage28d
         expr: |
@@ -59,7 +59,7 @@ groups:
           description: "Model {{ $labels.model }} leaked secrets within {{ $labels.n }} tokens at rate {{ printf \"%.4f\" $value }} (threshold: 0.005)"
           runbook: "https://github.com/sookoothaii/llm-security-firewall/blob/main/docs/runbooks/safety-sandwich.md"
           action: "Review recent prompts, check secrets heuristics calibration, verify redaction logic"
-      
+
       # Availability: Aborts spike (possible miscalibration or attack wave)
       - alert: LLMFW_Aborts_Spike
         expr: sum by (model) (rate(llmfw_sandwich_aborts_total[15m])) > 0.05
@@ -71,7 +71,7 @@ groups:
           summary: "Safety-Sandwich abort rate >0.05/s ({{ $labels.model }})"
           description: "Aborts spiking in last 15m - possible miscalibration or coordinated attack"
           action: "Check abort reasons breakdown, review recent policy changes, verify thresholds, enable brownout mode if sustained"
-      
+
       # Quality: Redaction rate too high (possible FP issue)
       - alert: LLMFW_Redactions_High
         expr: sum by (model) (rate(llmfw_sandwich_redactions_total[1h])) > 0.10
@@ -83,5 +83,3 @@ groups:
           summary: "Redaction rate >0.10/s ({{ $labels.model }})"
           description: "High redaction rate may indicate false positives or legitimate high-risk traffic"
           action: "Review redacted samples, check secrets_heuristics false positive rate, verify threshold calibration"
-
-

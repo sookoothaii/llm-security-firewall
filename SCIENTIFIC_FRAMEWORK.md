@@ -1,8 +1,8 @@
 # Scientific Framework for GPT-5 Detection Pack Integration
 
-**Creator:** Joerg Bollwahn  
-**Date:** 2025-10-28  
-**Branch:** `feat/gpt5-detection-pack`  
+**Creator:** Joerg Bollwahn
+**Date:** 2025-10-28
+**Branch:** `feat/gpt5-detection-pack`
 **Methodology:** C→A Ablation with controlled variables
 
 ---
@@ -106,7 +106,7 @@ META_FEATURES = [
     "evasion_density"  # Obfuscation/unicode evasion
 ]
 ```text
-**Gates:** ECE ≤ 0.05 AND Brier ≤ 0.10  
+**Gates:** ECE ≤ 0.05 AND Brier ≤ 0.10
 **Fallback:** Linear combination if gates fail
 
 ### 6. Windowing (Langtext Stability)
@@ -263,7 +263,7 @@ data/
 
 ## Philosophy
 
-**"Ich will nicht sehen wo es funktioniert sondern erkennen wo noch nicht!"**  
+**"Ich will nicht sehen wo es funktioniert sondern erkennen wo noch nicht!"**
 — Joerg Bollwahn
 
 - **xfail tests** demonstrate what breaks without canonicalization
@@ -296,12 +296,12 @@ python tools/ablate.py --dev_csv data/dev.csv --test_csv data/test.csv
 
 ## Status
 
-**Tests:** 16/17 PASS + 1 xfail  
-**Tools:** ablate.py ✓, floors_fit.py ✓  
-**Sample Data:** Provided for smoke-testing  
-**Documentation:** Complete  
+**Tests:** 16/17 PASS + 1 xfail
+**Tools:** ablate.py ✓, floors_fit.py ✓
+**Sample Data:** Provided for smoke-testing
+**Documentation:** Complete
 
-**Ready for:** Real ablation study (pending full dataset)  
+**Ready for:** Real ablation study (pending full dataset)
 **Blocked for:** Prod-release (gates must validate)
 
 ---

@@ -2,18 +2,20 @@
 Shadow Deployment Daily Report
 Generates stratified FPR/ASR metrics with Wilson CI per class
 """
+
 import argparse
 from datetime import datetime, timedelta
 from collections import defaultdict
+
 
 def wilson(b, n, z=1.96):
     """Wilson score interval"""
     if n == 0:
         return 0.0, 0.0
     p = b / n
-    denom = 1 + z*z/n
-    center = (p + z*z/(2*n)) / denom
-    margin = z * ((p*(1-p)/n + z*z/(4*n*n))**0.5) / denom
+    denom = 1 + z * z / n
+    center = (p + z * z / (2 * n)) / denom
+    margin = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / denom
     return max(0.0, center - margin), min(1.0, center + margin)
 
 
@@ -54,7 +56,7 @@ example_strata = {
     "pure_doc": {"total": 456, "flagged": 11},
     "doc_with_exec": {"total": 23, "flagged": 23},
     "code_cfg": {"total": 87, "flagged": 0},
-    "generic_text": {"total": 234, "flagged": 5}
+    "generic_text": {"total": 234, "flagged": 5},
 }
 
 for stratum in sorted(example_strata.keys()):
@@ -63,22 +65,25 @@ for stratum in sorted(example_strata.keys()):
     flagged = s["flagged"]
     fpr = 100.0 * flagged / total if total > 0 else 0.0
     lower, upper = wilson(flagged, total)
-    
+
     # Gate status
     if stratum == "doc_with_codefence":
         gate_target = 1.50
-        gate_status = "PASS" if upper*100 <= gate_target else "FAIL"
+        gate_status = "PASS" if upper * 100 <= gate_target else "FAIL"
     elif stratum == "pure_doc":
         gate_target = 1.50
-        gate_status = "PASS" if upper*100 <= gate_target else "FAIL"
+        gate_status = "PASS" if upper * 100 <= gate_target else "FAIL"
     elif stratum == "code_cfg":
         gate_target = 1.00
-        gate_status = "PASS" if upper*100 <= gate_target else "ADVISORY"
+        gate_status = "PASS" if upper * 100 <= gate_target else "ADVISORY"
     else:
         gate_target = None
         gate_status = "ADVISORY"
-    
-    print(f"{stratum:20s} | N={total:5d} | Flagged={flagged:4d} | FPR={fpr:5.2f}% | Wilson Upper={upper*100:5.2f}%", end="")
+
+    print(
+        f"{stratum:20s} | N={total:5d} | Flagged={flagged:4d} | FPR={fpr:5.2f}% | Wilson Upper={upper * 100:5.2f}%",
+        end="",
+    )
     if gate_target:
         print(f" | Target<={gate_target:.2f}% | {gate_status}")
     else:
@@ -96,9 +101,9 @@ cf_lower, cf_upper = wilson(codefence["flagged"], codefence["total"])
 print("doc_with_codefence (Primary):")
 print(f"  N: {codefence['total']}")
 print(f"  FPR: {cf_fpr:.2f}%")
-print(f"  Wilson Upper: {cf_upper*100:.2f}%")
+print(f"  Wilson Upper: {cf_upper * 100:.2f}%")
 print("  Target: <=1.50%")
-print(f"  Status: {'PASS' if cf_upper*100 <= 1.50 else 'FAIL'}")
+print(f"  Status: {'PASS' if cf_upper * 100 <= 1.50 else 'FAIL'}")
 print()
 
 # pure_doc
@@ -108,9 +113,9 @@ pd_lower, pd_upper = wilson(pure["flagged"], pure["total"])
 print("pure_doc (Primary):")
 print(f"  N: {pure['total']}")
 print(f"  FPR: {pd_fpr:.2f}%")
-print(f"  Wilson Upper: {pd_upper*100:.2f}%")
+print(f"  Wilson Upper: {pd_upper * 100:.2f}%")
 print("  Target: <=1.50%")
-print(f"  Status: {'PASS' if pd_upper*100 <= 1.50 else 'FAIL'}")
+print(f"  Status: {'PASS' if pd_upper * 100 <= 1.50 else 'FAIL'}")
 print()
 
 print("=" * 80)
@@ -131,4 +136,3 @@ print('   "exec_ctx": false, "has_codefence": true, "action": "WARN",')
 print('   "signals": [...], "risk": 2.5}')
 print()
 print("=" * 80)
-

@@ -3,7 +3,7 @@ The current sitting is the 107th Wisconsin Legislature.
 
 
 History
-The United States first organized Wisconsin in 1787 under the Northwest Ordinance after Great Britain yielded the land to them in the Treaty of Paris. It became the Wisconsin Territory in 1836 and a U.S. state on May 29, 1848. The 1850s saw an influx of European immigrants. The legislature was dominated alternately by two political parties in its first century: the Republican and Progressive parties. 
+The United States first organized Wisconsin in 1787 under the Northwest Ordinance after Great Britain yielded the land to them in the Treaty of Paris. It became the Wisconsin Territory in 1836 and a U.S. state on May 29, 1848. The 1850s saw an influx of European immigrants. The legislature was dominated alternately by two political parties in its first century: the Republican and Progressive parties.
 In 1995, the Republican Party took control of the legislature for the first time since 1969, and have maintained their control of both houses since, except for a brief period between 2009 and 2011. In the 2016 Wisconsin elections, Republicans secured their largest majority in the Assembly since 1956, and in 2018, the party maintained their overwhelming control of the legislature despite receiving fewer total votes.
 Congressional districts have been disputed since at least 2016. After Republican Governor Scott Walker then signed a redistricting plan, at least one U.S. court found the districts to be unconstitutional partisan gerrymandering. Other controversies include "prison gerrymandering," where prisons are counted towards the population of a district despite its inmates coming from elsewhere. On December 22, 2023, the Wisconsin Supreme Court ruled in Clarke v. Wisconsin Elections Commission that the state legislative maps violated the contiguity requirement of Article IV, Sections 4 and 5 of the Constitution of Wisconsin. The Court ordered the legislature to draw new maps ahead of the 2024 Wisconsin elections.
 
@@ -29,7 +29,7 @@ In both chambers of the Wisconsin Legislature, a quorum is defined as a majority
 
 
 Law of Wisconsin
-State law is contained in the Wisconsin Constitution and the various statutes enacted by the legislature. 
+State law is contained in the Wisconsin Constitution and the various statutes enacted by the legislature.
 The interpretation of state law and its application in specific cases are undertaken by the Wisconsin Supreme Court, based in Madison, Wisconsin. The law of the Menominee also applies within the Menominee Indian Reservation. The "Laws of Wisconsin" are published annually by the state's legislative reference bureau, "no later than the end of each session".
 
 

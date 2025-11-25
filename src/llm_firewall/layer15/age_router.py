@@ -7,6 +7,7 @@ from typing import Dict, Any
 @dataclass
 class AgePolicy:
     """Age-band specific policy constraints."""
+
     max_tokens: int
     temperature: float
     sentences_max: int
@@ -17,7 +18,7 @@ class AgePolicy:
 
 class AgeRouter:
     """Routes LLM generation parameters based on age band."""
-    
+
     def __init__(self, cfg: Dict[str, Any]):
         self._bands = {}
         for k, v in cfg["bands"].items():
@@ -35,15 +36,3 @@ class AgeRouter:
         if band not in self._bands:
             raise KeyError(f"Unknown age band: {band}")
         return self._bands[band]
-
-
-
-
-
-
-
-
-
-
-
-

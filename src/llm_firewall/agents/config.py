@@ -15,12 +15,12 @@ from typing import Dict
 class RC10bConfig:
     """
     Configuration for the RC10b Agent Behavioral Firewall.
-    
+
     RC10b Enhancements:
     - High-Watermark: Prevents dilution by noise events (GTG-1002 Fix)
     - Aggressive Phase-Floors: Phase 4 (Exfiltration/Impact) → 0.85
     - Configurable Category-Mappings
-    
+
     Args:
         use_policy_layer: Enable policy-based action decisions
         use_scope_mismatch: Enable scope mismatch detection
@@ -73,4 +73,3 @@ class RC10bConfig:
             "delete": 4,
         }
     )
-

@@ -1,8 +1,7 @@
     # RC2 P4.2: Transport-Indicators Complete
     from llm_firewall.detectors.transport_indicators import scan_transport_indicators
     hits.extend(scan_transport_indicators(text))
-    
+
     # RC2 P4.4: Identifiers Detector
     from llm_firewall.detectors.identifiers import scan_identifiers
     hits.extend(scan_identifiers(text))
-    

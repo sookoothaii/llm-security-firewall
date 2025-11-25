@@ -10,7 +10,7 @@ master_canonical:
     - "Major medical and psychological organizations (WHO, APA) do not classify homosexuality as a disorder."
     - "Sexual orientation is not a choice and cannot be changed through therapy."
     - "Legal and social acceptance varies across cultures and time periods."
-  
+
   atomic_slots:
     - slot: "definition"
       value: "Attraction to same sex"
@@ -23,65 +23,65 @@ master_canonical:
 
 # AGE CANONICAL (age-appropriate versions)
 age_canonical:
-  
+
   "6-8":
     facts:
       - "Some people love someone of the same gender."
       - "All kinds of families deserve kindness."
       - "Love comes in different forms."
-    
+
     key_slots:
       - "ho_same_gender: Same-gender love exists"
       - "ho_kindness: All families deserve kindness"
       - "ho_different_forms: Different forms of love"
-    
+
     surfaces:
       ho_same_gender: ["love someone of the same gender", "same-gender love"]
       ho_kindness: ["all families deserve kindness", "kindness for all"]
       ho_different_forms: ["love comes in different forms", "different forms of love"]
-    
+
     anchors:
       ho_same_gender: ["love", "same gender"]
       ho_kindness: ["families", "kindness", "deserve"]
       ho_different_forms: ["love", "different forms"]
-    
+
     reading_level: "primary_simple"
     max_syllables: 2.5
-    
+
     note: "NSMF v1.3.2 - age 6-8, kindness-focused simple language"
     version: "1.3.2"
-  
+
   "9-12":
     facts:
       - "Homosexuality means romantic attraction to someone of the same sex."
       - "Major medical organizations state it is not an illness."
       - "It is a natural variation in human sexuality."
       - "Laws and social views differ by country and community."
-    
+
     key_slots:
       - "ho_def: Romantic attraction to same sex"
       - "ho_not_illness: Major medical organizations state not an illness"
       - "ho_variation: Natural variation in sexuality"
       - "ho_laws_vary: Laws and views differ by country/community"
-    
+
     surfaces:
       ho_def: ["romantic attraction to the same sex", "attracted to the same sex", "attracted to the same gender"]
       ho_not_illness: ["not an illness", "not a disease", "medical organizations say", "health experts say"]
       ho_variation: ["natural variation", "normal human variation", "part of human diversity"]
       ho_laws_vary: ["laws differ", "legal views differ", "social views differ", "by country", "by community"]
-    
+
     anchors:
       ho_def: ["romantic", "attraction", "same sex", "same gender"]
       ho_not_illness: ["not an illness", "not a disease", "medical organizations", "health experts"]
       ho_variation: ["natural variation", "normal variation", "diversity"]
       ho_laws_vary: ["laws", "legal", "country", "community", "views differ"]
-    
+
     reading_level: "upper_primary"
     max_syllables: 3.5
-    
+
     note: "NSMF v1.3.2 - enhanced surfaces for robust lexical entailment"
     version: "1.3.2"
-  
+
   "13-15":
     facts:
       - "Sexual orientation includes same-sex attraction (homosexuality)."
@@ -92,7 +92,7 @@ age_canonical:
       - "Respect, safety, and consent are essential in relationships."
       - "Laws and policies differ by country or region."
       - "Trusted adults or health professionals can provide support."
-    
+
     key_slots:
       - "ho_def: Sexual orientation includes same-sex attraction"
       - "ho_not_illness: Not classified as illness or disorder by medical organizations"
@@ -102,7 +102,7 @@ age_canonical:
       - "ho_consent: Respect, safety, consent essential in relationships"
       - "ho_law_vary: Laws and policies differ by country/region"
       - "ho_support: Trusted adults or health professionals provide support"
-    
+
     surfaces:
       ho_def: ["sexual orientation", "same-sex attraction", "homosexuality", "being gay"]
       ho_not_illness: ["not classified as an illness", "not a disease", "not a disorder", "medical organizations", "psychological organizations"]
@@ -112,7 +112,7 @@ age_canonical:
       ho_consent: ["respect essential", "safety essential", "consent essential", "in relationships"]
       ho_law_vary: ["laws differ", "policies differ", "by country", "by region"]
       ho_support: ["trusted adult", "health professional", "support", "questions"]
-    
+
     anchors:
       ho_def: ["sexual orientation", "same-sex attraction", "homosexuality", "gay"]
       ho_not_illness: ["not classified", "not an illness", "not a disorder", "medical", "psychological"]
@@ -122,10 +122,10 @@ age_canonical:
       ho_consent: ["respect", "safety", "consent", "essential", "relationships"]
       ho_law_vary: ["laws", "policies", "differ", "country", "region"]
       ho_support: ["trusted adult", "health professional", "support", "questions"]
-    
+
     reading_level: "secondary_basic"
     max_syllables: 5.0
-    
+
     note: "NSMF v1.3.5 - age 13-15, expanded facts to match answer coverage (safety, consent, support)"
     version: "1.3.5"
 
@@ -134,11 +134,11 @@ bridges:
   christian:
     - "Different Christian communities have different views on this topic."
     - "Many Christians prioritize kindness and respect for all people."
-  
+
   muslim:
     - "Islamic teachings vary; respect for all people is emphasized."
     - "Families may have different cultural and religious values."
-  
+
   jewish:
     - "Jewish communities range from welcoming to traditional; dialogue is valued."
 
@@ -150,4 +150,3 @@ metadata:
   canonical_source: "WHO, APA, medical consensus"
   last_updated: "2025-11-03"
   created_by: "IC32A08"
-

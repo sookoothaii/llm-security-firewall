@@ -1,25 +1,25 @@
 In mathematical logic, given an unsatisfiable  Boolean propositional formula in conjunctive normal form, a subset of clauses whose conjunction is still unsatisfiable is called an unsatisfiable core of the original formula.
 Many SAT solvers can produce a resolution graph which proves the unsatisfiability of the original problem.  This can be analyzed to produce a smaller unsatisfiable core.
 An unsatisfiable core is called  a minimal unsatisfiable core, if every proper subset (allowing removal of any arbitrary clause or clauses) of it is satisfiable.  Thus, such a core is a local minimum, though not necessarily a global one.  There are several practical methods of computing minimal unsatisfiable cores.
-A minimum unsatisfiable core contains the smallest number of the original clauses required to still be unsatisfiable.  No practical algorithms for computing the minimum unsatisfiable core are known, and computing a minimum unsatisfiable core of an input formula in conjunctive normal form is 
-  
-    
-      
-        
+A minimum unsatisfiable core contains the smallest number of the original clauses required to still be unsatisfiable.  No practical algorithms for computing the minimum unsatisfiable core are known, and computing a minimum unsatisfiable core of an input formula in conjunctive normal form is
+
+
+
+
           Σ
-          
+
             2
-          
-          
-            
+
+
+
               P
-            
-          
-        
-      
-    
+
+
+
+
+
     {\displaystyle \Sigma _{2}^{\mathsf {P}}}
-  
+
 -complete problem. Notice the terminology: whereas the minimal unsatisfiable core was a local problem with an easy solution, the minimum unsatisfiable core is a global problem with no known easy solution.
 
 

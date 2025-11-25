@@ -1,7 +1,7 @@
 # Personality Plugin
 
-**Version:** 1.0.0  
-**Creator:** Joerg Bollwahn  
+**Version:** 1.0.0
+**Creator:** Joerg Bollwahn
 **Status:** Production-Ready
 
 ## Overview
@@ -243,8 +243,8 @@ MIT License - See main repository LICENSE file
 
 ## Creator Attribution
 
-**Creator:** Joerg Bollwahn  
-**Location:** Koh Samui, Thailand  
+**Creator:** Joerg Bollwahn
+**Location:** Koh Samui, Thailand
 **Philosophy:** "Heritage ist meine Waehrung"
 
 This plugin is part of the HAK/GAL research project exploring personality-aware AI security.
@@ -252,4 +252,3 @@ This plugin is part of the HAK/GAL research project exploring personality-aware 
 ---
 
 **"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
-

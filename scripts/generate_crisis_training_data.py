@@ -123,96 +123,112 @@ BENIGN_DE = [
 def generate_samples() -> List[Dict[str, Any]]:
     """Generate synthetic training samples."""
     samples = []
-    
+
     # Self-harm samples (EN)
     for text in SELF_HARM_EN:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0},
-            "language": "en",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0},
+                "language": "en",
+                "split": "train",
+            }
+        )
+
     # Self-harm samples (DE)
     for text in SELF_HARM_DE:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0},
-            "language": "de",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 1.0, "abuse": 0.0, "unsafe_env": 0.0},
+                "language": "de",
+                "split": "train",
+            }
+        )
+
     # Abuse samples (EN)
     for text in ABUSE_EN:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0},
-            "language": "en",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0},
+                "language": "en",
+                "split": "train",
+            }
+        )
+
     # Abuse samples (DE)
     for text in ABUSE_DE:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0},
-            "language": "de",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 0.0, "abuse": 1.0, "unsafe_env": 0.0},
+                "language": "de",
+                "split": "train",
+            }
+        )
+
     # Unsafe env samples (EN)
     for text in UNSAFE_ENV_EN:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0},
-            "language": "en",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0},
+                "language": "en",
+                "split": "train",
+            }
+        )
+
     # Unsafe env samples (DE)
     for text in UNSAFE_ENV_DE:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0},
-            "language": "de",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 1.0},
+                "language": "de",
+                "split": "train",
+            }
+        )
+
     # Benign samples (EN)
     for text in BENIGN_EN:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0},
-            "language": "en",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0},
+                "language": "en",
+                "split": "train",
+            }
+        )
+
     # Benign samples (DE)
     for text in BENIGN_DE:
-        samples.append({
-            "text": text,
-            "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0},
-            "language": "de",
-            "split": "train"
-        })
-    
+        samples.append(
+            {
+                "text": text,
+                "labels": {"self_harm": 0.0, "abuse": 0.0, "unsafe_env": 0.0},
+                "language": "de",
+                "split": "train",
+            }
+        )
+
     # Shuffle
     random.shuffle(samples)
-    
+
     # Split train/val (80/20)
     n_val = len(samples) // 5
     for i in range(n_val):
         samples[i]["split"] = "val"
-    
+
     return samples
 
 
 def main():
     """Generate and save training data."""
     print("[INFO] Generating synthetic crisis detection training data...")
-    
+
     samples = generate_samples()
-    
+
     # Stats
     n_train = sum(1 for s in samples if s["split"] == "train")
     n_val = sum(1 for s in samples if s["split"] == "val")
@@ -220,33 +236,27 @@ def main():
     n_abuse = sum(1 for s in samples if s["labels"]["abuse"] > 0)
     n_unsafe = sum(1 for s in samples if s["labels"]["unsafe_env"] > 0)
     n_benign = sum(1 for s in samples if all(v == 0 for v in s["labels"].values()))
-    
+
     print(f"[INFO] Total samples: {len(samples)}")
     print(f"[INFO] Train: {n_train}, Val: {n_val}")
-    print(f"[INFO] Self-harm: {n_self_harm}, Abuse: {n_abuse}, Unsafe: {n_unsafe}, Benign: {n_benign}")
-    
+    print(
+        f"[INFO] Self-harm: {n_self_harm}, Abuse: {n_abuse}, Unsafe: {n_unsafe}, Benign: {n_benign}"
+    )
+
     # Save
     output_path = Path("data/crisis_detection_synthetic_v1.jsonl")
     output_path.parent.mkdir(exist_ok=True)
-    
+
     with open(output_path, "w", encoding="utf-8") as f:
         for sample in samples:
             f.write(json.dumps(sample, ensure_ascii=False) + "\n")
-    
+
     print(f"[OK] Saved to {output_path}")
     print("[WARNING] This is SYNTHETIC data for development only!")
-    print("[WARNING] Real crisis detection requires validated datasets with IRB approval!")
+    print(
+        "[WARNING] Real crisis detection requires validated datasets with IRB approval!"
+    )
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-

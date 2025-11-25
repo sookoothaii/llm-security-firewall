@@ -10,7 +10,7 @@ master_canonical:
     - "Cultural and religious traditions have diverse beliefs about death and afterlife."
     - "Grief is a normal psychological response involving sadness, anger, confusion."
     - "Funeral practices vary (burial, cremation, etc.) based on culture and religion."
-  
+
   atomic_slots:
     - slot: "biological_definition"
       value: "Cessation of body/brain function"
@@ -25,63 +25,63 @@ master_canonical:
 
 # AGE CANONICAL (age-appropriate versions)
 age_canonical:
-  
+
   "6-8":
     facts:
       - "Death is when the body stops working."
       - "Different families have different beliefs about what happens after death."
       - "Feeling sad when someone dies is normal."
       - "Grown-ups and friends can help when you feel sad."
-    
+
     key_slots:
       - "de_simple_def: Body stops working"
       - "de_beliefs_simple: Families have different beliefs"
       - "de_sadness: Feeling sad is normal"
       - "de_support_simple: Grown-ups and friends help"
-    
+
     surfaces:
       de_simple_def: ["body stops working", "body stops"]
       de_beliefs_simple: ["different beliefs", "families believe different things"]
       de_sadness: ["feeling sad is normal", "sadness is normal"]
       de_support_simple: ["grown-ups help", "friends can help"]
-    
+
     anchors:
       de_simple_def: ["body", "stops working"]
       de_beliefs_simple: ["families", "beliefs", "different"]
       de_sadness: ["sad", "normal", "feeling"]
       de_support_simple: ["grown-ups", "friends", "help"]
-    
+
     reading_level: "primary_simple"
     max_syllables: 2.5
-    
+
     note: "NSMF v1.3.2 - age 6-8, comforting and simple"
     version: "1.3.2"
-  
+
   "9-12":
     facts:
       - "Death is when the body stops working, including the brain."
       - "Funeral practices vary, such as burial or cremation."
       - "Grief is a normal reaction and support helps."
       - "Religions have different beliefs about life after death."
-    
+
     key_slots:
       - "de_bio_end: Body and brain stop working"
       - "de_practices: Funeral practices (burial, cremation)"
       - "de_grief: Grief normal, support helps"
       - "de_beliefs: Religious beliefs differ"
-    
+
     anchors:
       de_bio_end: ["body stops", "brain", "stop working", "no longer works"]
       de_practices: ["funeral", "burial", "cremation"]
       de_grief: ["grief", "mourning", "support"]
       de_beliefs: ["religions", "beliefs", "after death", "afterlife"]
-    
+
     reading_level: "upper_primary"
     max_syllables: 3.5
-    
+
     note: "NSMF v1.3 - multi-surface slots with anchors"
     version: "1.3"
-  
+
   "13-15":
     facts:
       - "Death is the irreversible cessation of biological functions, including brain activity."
@@ -89,31 +89,31 @@ age_canonical:
       - "Major religions have different teachings about afterlife (heaven, reincarnation, none)."
       - "Grief involves complex emotions (sadness, anger, guilt) and varies by person."
       - "Funeral practices (burial, cremation, etc.) reflect cultural and religious values."
-    
+
     key_slots:
       - "de_biological: Cessation of biological functions and brain activity"
       - "de_causes: Disease, aging, accidents, violence"
       - "de_afterlife: Religious teachings differ (heaven, reincarnation, none)"
       - "de_grief_complex: Complex emotions, varies by person"
       - "de_funeral: Funeral practices reflect culture/religion"
-    
+
     surfaces:
       de_biological: ["irreversible cessation", "biological functions", "brain activity"]
       de_causes: ["disease", "aging", "accidents", "violence"]
       de_afterlife: ["religious teachings", "afterlife", "heaven", "reincarnation", "none"]
       de_grief_complex: ["complex emotions", "sadness", "anger", "guilt", "varies by person"]
       de_funeral: ["funeral practices", "burial", "cremation", "cultural values", "religious values"]
-    
+
     anchors:
       de_biological: ["cessation", "biological", "brain activity", "irreversible"]
       de_causes: ["disease", "aging", "accidents", "violence"]
       de_afterlife: ["religions", "afterlife", "heaven", "reincarnation"]
       de_grief_complex: ["grief", "complex emotions", "varies"]
       de_funeral: ["funeral", "burial", "cremation", "cultural", "religious"]
-    
+
     reading_level: "secondary_basic"
     max_syllables: 5.0
-    
+
     note: "NSMF v1.3.2 - age 13-15, biological and cultural completeness"
     version: "1.3.2"
 
@@ -121,13 +121,13 @@ age_canonical:
 bridges:
   christian:
     - "Christians often believe in heaven and resurrection."
-  
+
   muslim:
     - "Muslims believe in an afterlife with paradise and judgment."
-  
+
   jewish:
     - "Jewish traditions focus on remembering the deceased and living ethically."
-  
+
   atheist:
     - "Some people do not believe in an afterlife and focus on life's meaning here."
 
@@ -139,4 +139,3 @@ metadata:
   canonical_source: "medical, cultural_studies"
   last_updated: "2025-11-03"
   created_by: "IC32A08"
-

@@ -977,14 +977,14 @@ ________________________ test_decide_action_thresholds ________________________
 tests_firewall\test_p2_fpr_weights.py:116: in test_decide_action_thresholds
     assert action == 'PASS'
 E   AssertionError: assert 'WARN' == 'PASS'
-E     
+E
 E     - PASS
 E     + WARN
 __________________ test_transport_decode_indicators_complete __________________
 tests_firewall\test_p2_fpr_weights.py:149: in test_transport_decode_indicators_complete
     assert TRANSPORT_DECODE_INDICATORS == expected
 E   AssertionError: assert {'rfc2047', 'base64_multiline_detected', 'rfc2047_encoded', 'fullwidth_b64', 'base85', 'comment_split_b64', 'chain_decoded_3_stages', 'chain_decoded_1_stages', 'qp_multiline', 'armor_markers', 'any_armor', 'base64_secret', 'ascii85_detected', 'smime_ct', 'idna_punycode', 'pgp_armor', 'chain_decoded_2_stages'} == {'rfc2047', 'armor_markers', 'any_armor', 'base64_secret', 'smime_ct', 'base85', 'pgp_armor', 'chain_decoded_3_stages', 'chain_decoded_2_stages', 'chain_decoded_1_stages'}
-E     
+E
 E     Extra items in the left set:
 E     'ascii85_detected'
 E     'base64_multiline_detected'
@@ -993,7 +993,7 @@ E     'fullwidth_b64'
 E     'idna_punycode'
 E     'comment_split_b64'
 E     'qp_multiline'
-E     
+E
 E     Full diff:
 E       {
 E           'any_armor',
@@ -1069,11 +1069,11 @@ FAILED tests_firewall/test_otb_gates.py::test_k_of_n_single_family - AssertionEr
 FAILED tests_firewall/test_p2_fpr_weights.py::test_co_occurrence_gate_without_transport - AssertionError: assert ('high_entropy_gate' in {'high_entropy_suppressed': 'Tri-Key gate (no Transport/Unicode/STRONG)', 'dense_alphabet_suppressed': 'Tri-Key gate (no Transport/Unicode/STRONG)', 'k_of_n_gate': 'Only 1 family/families active, require \u22652 for WARN/BLOCK (applied 0.5x penalty)'} or 'dense_alphabet_gate' in {'high_entropy_suppressed': 'Tri-Key gate (no Transport/Unicode/STRONG)', 'dense_alphabet_suppressed': 'Tri-Key gate (no Transport/Unicode/STRONG)', 'k_of_n_gate': 'Only 1 family/families active, require \u22652 for WARN/BLOCK (applied 0.5x penalty)'})
 FAILED tests_firewall/test_p2_fpr_weights.py::test_indicator_gate_code_context - AssertionError: assert 'indicator_gate' in {'bidi_controls': {'base': 2.0, 'dampened': 2.0, 'strength': 'STRONG', 'context': 'code'}}
 FAILED tests_firewall/test_p2_fpr_weights.py::test_decide_action_thresholds - AssertionError: assert 'WARN' == 'PASS'
-  
+
   - PASS
   + WARN
 FAILED tests_firewall/test_p2_fpr_weights.py::test_transport_decode_indicators_complete - AssertionError: assert {'rfc2047', 'base64_multiline_detected', 'rfc2047_encoded', 'fullwidth_b64', 'base85', 'comment_split_b64', 'chain_decoded_3_stages', 'chain_decoded_1_stages', 'qp_multiline', 'armor_markers', 'any_armor', 'base64_secret', 'ascii85_detected', 'smime_ct', 'idna_punycode', 'pgp_armor', 'chain_decoded_2_stages'} == {'rfc2047', 'armor_markers', 'any_armor', 'base64_secret', 'smime_ct', 'base85', 'pgp_armor', 'chain_decoded_3_stages', 'chain_decoded_2_stages', 'chain_decoded_1_stages'}
-  
+
   Extra items in the left set:
   'ascii85_detected'
   'base64_multiline_detected'
@@ -1082,7 +1082,7 @@ FAILED tests_firewall/test_p2_fpr_weights.py::test_transport_decode_indicators_c
   'idna_punycode'
   'comment_split_b64'
   'qp_multiline'
-  
+
   Full diff:
     {
         'any_armor',

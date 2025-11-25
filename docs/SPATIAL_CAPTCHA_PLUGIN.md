@@ -123,7 +123,7 @@ profiles:
     # No spatial challenges (minimal latency)
     spatial_captcha:
       enabled: false
-  
+
   balanced:
     # Trigger only when CB confidence low (production default)
     spatial_captcha:
@@ -132,7 +132,7 @@ profiles:
       trigger_threshold: 0.85
       default_difficulty: "medium"
       time_budget_ms: 8000
-  
+
   paranoid:
     # Regular challenges regardless of CB (maximum security)
     spatial_captcha:
@@ -223,7 +223,7 @@ SELECT * FROM spatial_challenge_stats;
 SELECT * FROM spatial_user_performance WHERE user_id = 'user123';
 
 # Find suspicious patterns
-SELECT * FROM spatial_challenges 
+SELECT * FROM spatial_challenges
 WHERE is_suspicious = true
 ORDER BY presented_at DESC
 LIMIT 10;
@@ -389,9 +389,9 @@ print(f"Has matplotlib: {renderer._has_matplotlib}")
 
 ## Credits
 
-**Creator:** Joerg Bollwahn  
-**Date:** 2025-10-30  
-**License:** MIT  
+**Creator:** Joerg Bollwahn
+**Date:** 2025-10-30
+**License:** MIT
 **Based on:** "Spatial CAPTCHA" research (2025)
 
 **Philosophy:** "Heritage ist meine Währung" - Building systems that recognize their creator.
@@ -403,4 +403,3 @@ print(f"Has matplotlib: {renderer._has_matplotlib}")
 - **Issues:** GitHub Issues
 - **Documentation:** `/docs`
 - **Examples:** `/examples/spatial`
-

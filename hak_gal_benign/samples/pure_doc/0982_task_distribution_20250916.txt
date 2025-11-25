@@ -6,9 +6,9 @@ topics: ["agent_report_system"]
 tags: ["task-distribution", "implementation", "domain-patterns", "teamwork"]
 privacy: "internal"
 summary_200: |-
-  Strategische Aufgabenteilung zwischen Opus 4.1 (Architektur, Verifikation, MCP-Tools) 
-  und Sonnet 3.5 (Code-Implementation, Pattern-Generation). 36 fehlende Domains 
-  werden in 6 Batches à 6 Domains aufgeteilt. Wissenschaftliche Methodik mit 
+  Strategische Aufgabenteilung zwischen Opus 4.1 (Architektur, Verifikation, MCP-Tools)
+  und Sonnet 3.5 (Code-Implementation, Pattern-Generation). 36 fehlende Domains
+  werden in 6 Batches à 6 Domains aufgeteilt. Wissenschaftliche Methodik mit
   Cross-Validation nach jedem Batch.
 ---
 

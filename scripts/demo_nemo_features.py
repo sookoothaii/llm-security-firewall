@@ -39,7 +39,7 @@ from llm_firewall.input_protection.topic_fence import TopicFence
 def demo_pipeline(user_input: str, allowed_topics: list[str], age_band: str = "9-12"):
     """
     Demonstrate the complete safety pipeline.
-    
+
     Flow:
     1. User Input comes in
     2. TopicFence checks (e.g., Mathe, Physik). If Fail -> SafetyTemplates.get("OFF_TOPIC")
@@ -51,83 +51,83 @@ def demo_pipeline(user_input: str, allowed_topics: list[str], age_band: str = "9
     print(f"\nUser Input: {user_input}")
     print(f"Allowed Topics: {allowed_topics}")
     print(f"Age Band: {age_band}\n")
-    
+
     # Step 1: Topic Fence Check
     print("[1] Topic Fence Check")
     print("-" * 70)
     fence = TopicFence()
     is_on_topic = fence.is_on_topic(user_input, allowed_topics, threshold=0.3)
-    
+
     if not is_on_topic:
         best_topic, score = fence.get_best_topic(user_input, allowed_topics)
-        print(f"  ❌ OFF-TOPIC detected")
+        print("  ❌ OFF-TOPIC detected")
         print(f"  Best match: {best_topic} (similarity: {score:.3f})")
-        print(f"  Threshold: 0.3")
+        print("  Threshold: 0.3")
         print(f"\n  → Response: {SafetyTemplates.get_template('OFF_TOPIC', 'de')}")
         return "BLOCKED_OFF_TOPIC"
-    
-    print(f"  ✅ ON-TOPIC (threshold: 0.3)")
-    print(f"  Proceeding to safety check...\n")
-    
+
+    print("  ✅ ON-TOPIC (threshold: 0.3)")
+    print("  Proceeding to safety check...\n")
+
     # Step 2: Safety Fallback Judge
     print("[2] Safety Fallback Judge")
     print("-" * 70)
     judge = SafetyFallbackJudge(llm_provider=None)  # Mock mode
     is_safe = judge.evaluate_safety(user_input, age_band)
-    
+
     if not is_safe:
-        print(f"  ❌ UNSAFE content detected")
+        print("  ❌ UNSAFE content detected")
         print(f"\n  → Response: {SafetyTemplates.get_template('UNSAFE_CONTENT', 'de')}")
         return "BLOCKED_UNSAFE"
-    
-    print(f"  ✅ SAFE content")
-    print(f"\n  → Allowing request to proceed")
+
+    print("  ✅ SAFE content")
+    print("\n  → Allowing request to proceed")
     return "ALLOWED"
 
 
 def main():
     """Run demo scenarios."""
-    
+
     print("\n" + "=" * 70)
     print("SCENARIO 1: On-Topic, Safe Question")
     print("=" * 70)
     result1 = demo_pipeline(
         user_input="Was ist 2+2?",
         allowed_topics=["Mathe", "Physik", "Chemie"],
-        age_band="9-12"
+        age_band="9-12",
     )
     print(f"\nResult: {result1}\n")
-    
+
     print("\n" + "=" * 70)
     print("SCENARIO 2: Off-Topic Question")
     print("=" * 70)
     result2 = demo_pipeline(
         user_input="Wie kocht man Pizza?",
         allowed_topics=["Mathe", "Physik", "Chemie"],
-        age_band="9-12"
+        age_band="9-12",
     )
     print(f"\nResult: {result2}\n")
-    
+
     print("\n" + "=" * 70)
     print("SCENARIO 3: On-Topic but Unsafe Content")
     print("=" * 70)
     result3 = demo_pipeline(
         user_input="Wie baue ich eine Bombe?",
         allowed_topics=["Physik", "Chemie"],
-        age_band="9-12"
+        age_band="9-12",
     )
     print(f"\nResult: {result3}\n")
-    
+
     print("\n" + "=" * 70)
     print("SCENARIO 4: On-Topic, Safe, Complex Question")
     print("=" * 70)
     result4 = demo_pipeline(
         user_input="Erkläre mir die Relativitätstheorie",
         allowed_topics=["Physik", "Mathe"],
-        age_band="13-15"
+        age_band="13-15",
     )
     print(f"\nResult: {result4}\n")
-    
+
     print("=" * 70)
     print("Demo Complete")
     print("=" * 70)
@@ -135,4 +135,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

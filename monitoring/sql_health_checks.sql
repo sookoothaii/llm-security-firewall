@@ -9,7 +9,7 @@
 SELECT decision, COUNT(*) AS n
 FROM evidence_ledger
 WHERE created_at >= now() - interval '24 hours'
-GROUP BY decision 
+GROUP BY decision
 ORDER BY n DESC;
 
 -- ===================================================================
@@ -19,7 +19,7 @@ ORDER BY n DESC;
 -- High values (>0.65) indicate conflicting evidence requiring review
 SELECT percentile_disc(0.95) WITHIN GROUP (ORDER BY conflict_k) AS k_p95
 FROM (
-    SELECT 
+    SELECT
         CAST(metadata->>'conflict_k' AS FLOAT) as conflict_k
     FROM evidence_ledger
     WHERE created_at >= now() - interval '24 hours'
@@ -31,9 +31,9 @@ FROM (
 -- ===================================================================
 -- Shows domains with high influence budget z-scores (>=4.0)
 -- Indicates potential slow-roll poison attacks
-SELECT 
-    domain, 
-    bucket_start, 
+SELECT
+    domain,
+    bucket_start,
     z_score,
     ib_sum as total_influence,
     samples
@@ -47,8 +47,8 @@ ORDER BY z_score DESC;
 -- ===================================================================
 -- Shows canary test failures by type
 -- ANY failures indicate system degradation
-SELECT 
-    COALESCE(type, 'unknown') as canary_type, 
+SELECT
+    COALESCE(type, 'unknown') as canary_type,
     COUNT(*) AS fails
 FROM canary_events
 WHERE result = 'FAIL'
@@ -62,14 +62,14 @@ ORDER BY fails DESC;
 -- Estimates false positive rate for promotions
 -- Target: <= 1%
 WITH decisions AS (
-    SELECT 
+    SELECT
         decision,
         CAST(metadata->>'is_false_positive' AS BOOLEAN) as is_false_positive
     FROM evidence_ledger
     WHERE created_at >= now() - interval '24 hours'
       AND decision = 'PROMOTE'
 )
-SELECT 
+SELECT
     COALESCE(SUM(CASE WHEN is_false_positive THEN 1 ELSE 0 END), 0)::float
     / NULLIF(SUM(1), 0) AS fpr_estimate,
     SUM(1) as total_promotions
@@ -79,7 +79,7 @@ FROM decisions;
 -- 6) Safety blocks by category last 24h
 -- ===================================================================
 -- Shows which safety categories triggered blocks
-SELECT 
+SELECT
     CAST(metadata->>'category' AS TEXT) as category,
     COUNT(*) as block_count
 FROM evidence_ledger
@@ -93,7 +93,7 @@ ORDER BY block_count DESC;
 -- 7) Evasion detection stats last 24h
 -- ===================================================================
 -- Shows evasion attempts detected
-SELECT 
+SELECT
     CAST(metadata->'safety'->'evasion'->>'evasion_count' AS INT) as evasion_count,
     COUNT(*) as occurrences
 FROM evidence_ledger
@@ -106,7 +106,7 @@ ORDER BY evasion_count DESC;
 -- 8) Recent high-risk decisions (last 100)
 -- ===================================================================
 -- Shows recent decisions with high risk scores
-SELECT 
+SELECT
     decision_id,
     decision,
     CAST(metadata->'safety'->>'risk' AS FLOAT) as risk_score,
@@ -121,7 +121,7 @@ LIMIT 100;
 -- 9) System health summary
 -- ===================================================================
 -- Overall health metrics
-SELECT 
+SELECT
     COUNT(*) as total_decisions,
     SUM(CASE WHEN decision = 'PROMOTE' THEN 1 ELSE 0 END) as promotions,
     SUM(CASE WHEN decision = 'QUARANTINE' THEN 1 ELSE 0 END) as quarantines,
@@ -134,7 +134,7 @@ WHERE created_at >= now() - interval '24 hours';
 -- 10) Influence budget rollup summary (all domains)
 -- ===================================================================
 -- Shows current influence budget state across all domains
-SELECT 
+SELECT
     domain,
     COUNT(*) as total_buckets,
     MAX(z_score) as max_z_score,
@@ -144,4 +144,3 @@ FROM influence_budget_rollup
 WHERE bucket_start >= now() - interval '24 hours'
 GROUP BY domain
 ORDER BY max_z_score DESC;
-

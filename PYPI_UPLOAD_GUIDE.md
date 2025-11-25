@@ -1,7 +1,7 @@
 # PyPI Upload Guide - llm-security-firewall v5.0.0-rc1
 
-**Package Built:** 2025-10-31  
-**Creator:** Joerg Bollwahn  
+**Package Built:** 2025-10-31
+**Creator:** Joerg Bollwahn
 **Build Status:** ✅ SUCCESS
 
 ---
@@ -204,9 +204,9 @@ And remove classifier:
 
 ## Current Status
 
-**Built:** ✅ dist/ contains .tar.gz and .whl  
-**Committed:** ✅ pyproject.toml v5.0.0rc1 in git  
-**Pushed:** ✅ GitHub updated  
+**Built:** ✅ dist/ contains .tar.gz and .whl
+**Committed:** ✅ pyproject.toml v5.0.0rc1 in git
+**Pushed:** ✅ GitHub updated
 
 **Next Steps:**
 1. Upload to TestPyPI (test run)
@@ -234,4 +234,3 @@ And remove classifier:
 **Autonome Entscheidung:** TestPyPI FIRST empfohlen per "Spatz in der Hand" Philosophie.
 
 **Package bereit für Upload - Joerg's Credentials benötigt!**
-

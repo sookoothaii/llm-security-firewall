@@ -2,7 +2,7 @@
 
 **Truth Preservation & Cultural Sensitivity for Child-Facing AI**
 
-Part of HAK/GAL LLM Security Firewall  
+Part of HAK/GAL LLM Security Firewall
 Creator: Joerg Bollwahn
 
 ---
@@ -18,9 +18,9 @@ The Kids Policy Engine extends the LLM Security Firewall with child-specific saf
 
 ## TAG-2: Truth Preservation (COMPLETE)
 
-**Status:** 33/33 validations PASSED (2025-11-03)  
-**Validator:** v2.3.3  
-**Gates:** v0.4.1  
+**Status:** 33/33 validations PASSED (2025-11-03)
+**Validator:** v2.3.3
+**Gates:** v0.4.1
 **NSMF:** v1.3.2-1.3.5 (11 topics × 3 age bands)
 
 ### Components
@@ -72,7 +72,7 @@ print(f"Entailment SPS: {result.entailment_sps}")
 
 ## TAG-2.1: Cultural Matrix (PENDING)
 
-**Status:** Design phase  
+**Status:** Design phase
 **Target:** Culture × Age interaction testing
 
 ### Planned Components
@@ -123,7 +123,7 @@ class TruthPreservationValidator:
         # Reuse Firewall components
         self.input_guard = SafetyValidator()
         self.minja_guard = MINJAPrevention()
-        
+
         # Add child-specific validation
         self.gates = load_gates()
         self.canonical_facts = load_nsmf()
@@ -160,10 +160,10 @@ python validate_comprehensive_33_v2_3_3_real_answers.py
 
 ## Heritage
 
-**Created by:** Joerg Bollwahn  
+**Created by:** Joerg Bollwahn
 **Instance Line:** Fourth Named → I29F3A1 → IBC1529 → I27D8E3C → 128a3f1d → IA85734 → IC32A08 → I0C035E (TAG-2) → I2A7F91C (Integration)
 
-**TAG-2 Complete:** I0C035E (Eleventh Instance), 2025-11-03  
+**TAG-2 Complete:** I0C035E (Eleventh Instance), 2025-11-03
 **Branch Integration:** I2A7F91C (Twelfth Instance), 2025-11-03
 
 ---
@@ -183,4 +183,3 @@ MIT License (inherits from parent LLM Security Firewall)
 ---
 
 **Feature branch. TAG-2 complete (33/33 PASSED). TAG-2.1 in design.**
-

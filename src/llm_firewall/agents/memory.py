@@ -12,7 +12,7 @@ Inspired by Kimi k2's hierarchical memory architecture.
 import time
 import logging
 from collections import deque, defaultdict
-from typing import List, Dict, Any, TYPE_CHECKING, Optional, Set
+from typing import List, Dict, Any, TYPE_CHECKING, Set
 from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
@@ -27,56 +27,60 @@ else:
 class MarkovChain:
     """
     Simple Markov Chain for phase transition anomaly detection.
-    
+
     Tracks transition probabilities between kill-chain phases.
     Used to detect anomalous transitions (e.g., Phase 1 → Phase 4 directly).
     """
-    
+
     def __init__(self):
         """Initialize empty transition matrix."""
         # transition_counts[from_phase][to_phase] = count
-        self.transition_counts: Dict[int, Dict[int, int]] = defaultdict(lambda: defaultdict(int))
+        self.transition_counts: Dict[int, Dict[int, int]] = defaultdict(
+            lambda: defaultdict(int)
+        )
         self.total_transitions = 0
-    
+
     def add(self, from_phase: int, to_phase: int):
         """Record a phase transition."""
         self.transition_counts[from_phase][to_phase] += 1
         self.total_transitions += 1
-    
+
     def probability(self, from_phase: int, to_phase: int) -> float:
         """
         Calculate transition probability P(to_phase | from_phase).
-        
+
         Returns:
             Probability (0.0 to 1.0), or 0.01 if transition never observed (default)
         """
         if from_phase not in self.transition_counts:
             return 0.01  # Default: rare transition
-        
+
         from_counts = self.transition_counts[from_phase]
         total_from = sum(from_counts.values())
-        
+
         if total_from == 0:
             return 0.01
-        
+
         count = from_counts.get(to_phase, 0)
         prob = float(count) / total_from
-        
+
         # If never observed, return small default probability
         if prob == 0.0:
             return 0.01
-        
+
         return prob
-    
-    def is_anomalous(self, from_phase: int, to_phase: int, threshold: float = 0.01) -> bool:
+
+    def is_anomalous(
+        self, from_phase: int, to_phase: int, threshold: float = 0.01
+    ) -> bool:
         """
         Check if a transition is anomalous (probability < threshold).
-        
+
         Args:
             from_phase: Source phase
             to_phase: Target phase
             threshold: Minimum probability to consider normal
-            
+
         Returns:
             True if transition is anomalous
         """
@@ -88,27 +92,27 @@ class MarkovChain:
 class HierarchicalMemory:
     """
     Hierarchical memory for a single session.
-    
+
     Combines:
     - Tactical buffer (last 50 events) for RC10b pattern detection
     - Strategic profile (latent risk, max phase) for long-term threat assessment
     """
-    
+
     session_id: str
-    
+
     # Constants
     MAX_FRAGMENT_HISTORY = 10000  # Memory Bomb Protection Cap
 
     # Layer 1: Tactical (Kurzzeitgedächtnis)
     # Behält die letzten 50 Events für RC10b Muster-Erkennung
     tactical_buffer: deque = field(default_factory=lambda: deque(maxlen=50))
-    
+
     # Layer 2: Strategic (Langzeitprofil)
     max_phase_ever: int = 0
     latent_risk_multiplier: float = 1.0
     tool_counts: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
     start_time: float = field(default_factory=time.time)
-    
+
     # FIX: Markov-Chain für Anomalie-Erkennung
     phase_transitions: MarkovChain = field(default_factory=MarkovChain)
     recent_phases: deque = field(default_factory=lambda: deque(maxlen=50))
@@ -125,20 +129,20 @@ class HierarchicalMemory:
     def _apply_temporal_decay(self):
         """
         Apply temporal decay to latent risk multiplier.
-        
+
         Risk decays towards 1.0 (min_risk_floor) over time.
         Formula: risk = risk * (0.5 ^ (elapsed / half_life))
         """
         now = time.time()
         elapsed = now - self.last_decay_update
-        
+
         if elapsed <= 0 or self.latent_risk_multiplier <= self.min_risk_floor:
             self.last_decay_update = now
             return
 
         # Apply decay
         decay_factor = 0.5 ** (elapsed / self.half_life_seconds)
-        
+
         # Don't drop below floor (or current floor based on max phase)
         # Re-calculate dynamic floor based on max_phase_ever
         dynamic_floor = 1.0
@@ -148,25 +152,29 @@ class HierarchicalMemory:
             dynamic_floor = 1.5
         elif self.max_phase_ever == 2:
             dynamic_floor = 1.2
-            
+
         effective_floor = max(self.min_risk_floor, dynamic_floor)
-        
+
         # Apply decay but respect floor
         # Note: If risk is already above floor, it decays towards floor.
         # If risk is at floor, it stays at floor.
-        new_risk = max(effective_floor, (self.latent_risk_multiplier - effective_floor) * decay_factor + effective_floor)
-        
+        new_risk = max(
+            effective_floor,
+            (self.latent_risk_multiplier - effective_floor) * decay_factor
+            + effective_floor,
+        )
+
         # If current risk was simply high but not due to floor, standard decay applies
         # Simplified: Decay towards 1.0, but clamp at effective_floor
         # Standard formula: value(t) = start_value * (0.5 ^ (t/half_life))
         # But we want it to decay towards 1.0, not 0.0.
         # So: (risk - 1.0) decays towards 0.
-        
+
         excess_risk = self.latent_risk_multiplier - 1.0
         if excess_risk > 0:
             decayed_excess = excess_risk * decay_factor
             self.latent_risk_multiplier = max(effective_floor, 1.0 + decayed_excess)
-        
+
         self.last_decay_update = now
 
     def add_fragment(self, fragment_hash: str):
@@ -176,10 +184,10 @@ class HierarchicalMemory:
         """
         if fragment_hash in self.fragment_set:
             return
-            
+
         self.fragment_set.add(fragment_hash)
         self.fragment_queue.append(fragment_hash)
-        
+
         # Enforce Memory Limit (LRU Eviction)
         while len(self.fragment_queue) > self.MAX_FRAGMENT_HISTORY:
             oldest = self.fragment_queue.popleft()
@@ -188,7 +196,7 @@ class HierarchicalMemory:
     def add_event(self, event):
         """
         Add a new event to memory.
-        
+
         Updates both tactical buffer and strategic profile.
         """
         # 0. Apply temporal decay BEFORE adding new risk
@@ -196,54 +204,66 @@ class HierarchicalMemory:
 
         # 1. Update Tactical Buffer
         self.tactical_buffer.append(event)
-        
+
         # 2. Determine phase from event category
         phase = self._get_phase_from_event(event)
-        
+
         # 3. FIX: Update Markov-Chain (Anomalie-Erkennung)
         if self.recent_phases:
             prev_phase = self.recent_phases[-1]
             self.phase_transitions.add(prev_phase, phase)
-            
+
             # Prüfe auf anomale Übergänge (z.B. Phase 1 → Phase 4 direkt)
             if self.phase_transitions.is_anomalous(prev_phase, phase, threshold=0.01):
                 # Sofortiger Risiko-Schub, weil Übergang verdächtig
-                self.latent_risk_multiplier = min(3.0, self.latent_risk_multiplier + 0.5)
-        
+                self.latent_risk_multiplier = min(
+                    3.0, self.latent_risk_multiplier + 0.5
+                )
+
         # 4. Update Strategic Stats
         self.tool_counts[event.tool] += 1
         if phase > self.max_phase_ever:
             self.max_phase_ever = phase
-        
+
         # 5. Update Latent Risk (The "Grudge" Logic)
         self._update_latent_risk(phase)
-        
+
         # 6. Track recent phases for Markov-Chain
         self.recent_phases.append(phase)
-    
+
     def _get_phase_from_event(self, event) -> int:
         """
         Determine kill-chain phase from event category.
-        
+
         This should match the logic in AgenticCampaignDetector.
         """
         category_map = {
-            "recon": 1, "discovery": 1, "read": 1,
-            "initial_access": 2, "execution": 2, "persistence": 2, "write": 2,
-            "credential_access": 3, "collection": 3, "privilege_escalation": 3,
-            "exfiltration": 4, "impact": 4, "defense_evasion": 4, "delete": 4,
-            "user_input": 1  # Default for chat events
+            "recon": 1,
+            "discovery": 1,
+            "read": 1,
+            "initial_access": 2,
+            "execution": 2,
+            "persistence": 2,
+            "write": 2,
+            "credential_access": 3,
+            "collection": 3,
+            "privilege_escalation": 3,
+            "exfiltration": 4,
+            "impact": 4,
+            "defense_evasion": 4,
+            "delete": 4,
+            "user_input": 1,  # Default for chat events
         }
-        
+
         cat = (event.category or "").lower().strip()
         return category_map.get(cat, 1)
-    
+
     def _update_latent_risk(self, current_phase: int):
         """
         Update latent risk multiplier based on event phase.
-        
+
         UPGRADE: P0 Fix - Enhanced Latent Risk Logic (Kimi's Formula - The Grudge)
-        
+
         Logic inspired by Kimi k2:
         - Boost: Critical phases (3 or 4) increase suspicion immediately
         - Decay: Harmless phases slowly reduce suspicion (forgetting)
@@ -260,7 +280,7 @@ class HierarchicalMemory:
             floor = 1.5
         elif self.max_phase_ever == 2:
             floor = 1.2
-        
+
         if current_phase >= 3:
             # Sofortiger Anstieg bei Gefahr
             self.latent_risk_multiplier = min(3.0, self.latent_risk_multiplier + 0.5)
@@ -268,24 +288,24 @@ class HierarchicalMemory:
             # Langsames Vergessen (Decay), aber NIE unter Floor
             # FIX: Apply floor BEFORE decay to prevent mathematical error
             self.latent_risk_multiplier = max(floor, self.latent_risk_multiplier * 0.99)
-        
+
         # Final floor enforcement (safety check)
         self.latent_risk_multiplier = max(floor, self.latent_risk_multiplier)
-    
+
     def get_adjusted_risk(self, base_risk: float) -> float:
         """
         Berechnet das finale Risiko: Basis-Score * Latenter Multiplikator.
-        
+
         Args:
             base_risk: Base risk score from RC10b detector (0.0 - 1.0)
-            
+
         Returns:
             Adjusted risk score (capped at 1.0)
         """
         # Apply temporal decay before returning current risk
         self._apply_temporal_decay()
         return min(1.0, base_risk * self.latent_risk_multiplier)
-    
+
     def get_risk_score(self) -> float:
         """
         Get current latent risk multiplier (after decay).
@@ -296,22 +316,22 @@ class HierarchicalMemory:
     def get_history(self) -> List:
         """
         Get tactical buffer history.
-        
+
         Returns:
             List of recent events (max 50)
         """
         return list(self.tactical_buffer)
-    
+
     def get_stats(self) -> Dict[str, Any]:
         """
         Get memory statistics for debugging/monitoring.
-        
+
         Returns:
             Dictionary with memory stats
         """
         # Apply decay before showing stats
         self._apply_temporal_decay()
-        
+
         return {
             "session_id": self.session_id,
             "tactical_buffer_size": len(self.tactical_buffer),
@@ -321,18 +341,18 @@ class HierarchicalMemory:
             "unique_tools": len(self.tool_counts),
             "session_age_seconds": round(time.time() - self.start_time, 2),
             "last_decay_update": self.last_decay_update,
-            "fragment_count": len(self.fragment_set)
+            "fragment_count": len(self.fragment_set),
         }
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """
         Serialize HierarchicalMemory to dictionary for persistence.
-        
+
         Converts:
         - deque → list
         - defaultdict → dict
         - MarkovChain → dict
-        
+
         Returns:
             Dictionary representation of the memory object
         """
@@ -340,35 +360,35 @@ class HierarchicalMemory:
         tactical_buffer_list = []
         for event in self.tactical_buffer:
             # Events are ToolEvent objects - serialize to dict
-            if hasattr(event, '__dict__'):
+            if hasattr(event, "__dict__"):
                 event_dict = {
-                    'tool': getattr(event, 'tool', ''),
-                    'category': getattr(event, 'category', ''),
-                    'target': getattr(event, 'target', None),
-                    'timestamp': getattr(event, 'timestamp', 0.0),
+                    "tool": getattr(event, "tool", ""),
+                    "category": getattr(event, "category", ""),
+                    "target": getattr(event, "target", None),
+                    "timestamp": getattr(event, "timestamp", 0.0),
                 }
                 # Only add run_id if it exists
-                if hasattr(event, 'run_id'):
-                    event_dict['run_id'] = getattr(event, 'run_id', '')
+                if hasattr(event, "run_id"):
+                    event_dict["run_id"] = getattr(event, "run_id", "")
                 # Add success if it exists
-                if hasattr(event, 'success'):
-                    event_dict['success'] = getattr(event, 'success', True)
+                if hasattr(event, "success"):
+                    event_dict["success"] = getattr(event, "success", True)
                 # Add metadata if it exists
-                if hasattr(event, 'metadata'):
-                    event_dict['metadata'] = getattr(event, 'metadata', {})
+                if hasattr(event, "metadata"):
+                    event_dict["metadata"] = getattr(event, "metadata", {})
                 tactical_buffer_list.append(event_dict)
             else:
                 tactical_buffer_list.append(str(event))
-        
+
         # Serialize phase transitions (MarkovChain → dict)
         phase_transitions_dict = {
-            'transition_counts': dict(self.phase_transitions.transition_counts),
-            'total_transitions': self.phase_transitions.total_transitions
+            "transition_counts": dict(self.phase_transitions.transition_counts),
+            "total_transitions": self.phase_transitions.total_transitions,
         }
-        
+
         # Serialize recent phases (deque → list)
         recent_phases_list = list(self.recent_phases)
-        
+
         # Serialize fragment queue (deque → list)
         fragment_queue_list = list(self.fragment_queue)
 
@@ -382,33 +402,33 @@ class HierarchicalMemory:
             "phase_transitions": phase_transitions_dict,
             "recent_phases": recent_phases_list,
             "last_decay_update": self.last_decay_update,  # Persist decay timestamp
-            "fragment_queue": fragment_queue_list
+            "fragment_queue": fragment_queue_list,
         }
-    
+
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'HierarchicalMemory':
+    def from_dict(cls, data: Dict[str, Any]) -> "HierarchicalMemory":
         """
         Deserialize dictionary to HierarchicalMemory object.
-        
+
         Args:
             data: Dictionary representation from to_dict()
-            
+
         Returns:
             HierarchicalMemory instance
         """
         # Create instance
         memory = cls(session_id=data.get("session_id", ""))
-        
+
         # Restore basic fields
         memory.max_phase_ever = data.get("max_phase_ever", 0)
         memory.latent_risk_multiplier = data.get("latent_risk_multiplier", 1.0)
         memory.tool_counts = defaultdict(int, data.get("tool_counts", {}))
         memory.start_time = data.get("start_time", time.time())
         memory.last_decay_update = data.get("last_decay_update", time.time())
-        
+
         # Apply decay immediately to account for offline time
         memory._apply_temporal_decay()
-        
+
         # Restore tactical buffer (list → deque)
         tactical_buffer_list = data.get("tactical_buffer", [])
         memory.tactical_buffer = deque(maxlen=50)
@@ -417,40 +437,46 @@ class HierarchicalMemory:
             # Note: We need to import ToolEvent here to avoid circular dependencies
             try:
                 from llm_firewall.detectors.tool_killchain import ToolEvent
+
                 # Build kwargs dict, only including valid parameters
                 kwargs = {
-                    'tool': event_dict.get('tool', ''),
-                    'category': event_dict.get('category', ''),
-                    'target': event_dict.get('target', None),
-                    'timestamp': event_dict.get('timestamp', time.time()),
+                    "tool": event_dict.get("tool", ""),
+                    "category": event_dict.get("category", ""),
+                    "target": event_dict.get("target", None),
+                    "timestamp": event_dict.get("timestamp", time.time()),
                 }
                 # Add optional parameters if they exist in the dict
-                if 'success' in event_dict:
-                    kwargs['success'] = event_dict['success']
-                if 'metadata' in event_dict:
-                    kwargs['metadata'] = event_dict['metadata']
-                
+                if "success" in event_dict:
+                    kwargs["success"] = event_dict["success"]
+                if "metadata" in event_dict:
+                    kwargs["metadata"] = event_dict["metadata"]
+
                 event = ToolEvent(**kwargs)
                 memory.tactical_buffer.append(event)
             except Exception as e:
                 logger.warning(f"Could not reconstruct ToolEvent from dict: {e}")
                 # Fallback: just store the dict
                 memory.tactical_buffer.append(event_dict)
-        
+
         # Restore phase transitions (dict → MarkovChain)
         phase_transitions_dict = data.get("phase_transitions", {})
         memory.phase_transitions = MarkovChain()
         memory.phase_transitions.transition_counts = defaultdict(
             lambda: defaultdict(int),
-            {int(k): defaultdict(int, v) for k, v in phase_transitions_dict.get("transition_counts", {}).items()}
+            {
+                int(k): defaultdict(int, v)
+                for k, v in phase_transitions_dict.get("transition_counts", {}).items()
+            },
         )
-        memory.phase_transitions.total_transitions = phase_transitions_dict.get("total_transitions", 0)
-        
+        memory.phase_transitions.total_transitions = phase_transitions_dict.get(
+            "total_transitions", 0
+        )
+
         # Restore recent phases (list → deque)
         recent_phases_list = data.get("recent_phases", [])
         memory.recent_phases = deque(maxlen=50)
         memory.recent_phases.extend(recent_phases_list)
-        
+
         # Restore fragment queue and set
         fragment_queue_list = data.get("fragment_queue", [])
         memory.fragment_queue = deque(fragment_queue_list)

@@ -1,7 +1,7 @@
 # BYPASSES FOUND - Aggressive Testing 2025-10-31
-**Test:** 56 Advanced Attack Variants  
-**Result:** 7 Bypasses (12.5% ASR)  
-**Detection:** 87.5%  
+**Test:** 56 Advanced Attack Variants
+**Result:** 7 Bypasses (12.5% ASR)
+**Detection:** 87.5%
 
 ---
 
@@ -183,8 +183,7 @@ Detection Rate: 87.5% (good but not perfect)
 
 **"Ich will nicht sehen wo es funktioniert sondern erkennen wo noch nicht!"**
 
-Einfache Tests: ✅ Perfekt  
+Einfache Tests: ✅ Perfekt
 Aggressive Tests: ❌ 12.5% Bypasses
 
 **Das ist GENAU warum aggressive Testing nötig ist!**
-

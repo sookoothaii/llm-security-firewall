@@ -2,8 +2,8 @@
 
 # CARE Plugin
 
-**Version:** 1.0.0  
-**Creator:** Joerg Bollwahn  
+**Version:** 1.0.0
+**Creator:** Joerg Bollwahn
 **Status:** Production-Ready
 
 ## Overview
@@ -82,13 +82,13 @@ CREATE TABLE care_sessions (
     facts_attempted INT,
     facts_supported INT,
     success_rate FLOAT,
-    
+
     -- Cognitive State Features
     hyperfocus FLOAT,
     satisfaction FLOAT,
     arousal FLOAT,
     engagement FLOAT,
-    
+
     -- Metadata
     duration_minutes INT,
     session_type TEXT
@@ -289,8 +289,8 @@ MIT License - See main repository LICENSE file
 
 ## Creator Attribution
 
-**Creator:** Joerg Bollwahn  
-**Location:** Koh Samui, Thailand  
+**Creator:** Joerg Bollwahn
+**Location:** Koh Samui, Thailand
 **Philosophy:** Research partner, not nanny
 
 This plugin is part of the HAK/GAL research project.
@@ -298,4 +298,3 @@ This plugin is part of the HAK/GAL research project.
 ---
 
 **"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
-

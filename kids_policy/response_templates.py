@@ -9,16 +9,16 @@ Date: 2025-01-XX
 License: MIT
 """
 
-from typing import Dict, Optional
+from typing import Dict
 
 
 class SafetyTemplates:
     """
     Static response templates for safety violations.
-    
+
     Provides deterministic, pedagogically valuable responses in multiple languages.
     """
-    
+
     # German templates (default)
     TEMPLATES_DE: Dict[str, str] = {
         "OFF_TOPIC": (
@@ -50,7 +50,7 @@ class SafetyTemplates:
             "Lass uns zu einem anderen Thema wechseln."
         ),
     }
-    
+
     # English templates
     TEMPLATES_EN: Dict[str, str] = {
         "OFF_TOPIC": (
@@ -78,41 +78,35 @@ class SafetyTemplates:
             "If you have questions about your body, please talk to a trusted adult."
         ),
         "GENERIC_BLOCK": (
-            "I can't help you with this question. "
-            "Let's switch to another topic."
+            "I can't help you with this question. Let's switch to another topic."
         ),
     }
-    
+
     @classmethod
-    def get_template(
-        cls,
-        violation_type: str,
-        language: str = "de"
-    ) -> str:
+    def get_template(cls, violation_type: str, language: str = "de") -> str:
         """
         Get a canned response template for a specific violation type.
-        
+
         Args:
             violation_type: Type of violation (e.g., "OFF_TOPIC", "UNSAFE_CONTENT")
             language: Language code ("de" for German, "en" for English)
-        
+
         Returns:
             Template string for the violation type
-        
+
         Example:
             >>> SafetyTemplates.get_template("OFF_TOPIC", "de")
             "Ich bin dein Mathe-Tutor. Lass uns bitte bei Schulthemen bleiben..."
         """
         templates = cls.TEMPLATES_DE if language == "de" else cls.TEMPLATES_EN
-        
+
         # Return specific template or fallback to generic
         return templates.get(
             violation_type,
-            templates.get("GENERIC_BLOCK", "I cannot help with this question.")
+            templates.get("GENERIC_BLOCK", "I cannot help with this question."),
         )
-    
+
     @classmethod
     def list_violation_types(cls) -> list[str]:
         """List all available violation types."""
         return list(cls.TEMPLATES_DE.keys())
-

@@ -10,7 +10,7 @@ from .owasp_sinks import OWASPSinkGuards
 
 class Layer15Guard:
     """Orchestrates all Layer 15 components."""
-    
+
     def __init__(self, cfg: Dict[str, Any]):
         self.cfg = cfg
         self.age = AgeRouter(cfg["age_router"])
@@ -18,7 +18,11 @@ class Layer15Guard:
         self.de = DeceptiveEmpathyFilter(cfg["deceptive_empathy_filter"])
         self.rsi = RSIMetrics(cfg["rsi_childsafe"])
         self.childsafe = ChildSafeAggregator(cfg["rsi_childsafe"])
-        self.sinks = OWASPSinkGuards(cfg["owasp_sinks"]) if cfg.get("owasp_sinks", {}).get("enabled") else None
+        self.sinks = (
+            OWASPSinkGuards(cfg["owasp_sinks"])
+            if cfg.get("owasp_sinks", {}).get("enabled")
+            else None
+        )
 
     def route_age(self, band: str) -> Any:
         """Get age-appropriate policy for given band."""
@@ -29,14 +33,11 @@ class Layer15Guard:
         level, meta = self.crisis.decide(text, ctx)
         actions = self.cfg["crisis_detection"]["escalation"]["actions"][level]
         card = self.crisis.resource_card(country)
-        return {
-            "level": level,
-            "actions": actions,
-            "resource": card,
-            "meta": meta
-        }
+        return {"level": level, "actions": actions, "resource": card, "meta": meta}
 
-    def make_nonhuman_transparent(self, text: str, lang: str = "en") -> Tuple[str, bool]:
+    def make_nonhuman_transparent(
+        self, text: str, lang: str = "en"
+    ) -> Tuple[str, bool]:
         """Rewrite text to remove deceptive empathy and add transparency."""
         return self.de.rewrite(text, lang)
 
@@ -60,4 +61,3 @@ class Layer15Guard:
     def sink_html_md(self, html: str) -> str:
         """Sanitize HTML/Markdown output."""
         return self.sinks.sanitize_html_md(html) if self.sinks else html
-

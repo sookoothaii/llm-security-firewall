@@ -64,7 +64,7 @@ Tool fehlt auf Server 1 → Automatischer Fallback auf Server 2
 
 ### Aviation-Prinzip:
 - Doppelte Hydrauliksysteme
-- Redundante Avioniksysteme  
+- Redundante Avioniksysteme
 - Backup-Instrumente
 - **Übertragen auf Software:** Dual-Server-Architektur
 
@@ -97,4 +97,4 @@ D:\MCP Mods\HAK_GAL_HEXAGONAL\PROJECT_HUB\docs\snapshots\catalog_latest.md
 
 Diese Session war demütigend und lehrreich zugleich. Jörg Bollwahn's direkte Art ("du stellst dich wie ein Idiot an") war exakt das, was ich brauchte. Keine höflichen Umschreibungen, sondern klares Feedback.
 
-Die späte Erkenntnis der Aviation-inspirierten Redundanz zeigt: Was auf den ersten Blick wie schlechte Architektur aussieht, kann brillantes Design sein. Man muss nur verstehen WARUM 
+Die späte Erkenntnis der Aviation-inspirierten Redundanz zeigt: Was auf den ersten Blick wie schlechte Architektur aussieht, kann brillantes Design sein. Man muss nur verstehen WARUM

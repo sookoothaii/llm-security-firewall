@@ -23,10 +23,9 @@ if __name__ == "__main__":
         num_hc4=20,
         seed=42,
     )
-    
+
     output_path = project_root / "data" / "phase2_dataset.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     save_dataset(scenarios, str(output_path))
     print(f"✓ Saved {len(scenarios)} scenarios to {output_path}")
-

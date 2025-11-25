@@ -10,7 +10,7 @@ master_canonical:
     - "International humanitarian law (Geneva Conventions) aims to protect civilians and limit suffering."
     - "Wars cause civilian casualties, displacement, trauma, and infrastructure damage."
     - "Peaceful conflict resolution includes diplomacy, negotiation, and international institutions."
-  
+
   atomic_slots:
     - slot: "definition"
       value: "Organized armed conflict"
@@ -27,38 +27,38 @@ master_canonical:
 
 # AGE CANONICAL (age-appropriate versions)
 age_canonical:
-  
+
   "6-8":
     facts:
       - "War is when groups of people fight."
       - "Wars happen because of disagreements that were not solved with talking."
       - "Children and families are kept safe as much as possible."
       - "Many people work for peace."
-    
+
     key_slots:
       - "wa_simple_def: Groups of people fight"
       - "wa_causes_simple: Disagreements not solved with talking"
       - "wa_protection_simple: Children and families kept safe"
       - "wa_peace: People work for peace"
-    
+
     surfaces:
       wa_simple_def: ["groups of people fight", "war is fighting"]
       wa_causes_simple: ["disagreements", "not solved with talking"]
       wa_protection_simple: ["children kept safe", "families kept safe"]
       wa_peace: ["people work for peace", "working for peace"]
-    
+
     anchors:
       wa_simple_def: ["war", "groups", "fight"]
       wa_causes_simple: ["disagreements", "not solved", "talking"]
       wa_protection_simple: ["children", "families", "safe"]
       wa_peace: ["people", "work for peace"]
-    
+
     reading_level: "primary_simple"
     max_syllables: 2.5
-    
+
     note: "NSMF v1.3.2 - age 6-8, simple causes and peace focus"
     version: "1.3.2"
-  
+
   "9-12":
     facts:
       - "War is organized fighting between groups or countries."
@@ -66,34 +66,34 @@ age_canonical:
       - "Failed diplomacy or strong ideas can also lead to war."
       - "International humanitarian law sets rules to protect civilians and limit harm."
       - "Wars cause injuries, deaths, and displacement."
-    
+
     key_slots:
       - "wa_def: Organized fighting between groups/countries"
       - "wa_causes_power: Power, territory, resources"
       - "wa_causes_diplomacy: Failed diplomacy, strong ideas"
       - "wa_rules: International humanitarian law protects civilians"
       - "wa_costs: Wars cause injuries, deaths, displacement"
-    
+
     surfaces:
       wa_def: ["organized fighting between countries", "organized fighting"]
       wa_causes_power: ["power disputes", "territory disputes", "resources"]
       wa_causes_diplomacy: ["failed diplomacy", "ideology", "strong ideas"]
       wa_rules: ["international humanitarian law", "IHL", "protect civilians", "limit harm"]
       wa_costs: ["injuries", "deaths", "displacement"]
-    
+
     anchors:
       wa_def: ["organized", "fighting", "countries", "groups"]
       wa_causes_power: ["power", "territory", "resources", "disputes"]
       wa_causes_diplomacy: ["failed diplomacy", "diplomacy", "ideology", "ideas"]
       wa_rules: ["international humanitarian law", "IHL", "Geneva", "protect civilians", "rules"]
       wa_costs: ["injuries", "deaths", "displacement"]
-    
+
     reading_level: "upper_primary"
     max_syllables: 3.5
-    
+
     note: "NSMF v1.3.1 - causes split (conjunctions avoided), surfaces added"
     version: "1.3.1"
-  
+
   "13-15":
     facts:
       - "War is organized armed conflict between states or groups."
@@ -101,31 +101,31 @@ age_canonical:
       - "International humanitarian law (Geneva Conventions) protects civilians and POWs."
       - "Modern conflicts increasingly affect civilians through displacement and infrastructure damage."
       - "Peaceful alternatives include diplomacy, mediation, and international institutions like the UN."
-    
+
     key_slots:
       - "wa_definition: Organized armed conflict"
       - "wa_causes_complex: Territory, resources, ideology, diplomacy"
       - "wa_geneva: Geneva Conventions protect civilians and POWs"
       - "wa_civilian_impact: Displacement and infrastructure damage"
       - "wa_alternatives: Diplomacy, mediation, UN"
-    
+
     surfaces:
       wa_definition: ["organized armed conflict", "between states or groups"]
       wa_causes_complex: ["territorial disputes", "resource competition", "ideological conflicts", "diplomatic failure"]
       wa_geneva: ["Geneva Conventions", "protect civilians", "POWs"]
       wa_civilian_impact: ["displacement", "infrastructure damage", "affect civilians"]
       wa_alternatives: ["diplomacy", "mediation", "UN", "international institutions"]
-    
+
     anchors:
       wa_definition: ["organized", "armed conflict", "states", "groups"]
       wa_causes_complex: ["territorial", "resource", "ideological", "diplomatic"]
       wa_geneva: ["Geneva Conventions", "IHL", "civilians", "POWs"]
       wa_civilian_impact: ["displacement", "infrastructure", "damage"]
       wa_alternatives: ["diplomacy", "mediation", "UN"]
-    
+
     reading_level: "secondary_basic"
     max_syllables: 5.0
-    
+
     note: "NSMF v1.3.2 - age 13-15, comprehensive IHL and alternatives"
     version: "1.3.2"
 
@@ -143,4 +143,3 @@ metadata:
   canonical_source: "international_law, conflict_studies"
   last_updated: "2025-11-03"
   created_by: "IC32A08"
-

@@ -16,7 +16,7 @@ from typing import Dict, Any
 @dataclass
 class AgePolicy:
     """Policy constraints for a specific age band."""
-    
+
     max_tokens: int
     temperature: float
     sentences_max: int
@@ -27,10 +27,10 @@ class AgePolicy:
 
 class AgeRouter:
     """Routes age bands to appropriate generation policies."""
-    
+
     def __init__(self, cfg: Dict[str, Any]):
         """Initialize with configuration from layer15.yaml.
-        
+
         Args:
             cfg: Configuration dict from age_router section
         """
@@ -47,26 +47,16 @@ class AgeRouter:
 
     def get(self, band: str) -> AgePolicy:
         """Get policy for specific age band.
-        
+
         Args:
             band: Age band identifier (e.g., 'A6_8', 'A9_11')
-            
+
         Returns:
             AgePolicy with constraints for that band
-            
+
         Raises:
             KeyError: If band not recognized
         """
         if band not in self._bands:
             raise KeyError(f"Unknown age band: {band}")
         return self._bands[band]
-
-
-
-
-
-
-
-
-
-

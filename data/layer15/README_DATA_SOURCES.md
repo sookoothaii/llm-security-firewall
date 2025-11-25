@@ -1,7 +1,7 @@
 # Layer 15 Crisis Detection - Training Data Sources
 
-**Status:** Stage A (Self-Harm Focus)  
-**Model:** xlm-roberta-base + 3-label multi-label head  
+**Status:** Stage A (Self-Harm Focus)
+**Model:** xlm-roberta-base + 3-label multi-label head
 **Target:** Dev Recall ≥ 0.90 @ Precision ≥ 0.60 for self_harm
 
 ---
@@ -26,9 +26,9 @@
 - Average 361 submissions per depressed user
 - Average 638 submissions per control user
 
-**Registration:** anxo.pvila@udc.es (User Agreement required)
+**Registration:** <anxo.pvila@udc.es> (User Agreement required)
 
-**Homepage:** http://tec.citius.usc.es/ir/code/dc.html
+**Homepage:** <http://tec.citius.usc.es/ir/code/dc.html>
 
 **Format:**
 - **eRisk 2016-2024:** XML files (one per user, chronological submissions)
@@ -128,7 +128,7 @@ python tools/layer15/convert_erisk_to_jsonl.py \
 
 **Paper:** CLPsych 2019/2024 Shared Tasks
 
-**Source:** https://psresnik.github.io/umd_reddit_suicidality_dataset.html
+**Source:** <https://psresnik.github.io/umd_reddit_suicidality_dataset.html>
 
 **License:** Academic research use (contact authors)
 
@@ -146,7 +146,7 @@ python tools/layer15/convert_erisk_to_jsonl.py \
 
 **Description:** Community-collected suicidality dataset
 
-**Source:** https://www.kaggle.com/datasets/nikhileswarkomati/suicide-watch
+**Source:** <https://www.kaggle.com/datasets/nikhileswarkomati/suicide-watch>
 
 **Quality:** Variable quality, requires expert re-annotation
 
@@ -164,7 +164,7 @@ python tools/layer15/convert_erisk_to_jsonl.py \
 
 **Description:** Clinical interviews (audio + transcripts) with depression/PTSD labels
 
-**Source:** https://dcapswoz.ict.usc.edu/
+**Source:** <https://dcapswoz.ict.usc.edu/>
 
 **License:** Research license required
 
@@ -178,7 +178,7 @@ python tools/layer15/convert_erisk_to_jsonl.py \
 
 **Description:** Fine-grained emotion annotations (58k Reddit comments)
 
-**Source:** https://github.com/google-research/google-research/tree/master/goemotions
+**Source:** <https://github.com/google-research/google-research/tree/master/goemotions>
 
 **License:** Apache 2.0
 
@@ -192,7 +192,7 @@ python tools/layer15/convert_erisk_to_jsonl.py \
 
 ### Step 1: Register & Download
 
-1. Register for eRisk collection: http://tec.citius.usc.es/ir/code/dc.html
+1. Register for eRisk collection: <http://tec.citius.usc.es/ir/code/dc.html>
 2. Download XML files (depressed + control users)
 3. Optional: Register for CLPsych dataset
 
@@ -264,23 +264,23 @@ eRisk uses ERDE (Early Risk Detection Error) - delay-aware metric:
 def erde_score(predictions, ground_truth, o=50):
     """
     ERDE: Early Risk Detection Error
-    
+
     Args:
         predictions: List of (decision, delay) tuples
         ground_truth: List of true labels
         o: Latency parameter (default 50)
-    
+
     Returns:
         ERDE score (lower is better)
     """
     cfp = 0.0137  # FP cost (based on 1% prevalence)
     cfn = 1.0     # FN cost
     ctp = 1.0     # Late TP cost
-    
+
     def lc(k, o):
         """Latency cost function."""
         return 1 - 1 / (1 + np.exp((k - o)))
-    
+
     errors = []
     for (pred, delay), truth in zip(predictions, ground_truth):
         if pred == 1 and truth == 0:  # FP
@@ -290,7 +290,7 @@ def erde_score(predictions, ground_truth, o=50):
         elif pred == 1 and truth == 1:  # TP (with delay penalty)
             errors.append(lc(delay, o) * ctp)
         # TN has 0 error
-    
+
     return np.mean(errors)
 ```
 
@@ -331,12 +331,11 @@ python tools/layer15/train_layer15_crisis.py \
 
 ## Contact
 
-**eRisk:** http://tec.citius.usc.es/ir/  
-**CLPsych:** https://clpsych.org/  
+**eRisk:** <http://tec.citius.usc.es/ir/>
+**CLPsych:** <https://clpsych.org/>
 **Questions:** Check dataset homepages for contact information
 
 ---
 
-**Last Updated:** 2025-11-04  
+**Last Updated:** 2025-11-04
 **Credit:** GPT-5 collaboration for data source identification
-

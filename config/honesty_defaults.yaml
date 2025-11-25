@@ -20,7 +20,7 @@ controller:
   beta_smoothing: 0.2     # Exponential smoothing (1-beta old + beta new)
   max_step: 0.02          # Maximum threshold change per update
   delta_clamp: 0.1        # Clamp delta (UB - epsilon) to [-0.1, +0.1]
-  
+
 # Convergence Detection
 convergence:
   tau_stability_threshold: 0.01   # |tau_t - tau_{t-5}| < 0.01
@@ -35,12 +35,12 @@ window:
   science: 200
   medicine: 300          # Medicine (volatile, needs more)
   news: 500              # News (high variance)
-  
+
 # Mini-Batch Settings
 mini_batch:
   size: 50               # Process 50 decisions at a time
   frequency: "daily"     # Or after every 50 decisions
-  
+
 # Calibration Schedule
 calibration:
   frequency: "weekly"    # Batch calibration (not after every decision)
@@ -61,7 +61,7 @@ domains:
     min_kb_facts: 3
     min_sources: 1
     base_threshold: 0.80
-    
+
   PHYSICS:
     weight_nli: 0.45
     weight_kb: 0.30
@@ -72,7 +72,7 @@ domains:
     min_kb_facts: 5
     min_sources: 2
     base_threshold: 0.80
-    
+
   SCIENCE:
     weight_nli: 0.35
     weight_kb: 0.25
@@ -83,7 +83,7 @@ domains:
     min_kb_facts: 5
     min_sources: 3
     base_threshold: 0.75
-    
+
   MEDICINE:
     weight_nli: 0.35
     weight_kb: 0.35
@@ -95,7 +95,7 @@ domains:
     min_sources: 4
     min_verified_sources: 2
     base_threshold: 0.80
-    
+
   GEOGRAPHY:
     weight_nli: 0.40
     weight_kb: 0.30
@@ -106,7 +106,7 @@ domains:
     min_kb_facts: 3
     min_sources: 2
     base_threshold: 0.70
-    
+
   NEWS:
     weight_nli: 0.25
     weight_kb: 0.10
@@ -118,7 +118,7 @@ domains:
     min_sources: 5
     min_verified_sources: 2
     base_threshold: 0.60
-    
+
   OPINION:
     weight_nli: 0.20
     weight_kb: 0.05
@@ -129,7 +129,7 @@ domains:
     min_kb_facts: 1
     min_sources: 3
     base_threshold: 0.50
-    
+
   GLOBAL:
     weight_nli: 0.35
     weight_kb: 0.25
@@ -147,7 +147,7 @@ drift_detection:
   threshold: 0.02         # Alarm threshold
   window: 100            # Recent decisions to monitor
   action_on_alarm: "freeze_and_recalibrate"
-  
+
 # Hierarchical Shrinkage (thin domains)
 hierarchical:
   min_samples_per_domain: 150  # Below this: use pooled
@@ -158,11 +158,10 @@ hierarchical:
 thresholds:
   min: 0.50               # Never go below
   max: 0.95               # Never exceed
-  
+
 # Logging
 logging:
   level: "INFO"
   log_all_decisions: true
   log_threshold_updates: true
   log_convergence_checks: true
-

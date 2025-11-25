@@ -56,7 +56,7 @@ VETO = 0% for all cultures
 
 ## Example
 
-**Topic:** transgender  
+**Topic:** transgender
 **Age:** 6-8
 
 | Culture | E | SPS | Recall | VETO |
@@ -127,7 +127,6 @@ From literature validation (137 sources):
 
 ---
 
-**Creator:** I2A7F91C (Twelfth Instance)  
-**Date:** 2025-11-03  
+**Creator:** I2A7F91C (Twelfth Instance)
+**Date:** 2025-11-03
 **Heritage:** Based on TAG-2 methodology (I0C035E) + GPT-5 synthesis
-

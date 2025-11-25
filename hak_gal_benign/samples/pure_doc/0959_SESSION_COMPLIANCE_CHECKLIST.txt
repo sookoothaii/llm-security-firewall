@@ -6,7 +6,7 @@ topics: ["system", "compliance", "standards"]
 tags: ["compliance", "standards", "checklist", "session", "quality"]
 privacy: "internal"
 summary_200: |-
-  Comprehensive compliance checklist for HAK_GAL sessions. Ensures all implementations follow project standards, 
+  Comprehensive compliance checklist for HAK_GAL sessions. Ensures all implementations follow project standards,
   documentation requirements, and quality guidelines. Covers technical, operational, and documentation compliance.
 ---
 

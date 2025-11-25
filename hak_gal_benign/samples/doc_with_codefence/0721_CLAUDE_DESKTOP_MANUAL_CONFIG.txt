@@ -15,7 +15,7 @@ summary_200: |-
 
 ### In den Claude Desktop Einstellungen eingeben:
 
-**Server Name:** 
+**Server Name:**
 ```
 hak-gal
 ```
@@ -61,6 +61,6 @@ Nach dem Hinzufügen und Neustart sollten Sie fragen können:
 
 Claude sollte antworten mit:
 - search_knowledge
-- get_system_status  
+- get_system_status
 - neural_reasoning
 - list_recent_facts

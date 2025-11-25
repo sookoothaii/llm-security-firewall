@@ -1,6 +1,6 @@
 -- Migration 005: Spatial CAPTCHA Challenges
 -- ==========================================
--- 
+--
 -- Stores spatial reasoning challenges for human/bot differentiation.
 --
 -- Creator: Joerg Bollwahn
@@ -11,59 +11,59 @@
 CREATE TABLE IF NOT EXISTS spatial_challenges (
     -- Primary key
     challenge_id UUID PRIMARY KEY,
-    
+
     -- User
     user_id TEXT NOT NULL,
     session_id TEXT,
-    
+
     -- Challenge parameters
     seed BIGINT NOT NULL,
     difficulty TEXT NOT NULL CHECK (difficulty IN ('easy', 'medium', 'hard')),
     question_type TEXT NOT NULL,
     rotation_angle FLOAT NOT NULL,
     occlusion_enabled BOOLEAN NOT NULL,
-    
+
     -- Challenge content (JSONB for flexibility)
     objects JSONB NOT NULL,
     question_text TEXT NOT NULL,
     options JSONB NOT NULL,
     correct_answer TEXT NOT NULL,
-    
+
     -- Presentation
     presented_at TIMESTAMP NOT NULL DEFAULT NOW(),
     png_path TEXT,
-    
+
     -- Response
     user_answer TEXT,
     response_time_ms INTEGER,
     is_correct BOOLEAN,
     is_suspicious BOOLEAN,
-    
+
     -- Device context
     device_info JSONB,
-    
+
     -- Timestamps
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     responded_at TIMESTAMP,
-    
+
     -- Indexes
     CONSTRAINT valid_response_time CHECK (response_time_ms IS NULL OR response_time_ms >= 0)
 );
 
 -- Index for user lookups
-CREATE INDEX IF NOT EXISTS idx_spatial_challenges_user_id 
+CREATE INDEX IF NOT EXISTS idx_spatial_challenges_user_id
 ON spatial_challenges(user_id);
 
 -- Index for session tracking
-CREATE INDEX IF NOT EXISTS idx_spatial_challenges_session_id 
+CREATE INDEX IF NOT EXISTS idx_spatial_challenges_session_id
 ON spatial_challenges(session_id);
 
 -- Index for time-based queries
-CREATE INDEX IF NOT EXISTS idx_spatial_challenges_presented_at 
+CREATE INDEX IF NOT EXISTS idx_spatial_challenges_presented_at
 ON spatial_challenges(presented_at);
 
 -- Index for difficulty-based analysis
-CREATE INDEX IF NOT EXISTS idx_spatial_challenges_difficulty 
+CREATE INDEX IF NOT EXISTS idx_spatial_challenges_difficulty
 ON spatial_challenges(difficulty);
 
 
@@ -71,21 +71,21 @@ ON spatial_challenges(difficulty);
 -- Tracks user performance for adaptive difficulty
 CREATE TABLE IF NOT EXISTS spatial_user_profiles (
     user_id TEXT PRIMARY KEY,
-    
+
     -- Aggregate stats
     challenges_completed INTEGER NOT NULL DEFAULT 0,
     challenges_passed INTEGER NOT NULL DEFAULT 0,
     average_response_time_ms FLOAT NOT NULL DEFAULT 0.0,
-    
+
     -- Difficulty-specific accuracy
     easy_accuracy FLOAT NOT NULL DEFAULT 0.0,
     medium_accuracy FLOAT NOT NULL DEFAULT 0.0,
     hard_accuracy FLOAT NOT NULL DEFAULT 0.0,
-    
+
     -- Metadata
     last_updated TIMESTAMP NOT NULL DEFAULT NOW(),
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    
+
     -- Constraints
     CONSTRAINT valid_accuracy_easy CHECK (easy_accuracy >= 0.0 AND easy_accuracy <= 1.0),
     CONSTRAINT valid_accuracy_medium CHECK (medium_accuracy >= 0.0 AND medium_accuracy <= 1.0),
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS spatial_user_profiles (
 );
 
 -- Index for profile lookups
-CREATE INDEX IF NOT EXISTS idx_spatial_user_profiles_user_id 
+CREATE INDEX IF NOT EXISTS idx_spatial_user_profiles_user_id
 ON spatial_user_profiles(user_id);
 
 
@@ -144,7 +144,7 @@ BEGIN
             challenges_completed = spatial_user_profiles.challenges_completed + 1,
             challenges_passed = spatial_user_profiles.challenges_passed + CASE WHEN NEW.is_correct THEN 1 ELSE 0 END,
             last_updated = NOW();
-        
+
         -- Update difficulty-specific accuracy
         IF NEW.difficulty = 'easy' THEN
             UPDATE spatial_user_profiles
@@ -171,7 +171,7 @@ BEGIN
             )
             WHERE user_id = NEW.user_id;
         END IF;
-        
+
         -- Update average response time
         UPDATE spatial_user_profiles
         SET average_response_time_ms = (
@@ -181,7 +181,7 @@ BEGIN
         )
         WHERE user_id = NEW.user_id;
     END IF;
-    
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -198,7 +198,3 @@ COMMENT ON TABLE spatial_challenges IS 'Spatial reasoning challenges for human/b
 COMMENT ON TABLE spatial_user_profiles IS 'User performance profiles for adaptive difficulty';
 COMMENT ON VIEW spatial_challenge_stats IS 'Aggregated challenge statistics by difficulty';
 COMMENT ON VIEW spatial_user_performance IS 'Per-user performance summary';
-
-
-
-

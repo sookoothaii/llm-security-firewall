@@ -11,9 +11,9 @@ summary_200: "Vollständiger Katalog aller PROJECT_HUB Dokumente mit 425 Einträ
 
 # PROJECT_HUB Katalog - 2025-09-17
 
-**Generiert:** 2025-09-17 21:55:15  
-**Dokumente:** 425  
-**Mit Frontmatter:** 425 (100%)  
+**Generiert:** 2025-09-17 21:55:15
+**Dokumente:** 425
+**Mit Frontmatter:** 425 (100%)
 **Generator:** Claude-Opus-4.1
 
 ## Status-Übersicht

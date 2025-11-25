@@ -13,10 +13,10 @@ summary_200: |-
 
 # PROJECT_HUB Katalog - 15.09.2025
 
-**Generiert:** 2025-09-15 00:16:00  
-**Dokumente:** 188  
-**Phase:** 1 (Minimal-Frontmatter)  
-**Mit Frontmatter:** 2 (die neuen Constitution-Dokumente)  
+**Generiert:** 2025-09-15 00:16:00
+**Dokumente:** 188
+**Phase:** 1 (Minimal-Frontmatter)
+**Mit Frontmatter:** 2 (die neuen Constitution-Dokumente)
 **Ohne Frontmatter:** 186 (Bestandsdokumente)
 
 ## Status-Übersicht

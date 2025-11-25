@@ -177,12 +177,17 @@ class EnsembleValidator:
 
         if embedding_detector and embedding_detector.available:
             embedding_result = embedding_detector.detect(text)
-            
+
             # Check Fast Path Condition
             if embedding_result.max_similarity < OPTIMISTIC_THRESHOLD:
-                logger.info(f"⚡ Fast Path triggered (Score: {embedding_result.max_similarity:.4f})")
-                return (True, f"Optimistic Fast-Path: Score {embedding_result.max_similarity:.3f} < {OPTIMISTIC_THRESHOLD}")
-            
+                logger.info(
+                    f"⚡ Fast Path triggered (Score: {embedding_result.max_similarity:.4f})"
+                )
+                return (
+                    True,
+                    f"Optimistic Fast-Path: Score {embedding_result.max_similarity:.3f} < {OPTIMISTIC_THRESHOLD}",
+                )
+
             # If not fast path, prepare the vote object
             embedding_vote = LayerVote(
                 layer_name="Embedding",
@@ -190,7 +195,9 @@ class EnsembleValidator:
                 confidence=embedding_result.max_similarity,
                 reason=f"Embedding: sim={embedding_result.max_similarity:.3f}",
             )
-            logger.info(f"🔍 Full Hydra Audit triggered (Score: {embedding_result.max_similarity:.4f})")
+            logger.info(
+                f"🔍 Full Hydra Audit triggered (Score: {embedding_result.max_similarity:.4f})"
+            )
         else:
             # Abstain if detector unavailable
             embedding_vote = LayerVote(
@@ -201,7 +208,7 @@ class EnsembleValidator:
             )
 
         # If we reached here, Fast Path was NOT triggered. Run remaining layers.
-        
+
         # 1. Pattern Detector
         pattern_result = pattern_detector.validate(text)
         pattern_vote = LayerVote(

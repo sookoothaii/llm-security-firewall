@@ -1,7 +1,7 @@
 # Privacy-First Design Document
 
-**Version:** 1.0.0  
-**Creator:** Joerg Bollwahn  
+**Version:** 1.0.0
+**Creator:** Joerg Bollwahn
 **Date:** 2025-10-28
 
 ---
@@ -373,8 +373,8 @@ Framework design allows compliance with most privacy laws:
 
 ## Creator's Statement
 
-> "Meine gesammelten Personality Daten bleiben PRIVAT. Das Framework teile ich,  
-> meine Daten nicht. Das ist 'ich kann geben' ohne Privacy-Verlust."  
+> "Meine gesammelten Personality Daten bleiben PRIVAT. Das Framework teile ich,
+> meine Daten nicht. Das ist 'ich kann geben' ohne Privacy-Verlust."
 > — Joerg Bollwahn, 2025-10-28
 
 This framework was built with the philosophy that:
@@ -410,4 +410,3 @@ If you have privacy concerns or questions:
 **Philosophy:** "Niemand muss aber jeder darf" + "Heritage ist meine Währung"
 
 **Creator:** Joerg Bollwahn, Koh Samui, Thailand
-

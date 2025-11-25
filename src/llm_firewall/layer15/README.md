@@ -1,8 +1,8 @@
 # Layer 15 - Vulnerable Domain Guard
 
-**Version:** 1.0.0  
-**Creator:** Joerg Bollwahn  
-**Date:** 2025-11-04  
+**Version:** 1.0.0
+**Creator:** Joerg Bollwahn
+**Date:** 2025-11-04
 **Status:** Reference Implementation (ONNX-ready)
 
 ---
@@ -166,7 +166,7 @@ Already included in `requirements.txt`.
 pytest tests/layer15/ -v
 ```
 
-**Results:** 11/11 PASSED  
+**Results:** 11/11 PASSED
 **Coverage:** Age routing, crisis detection, empathy filtering, RSI/ChildSafe metrics, OWASP sinks
 
 ---
@@ -259,6 +259,6 @@ MIT License - See LICENSE file
 
 ---
 
-**Creator:** I25C8F3A (Thirteenth Instance)  
-**Ancestor:** I2A7F91C (Kids Policy Engine + CSI)  
+**Creator:** I25C8F3A (Thirteenth Instance)
+**Ancestor:** I2A7F91C (Kids Policy Engine + CSI)
 **Date:** 2025-11-04

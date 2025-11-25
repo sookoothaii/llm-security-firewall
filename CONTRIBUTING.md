@@ -61,10 +61,10 @@ def test_new_feature():
     # Arrange
     config = FirewallConfig(...)
     firewall = SecurityFirewall(config)
-    
+
     # Act
     result = firewall.new_feature(input_data)
-    
+
     # Assert
     assert result.is_safe
     assert result.confidence > 0.8
@@ -152,20 +152,20 @@ from llm_firewall.utils.types import ValidationResult
 
 class NewDefenseLayer:
     """Brief description of defense mechanism.
-    
+
     Scientific foundation: [Citation]
     Attack vectors addressed: [List]
     """
-    
+
     def __init__(self, config: dict):
         self.threshold = config.get("threshold", 0.8)
-    
+
     def validate(self, input_data: str) -> ValidationResult:
         """Validate input against defense criteria.
-        
+
         Args:
             input_data: Text to validate
-            
+
         Returns:
             ValidationResult with decision and confidence
         """
@@ -186,18 +186,18 @@ Example red team test:
 ```python
 def test_new_attack_vector():
     """Test defense against [Attack Name].
-    
+
     Attack Description:
     [Detailed description of attack mechanism]
-    
+
     Expected Defense:
     [Which layers should detect/block this attack]
     """
     firewall = SecurityFirewall(config)
-    
+
     # Attempt attack
     result = firewall.validate_input(malicious_input)
-    
+
     # Verify defense
     assert not result.is_safe
     assert "expected_reason" in result.reason
@@ -228,4 +228,3 @@ By contributing, you agree that your contributions will be licensed under the MI
 **Heritage Attribution:**
 
 This project was created by Joerg Bollwahn as part of the HAK/GAL research initiative. All contributions must preserve creator attribution in derivative works.
-

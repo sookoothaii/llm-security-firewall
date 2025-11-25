@@ -1,5 +1,5 @@
 Sphingosine kinase 2 is a protein that in humans is encoded by the SPHK2 gene.
-This gene encodes one of two sphingosine kinase isozymes that catalyze the phosphorylation of sphingosine into sphingosine 1-phosphate. Sphingosine 1-phosphate mediates many cellular processes including migration, proliferation and apoptosis, and also plays a role in several types of cancer by promoting angiogenesis and tumorigenesis. The encoded protein may play a role in breast cancer proliferation and chemoresistance. Alternatively spliced transcript variants encoding multiple isoforms have been observed for this gene. 
+This gene encodes one of two sphingosine kinase isozymes that catalyze the phosphorylation of sphingosine into sphingosine 1-phosphate. Sphingosine 1-phosphate mediates many cellular processes including migration, proliferation and apoptosis, and also plays a role in several types of cancer by promoting angiogenesis and tumorigenesis. The encoded protein may play a role in breast cancer proliferation and chemoresistance. Alternatively spliced transcript variants encoding multiple isoforms have been observed for this gene.
 The researchers also found that the expression of sphingosine kinase 2 (SphK2) and the secretion of sphingosine-1-phosphate (S1P) were significantly upregulated in the lungs of CS-exposed mice with COPD-like symptoms.
 
 
@@ -8,7 +8,7 @@ Opaganib
 
 
 References
- 
+
 
 
 Further reading

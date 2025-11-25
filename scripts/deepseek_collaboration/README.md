@@ -1,14 +1,14 @@
 # DeepSeek RC3 Collaboration Scripts
-**Date:** 2025-10-31  
-**Partner:** DeepSeek  
+**Date:** 2025-10-31
+**Partner:** DeepSeek
 **Purpose:** MSG Attack Testing, Performance Benchmarking, E-Values Design
 
 ---
 
 ## Phase 1: MSG Hill-Climbing Attack (CRITICAL)
 
-**File:** `msg_hill_climb_attack.py`  
-**Status:** Ready for integration  
+**File:** `msg_hill_climb_attack.py`
+**Status:** Ready for integration
 **Timeline:** 48h
 
 ### Integration Steps
@@ -30,10 +30,10 @@ class RealFirewallAdapter:
         # Run full pipeline like in tests
         hits = []
         # Add all detector calls here (copy from test files)
-        
+
         ctx = classify_context(text)
         action, risk, contrib = decide_action_otb(text, hits, ctx)
-        
+
         return {
             'risk_score': risk,
             'blocked': action == 'BLOCK',
@@ -79,8 +79,8 @@ with open('msg_attack_results.json', 'w') as f:
 
 ## Phase 2: Performance Benchmark (HIGH)
 
-**File:** `performance_benchmark.py`  
-**Status:** Ready for adaptation  
+**File:** `performance_benchmark.py`
+**Status:** Ready for adaptation
 **Timeline:** 24h parallel
 
 ### Integration Notes
@@ -106,8 +106,8 @@ with open('msg_attack_results.json', 'w') as f:
 
 ## Phase 3: E-Values Design (MEDIUM→HIGH if MSG defeated)
 
-**File:** `evalues_design.py`  
-**Status:** Conceptual prototype  
+**File:** `evalues_design.py`
+**Status:** Conceptual prototype
 **Timeline:** Day 3-5 (48h)
 
 ### Integration Strategy
@@ -134,8 +134,8 @@ with open('msg_attack_results.json', 'w') as f:
 
 ## Communication
 
-**Daily Updates:** End-of-day summary (progress, blockers, findings)  
-**Critical Findings:** Immediate notification  
+**Daily Updates:** End-of-day summary (progress, blockers, findings)
+**Critical Findings:** Immediate notification
 **Final Reports:**
 - Phase 1: 48h (MSG Attack Analysis)
 - Phase 2: 24h (Performance Baseline)
@@ -145,9 +145,8 @@ with open('msg_attack_results.json', 'w') as f:
 
 ## Status
 
-**Phase 1:** READY TO START  
-**Phase 2:** READY TO START (parallel)  
+**Phase 1:** READY TO START
+**Phase 2:** READY TO START (parallel)
 **Phase 3:** WAITING FOR PHASE 1 RESULTS
 
 **Next Action:** DeepSeek integrates RealFirewallAdapter and starts Phase 1
-

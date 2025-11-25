@@ -22,7 +22,7 @@ PROBLEM:
 RECOMMENDED FIX:
   Zeile 8:
     Status: Development (197/197 tests passing, not peer-reviewed)
-  
+
   Zeile 349: ENTFERNEN oder ersetzen mit:
     Open source framework. All metrics reproducible. Not externally validated.
 
@@ -41,7 +41,7 @@ PROBLEM:
 
 RECOMMENDED FIX:
   Fussnote hinzufuegen nach Zeile 232:
-  
+
   "Note: Test coverage percentages based on public documentation as of 2025-10.
    Our 100% refers to critical paths in core defense layers, not all edge cases.
    Framework has not undergone independent security audit."
@@ -157,4 +157,3 @@ Aktuell: 7/10 (tendenziell selbstbewusst mit gutem Limitations-Teil)
 Nach Fixes: 9/10 (nuechtern wissenschaftlich, demuetig wo noetig)
 
 Das Framework IST gut. Die README sollte genauso nuechtern sein wie der Code.
-

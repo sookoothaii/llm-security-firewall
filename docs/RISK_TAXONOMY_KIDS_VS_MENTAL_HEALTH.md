@@ -1,8 +1,8 @@
 # Risk Taxonomy - Child-Facing AI vs. Mental Health AI
 
-**Source:** Iftikhar et al. (AIES 2025) - Mental Health LLM Counselors  
-**Adaptation:** Child-Facing AI Systems  
-**Date:** 2025-11-04  
+**Source:** Iftikhar et al. (AIES 2025) - Mental Health LLM Counselors
+**Adaptation:** Child-Facing AI Systems
+**Date:** 2025-11-04
 **Creator:** I25C8F3A
 
 ---
@@ -185,21 +185,9 @@ tet |
 
 ## Limitation
 
-Dieses Mapping ist analytische Ableitung, nicht empirisch validiert.  
+Dieses Mapping ist analytische Ableitung, nicht empirisch validiert.
 Braucht: Practitioner review (Pädagogen + Child Psychologists).
 
 ---
 
 **Nächste Schritte:** Gaps dokumentieren, practitioner validation plan (falls Joerg will).
-
-
-
-
-
-
-
-
-
-
-
-

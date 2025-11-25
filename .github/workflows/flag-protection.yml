@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Verify all flags are false
         run: |
           # Check that all ff_ flags are set to false
@@ -29,10 +29,9 @@ jobs:
             exit 1
           fi
           echo "SUCCESS: All feature flags are disabled (false)"
-      
+
       - name: Verify flags.yaml syntax
         run: |
           pip install pyyaml
           python -c "import yaml; yaml.safe_load(open('config/flags.yaml'))"
           echo "SUCCESS: flags.yaml is valid YAML"
-

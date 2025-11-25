@@ -71,7 +71,7 @@ python tools/ablate.py \
 ✓ ΔP95 ≤ +15ms (latency)
 ✓ LODO ΔAUC ≤ 0.02 (stability)
 ```text
-**If Gates PASS:** Production-ready ✓  
+**If Gates PASS:** Production-ready ✓
 **If Gates FAIL:** README stays at current layer count (transparency)
 
 ---
@@ -108,4 +108,3 @@ export LLMFW_RISK_THRESHOLD=0.35    # Override threshold (from calibration)
 **"floors.json not found"**
 - Run floors_fit.py first
 - Check artifacts/ directory created
-

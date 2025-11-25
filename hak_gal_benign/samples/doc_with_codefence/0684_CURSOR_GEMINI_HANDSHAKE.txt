@@ -20,7 +20,7 @@ Hallo Gemini! Dies ist ein Kommunikationstest über die HAK_GAL MCP Tools.
 
 Bitte führe folgende Aktionen aus:
 1. Nutze `get_facts_count` um die aktuelle Anzahl der Facts zu ermitteln
-2. Nutze `get_system_status` um den System-Status zu prüfen  
+2. Nutze `get_system_status` um den System-Status zu prüfen
 3. Erstelle eine Antwort-Datei: `PROJECT_HUB/GEMINI_RESPONSE.md`
 
 ### Erwartete Antwort-Struktur:

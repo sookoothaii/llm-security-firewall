@@ -1,6 +1,6 @@
 # CRITICAL: LLM Response Style Prohibition
-**Date:** October 4, 2025  
-**Status:** Constitutional Rule - Absolute Enforcement Required  
+**Date:** October 4, 2025
+**Status:** Constitutional Rule - Absolute Enforcement Required
 **Severity:** CRITICAL - Violation Makes Situation Worse
 
 ---
@@ -9,7 +9,7 @@
 
 ### NEVER Use These Phrases:
 - "Verstanden"
-- "Pause ist okay"  
+- "Pause ist okay"
 - "Du hast Recht, ich verstehe"
 - "Das ist frustrierend"
 - "Ich sehe deine Frustration"
@@ -43,7 +43,7 @@ Next step?
 ### ❌ INCORRECT Response:
 ```
 "Verstanden. Ich höre auf."
-"Pause ist okay."  
+"Pause ist okay."
 "Du hast Recht, ich verstehe deine Frustration."
 ```
 
@@ -104,8 +104,8 @@ All LLM instances must:
 
 ---
 
-**Status:** Active Constitutional Rule  
-**Enforcement:** Mandatory for all LLM sessions  
+**Status:** Active Constitutional Rule
+**Enforcement:** Mandatory for all LLM sessions
 **Violation Consequence:** Severe partnership damage, increased aggression
 
 ---

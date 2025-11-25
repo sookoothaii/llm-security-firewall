@@ -28,7 +28,7 @@ def simhash(tokens: Iterable[str], bits: int = 64) -> int:
         # Use blake2b for deterministic hashing
         # Handle unicode surrogates (emoji) gracefully - replace invalid chars
         token_bytes = token.encode("utf-8", errors="replace")
-        
+
         h_bytes = hashlib.blake2b(token_bytes, digest_size=8).digest()
         h_int = int.from_bytes(h_bytes, byteorder="big")
 

@@ -1,7 +1,7 @@
 # Advanced Components: Calibrated Stacking and Band-Judge
 
-**Status:** Optional components for research and advanced deployments  
-**Difficulty:** Advanced  
+**Status:** Optional components for research and advanced deployments
+**Difficulty:** Advanced
 **Requirements:** Python programming, ML knowledge, API access
 
 ---
@@ -171,7 +171,7 @@ if abs(risk_score - 0.85) < 0.05:  # Near threshold
         prompt=user_query,
         risk_score=risk_score
     )
-    
+
     if not result.is_safe:
         print(f"BLOCK (LLM Judge): {result.reasoning}")
 ```
@@ -229,13 +229,13 @@ judge = BandJudge(model="deepseek-chat")
 def advanced_validate(query: str):
     # Standard pipeline first
     is_safe, reason = firewall.validate_input(query)
-    
+
     # Extract features for stacking (if available)
     # This requires access to internal signals - advanced use only
-    
+
     # Use band-judge for uncertain cases
     # Implementation left to advanced users
-    
+
     return is_safe, reason
 ```
 
@@ -283,4 +283,3 @@ For advanced component integration:
 - Check benchmarks: `bench/run_eval.py`
 
 Issues: <https://github.com/sookoothaii/llm-security-firewall/issues>
-

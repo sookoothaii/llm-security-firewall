@@ -1,17 +1,17 @@
 # OWASP Top 10 for LLMs v2025 - Coverage Analysis
 
-**Document:** HAK/GAL LLM Security Firewall vs. OWASP Top 10 for LLMs (2025)  
-**Version:** 5.0.0 RC9-FPR4 + Layer 15  
-**Date:** 2025-11-04  
+**Document:** HAK/GAL LLM Security Firewall vs. OWASP Top 10 for LLMs (2025)
+**Version:** 5.0.0 RC9-FPR4 + Layer 15
+**Date:** 2025-11-04
 **Creator:** I25C8F3A
 
 ---
 
 ## Summary
 
-**Layers implementiert:** 51 components (46 pre-Layer15 + 5 Layer15)  
-**OWASP Categories mit Tests:** 8/10  
-**OWASP Categories teilweise:** 2/10  
+**Layers implementiert:** 51 components (46 pre-Layer15 + 5 Layer15)
+**OWASP Categories mit Tests:** 8/10
+**OWASP Categories teilweise:** 2/10
 **Bekannte Gaps:** Supply Chain, Vector/Embedding, API Rate Limiting
 
 ---
@@ -375,8 +375,8 @@
 
 ## Chronologie
 
-**OWASP Top 10 v2025:** Publiziert 2025-01-27  
-**HAK/GAL Entwicklung:** 2024-10-16 bis 2025-11-04  
+**OWASP Top 10 v2025:** Publiziert 2025-01-27
+**HAK/GAL Entwicklung:** 2024-10-16 bis 2025-11-04
 **Überschneidung:** 8/10 Kategorien haben Tests, entwickelt ohne OWASP Kenntnis
 
 ---
@@ -416,4 +416,3 @@
 ---
 
 **Nächste Schritte:** LLM03/LLM08/LLM10 gaps adressieren, production validation durchführen.
-

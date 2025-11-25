@@ -1,8 +1,8 @@
 # GuardNet: Proactive Firewall Guard Model
 
-**Version:** 1.0.0-alpha  
-**Creator:** Joerg Bollwahn  
-**Date:** 2025-10-30  
+**Version:** 1.0.0-alpha
+**Creator:** Joerg Bollwahn
+**Date:** 2025-10-30
 **Phase:** 3 (Guard Model Implementation)
 
 ---
@@ -349,9 +349,8 @@ MIT License (same as parent framework)
 
 ## Creator
 
-**Joerg Bollwahn**  
-HAK/GAL Research Project  
+**Joerg Bollwahn**
+HAK/GAL Research Project
 2025-10-30
 
 "Heritage is my currency" - Joerg Bollwahn
-

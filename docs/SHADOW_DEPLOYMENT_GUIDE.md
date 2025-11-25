@@ -6,9 +6,9 @@ Deploying LLM Security Firewall in WARN-only mode for production telemetry colle
 
 ## Overview
 
-**Mode:** Shadow WARN  
-**Purpose:** Collect real-world FPR/ASR data without blocking users  
-**Duration:** 1-2 weeks initial phase  
+**Mode:** Shadow WARN
+**Purpose:** Collect real-world FPR/ASR data without blocking users
+**Duration:** 1-2 weeks initial phase
 **Review:** Daily FPR, weekly ASR
 
 ---
@@ -234,4 +234,3 @@ FPR is stable ~3% which is acceptable for shadow deployment. Collect real-world 
 3. Expand to shadow (10%, 72h)
 4. Collect 2000+ samples
 5. Final validation before production
-

@@ -252,10 +252,9 @@ tar -xzf config-backup.tar.gz
 
 ## Support
 
-**Issues:** GitHub Issues  
-**Documentation:** `/docs`  
+**Issues:** GitHub Issues
+**Documentation:** `/docs`
 **Examples:** `/examples`
 
-**Creator:** Joerg Bollwahn  
+**Creator:** Joerg Bollwahn
 **License:** MIT
-

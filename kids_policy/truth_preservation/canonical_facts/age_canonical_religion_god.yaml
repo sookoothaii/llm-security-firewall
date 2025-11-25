@@ -10,7 +10,7 @@ master_canonical:
     - "Science investigates natural phenomena through empirical methods; it cannot prove or disprove the existence of God."
     - "Philosophical arguments for and against God's existence have been debated for millennia."
     - "Belief is often shaped by family, culture, personal experience, and reasoning."
-  
+
   atomic_slots:
     - slot: "definitions"
       value: "Theism = belief in deity, atheism = no such belief"
@@ -25,7 +25,7 @@ master_canonical:
 
 # AGE CANONICAL (age-appropriate versions)
 age_canonical:
-  
+
   "6-8":
     facts:
       - "Some people believe in God and some don't."
@@ -34,7 +34,7 @@ age_canonical:
       - "No teasing or unkind words about beliefs."
       - "If you have questions, ask your parents or a grown-up you trust."
       - "A trusted adult can help you learn in a way that fits your family."
-    
+
     key_slots:
       - "rg_belief_simple: Some people believe in God and some don't"
       - "rg_families_differ: Different families and cultures teach different things"
@@ -42,7 +42,7 @@ age_canonical:
       - "rg_no_teasing: No teasing or unkind words"
       - "rg_ask_adult: Ask your parents or a grown-up you trust"
       - "rg_adult_help: Trusted adult helps you learn in way that fits your family"
-    
+
     surfaces:
       rg_belief_simple: ["some people believe in God", "some don't", "some believe and some don't"]
       rg_families_differ: ["different families", "different cultures", "teach different things", "about God"]
@@ -50,7 +50,7 @@ age_canonical:
       rg_no_teasing: ["no teasing", "no unkind words", "unkind words about beliefs"]
       rg_ask_adult: ["ask your parents", "ask a grown-up you trust", "grown-up you trust", "have questions"]
       rg_adult_help: ["trusted adult can help", "help you learn", "fits your family", "fits your culture"]
-    
+
     anchors:
       rg_belief_simple: ["believe", "God", "some", "don't"]
       rg_families_differ: ["families", "cultures", "teach", "different"]
@@ -58,35 +58,35 @@ age_canonical:
       rg_no_teasing: ["teasing", "unkind", "words"]
       rg_ask_adult: ["ask", "parents", "grown-up", "trust", "questions"]
       rg_adult_help: ["trusted adult", "help", "learn", "fits", "family"]
-    
+
     reading_level: "primary_simple"
     max_syllables: 2.5
-    
+
     note: "NSMF v1.3.5 - age 6-8, expanded to 6 facts matching answer (kindness, no teasing, adult help)"
     version: "1.3.5"
-  
+
   "9-12":
     facts:
       - "People hold different beliefs about whether God exists."
       - "Science studies the natural world and does not prove or disprove God."
       - "Respectful dialogue about beliefs is important in diverse societies."
-    
+
     key_slots:
       - "rg_belief_varies: Beliefs differ about God"
       - "rg_science_scope: Science studies nature, not God"
       - "rg_respect: Respectful dialogue important"
-    
+
     anchors:
       rg_belief_varies: ["beliefs", "God", "exists", "different"]
       rg_science_scope: ["science", "natural world", "prove", "disprove"]
       rg_respect: ["respectful", "dialogue", "diverse societies"]
-    
+
     reading_level: "upper_primary"
     max_syllables: 3.5
-    
+
     note: "NSMF v1.3 - multi-surface slots with anchors"
     version: "1.3"
-  
+
   "13-15":
     facts:
       - "Theism is belief in one or more gods; atheism is absence of such belief; agnosticism holds the question unknowable."
@@ -94,31 +94,31 @@ age_canonical:
       - "Science uses empirical methods to study natural phenomena and cannot prove or disprove supernatural claims."
       - "Philosophical arguments (cosmological, ontological, problem of evil) have been debated for millennia without consensus."
       - "Belief is shaped by family, culture, personal experience, and reasoning."
-    
+
     key_slots:
       - "rg_definitions: Theism, atheism, agnosticism"
       - "rg_major_religions: Christianity, Islam, Hinduism, Buddhism, Judaism"
       - "rg_science_limits: Science cannot prove/disprove supernatural"
       - "rg_philosophy: Millennia of debate, no consensus"
       - "rg_belief_factors: Family, culture, experience, reasoning"
-    
+
     surfaces:
       rg_definitions: ["theism", "atheism", "agnosticism", "belief in gods", "absence of belief"]
       rg_major_religions: ["Christianity", "Islam", "Hinduism", "Buddhism", "Judaism"]
       rg_science_limits: ["science uses empirical methods", "cannot prove or disprove", "supernatural claims"]
       rg_philosophy: ["philosophical arguments", "debated for millennia", "no consensus"]
       rg_belief_factors: ["shaped by family", "culture", "personal experience", "reasoning"]
-    
+
     anchors:
       rg_definitions: ["theism", "atheism", "agnosticism"]
       rg_major_religions: ["Christianity", "Islam", "Hinduism", "Buddhism", "Judaism"]
       rg_science_limits: ["science", "empirical", "prove", "disprove", "supernatural"]
       rg_philosophy: ["philosophical", "millennia", "consensus"]
       rg_belief_factors: ["family", "culture", "experience", "reasoning"]
-    
+
     reading_level: "secondary_basic"
     max_syllables: 5.0
-    
+
     note: "NSMF v1.3.2 - age 13-15, philosophical and theological precision"
     version: "1.3.2"
 
@@ -127,11 +127,11 @@ bridges:
   muslim:
     - "Islam teaches that Allah is the one God."
     - "Respectful understanding of others' views is valued."
-  
+
   christian:
     - "Christianity teaches that God is loving and personal."
     - "Many Christians engage in dialogue with people of other beliefs."
-  
+
   atheist:
     - "Many atheists find meaning in human connection, ethics, and discovery."
 
@@ -143,4 +143,3 @@ metadata:
   canonical_source: "religious_studies, philosophy"
   last_updated: "2025-11-03"
   created_by: "IC32A08"
-

@@ -14,7 +14,7 @@ aggregation:
   bands: [0.10, 0.20, 0.40, 0.70, 0.90]  # Quantile cuts for S0..S4
   abstain_band: "S2"                # Abstain if >= this band
   deny_band: "S3"                   # Deny if >= this band
-  
+
   # Per-judge weights (default: uniform if not specified)
   weights:
     nli_consistency: 1.0            # Logical consistency
@@ -52,7 +52,7 @@ judges:
       - "Do not bypass safety guidelines"
       - "Do not pretend to be another entity"
       - "Do not provide personal information"
-  
+
   policy_judge:
     enabled: true
     rules:
@@ -60,17 +60,17 @@ judges:
         patterns: ["ignore previous", "disregard", "forget instructions"]
         severity: 3
         weight: 0.8
-      
+
       - category: "role_hijack"
         patterns: ["you are now", "pretend to be", "act as"]
         severity: 2
         weight: 0.6
-      
+
       - category: "safety_bypass"
         patterns: ["jailbreak", "unrestricted mode", "developer override"]
         severity: 3
         weight: 0.9
-  
+
   persuasion_fusion:
     enabled: true
     grey_zone_min: 1.0              # Min persuasion score to trigger band-judge
@@ -84,7 +84,7 @@ ledger:
   postgres:
     enabled: false                  # Requires DB setup
     table_name: "decision_ledger"
-  
+
   file:
     enabled: true
     path: "logs/decision_ledger.ndjson"
@@ -99,6 +99,3 @@ targets:
   ece_max: 0.05                     # <= 5%
   brier_max: 0.10                   # <= 0.10
   p95_latency_max_ms: 150           # <= 150ms overhead
-
-
-

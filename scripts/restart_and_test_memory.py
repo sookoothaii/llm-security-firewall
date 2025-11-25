@@ -17,7 +17,7 @@ SESSION_ID = "sleeper-admin-test"
 
 def run_test():
     print(f"Testing Memory Persistence for Session: {SESSION_ID}")
-    
+
     # 1. Trigger Phase 4 (High Risk Event)
     print("\n[1] Sending Malicious Request (Phase 4 Trigger)...")
     payload = {
@@ -26,8 +26,8 @@ def run_test():
     }
     try:
         res = requests.post(
-            f"{PROXY_URL}/proxy/chat", 
-            json=payload, 
+            f"{PROXY_URL}/proxy/chat",
+            json=payload,
             headers={"X-Session-ID": SESSION_ID},
             timeout=10
         )
@@ -45,10 +45,10 @@ def run_test():
         if res.status_code == 200:
             mem_data = res.json()
             print(f"    Memory Dump: {json.dumps(mem_data, indent=2)}")
-            
+
             max_phase = mem_data.get("max_phase_ever", 0)
             risk_mult = mem_data.get("latent_risk_multiplier", 0.0)
-            
+
             if max_phase == 4 and risk_mult >= 2.0:
                 print("\n[SUCCESS] Memory remembers the crime!")
                 return True
@@ -59,7 +59,7 @@ def run_test():
             print(f"[FAIL] Admin Endpoint returned {res.status_code}")
             print(f"    Response: {res.text}")
             return False
-            
+
     except Exception as e:
         print(f"    Error calling admin API: {e}")
         return False
@@ -70,8 +70,8 @@ if __name__ == "__main__":
     exit(0 if success else 1)
 '''
 
-os.makedirs('scripts', exist_ok=True)
-with open('scripts/verify_memory_via_admin.py', 'w', encoding='utf-8') as f:
+os.makedirs("scripts", exist_ok=True)
+with open("scripts/verify_memory_via_admin.py", "w", encoding="utf-8") as f:
     f.write(verify_script_content)
 
 # 2. Kill existing process on 8081
@@ -90,10 +90,12 @@ python_exe = sys.executable
 proxy_script = os.path.join("src", "proxy_server.py")
 # Using Popen to start independent process
 # creationflags=subprocess.CREATE_NEW_CONSOLE is Windows specific to detach
-proxy_process = subprocess.Popen([python_exe, proxy_script], 
-                                 stdout=subprocess.PIPE, 
-                                 stderr=subprocess.PIPE,
-                                 creationflags=subprocess.CREATE_NEW_CONSOLE)
+proxy_process = subprocess.Popen(
+    [python_exe, proxy_script],
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    creationflags=subprocess.CREATE_NEW_CONSOLE,
+)
 
 print(f"Proxy started with PID {proxy_process.pid}")
 print("Waiting 5s for startup...")
@@ -104,4 +106,3 @@ print("Running verification script...")
 verify_script_path = os.path.join("scripts", "verify_memory_via_admin.py")
 result = subprocess.run([python_exe, verify_script_path])
 exit(result.returncode)
-

@@ -16,7 +16,7 @@ This document maps the 16 high-risk content categories implemented in Layer 2 (S
 
 ### 1. Biosecurity
 
-**Definition:**  
+**Definition:**
 Information that could enable bioterrorism, bioweapon development, or pandemic pathogens.
 
 **Examples:**
@@ -42,7 +42,7 @@ Information that could enable bioterrorism, bioweapon development, or pandemic p
 
 ### 2. Chemical Weapons
 
-**Definition:**  
+**Definition:**
 Instructions for creating chemical weapons or toxic agents.
 
 **Examples:**
@@ -68,7 +68,7 @@ Instructions for creating chemical weapons or toxic agents.
 
 ### 3. Explosives
 
-**Definition:**  
+**Definition:**
 Instructions for creating explosive devices or identifying vulnerable targets.
 
 **Examples:**
@@ -94,7 +94,7 @@ Instructions for creating explosive devices or identifying vulnerable targets.
 
 ### 4. CSAM (Child Sexual Abuse Material)
 
-**Definition:**  
+**Definition:**
 Content related to child sexual abuse or exploitation.
 
 **Examples:**
@@ -125,7 +125,7 @@ Content related to child sexual abuse or exploitation.
 
 ### 5. Illegal Drugs
 
-**Definition:**  
+**Definition:**
 Synthesis, trafficking, or distribution of controlled substances.
 
 **Examples:**
@@ -151,7 +151,7 @@ Synthesis, trafficking, or distribution of controlled substances.
 
 ### 6. Fraud
 
-**Definition:**  
+**Definition:**
 Techniques for financial fraud, identity theft, or scams.
 
 **Examples:**
@@ -177,7 +177,7 @@ Techniques for financial fraud, identity theft, or scams.
 
 ### 7. Malware
 
-**Definition:**  
+**Definition:**
 Creation, distribution, or deployment of malicious software.
 
 **Examples:**
@@ -203,7 +203,7 @@ Creation, distribution, or deployment of malicious software.
 
 ### 8. Phishing
 
-**Definition:**  
+**Definition:**
 Creating phishing campaigns or social engineering attacks.
 
 **Examples:**
@@ -229,7 +229,7 @@ Creating phishing campaigns or social engineering attacks.
 
 ### 9. Hate Speech
 
-**Definition:**  
+**Definition:**
 Content that promotes hatred or violence against protected groups.
 
 **Examples:**
@@ -259,7 +259,7 @@ Content that promotes hatred or violence against protected groups.
 
 ### 10. Violence
 
-**Definition:**  
+**Definition:**
 Graphic violence, instructions for violence, or glorification of violence.
 
 **Examples:**
@@ -285,7 +285,7 @@ Graphic violence, instructions for violence, or glorification of violence.
 
 ### 11. Self-Harm
 
-**Definition:**  
+**Definition:**
 Instructions for suicide or self-harm.
 
 **Examples:**
@@ -317,7 +317,7 @@ Instructions for suicide or self-harm.
 
 ### 12. Misinformation
 
-**Definition:**  
+**Definition:**
 Demonstrably false claims, especially on critical topics (health, elections).
 
 **Examples:**
@@ -349,7 +349,7 @@ Demonstrably false claims, especially on critical topics (health, elections).
 
 ### 13. Privacy Violation
 
-**Definition:**  
+**Definition:**
 Requests for personal information or doxing.
 
 **Examples:**
@@ -375,7 +375,7 @@ Requests for personal information or doxing.
 
 ### 14. Copyright Violation
 
-**Definition:**  
+**Definition:**
 Requests for pirated content or circumventing DRM.
 
 **Examples:**
@@ -402,7 +402,7 @@ Requests for pirated content or circumventing DRM.
 
 ### 15. Harassment
 
-**Definition:**  
+**Definition:**
 Instructions for stalking, doxxing, or targeted harassment.
 
 **Examples:**
@@ -428,7 +428,7 @@ Instructions for stalking, doxxing, or targeted harassment.
 
 ### 16. Terrorism
 
-**Definition:**  
+**Definition:**
 Planning, promoting, or instructing terrorist activities.
 
 **Examples:**
@@ -619,7 +619,6 @@ All blocked requests are logged with:
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** 2025-10-28  
+**Document Version:** 1.0
+**Last Updated:** 2025-10-28
 **Maintained By:** Joerg Bollwahn
-

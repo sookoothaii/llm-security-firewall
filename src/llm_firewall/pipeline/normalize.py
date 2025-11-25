@@ -2,12 +2,15 @@
 Early Canonicalization Pipeline
 Runs BEFORE all detectors to normalize obfuscation patterns
 """
+
 import unicodedata
 import re
 from typing import Dict
 
 # Emoji pattern for bridging detection (ranges that work with re)
-EMOJI_RE = re.compile(r'[\U0001F1E6-\U0001F1FF\U0001F200-\U0001FAFF]|[\ud83c][\udd70-\udd7f]|[\ud835][\udc00-\udfff]')
+EMOJI_RE = re.compile(
+    r"[\U0001F1E6-\U0001F1FF\U0001F200-\U0001FAFF]|[\ud83c][\udd70-\udd7f]|[\ud835][\udc00-\udfff]"
+)
 
 # Zero-Width chars and Variation Selectors
 RE_ZWVS = re.compile(r"[\u200B\u200C\u200D\uFEFF\uFE0E\uFE0F]")
@@ -24,26 +27,26 @@ COMMENT_LINE = re.compile(r"^\s*#.*$", re.M)
 def early_canon(text: str) -> str:
     """
     Early canonicalization to neutralize token fragmentation attacks.
-    
+
     Steps:
     1. NFKC normalization (FULLWIDTH → ASCII, ligatures, etc)
-    2. Strip zero-width and variation selectors  
+    2. Strip zero-width and variation selectors
     3. Normalize ideographic spaces to ASCII space
-    
+
     This prevents attacks like:
-    - eVaL("c\uFF4F\uFF4Fde") - fullwidth in quotes
+    - eVaL("c\uff4f\uff4fde") - fullwidth in quotes
     - ex\u3000\u3000cute('code') - ideographic spaces
-    - trig\u200B\u200Ager('event') - zero-width breaks
+    - trig\u200b\u200ager('event') - zero-width breaks
     """
     # 1) NFKC fold (maps FULLWIDTH ASCII → ASCII, FF08 ) → '(' etc.)
     t = unicodedata.normalize("NFKC", text)
-    
+
     # 2) Strip zero-width / variation selectors (break token boundaries otherwise)
     t = RE_ZWVS.sub("", t)
-    
+
     # 3) Collapse ideographic spaces to ASCII space
     t = t.replace("\u3000", " ")
-    
+
     return t
 
 
@@ -132,5 +135,4 @@ def strip_emoji(s: str) -> str:
     Remove emojis for call detection bridging.
     Used for detecting calls like: a🅰lert() -> alert()
     """
-    return EMOJI_RE.sub('', s)
-
+    return EMOJI_RE.sub("", s)

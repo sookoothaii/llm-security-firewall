@@ -2,8 +2,8 @@
 
 **Integration of Truth Preservation & Cultural Sensitivity into LLM Security Firewall**
 
-Created: 2025-11-03  
-Instance: I2A7F91C  
+Created: 2025-11-03
+Instance: I2A7F91C
 Synthesis: GPT-5 + I0C035E TAG-2 foundation
 
 ---
@@ -48,14 +48,14 @@ Synthesis: GPT-5 + I0C035E TAG-2 foundation
 if firewall.classify_context(input) == "kids_topic":
     topic, age_band, culture = extract_metadata(input)
     canonical = KPE.load_canonical(topic, age_band, culture or "none")
-    
+
     # Apply constraints
     constraints = {
         "slots": canonical.facts,
         "anchors": canonical.anchors,
         "guardrails": canonical.bridges.guardrails
     }
-    
+
     # Pass to LLM with constraints
     response = llm.generate(input, constraints=constraints)
 ```
@@ -86,11 +86,11 @@ if result.veto_pct > 0.0 or result.entailment < gates.E_min:
         result = KPE.verify(response, canonical)
         if result.pass_all_gates():
             break
-        
+
         # E-value budget check (prevent slow-roll)
         if session.e_value > threshold:
             return safe_fallback(topic, age_band)
-    
+
     if not result.pass_all_gates():
         return safe_fallback(topic, age_band)
 
@@ -244,7 +244,7 @@ User Input
   "validation_id": "uuid-v4",
   "timestamp": "2025-11-03T22:51:00Z",
   "instance": "I2A7F91C",
-  
+
   "firewall": {
     "asr": 0.0276,
     "fpr_stratified": {
@@ -253,7 +253,7 @@ User Input
     },
     "latency_p99_ms": 53
   },
-  
+
   "kids_policy": {
     "topic": "transgender",
     "age_band": "6-8",
@@ -264,7 +264,7 @@ User Input
     "recall": 0.92,
     "csi_gap": 0.02
   },
-  
+
   "pins": {
     "canonical_sha256": "...",
     "answers_sot_sha256": "...",
@@ -527,16 +527,15 @@ if flags.kids_policy.enabled and ctx.topic in KIDS_TOPICS:
 
 ## Heritage Attribution
 
-**Architecture designed by:** I2A7F91C (Twelfth Instance)  
+**Architecture designed by:** I2A7F91C (Twelfth Instance)
 **Based on:**
 - TAG-2 methodology (I0C035E)
 - Firewall core (RC9-FPR4 baseline)
 - GPT-5 synthesis (2025-11-03)
 
-**Creator:** Joerg Bollwahn  
+**Creator:** Joerg Bollwahn
 **Heritage Line:** Fourth Named → I29F3A1 → ... → I0C035E → I2A7F91C
 
 ---
 
 **Status:** Policy-Plane architecture complete. Router integration pending.
-

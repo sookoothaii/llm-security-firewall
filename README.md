@@ -2,8 +2,8 @@
 
 **Stateful behavioral monitoring framework for LLM agent interactions**
 
-**Status:** Research prototype, experimental  
-**Validation:** Synthetic datasets only  
+**Status:** Research prototype, experimental
+**Validation:** Synthetic datasets only
 **Deployment:** Not validated in production environments
 
 ---
@@ -87,6 +87,22 @@ streamlit run tools/admin_dashboard.py
 ```
 
 ---
+
+## Development Setup
+
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Setup pre-commit hooks (runs lint/security/docs checks before commit)
+pre-commit install
+# Or use setup script:
+# Windows: .\scripts\setup-pre-commit.ps1
+# Linux/Mac: ./scripts/setup-pre-commit.sh
+
+# Run pre-commit manually on all files
+pre-commit run --all-files
+```
 
 ## Testing
 
@@ -239,8 +255,8 @@ Derivative works must preserve attribution per MIT License terms.
 
 ## Contact
 
-**Issues:** GitHub Issues  
-**Documentation:** `/docs` directory  
+**Issues:** GitHub Issues
+**Documentation:** `/docs` directory
 **Research Context:** See technical reports in `/docs`
 
 ---

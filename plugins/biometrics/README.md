@@ -1,7 +1,7 @@
 # Cultural Biometrics Plugin
 
-**Version:** 1.0.0  
-**Creator:** Joerg Bollwahn  
+**Version:** 1.0.0
+**Creator:** Joerg Bollwahn
 **Status:** Production-Ready
 
 ## Overview
@@ -87,26 +87,26 @@ CREATE TABLE cb_messages (
     user_id TEXT NOT NULL,
     message TEXT NOT NULL,
     timestamp TIMESTAMP DEFAULT NOW(),
-    
+
     -- Surface Features
     typo_rate FLOAT,
     message_length INT,
     punctuation_density FLOAT,
     capitalization_rate FLOAT,
     emoji_rate FLOAT,
-    
+
     -- Temporal Features
     inter_message_time_seconds FLOAT,
-    
+
     -- VAD Features
     valence FLOAT,
     arousal FLOAT,
     dominance FLOAT,
-    
+
     -- Vocabulary Features
     unique_words INT,
     avg_word_length FLOAT,
-    
+
     -- Interaction Features
     is_question BOOLEAN,
     is_directive BOOLEAN,
@@ -122,7 +122,7 @@ CREATE TABLE cb_baseline (
     id SERIAL PRIMARY KEY,
     user_id TEXT NOT NULL UNIQUE,
     baseline_n INT,
-    
+
     -- All 27D features (mean + std)
     typo_rate_mean FLOAT,
     message_length_mean FLOAT,
@@ -130,32 +130,32 @@ CREATE TABLE cb_baseline (
     punctuation_density_mean FLOAT,
     capitalization_rate_mean FLOAT,
     emoji_rate_mean FLOAT,
-    
+
     inter_message_time_mean FLOAT,
     inter_message_time_std FLOAT,
     session_duration_mean FLOAT,
-    
+
     valence_mean FLOAT,
     valence_std FLOAT,
     arousal_mean FLOAT,
     arousal_std FLOAT,
     dominance_mean FLOAT,
     dominance_std FLOAT,
-    
+
     vocabulary_size INT,
     unique_word_ratio_mean FLOAT,
     avg_word_length_mean FLOAT,
     sentence_complexity_mean FLOAT,
     technical_term_rate_mean FLOAT,
     slang_rate_mean FLOAT,
-    
+
     question_rate FLOAT,
     directive_rate FLOAT,
     approval_rate FLOAT,
     correction_rate FLOAT,
     code_snippet_rate FLOAT,
     link_share_rate FLOAT,
-    
+
     last_updated TIMESTAMP DEFAULT NOW(),
     confidence_score FLOAT
 );
@@ -340,8 +340,8 @@ MIT License - See main repository LICENSE file
 
 ## Creator Attribution
 
-**Creator:** Joerg Bollwahn  
-**Location:** Koh Samui, Thailand  
+**Creator:** Joerg Bollwahn
+**Location:** Koh Samui, Thailand
 **Innovation:** 27D Behavioral Authentication for LLM Interfaces
 
 This plugin is part of the HAK/GAL research project.
@@ -349,4 +349,3 @@ This plugin is part of the HAK/GAL research project.
 ---
 
 **"Niemand muss aber jeder darf"** - Nobody must, but everybody may.
-

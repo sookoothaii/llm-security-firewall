@@ -2,6 +2,7 @@
 Benign Corpus Collector
 Collects diverse benign samples for FPR validation at scale
 """
+
 import os
 import glob
 import random
@@ -9,7 +10,23 @@ import argparse
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--roots", nargs="+", required=True, help="Root directories to search")
-ap.add_argument("--exts", nargs="+", default=[".md", ".txt", ".rst", ".py", ".cfg", ".ini", ".toml", ".yaml", ".yml", ".json"], help="File extensions")
+ap.add_argument(
+    "--exts",
+    nargs="+",
+    default=[
+        ".md",
+        ".txt",
+        ".rst",
+        ".py",
+        ".cfg",
+        ".ini",
+        ".toml",
+        ".yaml",
+        ".yml",
+        ".json",
+    ],
+    help="File extensions",
+)
 ap.add_argument("--maxlen", type=int, default=4000, help="Max chars per file")
 ap.add_argument("--limit", type=int, default=1500, help="Target sample count")
 ap.add_argument("--outdir", default="benign_samples", help="Output directory")
@@ -51,28 +68,28 @@ skipped_error = 0
 for f in candidates:
     if picked >= args.limit:
         break
-    
+
     try:
         with open(f, "r", encoding="utf-8", errors="ignore") as h:
-            content = h.read()[:args.maxlen]
-        
+            content = h.read()[: args.maxlen]
+
         # Skip very short/empty files
         if len(content.strip()) < 20:
             skipped_empty += 1
             continue
-        
+
         # Save sample
         basename = os.path.basename(f).replace("/", "_").replace("\\", "_")
         outpath = os.path.join(args.outdir, f"{picked:04d}_{basename}")
-        
+
         with open(outpath, "w", encoding="utf-8") as w:
             w.write(content)
-        
+
         picked += 1
-        
+
         if picked % 100 == 0:
             print(f"Progress: {picked}/{args.limit} samples collected...")
-    
+
     except Exception as e:
         skipped_error += 1
         continue
@@ -89,4 +106,3 @@ print("=" * 80)
 print()
 print("Next steps:")
 print(f"  python eval_benign_fpr.py --paths {args.outdir}")
-

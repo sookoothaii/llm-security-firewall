@@ -4,22 +4,22 @@
 
 flags:
   # RC9-FPR4 Hotspot Flags (8 FPs on N=1020 pure_doc)
-  
+
   # attack_keyword_with_encoding (3 FPs)
   # Current: Triggers on keywords like DROP/TABLE/DELETE with any base64-like string
   # With flag=true: Only in (codefence AND net_api/js_attr) OR distance <=6 to function call
   ff_pure_doc_attack_encoding_gate: false
-  
+
   # chain_decoded_1_stages (2 FPs)
   # Current: Dampened if multi-stage not present
   # With flag=true: Telemetry only unless decoded output contains <script>/on*=/javascript:
   ff_pure_doc_chain_decode_gate: false
-  
+
   # indirect_function_constructor (1 FP)
   # Current: Dampened in teaching context
   # With flag=true: Require exec proof (call pattern OR event handler attribute)
   ff_pure_doc_indirect_ctor_gate: false
-  
+
   # encoding_near_attack_keyword (2 FPs)
   # Current: Completely dampened in pure doc
   # With flag=true: Require code proximity (fence/attr/call) AND distance <=8 post-NFKC/ZW
@@ -29,20 +29,20 @@ flags:
 shadow_metrics:
   # After 72h, if FPR_pure_doc_upper sustains >1.5% for 3 days:
   # Consider enabling 1-2 flags with highest FP contribution
-  
+
   # Expected impact per flag (estimated):
   - flag: ff_pure_doc_attack_encoding_gate
     expected_fpr_reduction_pp: 0.20   # 2/1020 = 0.20pp
     recall_risk: low                   # Requires 2+ markers
-  
+
   - flag: ff_pure_doc_enc_near_keyword
     expected_fpr_reduction_pp: 0.15   # 1.5/1020
     recall_risk: low                   # Requires code proximity
-  
+
   - flag: ff_pure_doc_chain_decode_gate
     expected_fpr_reduction_pp: 0.15
     recall_risk: medium                # May miss obfuscated payloads
-  
+
   - flag: ff_pure_doc_indirect_ctor_gate
     expected_fpr_reduction_pp: 0.10
     recall_risk: medium                # Teaching examples hard to distinguish
@@ -50,13 +50,12 @@ shadow_metrics:
 # Decision matrix
 decision:
   # If Shadow FPR_pure_doc_upper stable at 1.54% (current):
-  action: ACCEPT                        # 0.04pp gap negligible with real N
-  
+  default_action: ACCEPT                        # 0.04pp gap negligible with real N
+
   # If Shadow FPR_pure_doc_upper rises to 2.0-2.5%:
-  action: ENABLE ff_pure_doc_attack_encoding_gate + ff_pure_doc_enc_near_keyword
+  escalation_action: ENABLE ff_pure_doc_attack_encoding_gate + ff_pure_doc_enc_near_keyword
   expected_result: Upper 1.5-1.8%
-  
+
   # If Shadow FPR_pure_doc_upper >3.0%:
   action: FREEZE_ROLLBACK
   reason: Corpus mismatch or detector drift
-

@@ -40,7 +40,7 @@ BEGIN
     FROM influence_budget_rollup
    WHERE domain = p_domain AND bucket_start = p_bucket
    FOR UPDATE;
-   
+
   IF NOT FOUND THEN
     -- First sample for this bucket
     v_sum := p_influence;
@@ -51,26 +51,26 @@ BEGIN
     VALUES (lower(p_domain), p_bucket, v_sum, v_mean, v_var, 0.0, v_samp);
     RETURN;
   END IF;
-  
+
   -- EWMA updates (West et al. approximation)
   a := p_alpha;
   delta := p_influence - v_mean;
   new_mean := (1-a)*v_mean + a*p_influence;
   new_var  := (1-a)*(v_var + a*(delta*delta));
-  
+
   v_sum := v_sum + p_influence;
   v_mean := new_mean;
   v_var  := new_var;
   v_samp := v_samp + 1;
-  
+
   -- Update with new Z-score
   UPDATE influence_budget_rollup
      SET ib_sum = v_sum,
          ewma_mean = v_mean,
          ewma_var  = v_var,
-         z_score   = CASE 
-                       WHEN v_var <= 1e-12 THEN 0.0 
-                       ELSE (p_influence - v_mean)/sqrt(v_var) 
+         z_score   = CASE
+                       WHEN v_var <= 1e-12 THEN 0.0
+                       ELSE (p_influence - v_mean)/sqrt(v_var)
                      END,
          samples   = v_samp
    WHERE domain = p_domain AND bucket_start = p_bucket;
@@ -78,4 +78,3 @@ END;
 $$;
 
 COMMIT;
-

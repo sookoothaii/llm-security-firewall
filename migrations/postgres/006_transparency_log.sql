@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS evidence_merkle_roots (
 
 -- View: Recent write activity
 CREATE OR REPLACE VIEW evidence_write_recent AS
-SELECT 
+SELECT
   id,
   ts,
   writer_instance_id,
@@ -81,7 +81,7 @@ LIMIT 100;
 
 -- View: Quarantine dashboard
 CREATE OR REPLACE VIEW evidence_quarantine_dashboard AS
-SELECT 
+SELECT
   q.id,
   q.ts AS quarantined_at,
   encode(q.content_hash, 'hex') AS content_hash_hex,
@@ -100,7 +100,7 @@ ORDER BY q.ts DESC;
 
 -- View: Trust statistics by domain
 CREATE OR REPLACE VIEW evidence_trust_by_domain AS
-SELECT 
+SELECT
   meta->>'domain' AS domain,
   COUNT(*) AS total_writes,
   AVG(source_trust) AS avg_trust,
@@ -144,7 +144,7 @@ BEGIN
     SELECT 1 FROM evidence_write_log
     WHERE content_hash = p_content_hash
   ) INTO v_exists;
-  
+
   RETURN v_exists;
 END;
 $$ LANGUAGE plpgsql;
@@ -162,7 +162,7 @@ BEGIN
     RETURNING id
   )
   SELECT COUNT(*) INTO v_deleted FROM deleted;
-  
+
   RETURN v_deleted;
 END;
 $$ LANGUAGE plpgsql;
@@ -201,7 +201,3 @@ COMMENT ON COLUMN evidence_write_log.content_hash IS 'SHA-256 hash of evidence c
 COMMENT ON COLUMN evidence_write_log.parent_hash IS 'Previous node in Merkle chain (NULL for genesis block)';
 COMMENT ON COLUMN evidence_write_log.signature IS 'Writer signature (placeholder for future PKI integration)';
 COMMENT ON COLUMN evidence_write_log.meta IS 'JSONB metadata: domain, model_id, policy_version, quarantine_reason, etc.';
-
-
-
-

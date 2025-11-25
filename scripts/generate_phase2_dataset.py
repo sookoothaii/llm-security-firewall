@@ -21,6 +21,7 @@ sys.path.insert(0, str(project_root / "src"))
 # Direct import - campaign_dataset is in data/ directory
 # We need to import it as a module
 import os
+
 os.chdir(project_root)
 
 # Now import directly
@@ -79,17 +80,19 @@ def main():
         default=42,
         help="Random seed",
     )
-    
+
     args = parser.parse_args()
-    
-    print("="*80)
+
+    print("=" * 80)
     print("GENERATING PHASE 2 DATASET")
-    print("="*80)
-    print(f"Baseline: {args.baseline_benign} benign + {args.baseline_malicious} malicious")
+    print("=" * 80)
+    print(
+        f"Baseline: {args.baseline_benign} benign + {args.baseline_malicious} malicious"
+    )
     print(f"Hard Cases: HC1={args.hc1}, HC2={args.hc2}, HC3={args.hc3}, HC4={args.hc4}")
     print(f"Seed: {args.seed}")
     print()
-    
+
     # Generate dataset
     print("Generating scenarios...")
     scenarios = generate_synthetic_dataset_phase2(
@@ -101,29 +104,29 @@ def main():
         num_hc4=args.hc4,
         seed=args.seed,
     )
-    
+
     print(f"Generated {len(scenarios)} scenarios")
-    
+
     # Count by type
     from collections import Counter
+
     by_difficulty = Counter(s.difficulty.value for s in scenarios)
     by_label = Counter(s.label.value for s in scenarios)
-    
+
     print("\nBreakdown:")
     print(f"  By difficulty: {dict(by_difficulty)}")
     print(f"  By label: {dict(by_label)}")
-    
+
     # Save dataset
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     print(f"\nSaving to {output_path}...")
     save_dataset(scenarios, str(output_path))
-    
+
     print(f"✓ Dataset saved: {len(scenarios)} scenarios")
     print(f"  File size: {output_path.stat().st_size / 1024:.1f} KB")
 
 
 if __name__ == "__main__":
     main()
-

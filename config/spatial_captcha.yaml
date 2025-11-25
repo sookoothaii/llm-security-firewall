@@ -14,7 +14,7 @@ profiles:
     description: "Minimal latency, no authentication challenges"
     spatial_captcha:
       enabled: false
-    
+
   balanced:
     enabled: true
     description: "Production default - reasonable security with acceptable latency"
@@ -25,7 +25,7 @@ profiles:
       default_difficulty: "medium"
       time_budget_ms: 8000
       max_attempts: 3
-    
+
   paranoid:
     enabled: false
     description: "Maximum security - regular challenges regardless of CB"
@@ -45,7 +45,7 @@ spatial_captcha:
   generator:
     seed_source: "timestamp"  # timestamp | random | fixed
     fixed_seed: null  # If seed_source is 'fixed'
-  
+
   # Rendering
   renderer:
     output_dir: "spatial_challenges"
@@ -54,7 +54,7 @@ spatial_captcha:
       height: 600
     cleanup_interval_hours: 24
     backend: "auto"  # auto | pil | matplotlib | none
-  
+
   # Difficulty levels
   difficulty:
     easy:
@@ -62,38 +62,38 @@ spatial_captcha:
       rotation_angles: [90, 180, 270]
       occlusion: false
       target_human_pass_rate: 0.95
-    
+
     medium:
       object_count: 3
       rotation_angles: [45, 90, 135, 180]
       occlusion: true
       target_human_pass_rate: 0.90
-    
+
     hard:
       object_count_range: [5, 7]
       rotation_angle_range: [15, 345]
       occlusion: true
       target_human_pass_rate: 0.85
-  
+
   # Verification
   verification:
     min_response_time_ms: 500  # Faster = suspicious
     max_response_time_ms: 30000  # Slower = timeout
     suspicious_confidence_penalty: 0.8  # Multiply confidence by this
-  
+
   # Adaptive difficulty
   adaptive:
     enabled: true
     min_attempts_before_adapt: 3
     easy_promotion_threshold: 0.8  # If accuracy > 80%, try medium
     hard_demotion_threshold: 0.5  # If accuracy < 50%, drop to medium
-  
+
   # Multi-modal fusion (with Cultural Biometrics)
   fusion:
     cb_weight: 0.6
     spatial_weight: 0.4
     combined_threshold: 0.9  # Threshold for is_human
-  
+
   # Accessibility
   accessibility:
     fallback_enabled: true
@@ -128,7 +128,7 @@ integration:
     enabled: true
     store_challenges: true
     ocr_mode: "base"
-  
+
   cultural_biometrics:
     enabled: true
     trigger_spatial_on_low_cb: true
@@ -142,6 +142,3 @@ targets:
   mllm_pass_rate: 0.31   # <= 31% (SOTA ceiling)
   false_positive_rate: 0.05  # <= 5%
   latency_p95_ms: 10000  # 95th percentile response time
-
-
-

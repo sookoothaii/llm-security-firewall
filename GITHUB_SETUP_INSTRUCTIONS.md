@@ -1,7 +1,7 @@
 # GitHub Setup Instructions
 
-**Status:** Git repository initialized locally (Commit fb00518)  
-**Files:** 83 files, 13,636 insertions  
+**Status:** Git repository initialized locally (Commit fb00518)
+**Files:** 83 files, 13,636 insertions
 **Ready for:** GitHub remote connection and push
 
 ---

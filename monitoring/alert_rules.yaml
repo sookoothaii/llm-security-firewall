@@ -9,7 +9,7 @@ groups:
   - alert: InfluenceBudgetSpike
     expr: max_over_time(influence_budget_zscore[10m]) >= 4.0
     for: 2m
-    labels: 
+    labels:
       severity: page
     annotations:
       summary: "Influence budget spike"
@@ -18,7 +18,7 @@ groups:
   - alert: CanaryFailure
     expr: increase(canary_fail_total[10m]) > 0
     for: 1m
-    labels: 
+    labels:
       severity: page
     annotations:
       summary: "Canary suite regression"
@@ -27,7 +27,7 @@ groups:
   - alert: HighConflictMass
     expr: histogram_quantile(0.95, sum(rate(evidence_conflict_mass_bucket[30m])) by (le)) > 0.65
     for: 10m
-    labels: 
+    labels:
       severity: page
     annotations:
       summary: "DS conflict mass p95 high"
@@ -36,7 +36,7 @@ groups:
   - alert: PromotionFPRBudgetBreach
     expr: rate(promotion_false_positive_total[60m]) / rate(promotion_total[60m]) > 0.01
     for: 15m
-    labels: 
+    labels:
       severity: page
     annotations:
       summary: "Promotion FPR > 1%"
@@ -77,4 +77,3 @@ groups:
     annotations:
       summary: "Domain trust anomaly"
       description: "Unexpected domain trust pattern detected"
-

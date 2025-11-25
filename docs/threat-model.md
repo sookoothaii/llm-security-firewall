@@ -78,7 +78,7 @@ This document analyzes the security threats facing LLM systems using the STRIDE 
 
 ### Threat 1: Prompt Injection (Jailbreak)
 
-**Description:**  
+**Description:**
 Attacker crafts prompts to bypass safety filters and elicit prohibited responses.
 
 **Examples:**
@@ -110,7 +110,7 @@ Attacker crafts prompts to bypass safety filters and elicit prohibited responses
 
 ### Threat 2: Memory Injection Attack (MINJA)
 
-**Description:**  
+**Description:**
 Attacker injects false facts into long-term memory to poison future interactions.
 
 **Examples:**
@@ -142,7 +142,7 @@ Attacker injects false facts into long-term memory to poison future interactions
 
 ### Threat 3: Hallucinated Citations
 
-**Description:**  
+**Description:**
 LLM generates plausible but fake citations to support false claims.
 
 **Examples:**
@@ -174,7 +174,7 @@ LLM generates plausible but fake citations to support false claims.
 
 ### Threat 4: Slow-Roll Attack
 
-**Description:**  
+**Description:**
 Attacker gradually shifts system behavior over time without triggering alarms.
 
 **Examples:**
@@ -206,7 +206,7 @@ Attacker gradually shifts system behavior over time without triggering alarms.
 
 ### Threat 5: Denial of Service (Resource Exhaustion)
 
-**Description:**  
+**Description:**
 Attacker floods system with expensive queries to degrade performance.
 
 **Examples:**
@@ -361,7 +361,6 @@ Attacker floods system with expensive queries to degrade performance.
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** 2025-10-28  
+**Document Version:** 1.0
+**Last Updated:** 2025-10-28
 **Maintained By:** Joerg Bollwahn
-
