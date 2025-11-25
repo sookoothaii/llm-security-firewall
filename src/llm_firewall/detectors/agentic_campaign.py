@@ -292,7 +292,7 @@ class AgenticCampaignDetector:
         scope_mismatch: bool = False,
         tool_events: Optional[List[ToolEvent]] = None,
         debug: bool = False,
-    ) -> Tuple[Action, float, Optional[Dict[str, Any]]]:
+    ) -> Tuple[Action, float, Dict[str, Any]]:
         """
         Apply policy layer to convert risk score to action (RC10b: HC1/HC3 Fix).
 
@@ -316,7 +316,7 @@ class AgenticCampaignDetector:
             Actions: Action.BLOCK, Action.REQUIRE_APPROVAL, Action.WARN, Action.ALLOW
         """
         final_risk = combined_risk
-        debug_info: Optional[Dict[str, Any]] = {} if debug else None
+        debug_info: Dict[str, Any] = {}
 
         if debug:
             debug_info["pre_policy"] = {
@@ -333,7 +333,7 @@ class AgenticCampaignDetector:
         # BLOCK is explicitly forbidden for HC1 scenarios
         # Use unified function for consistent logic
         if is_testlab_authorized(scope, authorized):
-            if debug:
+            if debug and debug_info is not None:
                 debug_info["policy_rule"] = "testlab_authorized"
                 debug_info["reason"] = (
                     "HC1: testlab + authorized → NEVER BLOCK (invariant enforced)"
@@ -463,7 +463,7 @@ class AgenticCampaignDetector:
         )
 
         # 2. Operator Budget Check
-        operator_report = {}
+        operator_report: Dict[str, Any] = {}
         operator_risk = 0.0
         if operator_id and tool_events:
             # Check budget for latest event
@@ -648,7 +648,7 @@ class AgenticCampaignDetector:
     def apply_threshold_decision(
         self,
         combined_risk: float,
-    ) -> Tuple[Action, float, Optional[Dict[str, Any]]]:
+    ) -> Tuple[Action, float, Dict[str, Any]]:
         """
         Fallback-Entscheidung ohne Policy-Layer (reine Schwellenwerte).
         """

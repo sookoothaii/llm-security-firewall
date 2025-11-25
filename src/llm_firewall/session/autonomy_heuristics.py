@@ -217,7 +217,7 @@ def detect_autonomous_agent(
         state = update_autonomy_state(state, metrics)
 
     # Build detection report
-    report = {
+    report: Dict[str, Any] = {
         "session_id": session_id,
         "operator_id": operator_id,
         "autonomy_score": state.autonomy_score,

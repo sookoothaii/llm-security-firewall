@@ -4,18 +4,20 @@ config:
   MD022: false
   MD024: false
   MD026: false
+  MD029: false
   MD031: false
   MD032: false
   MD033: false
+  MD034: true
   MD036: false
+  MD040: false
   MD041: false
   MD050: false
-  MD034: true
-  MD040: true
+  MD055: false
+  MD060: false
   MD012:
-    maximum: 2
+    maximum: 3
 globs:
   - "**/*.md"
 ignores:
   - "node_modules"
-

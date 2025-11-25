@@ -304,17 +304,20 @@ def detect_multi_target_campaign(
         "signals": [],
     }
 
+    signals: List[str] = []
+    report["signals"] = signals  # type: ignore[assignment]
+
     # Add specific signals
     if len(graph.targets) >= 3:
-        report["signals"].append("multi_target_campaign")
+        signals.append("multi_target_campaign")
 
     if graph.max_phase_reached >= KillChainPhase.EXPLOIT_DEVELOPMENT:
-        report["signals"].append("campaign_exploit_phase")
+        signals.append("campaign_exploit_phase")
 
     if graph.targets_at_phase.get(KillChainPhase.EXPLOIT_DEVELOPMENT, 0) >= 2:
-        report["signals"].append("campaign_multi_exploit")
+        signals.append("campaign_multi_exploit")
 
     if graph.risk_score >= 0.7:
-        report["signals"].append("campaign_high_risk")
+        signals.append("campaign_high_risk")
 
     return graph, report

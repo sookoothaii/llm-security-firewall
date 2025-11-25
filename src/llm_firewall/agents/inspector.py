@@ -15,7 +15,7 @@ import re
 import math
 import hashlib
 import logging
-from typing import Dict, Any, List, Set
+from typing import Any, Dict, List, Optional, Set
 from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ class InspectionResult:
     reasons: List[str]  # List of detection reasons
 
     # Backward compatibility fields
-    detected_patterns: List[str] = None
+    detected_patterns: Optional[List[str]] = None
     confidence: float = 0.0
     recommendation: str = "ALLOW"
 

@@ -160,7 +160,7 @@ def map_tool_to_phase(
 def update_killchain_state(
     state: KillChainState,
     event: ToolEvent,
-    tool_categories: Dict[str, KillChainPhase] = None,
+    tool_categories: Optional[Dict[str, KillChainPhase]] = None,
     window_seconds: float = 300.0,  # 5-minute rolling window
     use_phase_floor: bool = True,
 ) -> KillChainState:

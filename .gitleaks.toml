@@ -41,10 +41,12 @@ paths = [
     '''src/llm_firewall/gates/secrets_heuristics\.py$''',        # Password detection patterns (L106-119)
     '''src/llm_firewall/monitoring/influence_budget_repo\.py$''', # Default DSN fallback
     '''src/llm_firewall/safety/validator\.py$''',                # Test strings
+    '''src/llm_firewall/detectors/cyber_ops\.py$''',              # Lexicon strings (password extraction, etc.)
 ]
 regexes = [
     '''password=(admin123|test123)''',
     '''password.*admin''',
+    '''password extraction''',                                    # Lexicon string in cyber_ops.py
     '''first tokens: password''',
     '''r"\\bpassword\\s\*''',                                    # Python regex pattern
     '''postgresql://hakgal:password@localhost''',                # Default DSN
@@ -75,4 +77,3 @@ regexes = [
     '''DB_PASSWORD=\$\{DB_PASSWORD\}''',                             # Docker env placeholder
     '''POSTGRES_PASSWORD=\$\{DB_PASSWORD\}''',                       # Docker env placeholder
 ]
-
