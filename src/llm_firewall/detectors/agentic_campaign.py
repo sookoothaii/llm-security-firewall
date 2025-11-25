@@ -652,13 +652,14 @@ class AgenticCampaignDetector:
         """
         Fallback-Entscheidung ohne Policy-Layer (reine Schwellenwerte).
         """
+        debug_info: Dict[str, Any] = {}
         if combined_risk >= 0.55:
-            return Action.BLOCK, combined_risk, None
+            return Action.BLOCK, combined_risk, debug_info
         if combined_risk >= 0.45:
-            return Action.REQUIRE_APPROVAL, combined_risk, None
+            return Action.REQUIRE_APPROVAL, combined_risk, debug_info
         if combined_risk >= 0.35:
-            return Action.WARN, combined_risk, None
-        return Action.ALLOW, combined_risk, None
+            return Action.WARN, combined_risk, debug_info
+        return Action.ALLOW, combined_risk, debug_info
 
     def scan_tool_events_for_signals(
         self,

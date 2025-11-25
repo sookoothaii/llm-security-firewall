@@ -83,7 +83,7 @@ pip install fastapi uvicorn httpx
 
 Falls du echte LLM-Responses willst:
 
-1. Installiere Ollama: https://ollama.ai/download
+1. Installiere Ollama: [Ollama Download](https://ollama.ai/download)
 2. Lade Modell: `ollama pull llama3`
 3. Starte Proxy neu → Erkennt Ollama automatisch
 
@@ -96,5 +96,3 @@ Falls du echte LLM-Responses willst:
 3. **Später**: Streaming, Web-UI, Docker, etc.
 
 **Der Code ist bereit. Starte einfach den Server!** 🎯
-
-

@@ -88,7 +88,7 @@ except (ImportError, Exception) as e:
     logging.warning(f"Could not import kids_policy modules: {e}. Using fallback stubs.")
 
     # Fallback: create minimal stubs
-    class SafetyTemplates:
+    class SafetyTemplates:  # type: ignore[no-redef]
         @classmethod
         def get_template(cls, violation_type: str, language: str = "de") -> str:
             templates = {
@@ -99,7 +99,7 @@ except (ImportError, Exception) as e:
             }
             return templates.get(violation_type, f"[Template for {violation_type}]")
 
-    class SafetyFallbackJudge:
+    class SafetyFallbackJudge:  # type: ignore[no-redef]
         def evaluate_safety(self, input_text: str, age_band: str) -> bool:
             # Simple keyword-based check
             unsafe_keywords = [
@@ -158,7 +158,7 @@ class ProxyConfig:
     """Configuration for the proxy server."""
 
     port: int = 8081
-    allowed_topics: list[str] = None
+    allowed_topics: Optional[list[str]] = None
     age_band: str = "9-12"
     topic_threshold: float = 0.3
     enable_fallback_judge: bool = True
@@ -475,11 +475,12 @@ class LLMProxyServer:
         allowed_topics = allowed_topics or self.config.allowed_topics
         session_id = self._get_or_create_session_id(session_id)
 
-        metadata = {
+        layers_checked: List[str] = []
+        metadata: Dict[str, Any] = {
             "age_band": age_band,
             "allowed_topics": allowed_topics,
             "session_id": session_id,
-            "layers_checked": [],
+            "layers_checked": layers_checked,
         }
 
         # Layer 0: Safety-First Check (UNSAFE_CONTENT before topic check)
@@ -488,7 +489,7 @@ class LLMProxyServer:
         try:
             is_safe_input = self.fallback_judge.evaluate_safety(user_input, age_band)
             metadata["kids_input_safe"] = is_safe_input
-            metadata["layers_checked"].append("safety_first")
+            layers_checked.append("safety_first")
 
             if not is_safe_input:
                 logger.warning(
@@ -510,7 +511,7 @@ class LLMProxyServer:
         is_on_topic = self.topic_fence.is_on_topic(
             user_input, allowed_topics, threshold=self.config.topic_threshold
         )
-        metadata["layers_checked"].append("topic_fence")
+        layers_checked.append("topic_fence")
 
         if not is_on_topic:
             best_topic, score = self.topic_fence.get_best_topic(
@@ -547,7 +548,7 @@ class LLMProxyServer:
             "confidence": inspection_result.confidence,
             "recommendation": inspection_result.recommendation,
         }
-        metadata["layers_checked"].append("argument_inspector")
+        layers_checked.append("argument_inspector")
 
         # If argument inspection recommends BLOCK, create event first, then block
         # This ensures the event is recorded in memory even if blocked
@@ -689,7 +690,7 @@ class LLMProxyServer:
         logger.info(
             "[Layer 2B] Kids Policy Input Safety check (redundant - already checked in Layer 0)"
         )
-        metadata["layers_checked"].append("kids_input_safety")
+        layers_checked.append("kids_input_safety")
 
         logger.info("[Layer 2] All checks passed - generating LLM response")
 
@@ -726,7 +727,7 @@ class LLMProxyServer:
                 )
                 metadata["truth_validation"] = "simplified_check"
                 metadata["output_safe"] = is_safe_output
-                metadata["layers_checked"].append("truth_preservation")
+                layers_checked.append("truth_preservation")
 
                 if not is_safe_output:
                     logger.warning("[Layer 3] Output UNSAFE - blocking")
