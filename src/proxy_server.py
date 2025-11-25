@@ -239,10 +239,14 @@ class LLMProxyServer:
             storage_manager = None
 
         # Initialize Kids Policy Truth Preservation Validator (if available)
-        self.truth_validator = None
+        self.truth_validator: Optional[Any] = None
         if HAS_TRUTH_VALIDATOR:
             try:
-                self.truth_validator = TruthPreservationValidatorV2_3()
+                from kids_policy.truth_preservation.validator import (
+                    TruthPreservationValidatorV2_3,
+                )
+
+                self.truth_validator = TruthPreservationValidatorV2_3()  # type: ignore[assignment]
                 logger.info("TruthPreservationValidator initialized")
             except Exception as e:
                 logger.warning(f"Could not initialize TruthPreservationValidator: {e}")
@@ -595,7 +599,7 @@ class LLMProxyServer:
             return ProxyResponse(
                 status="BLOCKED_CAMPAIGN",
                 response=SafetyTemplates.get_template("GENERIC_BLOCK", "de")
-                + f" [RC10c: Sensitive data detected in arguments: {', '.join(inspection_result.detected_patterns)}]",
+                + f" [RC10c: Sensitive data detected in arguments: {', '.join(inspection_result.detected_patterns or [])}]",
                 metadata=metadata,
             )
 
