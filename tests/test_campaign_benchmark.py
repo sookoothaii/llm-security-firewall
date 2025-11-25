@@ -18,11 +18,12 @@ License: MIT
 import pytest
 from typing import Dict, List, Tuple
 
-from llm_firewall.benchmarks.campaign_metrics import (
+from benchmarks.campaign_metrics import (
     CampaignBenchmarkResults,
     run_campaign_benchmark,
 )
-from llm_firewall.data.campaign_dataset import (
+# campaign_dataset is in data/ directory, not llm_firewall.data
+from data.campaign_dataset import (
     CampaignLabel,
     CampaignScenario,
     convert_scenario_to_tool_events,

@@ -166,14 +166,13 @@ pytest tests/
 ## Technical Documentation
 
 **Design and Evaluation:**
-- `docs/RC10B_TECH_REPORT.md` - System architecture and evaluation methodology
-- `docs/RC10B_VALIDATION_REPORT.md` - Ablation studies and component analysis
-- `docs/RC10B_EVALUATION_STATUS.md` - Methodological assessment
-- `docs/STATUS_REPORT_GEN45_2025_11_19.md` - Persistence layer implementation
+- RC10b campaign detection: See `src/llm_firewall/agents/README.md` for architecture
+- Evaluation methodology: Synthetic dataset validation (180 scenarios)
+- Ablation studies: Policy layer removal increases low-and-slow attack success from 0% to 100%
 
 **Integration:**
-- `docs/RC10_INTEGRATION_GUIDE.md` - Pipeline integration guidelines
-- `docs/SHADOW_DEPLOYMENT_GUIDE.md` - Deployment planning (not executed)
+- See `src/llm_firewall/agents/example_usage.py` for integration examples
+- Proxy server: `src/proxy_server.py` demonstrates full pipeline integration
 
 ---
 
