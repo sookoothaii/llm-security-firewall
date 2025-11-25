@@ -74,4 +74,22 @@ READY_FOR_GITHUB.md
 PUBLICATION_STATUS.md
 PESTALOZZI_ENGINE_CONCEPT.md
 
+# Temporary test/benchmark files
+perfect_storm_*.json
+perfect_storm_*.py
+test_*.txt
+test_output*.txt
+test_debug*.txt
+test_final*.txt
+test_stderr*.txt
+test_stdout*.txt
+debug_*.py
+debug_*.json
+latency_profile_*.json
+fp_telemetry_analysis.json
+fpr_benign_repo.json
+rc8_bypass_validation.json
+aggregate_multiseed_*.json
+test_compare_mock.json
+
 

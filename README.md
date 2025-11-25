@@ -94,8 +94,8 @@ streamlit run tools/admin_dashboard.py
 # Run test suite
 pytest tests/
 
-# Expected: 833/853 tests pass (97.7%)
-# 20 known failures documented in test suite
+# Expected: 832/853 tests pass (97.5%)
+# 7 known failures documented in TEST_STATUS_REMAINING_7_FAILURES.md
 ```
 
 **Performance Metrics (measured on development system):**
@@ -209,7 +209,7 @@ See `requirements.txt` for complete dependency list.
 **Implemented:**
 - RC10b campaign detector with ablation-validated components
 - Persistence layer with state recovery
-- Unit test suite (833 tests)
+- Unit test suite (832/853 tests passing, 97.5%)
 - Synthetic evaluation framework
 
 **Not Implemented:**
