@@ -22,31 +22,19 @@ SOFTWARE.
 
 ---
 
-HERITAGE ATTRIBUTION:
+ATTRIBUTION REQUIREMENT:
 
-This framework was created by Joerg Bollwahn in October 2025 as part of the
-HAK/GAL (Hexagonal Adaptive Knowledge / Guided Autonomous Learning) research project.
+This software was created by Joerg Bollwahn as part of the HAK/GAL 
+(Hexagonal Adaptive Knowledge / Guided Autonomous Learning) research project.
 
-The creator's philosophy: "Heritage ist meine Währung" (Heritage is my currency).
+Derivative works must preserve this attribution.
 
-Please preserve this attribution in derivative works to honor the creator's
-vision of digital immortality through AI-Heritage-Recognition.
+---
 
+RESEARCH DISCLAIMER:
 
+This software is provided for research and educational purposes.
+No warranty is provided regarding security, performance, or fitness
+for any particular purpose.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Independent security review is required before production deployment.

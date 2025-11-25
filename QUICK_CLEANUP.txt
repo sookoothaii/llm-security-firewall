@@ -1,0 +1,94 @@
+QUICK REPOSITORY CLEANUP - Copy/Paste Commands
+
+Execute from: D:\MCP Mods\HAK_GAL_HEXAGONAL\standalone_packages\llm-security-firewall
+
+=== PHASE 1: Create Archive Directories ===
+
+New-Item -ItemType Directory -Path archive\sessions -Force
+New-Item -ItemType Directory -Path archive\reports -Force
+New-Item -ItemType Directory -Path benchmarks\results -Force
+New-Item -ItemType Directory -Path scripts\debug -Force
+
+=== PHASE 2: Move Session Reports (20 files) ===
+
+Move-Item SESSION_*.md archive\sessions\ -ErrorAction SilentlyContinue
+Move-Item HANDOVER_*.md archive\sessions\ -ErrorAction SilentlyContinue
+Move-Item VICTORY_LAP.md archive\sessions\ -ErrorAction SilentlyContinue
+Move-Item CONSOLIDATION_REPORT_2025_10_28.md archive\sessions\ -ErrorAction SilentlyContinue
+
+=== PHASE 3: Move Attack Reports (6 files) ===
+
+Move-Item *BYPASS*.md archive\reports\ -ErrorAction SilentlyContinue
+Move-Item *ATTACK*.md archive\reports\ -ErrorAction SilentlyContinue
+Move-Item HARDCORE_REDTEAM_SUMMARY_2025_10_31.md archive\reports\ -ErrorAction SilentlyContinue
+Move-Item OTB_*.md archive\reports\ -ErrorAction SilentlyContinue
+
+=== PHASE 4: Move Technical Reports to Docs (8 files) ===
+
+Move-Item GPT5_*.md docs\ -ErrorAction SilentlyContinue
+Move-Item RC8_*.md docs\ -ErrorAction SilentlyContinue
+Move-Item RC9_*.md docs\ -ErrorAction SilentlyContinue
+Move-Item TEST_STATUS_REMAINING_7_FAILURES.md docs\ -ErrorAction SilentlyContinue
+
+=== PHASE 5: Move JSON Results (15+ files) ===
+
+Move-Item *.json benchmarks\results\ -ErrorAction SilentlyContinue -Exclude requirements*.json,pyproject.json,manifest*.json
+
+=== PHASE 6: Move Debug Scripts (15+ files) ===
+
+Move-Item debug_*.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item perfect_storm_*.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item temp_*.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item extract_all.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item analyze_stratified.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item eval_benign_fpr.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item latency_profile.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item run_multiseed_validation.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item run_phase2_generation.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item test_rc8_bypasses.py scripts\debug\ -ErrorAction SilentlyContinue
+Move-Item validate_age_stratified_27_cases.py scripts\debug\ -ErrorAction SilentlyContinue
+
+=== PHASE 7: Delete Redundant Files (5 files) ===
+
+Remove-Item README_meta.md -ErrorAction SilentlyContinue
+Remove-Item README_NEMO_FEATURES.md -ErrorAction SilentlyContinue
+Remove-Item README_OLLAMA_INTEGRATION.md -ErrorAction SilentlyContinue
+Remove-Item COMMIT_MESSAGE.txt -ErrorAction SilentlyContinue
+Remove-Item integration_snippet.txt -ErrorAction SilentlyContinue
+Remove-Item RECOMMENDED_CHANGES.txt -ErrorAction SilentlyContinue
+Remove-Item test_output_full.txt -ErrorAction SilentlyContinue
+
+=== PHASE 8: Delete Test Database (if exists) ===
+
+Remove-Item hakgal_firewall.db -ErrorAction SilentlyContinue
+
+=== VERIFICATION ===
+
+# Check root directory (should be clean)
+Get-ChildItem -File | Select Name
+
+# Expected files in root (approx 15-20):
+# - README.md
+# - LICENSE
+# - CHANGELOG.md
+# - CONTRIBUTING.md
+# - CODE_OF_CONDUCT.md
+# - SECURITY.md
+# - INSTALL.md
+# - QUICK_START.md
+# - requirements.txt
+# - requirements-dev.txt
+# - pyproject.toml
+# - pytest.ini
+# - ruff.toml
+# - Dockerfile
+# - docker-compose.yml
+# - start_firewall_system.bat
+# - start_full_system.bat
+# - Makefile.layer15
+
+# Test nothing broke
+pytest tests\ -x
+
+# Expected: Tests still pass
+

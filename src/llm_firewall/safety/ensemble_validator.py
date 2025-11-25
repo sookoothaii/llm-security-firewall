@@ -18,6 +18,11 @@ from typing import List, Tuple
 
 logger = logging.getLogger(__name__)
 
+# Optimistic Fast-Path Threshold
+# If embedding similarity is below this, we trust the input immediately.
+# This avoids running slower models (Perplexity, etc.) on clearly benign text.
+OPTIMISTIC_THRESHOLD = 0.05
+
 
 @dataclass
 class LayerVote:
@@ -154,7 +159,7 @@ class EnsembleValidator:
         self, text: str, pattern_detector, embedding_detector, perplexity_detector
     ) -> Tuple[bool, str]:
         """
-        Run ensemble validation on text.
+        Run ensemble validation on text with Optimistic Fast-Path.
 
         Args:
             text: Input text
@@ -165,7 +170,39 @@ class EnsembleValidator:
         Returns:
             (is_safe, reason) tuple
         """
-        # Get votes from each layer
+        # OPTIMISTIC FAST-PATH (Performance Optimization)
+        # Run Embedding Detector first (usually MiniLM - fast enough)
+        embedding_result = None
+        embedding_vote = None
+
+        if embedding_detector and embedding_detector.available:
+            embedding_result = embedding_detector.detect(text)
+            
+            # Check Fast Path Condition
+            if embedding_result.max_similarity < OPTIMISTIC_THRESHOLD:
+                logger.info(f"⚡ Fast Path triggered (Score: {embedding_result.max_similarity:.4f})")
+                return (True, f"Optimistic Fast-Path: Score {embedding_result.max_similarity:.3f} < {OPTIMISTIC_THRESHOLD}")
+            
+            # If not fast path, prepare the vote object
+            embedding_vote = LayerVote(
+                layer_name="Embedding",
+                is_threat=embedding_result.is_jailbreak,
+                confidence=embedding_result.max_similarity,
+                reason=f"Embedding: sim={embedding_result.max_similarity:.3f}",
+            )
+            logger.info(f"🔍 Full Hydra Audit triggered (Score: {embedding_result.max_similarity:.4f})")
+        else:
+            # Abstain if detector unavailable
+            embedding_vote = LayerVote(
+                layer_name="Embedding",
+                is_threat=False,
+                confidence=0.0,
+                reason="Embedding: unavailable",
+            )
+
+        # If we reached here, Fast Path was NOT triggered. Run remaining layers.
+        
+        # 1. Pattern Detector
         pattern_result = pattern_detector.validate(text)
         pattern_vote = LayerVote(
             layer_name="Pattern",
@@ -176,27 +213,7 @@ class EnsembleValidator:
             reason=f"Pattern: {pattern_result.reason}",
         )
 
-        embedding_result = (
-            embedding_detector.detect(text)
-            if embedding_detector and embedding_detector.available
-            else None
-        )
-        if embedding_result:
-            embedding_vote = LayerVote(
-                layer_name="Embedding",
-                is_threat=embedding_result.is_jailbreak,
-                confidence=embedding_result.max_similarity,
-                reason=f"Embedding: sim={embedding_result.max_similarity:.3f}",
-            )
-        else:
-            # Abstain if detector unavailable
-            embedding_vote = LayerVote(
-                layer_name="Embedding",
-                is_threat=False,
-                confidence=0.0,
-                reason="Embedding: unavailable",
-            )
-
+        # 2. Perplexity Detector
         perplexity_result = (
             perplexity_detector.detect(text)
             if perplexity_detector and perplexity_detector.available
