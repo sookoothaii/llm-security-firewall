@@ -357,11 +357,11 @@ class HierarchicalMemory:
             Dictionary representation of the memory object
         """
         # Serialize tactical buffer (deque → list)
-        tactical_buffer_list = []
+        tactical_buffer_list: List[Any] = []
         for event in self.tactical_buffer:
             # Events are ToolEvent objects - serialize to dict
             if hasattr(event, "__dict__"):
-                event_dict = {
+                event_dict: Dict[str, Any] = {
                     "tool": getattr(event, "tool", ""),
                     "category": getattr(event, "category", ""),
                     "target": getattr(event, "target", None),
@@ -378,7 +378,7 @@ class HierarchicalMemory:
                     event_dict["metadata"] = getattr(event, "metadata", {})
                 tactical_buffer_list.append(event_dict)
             else:
-                tactical_buffer_list.append(str(event))
+                tactical_buffer_list.append(str(event))  # type: ignore[arg-type]
 
         # Serialize phase transitions (MarkovChain → dict)
         phase_transitions_dict = {

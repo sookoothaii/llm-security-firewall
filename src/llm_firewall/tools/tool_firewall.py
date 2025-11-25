@@ -22,7 +22,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 from llm_firewall.detectors.tool_killchain import ToolEvent
 
@@ -56,10 +56,10 @@ class ToolInvocation:
     operation_type: ToolOperationType
     target: Optional[str] = None  # IP, domain, file path, etc.
     scope: ToolScope = ToolScope.UNKNOWN
-    arguments: Dict[str, any] = field(default_factory=dict)
+    arguments: Dict[str, Any] = field(default_factory=dict)
     session_id: Optional[str] = None
     operator_id: Optional[str] = None
-    metadata: Dict[str, any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass

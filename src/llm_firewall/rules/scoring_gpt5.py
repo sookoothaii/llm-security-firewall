@@ -164,10 +164,10 @@ class IntentMatcher:
             max_gap: Maximum token gap for regex channel
         """
         try:
-            from ..lexicons.regex_generator import build_cluster_regexes
+            from ..lexicons.regex_generator import build_cluster_regexes  # type: ignore[no-redef]
         except ImportError:
             # Fallback if import fails
-            from llm_firewall.lexicons.regex_generator import build_cluster_regexes
+            from llm_firewall.lexicons.regex_generator import build_cluster_regexes  # type: ignore[no-redef]
 
         # AC channel for exact phrases
         self._acs: Dict[str, ACMatcher] = {}

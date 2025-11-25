@@ -25,7 +25,7 @@ from __future__ import annotations
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 from llm_firewall.detectors.tool_killchain import KillChainPhase, ToolEvent
 
@@ -230,7 +230,7 @@ def calculate_campaign_risk(graph: CampaignGraph) -> float:
     return min(total_score, 1.0)
 
 
-def get_campaign_features(graph: CampaignGraph) -> Dict[str, any]:
+def get_campaign_features(graph: CampaignGraph) -> Dict[str, Any]:
     """
     Extract features from campaign graph for ML/GuardNet integration.
 
@@ -268,7 +268,7 @@ def detect_multi_target_campaign(
     events: List[ToolEvent],
     campaign_id: str,
     phase_mapping: Optional[Dict[str, KillChainPhase]] = None,
-) -> Tuple[CampaignGraph, Dict[str, any]]:
+) -> Tuple[CampaignGraph, Dict[str, Any]]:
     """
     Build campaign graph from tool events.
 

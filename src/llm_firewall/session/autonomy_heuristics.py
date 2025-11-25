@@ -26,7 +26,7 @@ from __future__ import annotations
 import time
 from collections import deque
 from dataclasses import dataclass, field
-from typing import Deque, Dict, List, Optional, Tuple
+from typing import Any, Deque, Dict, List, Optional, Tuple
 
 
 @dataclass
@@ -198,7 +198,7 @@ def detect_autonomous_agent(
     requests: List[RequestMetrics],
     session_id: str,
     operator_id: Optional[str] = None,
-) -> Tuple[AutonomyState, Dict[str, any]]:
+) -> Tuple[AutonomyState, Dict[str, Any]]:
     """
     Detect autonomous agent behavior from request history.
 
@@ -230,21 +230,23 @@ def detect_autonomous_agent(
         "is_autonomous": state.autonomy_score >= 0.8,
         "signals": [],
     }
+    signals: List[str] = []
+    report["signals"] = signals  # type: ignore[assignment]
 
     # Add specific signals
     if state.requests_per_minute >= 5:
-        report["signals"].append("high_request_rate")
+        signals.append("high_request_rate")
 
     if state.avg_token_ratio >= 5.0:
-        report["signals"].append("high_input_output_ratio")
+        signals.append("high_input_output_ratio")
 
     if state.tool_call_ratio >= 0.8:
-        report["signals"].append("high_tool_usage")
+        signals.append("high_tool_usage")
 
     if state.human_intervention_ratio < 0.1:
-        report["signals"].append("low_human_intervention")
+        signals.append("low_human_intervention")
 
     if state.autonomy_score >= 0.8:
-        report["signals"].append("autonomous_agent_detected")
+        signals.append("autonomous_agent_detected")
 
     return state, report

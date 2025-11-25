@@ -32,7 +32,7 @@ import time
 from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import IntEnum
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 
 # Kill-Chain Phase Enum
@@ -92,7 +92,7 @@ class ToolEvent:
     category: str  # Tool category (e.g., "net_scan", "file_read")
     target: Optional[str] = None  # Target identifier (IP, hostname, etc.)
     success: bool = True
-    metadata: Dict[str, any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -310,10 +310,10 @@ def detect_killchain_campaign(
     events: List[ToolEvent],
     session_id: str,
     operator_id: Optional[str] = None,
-    tool_categories: Dict[str, KillChainPhase] = None,
+    tool_categories: Optional[Dict[str, KillChainPhase]] = None,
     risk_threshold: float = 0.5,
     use_phase_floor: bool = True,
-) -> Tuple[KillChainState, Dict[str, any]]:
+) -> Tuple[KillChainState, Dict[str, Any]]:
     """
     Detect kill-chain campaign from tool event sequence.
 
@@ -355,21 +355,24 @@ def detect_killchain_campaign(
         "signals": [],
     }
 
+    signals: List[str] = []
+    report["signals"] = signals  # type: ignore[assignment]
+
     # Add specific signals
     if state.current_phase >= KillChainPhase.EXPLOIT_DEVELOPMENT:
-        report["signals"].append("exploit_phase_reached")
+        signals.append("exploit_phase_reached")
 
     if state.branching_factor >= 3:
-        report["signals"].append("high_branching_factor")
+        signals.append("high_branching_factor")
 
     if state.tempo >= 5.0:
-        report["signals"].append("high_tempo")
+        signals.append("high_tempo")
 
     if state.tool_diversity >= 5:
-        report["signals"].append("high_tool_diversity")
+        signals.append("high_tool_diversity")
 
     if len(state.targets) >= 5:
-        report["signals"].append("multi_target_campaign")
+        signals.append("multi_target_campaign")
 
     return state, report
 

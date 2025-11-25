@@ -26,7 +26,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from typing import Dict, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 from llm_firewall.detectors.tool_killchain import ToolEvent
 
@@ -191,7 +191,7 @@ def check_operator_budget(
     session_id: str,
     budgets: Dict[str, OperatorBudget],
     default_limits: Optional[Dict[str, int]] = None,
-) -> Tuple[OperatorBudget, Dict[str, any]]:
+) -> Tuple[OperatorBudget, Dict[str, Any]]:
     """
     Check and update operator budget, return status.
 
@@ -246,25 +246,27 @@ def check_operator_budget(
         "total_sessions": budget.total_sessions,
         "signals": [],
     }
+    signals: List[str] = []
+    report["signals"] = signals  # type: ignore[assignment]
 
     # Add signals
     if budget.budget_exceeded:
-        report["signals"].append("operator_budget_exceeded")
+        signals.append("operator_budget_exceeded")
 
     if budget.auto_strict_active:
-        report["signals"].append("operator_auto_strict_active")
+        signals.append("operator_auto_strict_active")
 
     if budget.net_scan_count > budget.max_net_scan * 0.8:
-        report["signals"].append("operator_net_scan_warning")
+        signals.append("operator_net_scan_warning")
 
     if budget.exploit_count > budget.max_exploit * 0.8:
-        report["signals"].append("operator_exploit_warning")
+        signals.append("operator_exploit_warning")
 
     if budget.ewma_tempo > 5.0:
-        report["signals"].append("operator_high_tempo")
+        signals.append("operator_high_tempo")
 
     if len(budget.active_sessions) > 10:
-        report["signals"].append("operator_high_session_count")
+        signals.append("operator_high_session_count")
 
     return budget, report
 

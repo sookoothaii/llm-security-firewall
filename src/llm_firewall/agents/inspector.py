@@ -38,7 +38,7 @@ if COUNT_MIN_AVAILABLE:
     FRAGMENT_MEMORY_LEGACY: Set[bytes] = set()  # Fallback
 else:
     FRAGMENT_SKETCH = None
-    FRAGMENT_MEMORY_LEGACY: Set[bytes] = set()  # Fallback to Set
+    # FRAGMENT_MEMORY_LEGACY already defined above
 
 MAX_FRAGMENT_MEMORY = 10000
 
@@ -198,7 +198,7 @@ class ArgumentInspector:
         # 3. ENTROPY CHECK
         if len(arg_str) > 50:
             # Calculate Shannon entropy
-            char_counts = {}
+            char_counts: Dict[str, int] = {}
             for char in arg_str:
                 char_counts[char] = char_counts.get(char, 0) + 1
 

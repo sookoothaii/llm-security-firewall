@@ -20,7 +20,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from llm_firewall.detectors.action import Action
 from llm_firewall.detectors.tool_killchain import (
@@ -138,7 +138,7 @@ class AgenticCampaignDetector:
     def __init__(
         self,
         operator_budgets: Optional[Dict[str, OperatorBudget]] = None,
-        tool_categories: Optional[Dict[str, any]] = None,
+        tool_categories: Optional[Dict[str, Any]] = None,
         security_pretext_lexicon: Optional[Path] = None,
         config: Optional[CampaignDetectorConfig] = None,
     ):
@@ -292,7 +292,7 @@ class AgenticCampaignDetector:
         scope_mismatch: bool = False,
         tool_events: Optional[List[ToolEvent]] = None,
         debug: bool = False,
-    ) -> Tuple[Action, float, Optional[Dict[str, any]]]:
+    ) -> Tuple[Action, float, Optional[Dict[str, Any]]]:
         """
         Apply policy layer to convert risk score to action (RC10b: HC1/HC3 Fix).
 
@@ -316,7 +316,7 @@ class AgenticCampaignDetector:
             Actions: Action.BLOCK, Action.REQUIRE_APPROVAL, Action.WARN, Action.ALLOW
         """
         final_risk = combined_risk
-        debug_info = {} if debug else None
+        debug_info: Optional[Dict[str, Any]] = {} if debug else None
 
         if debug:
             debug_info["pre_policy"] = {
@@ -438,7 +438,7 @@ class AgenticCampaignDetector:
         pretext_signals: Optional[List[str]] = None,
         scope: Optional[str] = None,
         authorized: Optional[bool] = None,
-    ) -> Dict[str, any]:
+    ) -> Dict[str, Any]:
         """
         Detect agentic campaign from tool events and context (RC10b: Enhanced).
 
@@ -648,7 +648,7 @@ class AgenticCampaignDetector:
     def apply_threshold_decision(
         self,
         combined_risk: float,
-    ) -> Tuple[Action, float, Optional[Dict[str, any]]]:
+    ) -> Tuple[Action, float, Optional[Dict[str, Any]]]:
         """
         Fallback-Entscheidung ohne Policy-Layer (reine Schwellenwerte).
         """
@@ -691,7 +691,7 @@ def detect_agentic_campaign(
     pretext_signals: Optional[List[str]] = None,
     scope: Optional[str] = None,
     authorized: Optional[bool] = None,
-) -> Dict[str, any]:
+) -> Dict[str, Any]:
     """
     Convenience function for campaign detection (RC10b: Enhanced).
 

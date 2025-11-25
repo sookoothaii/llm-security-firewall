@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 Base = declarative_base()
 
 
-class SessionModel(Base):
+class SessionModel(Base):  # type: ignore[misc, valid-type]
     """
     SQLAlchemy model for session storage.
 
