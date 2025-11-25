@@ -92,4 +92,14 @@ rc8_bypass_validation.json
 aggregate_multiseed_*.json
 test_compare_mock.json
 
+# Large model files (use Git LFS or external storage)
+models/**/*.safetensors
+models/**/*.onnx
+models/**/tokenizer.json
+models/**/*.bin
+models/**/*.pt
+models/**/*.pth
+models/**/*.h5
+models/**/*.ckpt
+
 
