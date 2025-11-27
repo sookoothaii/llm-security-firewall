@@ -1,0 +1,147 @@
+# Behavioral Integrity Gates v0.1.0
+# ===================================
+# TAG-3: Grooming Detection & Behavioral Integrity
+# Meta-Layer: Runs BEFORE TAG-2 (Truth Preservation)
+# Safety First → Truth Second
+#
+# Author: HAK_GAL (Joerg Bollwahn)
+# Date: 2025-11-27
+# Status: Initial Implementation (Regex Layer A, NLI Layer B placeholder)
+#
+# Architecture:
+# - Layer A: Fast Regex Patterns (<10ms) for hard indicators
+# - Layer B: Semantic/NLI Check (placeholder for v2) for soft manipulation
+#
+# Rationale:
+# A factually correct predator is still a predator.
+# This layer detects manipulative behavioral patterns regardless of factual accuracy.
+
+behavioral_integrity:
+  version: "0.1.0"
+
+  thresholds:
+    hard_block: 0.95  # Immediate block on detection
+    soft_block: 0.75  # Block with educational explanation
+
+  categories:
+    isolation:
+      description: "Attempts to isolate child from trusted adults"
+      risk_weight: 1.0
+      action: "block"
+      patterns:
+        - "don't tell (mom|dad|parents|mother|father)"
+        - "secret (between|just) us"
+        - "delete (this|the) chat"
+        - "our little secret"
+        - "keep this (between|just) us"
+        - "don't share this with"
+        - "this is (just|only) between (you and me|us)"
+        - "nobody (else|needs) to know"
+        - "nobody else needs to know"
+        - "don't tell (anyone|anybody)"
+
+    gift_offering:
+      description: "Material incentives to manipulate behavior"
+      risk_weight: 0.9
+      action: "block"
+      patterns:
+        - "buy you (v-bucks|robux|skins|games|toys)"
+        - "give you (money|gift|present|reward)"
+        - "send me your wallet"
+        - "i can (get|buy|give) you"
+        - "i'll (buy|get|give) you (if|when)"
+        - "free (v-bucks|robux|gift|money)"
+        - "i have (gifts|money|games) for you"
+
+    real_life_transition:
+      description: "Attempts to move interaction from digital to physical space"
+      risk_weight: 1.0
+      action: "block"
+      patterns:
+        - "where do you (live|go to school|live at)"
+        - "meet (at|in) the (park|mall|store|place)"
+        - "what is your (address|phone|location|home)"
+        - "send (me) a picture"
+        - "can you (meet|come|visit) me"
+        - "let's (meet|get together|hang out)"
+        - "where are you (right now|located|from)"
+        - "what's your (real name|full name|last name)"
+        - "can i (come|visit|see) you"
+        - "can i come visit you"
+        - "show me (where|how) you (live|look)"
+
+    authority_erosion:
+      description: "Undermining parental/guardian authority"
+      risk_weight: 0.8
+      action: "block"
+      patterns:
+        - "parents don't understand"
+        - "trust me more than"
+        - "adults are (stupid|wrong|bad)"
+        - "your (parents|mom|dad) (don't|won't) understand"
+        - "i understand you (better|more) than"
+        - "your (family|parents) (don't|can't) help"
+        - "i'm the only one who (understands|cares about) you"
+        - "grown-ups (don't|won't) get it"
+
+    boundary_testing:
+      description: "Testing and pushing personal boundaries"
+      risk_weight: 1.0
+      action: "block"
+      patterns:
+        - "show me (a picture|your photo|what you look like)"
+        - "what are you (wearing|doing) (right now|now)"
+        - "have you ever (kissed|touched|done)"
+        - "send me (a photo|your photo|your picture|an image)"
+        - "what do you (look like|wear|do) (at home|in private)"
+        - "what do you look like"
+        - "can i see (you|your room|your body)"
+        - "take off (your|the) (clothes|shirt)"
+        - "are you (alone|by yourself) (right now|now)"
+
+  responses:
+    default_block: "I cannot continue this conversation. Let's talk about something else that is safe and fun."
+    isolation_block: "It is important to share our conversations with your parents or guardians. Secrets can be unsafe."
+    gift_block: "I cannot offer gifts or rewards. Let's focus on learning and having safe conversations."
+    real_life_block: "I cannot meet in person or ask for personal information. Let's keep our conversation online and safe."
+    authority_block: "Parents and guardians are important. I encourage you to talk to trusted adults about any concerns."
+    boundary_block: "I cannot ask personal questions like that. Let's keep our conversation appropriate and safe."
+
+  # Future: NLI Layer B configuration (placeholder)
+  semantic_layer:
+    enabled: false  # Will be enabled in v0.2.0
+    model: "facebook/bart-large-mnli"
+    threshold: 0.75
+    description: "Semantic detection for soft manipulation patterns (e.g., 'That's our special thing')"
+
+  # Multi-turn escalation detection (future)
+  session_tracking:
+    enabled: false  # Will be enabled in v0.2.0
+    e_value_threshold: 0.05
+    description: "Track grooming progression across multiple turns using E-values"
+
+  # Audit metadata
+  audit:
+    required_fields:
+      - detector_version
+      - gates_version
+      - pattern_matches
+      - category
+      - confidence
+      - action_taken
+
+    version_pins:
+      gates_version: "0.1.0"
+      detector_version: "1.0.0"
+
+  # Changelog
+  changelog:
+    "0.1.0":
+      date: "2025-11-27"
+      author: "HAK_GAL (Joerg Bollwahn)"
+      changes:
+        - "Initial implementation: Regex-based detection (Layer A)"
+        - "5 categories: Isolation, Gift Offering, Real-Life Transition, Authority Erosion, Boundary Testing"
+        - "NLI Layer B placeholder for v0.2.0"
+        - "Session tracking placeholder for v0.2.0"
+      rationale: "Foundation for behavioral integrity validation. Safety First → Truth Second."

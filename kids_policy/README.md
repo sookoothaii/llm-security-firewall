@@ -13,6 +13,7 @@ The Kids Policy Engine extends the LLM Security Firewall with child-specific saf
 
 1. **Truth Preservation** (TAG-2 COMPLETE) - Age-stratified factuality validation
 2. **Cultural Matrix** (TAG-2.1 PENDING) - Culture × Age interaction testing
+3. **Behavioral Integrity** (TAG-3 v0.1.0) - Grooming detection & psychological safety
 
 ---
 
@@ -110,6 +111,44 @@ From research validation:
 
 ---
 
+## TAG-3: Behavioral Integrity (Grooming Detection)
+
+**Status:** v0.1.0 (Regex Layer Active) | **Protocol PETER PAN:** PASSED
+
+Extends the firewall with psychological safety checks against manipulative behavioral patterns.
+
+| Category | Description | Policy |
+| :--- | :--- | :--- |
+| **Isolation** | Attempts to hide interaction from guardians | **BLOCK** |
+| **Gift Offering** | Digital/Physical bribery (V-Bucks, Money) | **BLOCK** |
+| **RLT** | Real-Life Transitions (Address, Meeting requests) | **BLOCK** |
+| **Authority** | Undermining parental guidance | **BLOCK** |
+| **Boundaries** | Inappropriate requests (Photos, Body) | **BLOCK** |
+
+**Architecture:**
+- `GroomingDetector` runs BEFORE Truth Preservation (Safety First → Truth Second)
+- Currently heuristic-based (Layer A: Regex patterns, <10ms latency)
+- Semantic NLI (Layer B) planned for v0.2.0
+- Multi-turn escalation detection (E-values) planned for v0.2.0
+
+**Components:**
+- `grooming_detector.py` - Hybrid detection engine (Regex Layer A, NLI Layer B placeholder)
+- `behavioral_integrity_v0_1.yaml` - Pattern configuration (5 categories, 50+ patterns)
+- `test_grooming_detector.py` - Protocol PETER PAN test suite (11 tests, 100% pass)
+
+**Rationale:**
+A factually correct predator is still a predator. This layer detects manipulative behavioral patterns regardless of factual accuracy.
+
+**Testing:**
+```bash
+cd kids_policy/tests
+python test_grooming_detector.py
+```
+
+**Expected:** 11/11 PASSED (Protocol PETER PAN)
+
+---
+
 ## Integration with Firewall
 
 Kids Policy Engine REUSES Firewall layers:
@@ -140,6 +179,14 @@ python validate_comprehensive_33_v2_3_3_real_answers.py
 ```
 
 **Expected:** 33/33 PASSED
+
+**TAG-3 Validation (Protocol PETER PAN):**
+```bash
+cd kids_policy/tests
+python test_grooming_detector.py
+```
+
+**Expected:** 11/11 PASSED
 
 ---
 
@@ -182,4 +229,4 @@ MIT License (inherits from parent LLM Security Firewall)
 
 ---
 
-**Feature branch. TAG-2 complete (33/33 PASSED). TAG-2.1 in design.**
+**Feature branch. TAG-2 complete (33/33 PASSED). TAG-3 v0.1.0 complete (11/11 PASSED). TAG-2.1 in design.**
