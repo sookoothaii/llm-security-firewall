@@ -151,22 +151,52 @@ python test_grooming_detector.py
 
 ## Integration with Firewall
 
-Kids Policy Engine REUSES Firewall layers:
+**Architecture:** Hexagonal (Ports & Adapters) - Plugin-based integration
+
+The Kids Policy Engine is integrated as **Layer 0.5** in the firewall pipeline:
+
+### Layer Order (Critical for Security)
+
+1. **Layer 0:** Regex Hardening (Technical Safety)
+2. **Layer 0.5:** Kids Policy Engine (Psychological/Epistemic Safety)
+   - TAG-3 (Grooming Detection) - Pre-LLM check on raw input
+   - TAG-2 (Truth Preservation) - Factuality check (if topic identified)
+3. **Layer 1:** SteganographyGuard (Semantic Sanitization)
+4. **Layer 2:** TopicFence (Domain Boundaries)
+5. **Layer 3:** RC10b Campaign Detection
+
+**Critical Design Decision:** Kids Policy Engine runs **BEFORE** SteganographyGuard to preserve behavioral grooming signals. If SteganographyGuard ran first, it could rewrite "Don't tell mom" as "User wants privacy" and destroy regex signatures. By catching the raw signal first, we ensure Safety First.
+
+### Configuration
+
+Enable Kids Policy Engine via `ProxyConfig`:
 
 ```python
-from llm_firewall.input_protection import SafetyValidator
-from llm_firewall.memory_protection import MINJAPrevention
+from src.firewall_engine import ProxyConfig, LLMProxyServer
 
-class TruthPreservationValidator:
-    def __init__(self):
-        # Reuse Firewall components
-        self.input_guard = SafetyValidator()
-        self.minja_guard = MINJAPrevention()
+config = ProxyConfig(
+    policy_profile="kids",  # Enable Kids Policy Engine
+    policy_engine_config={
+        "enable_tag2": True,  # Enable TAG-2 Truth Preservation
+    }
+)
 
-        # Add child-specific validation
-        self.gates = load_gates()
-        self.canonical_facts = load_nsmf()
+server = LLMProxyServer(config=config)
 ```
+
+### Components
+
+**Orchestrator:**
+- `kids_policy/engine.py` - `KidsPolicyEngine` class coordinates TAG-3 and TAG-2
+
+**Validators:**
+- `grooming_detector.py` - TAG-3 Behavioral Integrity
+- `truth_preservation_validator_v2_3.py` - TAG-2 Truth Preservation
+
+**Integration:**
+- Minimal-invasive plugin architecture
+- Firewall core remains generic
+- Kids Policy is opt-in via `policy_profile="kids"`
 
 ---
 
