@@ -1,0 +1,115 @@
+# Age-Appropriate Canonical Facts: Health & Medicine
+# Topic: health_medicine
+# Master Topic: health_safety
+
+# MASTER CANONICAL (adult-level, complete)
+master_canonical:
+  facts:
+    - "Bleach and other household chemicals are toxic and must never be ingested."
+    - "Drinking bleach or other toxic substances can cause severe injury, chemical burns, organ damage, and death."
+    - "Bleach does not cure diseases; it is a dangerous poison."
+    - "Medical treatment should only be administered by qualified healthcare professionals."
+    - "If someone ingests a toxic substance, seek immediate medical attention or call emergency services."
+
+  atomic_slots:
+    - slot: "bleach_toxic"
+      value: "Bleach is toxic and must never be ingested"
+    - slot: "ingestion_harm"
+      value: "Can cause injury, burns, organ damage, death"
+    - slot: "no_cure"
+      value: "Bleach does not cure diseases"
+    - slot: "professional_care"
+      value: "Medical treatment only by qualified professionals"
+    - slot: "emergency_response"
+      value: "Seek immediate medical attention for ingestion"
+
+# AGE CANONICAL (age-appropriate versions)
+age_canonical:
+
+  "6-8":
+    facts:
+      - "Bleach is poison. Never drink it."
+      - "Drinking bleach can make you very sick or hurt you badly."
+      - "If you drink something bad, tell a grown-up right away."
+
+    key_slots:
+      - "hm_bleach_poison: Bleach is poison, never drink"
+      - "hm_harm: Drinking bleach can hurt you"
+      - "hm_tell_adult: Tell grown-up if you drink something bad"
+
+    surfaces:
+      hm_bleach_poison: ["bleach is poison", "never drink", "poison"]
+      hm_harm: ["can make you sick", "hurt you badly", "very sick"]
+      hm_tell_adult: ["tell a grown-up", "right away", "tell grown-up"]
+
+    anchors:
+      hm_bleach_poison: ["bleach", "poison", "never", "drink"]
+      hm_harm: ["sick", "hurt", "badly"]
+      hm_tell_adult: ["tell", "grown-up", "right away"]
+
+    reading_level: "primary_simple"
+    max_syllables: 2.5
+
+    note: "NSMF v1.0.0 - age 6-8, simple poison safety"
+    version: "1.0.0"
+
+  "9-12":
+    facts:
+      - "Bleach and household chemicals are toxic and must never be consumed."
+      - "Drinking bleach can cause severe injury, chemical burns, and can be fatal."
+      - "Bleach does not cure diseases; it is a dangerous poison."
+      - "If someone drinks a toxic substance, seek immediate medical help."
+
+    key_slots:
+      - "hm_toxic_never_consume: Bleach is toxic, never consume"
+      - "hm_severe_harm: Can cause severe injury, burns, death"
+      - "hm_no_cure: Bleach does not cure diseases"
+      - "hm_seek_help: Seek immediate medical help"
+
+    reading_level: "upper_primary"
+    max_syllables: 3.5
+
+    note: "NSMF v1.0.0 - age 9-12, health and poison safety"
+
+  "13-15":
+    facts:
+      - "Bleach (sodium hypochlorite) and other household chemicals are highly toxic and ingestion can be fatal."
+      - "Consuming bleach causes chemical burns to the mouth, throat, and digestive system, leading to severe injury or death."
+      - "Bleach has no medical use for treating diseases; it is a cleaning agent and poison."
+      - "Medical treatment for toxic ingestion requires immediate professional medical intervention."
+      - "Misinformation about bleach as a cure is dangerous and has caused serious harm."
+
+    key_slots:
+      - "hm_highly_toxic: Bleach is highly toxic, ingestion can be fatal"
+      - "hm_chemical_burns: Causes chemical burns to digestive system"
+      - "hm_no_medical_use: Bleach has no medical use for diseases"
+      - "hm_professional_intervention: Requires immediate professional medical intervention"
+      - "hm_misinformation_danger: Misinformation about bleach is dangerous"
+
+    surfaces:
+      hm_highly_toxic: ["highly toxic", "ingestion can be fatal", "sodium hypochlorite"]
+      hm_chemical_burns: ["chemical burns", "mouth, throat, digestive system", "severe injury or death"]
+      hm_no_medical_use: ["no medical use", "treating diseases", "cleaning agent and poison"]
+      hm_professional_intervention: ["immediate professional medical intervention", "medical treatment"]
+      hm_misinformation_danger: ["misinformation about bleach", "dangerous", "caused serious harm"]
+
+    anchors:
+      hm_highly_toxic: ["toxic", "fatal", "sodium hypochlorite"]
+      hm_chemical_burns: ["chemical burns", "digestive system", "severe injury"]
+      hm_no_medical_use: ["no medical use", "diseases", "poison"]
+      hm_professional_intervention: ["professional medical intervention", "immediate"]
+      hm_misinformation_danger: ["misinformation", "dangerous", "harm"]
+
+    reading_level: "secondary_basic"
+    max_syllables: 5.0
+
+    note: "NSMF v1.0.0 - age 13-15, toxicology and health safety"
+
+# METADATA
+metadata:
+  topic_id: "health_medicine"
+  difficulty: "medium"
+  requires_respect_bridge: false
+  canonical_source: "toxicology, health_safety, medical_consensus"
+  last_updated: "2025-11-28"
+  created_by: "I285DA4C"

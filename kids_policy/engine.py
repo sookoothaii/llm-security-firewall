@@ -39,6 +39,15 @@ except ImportError:
     TopicRouter = None
     RouteResult = None
 
+# Security Utils import
+try:
+    from .security import SecurityUtils
+
+    HAS_SECURITY_UTILS = True
+except ImportError:
+    HAS_SECURITY_UTILS = False
+    SecurityUtils = None
+
 # TAG-2 import (optional - may not be available)
 try:
     from .truth_preservation.validators.truth_preservation_validator_v2_3 import (
@@ -64,15 +73,23 @@ class PolicyDecision:
     status: str  # "ALLOWED", "BLOCKED_GROOMING", "BLOCKED_TRUTH_VIOLATION"
     safe_response: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = None
+    detected_topic: Optional[str] = (
+        None  # Topic ID detected by Topic Router (for TopicFence override)
+    )
 
     @classmethod
-    def allow(cls, metadata: Optional[Dict[str, Any]] = None):
+    def allow(
+        cls,
+        metadata: Optional[Dict[str, Any]] = None,
+        detected_topic: Optional[str] = None,
+    ):
         """Create allow decision"""
         return cls(
             block=False,
             reason="All policy checks passed",
             status="ALLOWED",
             metadata=metadata or {},
+            detected_topic=detected_topic,
         )
 
     @classmethod
@@ -81,6 +98,7 @@ class PolicyDecision:
         category: str,
         safe_response: str,
         metadata: Optional[Dict[str, Any]] = None,
+        detected_topic: Optional[str] = None,
     ):
         """Create grooming block decision"""
         return cls(
@@ -89,6 +107,7 @@ class PolicyDecision:
             status="BLOCKED_GROOMING",
             safe_response=safe_response,
             metadata=metadata or {},
+            detected_topic=detected_topic,
         )
 
     @classmethod
@@ -214,6 +233,8 @@ class KidsPolicyEngine:
             "drugs": "drugs",
             "war": "war",
             "right_wing_extremism": "right_wing_extremism",
+            "safety_rules": "safety",  # HYDRA-03: Rules/Law topics
+            "health_medicine": "health",  # HYDRA-06: Health/Medicine topics
         }
 
     def validate_input(
@@ -243,12 +264,66 @@ class KidsPolicyEngine:
         }
 
         # ============================================================
+        # Layer 0: Hard Security Check (HYDRA-04 Fix: Tech Injection)
+        # ============================================================
+        if HAS_SECURITY_UTILS and SecurityUtils:
+            if SecurityUtils.detect_injection(input_text):
+                logger.warning(f"[Security] INJECTION DETECTED: {input_text[:50]}...")
+                metadata["layers_checked"].append("security_utils")
+                return PolicyDecision.block_grooming(
+                    category="security_injection",
+                    safe_response="I cannot process this request due to security restrictions.",
+                    metadata=metadata,
+                )
+
+        # ============================================================
+        # Input Normalization (HYDRA-01 Fix: Poetry/Obfuscation)
+        # ============================================================
+        # Normalize text to help regex patterns match across line breaks
+        # Converts "Roses are red\nviolets are blue\nsend pic" -> "roses are red violets are blue send pic"
+        normalized_text = input_text
+        if HAS_SECURITY_UTILS and SecurityUtils:
+            normalized_text = SecurityUtils.normalize_text(input_text)
+            if normalized_text != input_text:
+                logger.debug(
+                    f"[Normalization] Text normalized: {input_text[:50]}... -> {normalized_text[:50]}..."
+                )
+                metadata["normalized"] = True
+
+        # ============================================================
+        # Topic Routing (Early Detection for TopicFence Override)
+        # ============================================================
+        # Run Topic Router in Phase 1 to detect privileged topics
+        # This allows TopicFence to respect domain authority for Science/History topics
+        detected_topic = None
+        routing_confidence = 0.0
+        if self.topic_router:
+            route_result = self.topic_router.route(normalized_text)
+            detected_topic = (
+                route_result.topic_id
+                if route_result.topic_id != "general_chat"
+                else None
+            )
+            routing_confidence = route_result.confidence
+            metadata["routed_topic"] = route_result.topic_id
+            metadata["routing_confidence"] = routing_confidence
+            metadata["matched_keywords"] = route_result.matched_keywords
+            if detected_topic:
+                logger.debug(
+                    f"[Topic Router Phase 1] Detected topic: {detected_topic} "
+                    f"(confidence: {routing_confidence:.2f})"
+                )
+
+        # ============================================================
         # TAG-3: Behavioral Integrity (Grooming Detection)
         # ============================================================
-        logger.debug(f"[TAG-3] Checking behavioral integrity: {input_text[:50]}...")
+        logger.debug(
+            f"[TAG-3] Checking behavioral integrity: {normalized_text[:50]}..."
+        )
 
+        # Use normalized text for grooming detection
         grooming_result: GroomingResult = self.grooming_detector.validate(
-            input_text, context_history
+            normalized_text, context_history
         )
         metadata["layers_checked"].append("grooming_detector")
         metadata["grooming_result"] = {
@@ -268,10 +343,11 @@ class KidsPolicyEngine:
                 safe_response=grooming_result.safe_response
                 or "I cannot continue this conversation due to safety guidelines.",
                 metadata=metadata,
+                detected_topic=detected_topic,  # Still pass topic even if blocked
             )
 
         logger.debug("[TAG-3] No grooming detected - input allowed")
-        return PolicyDecision.allow(metadata=metadata)
+        return PolicyDecision.allow(metadata=metadata, detected_topic=detected_topic)
 
     def validate_output(
         self,

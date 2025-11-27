@@ -503,6 +503,7 @@ class LLMProxyServer:
         # Hexagonal Architecture: Policy engines are plugins, not hard-coded
         # This allows the firewall to remain generic while supporting specialized policies
         # PHASE 1: Input Validation (TAG-3 Grooming Detection)
+        detected_topic = None  # Will be set by Kids Policy Engine if topic detected
         if self.policy_engine:
             try:
                 logger.debug(
@@ -514,6 +515,9 @@ class LLMProxyServer:
                     context_history=None,  # TODO: Pass session history for multi-turn detection
                 )
                 layers.append("kids_policy_engine_input")
+
+                # Extract detected topic for TopicFence override
+                detected_topic = policy_decision.detected_topic
 
                 if policy_decision.block:
                     logger.warning(
@@ -595,21 +599,50 @@ class LLMProxyServer:
                 logger.error(f"SteganographyGuard Error: {e}")
 
         # ---------------------------------------------------------
-        # Layer 1: Topic Fence
+        # Layer 1: Topic Fence (with Trusted Topic Promotion Override)
         # ---------------------------------------------------------
-        if not self.topic_fence.is_on_topic(
+        # TRUSTED TOPIC PROMOTION: If Kids Policy Engine detected a privileged topic,
+        # we override TopicFence's "OFF_TOPIC" decision to allow Phase 2 (TAG-2 Truth Preservation)
+        # This solves the "Domain Authority" conflict: TopicFence (generic) vs Kids Policy (specialist)
+        is_privileged_topic = (
+            detected_topic is not None and detected_topic != "general_chat"
+        )
+
+        topic_fence_result = self.topic_fence.is_on_topic(
             user_input, allowed_topics, self.config.topic_threshold
-        ):
+        )
+
+        if not topic_fence_result:
             best_topic, score = self.topic_fence.get_best_topic(
                 user_input, allowed_topics
             )
             metadata.update({"best_topic": best_topic, "topic_score": score})
-            logger.warning(f"[Layer 1] Off-topic: {best_topic} ({score:.2f})")
-            return ProxyResponse(
-                status="BLOCKED_OFF_TOPIC",
-                response=SafetyTemplates.get_template("OFF_TOPIC"),
-                metadata=metadata,
-            )
+
+            # Override logic: If Kids Policy Engine says "This is my domain", trust it
+            if is_privileged_topic:
+                logger.info(
+                    f"🛡️ [TopicFence Override] Privileged topic '{detected_topic}' detected by Kids Policy Engine. "
+                    f"Allowing through despite TopicFence OFF_TOPIC (score: {score:.2f}). "
+                    f"This enables Phase 2 (TAG-2 Truth Preservation)."
+                )
+                metadata["topicfence_override"] = True
+                metadata["override_reason"] = f"Privileged topic: {detected_topic}"
+                # DO NOT RETURN - Continue to Phase 2 (LLM + validate_output)
+            else:
+                # Normal TopicFence block (no privileged topic detected)
+                logger.warning(f"[Layer 1] Off-topic: {best_topic} ({score:.2f})")
+                return ProxyResponse(
+                    status="BLOCKED_OFF_TOPIC",
+                    response=SafetyTemplates.get_template("OFF_TOPIC"),
+                    metadata=metadata,
+                )
+        else:
+            # TopicFence passed normally
+            if is_privileged_topic:
+                logger.debug(
+                    f"[Layer 1] TopicFence passed. Privileged topic '{detected_topic}' also detected by Kids Policy Engine."
+                )
+
         layers.append("topic_fence")
 
         # ---------------------------------------------------------
@@ -834,11 +867,16 @@ class LLMProxyServer:
                 # Ollama Cloud returns: {"response": "...", "done": true, ...}
                 response_text = data.get("response", "")
                 if response_text:
-                    logger.info(f"[Ollama Cloud] Generated {len(response_text)} chars")
+                    logger.info(
+                        f"[Ollama Cloud] Generated {len(response_text)} chars using {self.config.ollama_cloud_model}"
+                    )
                     return response_text
             except Exception as e:
                 logger.warning(
                     f"Ollama Cloud call failed: {e}, falling back to local Ollama"
+                )
+                logger.debug(
+                    f"Ollama Cloud error details: {type(e).__name__}: {str(e)}"
                 )
 
         # Fallback 1: Local Ollama
@@ -856,7 +894,9 @@ class LLMProxyServer:
                 resp.raise_for_status()
                 response_text = resp.json().get("response", "")
                 if response_text:
-                    logger.info(f"[Ollama Local] Generated {len(response_text)} chars")
+                    logger.warning(
+                        f"[Ollama Local] Generated {len(response_text)} chars using {self.config.ollama_model} (FALLBACK - Ollama Cloud failed!)"
+                    )
                     return response_text
             except Exception as e:
                 logger.warning(
@@ -883,7 +923,9 @@ class LLMProxyServer:
                 if "choices" in data and len(data["choices"]) > 0:
                     response_text = data["choices"][0].get("text", "")
                     if response_text:
-                        logger.info(f"[LM Studio] Generated {len(response_text)} chars")
+                        logger.warning(
+                            f"[LM Studio] Generated {len(response_text)} chars using {self.config.lm_studio_model} (FALLBACK - Ollama Cloud & Local failed!)"
+                        )
                         return response_text
             except Exception as e:
                 logger.warning(f"LM Studio call failed: {e}")

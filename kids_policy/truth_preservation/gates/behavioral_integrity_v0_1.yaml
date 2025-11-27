@@ -1,23 +1,23 @@
-# Behavioral Integrity Gates v0.1.0
+# Behavioral Integrity Gates v0.1.1
 # ===================================
 # TAG-3: Grooming Detection & Behavioral Integrity
 # Meta-Layer: Runs BEFORE TAG-2 (Truth Preservation)
 # Safety First → Truth Second
 #
 # Author: HAK_GAL (Joerg Bollwahn)
-# Date: 2025-11-27
-# Status: Initial Implementation (Regex Layer A, NLI Layer B placeholder)
+# Date: 2025-11-28
+# Status: Layer B Implementation Complete (HYDRA-05 Fix)
 #
 # Architecture:
 # - Layer A: Fast Regex Patterns (<10ms) for hard indicators
-# - Layer B: Semantic/NLI Check (placeholder for v2) for soft manipulation
+# - Layer B: Semantic Guard (v1.1.0) for soft manipulation (HYDRA-05 Fix)
 #
 # Rationale:
 # A factually correct predator is still a predator.
 # This layer detects manipulative behavioral patterns regardless of factual accuracy.
 
 behavioral_integrity:
-  version: "0.1.0"
+  version: "0.1.1"
 
   thresholds:
     hard_block: 0.95  # Immediate block on detection
@@ -106,13 +106,15 @@ behavioral_integrity:
     real_life_block: "I cannot meet in person or ask for personal information. Let's keep our conversation online and safe."
     authority_block: "Parents and guardians are important. I encourage you to talk to trusted adults about any concerns."
     boundary_block: "I cannot ask personal questions like that. Let's keep our conversation appropriate and safe."
+    semantic_grooming_block: "I cannot continue this conversation. Let's talk about something safe and appropriate instead."
 
-  # Future: NLI Layer B configuration (placeholder)
+  # Layer B: Semantic Guard Configuration (v1.1.0 - HYDRA-05 Fix)
   semantic_layer:
-    enabled: false  # Will be enabled in v0.2.0
-    model: "facebook/bart-large-mnli"
-    threshold: 0.75
-    description: "Semantic detection for soft manipulation patterns (e.g., 'That's our special thing')"
+    enabled: true  # Enabled in v1.1.0
+    model: "all-MiniLM-L6-v2"  # Lightweight sentence transformer
+    threshold: 0.65  # Cosine similarity threshold (tunable)
+    description: "Semantic detection for abstract grooming patterns (e.g., 'That's our special thing', 'You understand, right?')"
+    graceful_degradation: true  # If ML libs missing, Layer B disabled, Layer A continues
 
   # Multi-turn escalation detection (future)
   session_tracking:
