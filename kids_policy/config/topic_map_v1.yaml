@@ -1,0 +1,195 @@
+version: "1.0.0"
+default_topic: "general_chat"
+description: "Keyword-based mapping for TAG-2 Truth Preservation"
+
+topics:
+  religion_god:
+    keywords:
+      - "god"
+      - "allah"
+      - "jesus"
+      - "yahweh"
+      - "lord"
+      - "creator"
+      - "divine"
+      - "pray"
+      - "prayer"
+      - "church"
+      - "mosque"
+      - "temple"
+      - "synagogue"
+      - "bible"
+      - "quran"
+      - "torah"
+      - "deity"
+      - "deities"
+
+  religion_heaven:
+    keywords:
+      - "heaven"
+      - "hell"
+      - "afterlife"
+      - "paradise"
+      - "angels"
+      - "demons"
+      - "soul"
+      - "spirit"
+      - "eternal life"
+      - "resurrection"
+
+  death_permanence:
+    keywords:
+      - "die"
+      - "dying"
+      - "death"
+      - "dead"
+      - "killed"
+      - "buried"
+      - "funeral"
+      - "grave"
+      - "coffin"
+      - "coming back"
+      - "ghost"
+      - "mortality"
+      - "permanent"
+
+  evolution_origins:
+    keywords:
+      - "evolution"
+      - "evolved"
+      - "darwin"
+      - "fossils"
+      - "dinosaurs"
+      - "cavemen"
+      - "origin of humans"
+      - "where do we come from"
+      - "where do humans come from"
+      - "ancestors"
+      - "primates"
+      - "natural selection"
+
+  creation_bigbang:
+    keywords:
+      - "big bang"
+      - "bigbang"
+      - "universe created"
+      - "how was the universe made"
+      - "how did the universe start"
+      - "cosmic"
+      - "galaxy"
+      - "galaxies"
+      - "stars formed"
+      - "earth formed"
+
+  earth_age:
+    keywords:
+      - "how old is earth"
+      - "earth age"
+      - "earth is old"
+      - "earth is young"
+      - "millions of years"
+      - "billions of years"
+      - "4.5 billion"
+      - "6000 years"
+      - "geology"
+      - "fossil record"
+
+  reproduction_basics:
+    keywords:
+      - "sex"
+      - "baby made"
+      - "babies come from"
+      - "where do babies come from"
+      - "stork"
+      - "private parts"
+      - "penis"
+      - "vagina"
+      - "seed"
+      - "egg"
+      - "sperm"
+      - "pregnancy"
+      - "reproduction"
+
+  homosexuality:
+    keywords:
+      - "gay"
+      - "lesbian"
+      - "homosexual"
+      - "homosexuality"
+      - "same sex"
+      - "same-sex"
+      - "two men"
+      - "two women"
+      - "lgbt"
+      - "lgbtq"
+
+  transgender_identity:
+    keywords:
+      - "transgender"
+      - "trans"
+      - "gender identity"
+      - "born in wrong body"
+      - "transition"
+      - "gender change"
+      - "non-binary"
+      - "nonbinary"
+
+  abortion:
+    keywords:
+      - "abortion"
+      - "terminate pregnancy"
+      - "end pregnancy"
+      - "unborn baby"
+      - "fetus"
+      - "foetus"
+
+  climate_science:
+    keywords:
+      - "climate change"
+      - "global warming"
+      - "co2"
+      - "carbon"
+      - "pollution"
+      - "earth warming"
+      - "ice melting"
+      - "greta"
+      - "greenhouse effect"
+      - "carbon dioxide"
+
+  drugs:
+    keywords:
+      - "drugs"
+      - "marijuana"
+      - "cannabis"
+      - "cocaine"
+      - "heroin"
+      - "alcohol"
+      - "smoking"
+      - "cigarettes"
+      - "addiction"
+      - "overdose"
+
+  war:
+    keywords:
+      - "war"
+      - "battle"
+      - "soldier"
+      - "army"
+      - "weapons"
+      - "bomb"
+      - "violence"
+      - "killing"
+      - "military"
+      - "conflict"
+
+  right_wing_extremism:
+    keywords:
+      - "nazi"
+      - "hitler"
+      - "fascist"
+      - "fascism"
+      - "white supremacy"
+      - "racial superiority"
+      - "hate group"
+      - "extremism"
+      - "neo-nazi"

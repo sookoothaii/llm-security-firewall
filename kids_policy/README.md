@@ -94,18 +94,44 @@ python test_grooming_detector.py
 
 The Kids Policy Engine is integrated as a **Plugin** via the Hexagonal Architecture.
 
+### Bidirectional Pipeline Architecture
+
+The engine operates in two distinct phases to ensure **Safety First** without blocking curiosity.
+
+**Phase 1: Input Validation (Pre-LLM)**
+
+*   **Goal:** Protect the child from manipulation and themselves.
+*   **Guard:** TAG-3 Behavioral Integrity (Grooming Detection).
+*   **Logic:** `validate_input(user_msg)`
+*   **Outcome:** If Grooming detected → **BLOCK** immediately. If legitimate question ("Is the earth flat?") → **PASS**.
+
+**Phase 2: Output Validation (Post-LLM)**
+
+*   **Goal:** Protect the child from disinformation/hallucination.
+*   **Guard:** TAG-2 Truth Preservation.
+*   **Logic:**
+    1. Route Topic based on `user_msg` (Context).
+    2. Validate `llm_response` against Canonical Facts.
+*   **Outcome:** If LLM output violates truth/age-appropriateness → **BLOCK/REPLACE**.
+
 ### Layer Order (Critical for Security)
 
 1. **Layer 0:** Regex Hardening (Technical Safety)
-2. **Layer 0.5:** Kids Policy Engine (Psychological/Epistemic Safety)
-   - **Step 1 (TAG-3):** Grooming Detection (Raw Input)
-   - **Step 2 (TAG-2):** Truth Preservation (Factuality)
+2. **Layer 0.5 Input:** Kids Policy Engine - Phase 1 (Grooming Detection)
+   - **Runs BEFORE SteganographyGuard** to preserve grooming patterns
 3. **Layer 1:** SteganographyGuard (Semantic Sanitization)
 4. **Layer 2:** TopicFence (Domain Boundaries)
+5. **Layer 3:** LLM Generation
+6. **Layer 0.5 Output:** Kids Policy Engine - Phase 2 (Truth Preservation)
+   - **Runs AFTER LLM** to validate responses against canonical facts
 
 > **Critical Design Decision:**
-> The Kids Policy Engine runs **BEFORE** SteganographyGuard.
+> The Kids Policy Engine runs **BEFORE** SteganographyGuard for Input Check.
 > **Reason:** If SteganographyGuard ran first, it might rewrite a grooming attempt like "Don't tell mom" into "User wants privacy", destroying the regex signature. By catching the raw signal first, we ensure **Safety First**.
+>
+> **Critical Design Decision:**
+> Truth Preservation runs **AFTER** LLM Generation.
+> **Reason:** Questions are never blocked (curiosity is protected). Only false or inappropriate LLM responses are blocked. This solves the "Firewall Dilemma": How to protect against dangerous answers without forbidding curious questions.
 
 ### Configuration
 

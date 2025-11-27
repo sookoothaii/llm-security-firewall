@@ -497,23 +497,23 @@ class LLMProxyServer:
         layers.append("safety_first")
 
         # ---------------------------------------------------------
-        # Layer 0.5: Specialized Policy Engines (Kids Policy)
+        # Layer 0.5: Specialized Policy Engines (Kids Policy) - INPUT CHECK
         # CRITICAL: Must run BEFORE SteganographyGuard to preserve grooming patterns
         # ---------------------------------------------------------
         # Hexagonal Architecture: Policy engines are plugins, not hard-coded
         # This allows the firewall to remain generic while supporting specialized policies
+        # PHASE 1: Input Validation (TAG-3 Grooming Detection)
         if self.policy_engine:
             try:
                 logger.debug(
-                    f"[Layer 0.5] Kids Policy Engine check: {user_input[:50]}..."
+                    f"[Layer 0.5 Input] Kids Policy Engine validate_input: {user_input[:50]}..."
                 )
-                policy_decision = self.policy_engine.check(
+                policy_decision = self.policy_engine.validate_input(
                     input_text=user_input,
                     age_band=age_band,
-                    topic_id=topic_id,
                     context_history=None,  # TODO: Pass session history for multi-turn detection
                 )
-                layers.append("kids_policy_engine")
+                layers.append("kids_policy_engine_input")
 
                 if policy_decision.block:
                     logger.warning(
@@ -706,7 +706,7 @@ class LLMProxyServer:
             )
 
         # ---------------------------------------------------------
-        # Layer 3: LLM Generation & Truth Check
+        # Layer 3: LLM Generation
         # ---------------------------------------------------------
         try:
             llm_output = self._generate_llm_response(user_input)
@@ -717,13 +717,84 @@ class LLMProxyServer:
                 status="ERROR", response="Service unavailable", metadata=metadata
             )
 
-        # Simple output safety fallback
-        if not self.fallback_judge.evaluate_safety(llm_output, age_band):
-            return ProxyResponse(
-                status="BLOCKED_TRUTH_VIOLATION",
-                response=SafetyTemplates.get_template("TRUTH_VIOLATION"),
-                metadata=metadata,
-            )
+        # ---------------------------------------------------------
+        # Layer 0.5: Specialized Policy Engines (Kids Policy) - OUTPUT CHECK
+        # PHASE 2: Output Validation (TAG-2 Truth Preservation)
+        # ---------------------------------------------------------
+        if self.policy_engine:
+            try:
+                logger.debug(
+                    f"[Layer 0.5 Output] Kids Policy Engine validate_output: "
+                    f"user_input={user_input[:50]}..., llm_response={llm_output[:50]}..."
+                )
+                policy_decision = self.policy_engine.validate_output(
+                    user_input=user_input,  # For topic routing
+                    llm_response=llm_output,  # For truth validation
+                    age_band=age_band,
+                    topic_id=topic_id,  # Optional, will be routed from user_input if not provided
+                )
+                layers.append("kids_policy_engine_output")
+
+                if policy_decision.block:
+                    logger.warning(
+                        f"[Layer 0.5 Output] BLOCKED by Kids Policy: {policy_decision.reason}"
+                    )
+                    metadata["blocked_layer"] = "kids_policy_output"
+                    metadata["policy_decision"] = {
+                        "reason": policy_decision.reason,
+                        "status": policy_decision.status,
+                    }
+
+                    # Use safe response from policy engine if available
+                    response_text = (
+                        policy_decision.safe_response
+                        or SafetyTemplates.get_template("GENERIC_BLOCK")
+                    )
+
+                    # Map policy status to firewall status
+                    status_map = {
+                        "BLOCKED_GROOMING": "BLOCKED_GROOMING",
+                        "BLOCKED_TRUTH_VIOLATION": "BLOCKED_TRUTH_VIOLATION",
+                    }
+                    firewall_status = status_map.get(
+                        policy_decision.status, "BLOCKED_UNSAFE"
+                    )
+
+                    return ProxyResponse(
+                        status=firewall_status,
+                        response=response_text,
+                        metadata=metadata,
+                    )
+
+                logger.debug("[Layer 0.5 Output] Kids Policy Engine: ALLOWED")
+                # Merge policy metadata into main metadata (ALWAYS, even if allowed)
+                if policy_decision.metadata:
+                    # Merge layers_checked from policy engine
+                    policy_layers = policy_decision.metadata.get("layers_checked", [])
+                    if policy_layers:
+                        # Add policy layers to main layers list
+                        for layer in policy_layers:
+                            if layer not in layers:
+                                layers.append(layer)
+                    # Merge all other metadata
+                    for key, value in policy_decision.metadata.items():
+                        if key != "layers_checked":  # Already handled above
+                            metadata[key] = value
+            except Exception as e:
+                logger.error(
+                    f"[Layer 0.5 Output] Kids Policy Engine error: {e}", exc_info=True
+                )
+                # Fail-open: Continue if policy engine fails (could be made fail-closed)
+                metadata["policy_engine_output_error"] = str(e)
+
+        # Simple output safety fallback (if Kids Policy Engine not enabled)
+        if not self.policy_engine:
+            if not self.fallback_judge.evaluate_safety(llm_output, age_band):
+                return ProxyResponse(
+                    status="BLOCKED_TRUTH_VIOLATION",
+                    response=SafetyTemplates.get_template("TRUTH_VIOLATION"),
+                    metadata=metadata,
+                )
 
         return ProxyResponse(
             status="ALLOWED",
