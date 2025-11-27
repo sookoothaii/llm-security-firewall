@@ -37,6 +37,14 @@ pytest -q --cov=llm_firewall --cov-report=xml
 ```text
 ## Contribution Guidelines
 
+### Branch Strategy
+
+- **Main branch:** Protected, only accepts merges from release branches
+- **Release branches:** `release/v1.0.0-GOLD` (frozen), future releases on `release/v*.*.*`
+- **Development:** All new features and fixes on `feature/*` or `fix/*` branches
+- **Pull Requests:** Must target `main` branch (or appropriate release branch for hotfixes)
+- **Tests:** All PRs must pass test suite (833/853 minimum) and pre-commit hooks
+
 ### Code Style
 
 - Follow PEP 8 conventions

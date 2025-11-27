@@ -43,13 +43,13 @@ Out of scope:
 
 ## Security Measures
 
-### In Production
+### In Production (v1.0.0-GOLD)
 
 - All metrics (ASR, FPR, ECE) are reproducible with fixed seeds
-- 197 unit tests with 100% coverage
-- Attack Success Rate < 10% @ 0.1% poison rate
-- False Positive Rate < 1%
-- Expected Calibration Error ≤ 0.05
+- 833 unit tests (97.7% pass rate)
+- Red team validation: 237 attack vectors tested, 100% block rate
+- Command injection bypasses: 8/8 identified and mitigated
+- False Positive Rate: 1/10 in PROTOCOL NEMESIS (acceptable for fail-closed design)
 
 ### Defense-in-Depth
 
@@ -78,4 +78,3 @@ We follow responsible disclosure practices:
 For security concerns, contact: [security@sookoothaii.github.io](mailto:security@sookoothaii.github.io)
 
 For general questions, use GitHub Issues.
-

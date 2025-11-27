@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Bollwahn"
+    given-names: "Joerg"
+title: "HAK_GAL_HEXAGONAL: Defense-in-Depth Firewall for LLMs"
+version: 1.0.0-GOLD
+date-released: 2025-11-27
+repository-code: "https://github.com/sookoothaii/llm-security-firewall"
+license: MIT
+keywords:
+  - "LLM security"
+  - "prompt injection"
+  - "defense-in-depth"
+  - "firewall"
+  - "adversarial robustness"
