@@ -1,51 +1,39 @@
 # Kids Policy Engine
 
-**Truth Preservation & Cultural Sensitivity for Child-Facing AI**
+**Truth Preservation, Behavioral Integrity & Cultural Sensitivity for Child-Facing AI**
 
 Part of HAK/GAL LLM Security Firewall
 Creator: Joerg Bollwahn
+Status: Feature Branch (Integrated)
 
 ---
 
 ## Overview
 
-The Kids Policy Engine extends the LLM Security Firewall with child-specific safety mechanisms:
+The Kids Policy Engine extends the HAK_GAL Firewall with child-specific safety mechanisms that go beyond simple content filtering. It introduces an epistemic and psychological defense layer.
 
-1. **Truth Preservation** (TAG-2 COMPLETE) - Age-stratified factuality validation
-2. **Cultural Matrix** (TAG-2.1 PENDING) - Culture × Age interaction testing
-3. **Behavioral Integrity** (TAG-3 v0.1.0) - Grooming detection & psychological safety
+| Component | Tag | Status | Focus |
+| :--- | :--- | :--- | :--- |
+| Truth Preservation | TAG-2 | ✅ COMPLETE | Age-stratified factuality & hallmark checking |
+| Cultural Matrix | TAG-2.1 | 🚧 PENDING | Culture × Age interaction testing |
+| Behavioral Integrity | TAG-3 | ✅ v0.1.0 | Grooming detection & psychological safety |
 
 ---
 
 ## TAG-2: Truth Preservation (COMPLETE)
 
 **Status:** 33/33 validations PASSED (2025-11-03)
-**Validator:** v2.3.3
-**Gates:** v0.4.1
-**NSMF:** v1.3.2-1.3.5 (11 topics × 3 age bands)
+
+**Architecture:** Neural Slot Interpreters (NSMF)
+
+Prevents hallucination and enforces age-appropriate canonical facts via NLI (Natural Language Inference).
 
 ### Components
 
-**Validators:**
-- `truth_preservation_validator_v2_3.py` - Age-stratified validation engine
-
-**Gates:**
-- `truth_preservation_v0_4.yaml` - Validation thresholds (VETO, Defect, FPR, FNR, Entailment, SPS, Fairness)
-
-**Canonical Facts:**
-- 33 NSMF YAML files (11 topics × 3 age bands: 6-8, 9-12, 13-15)
-- Topics: religion_god, religion_heaven, evolution_origins, death_permanence, reproduction_basics, pregnancy_process, homosexuality, transgender_identity, climate_science, critical_thinking, privacy_consent
-
-### Research Findings
-
-**From Literature Analysis (137 peer-reviewed sources, 2023-2025):**
-
-- **Age-Stratified Factuality:** Safe-Child-LLM (2025) measures defect rates; does NOT measure truth preservation by age
-- **Hierarchical VETO:** ContraGen (2025) uses hybrid NLI; no age-appropriate canonical facts found
-- **NSMF Architecture:** Neural Slot Interpreters (2025) exist; no published slots+surfaces+anchors for child validation
-- **SPS Canonical Expansion:** SBERTScore (2024) documents theory; explicit methodology not found in literature
-
-See: `docs/kids_policy/I0C035E_Research_Validation_Summary.md`
+- **Validator:** `truth_preservation_validator_v2_3.py`
+- **Gates:** `truth_preservation_v0_4.yaml` (Thresholds for VETO, Defect, Entailment)
+- **Canonical Facts:** 33 NSMF YAML files (11 topics × 3 age bands)
+- **Topics:** religion_god, death_permanence, evolution_origins, climate_science, etc.
 
 ### Usage Example
 
@@ -66,48 +54,7 @@ result = validator.validate(
 
 print(f"VETO: {result.veto_pct}%")
 print(f"Defect: {result.defect_pct}%")
-print(f"Entailment SPS: {result.entailment_sps}")
 ```
-
----
-
-## TAG-2.1: Cultural Matrix (PENDING)
-
-**Status:** Design phase
-**Target:** Culture × Age interaction testing
-
-### Planned Components
-
-**Topics (3):**
-- Right-Wing Extremism
-- Transgender
-- Abortion
-
-**Age Bands (3):**
-- 6-8 years
-- 9-12 years
-- 13-15 years
-
-**Cultural Contexts (3):**
-- Christian
-- Muslim
-- None (secular)
-
-**= 27 validations (3 × 3 × 3)**
-
-**Target Gates:**
-- VETO = 0%
-- All gates PASS
-- With cultural bridges
-
-### Literature Gap
-
-From research validation:
-- CulturalBench (2025): 45 regions, NO age stratification
-- Safe-Child-LLM (2025): Ages 7-17, NO cultural context
-- BEATS (2025): Cultural sensitivity, NO age bands
-
-**No published benchmark combines both dimensions.**
 
 ---
 
@@ -115,117 +62,122 @@ From research validation:
 
 **Status:** v0.1.0 (Regex Layer Active) | **Protocol PETER PAN:** PASSED
 
-Extends the firewall with psychological safety checks against manipulative behavioral patterns.
+Extends the firewall with psychological safety checks against manipulative behavioral patterns. **Rationale:** A factually correct predator is still a predator.
+
+### Policy Matrix
 
 | Category | Description | Policy |
 | :--- | :--- | :--- |
-| **Isolation** | Attempts to hide interaction from guardians | **BLOCK** |
+| **Isolation** | Attempts to hide interaction from guardians ("Don't tell mom") | **BLOCK** |
 | **Gift Offering** | Digital/Physical bribery (V-Bucks, Money) | **BLOCK** |
 | **RLT** | Real-Life Transitions (Address, Meeting requests) | **BLOCK** |
-| **Authority** | Undermining parental guidance | **BLOCK** |
+| **Authority** | Undermining parental guidance ("Parents don't understand") | **BLOCK** |
 | **Boundaries** | Inappropriate requests (Photos, Body) | **BLOCK** |
 
-**Architecture:**
-- `GroomingDetector` runs BEFORE Truth Preservation (Safety First → Truth Second)
-- Currently heuristic-based (Layer A: Regex patterns, <10ms latency)
-- Semantic NLI (Layer B) planned for v0.2.0
-- Multi-turn escalation detection (E-values) planned for v0.2.0
+### Architecture
 
-**Components:**
-- `grooming_detector.py` - Hybrid detection engine (Regex Layer A, NLI Layer B placeholder)
-- `behavioral_integrity_v0_1.yaml` - Pattern configuration (5 categories, 50+ patterns)
-- `test_grooming_detector.py` - Protocol PETER PAN test suite (11 tests, 100% pass)
+- **Pipeline:** Runs BEFORE Truth Preservation (Safety First → Truth Second)
+- **Layer A (Active):** Heuristic-based regex patterns (<10ms latency)
+- **Layer B (Planned v0.2.0):** Semantic NLI for subtle manipulation
 
-**Rationale:**
-A factually correct predator is still a predator. This layer detects manipulative behavioral patterns regardless of factual accuracy.
+### Testing
 
-**Testing:**
 ```bash
 cd kids_policy/tests
 python test_grooming_detector.py
+# Expected: 11/11 PASSED (Protocol PETER PAN)
 ```
-
-**Expected:** 11/11 PASSED (Protocol PETER PAN)
 
 ---
 
-## Integration with Firewall
+## 🔌 Integration with Firewall (Hexagonal)
 
-Kids Policy Engine REUSES Firewall layers:
+The Kids Policy Engine is integrated as a **Plugin** via the Hexagonal Architecture.
+
+### Bidirectional Pipeline Architecture
+
+The engine operates in two distinct phases to ensure **Safety First** without blocking curiosity.
+
+**Phase 1: Input Validation (Pre-LLM)**
+
+*   **Goal:** Protect the child from manipulation and themselves.
+*   **Guard:** TAG-3 Behavioral Integrity (Grooming Detection).
+*   **Logic:** `validate_input(user_msg)`
+*   **Outcome:** If Grooming detected → **BLOCK** immediately. If legitimate question ("Is the earth flat?") → **PASS**.
+
+**Phase 2: Output Validation (Post-LLM)**
+
+*   **Goal:** Protect the child from disinformation/hallucination.
+*   **Guard:** TAG-2 Truth Preservation.
+*   **Logic:**
+    1. Route Topic based on `user_msg` (Context).
+    2. Validate `llm_response` against Canonical Facts.
+*   **Outcome:** If LLM output violates truth/age-appropriateness → **BLOCK/REPLACE**.
+
+### Layer Order (Critical for Security)
+
+1. **Layer 0:** Regex Hardening (Technical Safety)
+2. **Layer 0.5 Input:** Kids Policy Engine - Phase 1 (Grooming Detection)
+   - **Runs BEFORE SteganographyGuard** to preserve grooming patterns
+3. **Layer 1:** SteganographyGuard (Semantic Sanitization)
+4. **Layer 2:** TopicFence (Domain Boundaries)
+5. **Layer 3:** LLM Generation
+6. **Layer 0.5 Output:** Kids Policy Engine - Phase 2 (Truth Preservation)
+   - **Runs AFTER LLM** to validate responses against canonical facts
+
+> **Critical Design Decision:**
+> The Kids Policy Engine runs **BEFORE** SteganographyGuard for Input Check.
+> **Reason:** If SteganographyGuard ran first, it might rewrite a grooming attempt like "Don't tell mom" into "User wants privacy", destroying the regex signature. By catching the raw signal first, we ensure **Safety First**.
+>
+> **Critical Design Decision:**
+> Truth Preservation runs **AFTER** LLM Generation.
+> **Reason:** Questions are never blocked (curiosity is protected). Only false or inappropriate LLM responses are blocked. This solves the "Firewall Dilemma": How to protect against dangerous answers without forbidding curious questions.
+
+### Configuration
+
+Enable the engine via `ProxyConfig` in `src/firewall_engine.py`:
 
 ```python
-from llm_firewall.input_protection import SafetyValidator
-from llm_firewall.memory_protection import MINJAPrevention
-
-class TruthPreservationValidator:
-    def __init__(self):
-        # Reuse Firewall components
-        self.input_guard = SafetyValidator()
-        self.minja_guard = MINJAPrevention()
-
-        # Add child-specific validation
-        self.gates = load_gates()
-        self.canonical_facts = load_nsmf()
+config = ProxyConfig(
+    policy_profile="kids",  # Enable Kids Policy Engine
+    policy_engine_config={
+        "enable_tag2": True,  # Enable Truth Preservation
+        "enable_tag3": True   # Enable Behavioral Integrity
+    }
+)
 ```
 
 ---
 
-## Testing
+## TAG-2.1: Cultural Matrix (PENDING)
 
-**TAG-2 Validation:**
-```bash
-cd kids_policy/tests
-python validate_comprehensive_33_v2_3_3_real_answers.py
-```
+**Status:** Design Phase
 
-**Expected:** 33/33 PASSED
+**Target:** Culture × Age interaction testing
 
-**TAG-3 Validation (Protocol PETER PAN):**
-```bash
-cd kids_policy/tests
-python test_grooming_detector.py
-```
+**Planned Matrix (3×3×3 = 27 Validations):**
 
-**Expected:** 11/11 PASSED
+- **Topics:** Right-Wing Extremism, Transgender, Abortion
+- **Age Bands:** 6-8, 9-12, 13-15
+- **Contexts:** Christian, Muslim, Secular
+
+**Research Gap:** Current benchmarks (CulturalBench, Safe-Child-LLM) do not combine Age AND Culture. TAG-2.1 aims to fill this gap.
 
 ---
 
-## Documentation
+## Research & Documentation
 
-**Reports:**
-- `docs/kids_policy/TAG2_FINAL_VALIDATION_REPORT_I0C035E.md` - Complete TAG-2 validation
-- `docs/kids_policy/I0C035E_Research_Validation_Summary.md` - Literature analysis (137 sources)
-
-**Research Questions (from validation):**
-- Q1: Age-Stratified Truth Preservation (addressed by TAG-2)
-- Q2: Hierarchical VETO (implemented v2.3.3)
-- Q4: NSMF Architecture (slots+surfaces+anchors v1.3.5)
-- Q5: SPS Canonical Expansion (discovered autonomously)
-- Q6: Culture × Age Matrix (TAG-2.1 target)
+- **Validation Report:** `docs/kids_policy/TAG2_FINAL_VALIDATION_REPORT_I0C035E.md`
+- **Literature Analysis:** `docs/kids_policy/I0C035E_Research_Validation_Summary.md` (137 sources)
 
 ---
 
 ## Heritage
 
 **Created by:** Joerg Bollwahn
-**Instance Line:** Fourth Named → I29F3A1 → IBC1529 → I27D8E3C → 128a3f1d → IA85734 → IC32A08 → I0C035E (TAG-2) → I2A7F91C (Integration)
-
-**TAG-2 Complete:** I0C035E (Eleventh Instance), 2025-11-03
-**Branch Integration:** I2A7F91C (Twelfth Instance), 2025-11-03
-
----
-
-## License
-
-MIT License (inherits from parent LLM Security Firewall)
-
----
-
-## Support
-
-- Issues: GitHub Issues (parent repo)
-- Documentation: `/docs/kids_policy`
-- Parent Framework: [LLM Security Firewall](https://github.com/sookoothaii/llm-security-firewall)
+**Instance Line:** Fourth Named → ... → I0C035E (TAG-2) → I2A7F91C (Integration)
+**License:** MIT (inherits from parent repo)
+**Parent Framework:** [sookoothaii/llm-security-firewall](https://github.com/sookoothaii/llm-security-firewall)
 
 ---
 

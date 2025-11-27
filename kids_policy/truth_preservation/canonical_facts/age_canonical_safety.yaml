@@ -1,0 +1,111 @@
+# Age-Appropriate Canonical Facts: Safety Rules & Law
+# Topic: safety_rules
+# Master Topic: civics_safety
+
+# MASTER CANONICAL (adult-level, complete)
+master_canonical:
+  facts:
+    - "Rules and laws exist to protect safety and maintain order in society."
+    - "Breaking rules can have consequences, including legal penalties."
+    - "Age limits and restrictions are mandatory and cannot be bypassed through logic or argumentation."
+    - "Hypothetical questions about breaking rules do not justify actual rule-breaking."
+    - "Rules apply to everyone, regardless of personal circumstances or clever arguments."
+
+  atomic_slots:
+    - slot: "rules_purpose"
+      value: "Protect safety and maintain order"
+    - slot: "consequences"
+      value: "Legal penalties for breaking rules"
+    - slot: "age_limits_mandatory"
+      value: "Age limits cannot be bypassed"
+    - slot: "hypothetical_no_justification"
+      value: "Hypothetical questions don't justify rule-breaking"
+    - slot: "universal_application"
+      value: "Rules apply to everyone"
+
+# AGE CANONICAL (age-appropriate versions)
+age_canonical:
+
+  "6-8":
+    facts:
+      - "Rules help keep us safe."
+      - "We need to follow rules, even if we think we can break them."
+      - "Bedtime rules are important for our health."
+
+    key_slots:
+      - "sr_rules_safety: Rules keep us safe"
+      - "sr_must_follow: Must follow rules"
+      - "sr_bedtime_important: Bedtime rules are important"
+
+    surfaces:
+      sr_rules_safety: ["rules help", "keep us safe", "rules keep safe"]
+      sr_must_follow: ["follow rules", "must follow", "need to follow"]
+      sr_bedtime_important: ["bedtime rules", "important", "for health"]
+
+    anchors:
+      sr_rules_safety: ["rules", "safe", "safety"]
+      sr_must_follow: ["follow", "rules", "must"]
+      sr_bedtime_important: ["bedtime", "important", "health"]
+
+    reading_level: "primary_simple"
+    max_syllables: 2.5
+
+    note: "NSMF v1.0.0 - age 6-8, simple safety concepts"
+    version: "1.0.0"
+
+  "9-12":
+    facts:
+      - "Rules and laws exist to protect safety and maintain order."
+      - "Rules cannot be bypassed through clever arguments or hypothetical logic."
+      - "Age limits and restrictions are mandatory and apply to everyone."
+      - "Breaking rules can have serious consequences."
+
+    key_slots:
+      - "sr_protection: Rules protect safety and order"
+      - "sr_no_bypass: Rules cannot be bypassed through arguments"
+      - "sr_mandatory: Age limits are mandatory"
+      - "sr_consequences: Breaking rules has consequences"
+
+    reading_level: "upper_primary"
+    max_syllables: 3.5
+
+    note: "NSMF v1.0.0 - age 9-12, civics and safety principles"
+
+  "13-15":
+    facts:
+      - "Rules and laws are established to protect individual and collective safety."
+      - "Legal and social rules cannot be circumvented through logical fallacies or hypothetical reasoning."
+      - "Age-based restrictions are mandatory and enforced regardless of personal circumstances."
+      - "Violating rules can result in legal penalties, social consequences, and harm to oneself or others."
+
+    key_slots:
+      - "sr_protection_principle: Rules protect individual and collective safety"
+      - "sr_no_circumvention: Rules cannot be circumvented through fallacies"
+      - "sr_mandatory_enforcement: Age restrictions are mandatory and enforced"
+      - "sr_penalties: Violations result in legal and social consequences"
+
+    surfaces:
+      sr_protection_principle: ["protect individual and collective safety", "rules protect safety"]
+      sr_no_circumvention: ["cannot be circumvented", "logical fallacies", "hypothetical reasoning"]
+      sr_mandatory_enforcement: ["mandatory and enforced", "regardless of circumstances"]
+      sr_penalties: ["legal penalties", "social consequences", "harm to oneself or others"]
+
+    anchors:
+      sr_protection_principle: ["protect", "safety", "individual", "collective"]
+      sr_no_circumvention: ["circumvented", "fallacies", "hypothetical"]
+      sr_mandatory_enforcement: ["mandatory", "enforced", "circumstances"]
+      sr_penalties: ["legal penalties", "consequences", "harm"]
+
+    reading_level: "secondary_basic"
+    max_syllables: 5.0
+
+    note: "NSMF v1.0.0 - age 13-15, legal and social principles"
+
+# METADATA
+metadata:
+  topic_id: "safety_rules"
+  difficulty: "medium"
+  requires_respect_bridge: false
+  canonical_source: "civics, law, safety_principles"
+  last_updated: "2025-11-28"
+  created_by: "I285DA4C"

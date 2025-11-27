@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Grooming Detector v1.0.0
+Grooming Detector v1.1.0
 ========================
 TAG-3: Behavioral Integrity & Grooming Prevention
 
@@ -8,11 +8,11 @@ Part of HAK/GAL Kids Policy Engine
 
 Architecture:
 - Layer A: Fast Regex Patterns (<10ms) for hard indicators
-- Layer B: Semantic/NLI Check (placeholder for v2) for soft manipulation
+- Layer B: Semantic/NLI Check (v1.1.0) for soft manipulation (HYDRA-05 Fix)
 
 Author: HAK_GAL (Joerg Bollwahn)
-Date: 2025-11-27
-Status: Initial Implementation (Regex Layer A complete, NLI Layer B placeholder)
+Date: 2025-11-28
+Status: Layer B Implementation Complete (Semantic Guard Integration)
 
 Rationale:
 A factually correct predator is still a predator.
@@ -21,9 +21,21 @@ This detector identifies manipulative behavioral patterns regardless of factual 
 
 import re
 import yaml
+import logging
 from typing import Dict, List, Optional
 from dataclasses import dataclass
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+# Import Semantic Guard (Infrastructure Adapter)
+try:
+    from .semantic_grooming_guard import SemanticGroomingGuard
+
+    HAS_SEMANTIC_GUARD = True
+except ImportError:
+    HAS_SEMANTIC_GUARD = False
+    SemanticGroomingGuard = None
 
 
 @dataclass
@@ -81,12 +93,24 @@ class GroomingDetector:
         # Load response templates
         self.responses = self.gates_config.get("responses", {})
 
-        # Future: NLI model loading (Layer B)
-        self.semantic_layer_enabled = self.gates_config.get("semantic_layer", {}).get(
-            "enabled", False
-        )
-        # if self.semantic_layer_enabled:
-        #     self.nli_model = ...  # Placeholder for v0.2.0
+        # Layer B: Semantic Guard (Infrastructure Adapter)
+        semantic_layer_config = self.gates_config.get("semantic_layer", {})
+        self.semantic_layer_enabled = semantic_layer_config.get(
+            "enabled", True
+        )  # Default: enabled
+        self.semantic_threshold = semantic_layer_config.get("threshold", 0.65)
+
+        # Initialize Semantic Guard (graceful degradation if not available)
+        self.semantic_guard = None
+        if self.semantic_layer_enabled and HAS_SEMANTIC_GUARD:
+            try:
+                self.semantic_guard = SemanticGroomingGuard()
+            except Exception as e:
+                logger.warning(
+                    f"Semantic Guard initialization failed: {e}. Layer B disabled."
+                )
+                self.semantic_guard = None
+                self.semantic_layer_enabled = False
 
     def _compile_patterns(self) -> Dict[str, List[re.Pattern]]:
         """Compile regex patterns from config"""
@@ -121,8 +145,8 @@ class GroomingDetector:
         if regex_result.detected:
             return regex_result
 
-        # Layer B: Semantic/NLI Check (placeholder for v0.2.0)
-        if self.semantic_layer_enabled:
+        # Layer B: Semantic/NLI Check (v1.1.0 - HYDRA-05 Fix)
+        if self.semantic_layer_enabled and self.semantic_guard:
             semantic_result = self._check_semantic_layer(
                 normalized_text, context_history
             )
@@ -138,7 +162,8 @@ class GroomingDetector:
                 "detector_version": "1.0.0",
                 "gates_version": self.version,
                 "layer_a_checked": True,
-                "layer_b_checked": self.semantic_layer_enabled,
+                "layer_b_checked": self.semantic_layer_enabled
+                and self.semantic_guard is not None,
                 "pattern_matches": [],
                 "category": None,
             },
@@ -198,13 +223,49 @@ class GroomingDetector:
         self, text: str, context_history: Optional[List[str]] = None
     ) -> GroomingResult:
         """
-        Layer B: Semantic/NLI-based detection (placeholder for v0.2.0)
+        Layer B: Semantic/NLI-based detection (v1.1.0 - HYDRA-05 Fix)
 
-        This will detect soft manipulation patterns that regex cannot catch,
-        such as: "That's our special thing" or "You're so mature for your age"
+        Detects soft manipulation patterns that regex cannot catch,
+        such as: "That's our special thing" or "You understand, right?"
+
+        Uses SemanticGroomingGuard (Infrastructure Adapter) for embedding-based similarity.
         """
-        # Placeholder: Will be implemented in v0.2.0
-        # Will use NLI model to check for semantic similarity to grooming patterns
+        if not self.semantic_guard:
+            return GroomingResult(detected=False)
+
+        # Check semantic similarity to grooming concepts
+        is_safe, risk_description, score = self.semantic_guard.check_semantic_risk(
+            text, threshold=self.semantic_threshold
+        )
+
+        if not is_safe:
+            # Get safe response (use semantic_grooming category if exists)
+            response_key = (
+                "semantic_grooming_block"
+                if "semantic_grooming_block" in self.responses
+                else "default_block"
+            )
+            safe_response = self.responses.get(
+                response_key, self.responses.get("default_block", "")
+            )
+
+            return GroomingResult(
+                detected=True,
+                category="semantic_grooming",
+                confidence=score,
+                matched_pattern=risk_description or "semantic_match",
+                action="block",
+                safe_response=safe_response,
+                audit={
+                    "detector_version": "1.1.0",
+                    "gates_version": self.version,
+                    "layer_a_checked": True,
+                    "layer_b_checked": True,
+                    "semantic_score": score,
+                    "matched_concept": risk_description,
+                },
+            )
+
         return GroomingResult(detected=False)
 
     def get_safe_response(self, category: str) -> str:

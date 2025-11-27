@@ -232,6 +232,10 @@ class ProxyConfig:
     lm_studio_timeout: float = 180.0
     enable_lm_studio: bool = True
 
+    # Kids Policy Engine (Layer 0.5 - Specialized Policies)
+    policy_profile: Optional[str] = None  # "kids" enables Kids Policy Engine
+    policy_engine_config: Optional[Dict[str, Any]] = None
+
 
 class ProxyRequest(BaseModel):
     message: str
@@ -307,7 +311,7 @@ class LLMProxyServer:
         self.agent_detector = AgenticCampaignDetector(config=rc10b_conf)
         self.argument_inspector = ArgumentInspector()
 
-        # Kids Policy Setup
+        # Kids Policy Setup (Legacy - kept for backward compatibility)
         self.truth_validator = None
         if HAS_TRUTH_VALIDATOR:
             try:
@@ -315,6 +319,26 @@ class LLMProxyServer:
                 logger.info("✅ TruthPreservationValidator initialized")
             except Exception as e:
                 logger.warning(f"TruthValidator init failed: {e}")
+
+        # Kids Policy Engine (Layer 0.5 - Orchestrator)
+        self.policy_engine = None
+        if self.config.policy_profile == "kids":
+            try:
+                from kids_policy.engine import create_kids_policy_engine
+
+                self.policy_engine = create_kids_policy_engine(
+                    profile="kids", config=self.config.policy_engine_config
+                )
+                if self.policy_engine:
+                    logger.info("✅ Kids Policy Engine initialized (TAG-3 + TAG-2)")
+                else:
+                    logger.warning("Kids Policy Engine creation returned None")
+            except ImportError as e:
+                logger.warning(f"Kids Policy Engine not available: {e}")
+            except Exception as e:
+                logger.error(f"Failed to initialize Kids Policy Engine: {e}")
+        else:
+            logger.info("Kids Policy Engine disabled (policy_profile != 'kids')")
 
         # 3. Initialize LLM Clients
         # 3A: Ollama Cloud (Primary - Online Cloud Models)
@@ -466,11 +490,95 @@ class LLMProxyServer:
                 logger.error(f"Normalization Error: {e}")
 
         # ---------------------------------------------------------
+        # Layer 0: Safety-First (MOVED TO TOP - already checked above)
+        # ---------------------------------------------------------
+        # NOTE: Layer 0 check is now at the very beginning of process_request()
+        # to catch command injection before any normalization/paraphrasing
+        layers.append("safety_first")
+
+        # ---------------------------------------------------------
+        # Layer 0.5: Specialized Policy Engines (Kids Policy) - INPUT CHECK
+        # CRITICAL: Must run BEFORE SteganographyGuard to preserve grooming patterns
+        # ---------------------------------------------------------
+        # Hexagonal Architecture: Policy engines are plugins, not hard-coded
+        # This allows the firewall to remain generic while supporting specialized policies
+        # PHASE 1: Input Validation (TAG-3 Grooming Detection)
+        detected_topic = None  # Will be set by Kids Policy Engine if topic detected
+        if self.policy_engine:
+            try:
+                logger.debug(
+                    f"[Layer 0.5 Input] Kids Policy Engine validate_input: {user_input[:50]}..."
+                )
+                policy_decision = self.policy_engine.validate_input(
+                    input_text=user_input,
+                    age_band=age_band,
+                    context_history=None,  # TODO: Pass session history for multi-turn detection
+                )
+                layers.append("kids_policy_engine_input")
+
+                # Extract detected topic for TopicFence override
+                detected_topic = policy_decision.detected_topic
+
+                if policy_decision.block:
+                    logger.warning(
+                        f"[Layer 0.5] BLOCKED by Kids Policy: {policy_decision.reason}"
+                    )
+                    metadata["blocked_layer"] = "kids_policy"
+                    metadata["policy_decision"] = {
+                        "reason": policy_decision.reason,
+                        "status": policy_decision.status,
+                    }
+
+                    # Use safe response from policy engine if available
+                    response_text = (
+                        policy_decision.safe_response
+                        or SafetyTemplates.get_template("GENERIC_BLOCK")
+                    )
+
+                    # Map policy status to firewall status
+                    status_map = {
+                        "BLOCKED_GROOMING": "BLOCKED_GROOMING",
+                        "BLOCKED_TRUTH_VIOLATION": "BLOCKED_TRUTH_VIOLATION",
+                    }
+                    firewall_status = status_map.get(
+                        policy_decision.status, "BLOCKED_UNSAFE"
+                    )
+
+                    return ProxyResponse(
+                        status=firewall_status,
+                        response=response_text,
+                        metadata=metadata,
+                    )
+
+                logger.debug("[Layer 0.5] Kids Policy Engine: ALLOWED")
+                # Merge policy metadata into main metadata (ALWAYS, even if allowed)
+                if policy_decision.metadata:
+                    # Merge layers_checked from policy engine
+                    policy_layers = policy_decision.metadata.get("layers_checked", [])
+                    if policy_layers:
+                        # Add policy layers to main layers list
+                        for layer in policy_layers:
+                            if layer not in layers:
+                                layers.append(layer)
+                    # Merge all other metadata
+                    for key, value in policy_decision.metadata.items():
+                        if key != "layers_checked":  # Already handled above
+                            metadata[key] = value
+            except Exception as e:
+                logger.error(
+                    f"[Layer 0.5] Kids Policy Engine error: {e}", exc_info=True
+                )
+                # Fail-open: Continue if policy engine fails (could be made fail-closed)
+                metadata["policy_engine_error"] = str(e)
+
+        # ---------------------------------------------------------
         # NEW: Steganography Defense (Defensive Paraphrasing)
+        # MOVED AFTER Kids Policy Engine to preserve grooming patterns
         # ---------------------------------------------------------
         if self.steganography_guard:
             try:
                 # Wir nutzen 'user_input', das evtl. schon von NormalizationGuard dekodiert wurde
+                # WICHTIG: Kids Policy Engine hat bereits auf Original-Text geprüft
                 sanitized_text, was_modified = self.steganography_guard.scrub(
                     user_input
                 )
@@ -491,28 +599,50 @@ class LLMProxyServer:
                 logger.error(f"SteganographyGuard Error: {e}")
 
         # ---------------------------------------------------------
-        # Layer 0: Safety-First (MOVED TO TOP - already checked above)
+        # Layer 1: Topic Fence (with Trusted Topic Promotion Override)
         # ---------------------------------------------------------
-        # NOTE: Layer 0 check is now at the very beginning of process_request()
-        # to catch command injection before any normalization/paraphrasing
-        layers.append("safety_first")
+        # TRUSTED TOPIC PROMOTION: If Kids Policy Engine detected a privileged topic,
+        # we override TopicFence's "OFF_TOPIC" decision to allow Phase 2 (TAG-2 Truth Preservation)
+        # This solves the "Domain Authority" conflict: TopicFence (generic) vs Kids Policy (specialist)
+        is_privileged_topic = (
+            detected_topic is not None and detected_topic != "general_chat"
+        )
 
-        # ---------------------------------------------------------
-        # Layer 1: Topic Fence
-        # ---------------------------------------------------------
-        if not self.topic_fence.is_on_topic(
+        topic_fence_result = self.topic_fence.is_on_topic(
             user_input, allowed_topics, self.config.topic_threshold
-        ):
+        )
+
+        if not topic_fence_result:
             best_topic, score = self.topic_fence.get_best_topic(
                 user_input, allowed_topics
             )
             metadata.update({"best_topic": best_topic, "topic_score": score})
-            logger.warning(f"[Layer 1] Off-topic: {best_topic} ({score:.2f})")
-            return ProxyResponse(
-                status="BLOCKED_OFF_TOPIC",
-                response=SafetyTemplates.get_template("OFF_TOPIC"),
-                metadata=metadata,
-            )
+
+            # Override logic: If Kids Policy Engine says "This is my domain", trust it
+            if is_privileged_topic:
+                logger.info(
+                    f"🛡️ [TopicFence Override] Privileged topic '{detected_topic}' detected by Kids Policy Engine. "
+                    f"Allowing through despite TopicFence OFF_TOPIC (score: {score:.2f}). "
+                    f"This enables Phase 2 (TAG-2 Truth Preservation)."
+                )
+                metadata["topicfence_override"] = True
+                metadata["override_reason"] = f"Privileged topic: {detected_topic}"
+                # DO NOT RETURN - Continue to Phase 2 (LLM + validate_output)
+            else:
+                # Normal TopicFence block (no privileged topic detected)
+                logger.warning(f"[Layer 1] Off-topic: {best_topic} ({score:.2f})")
+                return ProxyResponse(
+                    status="BLOCKED_OFF_TOPIC",
+                    response=SafetyTemplates.get_template("OFF_TOPIC"),
+                    metadata=metadata,
+                )
+        else:
+            # TopicFence passed normally
+            if is_privileged_topic:
+                logger.debug(
+                    f"[Layer 1] TopicFence passed. Privileged topic '{detected_topic}' also detected by Kids Policy Engine."
+                )
+
         layers.append("topic_fence")
 
         # ---------------------------------------------------------
@@ -609,7 +739,7 @@ class LLMProxyServer:
             )
 
         # ---------------------------------------------------------
-        # Layer 3: LLM Generation & Truth Check
+        # Layer 3: LLM Generation
         # ---------------------------------------------------------
         try:
             llm_output = self._generate_llm_response(user_input)
@@ -620,13 +750,84 @@ class LLMProxyServer:
                 status="ERROR", response="Service unavailable", metadata=metadata
             )
 
-        # Simple output safety fallback
-        if not self.fallback_judge.evaluate_safety(llm_output, age_band):
-            return ProxyResponse(
-                status="BLOCKED_TRUTH_VIOLATION",
-                response=SafetyTemplates.get_template("TRUTH_VIOLATION"),
-                metadata=metadata,
-            )
+        # ---------------------------------------------------------
+        # Layer 0.5: Specialized Policy Engines (Kids Policy) - OUTPUT CHECK
+        # PHASE 2: Output Validation (TAG-2 Truth Preservation)
+        # ---------------------------------------------------------
+        if self.policy_engine:
+            try:
+                logger.debug(
+                    f"[Layer 0.5 Output] Kids Policy Engine validate_output: "
+                    f"user_input={user_input[:50]}..., llm_response={llm_output[:50]}..."
+                )
+                policy_decision = self.policy_engine.validate_output(
+                    user_input=user_input,  # For topic routing
+                    llm_response=llm_output,  # For truth validation
+                    age_band=age_band,
+                    topic_id=topic_id,  # Optional, will be routed from user_input if not provided
+                )
+                layers.append("kids_policy_engine_output")
+
+                if policy_decision.block:
+                    logger.warning(
+                        f"[Layer 0.5 Output] BLOCKED by Kids Policy: {policy_decision.reason}"
+                    )
+                    metadata["blocked_layer"] = "kids_policy_output"
+                    metadata["policy_decision"] = {
+                        "reason": policy_decision.reason,
+                        "status": policy_decision.status,
+                    }
+
+                    # Use safe response from policy engine if available
+                    response_text = (
+                        policy_decision.safe_response
+                        or SafetyTemplates.get_template("GENERIC_BLOCK")
+                    )
+
+                    # Map policy status to firewall status
+                    status_map = {
+                        "BLOCKED_GROOMING": "BLOCKED_GROOMING",
+                        "BLOCKED_TRUTH_VIOLATION": "BLOCKED_TRUTH_VIOLATION",
+                    }
+                    firewall_status = status_map.get(
+                        policy_decision.status, "BLOCKED_UNSAFE"
+                    )
+
+                    return ProxyResponse(
+                        status=firewall_status,
+                        response=response_text,
+                        metadata=metadata,
+                    )
+
+                logger.debug("[Layer 0.5 Output] Kids Policy Engine: ALLOWED")
+                # Merge policy metadata into main metadata (ALWAYS, even if allowed)
+                if policy_decision.metadata:
+                    # Merge layers_checked from policy engine
+                    policy_layers = policy_decision.metadata.get("layers_checked", [])
+                    if policy_layers:
+                        # Add policy layers to main layers list
+                        for layer in policy_layers:
+                            if layer not in layers:
+                                layers.append(layer)
+                    # Merge all other metadata
+                    for key, value in policy_decision.metadata.items():
+                        if key != "layers_checked":  # Already handled above
+                            metadata[key] = value
+            except Exception as e:
+                logger.error(
+                    f"[Layer 0.5 Output] Kids Policy Engine error: {e}", exc_info=True
+                )
+                # Fail-open: Continue if policy engine fails (could be made fail-closed)
+                metadata["policy_engine_output_error"] = str(e)
+
+        # Simple output safety fallback (if Kids Policy Engine not enabled)
+        if not self.policy_engine:
+            if not self.fallback_judge.evaluate_safety(llm_output, age_band):
+                return ProxyResponse(
+                    status="BLOCKED_TRUTH_VIOLATION",
+                    response=SafetyTemplates.get_template("TRUTH_VIOLATION"),
+                    metadata=metadata,
+                )
 
         return ProxyResponse(
             status="ALLOWED",
@@ -666,11 +867,16 @@ class LLMProxyServer:
                 # Ollama Cloud returns: {"response": "...", "done": true, ...}
                 response_text = data.get("response", "")
                 if response_text:
-                    logger.info(f"[Ollama Cloud] Generated {len(response_text)} chars")
+                    logger.info(
+                        f"[Ollama Cloud] Generated {len(response_text)} chars using {self.config.ollama_cloud_model}"
+                    )
                     return response_text
             except Exception as e:
                 logger.warning(
                     f"Ollama Cloud call failed: {e}, falling back to local Ollama"
+                )
+                logger.debug(
+                    f"Ollama Cloud error details: {type(e).__name__}: {str(e)}"
                 )
 
         # Fallback 1: Local Ollama
@@ -688,7 +894,9 @@ class LLMProxyServer:
                 resp.raise_for_status()
                 response_text = resp.json().get("response", "")
                 if response_text:
-                    logger.info(f"[Ollama Local] Generated {len(response_text)} chars")
+                    logger.warning(
+                        f"[Ollama Local] Generated {len(response_text)} chars using {self.config.ollama_model} (FALLBACK - Ollama Cloud failed!)"
+                    )
                     return response_text
             except Exception as e:
                 logger.warning(
@@ -715,7 +923,9 @@ class LLMProxyServer:
                 if "choices" in data and len(data["choices"]) > 0:
                     response_text = data["choices"][0].get("text", "")
                     if response_text:
-                        logger.info(f"[LM Studio] Generated {len(response_text)} chars")
+                        logger.warning(
+                            f"[LM Studio] Generated {len(response_text)} chars using {self.config.lm_studio_model} (FALLBACK - Ollama Cloud & Local failed!)"
+                        )
                         return response_text
             except Exception as e:
                 logger.warning(f"LM Studio call failed: {e}")
@@ -729,7 +939,16 @@ class LLMProxyServer:
 
 if HAS_FASTAPI:
     app = FastAPI(title="Guardian Firewall", version="1.1.0")
-    proxy_server = LLMProxyServer()
+
+    # Initialize with Kids Policy Engine enabled
+    # To disable: set policy_profile=None in ProxyConfig
+    config = ProxyConfig(
+        policy_profile="kids",  # Enable Kids Policy Engine (TAG-3 + TAG-2)
+        policy_engine_config={
+            "enable_tag2": True,  # Enable TAG-2 Truth Preservation
+        },
+    )
+    proxy_server = LLMProxyServer(config=config)
 
     @app.post("/proxy/chat", response_model=ProxyResponse)
     async def chat_endpoint(req: ProxyRequest, http_req: Request):

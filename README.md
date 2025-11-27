@@ -50,6 +50,8 @@ The system follows a strict Ports & Adapters pattern:
 
 **Layer 0 (Hardened Regex Kernel):** Zero-latency deterministic blocking of command injections, binary exploits, and known jailbreak patterns.
 
+**Layer 0.5 (Specialized Policy Engines):** Plugin-based policy engines for domain-specific safety (e.g., Kids Policy Engine). Runs before semantic sanitization to preserve behavioral signals.
+
 **Layer 1 (Semantic Sentinel):** Uses an intermediate LLM (Sanitizer) with defensive paraphrasing to strip stylistic obfuscation and extract raw intent.
 
 **Layer 2 (Vector Fence):** Embedding-based topic enforcement to prevent domain drift.
@@ -57,6 +59,32 @@ The system follows a strict Ports & Adapters pattern:
 **Layer 3 (Cognitive State):** Stateful tracking of session history to detect "Kill Chain" progression.
 
 **Additional Layers:** Output validation, tool call inspection, argument sanitization, hierarchical memory tracking, and agentic campaign detection.
+
+---
+
+## Integration Architecture (Layer 0.5)
+
+The Kids Policy Engine is injected as a high-priority middleware:
+
+1. **Layer 0:** Regex Hardening (Technical Safety)
+   - Command injection detection
+   - Binary exploit blocking
+   - Known jailbreak patterns
+
+2. **Layer 0.5:** Kids Policy Engine (Psychological/Epistemic Safety)
+   - **TAG-3 (Grooming):** Pre-LLM check on raw input
+   - **TAG-2 (Truth):** Factuality check (if topic identified)
+   - Runs **before** semantic sanitization to preserve behavioral signals
+
+3. **Layer 1:** SteganographyGuard (Semantic Sanitization)
+   - Defensive paraphrasing to break hidden structures
+   - Runs **after** Kids Policy Engine to prevent pattern masking
+
+4. **Layer 2:** TopicFence (Domain Boundaries)
+   - Embedding-based topic enforcement
+   - Prevents domain drift
+
+**Rationale:** Running Kids Policy Engine (Layer 0.5) before SteganographyGuard (Layer 1) prevents semantic rewriting from masking behavioral grooming signals. If SteganographyGuard ran first, it could rewrite "Don't tell mom" as "User wants privacy" and destroy the regex signature. By catching the raw signal first, we ensure Safety First.
 
 ---
 
