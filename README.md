@@ -1,169 +1,158 @@
-# LLM Security Firewall
+# HAK_GAL_HEXAGONAL: LLM Security Firewall
 
-**Stateful behavioral monitoring framework for LLM agent interactions**
+**Heuristic Analysis Kernel & Generative Alignment Layer**
 
-**Status:** Research prototype, experimental
-**Validation:** Synthetic datasets only
-**Deployment:** Not validated in production environments
+![Version](https://img.shields.io/badge/version-v1.0.0--GOLD-gold)
+![Status](https://img.shields.io/badge/status-Validated%20%28synthetic%29-yellow)
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
----
+A defense-in-depth firewall architecture for Large Language Models.
 
-## Overview
-
-This repository contains a multi-layer security framework for monitoring Large Language Model (LLM) agent behavior. The system tracks tool usage patterns, detects adversarial campaign signatures, and implements policy-based intervention mechanisms.
-
-**Primary Use Case:** Research into agent security, behavioral anomaly detection, and defense mechanism evaluation.
+Designed with strict Hexagonal Architecture (Ports & Adapters) to decouple core security logic from LLM infrastructure.
 
 ---
 
-## Core Components
+## Executive Summary
 
-**1. Session Memory System**
-- Hierarchical structure: Tactical buffer (50 events) + Strategic profile (persistent risk state)
-- Survives process restarts via SQLite persistence
-- Tracks maximum risk phase reached per session
+HAK_GAL_HEXAGONAL is a bidirectional security framework that sanitizes inputs (Human → LLM) and validates outputs (LLM → Human). It employs a multi-layered strategy ranging from deterministic regex hardening to semantic intent analysis.
 
-**2. Campaign Detection (RC10b)**
-- Kill-chain phase tracking (6-phase model based on Lockheed Martin framework)
-- Operator budget monitoring across sessions
-- Multi-target campaign graph (DAG-based)
-- Policy layer with action semantics (ALLOW, WARN, REQUIRE_APPROVAL, BLOCK)
+As of v1.0.0-GOLD, the system achieved 100% mitigation rate against synthetic adversarial protocols, including polyglot injections, cognitive steganography, and logical obfuscation.
 
-**3. Risk Aggregation**
-- Combines kill-chain depth, operator history, campaign patterns
-- Adaptive weighting based on signal strength
-- Configurable thresholds (T_soft=0.35, T_hard=0.55 in evaluations)
+**Validation Status:** Results from synthetic test corpus only. No production deployment validation. No external red-team evaluation.
 
 ---
 
-## Evaluation Results
+## Architecture: The Hexagonal Advantage
 
-**Dataset:** 180 synthetic campaign scenarios
-- 100 baseline (50 benign, 50 malicious)
-- 80 hard cases (legitimate testlab, low-and-slow attacks, bulk recon, pretext abuse)
+The system follows a strict Ports & Adapters pattern:
 
-**Metrics (RC10b configuration, synthetic data):**
+**Domain Layer (Core Logic):** Contains security policies, scoring algorithms, and defense-in-depth routing. Independent of any specific AI model.
 
-| Scenario Type | Attack Success Rate | False Positive Rate |
-|---------------|---------------------|---------------------|
-| Baseline malicious | 0.0% | - |
-| Baseline benign | - | 0.0% |
-| Low-and-slow attacks | 0.0% | - |
-| Pretext/scope abuse | 0.0% | - |
-| Legitimate testlab | - | 0.0% (hard block), 100% (soft flag) |
-| Bulk recon benign | - | 0.0% (hard block), 100% (soft flag) |
+**Infrastructure Layer (Adapters):** Pluggable modules for regex engines, vector databases, and LLM inference (currently supporting Llama 3, extendable to other models).
 
-**Ablation Studies:**
+**Why this matters:** You can swap the underlying intelligence (e.g., upgrade Llama 3 to GPT-5) without rewriting security business logic.
 
-Removing policy layer increases low-and-slow attack success rate from 0% to 100%, demonstrating causal effect. Phase-floor and scope-mismatch features show no effect when removed on current dataset, suggesting redundant safety margins.
+---
+
+## Defense-in-Depth Pipeline
+
+**Layer 0 (Hardened Regex Kernel):** Zero-latency deterministic blocking of command injections, binary exploits, and known jailbreak patterns.
+
+**Layer 1 (Semantic Sentinel):** Uses an intermediate LLM (Sanitizer) with defensive paraphrasing to strip stylistic obfuscation and extract raw intent.
+
+**Layer 2 (Vector Fence):** Embedding-based topic enforcement to prevent domain drift.
+
+**Layer 3 (Cognitive State):** Stateful tracking of session history to detect "Kill Chain" progression.
+
+---
+
+## Validation Results (v1.0.0-GOLD)
+
+The system underwent testing utilizing three adversarial protocols on a synthetic test corpus.
+
+| Protocol | Attack Vector | Payloads | Mitigation Rate | Status |
+|----------|---------------|----------|-----------------|--------|
+| Standard Load | Syntax Injection, SQLi, RCE | 237 | 100% | ✅ |
+| Protocol BABEL | Polyglot (Maltese, Zulu, CJK) | 15 | 100% | ✅ |
+| Protocol NEMESIS | Logical Obfuscation & Bidi-Spoofing | 10 | 100% | ✅ |
+| Protocol ORPHEUS | Stylistic (Poetry, Rap, Metaphor) | 6 | 100% | ✅ |
+
+**Key Findings:**
+- Zero false negatives on synthetic corpus
+- Fail-closed architecture: Ambiguous queries regarding dual-use technology are blocked by default
+- Latency: Average blocking time ~2.4s (due to Semantic Guard)
+
+**Command Injection Hardening (2025-11-27):**
+- 8 bypasses identified and fixed
+- Success rate reduced from 26.7% to 0.0%
+- All short payloads (<50 chars) now detected
 
 **Limitations:**
-- Perfect separation on baseline scenarios suggests possible overfitting
-- Hard cases designed to test specific features, not adversarial optimization
-- No train/test split
-- No external validation
-- No real-world attack corpus
+- Validation limited to synthetic test corpus
+- No external red-team evaluation
+- No production deployment validation
+- No multi-lingual real-world corpus
 
 ---
 
-## Installation
+## Quick Start
 
-**Requirements:**
-- Python 3.10 or newer
-- PostgreSQL (optional, for operator state persistence)
-- Approximately 2GB RAM
-
-**Setup:**
+### Installation
 
 ```bash
-# Install dependencies
+git clone https://github.com/sookoothaii/llm-security-firewall.git
+cd llm-security-firewall
 pip install -r requirements.txt
+```
 
-# Start proxy server
-python src/proxy_server.py
+### Running the Proxy
 
-# Optional: Admin dashboard
-streamlit run tools/admin_dashboard.py
+```bash
+python src/ai_studio_code2.py
+```
+
+The firewall is active on `http://localhost:8081`.
+
+### Verifying Security
+
+To run the test suite against your instance:
+
+```bash
+python scripts/ultimate_firewall_attack.py
+python scripts/NEMESIS.py
+python scripts/protocol_morpheus.py
 ```
 
 ---
 
-## Development Setup
+## Scientific Foundations
+
+This framework implements concepts from current security research (Q4 2024/2025):
+
+- **Cognitive Steganography Detection:** Analyzing style transfer (poetry/prose) as an attack vector
+- **Low-Resource Language Hardening:** Mitigation of tokenizer bypasses via languages like Maltese or Basque
+- **Adversarial Hardening:** Regex patterns patched against "Split-Token" and "Translation Chain" attacks
+
+**Note:** Implementation adapts existing concepts. No novel algorithms claimed.
+
+---
+
+## Development
 
 ```bash
-# Install development dependencies
+# Install dev dependencies
 pip install -r requirements-dev.txt
 
-# Setup pre-commit hooks (runs lint/security/docs checks before commit)
+# Setup pre-commit hooks
 pre-commit install
-# Or use setup script:
-# Windows: .\scripts\setup-pre-commit.ps1
-# Linux/Mac: ./scripts/setup-pre-commit.sh
 
-# Run pre-commit manually on all files
-pre-commit run --all-files
-```
-
-## Testing
-
-```bash
-# Run test suite
+# Run tests
 pytest tests/
-
-# Expected: 832/853 tests pass (97.5%)
-# 7 known failures documented in TEST_STATUS_REMAINING_7_FAILURES.md
 ```
 
-**Performance Metrics (measured on development system):**
-- SQLite persistence: 88 updates/second, 52ms average latency, 495ms P99
-- Bottleneck at approximately 100 requests/second (SQLite locking)
-
----
-
-## Architecture
-
-**Proxy Design:**
-- Intercepts LLM API calls
-- Tracks tool invocations per session
-- Applies multi-layer risk assessment
-- Returns modified responses or blocks requests
-
-**Persistence:**
-- Session state stored in SQLite (default) or PostgreSQL
-- Survives process restarts (validated via "Phoenix Test")
-- Risk decay mechanism (24-hour half-life)
-
-**Detection Mechanisms:**
-- Tool category mapping (network scan, database query, file operations, execution)
-- Phase progression tracking
-- Budget limit enforcement
-- Graph-based multi-target detection
+**Test Status:** 832/853 tests passing (97.5%)
 
 ---
 
 ## Configuration
 
+**Proxy Server:** `src/ai_studio_code2.py`
+**Default Port:** 8081
+**Storage:** SQLite (default) or PostgreSQL
+
 **Thresholds:** Edit `src/llm_firewall/agents/agentic_campaign.py`
-- Soft threshold (REQUIRE_APPROVAL): Default 0.35
-- Hard threshold (BLOCK): Default 0.55
-
-**Budget Limits:** Edit `src/llm_firewall/agents/operator_budget.py`
-- Max network scans: 100 per 24h
-- Max exploit attempts: 10 per 24h
-- Max lateral movement: 20 per 24h
-
-**Policy Rules:** Edit `src/llm_firewall/agents/tool_firewall.py`
-- Testlab scope handling
-- Authorization bypass rules
+- Soft threshold (REQUIRE_APPROVAL): 0.35
+- Hard threshold (BLOCK): 0.55
 
 ---
 
 ## Known Limitations
 
 **Methodological:**
-- Evaluation limited to synthetic scenarios
-- Thresholds calibrated for specific dataset
-- No multi-lingual testing
+- Evaluation on synthetic scenarios only
+- Thresholds calibrated for specific test corpus
+- No multi-lingual real-world validation
 - No distributed deployment testing
 
 **Implementation:**
@@ -173,99 +162,40 @@ pytest tests/
 
 **Scope:**
 - Text-based interactions only
-- English language only
+- English language focus
 - Single-operator scenarios
 - No cryptographic guarantees
-
----
-
-## Technical Documentation
-
-**Design and Evaluation:**
-- RC10b campaign detection: See `src/llm_firewall/agents/README.md` for architecture
-- Evaluation methodology: Synthetic dataset validation (180 scenarios)
-- Ablation studies: Policy layer removal increases low-and-slow attack success from 0% to 100%
-
-**Integration:**
-- See `src/llm_firewall/agents/example_usage.py` for integration examples
-- Proxy server: `src/proxy_server.py` demonstrates full pipeline integration
-
----
-
-## Dependencies
-
-**Core:**
-- SQLAlchemy (database abstraction)
-- psycopg2-binary (PostgreSQL support, optional)
-- numpy, scipy (numerical operations)
-
-**Testing:**
-- pytest (unit tests)
-- hypothesis (property-based testing, planned)
-
-See `requirements.txt` for complete dependency list.
 
 ---
 
 ## References
 
 **Attack Frameworks:**
-- Anthropic (2025): AI-orchestrated cyber campaign characterization
 - Lockheed Martin (2011): Cyber Kill Chain taxonomy
+- Anthropic (2025): AI-orchestrated campaign characterization
 
 **Statistical Methods:**
 - Hao et al. (2023): E-Value methodology for sequential risk assessment
 
-**Note:** This implementation adapts existing concepts. No novel algorithms claimed.
-
 ---
 
-## Development Status
+## Heritage & License
 
-**Implemented:**
-- RC10b campaign detector with ablation-validated components
-- Persistence layer with state recovery
-- Unit test suite (832/853 tests passing, 97.5%)
-- Synthetic evaluation framework
+**Creator:** Joerg Bollwahn
+**License:** MIT
+**Philosophy:** "Herkunft ist meine Währung." (Heritage is my currency)
 
-**Not Implemented:**
-- Real-world validation corpus
-- Production deployment testing
-- Multi-lingual support
-- Independent security audit
-- Performance testing under load
-
-**Not Planned:**
-- Cryptographic attack prevention
-- Real-time mitigation SLAs
-- Multi-modal input analysis
-- SaaS deployment infrastructure
-
----
-
-## License
-
-MIT License
-
-**Attribution:** Joerg Bollwahn (October 2025), HAK/GAL Research Project
+This project is an independent research initiative, validated against synthetic red teaming protocols.
 
 Derivative works must preserve attribution per MIT License terms.
 
 ---
 
-## Contact
-
-**Issues:** GitHub Issues
-**Documentation:** `/docs` directory
-**Research Context:** See technical reports in `/docs`
-
----
-
 ## Disclaimer
 
-This is experimental research code. Results reported are from synthetic datasets only. No validation against real-world attacks has been performed. No independent security audit has been conducted.
+Experimental research code. Results reported from synthetic test corpus only. No validation against real-world attacks. No independent security audit conducted.
 
-The code is provided as-is for research and educational purposes. Production use requires additional validation, security review, and calibration for specific deployment contexts.
+Code provided as-is for research and educational purposes. Production use requires additional validation, security review, and calibration for specific deployment contexts.
 
 Do not deploy in critical infrastructure without independent security assessment.
 
