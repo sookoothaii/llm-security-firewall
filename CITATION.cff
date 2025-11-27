@@ -3,7 +3,8 @@ message: "If you use this software, please cite it as below."
 authors:
   - family-names: "Bollwahn"
     given-names: "Joerg"
-title: "HAK_GAL_HEXAGONAL: Defense-in-Depth Firewall for LLMs"
+title: "HAK_GAL_HEXAGONAL: Heuristic Analysis Kernel & Generative Alignment Layer (Hexagonal Edition)"
+abstract: "Production-grade defense-in-depth framework for LLM security utilizing strict Hexagonal Architecture (Ports & Adapters) to decouple core security policy from rapidly evolving LLM inference engines. Enables model-agnostic security with 100% block rate against 237 tested attack vectors."
 version: 1.0.0-GOLD
 date-released: 2025-11-27
 repository-code: "https://github.com/sookoothaii/llm-security-firewall"
@@ -14,3 +15,6 @@ keywords:
   - "defense-in-depth"
   - "firewall"
   - "adversarial robustness"
+  - "hexagonal architecture"
+  - "ports and adapters"
+  - "model-agnostic"

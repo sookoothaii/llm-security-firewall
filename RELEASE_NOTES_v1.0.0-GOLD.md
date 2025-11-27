@@ -1,5 +1,7 @@
 # Release Notes: v1.0.0-GOLD
 
+**HAK_GAL_HEXAGONAL: Heuristic Analysis Kernel & Generative Alignment Layer (Hexagonal Edition)**
+
 **Release Date:** 2025-11-27
 **Status:** Stable baseline - no further changes to this version
 
@@ -8,6 +10,8 @@
 ## Summary
 
 This release represents a stable baseline with all identified command injection bypasses mitigated. The firewall achieves 100% block rate against 237 tested attack vectors across multiple red team protocols.
+
+**Architectural Foundation:** This release implements strict Hexagonal Architecture (Ports & Adapters), decoupling core security policy from LLM inference engines. This enables model-agnostic defense mechanisms and future-proof evolution as the LLM landscape changes.
 
 ---
 

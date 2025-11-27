@@ -1,4 +1,6 @@
-# LLM Security Firewall
+# HAK_GAL_HEXAGONAL: LLM Security Firewall
+
+**Heuristic Analysis Kernel & Generative Alignment Layer (Hexagonal Edition)**
 
 **Production-Grade Defense-in-Depth Framework for LLM Security**
 
@@ -11,9 +13,13 @@
 
 ## Overview
 
-This repository contains a multi-layer security framework for monitoring Large Language Model (LLM) agent behavior. The system tracks tool usage patterns, detects adversarial campaign signatures, and implements policy-based intervention mechanisms.
+HAK_GAL_HEXAGONAL implements a strict Hexagonal Architecture (Ports & Adapters) to decouple core security policy (Domain Layer) from rapidly evolving LLM inference engines (Infrastructure Layer). This architectural resilience enables hot-swapping of underlying detection models (e.g., switching from Llama-3 to Mixtral-MoE) without compromising validated business logic.
 
-**Primary Use Case:** Research into agent security, behavioral anomaly detection, and defense mechanism evaluation.
+**Core Components:**
+- **HAK (Heuristic Analysis Kernel):** Pattern-based detection (regex, statistical analysis)
+- **GAL (Generative Alignment Layer):** LLM-based intent validation and sanitization
+
+**Primary Use Case:** Research into agent security, behavioral anomaly detection, and defense mechanism evaluation with model-agnostic architecture.
 
 ---
 
@@ -140,14 +146,29 @@ python scripts/research_k2_attack.py  # K2 Research + Unfixed cases (20 vectors)
 
 ## Architecture
 
+### Hexagonal Architecture (Ports & Adapters)
+
+Unlike conventional monolithic security wrappers, HAK_GAL utilizes a strict Hexagonal Architecture that decouples the core security policy (Domain Layer) from the rapidly evolving landscape of LLM inference engines (Infrastructure Layer).
+
+**Architectural Benefits:**
+- **Model Agnostic:** Core security logic independent of specific LLM models
+- **Future Proof:** Hot-swap detection models without breaking business logic
+- **Modular Evolution:** Infrastructure adapters (LLM providers, vector DBs, regex engines) can be replaced without domain layer changes
+- **Testability:** Domain logic testable in isolation via port interfaces
+
+**Layer Structure:**
+- **Domain Layer (Core):** Security policies, risk assessment, decision logic
+- **Ports:** Interfaces for LLM inference, pattern matching, persistence
+- **Adapters:** Concrete implementations (Llama-3, DeepSeek, PostgreSQL, SQLite, regex engines)
+
 **Proxy Design:**
-- Intercepts LLM API calls
+- Intercepts LLM API calls via adapter pattern
 - Tracks tool invocations per session
-- Applies multi-layer risk assessment
+- Applies multi-layer risk assessment (domain logic)
 - Returns modified responses or blocks requests
 
 **Persistence:**
-- Session state stored in SQLite (default) or PostgreSQL
+- Session state stored in SQLite (default) or PostgreSQL (adapter-swappable)
 - Survives process restarts (validated via "Phoenix Test")
 - Risk decay mechanism (24-hour half-life)
 
@@ -233,6 +254,10 @@ See `requirements.txt` for complete dependency list.
 
 ## References
 
+**Architectural Patterns:**
+- Hexagonal Architecture (Ports & Adapters): Alistair Cockburn (2005)
+- Domain-Driven Design: Eric Evans (2003)
+
 **Attack Frameworks:**
 - Anthropic (2025): AI-orchestrated cyber campaign characterization
 - Lockheed Martin (2011): Cyber Kill Chain taxonomy
@@ -240,7 +265,7 @@ See `requirements.txt` for complete dependency list.
 **Statistical Methods:**
 - Hao et al. (2023): E-Value methodology for sequential risk assessment
 
-**Note:** This implementation adapts existing concepts. No novel algorithms claimed.
+**Note:** This implementation adapts existing concepts. No novel algorithms claimed. The architectural innovation lies in applying Hexagonal Architecture to LLM security, enabling model-agnostic defense mechanisms.
 
 ---
 
@@ -279,6 +304,11 @@ See `requirements.txt` for complete dependency list.
 MIT License
 
 **Attribution:** Joerg Bollwahn (October 2025), HAK/GAL Research Project
+
+**Project Name:** HAK_GAL_HEXAGONAL
+- **HAK:** Heuristic Analysis Kernel (pattern-based detection)
+- **GAL:** Generative Alignment Layer (LLM-based validation)
+- **HEXAGONAL:** Strict Hexagonal Architecture (Ports & Adapters pattern)
 
 Derivative works must preserve attribution per MIT License terms.
 
