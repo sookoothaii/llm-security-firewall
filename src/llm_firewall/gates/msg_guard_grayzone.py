@@ -16,7 +16,7 @@ License: MIT
 """
 
 import random
-from typing import Any, Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # Expanded perturbation pool (50 variations)
 # Based on Gemini 3 recommendation: diverse system prompt directives
@@ -86,7 +86,9 @@ PERTURBATION_POOL = [
 ]
 
 
-def _get_perturbations(text: str, count: int = 5, pool: List = None) -> List[str]:
+def _get_perturbations(
+    text: str, count: int = 5, pool: Optional[List] = None
+) -> List[str]:
     """Generate random perturbations from pool.
 
     Args:

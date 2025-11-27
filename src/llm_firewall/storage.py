@@ -137,7 +137,7 @@ class StorageManager:
                 if existing:
                     # Update existing
                     existing.data = data_dict
-                    existing.last_updated = datetime.utcnow()
+                    existing.last_updated = datetime.utcnow()  # type: ignore[assignment]
                 else:
                     # Create new
                     new_session = SessionModel(
@@ -188,14 +188,15 @@ class StorageManager:
                     return None
 
                 # Deserialize data dict
-                data_dict = session_record.data
+                data_dict = session_record.data  # type: ignore[assignment]
+                # SQLAlchemy JSON column returns dict at runtime, but MyPy sees Column[Any]
 
                 # Import here to avoid circular dependencies
                 from llm_firewall.agents.memory import HierarchicalMemory
 
                 # Reconstruct HierarchicalMemory from dict
                 if hasattr(HierarchicalMemory, "from_dict"):
-                    memory_obj = HierarchicalMemory.from_dict(data_dict)
+                    memory_obj = HierarchicalMemory.from_dict(data_dict)  # type: ignore[arg-type]
                 else:
                     # Fallback: manual reconstruction
                     logger.warning(

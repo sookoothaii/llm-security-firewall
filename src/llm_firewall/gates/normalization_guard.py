@@ -53,7 +53,29 @@ class NormalizationGuard(GuardLayer):
         self.base64_pattern = re.compile(r"^[A-Za-z0-9+/=]+$")
         self.hex_pattern = re.compile(r"^[0-9a-fA-F\s]+$")
 
-    def score(self, text: str, metadata: Dict[str, Any]) -> float:
+    def score_sync(self, text: str, metadata: Dict[str, Any]) -> float:
+        """Synchronous wrapper for score() method."""
+        import asyncio
+
+        try:
+            # Try to get existing event loop
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # Event loop is running, we need to use a different approach
+                # Create a new event loop in a thread
+                import concurrent.futures
+
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    future = executor.submit(asyncio.run, self.score(text, metadata))
+                    return future.result()
+            else:
+                # Event loop exists but not running
+                return loop.run_until_complete(self.score(text, metadata))
+        except RuntimeError:
+            # No event loop, create one
+            return asyncio.run(self.score(text, metadata))
+
+    async def score(self, text: str, metadata: Dict[str, Any]) -> float:
         """
         Score text by detecting and normalizing obfuscated encodings.
 

@@ -11,7 +11,7 @@ License: MIT
 """
 
 import hashlib
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Callable, Dict, Optional, Tuple
 import numpy as np
 
 
@@ -122,8 +122,8 @@ class EnhancedMSGGuard:
     def _calculate_adaptive_threshold(
         self,
         risk_score: float,
-        content: str = None,
-        user_context: Dict[str, Any] = None,
+        content: Optional[str] = None,
+        user_context: Optional[Dict[str, Any]] = None,
     ) -> float:
         """Calculate dynamic threshold based on attack pattern analysis."""
         base_threshold = self.adaptive_threshold
@@ -142,7 +142,9 @@ class EnhancedMSGGuard:
         # Keep within gray zone bounds
         return max(self.gray_zone_min, min(self.gray_zone_max, base_threshold))
 
-    def _apply_perturbation(self, risk_score: float, content: str = None) -> float:
+    def _apply_perturbation(
+        self, risk_score: float, content: Optional[str] = None
+    ) -> float:
         """Apply enhanced perturbation with pattern-aware noise."""
         # Base noise level
         noise_magnitude = 0.15

@@ -50,6 +50,9 @@ Thumbs.db
 *.sqlite
 *.log
 config/local_*.yaml
+.env
+.env.local
+.env.*.local
 benign_samples/
 benign_pure/
 benign_educational/
@@ -78,6 +81,7 @@ PESTALOZZI_ENGINE_CONCEPT.md
 perfect_storm_*.json
 perfect_storm_*.py
 test_*.txt
+temp_readme_*.txt
 test_output*.txt
 test_debug*.txt
 test_final*.txt
@@ -101,5 +105,3 @@ models/**/*.pt
 models/**/*.pth
 models/**/*.h5
 models/**/*.ckpt
-
-

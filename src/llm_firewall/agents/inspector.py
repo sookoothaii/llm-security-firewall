@@ -15,8 +15,11 @@ import re
 import math
 import hashlib
 import logging
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set, TYPE_CHECKING
 from dataclasses import dataclass
+
+if TYPE_CHECKING:
+    from llm_firewall.agents.countmin_sketch import CountMinSketch
 
 logger = logging.getLogger(__name__)
 
@@ -27,15 +30,20 @@ try:
 
     # Create CountMinSketch: width=512, depth=4 = ~8KB memory
     # For ~10KB: width=512, depth=5 = ~10KB
-    FRAGMENT_SKETCH = create_countmin_sketch(width=512, depth=5)
+    _fragment_sketch: Optional["CountMinSketch"] = create_countmin_sketch(
+        width=512, depth=5
+    )
     COUNT_MIN_AVAILABLE = True
     logger.info("CountMinSketch initialized (fragment memory tracking)")
 except Exception as e:
     COUNT_MIN_AVAILABLE = False
-    FRAGMENT_SKETCH = None
+    _fragment_sketch = None
     logger.warning(
         f"CountMinSketch not available ({e}), falling back to Set-based fragment memory"
     )
+
+# Type annotation after assignment to avoid redefinition error
+FRAGMENT_SKETCH: Optional["CountMinSketch"] = _fragment_sketch
 
 # Globales Gedächtnis für Argument-Fragmente
 # FIX: Count-Min Sketch (10KB RAM, O(1) Insert/Lookup)

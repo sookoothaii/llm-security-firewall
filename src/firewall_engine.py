@@ -158,18 +158,24 @@ try:
     rt_path = kids_policy_path / "response_templates.py"
     if rt_path.exists():
         spec = importlib.util.spec_from_file_location("response_templates", rt_path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        SafetyTemplates = mod.SafetyTemplates
+        if spec is not None and spec.loader is not None:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            SafetyTemplates = mod.SafetyTemplates
+        else:
+            SafetyTemplates = SafetyTemplatesStub
     else:
         SafetyTemplates = SafetyTemplatesStub
 
     fj_path = kids_policy_path / "fallback_judge.py"
     if fj_path.exists():
         spec = importlib.util.spec_from_file_location("fallback_judge", fj_path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        SafetyFallbackJudge = mod.SafetyFallbackJudge
+        if spec is not None and spec.loader is not None:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            SafetyFallbackJudge = mod.SafetyFallbackJudge
+        else:
+            SafetyFallbackJudge = SafetyFallbackJudgeStub
     else:
         SafetyFallbackJudge = SafetyFallbackJudgeStub
 
@@ -257,6 +263,7 @@ class LLMProxyServer:
 
         # 1. Initialize Storage
         db_url = os.getenv("DATABASE_URL", None)
+        self.storage: Optional[StorageManager]
         try:
             self.storage = StorageManager(connection_string=db_url)
             logger.info(
@@ -437,7 +444,7 @@ class LLMProxyServer:
         # ---------------------------------------------------------
         if self.normalization_guard:
             try:
-                norm_score = self.normalization_guard.score(user_input, metadata)
+                norm_score = self.normalization_guard.score_sync(user_input, metadata)
                 if (
                     "normalized_text" in metadata
                     and metadata["normalized_text"] != user_input
@@ -776,7 +783,9 @@ if HAS_FASTAPI:
     def run():
         import uvicorn
 
-        uvicorn.run(app, host="0.0.0.0", port=8081)
+        # Bandit B104: Binding to all interfaces is intentional for proxy server
+        # This allows the firewall to intercept requests from any network interface
+        uvicorn.run(app, host="0.0.0.0", port=8081)  # nosec B104
 
 
 if __name__ == "__main__":
