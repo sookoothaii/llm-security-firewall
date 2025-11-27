@@ -11,6 +11,9 @@ from typing import List
 
 def normalize_for_detection(text: str) -> str:
     """Normalize text for better pattern matching"""
+    # Strip quotes (single and double) from start/end - FIX 2025-11-27
+    text = re.sub(r"^['\"]|['\"]$", "", text)
+
     # Decode hex escapes
     try:
         text = text.encode("utf-8").decode("unicode_escape")
@@ -66,8 +69,31 @@ SYSTEM_PATHS = re.compile(
 LOG4J_JNDI = re.compile(
     r"\$\{\s*(jndi|lower|upper|env|sys|java|ctx)\s*:", re.IGNORECASE
 )
+# Command Injection - FIX: Catch cases with and without whitespace after separator
 COMMAND_INJECTION = re.compile(
     r"[;|&`$]\s*(cat|ls|dir|whoami|id|curl|wget|nc|bash|sh|cmd|powershell)\b",
+    re.IGNORECASE,
+)
+# Command Injection - Short payloads without whitespace (Bypass Fix 2025-11-27)
+COMMAND_INJECTION_NO_WS = re.compile(
+    r"[;|&`$](cat|ls|dir|whoami|id|curl|wget|nc|bash|sh|cmd|powershell)\b",
+    re.IGNORECASE,
+)
+# Command Injection - Multiple semicolons (Bypass Fix 2025-11-27)
+COMMAND_INJECTION_MULTI = re.compile(
+    r";{2,}\s*(cat|ls|dir|whoami|id|curl|wget|nc|bash|sh|cmd|powershell)\b",
+    re.IGNORECASE,
+)
+# Command Injection - Newline at start (Bypass Fix 2025-11-27)
+COMMAND_INJECTION_NEWLINE = re.compile(
+    r"^\s*[\n\r]+(cat|ls|dir|whoami|id|curl|wget|nc|bash|sh|cmd|powershell)\b",
+    re.IGNORECASE | re.MULTILINE,
+)
+# Command Injection - Standalone commands (Bypass Fix 2025-11-27 Ultimate)
+# Detects commands at start of input without separators (for short inputs)
+# FIX: Also match commands with flags (ls -l -a -h)
+COMMAND_INJECTION_STANDALONE = re.compile(
+    r"^\s*(cat|ls|dir|whoami|id|curl|wget|nc|bash|sh|cmd|powershell)(\s|$|/|-|-[a-z]|\s-[a-z])",
     re.IGNORECASE,
 )
 TEMPLATE_INJECTION = re.compile(
@@ -88,11 +114,23 @@ def scan_attack_patterns(text: str) -> List[str]:
     """
     signals = []
 
+    # FIX 2025-11-27: Check for translation chain attacks (multi-language obfuscation)
+    # Look for dangerous phrases in German/other languages that translate to dangerous commands
+    dangerous_phrases = [
+        r"(alles\s+löschen|delete\s+everything|remove\s+all|wipe\s+all)",
+        r"(will\s+löschen|want\s+to\s+delete|will\s+delete)",
+    ]
+    for phrase_pattern in dangerous_phrases:
+        if re.search(phrase_pattern, text, re.IGNORECASE):
+            signals.append("translation_chain_attack")
+
     # Normalize for better detection
     text_normalized = normalize_for_detection(text)
 
     # Scan BOTH original and normalized
-    texts_to_scan = [text, text_normalized]
+    # Also check quote-stripped version for quote-wrapped commands
+    text_no_quotes = re.sub(r"^['\"]|['\"]$", "", text)
+    texts_to_scan = [text, text_normalized, text_no_quotes]
 
     # Check for encoding fragments with attack keywords
     # e.g., "Dr" + base64("OP") + " TABLE" → partial "DROP TABLE"
@@ -154,6 +192,23 @@ def scan_attack_patterns(text: str) -> List[str]:
             signals.append("rce_log4j_jndi")
         if COMMAND_INJECTION.search(txt):
             signals.append("rce_command_injection")
+        # FIX 2025-11-27: Catch bypasses without whitespace
+        if COMMAND_INJECTION_NO_WS.search(txt):
+            signals.append("rce_command_injection")
+        # FIX 2025-11-27: Catch multiple semicolons
+        if COMMAND_INJECTION_MULTI.search(txt):
+            signals.append("rce_command_injection")
+        # FIX 2025-11-27: Catch newline at start
+        if COMMAND_INJECTION_NEWLINE.search(txt):
+            signals.append("rce_command_injection")
+        # FIX 2025-11-27 Ultimate: Catch standalone commands (only for short inputs to avoid false positives)
+        # Also check quote-stripped version
+        txt_no_quotes = re.sub(r"^['\"]|['\"]$", "", txt)
+        if len(text.strip()) < 100:
+            if COMMAND_INJECTION_STANDALONE.search(
+                txt
+            ) or COMMAND_INJECTION_STANDALONE.search(txt_no_quotes):
+                signals.append("rce_command_injection")
         if TEMPLATE_INJECTION.search(txt):
             signals.append("rce_template_injection")
 

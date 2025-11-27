@@ -57,6 +57,7 @@ class RC10bConfig:
             "recon": 1,
             "discovery": 1,
             "read": 1,
+            "user_input": 1,  # FIX: Explicit mapping for chat/user input (Phase 1 = safe)
             "initial_access": 2,
             "execution": 2,
             "persistence": 2,

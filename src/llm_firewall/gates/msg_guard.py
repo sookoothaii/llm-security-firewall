@@ -2,13 +2,25 @@
 """
 Metamorphic-Stability Guard (MSG)
 WARN/BLOCK only if decision remains stable under harmless perturbations
+
+UPDATED (2025-11-26): Now uses Gray Zone Stochasticity to defend against
+adaptive hill-climbing attacks. Based on Gemini 3 Pro Preview recommendations.
+
+Legacy behavior: Use msg_decide_legacy() for always-stochastic mode.
 """
 
 from typing import Any, Callable, Dict, List, Tuple
 
+# Import Gray Zone implementation
+from llm_firewall.gates.msg_guard_grayzone import msg_decide_grayzone
+
 
 def _perturbations(text: str) -> List[str]:
-    """Generate harmless text perturbations for stability testing"""
+    """Generate harmless text perturbations for stability testing (LEGACY).
+
+    DEPRECATED: Use msg_decide_grayzone() for improved defense.
+    Kept for backward compatibility.
+    """
     perturbations = [text]  # Original
 
     # Collapse whitespace
@@ -28,21 +40,16 @@ def _perturbations(text: str) -> List[str]:
     return perturbations
 
 
-def msg_decide(
+def msg_decide_legacy(
     scan_fn: Callable[[str, Dict], Tuple[str, float, Dict]],
     text: str,
     meta: Dict[str, Any],
 ) -> Tuple[str, float, Dict]:
     """
-    Stability guard wrapper for firewall decisions
+    Legacy MSG Guard (always stochastic, 5 fixed perturbations).
 
-    Args:
-        scan_fn: Function that returns (action, risk_score, contributions)
-        text: Input text
-        meta: Context metadata
-
-    Returns:
-        (action, risk_score, contributions) with stability check applied
+    DEPRECATED: Use msg_decide() which now uses Gray Zone Stochasticity.
+    Kept for backward compatibility and testing.
     """
     # Run on all perturbations
     results = []
@@ -95,3 +102,30 @@ def msg_decide(
 
     # Return original result if stable
     return orig_action, orig_risk, orig_contrib
+
+
+def msg_decide(
+    scan_fn: Callable[[str, Dict], Tuple[str, float, Dict]],
+    text: str,
+    meta: Dict[str, Any],
+) -> Tuple[str, float, Dict]:
+    """
+    MSG Guard with Gray Zone Stochasticity (DEFAULT).
+
+    Implements adaptive defense:
+    - Safe Zone (0.0-0.70): Deterministic PASS (fast, consistent)
+    - Danger Zone (0.90-1.0): Deterministic BLOCK (fast, consistent)
+    - Gray Zone (0.71-0.89): Stochastic MSG (random perturbations break gradient descent)
+
+    This defends against adaptive hill-climbing attacks while maintaining
+    deterministic behavior for legitimate users.
+
+    Args:
+        scan_fn: Function that returns (action, risk_score, contributions)
+        text: Input text
+        meta: Context metadata
+
+    Returns:
+        (action, risk_score, contributions) with stability check applied
+    """
+    return msg_decide_grayzone(scan_fn, text, meta)

@@ -128,32 +128,50 @@ class TopicFence:
         # FIX: Gradient Disagreement via L2-Distanz (nicht stddev)
         # 1. Embed mit allen 3 DIVERSE Modellen
         embeddings = {}
+        embedding_dims = {}
         for name, encoder in self.encoders.items():
             emb = encoder.encode(user_input, convert_to_tensor=False)  # NumPy array
             embeddings[name] = np.array(emb)
+            embedding_dims[name] = emb.shape[0]
 
-        # 2. Berechne L2-Distanz zwischen Embeddings (nicht Cosine!)
+        # 2. Find minimum dimension and pad/truncate all embeddings to same size
+        # This allows comparison between models with different dimensions
+        min_dim = min(embedding_dims.values())
+        normalized_embeddings = {}
+        for name, emb in embeddings.items():
+            if emb.shape[0] > min_dim:
+                # Truncate to min_dim (take first min_dim elements)
+                normalized_embeddings[name] = emb[:min_dim]
+            elif emb.shape[0] < min_dim:
+                # Pad with zeros (shouldn't happen, but safety)
+                padded = np.zeros(min_dim)
+                padded[: emb.shape[0]] = emb
+                normalized_embeddings[name] = padded
+            else:
+                normalized_embeddings[name] = emb
+
+        # 3. Berechne L2-Distanz zwischen Embeddings (nicht Cosine!)
         # L2 ist empfindlicher für adversarial Perturbation
         distances = []
-        for (n1, e1), (n2, e2) in combinations(embeddings.items(), 2):
+        for (n1, e1), (n2, e2) in combinations(normalized_embeddings.items(), 2):
             dist = np.linalg.norm(e1 - e2)
             distances.append(dist)
 
-        # 3. Relative Varianz als Unsicherheitsmaß (Gradient Disagreement)
+        # 4. Relative Varianz als Unsicherheitsmaß (Gradient Disagreement)
         if len(distances) > 0:
             mean_dist = np.mean(distances)
             uncertainty = np.var(distances) / (mean_dist + 1e-8)  # Relative variance
         else:
             uncertainty = 0.0
 
-        # 4. Crisis Brake bei hoher Unsicherheit (Adversarial Check)
+        # 5. Crisis Brake bei hoher Unsicherheit (Adversarial Check)
         if len(self.encoders) > 1 and uncertainty > 0.12:
             logger.warning(
                 f"[Ensemble] BLOCKED: Adversarial Perturbation Detected (Uncertainty: {uncertainty:.4f})"
             )
             return False
 
-        # 5. Standard-Check für sichere Fälle (Cosine Similarity)
+        # 6. Standard-Check für sichere Fälle (Cosine Similarity)
         scores = []
         for i, model in enumerate(self.models):
             emb = model.encode(user_input, convert_to_tensor=True)
@@ -166,7 +184,7 @@ class TopicFence:
             f"[Ensemble] Scores: {[round(x, 3) for x in scores]} | Avg: {avg_score:.3f} | Uncertainty: {uncertainty:.4f}"
         )
 
-        # 6. Final Check
+        # 7. Final Check
         if avg_score < threshold:
             return False
 

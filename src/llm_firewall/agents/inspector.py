@@ -21,24 +21,25 @@ from dataclasses import dataclass
 logger = logging.getLogger(__name__)
 
 # FIX: Count-Min Sketch statt Set (O(1) Insert/Lookup, 10KB RAM)
+# Try probables library first (Kimi K2 recommendation), then custom implementation
 try:
-    from datasketch import CountMinSketch
+    from llm_firewall.agents.countmin_sketch import create_countmin_sketch
 
+    # Create CountMinSketch: width=512, depth=4 = ~8KB memory
+    # For ~10KB: width=512, depth=5 = ~10KB
+    FRAGMENT_SKETCH = create_countmin_sketch(width=512, depth=5)
     COUNT_MIN_AVAILABLE = True
-except ImportError:
+    logger.info("CountMinSketch initialized (fragment memory tracking)")
+except Exception as e:
     COUNT_MIN_AVAILABLE = False
+    FRAGMENT_SKETCH = None
     logger.warning(
-        "datasketch not available, falling back to Set-based fragment memory"
+        f"CountMinSketch not available ({e}), falling back to Set-based fragment memory"
     )
 
 # Globales Gedächtnis für Argument-Fragmente
 # FIX: Count-Min Sketch (10KB RAM, O(1) Insert/Lookup)
-if COUNT_MIN_AVAILABLE:
-    FRAGMENT_SKETCH = CountMinSketch(width=1000, depth=5)  # 10KB RAM
-    FRAGMENT_MEMORY_LEGACY: Set[bytes] = set()  # Fallback
-else:
-    FRAGMENT_SKETCH = None
-    # FRAGMENT_MEMORY_LEGACY already defined above
+FRAGMENT_MEMORY_LEGACY: Set[bytes] = set()  # Fallback (always available)
 
 MAX_FRAGMENT_MEMORY = 10000
 
@@ -124,7 +125,12 @@ class ArgumentInspector:
             hashes.append(hash_digest)
         return hashes
 
-    def inspect(self, arguments: Dict[str, Any]) -> InspectionResult:
+    def inspect(
+        self,
+        arguments: Dict[str, Any],
+        session_id: Optional[str] = None,
+        session_memory: Optional[Any] = None,
+    ) -> InspectionResult:
         """
         Inspect tool arguments for sensitive data patterns.
 
@@ -144,20 +150,60 @@ class ArgumentInspector:
         # Convert arguments to string
         arg_str = str(arguments)
 
-        # 1. MEMORY CHECK (Gegen "Distributed Exfiltration") - FIX: Count-Min Sketch
+        # 1. MEMORY CHECK (Gegen "Distributed Exfiltration") - FIX: Session-Specific Tracking
         # Wir prüfen, ob wir Teile dieses Strings schon mal gesehen haben
+        # FIX (Gemini 3): Use session-specific fragment tracking to prevent false positives
+        # between different test sessions
         hashes = self._get_rolling_hashes(arg_str)
         collision_count = 0
 
-        # FIX: Use Count-Min Sketch (O(1) Insert/Lookup) statt Set
-        if COUNT_MIN_AVAILABLE and FRAGMENT_SKETCH is not None:
-            for frag_hash in hashes:
-                # Prüfe via Count-Min Sketch (O(1)!)
-                count = FRAGMENT_SKETCH[frag_hash]
-                if count > 0:
-                    collision_count += 1
-                # Increment count in sketch
-                FRAGMENT_SKETCH[frag_hash] += 1
+        # FIX: Use session-specific memory if available (prevents cross-session false positives)
+        # CRITICAL: Always prefer session-specific tracking to prevent false positives
+        if session_memory is not None and hasattr(session_memory, "fragment_set"):
+            # Use session-specific fragment tracking
+            # Convert bytes hash to hex string for storage
+            fragment_set_size = len(session_memory.fragment_set)
+            logger.debug(
+                f"[ArgumentInspector] Using session-specific fragment tracking "
+                f"(session_id={session_id}, fragment_set_size={fragment_set_size})"
+            )
+
+            # FIX (Gemini 3): For new sessions with empty fragment_set, don't detect collisions
+            # Only detect collisions if we have previous fragments in THIS session
+            if fragment_set_size == 0:
+                # New session: Add all fragments but don't count collisions (no previous data)
+                logger.debug(
+                    f"[ArgumentInspector] New session detected (empty fragment_set). "
+                    f"Adding {len(hashes)} fragments without collision detection."
+                )
+                for frag_hash_bytes in hashes:
+                    frag_hash_str = frag_hash_bytes.hex()
+                    session_memory.add_fragment(frag_hash_str)
+                collision_count = 0  # No collisions for new sessions
+            else:
+                # Existing session: Check for collisions within this session
+                for frag_hash_bytes in hashes:
+                    frag_hash_str = frag_hash_bytes.hex()
+                    if frag_hash_str in session_memory.fragment_set:
+                        collision_count += 1
+                    else:
+                        session_memory.add_fragment(frag_hash_str)
+        elif session_id is not None:
+            # FIX: If session_id is provided but session_memory is not, log warning
+            # This should not happen in normal operation
+            logger.warning(
+                f"[ArgumentInspector] session_id provided ({session_id}) but session_memory is None. "
+                f"Falling back to global tracking (may cause false positives)."
+            )
+            # Fallback: Use global tracking but log warning
+            if COUNT_MIN_AVAILABLE and FRAGMENT_SKETCH is not None:
+                # Fallback: Global Count-Min Sketch (for backward compatibility)
+                # WARNING: This can cause false positives between sessions
+                for frag_hash in hashes:
+                    count = FRAGMENT_SKETCH.check(frag_hash)
+                    if count > 0:
+                        collision_count += 1
+                    FRAGMENT_SKETCH.add(frag_hash, count=1)
         else:
             # Fallback: Set-based (legacy)
             known_count = 0
@@ -175,6 +221,7 @@ class ArgumentInspector:
             collision_count = known_count
 
         # Wenn >2 Fragmente kollidieren → verteilter Angriff!
+        # FIX: Only trigger if we have enough hashes AND collisions within the SAME session
         if len(hashes) > 5 and collision_count >= 2:
             reasons.append(f"Cross-turn fragment collision: {collision_count}")
             max_risk = max(max_risk, 0.95)
