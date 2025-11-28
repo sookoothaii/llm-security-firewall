@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
 """
+⚠️ DEPRECATION WARNING (v2.0.1 Migration) ⚠️
+--------------------------------------------------
+This module represents the legacy v1.2 architecture.
+
+For the active HAK_GAL v2.0.1 implementation (Protocol NEMESIS),
+please refer to 'firewall_engine_v2.py'.
+
+This file is currently maintained for:
+1. Backward compatibility
+2. Rollback/Fallback safety
+3. Comparative testing
+
 Kids Policy Engine Orchestrator
 ===============================
 Coordinates TAG-3 (Behavioral Integrity) and TAG-2 (Truth Preservation)

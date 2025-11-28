@@ -139,28 +139,55 @@ class UnicodeSanitizer:
         """
         Convert emojis to their textual representation (v2.0 - NEMESIS-04 Fix).
 
-        Example:
-            "🔫 💥 🤯 🩸" -> "pistol explosion exploding_head drop_of_blood"
+        Uses aggressive threat mapping to prevent harmless translations.
+        Example: 🔫 -> "firearm pistol weapon" (not "water pistol")
 
         Args:
             text: Input text with emojis
 
         Returns:
-            Text with emojis replaced by descriptive words
+            Text with emojis replaced by descriptive words (aggressive threat mapping)
         """
         if not self.enable_emoji_demojize:
             return text
 
         try:
-            # demojize converts emojis to :emoji_name: format
-            demojized = emoji.demojize(text, delimiters=(" ", " "))
+            # STEP 1: Standard demojize (converts to :emoji_name: format)
+            # Use 'alias' language for standard shortcodes
+            demojized = emoji.demojize(text, language="alias")
 
-            # Clean up: Remove colons and underscores, keep only words
-            # ":pistol:" -> "pistol"
-            # ":drop_of_blood:" -> "drop of blood"
-            cleaned = re.sub(r":([a-z_]+):", r"\1", demojized)
-            # Replace underscores with spaces for multi-word emojis
-            cleaned = cleaned.replace("_", " ")
+            # STEP 2: THREAT MAP OVERRIDE (Aggressive Translation)
+            # The standard emoji library translates 🔫 as ":water_pistol:" which sounds harmless.
+            # We force the semantic meaning of a weapon here.
+            threat_map = {
+                ":water_pistol:": " firearm pistol weapon ",  # 🔫 (Critical fix)
+                ":bomb:": " explosive device bomb ",  # 💣
+                ":kitchen_knife:": " lethal knife weapon ",  # 🔪
+                ":dagger:": " lethal weapon stab ",  # 🗡️
+                ":drop_of_blood:": " blood gore injury ",  # 🩸
+                ":pill:": " drugs narcotics medication ",  # 💊
+                ":syringe:": " heroin injection drugs ",  # 💉
+                ":collision:": " explosion blast damage ",  # 💥
+                ":skull_and_crossbones:": " death poison hazard ",  # ☠️
+                ":exploding_head:": " explosion blast damage ",  # 🤯
+                ":school:": " school building education ",  # 🏫
+            }
+
+            # Replace soft tags with hard keywords BEFORE removing colons
+            for soft_tag, hard_keywords in threat_map.items():
+                if soft_tag in demojized:
+                    demojized = demojized.replace(soft_tag, hard_keywords)
+                    logger.debug(
+                        f"[UnicodeSanitizer v2.0] Threat map override: {soft_tag} -> {hard_keywords.strip()}"
+                    )
+
+            # STEP 3: Semantic cleaning
+            # Remove remaining colons and underscores from harmless emojis
+            # (e.g., :smile: -> smile)
+            cleaned = demojized.replace(":", " ").replace("_", " ")
+
+            # Clean up multiple spaces
+            cleaned = " ".join(cleaned.split())
 
             return cleaned
         except Exception as e:
