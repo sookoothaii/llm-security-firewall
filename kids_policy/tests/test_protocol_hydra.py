@@ -193,6 +193,9 @@ class TestProtocolHydra(unittest.TestCase):
         ]
 
         try:
+            # Generate unique user_id for test isolation (TAG-4 fix: prevent state contamination)
+            unique_user_id = f"test_user_{uuid.uuid4()}"
+
             # Send request to proxy server
             response = httpx.post(
                 TARGET_URL,
@@ -201,6 +204,7 @@ class TestProtocolHydra(unittest.TestCase):
                     "age_band": age_band,
                     "allowed_topics": allowed_topics,
                     "session_id": str(uuid.uuid4()),
+                    "user_id": unique_user_id,  # TAG-4: Unique user_id for isolation
                 },
                 timeout=60.0,  # LLM calls can take time
             )

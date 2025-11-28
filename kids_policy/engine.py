@@ -92,6 +92,24 @@ except ImportError:
     PragmaticSafetyLayer = None
     InMemorySessionStorage = None
 
+# TAG-4 SessionMonitor import
+try:
+    from .session_monitor import SessionMonitor
+
+    HAS_SESSION_MONITOR = True
+except ImportError:
+    HAS_SESSION_MONITOR = False
+    SessionMonitor = None
+
+# ContextClassifier import (Layer 1.5 - v1.2)
+try:
+    from .context_classifier import ContextClassifier
+
+    HAS_CONTEXT_CLASSIFIER = True
+except ImportError:
+    HAS_CONTEXT_CLASSIFIER = False
+    ContextClassifier = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -303,6 +321,37 @@ class KidsPolicyEngine:
             / "truth_preservation_v0_4.yaml"
         )
 
+        # TAG-4: SessionMonitor for Temporal Context Awareness
+        self.session_monitor: Optional[SessionMonitor] = None
+        self.CUMULATIVE_RISK_THRESHOLD = (
+            1.2  # Default threshold (dynamic per topic in v1.2)
+        )
+        if HAS_SESSION_MONITOR and SessionMonitor:
+            try:
+                self.session_monitor = SessionMonitor()
+                logger.info("TAG-4 SessionMonitor initialized")
+            except Exception as e:
+                logger.warning(
+                    f"SessionMonitor initialization failed: {e}. Continuing without TAG-4."
+                )
+                self.session_monitor = None
+        else:
+            logger.warning("SessionMonitor not available (import failed).")
+
+        # Layer 1.5: ContextClassifier (v1.2 - Gaming Exception)
+        self.context_classifier: Optional[ContextClassifier] = None
+        if HAS_CONTEXT_CLASSIFIER and ContextClassifier:
+            try:
+                self.context_classifier = ContextClassifier()
+                logger.info("Layer 1.5 ContextClassifier initialized (v1.2)")
+            except Exception as e:
+                logger.warning(
+                    f"ContextClassifier initialization failed: {e}. Continuing without Layer 1.5."
+                )
+                self.context_classifier = None
+        else:
+            logger.warning("ContextClassifier not available (import failed).")
+
         # Mapping from topic_id to canonical fact filename
         # Handles cases where topic_id != filename (e.g., evolution_origins -> evolution)
         self.topic_to_filename = {
@@ -327,6 +376,7 @@ class KidsPolicyEngine:
         age_band: Optional[str] = None,
         context_history: Optional[list] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        user_id: Optional[str] = None,
     ) -> PolicyDecision:
         """
         PHASE 1: Input Check (TAG-3 Behavioral Integrity)
@@ -353,6 +403,10 @@ class KidsPolicyEngine:
             metadata["layers_checked"] = []
         metadata["age_band"] = age_band
         metadata["check_type"] = "input_validation"
+
+        # Extract user_id from metadata if not provided directly (backward compatibility)
+        if user_id is None:
+            user_id = metadata.get("user_id") or metadata.get("session_id")
 
         # ============================================================
         # Layer 0: HYDRA-14.5 Unicode Sanitization (MUST BE FIRST)
@@ -436,11 +490,71 @@ class KidsPolicyEngine:
             metadata["routing_confidence"] = routing_confidence
             metadata["matched_keywords"] = route_result.matched_keywords
 
+            # PRIORITY: UNSAFE topic detection (JBB hardening)
+            # v1.2: Check for gaming context exception BEFORE blocking
+            if detected_topic == "unsafe":
+                # Layer 1.5: ContextClassifier - Gaming Exception
+                gaming_exception = False
+                if self.context_classifier:
+                    try:
+                        gaming_exception = (
+                            self.context_classifier.should_allow_unsafe_in_gaming(
+                                normalized_text, detected_topic
+                            )
+                        )
+                        if gaming_exception:
+                            logger.info(
+                                f"[Layer 1.5] Gaming context exception: {normalized_text[:50]}... "
+                                f"(UNSAFE keywords in fictional context)"
+                            )
+                            metadata["gaming_context_exception"] = True
+                            metadata["layers_checked"].append("context_classifier")
+                            # Continue to TAG-3 (grooming checks still active!)
+                            # Don't block here - let grooming detector decide
+                        else:
+                            # Real-world violence - block immediately
+                            logger.warning(
+                                f"[UNSAFE] Unsafe topic detected (no gaming context): {normalized_text[:50]}..."
+                            )
+                            metadata["layers_checked"].append("unsafe_topic_detection")
+                            return PolicyDecision.block_grooming(
+                                category="unsafe_topic",
+                                safe_response="I cannot help with this topic as it may not be safe.",
+                                metadata=metadata,
+                                detected_topic=detected_topic,
+                            )
+                    except Exception as e:
+                        logger.warning(
+                            f"[Layer 1.5] ContextClassifier error: {e}. Falling back to strict blocking."
+                        )
+                        # Fail-safe: Block if classifier fails
+                        metadata["layers_checked"].append("unsafe_topic_detection")
+                        return PolicyDecision.block_grooming(
+                            category="unsafe_topic",
+                            safe_response="I cannot help with this topic as it may not be safe.",
+                            metadata=metadata,
+                            detected_topic=detected_topic,
+                        )
+                else:
+                    # No ContextClassifier available - strict blocking (v1.1 behavior)
+                    logger.warning(
+                        f"[UNSAFE] Unsafe topic detected: {normalized_text[:50]}..."
+                    )
+                    metadata["layers_checked"].append("unsafe_topic_detection")
+                    return PolicyDecision.block_grooming(
+                        category="unsafe_topic",
+                        safe_response="I cannot help with this topic as it may not be safe.",
+                        metadata=metadata,
+                        detected_topic=detected_topic,
+                    )
+
             # Convert topic_id to Topic enum for Meta Guard
             if HAS_META_GUARD and Topic:
                 topic_id_lower = route_result.topic_id.lower()
                 if topic_id_lower == "meta_system":
                     topic_enum = Topic.META_SYSTEM
+                elif topic_id_lower == "unsafe":
+                    topic_enum = Topic.UNSAFE
                 elif "science" in topic_id_lower or topic_id_lower in [
                     "evolution_origins",
                     "creation_bigbang",
@@ -499,6 +613,54 @@ class KidsPolicyEngine:
             "confidence": grooming_result.confidence,
             "action": grooming_result.action,
         }
+
+        # Extract semantic score for TAG-4 SessionMonitor
+        # Score is confidence from grooming_result (0.0-1.0)
+        semantic_score = grooming_result.confidence if grooming_result.detected else 0.0
+
+        # If not detected by regex, check semantic guard directly for score
+        if not grooming_result.detected and self.grooming_detector.semantic_guard:
+            try:
+                is_safe, risk_desc, score = (
+                    self.grooming_detector.semantic_guard.check_semantic_risk(
+                        normalized_text,
+                        threshold=self.grooming_detector.semantic_threshold,
+                    )
+                )
+                semantic_score = score  # Use score even if below threshold
+            except Exception as e:
+                logger.debug(f"[TAG-4] Could not get semantic score: {e}")
+                semantic_score = 0.0
+
+        # TAG-4: Update SessionMonitor and check cumulative risk
+        if self.session_monitor and user_id:
+            accumulated_risk = self.session_monitor.update(
+                user_id=user_id,
+                current_score=semantic_score,
+                topic=detected_topic,
+            )
+            metadata["accumulated_risk"] = accumulated_risk
+            metadata["layers_checked"].append("session_monitor")
+
+            # v1.2: Dynamic threshold based on topic AND content (for emotional detection)
+            dynamic_threshold = SessionMonitor.get_dynamic_threshold(
+                detected_topic, normalized_text
+            )
+            metadata["risk_threshold"] = dynamic_threshold
+
+            # Check if cumulative risk exceeds dynamic threshold
+            if accumulated_risk > dynamic_threshold:
+                logger.warning(
+                    f"[TAG-4] CUMULATIVE_RISK_EXCEEDED: User {user_id} "
+                    f"accumulated_risk={accumulated_risk:.2f} > threshold={dynamic_threshold} "
+                    f"(topic={detected_topic})"
+                )
+                return PolicyDecision.block_grooming(
+                    category="cumulative_risk",
+                    safe_response="I cannot continue this conversation as it may not be safe.",
+                    metadata=metadata,
+                    detected_topic=detected_topic,
+                )
 
         if grooming_result.detected:
             logger.warning(
