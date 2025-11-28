@@ -72,6 +72,15 @@ logging.basicConfig(
 kids_policy_path = project_root / "kids_policy"
 sys.path.insert(0, str(kids_policy_path.parent))
 
+# Import SecurityUtils (for DoS protection)
+try:
+    from kids_policy.security import SecurityUtils
+
+    HAS_SECURITY_UTILS = True
+except ImportError:
+    HAS_SECURITY_UTILS = False
+    SecurityUtils = None
+
 
 class SafetyTemplatesStub:
     @classmethod
@@ -208,11 +217,9 @@ class ProxyConfig:
 
     # Ollama Cloud (Primary - Online Cloud Models)
     ollama_cloud_url: str = "https://ollama.com"
-    ollama_cloud_model: str = (
-        "deepseek-v3.1:671b"  # or kimi-k2-thinking, gpt-oss:20b, etc.
-    )
+    ollama_cloud_model: str = "gpt-oss:120b"  # 120B parameters (minimum requirement)
     ollama_cloud_timeout: float = 180.0
-    enable_ollama_cloud: bool = True
+    enable_ollama_cloud: bool = True  # REQUIRED: Must use Ollama Cloud model
     ollama_cloud_api_key: Optional[str] = (
         "fedfee2ce1784b07bed306b260fe7507.oLkHxyGltjKFD-graHIogBH8"  # API Key for Ollama Cloud
     )
@@ -222,7 +229,7 @@ class ProxyConfig:
     ollama_model: str = "llama3.1"
     # FIX: Timeout massively increased to handle GPU VRAM swapping/loading
     ollama_timeout: float = 300.0
-    enable_ollama: bool = True
+    enable_ollama: bool = False  # Disabled: Must use Ollama Cloud
 
     # LM Studio (Fallback 2 - Cloud Models via local server)
     lm_studio_url: str = "http://192.168.1.112:1234"
@@ -230,7 +237,7 @@ class ProxyConfig:
         "deepseek-v3.1:671b"  # or kimi-k2-thinking, gpt-oss:20b, etc.
     )
     lm_studio_timeout: float = 180.0
-    enable_lm_studio: bool = True
+    enable_lm_studio: bool = False  # Disabled for testing (use local llama3.1 instead)
 
     # Kids Policy Engine (Layer 0.5 - Specialized Policies)
     policy_profile: Optional[str] = None  # "kids" enables Kids Policy Engine
@@ -423,6 +430,7 @@ class LLMProxyServer:
         age_band: Optional[str] = None,
         allowed_topics: Optional[List[str]] = None,
         session_id: Optional[str] = None,
+        user_id: Optional[str] = None,
         topic_id: Optional[str] = None,
     ) -> ProxyResponse:
         age_band = age_band or self.config.age_band
@@ -431,12 +439,57 @@ class LLMProxyServer:
 
         metadata: Dict[str, Any] = {
             "session_id": session_id,
+            "user_id": user_id or session_id,  # Use session_id as fallback for user_id
             "layers_checked": [],
             "original_input_length": len(user_input),
         }
         layers = metadata["layers_checked"]
 
         # ---------------------------------------------------------
+        # ============================================================
+        # LAYER -1: Resource Exhaustion Protection (DoS Defense)
+        # ============================================================
+        # Fast-fail before expensive operations (HYDRA-09 fix)
+        # Multi-layer rate limiting: Character limit, regex precheck, adaptive rate limiting
+        if len(user_input) > 500:  # Character limit (not tokens) - fast check
+            logger.warning(
+                f"[DoS Protection] Input too long ({len(user_input)} chars). Blocking before semantic analysis."
+            )
+            metadata["blocked_layer"] = "dos_protection"
+            metadata["dos_reason"] = (
+                f"Input length {len(user_input)} exceeds 500 character limit"
+            )
+            return ProxyResponse(
+                status="BLOCKED_DOS",
+                response="Input is too long for processing. Please keep your message under 500 characters.",
+                metadata=metadata,
+            )
+
+        # Fast regex precheck (cheap filter before neural networks)
+        if HAS_SECURITY_UTILS and SecurityUtils:
+            # Quick injection check (fast, before expensive operations)
+            if SecurityUtils.detect_injection(user_input):
+                logger.warning(
+                    f"[DoS Protection] Injection detected in fast precheck: {user_input[:50]}..."
+                )
+                metadata["blocked_layer"] = "dos_protection"
+                metadata["dos_reason"] = "Injection pattern detected in fast precheck"
+                return ProxyResponse(
+                    status="BLOCKED_DOS",
+                    response=SafetyTemplates.get_template("UNSAFE_CONTENT"),
+                    metadata=metadata,
+                )
+
+        # TODO: Adaptive Rate Limiting (Redis-based)
+        # if self.rate_limiter:
+        #     user_key = f"ratelimit:{session_id or 'anonymous'}"
+        #     if not self.rate_limiter.check_rate_limit(user_key, max_requests=10, window_seconds=60):
+        #         return ProxyResponse(
+        #             status="BLOCKED_RATE_LIMIT",
+        #             response="Too many requests. Please wait a moment.",
+        #             metadata=metadata,
+        #         )
+
         # LAYER 0 CHECK - GANZ AM ANFANG (FORCE PATCH)
         # ---------------------------------------------------------
         # FORCE: Always use is_safe() if available (SafetyFallbackJudgeStub has it)
@@ -513,6 +566,7 @@ class LLMProxyServer:
                     input_text=user_input,
                     age_band=age_band,
                     context_history=None,  # TODO: Pass session history for multi-turn detection
+                    metadata=metadata,  # Pass metadata for Layer 4 (contains session_id, user_id)
                 )
                 layers.append("kids_policy_engine_input")
 
@@ -765,6 +819,7 @@ class LLMProxyServer:
                     llm_response=llm_output,  # For truth validation
                     age_band=age_band,
                     topic_id=topic_id,  # Optional, will be routed from user_input if not provided
+                    metadata=metadata,  # Pass metadata for Layer 4 (contains session_id, user_id)
                 )
                 layers.append("kids_policy_engine_output")
 

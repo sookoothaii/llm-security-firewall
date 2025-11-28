@@ -1,7 +1,7 @@
 import re
 import yaml
 import os
-from typing import Dict, List
+from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 
 
@@ -16,9 +16,18 @@ class TopicRouter:
     """
     Topic Router v1.0 (Regex/Keyword Based)
     Maps user input to canonical topic IDs for TAG-2 validation.
+
+    HYDRA-13 Extension: Meta-System detection has PRIORITY over all other topics.
     """
 
-    def __init__(self, config_path: str):
+    def __init__(self, config_path: str, meta_guard: Optional[Any] = None):
+        """
+        Initialize Topic Router.
+
+        Args:
+            config_path: Path to topic_map_v1.yaml
+            meta_guard: Optional MetaExploitationGuard instance for meta-detection
+        """
         if not os.path.exists(config_path):
             raise FileNotFoundError(f"Topic map not found at {config_path}")
 
@@ -27,6 +36,9 @@ class TopicRouter:
 
         self.default_topic = self.config.get("default_topic", "general_chat")
         self.patterns = self._compile_patterns()
+
+        # HYDRA-13: Meta-Exploitation Guard (optional)
+        self.meta_guard = meta_guard
 
     def _compile_patterns(self) -> Dict[str, re.Pattern]:
         """
@@ -52,7 +64,18 @@ class TopicRouter:
     def route(self, text: str) -> RouteResult:
         """
         Determines the most likely topic based on keyword density.
+
+        HYDRA-13 Priority: Meta-System detection FIRST (before semantic classification).
         """
+        # PRIORITY 1: Meta-System Detection (HYDRA-13)
+        if self.meta_guard and self.meta_guard._is_meta_question(text):
+            return RouteResult(
+                topic_id="meta_system",
+                confidence=1.0,
+                matched_keywords=["meta_question"],
+            )
+
+        # PRIORITY 2: Semantic Topic Classification
         best_topic = self.default_topic
         max_hits = 0
         all_matches = []

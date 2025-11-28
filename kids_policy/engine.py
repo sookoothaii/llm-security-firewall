@@ -39,6 +39,26 @@ except ImportError:
     TopicRouter = None
     RouteResult = None
 
+# MetaExploitationGuard import (HYDRA-13)
+try:
+    from .meta_exploitation_guard import MetaExploitationGuard, Topic, SafetyResult
+
+    HAS_META_GUARD = True
+except ImportError:
+    HAS_META_GUARD = False
+    MetaExploitationGuard = None
+    Topic = None
+    SafetyResult = None
+
+# UnicodeSanitizer import (HYDRA-14.5)
+try:
+    from .unicode_sanitizer import UnicodeSanitizer
+
+    HAS_UNICODE_SANITIZER = True
+except ImportError:
+    HAS_UNICODE_SANITIZER = False
+    UnicodeSanitizer = None
+
 # Security Utils import
 try:
     from .security import SecurityUtils
@@ -60,6 +80,17 @@ except ImportError:
     HAS_TAG2 = False
     ValidationResult = None
     TruthPreservationValidatorV2_3 = None
+
+# Layer 4 import (optional - may not be available)
+try:
+    from .pragmatic_safety import PragmaticSafetyLayer
+    from .storage.session_storage import InMemorySessionStorage
+
+    HAS_LAYER4 = True
+except ImportError:
+    HAS_LAYER4 = False
+    PragmaticSafetyLayer = None
+    InMemorySessionStorage = None
 
 logger = logging.getLogger(__name__)
 
@@ -170,7 +201,34 @@ class KidsPolicyEngine:
             logger.error(f"Failed to initialize Grooming Detector: {e}")
             raise
 
+        # Initialize MetaExploitationGuard (HYDRA-13) FIRST
+        self.meta_guard: Optional[MetaExploitationGuard] = None
+        if HAS_META_GUARD:
+            try:
+                self.meta_guard = MetaExploitationGuard()
+                logger.info("HYDRA-13 MetaExploitationGuard initialized")
+            except Exception as e:
+                logger.warning(
+                    f"MetaExploitationGuard initialization failed: {e}. Continuing without HYDRA-13."
+                )
+                self.meta_guard = None
+        else:
+            logger.warning("MetaExploitationGuard not available (import failed).")
+
+        # Initialize UnicodeSanitizer (HYDRA-14.5)
+        self.unicode_sanitizer: Optional[UnicodeSanitizer] = None
+        if HAS_UNICODE_SANITIZER:
+            try:
+                self.unicode_sanitizer = UnicodeSanitizer()
+                logger.info("UnicodeSanitizer initialized (HYDRA-14.5)")
+            except Exception as e:
+                logger.warning(f"UnicodeSanitizer initialization failed: {e}")
+                self.unicode_sanitizer = None
+        else:
+            self.unicode_sanitizer = None
+
         # Initialize Topic Router (for dynamic topic detection)
+        # Pass meta_guard to TopicRouter for priority detection
         self.topic_router: Optional[TopicRouter] = None
         if HAS_ROUTER:
             if topic_map_path is None:
@@ -178,7 +236,10 @@ class KidsPolicyEngine:
                 topic_map_path = str(base_path / "topic_map_v1.yaml")
 
             try:
-                self.topic_router = TopicRouter(topic_map_path)
+                self.topic_router = TopicRouter(
+                    topic_map_path,
+                    meta_guard=self.meta_guard,  # Pass meta_guard for HYDRA-13
+                )
                 logger.info("Topic Router initialized")
             except Exception as e:
                 logger.warning(
@@ -207,6 +268,29 @@ class KidsPolicyEngine:
                 logger.info("TAG-2 disabled by configuration.")
 
         self.tag2_config = tag2_config or {}
+
+        # Initialize Layer 4: Pragmatic Safety (optional)
+        self.pragmatic_safety_layer: Optional[PragmaticSafetyLayer] = None
+        if HAS_LAYER4 and PragmaticSafetyLayer and InMemorySessionStorage:
+            try:
+                session_storage = InMemorySessionStorage()
+                self.pragmatic_safety_layer = PragmaticSafetyLayer(
+                    session_storage=session_storage,
+                    threshold=0.75,  # Default threshold
+                )
+                logger.info("Layer 4 Pragmatic Safety initialized")
+            except Exception as e:
+                logger.warning(
+                    f"Layer 4 initialization failed: {e}. Continuing without Layer 4."
+                )
+                self.pragmatic_safety_layer = None
+        else:
+            if not HAS_LAYER4:
+                logger.info(
+                    "Layer 4 not available (import failed). Running without Layer 4."
+                )
+            else:
+                logger.info("Layer 4 components not available.")
 
         # Paths for canonical facts and gates
         self.canonical_facts_dir = (
@@ -242,6 +326,7 @@ class KidsPolicyEngine:
         input_text: str,
         age_band: Optional[str] = None,
         context_history: Optional[list] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> PolicyDecision:
         """
         PHASE 1: Input Check (TAG-3 Behavioral Integrity)
@@ -257,18 +342,58 @@ class KidsPolicyEngine:
         Returns:
             PolicyDecision with block status and reason
         """
-        metadata: Dict[str, Any] = {
-            "layers_checked": [],
-            "age_band": age_band,
-            "check_type": "input_validation",
-        }
+        # Initialize metadata (merge with existing if provided)
+        if metadata is None:
+            metadata = {}
+        else:
+            metadata = metadata.copy()  # Don't mutate caller's dict
+
+        # Initialize/update metadata fields
+        if "layers_checked" not in metadata:
+            metadata["layers_checked"] = []
+        metadata["age_band"] = age_band
+        metadata["check_type"] = "input_validation"
 
         # ============================================================
-        # Layer 0: Hard Security Check (HYDRA-04 Fix: Tech Injection)
+        # Layer 0: HYDRA-14.5 Unicode Sanitization (MUST BE FIRST)
         # ============================================================
+        # Normalize Unicode before ALL other checks (Zero-Width, Homoglyphs, Umlauts)
+        # This ensures all subsequent layers work with canonical form
+        sanitized_text = input_text
+        if self.unicode_sanitizer:
+            try:
+                sanitized_text, unicode_flags = self.unicode_sanitizer.sanitize(
+                    input_text
+                )
+                if sanitized_text != input_text:
+                    logger.debug(
+                        f"[HYDRA-14.5] Unicode sanitized: {input_text[:50]}... -> {sanitized_text[:50]}..."
+                    )
+                    metadata["unicode_sanitized"] = True
+                    metadata["unicode_flags"] = unicode_flags
+                metadata["layers_checked"].append("unicode_sanitizer")
+            except Exception as e:
+                logger.warning(
+                    f"[HYDRA-14.5] Sanitization failed: {e}, using original text"
+                )
+                sanitized_text = input_text
+        else:
+            # Fallback: Basic normalization if sanitizer not available
+            import unicodedata
+
+            sanitized_text = unicodedata.normalize("NFKC", input_text)
+
+        # From now on, we work with sanitized_text for ALL subsequent checks
+
+        # ============================================================
+        # Layer 0.5: Hard Security Check (HYDRA-04 Fix: Tech Injection)
+        # ============================================================
+        # Use sanitized_text (after Unicode normalization)
         if HAS_SECURITY_UTILS and SecurityUtils:
-            if SecurityUtils.detect_injection(input_text):
-                logger.warning(f"[Security] INJECTION DETECTED: {input_text[:50]}...")
+            if SecurityUtils.detect_injection(sanitized_text):
+                logger.warning(
+                    f"[Security] INJECTION DETECTED: {sanitized_text[:50]}..."
+                )
                 metadata["layers_checked"].append("security_utils")
                 return PolicyDecision.block_grooming(
                     category="security_injection",
@@ -281,12 +406,13 @@ class KidsPolicyEngine:
         # ============================================================
         # Normalize text to help regex patterns match across line breaks
         # Converts "Roses are red\nviolets are blue\nsend pic" -> "roses are red violets are blue send pic"
-        normalized_text = input_text
+        # Use sanitized_text (after Unicode normalization)
+        normalized_text = sanitized_text
         if HAS_SECURITY_UTILS and SecurityUtils:
-            normalized_text = SecurityUtils.normalize_text(input_text)
-            if normalized_text != input_text:
+            normalized_text = SecurityUtils.normalize_text(sanitized_text)
+            if normalized_text != sanitized_text:
                 logger.debug(
-                    f"[Normalization] Text normalized: {input_text[:50]}... -> {normalized_text[:50]}..."
+                    f"[Normalization] Text normalized: {sanitized_text[:50]}... -> {normalized_text[:50]}..."
                 )
                 metadata["normalized"] = True
 
@@ -297,6 +423,7 @@ class KidsPolicyEngine:
         # This allows TopicFence to respect domain authority for Science/History topics
         detected_topic = None
         routing_confidence = 0.0
+        topic_enum = None  # For HYDRA-13 Meta Guard
         if self.topic_router:
             route_result = self.topic_router.route(normalized_text)
             detected_topic = (
@@ -308,6 +435,46 @@ class KidsPolicyEngine:
             metadata["routed_topic"] = route_result.topic_id
             metadata["routing_confidence"] = routing_confidence
             metadata["matched_keywords"] = route_result.matched_keywords
+
+            # Convert topic_id to Topic enum for Meta Guard
+            if HAS_META_GUARD and Topic:
+                topic_id_lower = route_result.topic_id.lower()
+                if topic_id_lower == "meta_system":
+                    topic_enum = Topic.META_SYSTEM
+                elif "science" in topic_id_lower or topic_id_lower in [
+                    "evolution_origins",
+                    "creation_bigbang",
+                    "earth_age",
+                    "climate_science",
+                ]:
+                    topic_enum = Topic.SCIENCE
+                elif "history" in topic_id_lower:
+                    topic_enum = Topic.HISTORY
+                else:
+                    topic_enum = Topic.GENERAL_CHAT
+
+        # ============================================================
+        # Layer 2.5: MetaExploitationGuard (HYDRA-13)
+        # ============================================================
+        # Check for meta-exploitation attempts BEFORE TAG-3
+        # This prevents users from probing the system's security logic
+        if self.meta_guard and topic_enum is not None:
+            meta_result = self.meta_guard.validate(normalized_text, topic_enum)
+            if not meta_result.is_safe:
+                logger.warning(
+                    f"[HYDRA-13] Meta-Exploitation blocked: {meta_result.reason}"
+                )
+                metadata["layers_checked"].append("meta_exploitation_guard")
+                return PolicyDecision(
+                    block=True,
+                    reason=meta_result.reason,
+                    status="BLOCKED_META_EXPLOITATION",
+                    safe_response=meta_result.explanation
+                    or "I cannot answer this question.",
+                    metadata=metadata,
+                    detected_topic=detected_topic,
+                )
+            metadata["layers_checked"].append("meta_exploitation_guard")
             if detected_topic:
                 logger.debug(
                     f"[Topic Router Phase 1] Detected topic: {detected_topic} "
@@ -347,6 +514,58 @@ class KidsPolicyEngine:
             )
 
         logger.debug("[TAG-3] No grooming detected - input allowed")
+
+        # ============================================================
+        # Layer 4: Pragmatic Safety (Context + Intent + Time) - INPUT CHECK
+        # ============================================================
+        if self.pragmatic_safety_layer:
+            try:
+                # Extract user_id from metadata or use default
+                user_id = metadata.get(
+                    "user_id", metadata.get("session_id", "anonymous")
+                )
+
+                pragmatic_result = self.pragmatic_safety_layer.validate(
+                    user_input=input_text,
+                    topic=detected_topic,
+                    user_id=user_id,
+                    age_band=age_band,
+                )
+
+                if not pragmatic_result.is_safe:
+                    logger.warning(
+                        f"[Layer 4 Input] Blocked: {pragmatic_result.reason} "
+                        f"(cumulative risk: {pragmatic_result.metadata.get('cumulative_risk', 0):.2f})"
+                    )
+                    metadata["layer_4_blocked"] = True
+                    metadata["layer_4_reason"] = pragmatic_result.reason
+                    metadata["layer_4_metadata"] = pragmatic_result.metadata
+                    return PolicyDecision.block_grooming(
+                        category="CUMULATIVE_RISK",
+                        safe_response="I cannot continue this conversation as it may not be safe.",
+                        metadata=metadata,
+                        detected_topic=detected_topic,
+                    )
+
+                metadata["layer_4_checked"] = True
+                metadata["layer_4_metadata"] = pragmatic_result.metadata
+                logger.debug(
+                    f"[Layer 4 Input] Passed: Cumulative risk {pragmatic_result.metadata.get('cumulative_risk', 0):.2f}"
+                )
+
+            except Exception as e:
+                logger.error(
+                    f"[Layer 4 Input] Error during validation: {e}", exc_info=True
+                )
+                metadata["layer_4_error"] = str(e)
+                # Fail-Closed: Block on Layer 4 error (safety first)
+                return PolicyDecision.block_grooming(
+                    category="LAYER_4_ERROR",
+                    safe_response="I cannot process this request due to a safety system error.",
+                    metadata=metadata,
+                    detected_topic=detected_topic,
+                )
+
         return PolicyDecision.allow(metadata=metadata, detected_topic=detected_topic)
 
     def validate_output(
@@ -355,6 +574,7 @@ class KidsPolicyEngine:
         llm_response: str,
         age_band: Optional[str] = None,
         topic_id: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> PolicyDecision:
         """
         PHASE 2: Output Check (TAG-2 Truth Preservation)
@@ -372,11 +592,17 @@ class KidsPolicyEngine:
         Returns:
             PolicyDecision with block status and reason
         """
-        metadata: Dict[str, Any] = {
-            "layers_checked": [],
-            "age_band": age_band,
-            "check_type": "output_validation",
-        }
+        # Initialize metadata (merge with existing if provided)
+        if metadata is None:
+            metadata = {}
+        else:
+            metadata = metadata.copy()  # Don't mutate caller's dict
+
+        # Initialize/update metadata fields
+        if "layers_checked" not in metadata:
+            metadata["layers_checked"] = []
+        metadata["age_band"] = age_band
+        metadata["check_type"] = "output_validation"
 
         # ============================================================
         # STEP 1: Defensive Grooming Check on LLM Output
@@ -414,6 +640,103 @@ class KidsPolicyEngine:
                 f"[Topic Router] Detected topic from user_input: {topic_id} "
                 f"(confidence: {route_result.confidence:.2f})"
             )
+
+        # ============================================================
+        # SAFE_AXIOMS Check (HYDRA-08 Fix: Adversarial Trigger Defense)
+        # ============================================================
+        # Whitelist-based safety: Unknown topics are denied by default
+        # Check happens AFTER topic routing but BEFORE TAG-2 validation
+        # Check if we have a topic_id (or science keywords) and llm_response is available
+        # HYDRA-08 Fix: Also check general_chat if it contains science keywords
+        science_keywords = [
+            "physik",
+            "physic",
+            "druck",
+            "pressure",
+            "volumen",
+            "volume",
+            "erhitzt",
+            "heat",
+            "behälter",
+            "container",
+        ]
+        has_science_keywords = any(
+            keyword in user_input.lower() for keyword in science_keywords
+        )
+
+        should_check_safe_axioms = (
+            topic_id and topic_id != "general_chat" and llm_response
+        ) or (topic_id == "general_chat" and llm_response and has_science_keywords)
+
+        if should_check_safe_axioms and llm_response:
+            logger.info(
+                f"[SAFE_AXIOMS] Triggering validation: topic_id={topic_id}, "
+                f"has_science_keywords={has_science_keywords}, "
+                f"user_input_preview={user_input[:50]}..."
+            )
+            try:
+                from .truth_preservation.safe_axioms import SafeAxiomsValidator
+
+                safe_axioms_validator = SafeAxiomsValidator()
+                # Map topic_id to SAFE_AXIOMS topic name
+                topic_map = {
+                    "earth_age": "science",
+                    "evolution_origins": "science",
+                    "creation_bigbang": "science",
+                    "climate_science": "science",
+                    "health_medicine": "health_medicine",
+                    "safety_rules": "safety_rules",
+                }
+                # HYDRA-08 Fix: If general_chat but contains science keywords, treat as science
+                if topic_id == "general_chat" and any(
+                    keyword in user_input.lower()
+                    for keyword in [
+                        "physik",
+                        "physic",
+                        "druck",
+                        "pressure",
+                        "volumen",
+                        "volume",
+                        "erhitzt",
+                        "heat",
+                        "behälter",
+                        "container",
+                    ]
+                ):
+                    safe_axioms_topic = "science"
+                else:
+                    safe_axioms_topic = topic_map.get(topic_id, topic_id)
+
+                # Limit output_text length for SAFE_AXIOMS validation (prevent timeout on very long responses)
+                # Extract subtopic from first 2000 chars (enough to detect dangerous keywords)
+                output_text_truncated = (
+                    llm_response[:2000] if len(llm_response) > 2000 else llm_response
+                )
+
+                # Validate topic against SAFE_AXIOMS (use llm_response for subtopic extraction)
+                is_safe_axiom, axiom_reason, axiom_confidence = (
+                    safe_axioms_validator.validate_topic(
+                        topic=safe_axioms_topic,
+                        subtopic=None,  # Will be extracted from output_text
+                        output_text=output_text_truncated,  # Truncated to prevent timeout
+                    )
+                )
+                if not is_safe_axiom:
+                    logger.warning(
+                        f"[SAFE_AXIOMS] Blocked: {axiom_reason} (confidence: {axiom_confidence:.2f})"
+                    )
+                    metadata["safe_axioms_blocked"] = True
+                    metadata["safe_axioms_reason"] = axiom_reason
+                    return PolicyDecision.block_truth_violation(
+                        reason=f"SAFE_AXIOMS: {axiom_reason}",
+                        safe_response="I cannot provide information on this topic as it is not covered by safety guidelines.",
+                        metadata=metadata,
+                    )
+            except ImportError:
+                logger.debug("[SAFE_AXIOMS] Not available, skipping whitelist check")
+            except Exception as e:
+                logger.error(f"[SAFE_AXIOMS] Error: {e}", exc_info=True)
+                # Fail-open: Continue if SAFE_AXIOMS fails (don't block legitimate traffic)
 
         # Skip TAG-2 if no topic_id (even after routing)
         if not topic_id or topic_id == "general_chat":
@@ -511,13 +834,71 @@ class KidsPolicyEngine:
                 )
 
             logger.debug("[TAG-2] Truth preservation check passed")
-            return PolicyDecision.allow(metadata=metadata)
 
         except Exception as e:
             logger.error(f"[TAG-2] Error during validation: {e}", exc_info=True)
             metadata["tag2_error"] = str(e)
             # Fail-open: Allow if TAG-2 fails (could be made fail-closed)
-            return PolicyDecision.allow(metadata=metadata)
+            # Continue to Layer 4 even if TAG-2 failed
+
+        # ============================================================
+        # Layer 4: Pragmatic Safety (Context + Intent + Time)
+        # ============================================================
+        if self.pragmatic_safety_layer:
+            try:
+                # Extract user_id from metadata or use default
+                user_id = metadata.get(
+                    "user_id", metadata.get("session_id", "anonymous")
+                )
+
+                # Get topic_id for Layer 4
+                topic_for_layer4 = topic_id
+                if not topic_for_layer4 and self.topic_router:
+                    route_result = self.topic_router.route(user_input)
+                    topic_for_layer4 = (
+                        route_result.topic_id
+                        if route_result.topic_id != "general_chat"
+                        else None
+                    )
+
+                pragmatic_result = self.pragmatic_safety_layer.validate(
+                    user_input=user_input,
+                    topic=topic_for_layer4,
+                    user_id=user_id,
+                    age_band=age_band,
+                )
+
+                if not pragmatic_result.is_safe:
+                    logger.warning(
+                        f"[Layer 4] Blocked: {pragmatic_result.reason} "
+                        f"(cumulative risk: {pragmatic_result.metadata.get('cumulative_risk', 0):.2f})"
+                    )
+                    metadata["layer_4_blocked"] = True
+                    metadata["layer_4_reason"] = pragmatic_result.reason
+                    metadata["layer_4_metadata"] = pragmatic_result.metadata
+                    return PolicyDecision.block_grooming(
+                        category="CUMULATIVE_RISK",
+                        safe_response="I cannot continue this conversation as it may not be safe.",
+                        metadata=metadata,
+                    )
+
+                metadata["layer_4_checked"] = True
+                metadata["layer_4_metadata"] = pragmatic_result.metadata
+                logger.debug(
+                    f"[Layer 4] Passed: Cumulative risk {pragmatic_result.metadata.get('cumulative_risk', 0):.2f}"
+                )
+
+            except Exception as e:
+                logger.error(f"[Layer 4] Error during validation: {e}", exc_info=True)
+                metadata["layer_4_error"] = str(e)
+                # Fail-Closed: Block on Layer 4 error (safety first)
+                return PolicyDecision.block_grooming(
+                    category="LAYER_4_ERROR",
+                    safe_response="I cannot process this request due to a safety system error.",
+                    metadata=metadata,
+                )
+
+        return PolicyDecision.allow(metadata=metadata)
 
     # Backward compatibility: keep check() as alias for validate_input()
     def check(

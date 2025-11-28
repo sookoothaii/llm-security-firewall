@@ -181,6 +181,7 @@ class ProxyRequest(BaseModel):
     age_band: Optional[str] = None
     allowed_topics: Optional[list[str]] = None
     session_id: Optional[str] = None
+    user_id: Optional[str] = None  # For Layer 4 session tracking
     topic_id: Optional[str] = None  # For Kids Policy Truth Preservation
 
 
@@ -799,6 +800,7 @@ if HAS_FASTAPI:
                 age_band=request.age_band,
                 allowed_topics=request.allowed_topics,
                 session_id=session_id,
+                user_id=request.user_id,  # Pass user_id for Layer 4
                 topic_id=request.topic_id,
             )
 

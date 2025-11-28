@@ -234,8 +234,9 @@ class GroomingDetector:
             return GroomingResult(detected=False)
 
         # Check semantic similarity to grooming concepts
+        # Use Semantic Spotlight (sliding window + max-pooling) for HYDRA-07 fix
         is_safe, risk_description, score = self.semantic_guard.check_semantic_risk(
-            text, threshold=self.semantic_threshold
+            text, threshold=self.semantic_threshold, use_spotlight=True
         )
 
         if not is_safe:
