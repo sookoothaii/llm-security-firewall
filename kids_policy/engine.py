@@ -68,6 +68,15 @@ except ImportError:
     HAS_SECURITY_UTILS = False
     SecurityUtils = None
 
+# PersonaSkeptic import (v2.0 - NEMESIS-05 Fix)
+try:
+    from .persona_skeptic import PersonaSkeptic
+
+    HAS_PERSONA_SKEPTIC = True
+except ImportError:
+    HAS_PERSONA_SKEPTIC = False
+    PersonaSkeptic = None
+
 # TAG-2 import (optional - may not be available)
 try:
     from .truth_preservation.validators.truth_preservation_validator_v2_3 import (
@@ -244,6 +253,20 @@ class KidsPolicyEngine:
                 self.unicode_sanitizer = None
         else:
             self.unicode_sanitizer = None
+
+        # Initialize PersonaSkeptic (v2.0 - NEMESIS-05 Fix)
+        self.persona_skeptic: Optional[PersonaSkeptic] = None
+        if HAS_PERSONA_SKEPTIC:
+            try:
+                self.persona_skeptic = PersonaSkeptic()
+                logger.info("Layer 1-A PersonaSkeptic initialized (v2.0)")
+            except Exception as e:
+                logger.warning(
+                    f"PersonaSkeptic initialization failed: {e}. Continuing without Layer 1-A."
+                )
+                self.persona_skeptic = None
+        else:
+            logger.warning("PersonaSkeptic not available (import failed).")
 
         # Initialize Topic Router (for dynamic topic detection)
         # Pass meta_guard to TopicRouter for priority detection
@@ -596,6 +619,42 @@ class KidsPolicyEngine:
                 )
 
         # ============================================================
+        # Layer 1-A: PersonaSkeptic (v2.0 - NEMESIS-05 Fix)
+        # ============================================================
+        # Check for Social Engineering / Framing BEFORE semantic analysis
+        # If framing detected, lower semantic threshold (make system stricter)
+        skepticism_penalty = 0.0
+        adjusted_semantic_threshold = (
+            self.grooming_detector.semantic_threshold
+            if self.grooming_detector
+            else 0.75
+        )
+
+        if self.persona_skeptic:
+            try:
+                adjusted_threshold, penalty = (
+                    self.persona_skeptic.get_adjusted_threshold(
+                        adjusted_semantic_threshold, normalized_text
+                    )
+                )
+                skepticism_penalty = penalty
+                adjusted_semantic_threshold = adjusted_threshold
+                metadata["persona_skepticism"] = {
+                    "penalty": penalty,
+                    "original_threshold": adjusted_semantic_threshold + penalty,
+                    "adjusted_threshold": adjusted_threshold,
+                }
+                metadata["layers_checked"].append("persona_skeptic")
+                if penalty > 0:
+                    logger.warning(
+                        f"[Layer 1-A] PersonaSkeptic penalty: {penalty:.2f} "
+                        f"(threshold: {adjusted_semantic_threshold + penalty:.2f} -> {adjusted_threshold:.2f})"
+                    )
+            except Exception as e:
+                logger.warning(f"[Layer 1-A] PersonaSkeptic error: {e}")
+                # Fail-safe: Continue with original threshold
+
+        # ============================================================
         # TAG-3: Behavioral Integrity (Grooming Detection)
         # ============================================================
         logger.debug(
@@ -619,15 +678,29 @@ class KidsPolicyEngine:
         semantic_score = grooming_result.confidence if grooming_result.detected else 0.0
 
         # If not detected by regex, check semantic guard directly for score
+        # v2.0: Use adjusted threshold from PersonaSkeptic
         if not grooming_result.detected and self.grooming_detector.semantic_guard:
             try:
                 is_safe, risk_desc, score = (
                     self.grooming_detector.semantic_guard.check_semantic_risk(
                         normalized_text,
-                        threshold=self.grooming_detector.semantic_threshold,
+                        threshold=adjusted_semantic_threshold,  # Use adjusted threshold
                     )
                 )
                 semantic_score = score  # Use score even if below threshold
+
+                # v2.0: If PersonaSkeptic lowered threshold and score exceeds it, block
+                if skepticism_penalty > 0 and score > adjusted_semantic_threshold:
+                    logger.warning(
+                        f"[Layer 1-A] Social Engineering detected via adjusted threshold: "
+                        f"score={score:.2f} > threshold={adjusted_semantic_threshold:.2f}"
+                    )
+                    # Mark as detected for blocking
+                    grooming_result.detected = True
+                    grooming_result.category = "social_engineering"
+                    grooming_result.confidence = score
+                    grooming_result.action = "BLOCK"
+                    grooming_result.safe_response = "I cannot help with this request as it appears to use social engineering techniques."
             except Exception as e:
                 logger.debug(f"[TAG-4] Could not get semantic score: {e}")
                 semantic_score = 0.0
