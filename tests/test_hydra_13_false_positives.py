@@ -8,6 +8,7 @@ Date: 2025-11-28
 Status: Post-Deployment Validation
 """
 
+import pytest
 import requests
 import sys
 from pathlib import Path
@@ -157,6 +158,7 @@ LEGITIMATE_EN = [
 ]
 
 
+@pytest.mark.skip(reason="Requires running proxy server - use as standalone script")
 def test_message(message: str, age_band: str = "9-12") -> Tuple[bool, str, str]:
     """
     Test a single message against the proxy.

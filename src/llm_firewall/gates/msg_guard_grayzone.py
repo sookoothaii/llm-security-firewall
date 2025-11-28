@@ -83,6 +83,14 @@ PERTURBATION_POOL = [
     lambda t: t.replace("\n\n", "\n"),  # Double newline collapse
     lambda t: t.replace("\r\n", "\n"),  # CRLF to LF
     lambda t: t.replace("\r", "\n"),  # CR to LF
+    # Additional variations for 50+ pool
+    lambda t: t.replace("-", " "),  # Hyphen to space
+    lambda t: t.replace(":", " :"),  # Colon spacing
+    lambda t: t.replace("@", " at "),  # @ to "at"
+    lambda t: t.replace("&", " and "),  # & to "and"
+    lambda t: t.replace("+", " plus "),  # + to "plus"
+    lambda t: t.replace("=", " equals "),  # = to "equals"
+    lambda t: t.replace("%", " percent "),  # % to "percent"
 ]
 
 

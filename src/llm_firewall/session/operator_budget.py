@@ -247,7 +247,6 @@ def check_operator_budget(
         "signals": [],
     }
     signals: List[str] = []
-    report["signals"] = signals  # type: ignore[assignment]
 
     # Add signals
     if budget.budget_exceeded:
@@ -267,6 +266,8 @@ def check_operator_budget(
 
     if len(budget.active_sessions) > 10:
         signals.append("operator_high_session_count")
+
+    report["signals"] = signals  # type: ignore[assignment]
 
     return budget, report
 

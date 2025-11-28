@@ -9,6 +9,7 @@ Date: 2025-11-28
 Status: Post-Deployment Validation (Fast Path)
 """
 
+import pytest
 import sys
 from pathlib import Path
 from typing import List, Tuple, Dict
@@ -159,6 +160,7 @@ LEGITIMATE_EN = [
 ]
 
 
+@pytest.mark.skip(reason="Requires engine initialization - use as standalone script")
 def test_message_direct(
     message: str, engine, age_band: str = "9-12"
 ) -> Tuple[bool, str, str]:
