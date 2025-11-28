@@ -74,10 +74,10 @@ The Kids Policy Engine is injected as a high-priority middleware:
 2. **Layer 0.5:** Kids Policy Engine v2.0.1 (Contextual Intelligence)
    - **Engine:** HAK_GAL v2.0.1-NEMESIS (Adaptive Memory & Anti-Framing)
    - **Capabilities:**
-     *   **Context Awareness:** Distinguishes Gaming ("Minecraft TNT") from Real Threats.
-     *   **PersonaSkeptic:** Blocks Social Engineering/Framing attempts.
-     *   **Adaptive Memory:** Stricter thresholds based on violation history.
-     *   **Threat Mapping:** Aggressive Emoji sanitization (🔫 -> "firearm").
+     - **Context Awareness:** Distinguishes Gaming ("Minecraft TNT") from Real Threats.
+     - **PersonaSkeptic:** Blocks Social Engineering/Framing attempts.
+     - **Adaptive Memory:** Stricter thresholds based on violation history.
+     - **Threat Mapping:** Aggressive Emoji sanitization (🔫 -> "firearm").
    - **Integration:** Runs before semantic sanitization to catch raw behavioral signals.
 
 3. **Layer 1:** SteganographyGuard (Semantic Sanitization)

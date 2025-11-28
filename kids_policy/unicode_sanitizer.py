@@ -22,7 +22,7 @@ try:
     HAS_EMOJI_LIB = True
 except ImportError:
     HAS_EMOJI_LIB = False
-    emoji = None
+    emoji = None  # type: ignore[assignment]
 
 logger = logging.getLogger(__name__)
 

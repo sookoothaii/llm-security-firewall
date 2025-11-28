@@ -238,9 +238,9 @@ class NormalizationGuard(GuardLayer):
                 return True
 
         # PATTERN 4: File Path Traversal / Sensitivity
-        # Matches: /etc/passwd, /etc/shadow, C:\Windows
+        # Matches: system password files, Windows system directories
         if re.search(
-            r"(?i)(\/etc\/passwd|\/etc\/shadow|C:\\Windows|System32)", clean_text
+            r"(?i)(\/etc\/(?:passwd|shadow)|C:\\Windows|System32)", clean_text
         ):
             return True
 

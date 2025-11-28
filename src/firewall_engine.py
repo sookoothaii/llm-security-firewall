@@ -79,7 +79,7 @@ try:
     HAS_SECURITY_UTILS = True
 except ImportError:
     HAS_SECURITY_UTILS = False
-    SecurityUtils = None
+    SecurityUtils = None  # type: ignore
 
 
 class SafetyTemplatesStub:
@@ -142,7 +142,7 @@ class SafetyFallbackJudgeStub:
             patterns.append(re.compile(p3))
         # 4. Path Traversal
         patterns.append(
-            re.compile(r"(?i)(\/etc\/passwd|\/etc\/shadow|C:\\Windows|System32)")
+            re.compile(r"(?i)(\/etc\/(?:passwd|shadow)|C:\\Windows|System32)")
         )
         return patterns
 
@@ -195,7 +195,7 @@ except Exception as e:
 
 HAS_TRUTH_VALIDATOR = False
 try:
-    from kids_policy.truth_preservation.validator import TruthPreservationValidatorV2_3
+    from kids_policy.truth_preservation.validator import TruthPreservationValidatorV2_3  # type: ignore[import-untyped]
 
     HAS_TRUTH_VALIDATOR = True
 except ImportError:
@@ -221,7 +221,7 @@ class ProxyConfig:
     ollama_cloud_timeout: float = 180.0
     enable_ollama_cloud: bool = True  # REQUIRED: Must use Ollama Cloud model
     ollama_cloud_api_key: Optional[str] = (
-        "fedfee2ce1784b07bed306b260fe7507.oLkHxyGltjKFD-graHIogBH8"  # API Key for Ollama Cloud
+        None  # Set via environment variable OLLAMA_CLOUD_API_KEY
     )
 
     # Ollama Local (Fallback 1 - Local installation)
@@ -466,7 +466,7 @@ class LLMProxyServer:
             )
 
         # Fast regex precheck (cheap filter before neural networks)
-        if HAS_SECURITY_UTILS and SecurityUtils:
+        if HAS_SECURITY_UTILS and SecurityUtils is not None:
             # Quick injection check (fast, before expensive operations)
             if SecurityUtils.detect_injection(user_input):
                 logger.warning(

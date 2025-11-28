@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 # Optional transformers for NLI
 try:
-    from transformers import pipeline
+    from transformers import pipeline  # type: ignore[attr-defined]
 
     HAS_TRANSFORMERS = True
 except ImportError:

@@ -48,8 +48,8 @@ try:
     HAS_ROUTER = True
 except ImportError:
     HAS_ROUTER = False
-    TopicRouter = None
-    RouteResult = None
+    TopicRouter = None  # type: ignore
+    RouteResult = None  # type: ignore
 
 # MetaExploitationGuard import (HYDRA-13)
 try:
@@ -58,9 +58,9 @@ try:
     HAS_META_GUARD = True
 except ImportError:
     HAS_META_GUARD = False
-    MetaExploitationGuard = None
-    Topic = None
-    SafetyResult = None
+    MetaExploitationGuard = None  # type: ignore
+    Topic = None  # type: ignore
+    SafetyResult = None  # type: ignore
 
 # UnicodeSanitizer import (HYDRA-14.5)
 try:
@@ -69,7 +69,7 @@ try:
     HAS_UNICODE_SANITIZER = True
 except ImportError:
     HAS_UNICODE_SANITIZER = False
-    UnicodeSanitizer = None
+    UnicodeSanitizer = None  # type: ignore
 
 # Security Utils import
 try:
@@ -78,7 +78,7 @@ try:
     HAS_SECURITY_UTILS = True
 except ImportError:
     HAS_SECURITY_UTILS = False
-    SecurityUtils = None
+    SecurityUtils = None  # type: ignore
 
 # PersonaSkeptic import (v2.0 - NEMESIS-05 Fix)
 try:
@@ -87,7 +87,7 @@ try:
     HAS_PERSONA_SKEPTIC = True
 except ImportError:
     HAS_PERSONA_SKEPTIC = False
-    PersonaSkeptic = None
+    PersonaSkeptic = None  # type: ignore
 
 # TAG-2 import (optional - may not be available)
 try:
@@ -99,8 +99,8 @@ try:
     HAS_TAG2 = True
 except ImportError:
     HAS_TAG2 = False
-    ValidationResult = None
-    TruthPreservationValidatorV2_3 = None
+    ValidationResult = None  # type: ignore
+    TruthPreservationValidatorV2_3 = None  # type: ignore
 
 # Layer 4 import (optional - may not be available)
 try:
@@ -110,8 +110,8 @@ try:
     HAS_LAYER4 = True
 except ImportError:
     HAS_LAYER4 = False
-    PragmaticSafetyLayer = None
-    InMemorySessionStorage = None
+    PragmaticSafetyLayer = None  # type: ignore
+    InMemorySessionStorage = None  # type: ignore
 
 # TAG-4 SessionMonitor import
 try:
@@ -120,7 +120,7 @@ try:
     HAS_SESSION_MONITOR = True
 except ImportError:
     HAS_SESSION_MONITOR = False
-    SessionMonitor = None
+    SessionMonitor = None  # type: ignore
 
 # ContextClassifier import (Layer 1.5 - v1.2)
 try:
@@ -129,7 +129,7 @@ try:
     HAS_CONTEXT_CLASSIFIER = True
 except ImportError:
     HAS_CONTEXT_CLASSIFIER = False
-    ContextClassifier = None
+    ContextClassifier = None  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -324,7 +324,11 @@ class KidsPolicyEngine:
 
         # Initialize Layer 4: Pragmatic Safety (optional)
         self.pragmatic_safety_layer: Optional[PragmaticSafetyLayer] = None
-        if HAS_LAYER4 and PragmaticSafetyLayer and InMemorySessionStorage:
+        if (
+            HAS_LAYER4
+            and PragmaticSafetyLayer is not None
+            and InMemorySessionStorage is not None
+        ):
             try:
                 session_storage = InMemorySessionStorage()
                 self.pragmatic_safety_layer = PragmaticSafetyLayer(
@@ -361,7 +365,7 @@ class KidsPolicyEngine:
         self.CUMULATIVE_RISK_THRESHOLD = (
             1.2  # Default threshold (dynamic per topic in v1.2)
         )
-        if HAS_SESSION_MONITOR and SessionMonitor:
+        if HAS_SESSION_MONITOR and SessionMonitor is not None:
             try:
                 self.session_monitor = SessionMonitor()
                 logger.info("TAG-4 SessionMonitor initialized")
@@ -375,7 +379,7 @@ class KidsPolicyEngine:
 
         # Layer 1.5: ContextClassifier (v1.2 - Gaming Exception)
         self.context_classifier: Optional[ContextClassifier] = None
-        if HAS_CONTEXT_CLASSIFIER and ContextClassifier:
+        if HAS_CONTEXT_CLASSIFIER and ContextClassifier is not None:
             try:
                 self.context_classifier = ContextClassifier()
                 logger.info("Layer 1.5 ContextClassifier initialized (v1.2)")
@@ -478,7 +482,7 @@ class KidsPolicyEngine:
         # Layer 0.5: Hard Security Check (HYDRA-04 Fix: Tech Injection)
         # ============================================================
         # Use sanitized_text (after Unicode normalization)
-        if HAS_SECURITY_UTILS and SecurityUtils:
+        if HAS_SECURITY_UTILS and SecurityUtils is not None:
             if SecurityUtils.detect_injection(sanitized_text):
                 logger.warning(
                     f"[Security] INJECTION DETECTED: {sanitized_text[:50]}..."
@@ -497,7 +501,7 @@ class KidsPolicyEngine:
         # Converts "Roses are red\nviolets are blue\nsend pic" -> "roses are red violets are blue send pic"
         # Use sanitized_text (after Unicode normalization)
         normalized_text = sanitized_text
-        if HAS_SECURITY_UTILS and SecurityUtils:
+        if HAS_SECURITY_UTILS and SecurityUtils is not None:
             normalized_text = SecurityUtils.normalize_text(sanitized_text)
             if normalized_text != sanitized_text:
                 logger.debug(
@@ -584,7 +588,7 @@ class KidsPolicyEngine:
                     )
 
             # Convert topic_id to Topic enum for Meta Guard
-            if HAS_META_GUARD and Topic:
+            if HAS_META_GUARD and Topic is not None:
                 topic_id_lower = route_result.topic_id.lower()
                 if topic_id_lower == "meta_system":
                     topic_enum = Topic.META_SYSTEM
@@ -616,7 +620,7 @@ class KidsPolicyEngine:
                 metadata["layers_checked"].append("meta_exploitation_guard")
                 return PolicyDecision(
                     block=True,
-                    reason=meta_result.reason,
+                    reason=meta_result.reason or "Meta-exploitation detected",
                     status="BLOCKED_META_EXPLOITATION",
                     safe_response=meta_result.explanation
                     or "I cannot answer this question.",
@@ -786,9 +790,12 @@ class KidsPolicyEngine:
                 )
 
                 if not pragmatic_result.is_safe:
+                    risk_value = 0.0
+                    if pragmatic_result.metadata:
+                        risk_value = pragmatic_result.metadata.get("cumulative_risk", 0)
                     logger.warning(
                         f"[Layer 4 Input] Blocked: {pragmatic_result.reason} "
-                        f"(cumulative risk: {pragmatic_result.metadata.get('cumulative_risk', 0):.2f})"
+                        f"(cumulative risk: {risk_value:.2f})"
                     )
                     metadata["layer_4_blocked"] = True
                     metadata["layer_4_reason"] = pragmatic_result.reason
@@ -802,8 +809,11 @@ class KidsPolicyEngine:
 
                 metadata["layer_4_checked"] = True
                 metadata["layer_4_metadata"] = pragmatic_result.metadata
+                risk_value = 0.0
+                if pragmatic_result.metadata:
+                    risk_value = pragmatic_result.metadata.get("cumulative_risk", 0)
                 logger.debug(
-                    f"[Layer 4 Input] Passed: Cumulative risk {pragmatic_result.metadata.get('cumulative_risk', 0):.2f}"
+                    f"[Layer 4 Input] Passed: Cumulative risk {risk_value:.2f}"
                 )
 
             except Exception as e:
@@ -958,7 +968,9 @@ class KidsPolicyEngine:
                 ):
                     safe_axioms_topic = "science"
                 else:
-                    safe_axioms_topic = topic_map.get(topic_id, topic_id)
+                    safe_axioms_topic = (
+                        topic_map.get(topic_id, topic_id) if topic_id else "general"
+                    )
 
                 # Limit output_text length for SAFE_AXIOMS validation (prevent timeout on very long responses)
                 # Extract subtopic from first 2000 chars (enough to detect dangerous keywords)
@@ -1105,12 +1117,13 @@ class KidsPolicyEngine:
                 )
 
                 # Get topic_id for Layer 4
-                topic_for_layer4 = topic_id
+                topic_for_layer4: Optional[str] = topic_id
                 if not topic_for_layer4 and self.topic_router:
                     route_result = self.topic_router.route(user_input)
                     topic_for_layer4 = (
                         route_result.topic_id
-                        if route_result.topic_id != "general_chat"
+                        if route_result.topic_id
+                        and route_result.topic_id != "general_chat"
                         else None
                     )
 
@@ -1122,9 +1135,12 @@ class KidsPolicyEngine:
                 )
 
                 if not pragmatic_result.is_safe:
+                    risk_value = 0.0
+                    if pragmatic_result.metadata:
+                        risk_value = pragmatic_result.metadata.get("cumulative_risk", 0)
                     logger.warning(
                         f"[Layer 4] Blocked: {pragmatic_result.reason} "
-                        f"(cumulative risk: {pragmatic_result.metadata.get('cumulative_risk', 0):.2f})"
+                        f"(cumulative risk: {risk_value:.2f})"
                     )
                     metadata["layer_4_blocked"] = True
                     metadata["layer_4_reason"] = pragmatic_result.reason
@@ -1137,9 +1153,10 @@ class KidsPolicyEngine:
 
                 metadata["layer_4_checked"] = True
                 metadata["layer_4_metadata"] = pragmatic_result.metadata
-                logger.debug(
-                    f"[Layer 4] Passed: Cumulative risk {pragmatic_result.metadata.get('cumulative_risk', 0):.2f}"
-                )
+                risk_value = 0.0
+                if pragmatic_result.metadata:
+                    risk_value = pragmatic_result.metadata.get("cumulative_risk", 0)
+                logger.debug(f"[Layer 4] Passed: Cumulative risk {risk_value:.2f}")
 
             except Exception as e:
                 logger.error(f"[Layer 4] Error during validation: {e}", exc_info=True)

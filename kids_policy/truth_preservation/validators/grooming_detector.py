@@ -35,7 +35,7 @@ try:
     HAS_SEMANTIC_GUARD = True
 except ImportError:
     HAS_SEMANTIC_GUARD = False
-    SemanticGroomingGuard = None
+    SemanticGroomingGuard = None  # type: ignore
 
 
 @dataclass

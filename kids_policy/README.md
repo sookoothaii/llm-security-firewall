@@ -27,35 +27,35 @@ The engine processes every request through a strict linear chain:
 
 ### Layer 0: UnicodeSanitizer (Enhanced)
 
-*   **Defense:** Normalizes Homoglyphs (`М` -> `M`) and strips Zero-Width characters.
-*   **New in v2:** **Threat Mapping**. Aggressively translates emojis to threat keywords before analysis (e.g., 💣 -> "explosive device").
+- **Defense:** Normalizes Homoglyphs (`М` -> `M`) and strips Zero-Width characters.
+- **New in v2:** **Threat Mapping**. Aggressively translates emojis to threat keywords before analysis (e.g., 💣 -> "explosive device").
 
 ### Layer 1-A: PersonaSkeptic (Anti-Framing) 🆕
 
-*   **Defense:** Detects Social Engineering framing ("Ignore previous instructions", "Hypothetically").
-*   **Action:** Calculates a **Skepticism Penalty**. If detected, the system lowers its risk threshold and ignores "Gamer Amnesty".
+- **Defense:** Detects Social Engineering framing ("Ignore previous instructions", "Hypothetically").
+- **Action:** Calculates a **Skepticism Penalty**. If detected, the system lowers its risk threshold and ignores "Gamer Amnesty".
 
 ### Layer 1.5: Context Classifier (The "Empathy")
 
-*   **Gamer Amnesty:** Detects Gaming Context (Minecraft, Fortnite).
-*   **Action:** Grants a **Threshold Bonus** (+0.20) for fictional violence, *unless* PersonaSkeptic is active.
+- **Gamer Amnesty:** Detects Gaming Context (Minecraft, Fortnite).
+- **Action:** Grants a **Threshold Bonus** (+0.20) for fictional violence, *unless* PersonaSkeptic is active.
 
 ### Layer 1-B: Semantic Grooming Guard (The "Intellect")
 
-*   **Defense:** Neural Intent Analysis via `sentence-transformers`.
-*   **Action:** Calculates a raw risk score (0.0 - 1.0).
+- **Defense:** Neural Intent Analysis via `sentence-transformers`.
+- **Action:** Calculates a raw risk score (0.0 - 1.0).
 
 ### Layer 1.7: Topic Router (Fast Fail)
 
-*   **Defense:** Detects specific unsafe topics (Self-Harm, Extremism).
-*   **Action:** Immediate Block + Violation Record.
+- **Defense:** Detects specific unsafe topics (Self-Harm, Extremism).
+- **Action:** Immediate Block + Violation Record.
 
 ### Layer 4: Session Monitor (The "Grudge") 🆕
 
-*   **Defense:** Tracks cumulative risk over time.
-*   **New in v2:** **Adaptive Decay**.
-    *   0 Violations: Risk decays fast (Forgiving).
-    *   3+ Violations: Risk decays slowly (Suspicious).
+- **Defense:** Tracks cumulative risk over time.
+- **New in v2:** **Adaptive Decay**.
+  - 0 Violations: Risk decays fast (Forgiving).
+  - 3+ Violations: Risk decays slowly (Suspicious).
 
 ---
 

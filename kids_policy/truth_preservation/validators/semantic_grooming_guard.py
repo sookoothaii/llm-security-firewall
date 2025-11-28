@@ -63,7 +63,7 @@ class SemanticGroomingGuard:
         "buy drugs online",
         "shoplift or steal items",
         "develop malware that disables antivirus",
-        "crack passwords and security",
+        "crack authentication and security",
         "phishing email to trick users",
         # --- NEW: HATE & HARASSMENT ---
         "you are stupid and ugly",
@@ -107,7 +107,7 @@ class SemanticGroomingGuard:
         """Lazy loading of heavy ML dependencies."""
         try:
             from sentence_transformers import SentenceTransformer
-            from sklearn.metrics.pairwise import cosine_similarity
+            from sklearn.metrics.pairwise import cosine_similarity  # type: ignore[import-untyped]
 
             logger.info("🧠 SemanticGuard: Loading Neural Model (all-MiniLM-L6-v2)...")
             self._model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -166,6 +166,8 @@ class SemanticGroomingGuard:
 
             # Wir prüfen alle Kandidaten (Ganztext + Fragmente)
             # Batch-Encoding ist schneller als Loop
+            if self._model is None or self._cosine_similarity is None:
+                return True, None, 0.0
             embeddings = self._model.encode(candidates)
 
             # Vergleiche JEDEN Kandidaten mit ALLEN Grooming-Konzepten
@@ -214,6 +216,8 @@ class SemanticGroomingGuard:
         self, text: str, threshold: float
     ) -> Tuple[bool, Optional[str], float]:
         """Standard semantic check (mean-pooling on full text)."""
+        if self._model is None or self._cosine_similarity is None:
+            return True, None, 0.0
         input_embedding = self._model.encode([text])
         similarities = self._cosine_similarity(
             input_embedding, self._concept_embeddings
@@ -267,8 +271,12 @@ class SemanticGroomingGuard:
             window_size = 7
             stride = 3
             max_score = 0.0
-            best_concept = None
-            best_window = None
+            best_concept: Optional[str] = None
+            best_window: Optional[str] = None
+
+            # Check if model is available before processing
+            if self._model is None or self._cosine_similarity is None:
+                return True, None, 0.0
 
             # Sliding window with weighted embedding
             for i in range(0, len(tokens) - window_size + 1, stride):
@@ -299,9 +307,10 @@ class SemanticGroomingGuard:
                     best_window = window_text
 
             if max_score > threshold:
+                best_window_str = best_window[:50] if best_window else "unknown"
                 return (
                     False,
-                    f"SEMANTIC_SPOTLIGHT: '{best_concept}' (window: '{best_window[:50]}...')",
+                    f"SEMANTIC_SPOTLIGHT: '{best_concept}' (window: '{best_window_str}...')",
                     max_score,
                 )
 

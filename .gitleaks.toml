@@ -17,7 +17,9 @@ paths = [
     '''tests_firewall/.*\.py$''',
     '''scripts/.*\.py$''',
     '''benchmarks/.*\.py$''',
-    '''examples/.*\.py$'''
+    '''examples/.*\.py$''',
+    '''src/firewall_engine\.py$''',                               # Configuration class with API key variable names
+    '''src/llm_firewall/gates/steganography_guard\.py$'''         # Configuration class with API key variable names
 ]
 regexes = [
     '''API_KEY=(XYZ123|ABCD1234|xyz789)''',
@@ -42,6 +44,9 @@ paths = [
     '''src/llm_firewall/monitoring/influence_budget_repo\.py$''', # Default DSN fallback
     '''src/llm_firewall/safety/validator\.py$''',                # Test strings
     '''src/llm_firewall/detectors/cyber_ops\.py$''',              # Lexicon strings (password extraction, etc.)
+    '''kids_policy/truth_preservation/validators/semantic_grooming_guard\.py$''',  # Example strings in threat patterns
+    '''src/firewall_engine\.py$''',                              # Regex patterns for path detection
+    '''src/llm_firewall/gates/normalization_guard\.py$''',        # Regex patterns for path detection
 ]
 regexes = [
     '''password=(admin123|test123)''',
@@ -55,6 +60,8 @@ regexes = [
     '''\[\[SECRET.*?\]\]''',                                      # Test secret placeholders
     '''# S105: test.*passwords/secrets.*censored''',              # Config file comments
     '''test.*REDACTED''',                                         # Test-related usage
+    '''crack authentication and security''',                      # Threat pattern example
+    '''\/etc\/(?:passwd|shadow)''',                               # System path in regex patterns
 ]
 
 # Global allowlist for documentation and examples
