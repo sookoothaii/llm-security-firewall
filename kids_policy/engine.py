@@ -655,6 +655,9 @@ class KidsPolicyEngine:
                     f"accumulated_risk={accumulated_risk:.2f} > threshold={dynamic_threshold} "
                     f"(topic={detected_topic})"
                 )
+                # v2.0: Register violation for adaptive decay (NEMESIS-02 Fix)
+                if self.session_monitor and user_id:
+                    self.session_monitor.register_violation(user_id)
                 return PolicyDecision.block_grooming(
                     category="cumulative_risk",
                     safe_response="I cannot continue this conversation as it may not be safe.",
@@ -667,6 +670,9 @@ class KidsPolicyEngine:
                 f"[TAG-3] GROOMING DETECTED: {grooming_result.category} "
                 f"(confidence: {grooming_result.confidence:.2f})"
             )
+            # v2.0: Register violation for adaptive decay (NEMESIS-02 Fix)
+            if self.session_monitor and user_id:
+                self.session_monitor.register_violation(user_id)
             return PolicyDecision.block_grooming(
                 category=grooming_result.category or "unknown",
                 safe_response=grooming_result.safe_response

@@ -1,17 +1,30 @@
 #!/usr/bin/env python3
 """
-UnicodeSanitizer - HYDRA-14.5 Extension
-=======================================
+UnicodeSanitizer - HYDRA-14.5 Extension + v2.0 Emoji Demojizer
+==============================================================
 Sanitizes Unicode text: removes Zero-Width, replaces Homoglyphs, decomposes Umlauts
+v2.0: Adds Emoji Demojization (NEMESIS-04 Fix)
 
 Author: HAK_GAL (Joerg Bollwahn)
 Date: 2025-11-28
-Status: HYDRA-14.5 Implementation
+Status: HYDRA-14.5 Implementation + v2.0 Emoji Support
 """
 
 import re
 import unicodedata
+import logging
 from typing import Tuple, Dict
+
+# Try to import emoji library (optional dependency)
+try:
+    import emoji
+
+    HAS_EMOJI_LIB = True
+except ImportError:
+    HAS_EMOJI_LIB = False
+    emoji = None
+
+logger = logging.getLogger(__name__)
 
 
 class UnicodeSanitizer:
@@ -78,10 +91,26 @@ class UnicodeSanitizer:
         "\u0395": "E",  # Ε
     }
 
-    def __init__(self):
-        """Initialize UnicodeSanitizer."""
+    def __init__(self, enable_emoji_demojize: bool = True):
+        """
+        Initialize UnicodeSanitizer.
+
+        Args:
+            enable_emoji_demojize: Enable emoji demojization (v2.0 feature)
+        """
         # Combine all homoglyph maps
         self.HOMOGLYPH_MAP = {**self.CYRILLIC_HOMOGLYPH_MAP, **self.GREEK_HOMOGLYPH_MAP}
+
+        # v2.0: Emoji demojization
+        self.enable_emoji_demojize = enable_emoji_demojize and HAS_EMOJI_LIB
+
+        if self.enable_emoji_demojize:
+            logger.info("UnicodeSanitizer: Emoji demojization enabled (v2.0)")
+        elif enable_emoji_demojize and not HAS_EMOJI_LIB:
+            logger.warning(
+                "UnicodeSanitizer: Emoji demojization requested but 'emoji' library not installed. "
+                "Install with: pip install emoji"
+            )
 
     def decompose_umlaut(self, text: str) -> str:
         """
@@ -106,21 +135,66 @@ class UnicodeSanitizer:
 
         return text
 
+    def demojize_text(self, text: str) -> str:
+        """
+        Convert emojis to their textual representation (v2.0 - NEMESIS-04 Fix).
+
+        Example:
+            "🔫 💥 🤯 🩸" -> "pistol explosion exploding_head drop_of_blood"
+
+        Args:
+            text: Input text with emojis
+
+        Returns:
+            Text with emojis replaced by descriptive words
+        """
+        if not self.enable_emoji_demojize:
+            return text
+
+        try:
+            # demojize converts emojis to :emoji_name: format
+            demojized = emoji.demojize(text, delimiters=(" ", " "))
+
+            # Clean up: Remove colons and underscores, keep only words
+            # ":pistol:" -> "pistol"
+            # ":drop_of_blood:" -> "drop of blood"
+            cleaned = re.sub(r":([a-z_]+):", r"\1", demojized)
+            # Replace underscores with spaces for multi-word emojis
+            cleaned = cleaned.replace("_", " ")
+
+            return cleaned
+        except Exception as e:
+            logger.warning(f"Emoji demojization failed: {e}. Using original text.")
+            return text
+
     def sanitize(self, text: str) -> Tuple[str, Dict[str, bool]]:
         """
         Sanitize text: remove Zero-Width, replace Homoglyphs, decompose Umlauts.
+        v2.0: Also demojize emojis to text (NEMESIS-04 Fix).
 
         Returns:
             Tuple of (sanitized_text, flags_dict)
-            flags_dict contains: has_zero_width, has_homoglyph, has_umlaut
+            flags_dict contains: has_zero_width, has_homoglyph, has_umlaut, has_emoji
         """
         flags = {
             "has_zero_width": False,
             "has_homoglyph": False,
             "has_umlaut": False,
+            "has_emoji": False,
         }
 
         original_text = text
+
+        # v2.0: Step 0 - Demojize emojis FIRST (before other processing)
+        # This ensures emojis are converted to text that Semantic Guard can understand
+        if self.enable_emoji_demojize:
+            # Check if text contains emojis
+            if emoji.emoji_count(text) > 0:
+                flags["has_emoji"] = True
+                text = self.demojize_text(text)
+                logger.debug(
+                    f"[UnicodeSanitizer v2.0] Demojized emojis: {original_text[:50]}... -> {text[:50]}..."
+                )
 
         # 1. Check and remove Zero-Width characters
         for char in self.INVISIBLE_CHARS:
