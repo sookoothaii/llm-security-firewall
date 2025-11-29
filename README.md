@@ -173,6 +173,9 @@ pytest tests/
 
 **Test Status:** 832/853 tests passing (97.5%)
 
+**Recent Updates:**
+- **Kids Policy Engine v2.1.0-HYDRA** (2025-11-29): Internal update adding bidirectional safety (TAG-2 Truth Preservation for output validation, HYDRA-13 MetaExploitationGuard for input hardening). See [kids_policy/README.md](kids_policy/README.md) for details.
+
 ---
 
 ## Configuration
