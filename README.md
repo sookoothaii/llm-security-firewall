@@ -29,6 +29,7 @@
 - Hexagonal Architecture (Ports & Adapters) for infrastructure independence
 - Stateful Kill Chain detection for multi-turn attack campaigns
 - Command Injection Hardening (8 bypasses fixed, 0.0% success rate)
+- **Protocol HEPHAESTUS:** Tool-Call Inspection & Argument Sanitization (Blocks RCE/SQLi in Agentic Tools)
 
 **Scientific Foundation:** See [Research Papers](research_papers/) for detailed methodology and validation protocols.
 
@@ -102,13 +103,39 @@ cd llm-security-firewall
 pip install -r requirements.txt
 ```
 
-### Running the Proxy
+### Running the Engine (v2)
+
+**Core Firewall v2.0** (Recommended - Production Ready):
+
+```python
+from src.llm_firewall.core.firewall_engine_v2 import FirewallEngineV2
+
+# Initialize the engine
+engine = FirewallEngineV2(
+    allowed_tools=["web_search", "calculator"],  # Whitelist
+    strict_mode=True,
+    enable_sanitization=True,
+)
+
+# Process Input (Text + Kids Policy v2.1-HYDRA)
+decision = engine.process_input("user123", "I want to run rm -rf /")
+if not decision.allowed:
+    print(f"BLOCKED: {decision.reason}")
+
+# Process Output (Tool Security + Truth Preservation)
+response = 'I will run: ```json\n{"tool": "exec", "arguments": {"cmd": "rm -rf /"}}\n```'
+decision = engine.process_output(response, user_id="user123")
+if not decision.allowed:
+    print(f"BLOCKED: {decision.reason}")
+```
+
+**Legacy Proxy** (Deprecated - Use v2 for new projects):
 
 ```bash
 python src/firewall_engine.py
 ```
 
-The firewall is active on `http://localhost:8081`.
+The legacy firewall is active on `http://localhost:8081`.
 
 ### Verifying Security
 
