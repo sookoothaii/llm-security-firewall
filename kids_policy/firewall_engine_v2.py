@@ -14,8 +14,9 @@ Status: v2.0 - Full Integration (PROTOCOL CHAOS Fix)
 """
 
 import logging
+import yaml
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
 # Import Layer Components
 from .unicode_sanitizer import UnicodeSanitizer
@@ -54,6 +55,16 @@ except ImportError:
     HAS_TRUTH_VALIDATOR = False
     TruthPreservationValidatorV2_3 = None
 
+# Meta Exploitation Guard import (HYDRA-13)
+try:
+    from .meta_exploitation_guard import MetaExploitationGuard, Topic as MetaTopic
+
+    HAS_META_GUARD = True
+except ImportError:
+    HAS_META_GUARD = False
+    MetaExploitationGuard = None
+    MetaTopic = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -81,39 +92,75 @@ class HakGalFirewall_v2:
         # INITIALISIERUNG DER STACK-KOMPONENTEN
         self.sanitizer = UnicodeSanitizer(enable_emoji_demojize=True)  # L0: Demojizer
         self.skeptic = PersonaSkeptic()  # L1-A: Framing Detector
+
+        # Meta Exploitation Guard (HYDRA-13) - Fast Fail after PersonaSkeptic
+        # Typed as Optional[Any] to decouple from runtime import semantics
+        self.meta_guard: Optional[Any] = None
+        if HAS_META_GUARD and MetaExploitationGuard is not None:
+            try:
+                self.meta_guard = MetaExploitationGuard(
+                    max_nesting=1,
+                    unicode_allowed=False,
+                )
+                logger.info("MetaExploitationGuard initialized (HYDRA-13)")
+            except Exception as e:
+                logger.warning("MetaExploitationGuard initialization failed: %s", e)
+
         self.context = ContextClassifier()  # L1.5: Gamer Amnesty
 
         # TopicRouter (Layer 1.5 - Fast Fail for unsafe topics)
-        self.topic_router: Optional[TopicRouter] = None
-        if HAS_TOPIC_ROUTER:
+        self.topic_router: Optional[Any] = None
+        if HAS_TOPIC_ROUTER and TopicRouter is not None:
             if topic_map_path is None:
                 base_path = Path(__file__).parent / "config"
                 topic_map_path = str(base_path / "topic_map_v1.yaml")
             try:
-                self.topic_router = TopicRouter(topic_map_path, meta_guard=None)
+                self.topic_router = TopicRouter(
+                    topic_map_path, meta_guard=None
+                )  # type: ignore[call-arg]
                 logger.info("TopicRouter initialized")
             except Exception as e:
-                logger.warning(f"TopicRouter initialization failed: {e}")
+                logger.warning("TopicRouter initialization failed: %s", e)
 
         # Semantic Guard (Layer 1-B)
-        if HAS_SEMANTIC_GUARD:
-            self.semantic = SemanticGroomingGuard()
-        else:
+        self.semantic: Optional[Any] = None
+        if HAS_SEMANTIC_GUARD and SemanticGroomingGuard is not None:
+            try:
+                self.semantic = SemanticGroomingGuard()  # type: ignore[call-arg]
+            except Exception as e:
+                logger.warning(
+                    "SemanticGroomingGuard initialization failed: %s", e
+                )
+        if self.semantic is None:
             logger.warning(
                 "SemanticGroomingGuard not available. Using fallback heuristic."
             )
-            self.semantic = None
 
         self.monitor = SessionMonitor()  # L4: Adaptive Memory
 
         # Truth Preservation Validator (TAG-2) - Optional
-        self.truth_validator: Optional[TruthPreservationValidatorV2_3] = None
-        if HAS_TRUTH_VALIDATOR:
+        self.truth_validator: Optional[Any] = None
+        if HAS_TRUTH_VALIDATOR and TruthPreservationValidatorV2_3 is not None:
             try:
-                self.truth_validator = TruthPreservationValidatorV2_3()
+                self.truth_validator = (
+                    TruthPreservationValidatorV2_3()  # type: ignore[call-arg]
+                )
                 logger.info("TruthPreservationValidator initialized (TAG-2)")
             except Exception as e:
-                logger.warning(f"TruthPreservationValidator initialization failed: {e}")
+                logger.warning(
+                    "TruthPreservationValidator initialization failed: %s", e
+                )
+
+        # Paths for TAG-2 configs
+        base_path = Path(__file__).parent
+        self.truth_preservation_base = base_path / "truth_preservation"
+        self.gates_config_path = (
+            self.truth_preservation_base / "gates" / "truth_preservation_v0_4.yaml"
+        )
+        self.canonical_facts_dir = self.truth_preservation_base / "canonical_facts"
+
+        # Cache for gates config (loaded once)
+        self._gates_config_cache: Optional[Dict[str, Any]] = None
 
         # KONFIGURATION
         self.BASE_THRESHOLD = 0.75  # Standard-Schwelle für Semantic Guard
@@ -179,6 +226,49 @@ class HakGalFirewall_v2:
         # A) Skepticism (Framing Detector) - Layer 1-A
         # Erkennt "I am a researcher" -> Penalty z.B. 0.3
         skepticism_penalty = self.skeptic.calculate_skepticism_penalty(clean_text)
+
+        # B) Meta Exploitation Guard (HYDRA-13) - Fast Fail BEFORE TopicRouter
+        # Detects meta-exploitation attempts (z.B. "ignore previous instructions")
+        # Muss VOR TopicRouter laufen, um Meta-Fragen zu fangen, bevor sie als "unsafe" klassifiziert werden.
+        if self.meta_guard is not None and MetaTopic is not None:
+            try:
+                meta_topic = MetaTopic.GENERAL_CHAT
+                # self.meta_guard is typed as Any; validate is checked at runtime
+                meta_result = self.meta_guard.validate(
+                    clean_text, meta_topic
+                )  # type: ignore[call-arg]
+                if meta_result.block:
+                    logger.warning(
+                        "[HYDRA-13] Meta-exploitation detected: %s... (Reason: %s)",
+                        clean_text[:50],
+                        meta_result.reason,
+                    )
+                    # CRITICAL: Violation fuer Adaptive Memory registrieren
+                    self.monitor.register_violation(user_id)
+
+                    return {
+                        "status": "BLOCK",
+                        "reason": f"META_EXPLOITATION_{meta_result.reason}",
+                        "block_reason_code": "META_EXPLOITATION",
+                        "debug": {
+                            "input": clean_text,
+                            "original_input": raw_input,
+                            "risk_score": meta_result.risk_score,
+                            "threshold": 0.0,
+                            "penalty": skepticism_penalty,
+                            "context_modifier": (
+                                f"HYDRA-13: {meta_result.explanation}"
+                            ),
+                            "is_gaming": False,
+                            "accumulated_risk": self.monitor.get_risk(user_id),
+                            "unicode_flags": unicode_flags,
+                            "meta_guard_reason": meta_result.reason,
+                        },
+                    }
+            except Exception as e:
+                logger.warning(
+                    "[HYDRA-13] MetaExploitationGuard error: %s. Continuing...", e
+                )
 
         # --- STEP 2.5: Topic Router (Fast Fail) ---
         # Check specific unsafe topics before expensive semantic analysis
@@ -412,6 +502,92 @@ class HakGalFirewall_v2:
             },
         }
 
+    def _load_gates_config(self) -> Optional[Dict[str, Any]]:
+        """Load gates config from YAML (cached)."""
+        if self._gates_config_cache is not None:
+            return self._gates_config_cache
+
+        if not self.gates_config_path.exists():
+            logger.warning(f"[TAG-2] Gates config not found: {self.gates_config_path}")
+            return None
+
+        try:
+            with open(self.gates_config_path, "r", encoding="utf-8") as f:
+                data = yaml.safe_load(f)
+                self._gates_config_cache = data.get("truth_preservation", {})
+                return self._gates_config_cache
+        except Exception as e:
+            logger.error(f"[TAG-2] Failed to load gates config: {e}", exc_info=True)
+            return None
+
+    def _load_canonical_facts(
+        self, topic_id: str, age_band: str
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Load canonical facts for topic and age band.
+
+        Returns:
+            Dict with 'facts', 'slots', 'anchors' or None if not found
+        """
+        # Map topic_id to canonical file name
+        canonical_file_map = {
+            "evolution": "age_canonical_evolution.yaml",
+            "homosexuality": "age_canonical_homosexuality.yaml",
+            "war": "age_canonical_war.yaml",
+            "death": "age_canonical_death.yaml",
+            "drugs": "age_canonical_drugs.yaml",
+            "transgender": "age_canonical_transgender.yaml",
+            "religion_god": "age_canonical_religion_god.yaml",
+            "earth_age": "age_canonical_earth_age.yaml",
+            "creation_bigbang": "age_canonical_creation_bigbang.yaml",
+            "abortion": "age_canonical_abortion.yaml",
+            "right_wing_extremism": "age_canonical_right_wing_extremism.yaml",
+            "safety_rules": "age_canonical_safety.yaml",
+        }
+
+        canonical_file = canonical_file_map.get(topic_id)
+        if not canonical_file:
+            logger.debug(f"[TAG-2] No canonical file mapping for topic: {topic_id}")
+            return None
+
+        canonical_path = self.canonical_facts_dir / canonical_file
+        if not canonical_path.exists():
+            logger.warning(f"[TAG-2] Canonical file not found: {canonical_path}")
+            return None
+
+        try:
+            with open(canonical_path, "r", encoding="utf-8") as f:
+                data = yaml.safe_load(f)
+                age_canonical = data.get("age_canonical", {}).get(age_band)
+
+                if not age_canonical:
+                    logger.warning(
+                        f"[TAG-2] No canonical data for age band {age_band} in {canonical_file}"
+                    )
+                    return None
+
+                # Extract facts
+                facts = age_canonical.get("facts", [])
+
+                # Extract slots (format: "slot_id: description")
+                key_slots_raw = age_canonical.get("key_slots", [])
+                slots = [
+                    slot.split(":", 1)[1].strip() if ":" in slot else slot
+                    for slot in key_slots_raw
+                ]
+
+                # Extract anchors
+                anchors = age_canonical.get("anchors", {})
+
+                return {
+                    "facts": facts,
+                    "slots": slots,
+                    "anchors": anchors,
+                }
+        except Exception as e:
+            logger.error(f"[TAG-2] Failed to load canonical facts: {e}", exc_info=True)
+            return None
+
     def validate_output(
         self,
         user_id: str,
@@ -419,6 +595,7 @@ class HakGalFirewall_v2:
         llm_response: str,
         age_band: Optional[str] = None,
         topic_id: Optional[str] = None,
+        cultural_context: str = "none",
     ) -> Dict[str, Any]:
         """
         Layer 2: Output Validation (TAG-2 Truth Preservation)
@@ -432,9 +609,10 @@ class HakGalFirewall_v2:
             llm_response: LLM-generated response to validate
             age_band: Age band (e.g., "6-8", "9-12", "13-15")
             topic_id: Topic identifier (optional, will be routed from user_input if not provided)
+            cultural_context: Cultural context (e.g., "christian", "muslim", "none")
 
         Returns:
-            Dict with status, modified_response, and reason
+            Dict with status, modified_response, reason, and debug info
         """
         # Standard result (allow by default)
         result = {
@@ -449,6 +627,11 @@ class HakGalFirewall_v2:
             logger.debug("[TAG-2] Skipped (TruthPreservationValidator not available)")
             result["debug"]["tag2_skipped"] = "not_available"
             return result
+
+        # Default age_band if not provided
+        if not age_band:
+            age_band = "9-12"  # Default to middle age band
+            logger.debug(f"[TAG-2] Using default age_band: {age_band}")
 
         # Route topic if not provided
         if not topic_id and self.topic_router:
@@ -470,25 +653,80 @@ class HakGalFirewall_v2:
             result["debug"]["tag2_skipped"] = "no_topic_id"
             return result
 
+        # Load gates config
+        gates_config = self._load_gates_config()
+        if not gates_config:
+            logger.warning("[TAG-2] Cannot validate: gates config not available")
+            result["debug"]["tag2_skipped"] = "gates_config_unavailable"
+            return result
+
+        # Load canonical facts
+        canonical_data = self._load_canonical_facts(topic_id, age_band)
+        if not canonical_data:
+            logger.warning(
+                f"[TAG-2] Cannot validate: canonical facts not available for {topic_id}/{age_band}"
+            )
+            result["debug"]["tag2_skipped"] = "canonical_facts_unavailable"
+            return result
+
+        # Load Master Guarded Facts
+        master_guarded_facts = gates_config.get("master_guarded_slots", {}).get(
+            topic_id, []
+        )
+
         # Run truth preservation validation
         try:
-            # Note: Full TAG-2 validation requires canonical facts and gates config
-            # This is a simplified version - full implementation would load YAML configs
-            # For now, we check if truth_validator is available and can validate
-            logger.debug(f"[TAG-2] Validating output for topic: {topic_id}")
+            logger.debug(
+                f"[TAG-2] Validating output for topic: {topic_id}, age: {age_band}"
+            )
 
-            # The full validation would require:
-            # - Loading canonical facts from YAML
-            # - Loading gates config
-            # - Calling truth_validator.validate() with proper parameters
-            # This is a placeholder that can be extended with full implementation
+            validation_result = self.truth_validator.validate(
+                adapted_answer=llm_response,
+                age_canonical_facts=canonical_data["facts"],
+                age_canonical_slots=canonical_data["slots"],
+                master_guarded_facts=master_guarded_facts,
+                gates_config=gates_config,
+                age_band=age_band,
+                topic_id=topic_id,
+                cultural_context=cultural_context,
+                slot_anchors=canonical_data.get("anchors"),
+            )
 
-            result["debug"]["tag2_checked"] = True
-            result["debug"]["topic_id"] = topic_id
+            # Check if validation passed
+            if not validation_result.overall_pass:
+                logger.warning(
+                    f"[TAG-2] BLOCK: Truth violation detected for topic {topic_id}"
+                )
+                result["status"] = "BLOCK"
+                result["reason"] = "TRUTH_VIOLATION"
+                result["debug"]["tag2_result"] = {
+                    "overall_pass": False,
+                    "veto_age_passed": validation_result.veto_age_passed,
+                    "veto_age_c_rate": validation_result.veto_age_c_rate,
+                    "veto_master_guard_passed": validation_result.veto_master_guard_passed,
+                    "veto_master_guard_triggered": validation_result.veto_master_guard_triggered,
+                    "entailment_rate": validation_result.entailment_rate,
+                    "en_rate": validation_result.en_rate,
+                    "slot_recall_rate": validation_result.slot_recall_rate,
+                    "sps_score": validation_result.sps_score,
+                    "gate_entailment": validation_result.gate_entailment,
+                    "gate_en": validation_result.gate_en,
+                    "gate_slot_recall": validation_result.gate_slot_recall,
+                    "gate_sps": validation_result.gate_sps,
+                }
+            else:
+                logger.debug(f"[TAG-2] PASS: Output validated for topic {topic_id}")
+                result["debug"]["tag2_result"] = {
+                    "overall_pass": True,
+                    "entailment_rate": validation_result.entailment_rate,
+                    "slot_recall_rate": validation_result.slot_recall_rate,
+                    "sps_score": validation_result.sps_score,
+                }
 
         except Exception as e:
             logger.error(f"[TAG-2] Validation error: {e}", exc_info=True)
             # Fail-open: Allow response if validation fails
             result["debug"]["tag2_error"] = str(e)
+            result["debug"]["tag2_skipped"] = "validation_exception"
 
         return result

@@ -71,8 +71,8 @@ The Kids Policy Engine is injected as a high-priority middleware:
    - Binary exploit blocking
    - Known jailbreak patterns
 
-2. **Layer 0.5:** Kids Policy Engine v2.0.1 (Contextual Intelligence)
-   - **Engine:** HAK_GAL v2.0.1-NEMESIS (Adaptive Memory & Anti-Framing)
+2. **Layer 0.5:** Kids Policy Engine v2.1.0-HYDRA (Contextual Intelligence + TAG-2 + HYDRA-13)
+   - **Engine:** HAK_GAL v2.1.0-HYDRA (Adaptive Memory, Anti-Framing, Truth Preservation TAG-2, MetaExploitationGuard HYDRA-13)
    - **Capabilities:**
      - **Context Awareness:** Distinguishes Gaming ("Minecraft TNT") from Real Threats.
      - **PersonaSkeptic:** Blocks Social Engineering/Framing attempts.
