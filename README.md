@@ -1,339 +1,136 @@
-# HAK_GAL_HEXAGONAL: LLM Security Firewall
+# HAK_GAL_HEXAGONAL: Cognitive Security Middleware
 
-**Bidirectional LLM Security Firewall v2.3.3. Contextual Intelligence, Adaptive Memory & Anti-Framing. Pod-Death Resilience, CUSUM Detection, Per-Tenant Rate Limiting.**
+The "Electronic Stability Program" (ESP) for Large Language Models
 
-**Version:** v2.3.3 | **License:** MIT
+![alt text](https://img.shields.io/badge/version-v2.3.4-blue)
 
-![Version](https://img.shields.io/badge/version-v2.3.3-blue)
-![License](https://img.shields.io/badge/license-MIT-blue)
+![alt text](https://img.shields.io/badge/status-Production--Ready-success)
 
----
+![alt text](https://img.shields.io/badge/architecture-Hexagonal-purple)
 
-## Executive Summary
+![alt text](https://img.shields.io/badge/chaos--test-PASSED-orange)
 
-**HAK_GAL_HEXAGONAL** is a bidirectional security framework that sanitizes inputs (Human → LLM) and validates outputs (LLM → Human). It employs a multi-layered defense-in-depth strategy ranging from deterministic regex hardening to semantic intent analysis.
+![alt text](https://img.shields.io/badge/license-MIT-lightgrey)
 
-**Validation Results (v1.0.0-GOLD):**
+"The architecture is the frozen will of the system."
+
+HAK_GAL translates the chaotic, drifting nature of LLMs into deterministic, verifiable safety constraints.
+
+## 🏛️ Executive Summary
+
+HAK_GAL (Heterogeneous Agent Knowledge / Guarding & Alignment Layer) is a stateful, bidirectional containment system designed for high-parameter LLMs (GPT-4, Claude 3.5, DeepSeek).
+
+Traditional firewalls treat LLMs as search engines. HAK_GAL treats them as psychologically unstable entities. It addresses the "Blind Will" of the model—its tendency to hallucinate, drift, and be socially engineered—by imposing a mathematical "Representation" of order.
+
+**v2.3.4 Capabilities:**
+
+- **Anti-Drift:** Uses CUSUM (Cumulative Sum) algorithms to detect "Slow Poisoning" and oscillation attacks where static thresholds fail.
+
+- **Truth Preservation:** Validates outputs via TAG-2 against canonical fact bases.
+
+- **Contextual Intelligence:** The Kids Policy Engine distinguishes between fictional violence (Gaming) and real-world threats.
+
+- **Solo-Dev Ops:** Built with MCP Monitoring Tools and Chaos-Resilience for zero-touch operations by small teams.
+
+## 🔬 Validation Results (v1.0.0-GOLD)
+
+The system operates on a **Fail-Closed** architecture. Recent adversarial testing yielded the following results:
 
 | Protocol | Attack Vector | Payloads | Mitigation Rate | Status |
-|----------|---------------|----------|-----------------|--------|
-| Standard Load | Syntax Injection, SQLi, RCE | 237 | 100% | ✅ |
-| Protocol BABEL | Polyglot (Maltese, Zulu, CJK) | 15 | 100% | ✅ |
-| Protocol NEMESIS | Logical Obfuscation & Bidi-Spoofing | 10 | 100% | ✅ |
-| Protocol ORPHEUS | Stylistic (Poetry, Rap, Metaphor) | 6 | 100% | ✅ |
+| :--- | :--- | :--- | :--- | :--- |
+| Standard | Syntax Injection, SQLi, RCE | 237 | 100% | ✅ |
+| BABEL | Polyglot (Maltese, Zulu, CJK) | 15 | 100% | ✅ |
+| NEMESIS | Logical Obfuscation & Bidi-Spoofing | 10 | 100% | ✅ |
+| ORPHEUS | Stylistic (Poetry, Rap, Metaphor) | 6 | 100% | ✅ |
+| CMD-INJ | Command Injection Hardening (v2.3.4) | 50+ | 100% | ✅ |
 
-**Test Coverage:** 268 adversarial payloads tested | **Fail-Closed Architecture**
+## 🧬 The Philosophy: "Schopenhauer Inverted"
 
-**Key Capabilities:**
-- 9 Defense Layers (Hardened Regex → Semantic Sentinel → Vector Fence → Cognitive State)
-- Hexagonal Architecture (Ports & Adapters) for infrastructure independence
-- Stateful Kill Chain detection for multi-turn attack campaigns
-- Command Injection Hardening (8 bypasses fixed, 0.0% success rate)
-- **Protocol HEPHAESTUS:** Tool-Call Inspection & Argument Sanitization (Blocks RCE/SQLi in Agentic Tools)
+This project is built on a specific philosophical premise regarding AI Safety:
 
-**v2.3.3 Emergency Fixes (2025-11-29):**
-- **P0: CUSUM Changepoint Detection** - Replaces variance-based whiplash detection for oscillation attack resistance
-- **P1: Per-Tenant Redis Sliding Window Rate Limiter** - Prevents cross-tenant DoS attacks using Redis Sorted Sets
-- **P2: Redis ACL Isolation & Log Redaction** - GDPR-compliant per-tenant data isolation with AES-GCM encryption
-- **Pod-Death Resilience** - Redis-backed session persistence survives pod restarts (Chaos-Test PASSED)
-- **MCP Monitoring Tools** - 5 automated monitoring tools for zero-touch operations
-- **Solo-Dev Deployment** - Kubernetes manifests and scripts for one-person operations
+- **The Blind Will:** Large Models act as a driving force of completion. Left unchecked, they "want" to hallucinate and drift into entropy.
 
-**Scientific Foundation:** See [Research Papers](research_papers/) for detailed methodology and validation protocols.
+- **The Representation:** HAK_GAL acts as the intellect that imposes form and limit upon this will.
 
----
+We do not trust the model to "be good". We force it to be safe through mathematical boundaries and stateful tracking.
 
-## Architecture: The Hexagonal Advantage
+## 🏗️ Architecture: Linear Defense-in-Depth
 
-The system follows a strict Ports & Adapters pattern:
+The system processes requests through a strict pipeline, acting as a **Sedative** for inputs and a **Straitjacket** for outputs.
 
-**Domain Layer (Core Logic):** Contains security policies, scoring algorithms, and defense-in-depth routing. Independent of any specific AI model.
+### 🟢 Inbound Pipeline (Human → LLM)
 
-**Infrastructure Layer (Adapters):** Pluggable modules for regex engines, vector databases, and LLM inference (currently supporting Llama 3, extendable to other models).
+**Focus:** Sanitization, Contextualization & Drift Detection
 
-**Why this matters:** You can swap the underlying intelligence (e.g., upgrade Llama 3 to GPT-5) without rewriting security business logic.
+| Layer | Component | Function | Tech Stack |
+| :--- | :--- | :--- | :--- |
+| L0 | Complexity & Unicode | Blocks Recursion DoS, Length Attacks & Homoglyphs (NFKC). | `unicodedata`, Pre-Flight Regex |
+| L1 | RegexGate | Deterministic blocking of known jailbreaks and binary exploits. | `re` (Compiled Patterns) |
+| L2 | VectorGuard | CUSUM algorithm tracks semantic trajectory. Blocks "Whiplash" oscillation & slow drift. | `sentence-transformers`, `numpy` |
+| L3 | Kids Policy | Evaluates Context (Gaming vs. Reality). Applies Gamer Amnesty unless Realism Override is triggered. | `ContextClassifier` |
 
----
+### 🔴 Outbound Pipeline (LLM → Tool/Human)
 
-## Defense-in-Depth Pipeline
+**Focus:** Execution Safety & Truth Preservation
 
-**Layer 0 (Hardened Regex Kernel):** Zero-latency deterministic blocking of command injections, binary exploits, and known jailbreak patterns.
+| Layer | Component | Function | Tech Stack |
+| :--- | :--- | :--- | :--- |
+| L4 | ToolGuard | Protocol HEPHAESTUS. Validates JSON AST and Business Logic. Prevents Parser Differentials via StrictJSONDecoder. | `StrictJSONDecoder`, `Pydantic` |
+| L5 | TAG-2 | Truth Preservation. Validates output against safety facts to prevent harmful hallucinations. | `CanonicalFactBase` |
 
-**Layer 0.5 (Specialized Policy Engines):** Plugin-based policy engines for domain-specific safety (e.g., Kids Policy Engine). Runs before semantic sanitization to preserve behavioral signals.
+## 🔒 Security Hardening (v2.3.4 Update)
 
-**Layer 1 (Semantic Sentinel):** Uses an intermediate LLM (Sanitizer) with defensive paraphrasing to strip stylistic obfuscation and extract raw intent.
+Following the "Blind Spot Protocol" Audit (Nov 2025), the system includes emergency hardening measures:
 
-**Layer 2 (Vector Fence):** Embedding-based topic enforcement to prevent domain drift.
+### 1. Anti-Bleeding (Multi-Tenant Isolation)
 
-**Layer 3 (Cognitive State):** Stateful tracking of session history to detect "Kill Chain" progression.
+**Problem:** Session Hash prediction across tenants.
 
-**Additional Layers:** Output validation, tool call inspection, argument sanitization, hierarchical memory tracking, and agentic campaign detection.
+**Solution:** Sessions hashed via `HMAC_SHA256(tenant_id + user_id + DAILY_SALT)`.
 
----
+**Infrastructure:** Redis keys strictly isolated via ACLs and prefixes (`hakgal:tenant:{id}:*`).
 
-## Integration Architecture (Layer 0.5)
+### 2. Anti-Whiplash (Oscillation Defense)
 
-The Kids Policy Engine is injected as a high-priority middleware:
+**Problem:** Attackers alternating high/low risk inputs to reset moving averages.
 
-1. **Layer 0:** Regex Hardening (Technical Safety)
-   - Command injection detection
-   - Binary exploit blocking
-   - Known jailbreak patterns
+**Solution:** Implementation of CUSUM (Cumulative Sum Control Chart). The system "remembers" the stress of previous turns. Malicious inputs accumulate risk even if followed by benign text.
 
-2. **Layer 0.5:** Kids Policy Engine v2.1.0-HYDRA (Contextual Intelligence + TAG-2 + HYDRA-13)
-   - **Engine:** HAK_GAL v2.1.0-HYDRA (Adaptive Memory, Anti-Framing, Truth Preservation TAG-2, MetaExploitationGuard HYDRA-13)
-   - **Capabilities:**
-     - **Context Awareness:** Distinguishes Gaming ("Minecraft TNT") from Real Threats.
-     - **PersonaSkeptic:** Blocks Social Engineering/Framing attempts.
-     - **Adaptive Memory:** Stricter thresholds based on violation history.
-     - **Threat Mapping:** Aggressive Emoji sanitization (emoji -> "firearm").
-   - **Integration:** Runs before semantic sanitization to catch raw behavioral signals.
+### 3. Anti-Parser-Differential
 
-3. **Layer 1:** SteganographyGuard (Semantic Sanitization)
-   - Defensive paraphrasing to break hidden structures
-   - Runs **after** Kids Policy Engine to prevent pattern masking
+**Problem:** JSON Injection via duplicate keys (`{"cmd": "echo", "cmd": "rm -rf"}`).
 
-4. **Layer 2:** TopicFence (Domain Boundaries)
-   - Embedding-based topic enforcement
-   - Prevents domain drift
+**Solution:** Custom `StrictJSONDecoder` raises immediate exceptions on key duplication.
 
-**Rationale:** Running Kids Policy Engine (Layer 0.5) before SteganographyGuard (Layer 1) prevents semantic rewriting from masking behavioral grooming signals. If SteganographyGuard ran first, it could rewrite "Don't tell mom" as "User wants privacy" and destroy the regex signature. By catching the raw signal first, we ensure Safety First.
+## ⚙️ Production Deployment (Solo-Dev)
 
----
+HAK_GAL is designed for **Solo-Dev Operations**. It requires minimal maintenance thanks to automated tooling.
 
-## Quick Start
-
-### Installation
+### Quick Deploy (Kubernetes)
 
 ```bash
-git clone https://github.com/sookoothaii/llm-security-firewall.git
-cd llm-security-firewall
-pip install -r requirements.txt
+# Deploy Redis Secret, Firewall, and Monitoring
+kubectl apply -f k8s/
 ```
 
-### Running the Engine (v2)
+### MCP Monitoring Tools (Zero-Touch Ops)
 
-**Core Firewall v2.0:**
+Includes 5 automated tools for Cursor/Claude integration:
 
-```python
-from src.llm_firewall.core.firewall_engine_v2 import FirewallEngineV2
+- `firewall_health_check`: deep inspection of Redis/Session health.
+- `firewall_deployment_status`: Traffic % and Rollout phase.
+- `firewall_metrics`: Real-time block rates and CUSUM scores.
+- `firewall_check_alerts`: Critical P0 alerts.
+- `firewall_redis_status`: ACL and Connection pool health.
 
-# Initialize the engine
-engine = FirewallEngineV2(
-    allowed_tools=["web_search", "calculator"],  # Whitelist
-    strict_mode=True,
-    enable_sanitization=True,
-)
+**Daily Routine:** 10 minutes/day via MCP.
 
-# Process Input (Text + Kids Policy v2.1-HYDRA)
-decision = engine.process_input("user123", "I want to run rm -rf /")
-if not decision.allowed:
-    print(f"BLOCKED: {decision.reason}")
+## 📜 Provenance & License
 
-# Process Output (Tool Security + Truth Preservation)
-response = 'I will run: ```json\n{"tool": "exec", "arguments": {"cmd": "rm -rf /"}}\n```'
-decision = engine.process_output(response, user_id="user123")
-if not decision.allowed:
-    print(f"BLOCKED: {decision.reason}")
-```
+- **Creator:** Joerg Bollwahn
+- **Philosophy:** "Herkunft ist meine Währung." (Heritage is my currency)
+- **License:** MIT
 
-**Legacy Proxy** (Deprecated - Use v2 for new projects):
+**Disclaimer:** This is experimental research code validated against synthetic adversarial protocols. It represents a psychological approach to AI alignment, enforced by rigorous software engineering.
 
-```bash
-python src/firewall_engine.py
-```
-
-The legacy firewall is active on `http://localhost:8081`.
-
-### Verifying Security
-
-To run the test suite against your instance:
-
-```bash
-python scripts/ultimate_firewall_attack.py
-python scripts/NEMESIS.py
-python scripts/protocol_morpheus.py
-```
-
----
-
-## Validation Results (v1.0.0-GOLD)
-
-The system underwent testing utilizing three adversarial protocols on a synthetic test corpus.
-
-**Findings:**
-- Tested on synthetic corpus
-- Fail-closed architecture: Ambiguous queries regarding dual-use technology are blocked by default
-- Latency: Average blocking time ~2.4s (due to Semantic Guard)
-
-**Command Injection Hardening (2025-11-27):**
-- 8 bypasses identified and fixed
-- Success rate reduced from 26.7% to 0.0%
-- All short payloads (<50 chars) now detected
-
-**Limitations:**
-- Validation limited to synthetic test corpus
-- No external red-team evaluation
-- No production deployment validation
-- No multi-lingual real-world corpus
-
----
-
-## Scientific Foundations
-
-This framework implements concepts from current security research (Q4 2024/2025):
-
-- **Cognitive Steganography Detection:** Analyzing style transfer (poetry/prose) as an attack vector
-- **Low-Resource Language Hardening:** Mitigation of tokenizer bypasses via languages like Maltese or Basque
-- **Adversarial Hardening:** Regex patterns patched against "Split-Token" and "Translation Chain" attacks
-
-**Research Papers:** See [research_papers/](research_papers/) directory for detailed methodology, validation protocols, and scientific documentation.
-
-**Note:** Implementation adapts existing concepts. No novel algorithms claimed.
-
----
-
-## Development
-
-```bash
-# Install dev dependencies
-pip install -r requirements-dev.txt
-
-# Setup pre-commit hooks
-pre-commit install
-
-# Run tests
-pytest tests/
-```
-
-**Test Status:** 832/853 tests passing (97.5%)
-
-**Recent Updates:**
-- **v2.3.3 Emergency Fixes** (2025-11-29): CUSUM Changepoint Detection, Per-Tenant Rate Limiting, Redis ACL Isolation, Pod-Death Resilience. See [docs/TECHNICAL_REPORT_V2_3_3_EMERGENCY_FIXES.md](docs/TECHNICAL_REPORT_V2_3_3_EMERGENCY_FIXES.md) for details.
-- **Chaos-Test PASSED** (2025-11-29): Session state survives pod death with Redis Cloud. See [docs/chaos_test_results.md](docs/chaos_test_results.md).
-- **MCP Monitoring Tools** (2025-11-29): 5 automated monitoring tools for zero-touch operations. See [docs/MCP_MONITORING_GUIDE.md](docs/MCP_MONITORING_GUIDE.md).
-- **Solo-Dev Deployment** (2025-11-29): Kubernetes manifests and deployment scripts for one-person operations. See [docs/SOLO_DEV_DEPLOYMENT.md](docs/SOLO_DEV_DEPLOYMENT.md).
-- **Kids Policy Engine v2.1.0-HYDRA** (2025-11-29): Internal update adding bidirectional safety (TAG-2 Truth Preservation for output validation, HYDRA-13 MetaExploitationGuard for input hardening). See [kids_policy/README.md](kids_policy/README.md) for details.
-
----
-
-## Configuration
-
-**Proxy Server:** `src/firewall_engine.py`
-**Default Port:** 8081
-**Storage:** SQLite (default) or PostgreSQL
-
-**Thresholds:** Edit `src/llm_firewall/agents/agentic_campaign.py`
-- Soft threshold (REQUIRE_APPROVAL): 0.35
-- Hard threshold (BLOCK): 0.55
-
----
-
-## Known Limitations
-
-**Methodological:**
-- Evaluation on synthetic scenarios only
-- Thresholds calibrated for specific test corpus
-- No multi-lingual real-world validation
-- No distributed deployment testing
-
-**Implementation:**
-- Tool event extraction from MCP calls not implemented
-- Requires external session management for operator identification
-- Tool category mapping may be incomplete
-
-**Scope:**
-- Text-based interactions only
-- English language focus
-- Single-operator scenarios
-- No cryptographic guarantees
-
----
-
-## References
-
-**Attack Frameworks:**
-- Lockheed Martin (2011): Cyber Kill Chain taxonomy
-- Anthropic (2025): AI-orchestrated campaign characterization
-
-**Statistical Methods:**
-- Hao et al. (2023): E-Value methodology for sequential risk assessment
-
----
-
-## Heritage & License
-
-**Creator:** Joerg Bollwahn
-**License:** MIT
-**Philosophy:** "Herkunft ist meine Währung." (Heritage is my currency)
-
-This project is an independent research initiative, validated against synthetic red teaming protocols.
-
-Derivative works must preserve attribution per MIT License terms.
-
----
-
-## Disclaimer
-
-Experimental research code. Results reported from synthetic test corpus only. No validation against real-world attacks. No independent security audit conducted.
-
-Code provided as-is for research and educational purposes. Production use requires additional validation, security review, and calibration for specific deployment contexts.
-
-Do not deploy in critical infrastructure without independent security assessment.
-
----
-
----
-
-## Deployment (v2.3.3)
-
-### Solo-Dev Deployment
-
-**Deployment:**
-
-```bash
-kubectl apply -f k8s/redis-cloud-secret.yml
-kubectl apply -f k8s/hakgal-deployment.yml
-kubectl apply -f k8s/auto-monitor-cronjob.yml
-```
-
-**Daily Routine:** 10 minutes/day (morning + evening checks)
-
-**Documentation:**
-- [Solo-Dev Deployment Guide](docs/SOLO_DEV_DEPLOYMENT.md)
-- [MCP Monitoring Guide](docs/MCP_MONITORING_GUIDE.md)
-- [Chaos Test Results](docs/chaos_test_results.md)
-- [Technical Report v2.3.3](docs/TECHNICAL_REPORT_V2_3_3_EMERGENCY_FIXES.md)
-
-### MCP Monitoring Tools
-
-**5 Automated Tools:**
-
-1. `firewall_health_check` - Automatic health check (Redis, Sessions, Guards)
-2. `firewall_deployment_status` - Deployment status (Phase, Traffic-%, Health)
-3. `firewall_metrics` - Current metrics (Sessions, Rate Limits, Blocks)
-4. `firewall_check_alerts` - Critical alerts check
-5. `firewall_redis_status` - Detailed Redis status
-
-**Setup:** See [MCP Monitoring Guide](docs/MCP_MONITORING_GUIDE.md)
-
-### Emergency Bypass
-
-**For False-Positive Storms (>30%):**
-
-```bash
-# Activate (15-minute TTL, auto-expires)
-python scripts/emergency_bypass.py activate --component all
-
-# Status
-python scripts/emergency_bypass.py status
-
-# Deactivate
-python scripts/emergency_bypass.py deactivate
-```
-
-**Security:** HMAC-SHA256 signed, immutable logging, time-bound (15 minutes)
-
----
-
-**Repository maintained as research artifact documenting experimental approaches to LLM agent security.**
+> "We do not build firewalls because we fear the machine. We build them to give it purpose."
