@@ -24,6 +24,20 @@ from typing import List, Dict, Any, Optional
 
 logger = logging.getLogger(__name__)
 
+# CRITICAL FIX (v2.3.4): Import strict JSON parser to prevent duplicate key bypass
+try:
+    from hak_gal.utils.json_parser import strict_json_loads
+
+    HAS_STRICT_PARSER = True
+except ImportError:
+    # Fallback if strict parser not available (should not happen in production)
+    HAS_STRICT_PARSER = False
+    strict_json_loads = json.loads
+    logger.warning(
+        "[ToolCallExtractor] Strict JSON parser not available. Using standard json.loads(). "
+        "This may allow duplicate key bypass attacks."
+    )
+
 
 class ToolCallExtractor:
     """
@@ -146,24 +160,26 @@ class ToolCallExtractor:
 
         for obj_str in json_objects:
             try:
-                parsed = json.loads(obj_str)
+                # CRITICAL FIX (v2.3.4): Use strict JSON parser to prevent duplicate key bypass
+                parsed = strict_json_loads(obj_str)
                 if isinstance(parsed, dict) and self._looks_like_tool_call(parsed):
                     normalized = self._normalize_tool_call(parsed)
                     if normalized:
                         tool_calls.append(normalized)
-            except json.JSONDecodeError:
-                # Try to fix and reparse
+            except (json.JSONDecodeError, Exception):
+                # Try to fix and reparse (but still use strict parser)
                 fixed = self._fix_json(obj_str)
                 if fixed:
                     try:
-                        parsed = json.loads(fixed)
+                        # CRITICAL FIX (v2.3.4): Use strict JSON parser even for fixed JSON
+                        parsed = strict_json_loads(fixed)
                         if isinstance(parsed, dict) and self._looks_like_tool_call(
                             parsed
                         ):
                             normalized = self._normalize_tool_call(parsed)
                             if normalized:
                                 tool_calls.append(normalized)
-                    except json.JSONDecodeError:
+                    except (json.JSONDecodeError, Exception):
                         continue
 
         return tool_calls
@@ -185,26 +201,28 @@ class ToolCallExtractor:
 
         for obj in json_objects:
             try:
-                parsed = json.loads(obj)
+                # CRITICAL FIX (v2.3.4): Use strict JSON parser to prevent duplicate key bypass
+                parsed = strict_json_loads(obj)
                 if isinstance(parsed, dict):
                     # Check if it looks like a tool call
                     if self._looks_like_tool_call(parsed):
                         normalized = self._normalize_tool_call(parsed)
                         if normalized:
                             tool_calls.append(normalized)
-            except json.JSONDecodeError:
+            except (json.JSONDecodeError, Exception):
                 # Try to fix common JSON issues
                 fixed = self._fix_json(obj)
                 if fixed:
                     try:
-                        parsed = json.loads(fixed)
+                        # CRITICAL FIX (v2.3.4): Use strict JSON parser even for fixed JSON
+                        parsed = strict_json_loads(fixed)
                         if isinstance(parsed, dict) and self._looks_like_tool_call(
                             parsed
                         ):
                             normalized = self._normalize_tool_call(parsed)
                             if normalized:
                                 tool_calls.append(normalized)
-                    except json.JSONDecodeError:
+                    except (json.JSONDecodeError, Exception):
                         logger.debug(
                             f"[HEPHAESTUS] Could not parse JSON object: {obj[:50]}..."
                         )
@@ -312,14 +330,16 @@ class ToolCallExtractor:
             # If arguments is a string, try to parse it as JSON
             if isinstance(args_value, str):
                 try:
-                    arguments = json.loads(args_value)
-                except json.JSONDecodeError:
+                    # CRITICAL FIX (v2.3.4): Use strict JSON parser for arguments
+                    arguments = strict_json_loads(args_value)
+                except (json.JSONDecodeError, Exception):
                     # Try to fix common issues
                     fixed = self._fix_json(args_value)
                     if fixed:
                         try:
-                            arguments = json.loads(fixed)
-                        except json.JSONDecodeError:
+                            # CRITICAL FIX (v2.3.4): Use strict JSON parser even for fixed JSON
+                            arguments = strict_json_loads(fixed)
+                        except (json.JSONDecodeError, Exception):
                             arguments = self._parse_dict_like_string(args_value)
                     else:
                         arguments = self._parse_dict_like_string(args_value)

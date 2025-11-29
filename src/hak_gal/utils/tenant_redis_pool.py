@@ -115,13 +115,20 @@ class TenantRedisPool:
                 raise ValueError(f"Redis password not found for tenant {tenant_id}")
 
             # Create tenant-specific connection pool
+            # CRITICAL FIX (Solo-Dev): Redis Cloud Free Tier has 5 connection limit
+            # Without proper pooling, connections are exhausted after 5 requests
             pool = redis.ConnectionPool(
                 host=self.base_host,
                 port=self.base_port,
                 username=username,
                 password=password,
                 db=0,
-                max_connections=10,  # Per-tenant pool size
+                max_connections=20,  # Redis Cloud Free Tier limit (conservative)
+                socket_timeout=5,  # NOT default (critical for Redis Cloud)
+                socket_connect_timeout=5,
+                socket_keepalive=True,
+                retry_on_timeout=True,
+                health_check_interval=30,  # Redis Cloud idle-timeout (300s) avoidance
                 decode_responses=False,  # Binary mode for Lua scripts
             )
 

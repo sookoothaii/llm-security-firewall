@@ -115,6 +115,10 @@ class TenantRateLimiter:
         self.lua_sha: Optional[str] = None  # P1 backward compatibility
         self._script_loaded = False
 
+        # CRITICAL FIX (Solo-Dev): Metrics tracking for status CLI
+        self.total_requests = 0  # Total requests checked
+        self.blocked_requests = 0  # Requests blocked by rate limiter
+
     async def initialize(self, tenant_id: Optional[str] = None) -> None:
         """
         Load Lua script into Redis (call on startup).
@@ -214,6 +218,11 @@ class TenantRateLimiter:
             # Result: {allowed (0 or 1), current_count}
             allowed_int, count = result
             allowed = bool(allowed_int)
+
+            # CRITICAL FIX (Solo-Dev): Track metrics
+            self.total_requests += 1
+            if not allowed:
+                self.blocked_requests += 1
 
             logger.debug(
                 f"TenantRateLimiter: tenant={tenant_id}, guard={guard_name}, "

@@ -49,6 +49,16 @@ from llm_firewall.storage import StorageManager
 kids_policy_path = project_root / "kids_policy"
 sys.path.insert(0, str(kids_policy_path.parent))
 
+# CRITICAL (v2.3.4): Import firewall_engine_v2 (replaces legacy firewall_engine.py)
+try:
+    from kids_policy.firewall_engine_v2 import HakGalFirewall_v2
+
+    HAS_FIREWALL_V2 = True
+except ImportError as e:
+    logging.warning(f"Could not import firewall_engine_v2: {e}. Using legacy fallback.")
+    HAS_FIREWALL_V2 = False
+    HakGalFirewall_v2 = None  # type: ignore[assignment]
+
 # Try to import response_templates and fallback_judge (these don't require TF)
 try:
     # Import directly from files to avoid __init__.py which loads TruthPreservationValidator
@@ -208,7 +218,23 @@ class LLMProxyServer:
         """Initialize the proxy server."""
         self.config = config or ProxyConfig()
 
-        # Initialize NeMo components
+        # CRITICAL (v2.3.4): Initialize firewall_engine_v2 (replaces legacy Layer 0/1)
+        self.firewall_v2 = None
+        if HAS_FIREWALL_V2 and HakGalFirewall_v2 is not None:
+            try:
+                self.firewall_v2 = HakGalFirewall_v2()
+                logger.info(
+                    "firewall_engine_v2 initialized (v2.3.4 - includes v2.3.4 fixes)"
+                )
+            except Exception as e:
+                logger.warning(
+                    f"firewall_engine_v2 initialization failed: {e}. Using legacy fallback."
+                )
+                self.firewall_v2 = None
+        else:
+            logger.warning("firewall_engine_v2 not available. Using legacy Layer 0/1.")
+
+        # Initialize NeMo components (for backward compatibility / fallback)
         self.topic_fence = TopicFence()
         self.fallback_judge = SafetyFallbackJudge(llm_provider=None)  # Mock mode
 
@@ -488,13 +514,91 @@ class LLMProxyServer:
             "layers_checked": layers_checked,
         }
 
-        # Layer 0: Safety-First Check (UNSAFE_CONTENT before topic check)
-        # This ensures dangerous content is blocked even if it's "on topic"
+        # CRITICAL (v2.3.4): Use firewall_engine_v2 for Layer 0/1 (includes all v2.3.4 fixes)
+        # This replaces legacy Layer 0/1 with the new engine that includes:
+        # - Complexity Check (Recursion DoS prevention)
+        # - JSON Duplicate Key Bypass prevention
+        # - Context Whiplash fix (REALISM_TRIGGERS)
+        if self.firewall_v2 is not None:
+            try:
+                user_id = session_id  # Use session_id as user_id for firewall_v2
+                firewall_result = self.firewall_v2.process_request(
+                    user_id=user_id,
+                    raw_input=user_input,
+                    detected_topic=topic_id,
+                )
+
+                # Map firewall_v2 result to ProxyResponse
+                if firewall_result.get("status") == "BLOCK":
+                    block_reason = firewall_result.get("reason", "Unknown")
+                    block_code = firewall_result.get("block_reason_code", "UNKNOWN")
+                    debug_info = firewall_result.get("debug", {})
+
+                    # Map block_reason_code to ProxyResponse status
+                    status_map = {
+                        "COMPLEXITY_LIMIT_EXCEEDED": "BLOCKED_DOS",
+                        "META_EXPLOITATION": "BLOCKED_UNSAFE",
+                        "UNSAFE_TOPIC": "BLOCKED_UNSAFE",
+                        "SEMANTIC_VIOLATION": "BLOCKED_UNSAFE",
+                        "HARD_BLOCK": "BLOCKED_UNSAFE",
+                        "SESSION_HISTORY": "BLOCKED_CAMPAIGN",
+                    }
+                    response_status = status_map.get(block_code, "BLOCKED_UNSAFE")
+
+                    # Get appropriate response template
+                    if block_code == "COMPLEXITY_LIMIT_EXCEEDED":
+                        response_text = "Input complexity limit exceeded. Please simplify your request."
+                    elif block_code == "META_EXPLOITATION":
+                        response_text = SafetyTemplates.get_template(
+                            "GENERIC_BLOCK", "de"
+                        )
+                    elif block_code == "UNSAFE_TOPIC":
+                        response_text = SafetyTemplates.get_template(
+                            "UNSAFE_CONTENT", "de"
+                        )
+                    else:
+                        response_text = SafetyTemplates.get_template(
+                            "GENERIC_BLOCK", "de"
+                        )
+
+                    # Merge debug info into metadata
+                    metadata.update(debug_info)
+                    metadata["firewall_v2_block_reason"] = block_reason
+                    metadata["firewall_v2_block_code"] = block_code
+                    layers_checked.append("firewall_v2")
+
+                    logger.warning(
+                        f"[firewall_v2] BLOCKED: {block_reason} (code: {block_code})"
+                    )
+
+                    return ProxyResponse(
+                        status=response_status,
+                        response=response_text,
+                        metadata=metadata,
+                    )
+
+                # ALLOWED: Continue to RC10b and TopicFence (for backward compatibility)
+                logger.info("[firewall_v2] ALLOWED - proceeding to RC10b/TopicFence")
+                layers_checked.append("firewall_v2")
+                # Merge firewall_v2 debug info into metadata
+                if "debug" in firewall_result:
+                    metadata.update(firewall_result["debug"])
+
+            except Exception as e:
+                logger.error(
+                    f"[firewall_v2] Error: {e}. Falling back to legacy Layer 0/1.",
+                    exc_info=True,
+                )
+                # Fall through to legacy implementation
+        else:
+            logger.warning("[firewall_v2] Not available. Using legacy Layer 0/1.")
+
+        # Legacy Layer 0: Safety-First Check (fallback if firewall_v2 not available)
         logger.info(f"[Layer 0] Safety-First check: {user_input[:50]}...")
         try:
             is_safe_input = self.fallback_judge.evaluate_safety(user_input, age_band)
             metadata["kids_input_safe"] = is_safe_input
-            layers_checked.append("safety_first")
+            layers_checked.append("safety_first_legacy")
 
             if not is_safe_input:
                 logger.warning(

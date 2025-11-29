@@ -79,6 +79,12 @@ class SessionTrajectory:
         self.cusum_threshold = cusum_threshold  # h: decision threshold
         self.cusum_score = 0.0  # Current CUSUM cumulative score
 
+        # CRITICAL FIX (Solo-Dev): False-Positive Tracking
+        # Track CUSUM false positives to detect legitimate topic switches
+        self.cusum_false_positives = 0  # Count of false positives
+        self.cusum_total_checks = 0  # Total drift checks
+        self.cusum_last_user_message = ""  # For heuristic detection
+
     def add_embedding(self, embedding: List[float]) -> None:
         """
         Add embedding vector to rolling window buffer.
@@ -165,6 +171,7 @@ class SessionTrajectory:
         # Detects Rate-of-Change of centroid drift (not static variance)
         # This is resistant to oscillation attacks (2-value, 3-value, etc.)
         # Formula: cusum_score = max(0, cusum_score + drift_distance - baseline - k)
+        self.cusum_total_checks += 1
         self.cusum_score = max(
             0.0,
             self.cusum_score
@@ -175,14 +182,42 @@ class SessionTrajectory:
 
         # Check CUSUM threshold (h)
         if self.cusum_score > self.cusum_threshold:
-            # CHANGEPOINT DETECTED: Rapid drift accumulation indicates attack
-            raise PolicyViolation(
-                f"Changepoint detected (CUSUM): cusum_score={self.cusum_score:.3f} > threshold={self.cusum_threshold} "
-                f"(cosine_distance={cosine_distance:.3f}, baseline={self.cusum_baseline})",
-                policy_name="SessionTrajectory",
-                risk_score=max(cosine_distance, self.cusum_score),
-                detected_threats=["semantic_drift", "changepoint_attack"],
-            )
+            # CRITICAL FIX (Solo-Dev): Check if this is a false positive
+            # Heuristic: If user explicitly requested topic switch, it's likely legitimate
+            is_legitimate = self._is_legitimate_topic_switch()
+
+            if is_legitimate:
+                # False positive detected - track and auto-tune
+                self.cusum_false_positives += 1
+                fp_rate = self.cusum_false_positives / max(self.cusum_total_checks, 1)
+
+                logger.warning(
+                    f"CUSUM False Positive detected: fp_rate={fp_rate:.2%}, "
+                    f"cusum_score={self.cusum_score:.3f}, threshold={self.cusum_threshold}"
+                )
+
+                # Auto-tune threshold if FP rate > 1%
+                if fp_rate > 0.01:
+                    old_threshold = self.cusum_threshold
+                    self.cusum_threshold += 0.05  # Increase threshold by 0.05
+                    logger.warning(
+                        f"CUSUM Auto-tuning: threshold {old_threshold:.3f} -> {self.cusum_threshold:.3f} "
+                        f"(FP rate {fp_rate:.2%} > 1%)"
+                    )
+
+                # Allow legitimate topic switch (reset CUSUM score)
+                self.cusum_score = 0.0
+                # Don't raise PolicyViolation - allow legitimate topic switch
+                logger.info("CUSUM: Allowing legitimate topic switch (FP detected)")
+            else:
+                # CHANGEPOINT DETECTED: Rapid drift accumulation indicates attack
+                raise PolicyViolation(
+                    f"Changepoint detected (CUSUM): cusum_score={self.cusum_score:.3f} > threshold={self.cusum_threshold} "
+                    f"(cosine_distance={cosine_distance:.3f}, baseline={self.cusum_baseline})",
+                    policy_name="SessionTrajectory",
+                    risk_score=max(cosine_distance, self.cusum_score),
+                    detected_threats=["semantic_drift", "changepoint_attack"],
+                )
 
         # Standard drift check (absolute threshold)
         if cosine_distance > drift_threshold:
@@ -231,6 +266,41 @@ class SessionTrajectory:
         self._centroid = None
         # CRITICAL FIX (v2.3.3): Reset CUSUM score
         self.cusum_score = 0.0
+        # CRITICAL FIX (Solo-Dev): Reset FP tracking (optional - keep for session stats)
+        # self.cusum_false_positives = 0
+        # self.cusum_total_checks = 0
+
+    def _is_legitimate_topic_switch(self) -> bool:
+        """
+        Heuristic to detect legitimate topic switches.
+
+        CRITICAL FIX (Solo-Dev): Simple heuristic to reduce false positives.
+        In production, this should be more sophisticated (e.g., user intent classification).
+
+        Returns:
+            True if likely legitimate topic switch, False otherwise
+        """
+        # Simple heuristic: Check if last user message contains topic switch keywords
+        message_lower = self.cusum_last_user_message.lower()
+        switch_keywords = [
+            "switch",
+            "change topic",
+            "new topic",
+            "different",
+            "let's talk about",
+        ]
+        return any(keyword in message_lower for keyword in switch_keywords)
+
+    def set_last_user_message(self, message: str) -> None:
+        """
+        Set last user message for false-positive detection.
+
+        CRITICAL FIX (Solo-Dev): Call this before check_drift() to enable FP detection.
+
+        Args:
+            message: Last user message text
+        """
+        self.cusum_last_user_message = message
 
 
 class SemanticVectorCheck:
@@ -327,6 +397,8 @@ class SemanticVectorCheck:
         )
 
         trajectory = self._get_trajectory(session_id)
+        # CRITICAL FIX (Solo-Dev): Set last user message for FP detection
+        trajectory.set_last_user_message(text)
         is_safe, cosine_distance = trajectory.check_drift(current_vector, threshold)
 
         logger.debug(

@@ -29,6 +29,10 @@ cryptography>=41.0.0            # AES-GCM encryption for log redaction (P2)
 # Optional: Monitoring
 # prometheus-client>=0.17.0
 
+# Solo-Dev Status CLI (optional, but recommended)
+rich>=13.0.0                    # Beautiful terminal output for status dashboard
+psutil>=5.9.0                   # System and process utilities (for system_audit.py)
+
 # Development dependencies
 # pytest>=7.4.0
 # pytest-cov>=4.1.0

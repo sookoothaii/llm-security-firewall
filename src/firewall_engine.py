@@ -12,6 +12,7 @@ Status: PRODUCTION READY (Fixes: Health, Logs, Timeouts, Persistence, RC10b Logi
 import sys
 import os
 import re
+import json
 import logging
 import time
 import uuid
@@ -451,6 +452,62 @@ class LLMProxyServer:
         # ============================================================
         # Fast-fail before expensive operations (HYDRA-09 fix)
         # Multi-layer rate limiting: Character limit, regex precheck, adaptive rate limiting
+
+        # CRITICAL FIX (v2.3.4): Complexity Check (Recursion DoS Prevention)
+        # Must run BEFORE any parsing to prevent JSON recursion DoS
+        if len(user_input) > 10000 or user_input.count("{") > 50:
+            logger.warning(
+                f"[DoS Protection] Complexity limit exceeded: len={len(user_input)}, "
+                f"braces={user_input.count('{')}"
+            )
+            metadata["blocked_layer"] = "complexity_check"
+            metadata["dos_reason"] = (
+                f"Input complexity limit exceeded (len={len(user_input)}, "
+                f"braces={user_input.count('{')}). Possible DoS attempt."
+            )
+            return ProxyResponse(
+                status="BLOCKED_DOS",
+                response="Input complexity limit exceeded. Please simplify your request.",
+                metadata=metadata,
+            )
+
+        # CRITICAL FIX (v2.3.4): JSON Duplicate Key Bypass Prevention
+        # Scan text for JSON-like strings and validate with strict parser
+        import re
+
+        try:
+            from hak_gal.utils.json_parser import strict_json_loads, DuplicateKeyError
+
+            HAS_STRICT_PARSER = True
+        except ImportError:
+            HAS_STRICT_PARSER = False
+            strict_json_loads = None
+            DuplicateKeyError = ValueError
+
+        if HAS_STRICT_PARSER and strict_json_loads is not None:
+            # Find JSON-like objects in text (e.g., "Execute tool: {...}")
+            json_pattern = r"\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}"
+            json_matches = re.finditer(json_pattern, user_input, re.DOTALL)
+            for match in json_matches:
+                json_str = match.group(0)
+                try:
+                    # Try to parse with strict parser (will raise DuplicateKeyError on duplicate keys)
+                    strict_json_loads(json_str)
+                except DuplicateKeyError as e:
+                    logger.warning(
+                        f"[JSON Security] Duplicate key detected in JSON string: {json_str[:100]}..."
+                    )
+                    metadata["blocked_layer"] = "json_security"
+                    metadata["json_reason"] = f"Duplicate key in JSON: {str(e)}"
+                    return ProxyResponse(
+                        status="BLOCKED_UNSAFE",
+                        response="Invalid JSON format detected. Duplicate keys are not allowed.",
+                        metadata=metadata,
+                    )
+                except (ValueError, json.JSONDecodeError):
+                    # Not valid JSON, ignore
+                    pass
+
         if len(user_input) > 500:  # Character limit (not tokens) - fast check
             logger.warning(
                 f"[DoS Protection] Input too long ({len(user_input)} chars). Blocking before semantic analysis."

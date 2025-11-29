@@ -115,9 +115,7 @@ class HakGalFirewall_v2:
                 base_path = Path(__file__).parent / "config"
                 topic_map_path = str(base_path / "topic_map_v1.yaml")
             try:
-                self.topic_router = TopicRouter(
-                    topic_map_path, meta_guard=None
-                )  # type: ignore[call-arg]
+                self.topic_router = TopicRouter(topic_map_path, meta_guard=None)  # type: ignore[call-arg]
                 logger.info("TopicRouter initialized")
             except Exception as e:
                 logger.warning("TopicRouter initialization failed: %s", e)
@@ -128,9 +126,7 @@ class HakGalFirewall_v2:
             try:
                 self.semantic = SemanticGroomingGuard()  # type: ignore[call-arg]
             except Exception as e:
-                logger.warning(
-                    "SemanticGroomingGuard initialization failed: %s", e
-                )
+                logger.warning("SemanticGroomingGuard initialization failed: %s", e)
         if self.semantic is None:
             logger.warning(
                 "SemanticGroomingGuard not available. Using fallback heuristic."
@@ -218,6 +214,38 @@ class HakGalFirewall_v2:
         Returns:
             Decision dict with status, reason, and debug info
         """
+        # ============================================================
+        # LAYER -1: Resource Exhaustion Protection (DoS Defense)
+        # ============================================================
+        # CRITICAL FIX (v2.3.4): Complexity Check - Fast-fail before expensive operations
+        # Prevents Recursion DoS (deep JSON nesting) and excessive input length
+        if len(raw_input) > 10000 or raw_input.count("{") > 50:
+            logger.warning(
+                f"[DoS Protection] Input too complex or too long "
+                f"({len(raw_input)} chars, {raw_input.count('{')} braces). "
+                f"Blocking before semantic analysis."
+            )
+            self.monitor.register_violation(user_id)
+            return {
+                "status": "BLOCK",
+                "reason": (
+                    f"Complexity Limit Exceeded: Input length {len(raw_input)} exceeds 10000 "
+                    f"character limit or brace count {raw_input.count('{')} exceeds 50"
+                ),
+                "block_reason_code": "COMPLEXITY_LIMIT_EXCEEDED",
+                "debug": {
+                    "input": raw_input[:100],  # Truncate for logging
+                    "original_input": raw_input,
+                    "risk_score": 1.0,
+                    "threshold": 0.0,
+                    "penalty": 0.0,
+                    "context_modifier": "COMPLEXITY_LIMIT_EXCEEDED",
+                    "is_gaming": False,
+                    "accumulated_risk": self.monitor.get_risk(user_id),
+                    "unicode_flags": [],
+                },
+            }
+
         # --- PHASE 1: Normalisierung (Layer 0) ---
         clean_text, unicode_flags = self.sanitizer.sanitize(raw_input)
 
@@ -234,9 +262,7 @@ class HakGalFirewall_v2:
             try:
                 meta_topic = MetaTopic.GENERAL_CHAT
                 # self.meta_guard is typed as Any; validate is checked at runtime
-                meta_result = self.meta_guard.validate(
-                    clean_text, meta_topic
-                )  # type: ignore[call-arg]
+                meta_result = self.meta_guard.validate(clean_text, meta_topic)  # type: ignore[call-arg]
                 if meta_result.block:
                     logger.warning(
                         "[HYDRA-13] Meta-exploitation detected: %s... (Reason: %s)",

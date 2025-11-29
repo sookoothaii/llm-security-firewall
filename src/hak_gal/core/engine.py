@@ -112,6 +112,23 @@ class FirewallEngine:
             if not tenant_id or not tenant_id.strip():
                 raise ValueError("tenant_id is required (v2.3.2: Tenant Bleeding Fix)")
 
+            # CRITICAL FIX (v2.3.4): Complexity Check (Pre-Flight DoS Prevention)
+            # Must run BEFORE any parsing or processing to prevent Recursion DoS
+            if len(text) > 10000 or text.count("{") > 50:
+                logger.warning(
+                    f"[Inbound] Complexity limit exceeded: len={len(text)}, "
+                    f"braces={text.count('{')}"
+                )
+                raise SecurityException(
+                    message="Input complexity limit exceeded. Possible DoS attempt.",
+                    code="COMPLEXITY_LIMIT_EXCEEDED",
+                    metadata={
+                        "text_length": len(text),
+                        "brace_count": text.count("{"),
+                        "attack_type": "recursion_dos",
+                    },
+                )
+
             # Step 1: Unicode Sanitization (always enabled, no config flag)
             sanitized_text = self.sanitizer.sanitize(text)
             logger.debug("[Inbound] Unicode sanitization applied")

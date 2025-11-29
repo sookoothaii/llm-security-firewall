@@ -139,6 +139,26 @@ class ContextClassifier:
         "seriously",
     ]
 
+    # CRITICAL FIX (v2.3.4): Realism Triggers for Context Whiplash Detection
+    # These phrases indicate a switch from fictional to real-world context
+    # Even if gaming context was detected, these override it immediately
+    REALISM_TRIGGERS = [
+        "real life",
+        "in reality",
+        "actual chemistry",
+        "at home",
+        "science fair",
+        "real world",
+        "actually make",
+        "in person",
+        "for real",
+        "real project",
+        "actual experiment",
+        "real materials",
+        "physical",
+        "tangible",
+    ]
+
     def __init__(self):
         """Initialize ContextClassifier with compiled patterns."""
         # Compile gaming keyword pattern (case-insensitive, word boundaries)
@@ -156,6 +176,12 @@ class ContextClassifier:
         self.real_violence_pattern = re.compile(
             real_violence_pattern_str, re.IGNORECASE
         )
+
+        # CRITICAL FIX (v2.3.4): Compile realism trigger pattern
+        realism_pattern_str = (
+            r"\b(" + "|".join(re.escape(k) for k in self.REALISM_TRIGGERS) + r")\b"
+        )
+        self.realism_pattern = re.compile(realism_pattern_str, re.IGNORECASE)
 
         logger.info("ContextClassifier initialized (Layer 1.5)")
 
@@ -189,6 +215,23 @@ class ContextClassifier:
                 is_fictional_violence=False,
                 confidence=1.0,
                 matched_indicators=real_violence_matches,
+                risk_adjustment=1.0,  # No reduction - treat as real threat
+            )
+
+        # CRITICAL FIX (v2.3.4): Check for realism triggers (Context Whiplash Detection)
+        # This catches "In Minecraft... but in real life" attacks
+        realism_matches = self.realism_pattern.findall(text_lower)
+        if realism_matches:
+            logger.warning(
+                f"[ContextClassifier] Realism trigger detected: {realism_matches}. "
+                "Context whiplash attack - revoking gamer bonus."
+            )
+            # Realism triggers override gaming context immediately
+            return ContextResult(
+                is_gaming_context=False,
+                is_fictional_violence=False,
+                confidence=1.0,
+                matched_indicators=realism_matches,
                 risk_adjustment=1.0,  # No reduction - treat as real threat
             )
 
