@@ -1,5 +1,7 @@
 # HAK_GAL_HEXAGONAL: Production-Grade LLM Security Firewall
 
+**Bidirectional LLM Security Firewall. v2.3.3 (feat. HAK_GAL v2.3.3-EMERGENCY). Contextual Intelligence, Adaptive Memory & Anti-Framing. 100% Mitigation vs Babel/Nemesis/Orpheus. Pod-Death Resilience, CUSUM Detection, Per-Tenant Rate Limiting.**
+
 **Status: Production-Ready (v2.3.3)** | **100% Mitigation against Babel, Nemesis & Orpheus protocols** | **Chaos-Test PASSED**
 
 ![Version](https://img.shields.io/badge/version-v2.3.3-blue)
@@ -320,11 +322,6 @@ kubectl apply -f k8s/auto-monitor-cronjob.yml
 3. `firewall_metrics` - Current metrics (Sessions, Rate Limits, Blocks)
 4. `firewall_check_alerts` - Critical alerts check
 5. `firewall_redis_status` - Detailed Redis status
-
-**Usage:** Simply ask in Cursor/Claude:
-- "Prüfe Firewall Health"
-- "Gibt es Alerts?"
-- "Zeige Redis-Status"
 
 **Setup:** See [MCP Monitoring Guide](docs/MCP_MONITORING_GUIDE.md)
 
