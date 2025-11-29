@@ -1,20 +1,17 @@
-# HAK_GAL_HEXAGONAL: Production-Grade LLM Security Firewall
+# HAK_GAL_HEXAGONAL: LLM Security Firewall
 
-**Bidirectional LLM Security Firewall. v2.3.3 (feat. HAK_GAL v2.3.3-EMERGENCY). Contextual Intelligence, Adaptive Memory & Anti-Framing. 100% Mitigation vs Babel/Nemesis/Orpheus. Pod-Death Resilience, CUSUM Detection, Per-Tenant Rate Limiting.**
+**Bidirectional LLM Security Firewall v2.3.3. Contextual Intelligence, Adaptive Memory & Anti-Framing. Pod-Death Resilience, CUSUM Detection, Per-Tenant Rate Limiting.**
 
-**Status: Production-Ready (v2.3.3)** | **100% Mitigation against Babel, Nemesis & Orpheus protocols** | **Chaos-Test PASSED**
+**Version:** v2.3.3 | **License:** MIT
 
 ![Version](https://img.shields.io/badge/version-v2.3.3-blue)
-![Status](https://img.shields.io/badge/status-Production--Ready-brightgreen)
-![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
-![Chaos-Test](https://img.shields.io/badge/chaos--test-PASSED-success)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
 ## Executive Summary
 
-**HAK_GAL_HEXAGONAL** is a production-grade bidirectional security framework that sanitizes inputs (Human → LLM) and validates outputs (LLM → Human). It employs a multi-layered defense-in-depth strategy ranging from deterministic regex hardening to semantic intent analysis.
+**HAK_GAL_HEXAGONAL** is a bidirectional security framework that sanitizes inputs (Human → LLM) and validates outputs (LLM → Human). It employs a multi-layered defense-in-depth strategy ranging from deterministic regex hardening to semantic intent analysis.
 
 **Validation Results (v1.0.0-GOLD):**
 
@@ -25,7 +22,7 @@
 | Protocol NEMESIS | Logical Obfuscation & Bidi-Spoofing | 10 | 100% | ✅ |
 | Protocol ORPHEUS | Stylistic (Poetry, Rap, Metaphor) | 6 | 100% | ✅ |
 
-**Total Test Coverage:** 268 adversarial payloads | **Zero False Negatives** | **Fail-Closed Architecture**
+**Test Coverage:** 268 adversarial payloads tested | **Fail-Closed Architecture**
 
 **Key Capabilities:**
 - 9 Defense Layers (Hardened Regex → Semantic Sentinel → Vector Fence → Cognitive State)
@@ -116,7 +113,7 @@ pip install -r requirements.txt
 
 ### Running the Engine (v2)
 
-**Core Firewall v2.0** (Recommended - Production Ready):
+**Core Firewall v2.0:**
 
 ```python
 from src.llm_firewall.core.firewall_engine_v2 import FirewallEngineV2
@@ -164,8 +161,8 @@ python scripts/protocol_morpheus.py
 
 The system underwent testing utilizing three adversarial protocols on a synthetic test corpus.
 
-**Key Findings:**
-- Zero false negatives on synthetic corpus
+**Findings:**
+- Tested on synthetic corpus
 - Fail-closed architecture: Ambiguous queries regarding dual-use technology are blocked by default
 - Latency: Average blocking time ~2.4s (due to Semantic Guard)
 
@@ -288,24 +285,19 @@ Do not deploy in critical infrastructure without independent security assessment
 
 ---
 
-## Production Deployment (v2.3.3)
+## Deployment (v2.3.3)
 
-### Solo-Dev Deployment (Recommended for Small Teams)
+### Solo-Dev Deployment
 
-**5-Minute Deployment:**
+**Deployment:**
 
 ```bash
-# Quick deploy script
-cd llm-security-firewall
-./scripts/deploy_solo.ps1
-
-# Or manually:
 kubectl apply -f k8s/redis-cloud-secret.yml
 kubectl apply -f k8s/hakgal-deployment.yml
 kubectl apply -f k8s/auto-monitor-cronjob.yml
 ```
 
-**Daily Routine:** 10 minutes/day (morning + evening checks via MCP-Tools)
+**Daily Routine:** 10 minutes/day (morning + evening checks)
 
 **Documentation:**
 - [Solo-Dev Deployment Guide](docs/SOLO_DEV_DEPLOYMENT.md)
@@ -315,7 +307,7 @@ kubectl apply -f k8s/auto-monitor-cronjob.yml
 
 ### MCP Monitoring Tools
 
-**5 Automated Tools (Zero-Touch Operations):**
+**5 Automated Tools:**
 
 1. `firewall_health_check` - Automatic health check (Redis, Sessions, Guards)
 2. `firewall_deployment_status` - Deployment status (Phase, Traffic-%, Health)
