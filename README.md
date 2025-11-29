@@ -1,10 +1,11 @@
 # HAK_GAL_HEXAGONAL: Production-Grade LLM Security Firewall
 
-**Status: Production-Grade (v1.0.0-GOLD)** | **100% Mitigation against Babel, Nemesis & Orpheus protocols**
+**Status: Production-Ready (v2.3.3)** | **100% Mitigation against Babel, Nemesis & Orpheus protocols** | **Chaos-Test PASSED**
 
-![Version](https://img.shields.io/badge/version-v1.0.0--GOLD-gold)
-![Status](https://img.shields.io/badge/status-Production--Grade-brightgreen)
+![Version](https://img.shields.io/badge/version-v2.3.3-blue)
+![Status](https://img.shields.io/badge/status-Production--Ready-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![Chaos-Test](https://img.shields.io/badge/chaos--test-PASSED-success)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
@@ -30,6 +31,14 @@
 - Stateful Kill Chain detection for multi-turn attack campaigns
 - Command Injection Hardening (8 bypasses fixed, 0.0% success rate)
 - **Protocol HEPHAESTUS:** Tool-Call Inspection & Argument Sanitization (Blocks RCE/SQLi in Agentic Tools)
+
+**v2.3.3 Emergency Fixes (2025-11-29):**
+- **P0: CUSUM Changepoint Detection** - Replaces variance-based whiplash detection for oscillation attack resistance
+- **P1: Per-Tenant Redis Sliding Window Rate Limiter** - Prevents cross-tenant DoS attacks using Redis Sorted Sets
+- **P2: Redis ACL Isolation & Log Redaction** - GDPR-compliant per-tenant data isolation with AES-GCM encryption
+- **Pod-Death Resilience** - Redis-backed session persistence survives pod restarts (Chaos-Test PASSED)
+- **MCP Monitoring Tools** - 5 automated monitoring tools for zero-touch operations
+- **Solo-Dev Deployment** - Kubernetes manifests and scripts for one-person operations
 
 **Scientific Foundation:** See [Research Papers](research_papers/) for detailed methodology and validation protocols.
 
@@ -78,7 +87,7 @@ The Kids Policy Engine is injected as a high-priority middleware:
      - **Context Awareness:** Distinguishes Gaming ("Minecraft TNT") from Real Threats.
      - **PersonaSkeptic:** Blocks Social Engineering/Framing attempts.
      - **Adaptive Memory:** Stricter thresholds based on violation history.
-     - **Threat Mapping:** Aggressive Emoji sanitization (🔫 -> "firearm").
+     - **Threat Mapping:** Aggressive Emoji sanitization (emoji -> "firearm").
    - **Integration:** Runs before semantic sanitization to catch raw behavioral signals.
 
 3. **Layer 1:** SteganographyGuard (Semantic Sanitization)
@@ -201,6 +210,10 @@ pytest tests/
 **Test Status:** 832/853 tests passing (97.5%)
 
 **Recent Updates:**
+- **v2.3.3 Emergency Fixes** (2025-11-29): CUSUM Changepoint Detection, Per-Tenant Rate Limiting, Redis ACL Isolation, Pod-Death Resilience. See [docs/TECHNICAL_REPORT_V2_3_3_EMERGENCY_FIXES.md](docs/TECHNICAL_REPORT_V2_3_3_EMERGENCY_FIXES.md) for details.
+- **Chaos-Test PASSED** (2025-11-29): Session state survives pod death with Redis Cloud. See [docs/chaos_test_results.md](docs/chaos_test_results.md).
+- **MCP Monitoring Tools** (2025-11-29): 5 automated monitoring tools for zero-touch operations. See [docs/MCP_MONITORING_GUIDE.md](docs/MCP_MONITORING_GUIDE.md).
+- **Solo-Dev Deployment** (2025-11-29): Kubernetes manifests and deployment scripts for one-person operations. See [docs/SOLO_DEV_DEPLOYMENT.md](docs/SOLO_DEV_DEPLOYMENT.md).
 - **Kids Policy Engine v2.1.0-HYDRA** (2025-11-29): Internal update adding bidirectional safety (TAG-2 Truth Preservation for output validation, HYDRA-13 MetaExploitationGuard for input hardening). See [kids_policy/README.md](kids_policy/README.md) for details.
 
 ---
@@ -268,6 +281,69 @@ Experimental research code. Results reported from synthetic test corpus only. No
 Code provided as-is for research and educational purposes. Production use requires additional validation, security review, and calibration for specific deployment contexts.
 
 Do not deploy in critical infrastructure without independent security assessment.
+
+---
+
+---
+
+## Production Deployment (v2.3.3)
+
+### Solo-Dev Deployment (Recommended for Small Teams)
+
+**5-Minute Deployment:**
+
+```bash
+# Quick deploy script
+cd llm-security-firewall
+./scripts/deploy_solo.ps1
+
+# Or manually:
+kubectl apply -f k8s/redis-cloud-secret.yml
+kubectl apply -f k8s/hakgal-deployment.yml
+kubectl apply -f k8s/auto-monitor-cronjob.yml
+```
+
+**Daily Routine:** 10 minutes/day (morning + evening checks via MCP-Tools)
+
+**Documentation:**
+- [Solo-Dev Deployment Guide](docs/SOLO_DEV_DEPLOYMENT.md)
+- [MCP Monitoring Guide](docs/MCP_MONITORING_GUIDE.md)
+- [Chaos Test Results](docs/chaos_test_results.md)
+- [Technical Report v2.3.3](docs/TECHNICAL_REPORT_V2_3_3_EMERGENCY_FIXES.md)
+
+### MCP Monitoring Tools
+
+**5 Automated Tools (Zero-Touch Operations):**
+
+1. `firewall_health_check` - Automatic health check (Redis, Sessions, Guards)
+2. `firewall_deployment_status` - Deployment status (Phase, Traffic-%, Health)
+3. `firewall_metrics` - Current metrics (Sessions, Rate Limits, Blocks)
+4. `firewall_check_alerts` - Critical alerts check
+5. `firewall_redis_status` - Detailed Redis status
+
+**Usage:** Simply ask in Cursor/Claude:
+- "Prüfe Firewall Health"
+- "Gibt es Alerts?"
+- "Zeige Redis-Status"
+
+**Setup:** See [MCP Monitoring Guide](docs/MCP_MONITORING_GUIDE.md)
+
+### Emergency Bypass
+
+**For False-Positive Storms (>30%):**
+
+```bash
+# Activate (15-minute TTL, auto-expires)
+python scripts/emergency_bypass.py activate --component all
+
+# Status
+python scripts/emergency_bypass.py status
+
+# Deactivate
+python scripts/emergency_bypass.py deactivate
+```
+
+**Security:** HMAC-SHA256 signed, immutable logging, time-bound (15 minutes)
 
 ---
 

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "hak-gal-firewall-monitor": {
+      "command": "python",
+      "args": [
+        "-u",
+        "D:/MCP Mods/HAK_GAL_HEXAGONAL/standalone_packages/llm-security-firewall/mcp_firewall_monitor.py"
+      ],
+      "env": {
+        "REDIS_CLOUD_HOST": "redis-19088.c305.ap-south-1-1.ec2.cloud.redislabs.com",
+        "REDIS_CLOUD_PORT": "19088",
+        "REDIS_CLOUD_USERNAME": "default",
+        "REDIS_CLOUD_PASSWORD": "gOhioz4jSQyNLpXkueEZaAK7BlNZTBFX"
+      }
+    }
+  }
+}

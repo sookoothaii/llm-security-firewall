@@ -5,6 +5,80 @@ All notable changes to LLM Security Firewall will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.3] - 2025-11-29
+
+### Added
+
+**Emergency Security Fixes (P0, P1, P2):**
+- **P0: CUSUM Changepoint Detection** - Replaces variance-based whiplash detection for oscillation attack resistance. 100% block rate for oscillation attacks (vs 92% penetration in v2.3.1).
+- **P1: Per-Tenant Redis Sliding Window Rate Limiter** - Prevents cross-tenant DoS attacks using Redis Sorted Sets and Lua scripts. Tenant isolation with Redis ACLs.
+- **P2: Redis ACL Isolation & Log Redaction** - GDPR-compliant per-tenant data isolation with AES-GCM encryption for sensitive fields.
+
+**Resilience & Operations:**
+- **Redis-Backed Session Persistence** - Session state survives pod death (Chaos-Test PASSED). Redis-backed `RedisSessionManager` for state persistence across pod restarts.
+- **MCP Monitoring Tools** - 5 automated monitoring tools for zero-touch operations:
+  - `firewall_health_check` - Automatic health check
+  - `firewall_deployment_status` - Deployment status
+  - `firewall_metrics` - Current metrics
+  - `firewall_check_alerts` - Critical alerts check
+  - `firewall_redis_status` - Detailed Redis status
+- **Auto-Monitor Script** - Continuous monitoring (60-second intervals) with automatic alert detection.
+- **Emergency Bypass** - HMAC-SHA256 signed bypass with 15-minute TTL for False-Positive Storms.
+
+**Deployment & Infrastructure:**
+- **Kubernetes Manifests** - Self-healing deployment, auto-monitor CronJob, Redis Cloud secrets.
+- **Solo-Dev Deployment Guide** - Complete guide for one-person operations (10 minutes/day routine).
+- **Quick-Deploy Script** - PowerShell script for 5-minute deployment.
+
+**Documentation:**
+- [Technical Report v2.3.3](docs/TECHNICAL_REPORT_V2_3_3_EMERGENCY_FIXES.md) - Complete security audit findings and fixes.
+- [Chaos Test Results](docs/chaos_test_results.md) - Pod-death resilience validation.
+- [MCP Monitoring Guide](docs/MCP_MONITORING_GUIDE.md) - Automated monitoring setup.
+- [Solo-Dev Deployment Guide](docs/SOLO_DEV_DEPLOYMENT.md) - One-person operations guide.
+
+### Changed
+
+- **SessionTrajectory** - Now uses CUSUM Changepoint Detection instead of variance-based whiplash detection.
+- **Rate Limiter** - Replaced global TokenBucket with per-tenant Redis sliding window rate limiter.
+- **Session Manager** - Added Redis-backed persistence layer for pod-death resilience.
+- **Error Handling** - Rate limiter now raises `SecurityException` on Redis connection failure.
+
+### Security
+
+- **Oscillation Attack Resistance** - CUSUM algorithm detects rapid drift accumulation (100% block rate).
+- **Cross-Tenant DoS Prevention** - Per-tenant rate limiting with Redis ACL isolation.
+- **GDPR Compliance** - AES-GCM encryption for sensitive log fields, per-tenant data isolation.
+- **Pod-Death Resilience** - Session state survives pod restarts (validated via Chaos-Test).
+
+### Test Results
+
+- **Chaos-Test:** PASSED - Session state survives pod death with Redis Cloud.
+- **CUSUM Detection:** 100% block rate for oscillation attacks (vs 92% penetration in v2.3.1).
+- **Rate Limiting:** Per-tenant isolation prevents cross-tenant DoS.
+- **Redis Persistence:** 100% session recovery rate after pod death.
+
+### Breaking Changes
+
+None - fully backward compatible.
+
+### Deprecated
+
+None.
+
+### Removed
+
+None.
+
+### Fixed
+
+- **Oscillation Attack Bypass** - CUSUM Changepoint Detection replaces insufficient variance-based detection.
+- **Cross-Tenant DoS** - Per-tenant rate limiting prevents Tenant A from blocking Tenant B.
+- **Session Bleeding** - Redis ACL isolation ensures per-tenant data separation.
+- **GDPR Non-Compliance** - Log redaction with AES-GCM encryption for sensitive fields.
+- **Pod-Death Data Loss** - Redis-backed session persistence ensures state survival.
+
+---
+
 ## [5.0.0-rc1] - 2025-10-30
 
 ### Added

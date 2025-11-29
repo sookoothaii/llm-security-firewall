@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hakgal-auto-monitor
+  labels:
+    app: hakgal-firewall
+spec:
+  # Run every 60 seconds (adjust as needed)
+  schedule: "*/1 * * * *"  # Every minute
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid  # Don't run multiple instances
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: auto-monitor
+            image: hakgal/firewall:2.3.3  # Same image
+            command:
+            - python
+            - scripts/auto_monitor.py
+            env:
+            - name: MONITOR_INTERVAL
+              value: "60"
+            - name: REDIS_CLOUD_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: redis-cloud-secret
+                  key: host
+            - name: REDIS_CLOUD_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: redis-cloud-secret
+                  key: port
+            - name: REDIS_CLOUD_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: redis-cloud-secret
+                  key: username
+            - name: REDIS_CLOUD_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-cloud-secret
+                  key: password
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "50m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"

@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hakgal-firewall
+  labels:
+    app: hakgal-firewall
+    version: "2.3.3"
+spec:
+  replicas: 3  # Start with 3, scale to 10 after 72h
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: hakgal-firewall
+  template:
+    metadata:
+      labels:
+        app: hakgal-firewall
+        version: "2.3.3"
+    spec:
+      # Self-Healing: Always restart on failure
+      restartPolicy: Always
+
+      containers:
+      - name: hakgal-firewall
+        image: hakgal/firewall:2.3.3  # Replace with your registry
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+
+        env:
+        - name: REDIS_CLOUD_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-cloud-secret
+              key: host
+        - name: REDIS_CLOUD_PORT
+          valueFrom:
+            secretKeyRef:
+              name: redis-cloud-secret
+              key: port
+        - name: REDIS_CLOUD_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: redis-cloud-secret
+              key: username
+        - name: REDIS_CLOUD_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-cloud-secret
+              key: password
+        - name: AUDIT_LEVEL
+          value: "FULL"  # Full logging for first 72h
+        - name: ENABLE_INBOUND_VECTOR
+          value: "true"
+        - name: ENABLE_RATE_LIMITING
+          value: "true"
+        - name: ENABLE_SESSION_PERSISTENCE
+          value: "true"
+
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+
+        # Graceful shutdown
+        terminationGracePeriodSeconds: 30
+metadata:
+  name: hakgal-firewall
+  labels:
+    app: hakgal-firewall
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: hakgal-firewall
+  sessionAffinity: ClientIP  # Sticky sessions for first 2 weeks
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
