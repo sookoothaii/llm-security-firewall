@@ -466,16 +466,19 @@ class AgenticCampaignDetector:
         operator_report: Dict[str, Any] = {}
         operator_risk = 0.0
         if operator_id and tool_events:
-            # Check budget for latest event
-            latest_event = tool_events[-1]
-            budget, operator_report = check_operator_budget(
-                operator_id,
-                latest_event,
-                session_id,
-                self.operator_budgets,
-            )
-            # Calculate operator risk from budget
-            operator_risk = get_operator_risk_score(budget)
+            # Process all events to accumulate budget correctly
+            # (not just the last one, as budget needs to track all events)
+            budget = None
+            for event in tool_events:
+                budget, operator_report = check_operator_budget(
+                    operator_id,
+                    event,
+                    session_id,
+                    self.operator_budgets,
+                )
+            # Calculate operator risk from final budget state
+            if budget:
+                operator_risk = get_operator_risk_score(budget)
 
         # 3. Campaign Graph Analysis
         campaign_graph, campaign_report = detect_multi_target_campaign(
