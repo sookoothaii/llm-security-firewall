@@ -1,4 +1,9 @@
-# Development dependencies
+# Development dependencies (OPTIONAL - not required for runtime operation)
+# These are only needed for development, testing, and code quality checks.
+# For production installation, use requirements.txt instead.
+#
+# To install runtime dependencies only: pip install -r requirements.txt
+# To install with dev dependencies: pip install -r requirements-dev.txt
 pytest>=7.4.0
 pytest-cov>=4.1.0
 ruff>=0.7.0

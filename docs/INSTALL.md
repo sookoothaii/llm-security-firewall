@@ -25,11 +25,15 @@ python -m venv venv
 # Activate (Linux/Mac)
 source venv/bin/activate
 
-# Install package in editable mode
+# Install package in editable mode (runtime dependencies only)
 pip install -e .
 
-# Or install dependencies manually
+# Or install dependencies manually (runtime dependencies only)
 pip install -r requirements.txt
+
+# NOTE: The above commands install ONLY runtime dependencies required for operation.
+# For development dependencies (pytest, ruff, mypy, etc.), use:
+# pip install -r requirements-dev.txt
 ```text
 ### 3. Database Setup
 
@@ -130,4 +134,3 @@ pip install blake3
 - GitHub Issues: [llm-security-firewall/issues](https://github.com/sookoothaii/llm-security-firewall/issues)
 - Documentation: `/docs`
 - Examples: `/examples`
-

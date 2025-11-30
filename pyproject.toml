@@ -41,6 +41,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Development dependencies (OPTIONAL - not required for runtime operation)
+# Install with: pip install -e .[dev]
+# Or use: pip install -r requirements-dev.txt
 dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",

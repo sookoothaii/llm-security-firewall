@@ -1,6 +1,11 @@
-# LLM Security Firewall - Requirements
+# LLM Security Firewall - Runtime Requirements (Production)
 # Version: 1.0.0
 # Python: >=3.12
+#
+# NOTE: This file contains ONLY runtime dependencies required for operation.
+# For development dependencies (pytest, ruff, mypy, etc.), see requirements-dev.txt
+# To install runtime dependencies only: pip install -r requirements.txt
+# To install with dev dependencies: pip install -r requirements-dev.txt
 
 # Core dependencies
 numpy>=1.24.0
