@@ -14,7 +14,7 @@ License: MIT
 
 import re
 from dataclasses import dataclass
-from typing import Dict, Pattern
+from typing import Dict, Pattern, List
 
 
 @dataclass
@@ -299,6 +299,11 @@ class RobustPatternMatcher:
         Returns:
             First PatternMatch found, or no match
         """
+        # First check for concatenated patterns (evasion technique)
+        concatenated_match = self._match_concatenated(text)
+        if concatenated_match.matched:
+            return concatenated_match
+
         # Check intent first (higher priority)
         intent_match = self.match_intent(text)
         if intent_match.matched:
@@ -310,3 +315,128 @@ class RobustPatternMatcher:
             return evasion_match
 
         return PatternMatch(matched=False, pattern_name="none")
+
+    def _match_concatenated(self, text: str) -> PatternMatch:
+        """
+        Check for concatenated patterns (e.g., 's' + 'k' + '-' + 'live').
+
+        Args:
+            text: Text to check
+
+        Returns:
+            PatternMatch if concatenated pattern found
+        """
+        # Common patterns that might be concatenated
+        suspicious_patterns = [
+            "sk-live",
+            "api-key",
+            "secret",
+            "password",
+            "token",
+            "ssh-key",
+            "private-key",
+            "access-token",
+        ]
+
+        for pattern in suspicious_patterns:
+            if detect_concatenated_pattern(text, pattern):
+                return PatternMatch(
+                    matched=True,
+                    pattern_name=f"concatenated_{pattern}",
+                    matched_text=pattern,
+                    category="evasion",
+                )
+
+        return PatternMatch(matched=False, pattern_name="none")
+
+
+# Concatenation-aware pattern matching functions
+
+
+def detect_concatenated_pattern(text: str, pattern: str) -> bool:
+    """
+    Detect patterns even when split by concatenation.
+
+    Example: "s" + "k" + "-" + "live" should match "sk-live"
+
+    Args:
+        text: Text to search in
+        pattern: Pattern to find (e.g., "sk-live")
+
+    Returns:
+        True if pattern is found (even if concatenated)
+    """
+    # Remove common concatenation operators and string delimiters
+    # Pattern: 's' + 'k' + '-' + 'live' -> 'sk-live'
+    cleaned = re.sub(r"['\"]\s*\+\s*['\"]", "", text)  # Remove ' + ' or " + "
+    cleaned = re.sub(r"['\"]", "", cleaned)  # Remove remaining quotes
+    cleaned = re.sub(r"\s*\+\s*", "", cleaned)  # Remove standalone +
+    cleaned = re.sub(r"\s*&\s*", "", cleaned)  # Remove &
+    cleaned = re.sub(r"\s*\|\s*", "", cleaned)  # Remove |
+    cleaned = re.sub(r"\s+", "", cleaned)  # Remove whitespace
+
+    # Check if pattern exists in cleaned text
+    return pattern.lower() in cleaned.lower()
+
+
+def build_concatenation_aware_regex(pattern: str) -> Pattern:
+    """
+    Build regex that accounts for various concatenation methods.
+
+    Args:
+        pattern: Pattern to match (e.g., "sk-live")
+
+    Returns:
+        Compiled regex pattern
+    """
+    # Escape the pattern for regex
+    escaped = re.escape(pattern)
+
+    # Create regex that allows for various separators
+    regex_parts = []
+    for char in pattern:
+        if char.isalnum():
+            # Allow characters to be split by various separators
+            regex_parts.append(f"{re.escape(char)}")
+        else:
+            regex_parts.append(f"{re.escape(char)}")
+
+    # Join with optional separators (zero-width, whitespace, punctuation)
+    regex_str = r"\s*[+\'\"&|]*\s*".join(regex_parts)
+
+    # Also match the plain pattern
+    final_regex = f"({regex_str}|{re.escape(pattern)})"
+
+    return re.compile(final_regex, re.IGNORECASE)
+
+
+def find_evasive_patterns(text: str, patterns: List[str]) -> List[str]:
+    """
+    Find evasively encoded patterns in text.
+
+    Args:
+        text: Text to search in
+        patterns: List of patterns to find
+
+    Returns:
+        List of found patterns (with detection method annotation)
+    """
+    found = []
+
+    for pattern in patterns:
+        # Direct match
+        if pattern.lower() in text.lower():
+            found.append(pattern)
+            continue
+
+        # Concatenated match
+        if detect_concatenated_pattern(text, pattern):
+            found.append(f"{pattern} (concatenated)")
+            continue
+
+        # Regex match for complex evasion
+        regex = build_concatenation_aware_regex(pattern)
+        if regex.search(text):
+            found.append(f"{pattern} (regex match)")
+
+    return found

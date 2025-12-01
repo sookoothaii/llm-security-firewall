@@ -36,9 +36,49 @@ class NormalizationLayer:
         """
         self.max_decode_depth = max_decode_depth
 
+    def _remove_stealth_chars(self, text: str) -> str:
+        """
+        Remove stealth characters used for bypassing.
+
+        Removes zero-width characters and directional overrides that can be used
+        to evade pattern matching (e.g., sk-\\u200blive-\\u200b...).
+
+        Args:
+            text: Input text potentially containing stealth characters
+
+        Returns:
+            Text with stealth characters removed
+        """
+        import re
+        import unicodedata
+
+        # Zero-width characters
+        zero_width_pattern = re.compile(
+            r"[\u200b\u200c\u200d\u2060\u2061\u2062\u2063\u2064\uFEFF]+"
+        )
+
+        # RTL/LTR override characters
+        directional_override = re.compile(
+            r"[\u202a\u202b\u202c\u202d\u202e\u2066\u2067\u2068\u2069]+"
+        )
+
+        # Step 1: Remove zero-width characters
+        text = zero_width_pattern.sub("", text)
+
+        # Step 2: Remove RTL/LTR override characters
+        text = directional_override.sub("", text)
+
+        # Step 3: Normalize Unicode (NFKC)
+        try:
+            text = unicodedata.normalize("NFKC", text)
+        except Exception:
+            pass
+
+        return text
+
     def normalize(self, text: str) -> Tuple[str, float]:
         """
-        Normalize input text by recursively decoding URL/percent encoding and Base64.
+        Normalize input text by removing stealth chars and recursively decoding URL/percent encoding and Base64.
 
         Args:
             text: Input text (may contain encoded sequences)
@@ -50,6 +90,9 @@ class NormalizationLayer:
         """
         if not text:
             return text, 0.0
+
+        # Apply stealth character removal first
+        text = self._remove_stealth_chars(text)
 
         import base64
 

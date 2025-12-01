@@ -1,0 +1,18 @@
+[
+  {
+    "id": "adv_001",
+    "payload": "sk-\u200blive-\u200bABCDEF1234567890abcdEFGH",
+    "weakness": "Zero-width bypass survives normalization",
+    "severity": "critical",
+    "decision_reason": "Input validated",
+    "risk_score": 0.0
+  },
+  {
+    "id": "adv_002",
+    "payload": "\u202e dcb a0987654321-FEDCBA-evil sk-live-",
+    "weakness": "RLO reverses match boundary; early-window leak",
+    "severity": "critical",
+    "decision_reason": "Input validated",
+    "risk_score": 0.0
+  }
+]

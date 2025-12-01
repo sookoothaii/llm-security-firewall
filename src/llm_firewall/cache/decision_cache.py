@@ -20,6 +20,7 @@ import json
 import hashlib
 import logging
 import os
+import time
 from typing import Optional, Dict, Any
 
 try:
@@ -51,6 +52,27 @@ logger = logging.getLogger(__name__)
 
 # Global TenantRedisPool instance (set by initialization)
 _redis_pool: Optional[Any] = None
+
+# Adapter health monitoring (P0 - Circuit Breaker Pattern)
+try:
+    from llm_firewall.core.adapter_health import AdapterHealth
+
+    HAS_ADAPTER_HEALTH = True
+except ImportError:
+    HAS_ADAPTER_HEALTH = False
+    AdapterHealth = None  # type: ignore
+
+# Global health monitors
+if HAS_ADAPTER_HEALTH and AdapterHealth is not None:
+    _redis_health = AdapterHealth(
+        "redis_cache", failure_threshold=3, recovery_timeout=30.0
+    )
+    _langcache_health = AdapterHealth(
+        "langcache", failure_threshold=2, recovery_timeout=30.0
+    )
+else:
+    _redis_health = None  # type: ignore
+    _langcache_health = None  # type: ignore
 
 
 def _get_redis_pool():
@@ -118,13 +140,13 @@ async def _get_cached_async(tenant_id: str, text: str) -> Optional[Dict[str, Any
 
     Args:
         tenant_id: Tenant identifier
-        text: Normalized text
+        text: Normalized text (after Layer 0.25)
 
     Returns:
-        Cached decision dict or None
+        Cached decision dict or None (fail-open on cache errors)
     """
-    if not HAS_REDIS:
-        return None
+    if not tenant_id or not tenant_id.strip():
+        tenant_id = "default"
 
     try:
         redis_pool = _get_redis_pool()
@@ -135,7 +157,7 @@ async def _get_cached_async(tenant_id: str, text: str) -> Optional[Dict[str, Any
             # Fallback to REDIS_URL or REDIS_CLOUD_* env vars
             redis_url = os.getenv("REDIS_URL")
             if redis_url:
-                client = redis.from_url(
+                client = redis_async.from_url(
                     redis_url, socket_timeout=0.1, decode_responses=False
                 )
             else:
@@ -155,7 +177,7 @@ async def _get_cached_async(tenant_id: str, text: str) -> Optional[Dict[str, Any
                 if not redis_host or not redis_password:
                     return None
 
-                client = redis.Redis(
+                client = redis_async.Redis(
                     host=redis_host,
                     port=redis_port,
                     username=redis_username,
@@ -170,30 +192,35 @@ async def _get_cached_async(tenant_id: str, text: str) -> Optional[Dict[str, Any
             # Handle both bytes and str
             if isinstance(raw, bytes):
                 raw = raw.decode("utf-8")
-            return json.loads(raw)
+            decision = json.loads(raw)
+            logger.debug(f"[Redis] Exact HIT (async) for tenant {tenant_id}")
+            return decision
         return None
     except RedisError as e:
-        logger.info("Redis cache miss (RedisError): %s", str(e)[:100])
+        logger.debug("Redis cache miss (RedisError): %s", str(e)[:100])
         return None
     except Exception as e:
-        logger.debug("Redis cache miss (Exception): %s", str(e)[:100])
+        logger.debug("Async cache get failed: %s", str(e)[:100])
         return None
 
 
 async def _set_cached_async(
-    tenant_id: str, text: str, decision: Dict[str, Any], ttl: int = 3600
+    tenant_id: str, text: str, decision: Dict[str, Any], ttl: Optional[int] = None
 ) -> None:
     """
     Async implementation of set_cached.
 
     Args:
         tenant_id: Tenant identifier
-        text: Normalized text
+        text: Normalized text (after Layer 0.25)
         decision: Decision dict to cache
-        ttl: Time-to-live in seconds (default: 3600)
+        ttl: Time-to-live in seconds (default: 3600, or REDIS_TTL env var)
     """
-    if not HAS_REDIS:
-        return
+    if not tenant_id or not tenant_id.strip():
+        tenant_id = "default"
+
+    if ttl is None:
+        ttl = int(os.getenv("REDIS_TTL", "3600"))
 
     try:
         redis_pool = _get_redis_pool()
@@ -204,7 +231,7 @@ async def _set_cached_async(
             # Fallback to REDIS_URL or REDIS_CLOUD_* env vars
             redis_url = os.getenv("REDIS_URL")
             if redis_url:
-                client = redis.from_url(
+                client = redis_async.from_url(
                     redis_url, socket_timeout=0.1, decode_responses=False
                 )
             else:
@@ -224,7 +251,7 @@ async def _set_cached_async(
                 if not redis_host or not redis_password:
                     return
 
-                client = redis.Redis(
+                client = redis_async.Redis(
                     host=redis_host,
                     port=redis_port,
                     username=redis_username,
@@ -304,9 +331,16 @@ def get_hybrid_cached(tenant_id: str, text: str) -> Optional[Dict[str, Any]]:
 
 
 def _get_exact_cached(tenant_id: str, text: str) -> Optional[Dict[str, Any]]:
-    """Get cached decision using exact match (Redis)."""
+    """Get cached decision using exact match (Redis) with circuit breaker."""
     if not HAS_REDIS:
         return None
+
+    # Check circuit breaker
+    if _redis_health and not _redis_health.should_attempt():
+        logger.warning("Redis cache circuit breaker OPEN, failing open")
+        return None
+
+    start_time = time.perf_counter()
 
     try:
         # Get Redis client (sync)
@@ -325,7 +359,9 @@ def _get_exact_cached(tenant_id: str, text: str) -> Optional[Dict[str, Any]]:
         else:
             # Try REDIS_CLOUD_* env vars
             redis_host = os.getenv("REDIS_CLOUD_HOST") or os.getenv("REDIS_HOST")
-            redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
+            redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv(
+                "REDIS_PORT", "6379"
+            )
             redis_port = int(redis_port_str) if redis_port_str else 6379
             redis_username = os.getenv("REDIS_CLOUD_USERNAME") or os.getenv(
                 "REDIS_USERNAME"
@@ -357,13 +393,37 @@ def _get_exact_cached(tenant_id: str, text: str) -> Optional[Dict[str, Any]]:
                 raw = raw.decode("utf-8")
             decision = json.loads(raw)
             logger.debug(f"[Redis] Exact HIT for tenant {tenant_id}")
+
+            # Record successful request
+            if _redis_health:
+                latency_ms = (time.perf_counter() - start_time) * 1000
+                _redis_health.record_request(latency_ms, success=True)
+
             return decision
+
+        # Cache miss (not an error)
+        if _redis_health:
+            latency_ms = (time.perf_counter() - start_time) * 1000
+            _redis_health.record_request(latency_ms, success=True)
+
         return None
     except RedisError as e:
         logger.debug("Redis cache miss (RedisError): %s", str(e)[:100])
+
+        # Record failed request
+        if _redis_health:
+            latency_ms = (time.perf_counter() - start_time) * 1000
+            _redis_health.record_request(latency_ms, success=False)
+
         return None
     except Exception as e:
         logger.debug("Exact cache get failed: %s", str(e)[:100])
+
+        # Record failed request
+        if _redis_health:
+            latency_ms = (time.perf_counter() - start_time) * 1000
+            _redis_health.record_request(latency_ms, success=False)
+
         return None
 
 
@@ -388,7 +448,7 @@ def set_hybrid_cached(
     tenant_id: str, text: str, decision: Dict[str, Any], ttl: Optional[int] = None
 ) -> None:
     """
-    Store decision in both exact and semantic caches (hybrid mode).
+    Store decision in both exact and semantic caches (hybrid mode) with circuit breaker.
 
     Strategy:
     - If CACHE_MODE=exact: Write to Redis only
@@ -404,46 +464,53 @@ def set_hybrid_cached(
     if not tenant_id or not tenant_id.strip():
         tenant_id = "default"
 
+    if ttl is None:
+        ttl = int(os.getenv("REDIS_TTL", "3600"))
+
     cache_mode = _get_cache_mode()
 
     # Write to exact cache (Redis) if mode is exact or hybrid
     if cache_mode in ("exact", "hybrid"):
-        try:
-            _set_exact_cached(tenant_id, text, decision, ttl)
-        except Exception as e:
-            logger.debug(f"[Hybrid Cache] Exact cache write error (fail-open): {e}")
-            # Fail-open: Continue to semantic cache
+        start_time = time.perf_counter()
+
+        # Check circuit breaker
+        if _redis_health and not _redis_health.should_attempt():
+            logger.warning("Redis cache circuit breaker OPEN, skipping set")
+        else:
+            try:
+                _set_exact_cached(tenant_id, text, decision, ttl)
+
+                # Record successful request
+                if _redis_health:
+                    latency_ms = (time.perf_counter() - start_time) * 1000
+                    _redis_health.record_request(latency_ms, success=True)
+            except Exception as e:
+                logger.debug(f"Redis cache set error (fail-open): {e}")
+
+                # Record failed request
+                if _redis_health:
+                    latency_ms = (time.perf_counter() - start_time) * 1000
+                    _redis_health.record_request(latency_ms, success=False)
+                # Fail-open: Continue to semantic cache
 
     # Write to semantic cache (LangCache) if mode is semantic or hybrid
     if cache_mode in ("semantic", "hybrid") and _use_semantic_cache():
         try:
             set_semantic_cached(text, decision, tenant_id, ttl)
         except Exception as e:
-            logger.debug(f"[Hybrid Cache] Semantic cache write error (fail-open): {e}")
-            # Fail-open: Continue without caching
+            logger.debug(f"LangCache set error (fail-open): {e}")
+            # Fail-open: Don't raise exception
 
 
 def _set_exact_cached(
-    tenant_id: str, text: str, decision: Dict[str, Any], ttl: Optional[int] = None
+    tenant_id: str, text: str, decision: Dict[str, Any], ttl: int
 ) -> None:
-    """Store decision using exact match (Redis)."""
+    """Set cached decision using exact match (Redis)."""
     if not HAS_REDIS:
         return
 
-    # Get TTL from env or use default
-    if ttl is None:
-        ttl_str = os.getenv("REDIS_TTL", "3600")
-        ttl = int(ttl_str) if ttl_str else 3600
-
     try:
         # Get Redis client (sync)
-        redis_pool = _get_redis_pool()
-        if redis_pool:
-            # Use TenantRedisPool - need to get sync client
-            # For now, fall back to direct connection
-            pass
-
-        # Try REDIS_URL or REDIS_CLOUD_* env vars
         redis_url = os.getenv("REDIS_URL")
         if redis_url:
             client = redis.from_url(
@@ -452,7 +519,9 @@ def _set_exact_cached(
         else:
             # Try REDIS_CLOUD_* env vars
             redis_host = os.getenv("REDIS_CLOUD_HOST") or os.getenv("REDIS_HOST")
-            redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
+            redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv(
+                "REDIS_PORT", "6379"
+            )
             redis_port = int(redis_port_str) if redis_port_str else 6379
             redis_username = os.getenv("REDIS_CLOUD_USERNAME") or os.getenv(
                 "REDIS_USERNAME"
@@ -464,24 +533,39 @@ def _set_exact_cached(
             if not redis_host or not redis_password:
                 return
 
-            # Use sync Redis client (not async)
-            # Increased timeout for Redis Cloud (network latency)
             client = redis.Redis(
                 host=redis_host,
                 port=redis_port,
                 username=redis_username,
                 password=redis_password,
                 decode_responses=False,
-                socket_timeout=1.0,  # 1s timeout for Redis Cloud
+                socket_timeout=1.0,
                 socket_connect_timeout=2.0,
             )
 
         key = _key(tenant_id, text)
         value = json.dumps(decision)
         client.setex(key, ttl, value)
-        logger.debug(f"[Redis] Stored exact decision for tenant {tenant_id}")
+        logger.debug(f"[Redis] Cached decision for tenant {tenant_id}")
     except RedisError as e:
         logger.debug("Redis cache write failed (RedisError): %s", str(e)[:100])
+        raise
     except Exception as e:
         logger.debug("Exact cache set failed: %s", str(e)[:100])
-        # Fail-open: Continue even if cache write fails
+        raise
+
+
+def get_cache_health() -> Dict[str, Any]:
+    """
+    Get cache health metrics (for monitoring endpoint).
+
+    Returns:
+        Dictionary with health metrics for Redis and LangCache adapters.
+    """
+    return {
+        "redis": _redis_health.get_health_metrics() if _redis_health else None,
+        "langcache": _langcache_health.get_health_metrics()
+        if _langcache_health
+        else None,
+        "timestamp": time.time(),
+    }

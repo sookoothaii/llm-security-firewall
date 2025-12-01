@@ -372,12 +372,51 @@ class FirewallEngineV2:
                 # Fail-open: Continue if Kids Policy fails (could be made fail-closed)
                 # For now, we continue to allow the input
 
+        # Calculate base risk score from unicode flags and encoding anomalies
+        base_risk_score = 0.0
+
+        # Zero-width characters indicate evasion attempts
+        if unicode_flags.get("has_zero_width", False) or unicode_flags.get(
+            "zero_width_removed", False
+        ):
+            base_risk_score += 0.6
+            logger.warning("[Risk] Zero-width characters detected - evasion attempt")
+
+        # RTL/LTR override characters indicate obfuscation
+        if (
+            unicode_flags.get("has_bidi", False)
+            or unicode_flags.get("has_directional_override", False)
+            or unicode_flags.get("bidi_detected", False)
+        ):
+            base_risk_score += 0.5
+            logger.warning(
+                "[Risk] Bidi/directional override detected - obfuscation attempt"
+            )
+
+        # Encoding anomalies increase risk
+        base_risk_score += encoding_anomaly_score * 0.3
+
+        # Check for concatenated patterns (API keys, secrets, etc.)
+        try:
+            from llm_firewall.rules.patterns import detect_concatenated_pattern
+
+            suspicious_patterns = ["sk-live", "api-key", "secret", "password", "token"]
+            for pattern in suspicious_patterns:
+                if detect_concatenated_pattern(clean_text, pattern):
+                    base_risk_score += 0.5
+                    logger.warning(f"[Risk] Concatenated pattern detected: {pattern}")
+                    break  # Only count once
+        except Exception:
+            pass  # Fail-open if concatenation check fails
+
         # Input is allowed (passed all layers)
         decision = FirewallDecision(
-            allowed=True,
-            reason="Input validated",
+            allowed=True if base_risk_score < 0.7 else False,  # Block if risk too high
+            reason="Input validated"
+            if base_risk_score < 0.7
+            else "High risk from unicode obfuscation",
             sanitized_text=clean_text,
-            risk_score=0.0,
+            risk_score=base_risk_score,
             metadata={
                 "unicode_flags": unicode_flags,
                 "encoding_anomaly_score": encoding_anomaly_score,
