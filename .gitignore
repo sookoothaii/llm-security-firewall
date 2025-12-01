@@ -106,6 +106,8 @@ fpr_benign_repo.json
 rc8_bypass_validation.json
 aggregate_multiseed_*.json
 test_compare_mock.json
+docs/cache_benchmark.md
+docs/*_benchmark*.md
 
 # Local test scripts with credentials (not for GitHub)
 scripts/test_langcache_connection.py
