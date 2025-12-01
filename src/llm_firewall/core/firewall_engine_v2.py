@@ -7,6 +7,8 @@ Integrates Protocol HEPHAESTUS (Tool Security) for tool call validation.
 
 Architecture:
 - Layer 0: UnicodeSanitizer (Input sanitization)
+- Layer 0.25: NormalizationLayer (Recursive URL/percent decoding)
+- Layer 0.5: RegexGate (Fast-fail pattern matching)
 - Layer 1: Input Analysis (Optional: Kids Policy, Semantic Guard)
 - Layer 2: Tool Inspection (HEPHAESTUS - Tool Call Validation)
 - Layer 3: Output Validation (Optional: Truth Preservation)
@@ -46,9 +48,39 @@ except ImportError:
     UnicodeSanitizer = None
     HakGalFirewall_v2 = None
 
+# Import NormalizationLayer for recursive URL decoding (Layer 0.25)
+try:
+    from hak_gal.layers.inbound.normalization_layer import NormalizationLayer
+
+    HAS_NORMALIZATION_LAYER = True
+except ImportError:
+    HAS_NORMALIZATION_LAYER = False
+    NormalizationLayer = None
+
+# Import RegexGate for fast-fail pattern matching (Layer 0.5)
+try:
+    from hak_gal.layers.inbound.regex_gate import RegexGate
+    from hak_gal.core.exceptions import SecurityException
+
+    HAS_REGEX_GATE = True
+except ImportError:
+    HAS_REGEX_GATE = False
+    RegexGate = None
+    SecurityException = None
+
 # Import Protocol HEPHAESTUS components
 from llm_firewall.detectors.tool_call_extractor import ToolCallExtractor
 from llm_firewall.detectors.tool_call_validator import ToolCallValidator
+
+# Import Decision Cache (optional, fail-open)
+try:
+    from llm_firewall.cache.decision_cache import get_cached, set_cached
+
+    HAS_DECISION_CACHE = True
+except ImportError:
+    HAS_DECISION_CACHE = False
+    get_cached = None  # type: ignore
+    set_cached = None  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -87,6 +119,8 @@ class FirewallEngineV2:
 
     Architecture:
     - Layer 0: UnicodeSanitizer (Input sanitization)
+    - Layer 0.25: NormalizationLayer (Recursive URL/percent decoding)
+    - Layer 0.5: RegexGate (Fast-fail pattern matching)
     - Layer 1: Input Analysis (Optional: Kids Policy, Semantic Guard)
     - Layer 2: Tool Inspection (HEPHAESTUS - Tool Call Validation)
     - Layer 3: Output Validation (Optional: Truth Preservation)
@@ -125,6 +159,26 @@ class FirewallEngineV2:
             self.sanitizer = None
             logger.warning(
                 "UnicodeSanitizer not available. Input sanitization disabled."
+            )
+
+        # Layer 0.25: NormalizationLayer - Recursive URL/percent decoding
+        if HAS_NORMALIZATION_LAYER and NormalizationLayer is not None:
+            self.normalization_layer = NormalizationLayer(max_decode_depth=3)
+            logger.info("NormalizationLayer initialized (Layer 0.25)")
+        else:
+            self.normalization_layer = None
+            logger.warning(
+                "NormalizationLayer not available. URL decoding normalization disabled."
+            )
+
+        # Layer 0.5: RegexGate - Fast-fail pattern matching for command injection, jailbreaks, etc.
+        if HAS_REGEX_GATE and RegexGate is not None:
+            self.regex_gate = RegexGate()
+            logger.info("RegexGate initialized (Layer 0.5)")
+        else:
+            self.regex_gate = None
+            logger.warning(
+                "RegexGate not available. Fast-fail pattern matching disabled."
             )
 
         # Protocol HEPHAESTUS: Tool Call Extractor
@@ -196,6 +250,87 @@ class FirewallEngineV2:
                 )
                 clean_text = text
 
+        # Layer 0.25: NormalizationLayer - Recursive URL/percent decoding
+        encoding_anomaly_score = 0.0
+        if self.normalization_layer:
+            try:
+                clean_text, encoding_anomaly_score = self.normalization_layer.normalize(
+                    clean_text
+                )
+                if encoding_anomaly_score > 0.0:
+                    logger.warning(
+                        f"[Layer 0.25] Encoding anomaly detected: score={encoding_anomaly_score:.2f}"
+                    )
+                    # If encoding anomaly is high, boost risk score
+                    if encoding_anomaly_score > 0.5:
+                        # High anomaly = suspicious, but don't block yet (let RegexGate check)
+                        logger.warning(
+                            f"[Layer 0.25] High encoding anomaly ({encoding_anomaly_score:.2f}) - "
+                            "normalized text will be checked by RegexGate"
+                        )
+            except Exception as e:
+                logger.warning(
+                    f"[Layer 0.25] NormalizationLayer error: {e}. Using previous text."
+                )
+
+        # Cache Layer: Check for cached decision (after normalization, before RegexGate)
+        tenant_id = kwargs.get("tenant_id", "default")
+        if HAS_DECISION_CACHE and get_cached:
+            try:
+                cached = get_cached(tenant_id, clean_text)
+                if cached:
+                    logger.debug(f"[Cache] HIT for tenant {tenant_id}")
+                    # Reconstruct FirewallDecision from cached dict
+                    return FirewallDecision(
+                        allowed=cached.get("allowed", True),
+                        reason=cached.get("reason", "Cached decision"),
+                        sanitized_text=cached.get("sanitized_text"),
+                        risk_score=cached.get("risk_score", 0.0),
+                        detected_threats=cached.get("detected_threats", []),
+                        metadata=cached.get("metadata", {}),
+                    )
+            except Exception as e:
+                logger.debug(f"[Cache] Check failed (fail-open): {e}")
+                # Fail-open: Continue with full pipeline
+
+        # Layer 0.5: RegexGate - Fast-fail pattern matching (command injection, jailbreaks, etc.)
+        if self.regex_gate:
+            try:
+                self.regex_gate.check(clean_text)
+                logger.debug("[Layer 0.5] RegexGate: PASSED")
+            except SecurityException as e:
+                # Fast-fail: Block immediately on pattern match
+                logger.warning(
+                    f"[Layer 0.5] BLOCKED by RegexGate: {e.message} (threat: {e.metadata.get('threat_name', 'unknown')})"
+                )
+                return FirewallDecision(
+                    allowed=False,
+                    reason=f"RegexGate: {e.message}",
+                    sanitized_text=None,
+                    risk_score=min(
+                        1.0, 0.65 + encoding_anomaly_score * 0.35
+                    ),  # Boost if encoding anomaly
+                    detected_threats=[
+                        e.metadata.get("threat_name", "REGEX_GATE_VIOLATION")
+                    ],
+                    metadata={
+                        "regex_gate_violation": e.metadata,
+                        "unicode_flags": unicode_flags,
+                        "encoding_anomaly_score": encoding_anomaly_score,
+                    },
+                )
+            except Exception as e:
+                logger.error(f"[Layer 0.5] RegexGate error: {e}", exc_info=True)
+                # Fail-closed: Block on error (security first)
+                return FirewallDecision(
+                    allowed=False,
+                    reason=f"RegexGate error: {str(e)}",
+                    sanitized_text=None,
+                    risk_score=1.0,
+                    detected_threats=["REGEX_GATE_ERROR"],
+                    metadata={"unicode_flags": unicode_flags},
+                )
+
         # Layer 1: Kids Policy Engine (v2.1.0-HYDRA) - Input Validation
         if self.kids_policy:
             try:
@@ -238,13 +373,37 @@ class FirewallEngineV2:
                 # For now, we continue to allow the input
 
         # Input is allowed (passed all layers)
-        return FirewallDecision(
+        decision = FirewallDecision(
             allowed=True,
             reason="Input validated",
             sanitized_text=clean_text,
             risk_score=0.0,
-            metadata={"unicode_flags": unicode_flags},
+            metadata={
+                "unicode_flags": unicode_flags,
+                "encoding_anomaly_score": encoding_anomaly_score,
+            },
         )
+
+        # Cache Layer: Store decision for future requests (fail-open)
+        tenant_id = kwargs.get("tenant_id", "default")
+        if HAS_DECISION_CACHE and set_cached:
+            try:
+                # Convert FirewallDecision to dict for caching
+                decision_dict = {
+                    "allowed": decision.allowed,
+                    "reason": decision.reason,
+                    "sanitized_text": decision.sanitized_text,
+                    "risk_score": decision.risk_score,
+                    "detected_threats": decision.detected_threats or [],
+                    "metadata": decision.metadata or {},
+                }
+                set_cached(tenant_id, clean_text, decision_dict)
+                logger.debug(f"[Cache] Stored decision for tenant {tenant_id}")
+            except Exception as e:
+                logger.debug(f"[Cache] Store failed (fail-open): {e}")
+                # Fail-open: Continue even if cache write fails
+
+        return decision
 
     def process_output(
         self,

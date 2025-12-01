@@ -27,8 +27,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+# Add src to path (scripts/ is in parent directory)
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 try:
     import redis.asyncio as redis
@@ -308,7 +308,7 @@ class FirewallMonitorMCPServer:
 
     async def _deployment_status(self) -> Dict:
         """Deployment-Status abrufen"""
-        status_file = Path(__file__).parent / "deploy" / "deployment_status.json"
+        status_file = Path(__file__).parent.parent / "deploy" / "deployment_status.json"
 
         if status_file.exists():
             with open(status_file, "r") as f:

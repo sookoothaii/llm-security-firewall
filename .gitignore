@@ -97,6 +97,11 @@ rc8_bypass_validation.json
 aggregate_multiseed_*.json
 test_compare_mock.json
 
+# Local test scripts with credentials (not for GitHub)
+scripts/test_langcache_connection.py
+scripts/test_langcache_sdk.py
+scripts/test_redis_connection.py
+
 # Large model files (use Git LFS or external storage)
 models/**/*.safetensors
 models/**/*.onnx

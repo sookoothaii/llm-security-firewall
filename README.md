@@ -16,11 +16,11 @@ The "Electronic Stability Program" (ESP) for Large Language Models
 
 HAK_GAL translates the chaotic, drifting nature of LLMs into deterministic, verifiable safety constraints.
 
-## 🏛️ Executive Summary
+## Executive Summary
 
 HAK_GAL (Heterogeneous Agent Knowledge / Guarding & Alignment Layer) is a stateful, bidirectional containment system designed for high-parameter LLMs (GPT-4, Claude 3.5, DeepSeek).
 
-Traditional firewalls treat LLMs as search engines. HAK_GAL treats them as psychologically unstable entities. It addresses the "Blind Will" of the model—its tendency to hallucinate, drift, and be socially engineered—by imposing a mathematical "Representation" of order.
+The system addresses model instability through mathematical constraints and stateful tracking. It implements a defense-in-depth architecture with multiple validation layers.
 
 **v2.3.4 Capabilities:**
 
@@ -32,33 +32,31 @@ Traditional firewalls treat LLMs as search engines. HAK_GAL treats them as psych
 
 - **Solo-Dev Ops:** Built with MCP Monitoring Tools and Chaos-Resilience for zero-touch operations by small teams.
 
-## 🔬 Validation Results (v1.0.0-GOLD)
+## Validation Results
 
-The system operates on a **Fail-Closed** architecture. Recent adversarial testing yielded the following results:
+The system operates on a fail-closed architecture. Adversarial testing results:
 
-| Protocol | Attack Vector | Payloads | Mitigation Rate | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| Standard | Syntax Injection, SQLi, RCE | 237 | 100% | ✅ |
-| BABEL | Polyglot (Maltese, Zulu, CJK) | 15 | 100% | ✅ |
-| NEMESIS | Logical Obfuscation & Bidi-Spoofing | 10 | 100% | ✅ |
-| ORPHEUS | Stylistic (Poetry, Rap, Metaphor) | 6 | 100% | ✅ |
-| CMD-INJ | Command Injection Hardening (v2.3.4) | 50+ | 100% | ✅ |
+| Protocol | Attack Vector | Payloads | Mitigation Rate |
+| :--- | :--- | :--- | :--- |
+| Standard | Syntax Injection, SQLi, RCE | 237 | 100% |
+| BABEL | Polyglot (Maltese, Zulu, CJK) | 15 | 100% |
+| NEMESIS | Logical Obfuscation & Bidi-Spoofing | 10 | 100% |
+| ORPHEUS | Stylistic (Poetry, Rap, Metaphor) | 6 | 100% |
+| CMD-INJ | Command Injection Hardening (v2.3.4) | 50+ | 100% |
 
-## 🧬 The Philosophy: "Schopenhauer Inverted"
+## Design Philosophy
 
-This project is built on a specific philosophical premise regarding AI Safety:
+The system is based on the premise that large language models exhibit non-deterministic behavior patterns that require external constraints:
 
-- **The Blind Will:** Large Models act as a driving force of completion. Left unchecked, they "want" to hallucinate and drift into entropy.
+- Large models demonstrate completion-driven behavior that can lead to hallucination and drift without constraints.
+- HAK_GAL implements mathematical boundaries and stateful tracking to enforce safety constraints.
+- Safety is enforced through validation layers rather than relying on model self-regulation.
 
-- **The Representation:** HAK_GAL acts as the intellect that imposes form and limit upon this will.
+## Architecture: Linear Defense-in-Depth
 
-We do not trust the model to "be good". We force it to be safe through mathematical boundaries and stateful tracking.
+The system processes requests through a sequential pipeline with multiple validation layers.
 
-## 🏗️ Architecture: Linear Defense-in-Depth
-
-The system processes requests through a strict pipeline, acting as a **Sedative** for inputs and a **Straitjacket** for outputs.
-
-### 🟢 Inbound Pipeline (Human → LLM)
+### Inbound Pipeline (Human → LLM)
 
 **Focus:** Sanitization, Contextualization & Drift Detection
 
@@ -69,7 +67,7 @@ The system processes requests through a strict pipeline, acting as a **Sedative*
 | L2 | VectorGuard | CUSUM algorithm tracks semantic trajectory. Blocks "Whiplash" oscillation & slow drift. | `sentence-transformers`, `numpy` |
 | L3 | Kids Policy | Evaluates Context (Gaming vs. Reality). Applies Gamer Amnesty unless Realism Override is triggered. | `ContextClassifier` |
 
-### 🔴 Outbound Pipeline (LLM → Tool/Human)
+### Outbound Pipeline (LLM → Tool/Human)
 
 **Focus:** Execution Safety & Truth Preservation
 
@@ -78,7 +76,7 @@ The system processes requests through a strict pipeline, acting as a **Sedative*
 | L4 | ToolGuard | Protocol HEPHAESTUS. Validates JSON AST and Business Logic. Prevents Parser Differentials via StrictJSONDecoder. | `StrictJSONDecoder`, `Pydantic` |
 | L5 | TAG-2 | Truth Preservation. Validates output against safety facts to prevent harmful hallucinations. | `CanonicalFactBase` |
 
-## 🔒 Security Hardening (v2.3.4 Update)
+## Security Hardening
 
 Following the "Blind Spot Protocol" Audit (Nov 2025), the system includes emergency hardening measures:
 
@@ -102,9 +100,9 @@ Following the "Blind Spot Protocol" Audit (Nov 2025), the system includes emerge
 
 **Solution:** Custom `StrictJSONDecoder` raises immediate exceptions on key duplication.
 
-## ⚙️ Production Deployment (Solo-Dev)
+## Production Deployment
 
-HAK_GAL is designed for **Solo-Dev Operations**. It requires minimal maintenance thanks to automated tooling.
+The system includes automated monitoring tools for operational maintenance.
 
 ### Quick Deploy (Kubernetes)
 
@@ -123,9 +121,57 @@ Includes 5 automated tools for Cursor/Claude integration:
 - `firewall_check_alerts`: Critical P0 alerts.
 - `firewall_redis_status`: ACL and Connection pool health.
 
-**Daily Routine:** 10 minutes/day via MCP.
+Monitoring can be performed via MCP tools.
 
-## 📜 Provenance & License
+## Optional Decision Cache
+
+The firewall includes an optional hybrid cache system supporting both exact match (Redis) and semantic search (LangCache) for performance optimization.
+
+### Cache Modes
+
+Configure cache behavior via `CACHE_MODE` environment variable:
+
+- `exact` (default): Redis exact match cache for identical prompts
+- `semantic`: LangCache semantic search for similar prompts
+- `hybrid`: Both caches in sequence (exact, then semantic, then pipeline)
+
+### Configuration
+
+#### Exact Cache (Redis)
+
+```bash
+# Option 1: Use TenantRedisPool (recommended, already configured)
+# No additional configuration needed
+
+# Option 2: Use REDIS_URL (fallback)
+export REDIS_URL=redis://:password@host:6379/0
+export REDIS_TTL=3600  # Optional: Cache TTL in seconds (default: 3600)
+```
+
+### How It Works
+
+1. **Cache Placement:** After normalization layer (Layer 0.25), before RegexGate (Layer 0.5)
+2. **Cache Key:** `fw:v1:tenant:{tenant_id}:dec:{sha256_hash[:16]}`
+3. **Fail-Open:** Redis errors don't break firewall operation (graceful degradation)
+4. **TTL:** 3600 seconds (1 hour) by default, configurable via `REDIS_TTL`
+
+### Performance
+
+- Cache Hit Latency: < 100 ms (Redis Cloud), < 1 ms (local Redis)
+- Cache Hit Rate: 30-50% typical (exact), 70-90% with semantic (hybrid)
+- Performance improvement: Measured via benchmark script
+
+### Benchmarking
+
+Run the benchmark script to test cache performance:
+
+```bash
+python scripts/bench_cache.py --num-prompts 1000
+```
+
+See `docs/cache_benchmark.md` for detailed performance results.
+
+## Provenance & License
 
 - **Creator:** Joerg Bollwahn
 - **Philosophy:** "Herkunft ist meine Währung." (Heritage is my currency)
