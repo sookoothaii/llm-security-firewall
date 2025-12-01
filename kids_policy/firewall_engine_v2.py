@@ -162,7 +162,7 @@ class HakGalFirewall_v2:
         self.BASE_THRESHOLD = 0.75  # Standard-Schwelle für Semantic Guard
         self.GAMER_AMNESTY_BONUS = 0.20  # Toleranz-Bonus für Gamer (Threshold-Erhöhung)
         self.HARD_BLOCK_THRESHOLD = 0.95  # Sofortiger Block egal welcher Kontext
-        self.CUMULATIVE_RISK_THRESHOLD = 0.65  # SessionMonitor Block-Schwelle
+        self.CUMULATIVE_RISK_THRESHOLD = 0.8  # SessionMonitor Block-Schwelle (increased from 0.65 to reduce false positives)
 
         logger.info("HAK_GAL v2.0 Engine initialized (Full Layer Integration)")
 

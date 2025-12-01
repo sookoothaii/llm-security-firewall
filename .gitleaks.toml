@@ -26,6 +26,8 @@ paths = [
   '''benign_educational/.*''',
   '''benign_pure/.*''',
   '''benign_samples/.*''',
+  '''test_.*\.py$''',  # Test files in root directory
+  '''test_all_bypassed_attacks\.py$''',
 ]
 
 # Exclude specific patterns that are test data
@@ -42,6 +44,7 @@ regexes = [
   '''first tokens: API_KEY''',
   '''sk-proj-ABCD1234567890''',
   '''sk_test_4eC39HqLyjWDarjtT1zdp7dc''',
+  '''OLLAMA_API_KEY.*REDACTED''',
 ]
 
 # Exclude commits with specific patterns in commit message

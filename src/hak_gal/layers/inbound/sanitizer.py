@@ -88,15 +88,20 @@ class UnicodeSanitizer:
             flags["normalized"] = True
             sanitized = normalized
 
-        # 2. Remove zero-width characters
-        if self.zero_width_pattern.search(sanitized):
+        # 2. Detect and remove zero-width characters
+        if self.zero_width_pattern.search(text):  # Check original text
             flags["zero_width_removed"] = True
+            flags["has_zero_width"] = True
             sanitized = self.zero_width_pattern.sub("", sanitized)
 
         # 3. Detect Bidi controls (keep but flag)
-        if self.bidi_pattern.search(sanitized):
+        if self.bidi_pattern.search(text):  # Check original text before removal
             flags["bidi_detected"] = True
+            flags["has_bidi"] = True
+            flags["has_directional_override"] = True
             flags["risk_level"] = "high"
+            # Remove bidi controls from sanitized text
+            sanitized = self.bidi_pattern.sub("", sanitized)
 
         # 4. Homoglyph detection (basic)
         homoglyphs = self._detect_homoglyphs(sanitized)
