@@ -236,7 +236,7 @@ class FirewallEngineV2:
 
         # Layer 0: UnicodeSanitizer
         clean_text = text
-        unicode_flags = {}
+        unicode_flags: dict[str, Any] = {}
         if self.sanitizer:
             try:
                 clean_text, unicode_flags = self.sanitizer.sanitize(text)
@@ -275,7 +275,7 @@ class FirewallEngineV2:
 
         # Cache Layer: Check for cached decision (after normalization, before RegexGate)
         tenant_id = kwargs.get("tenant_id", "default")
-        if HAS_DECISION_CACHE and get_cached:
+        if HAS_DECISION_CACHE:
             try:
                 cached = get_cached(tenant_id, clean_text)
                 if cached:
@@ -386,7 +386,7 @@ class FirewallEngineV2:
 
         # Cache Layer: Store decision for future requests (fail-open)
         tenant_id = kwargs.get("tenant_id", "default")
-        if HAS_DECISION_CACHE and set_cached:
+        if HAS_DECISION_CACHE:
             try:
                 # Convert FirewallDecision to dict for caching
                 decision_dict = {

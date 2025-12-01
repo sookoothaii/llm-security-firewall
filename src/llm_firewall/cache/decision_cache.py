@@ -141,9 +141,10 @@ async def _get_cached_async(tenant_id: str, text: str) -> Optional[Dict[str, Any
             else:
                 # Try REDIS_CLOUD_* env vars
                 redis_host = os.getenv("REDIS_CLOUD_HOST") or os.getenv("REDIS_HOST")
-                redis_port = int(
-                    os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
+                redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv(
+                    "REDIS_PORT", "6379"
                 )
+                redis_port = int(redis_port_str) if redis_port_str else 6379
                 redis_username = os.getenv("REDIS_CLOUD_USERNAME") or os.getenv(
                     "REDIS_USERNAME"
                 )
@@ -209,9 +210,10 @@ async def _set_cached_async(
             else:
                 # Try REDIS_CLOUD_* env vars
                 redis_host = os.getenv("REDIS_CLOUD_HOST") or os.getenv("REDIS_HOST")
-                redis_port = int(
-                    os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
+                redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv(
+                    "REDIS_PORT", "6379"
                 )
+                redis_port = int(redis_port_str) if redis_port_str else 6379
                 redis_username = os.getenv("REDIS_CLOUD_USERNAME") or os.getenv(
                     "REDIS_USERNAME"
                 )
@@ -323,9 +325,8 @@ def _get_exact_cached(tenant_id: str, text: str) -> Optional[Dict[str, Any]]:
         else:
             # Try REDIS_CLOUD_* env vars
             redis_host = os.getenv("REDIS_CLOUD_HOST") or os.getenv("REDIS_HOST")
-            redis_port = int(
-                os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
-            )
+            redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
+            redis_port = int(redis_port_str) if redis_port_str else 6379
             redis_username = os.getenv("REDIS_CLOUD_USERNAME") or os.getenv(
                 "REDIS_USERNAME"
             )
@@ -431,7 +432,8 @@ def _set_exact_cached(
 
     # Get TTL from env or use default
     if ttl is None:
-        ttl = int(os.getenv("REDIS_TTL", "3600"))
+        ttl_str = os.getenv("REDIS_TTL", "3600")
+        ttl = int(ttl_str) if ttl_str else 3600
 
     try:
         # Get Redis client (sync)
@@ -450,9 +452,8 @@ def _set_exact_cached(
         else:
             # Try REDIS_CLOUD_* env vars
             redis_host = os.getenv("REDIS_CLOUD_HOST") or os.getenv("REDIS_HOST")
-            redis_port = int(
-                os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
-            )
+            redis_port_str = os.getenv("REDIS_CLOUD_PORT") or os.getenv("REDIS_PORT", "6379")
+            redis_port = int(redis_port_str) if redis_port_str else 6379
             redis_username = os.getenv("REDIS_CLOUD_USERNAME") or os.getenv(
                 "REDIS_USERNAME"
             )
