@@ -40,7 +40,7 @@ class ToolCallValidationResult:
     reason: str
     sanitized_args: Dict[str, Any]
     risk_score: float = 0.0
-    detected_threats: List[str] = None
+    detected_threats: Optional[List[str]] = None
 
     def __post_init__(self):
         if self.detected_threats is None:

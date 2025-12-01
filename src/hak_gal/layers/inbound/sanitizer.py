@@ -10,7 +10,7 @@ License: MIT
 import unicodedata
 import re
 import logging
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict, List, Any
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +69,7 @@ class UnicodeSanitizer:
 
         return sanitized
 
-    def sanitize_with_flags(self, text: str) -> Tuple[str, Dict[str, any]]:
+    def sanitize_with_flags(self, text: str) -> Tuple[str, Dict[str, Any]]:
         """
         Sanitize text and return flags (extended version for debugging).
 
@@ -79,7 +79,7 @@ class UnicodeSanitizer:
         Returns:
             Tuple of (sanitized_text, flags_dict)
         """
-        flags: Dict[str, any] = {}
+        flags: Dict[str, Any] = {}
         sanitized = text
 
         # 1. NFKC Normalization

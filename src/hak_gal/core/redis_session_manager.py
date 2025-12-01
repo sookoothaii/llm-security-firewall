@@ -27,7 +27,7 @@ try:
     HAS_REDIS = True
 except ImportError:
     HAS_REDIS = False
-    redis = None
+    redis = None  # type: ignore[assignment]
 
 from hak_gal.core.session_manager import SessionManager, SessionState
 from hak_gal.utils.crypto import CryptoUtils

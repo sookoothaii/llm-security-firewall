@@ -87,7 +87,7 @@ def get_semantic_cached(
 
         search_result = langcache.search(
             prompt=text,
-            similarityThreshold=similarity_threshold,
+            similarity_threshold=similarity_threshold,
             attributes=attributes,
         )
 
@@ -150,7 +150,7 @@ def set_semantic_cached(
             prompt=text,
             response=response,
             attributes=attributes,
-            ttlMillis=ttl_millis,
+            ttl_millis=ttl_millis,
         )
         logger.debug(f"[LangCache] Stored semantic decision for tenant {tenant_id}")
     except Exception as e:

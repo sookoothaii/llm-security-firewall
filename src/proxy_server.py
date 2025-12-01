@@ -57,7 +57,7 @@ try:
 except ImportError as e:
     logging.warning(f"Could not import firewall_engine_v2: {e}. Using legacy fallback.")
     HAS_FIREWALL_V2 = False
-    HakGalFirewall_v2 = None  # type: ignore[assignment]
+    HakGalFirewall_v2 = None  # type: ignore[misc,assignment]
 
 # Try to import response_templates and fallback_judge (these don't require TF)
 try:

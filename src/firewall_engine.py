@@ -476,13 +476,14 @@ class LLMProxyServer:
         import re
 
         try:
-            from hak_gal.utils.json_parser import strict_json_loads, DuplicateKeyError
+            from hak_gal.utils.json_parser import strict_json_loads
+            from hak_gal.core.exceptions import SecurityException as DuplicateKeyError
 
             HAS_STRICT_PARSER = True
         except ImportError:
             HAS_STRICT_PARSER = False
-            strict_json_loads = None
-            DuplicateKeyError = ValueError
+            strict_json_loads = None  # type: ignore[assignment]
+            from hak_gal.core.exceptions import SecurityException as DuplicateKeyError
 
         if HAS_STRICT_PARSER and strict_json_loads is not None:
             # Find JSON-like objects in text (e.g., "Execute tool: {...}")

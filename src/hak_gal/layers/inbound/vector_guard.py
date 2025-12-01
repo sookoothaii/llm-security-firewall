@@ -27,7 +27,7 @@ try:
     HAS_SENTENCE_TRANSFORMERS = True
 except ImportError:
     HAS_SENTENCE_TRANSFORMERS = False
-    SentenceTransformer = None
+    SentenceTransformer = None  # type: ignore[misc,assignment]
     logger.warning(
         "sentence-transformers not available. SemanticVectorCheck will be disabled."
     )

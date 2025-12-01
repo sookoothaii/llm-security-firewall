@@ -147,11 +147,10 @@ class TenantRedisPool:
                 f"TenantRedisPool: Failed to create client for tenant {tenant_id}: {e}"
             )
             raise SystemError(
-                f"Failed to create Redis client for tenant {tenant_id}: {e}",
-                component="TenantRedisPool",
+                f"TenantRedisPool: Failed to create Redis client for tenant {tenant_id}: {e}"
             ) from e
 
-    def clear_cache(self, tenant_id: Optional[str] = None) -> None:
+    async def clear_cache(self, tenant_id: Optional[str] = None) -> None:
         """
         Clear connection pool cache.
 
@@ -161,11 +160,11 @@ class TenantRedisPool:
         if tenant_id:
             if tenant_id in self.tenant_pools:
                 pool = self.tenant_pools[tenant_id]
-                pool.disconnect()
+                await pool.disconnect()  # type: ignore[misc]
                 del self.tenant_pools[tenant_id]
                 logger.debug(f"TenantRedisPool: Cleared pool for tenant {tenant_id}")
         else:
             for pool in self.tenant_pools.values():
-                pool.disconnect()
+                await pool.disconnect()  # type: ignore[misc]
             self.tenant_pools.clear()
             logger.debug("TenantRedisPool: Cleared all pools")

@@ -9,7 +9,7 @@
 
 ### Methode 1: Redis Cloud Dashboard
 
-1. **Redis Cloud Dashboard öffnen** (https://redis.com/redis-enterprise-cloud/)
+1. **Redis Cloud Dashboard öffnen** (<https://redis.com/redis-enterprise-cloud/>)
 2. **Ihre Database auswählen** (klicken Sie auf den Database-Namen)
 3. **Tab "Configuration" öffnen**
 4. **Unter "Default User" finden Sie:**

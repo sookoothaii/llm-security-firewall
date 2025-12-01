@@ -89,8 +89,7 @@ class TenantLogRedactor:
                     f"TenantLogRedactor: Failed to fetch DEK for tenant {tenant_id}: {e}"
                 )
                 raise SystemError(
-                    f"Failed to fetch DEK for tenant {tenant_id}: {e}",
-                    component="TenantLogRedactor",
+                    f"TenantLogRedactor: Failed to fetch DEK for tenant {tenant_id}: {e}"
                 ) from e
 
         # Development fallback (NOT for production)

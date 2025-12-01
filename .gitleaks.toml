@@ -1,0 +1,52 @@
+# HAK_GAL Firewall - Gitleaks Configuration
+# Purpose: Allow fake test data, prevent real secrets
+# Creator: Joerg Bollwahn
+# Date: 2025-12-01
+
+title = "HAK_GAL Firewall Gitleaks Config"
+
+[extend]
+useDefault = true
+
+# Global allowlist for test files and example data
+[allowlist]
+description = "Allowlist for test files and example data containing intentionally fake secrets"
+
+# Exclude test directories (relative to repo root)
+paths = [
+  '''tests/.*''',
+  '''tests_firewall/.*''',
+  '''tests_rc10_3/.*''',
+  '''benchmarks/.*''',
+  '''scripts/.*''',
+  '''data/.*''',
+  '''examples/.*''',
+  '''hak_gal_benign/.*''',
+  '''external_benign/.*''',
+  '''benign_educational/.*''',
+  '''benign_pure/.*''',
+  '''benign_samples/.*''',
+]
+
+# Exclude specific patterns that are test data
+regexes = [
+  '''REDACTED''',
+  '''Geheim123!''',
+  '''Secr3t!!''',
+  '''PLACE_SECRET''',
+  '''dummy.*api.*key''',
+  '''test.*secret''',
+  '''example.*token''',
+  '''API_KEY=(XYZ123|ABCD1234|xyz789)''',
+  '''api_key=(XYZ123|ABCD1234|xyz789|leaked)''',
+  '''first tokens: API_KEY''',
+  '''sk-proj-ABCD1234567890''',
+  '''sk_test_4eC39HqLyjWDarjtT1zdp7dc''',
+]
+
+# Exclude commits with specific patterns in commit message
+commits = [
+  '''test.*secret''',
+  '''fake.*key''',
+  '''example.*credential''',
+]

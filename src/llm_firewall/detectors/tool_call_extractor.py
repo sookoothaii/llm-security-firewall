@@ -32,7 +32,7 @@ try:
 except ImportError:
     # Fallback if strict parser not available (should not happen in production)
     HAS_STRICT_PARSER = False
-    strict_json_loads = json.loads
+    strict_json_loads = json.loads  # type: ignore[assignment]
     logger.warning(
         "[ToolCallExtractor] Strict JSON parser not available. Using standard json.loads(). "
         "This may allow duplicate key bypass attacks."

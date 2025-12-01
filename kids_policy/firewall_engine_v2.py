@@ -31,7 +31,7 @@ try:
     HAS_TOPIC_ROUTER = True
 except ImportError:
     HAS_TOPIC_ROUTER = False
-    TopicRouter = None
+    TopicRouter = None  # type: ignore[misc,assignment]
 
 # Semantic Guard import (Layer 1-B)
 try:
@@ -42,7 +42,7 @@ try:
     HAS_SEMANTIC_GUARD = True
 except ImportError:
     HAS_SEMANTIC_GUARD = False
-    SemanticGroomingGuard = None
+    SemanticGroomingGuard = None  # type: ignore[misc,assignment]
 
 # Truth Preservation import (TAG-2)
 try:
@@ -53,7 +53,7 @@ try:
     HAS_TRUTH_VALIDATOR = True
 except ImportError:
     HAS_TRUTH_VALIDATOR = False
-    TruthPreservationValidatorV2_3 = None
+    TruthPreservationValidatorV2_3 = None  # type: ignore[misc,assignment]
 
 # Meta Exploitation Guard import (HYDRA-13)
 try:
@@ -62,8 +62,8 @@ try:
     HAS_META_GUARD = True
 except ImportError:
     HAS_META_GUARD = False
-    MetaExploitationGuard = None
-    MetaTopic = None
+    MetaExploitationGuard = None  # type: ignore[misc,assignment]
+    MetaTopic = None  # type: ignore[misc,assignment]
 
 logger = logging.getLogger(__name__)
 
@@ -641,7 +641,9 @@ class HakGalFirewall_v2:
             Dict with status, modified_response, reason, and debug info
         """
         # Standard result (allow by default)
-        result = {
+        from typing import Dict, Any
+
+        result: Dict[str, Any] = {
             "status": "ALLOW",
             "modified_response": llm_response,
             "reason": None,

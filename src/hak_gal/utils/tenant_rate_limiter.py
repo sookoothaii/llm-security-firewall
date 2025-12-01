@@ -148,6 +148,8 @@ class TenantRateLimiter:
                     )
             else:
                 # P1: Load script once
+                if self.redis is None:
+                    raise ValueError("redis_client is None, cannot load script")
                 self.lua_sha = await self.redis.script_load(LUA_SLIDING_WINDOW_SCRIPT)
                 self._script_loaded = True
                 logger.info(
@@ -192,9 +194,13 @@ class TenantRateLimiter:
             lua_sha = self.lua_sha_cache[tenant_id]
         else:
             # P1: Use shared client
+            if self.redis is None:
+                raise ValueError("redis_client is None, cannot check rate limit")
             redis_client = self.redis
             if not self._script_loaded:
                 await self.initialize()
+            if self.lua_sha is None:
+                raise ValueError("lua_sha is None, script not loaded")
             lua_sha = self.lua_sha
 
         # Build Redis key with tenant isolation

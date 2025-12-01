@@ -144,7 +144,7 @@ This report documents the implementation of HAK_GAL v2.1.0-HYDRA release for the
 **Class:** `ToolCallExtractor`
 
 **Features:**
-- Markdown code block removal: Removes ```json ... ``` and ``` ... ``` blocks
+- Markdown code block removal: Removes ` ```json ... ``` ` and ` ``` ... ``` ` blocks
 - JSON object extraction: Finds JSON objects with balanced braces
 - Format normalization: Converts various formats to `{"tool_name": str, "arguments": dict}`
   - Supports: `tool`/`function`/`name` → `tool_name`
@@ -476,7 +476,7 @@ class FirewallDecision:
 
 ## 12. References
 
-- **Repository:** https://github.com/sookoothaii/llm-security-firewall
+- **Repository:** <https://github.com/sookoothaii/llm-security-firewall>
 - **Diagnosis Document:** `docs/CORE_FIREWALL_V2_DIAGNOSIS.md`
 - **Kids Policy README:** `kids_policy/README.md`
 - **Handover Document:** `docs/kids_policy/HANDOVER_v2.1_FINAL_2025_11_29.md`

@@ -25,7 +25,7 @@ try:
     HAS_TRANSFORMERS = True
 except ImportError:
     HAS_TRANSFORMERS = False
-    AutoTokenizer = None
+    AutoTokenizer = None  # type: ignore[misc,assignment]
     logger.warning(
         "transformers not available - ONNX model cannot load, using regex fallback"
     )

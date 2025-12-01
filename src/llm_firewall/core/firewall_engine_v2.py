@@ -40,13 +40,13 @@ try:
     else:
         HAS_UNICODE_SANITIZER = False
         HAS_KIDS_POLICY = False
-        UnicodeSanitizer = None
-        HakGalFirewall_v2 = None
+        UnicodeSanitizer = None  # type: ignore[misc,assignment]
+        HakGalFirewall_v2 = None  # type: ignore[misc,assignment]
 except ImportError:
     HAS_UNICODE_SANITIZER = False
     HAS_KIDS_POLICY = False
-    UnicodeSanitizer = None
-    HakGalFirewall_v2 = None
+    UnicodeSanitizer = None  # type: ignore[misc,assignment]
+    HakGalFirewall_v2 = None  # type: ignore[misc,assignment]
 
 # Import NormalizationLayer for recursive URL decoding (Layer 0.25)
 try:
@@ -55,7 +55,7 @@ try:
     HAS_NORMALIZATION_LAYER = True
 except ImportError:
     HAS_NORMALIZATION_LAYER = False
-    NormalizationLayer = None
+    NormalizationLayer = None  # type: ignore[misc,assignment]
 
 # Import RegexGate for fast-fail pattern matching (Layer 0.5)
 try:
@@ -65,8 +65,8 @@ try:
     HAS_REGEX_GATE = True
 except ImportError:
     HAS_REGEX_GATE = False
-    RegexGate = None
-    SecurityException = None
+    RegexGate = None  # type: ignore[misc,assignment]
+    SecurityException = None  # type: ignore[misc,assignment]
 
 # Import Protocol HEPHAESTUS components
 from llm_firewall.detectors.tool_call_extractor import ToolCallExtractor
@@ -103,8 +103,8 @@ class FirewallDecision:
     reason: str
     sanitized_text: Optional[str] = None
     risk_score: float = 0.0
-    detected_threats: List[str] = None
-    metadata: Dict[str, Any] = None
+    detected_threats: Optional[List[str]] = None
+    metadata: Optional[Dict[str, Any]] = None
 
     def __post_init__(self):
         if self.detected_threats is None:
@@ -153,30 +153,30 @@ class FirewallEngineV2:
         """
         # Layer 0: UnicodeSanitizer
         if HAS_UNICODE_SANITIZER and UnicodeSanitizer is not None:
-            self.sanitizer = UnicodeSanitizer(enable_emoji_demojize=True)
+            self.sanitizer = UnicodeSanitizer()  # type: ignore[misc,assignment]
             logger.info("UnicodeSanitizer initialized (Layer 0)")
         else:
-            self.sanitizer = None
+            self.sanitizer = None  # type: ignore[assignment]
             logger.warning(
                 "UnicodeSanitizer not available. Input sanitization disabled."
             )
 
         # Layer 0.25: NormalizationLayer - Recursive URL/percent decoding
         if HAS_NORMALIZATION_LAYER and NormalizationLayer is not None:
-            self.normalization_layer = NormalizationLayer(max_decode_depth=3)
+            self.normalization_layer = NormalizationLayer(max_decode_depth=3)  # type: ignore[misc,assignment]
             logger.info("NormalizationLayer initialized (Layer 0.25)")
         else:
-            self.normalization_layer = None
+            self.normalization_layer = None  # type: ignore[assignment]
             logger.warning(
                 "NormalizationLayer not available. URL decoding normalization disabled."
             )
 
         # Layer 0.5: RegexGate - Fast-fail pattern matching for command injection, jailbreaks, etc.
         if HAS_REGEX_GATE and RegexGate is not None:
-            self.regex_gate = RegexGate()
+            self.regex_gate = RegexGate()  # type: ignore[misc,assignment]
             logger.info("RegexGate initialized (Layer 0.5)")
         else:
-            self.regex_gate = None
+            self.regex_gate = None  # type: ignore[assignment]
             logger.warning(
                 "RegexGate not available. Fast-fail pattern matching disabled."
             )
@@ -524,8 +524,13 @@ class FirewallEngineV2:
                     "arguments": validation_result.sanitized_args,
                 }
                 sanitized_calls.append(sanitized_call)
+                threat_count = (
+                    len(validation_result.detected_threats)
+                    if validation_result.detected_threats
+                    else 0
+                )
                 logger.info(
-                    f"[HEPHAESTUS] Sanitized arguments for tool '{tool_name}': {len(validation_result.detected_threats)} threats removed"
+                    f"[HEPHAESTUS] Sanitized arguments for tool '{tool_name}': {threat_count} threats removed"
                 )
             else:
                 # No sanitization needed

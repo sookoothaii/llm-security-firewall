@@ -32,6 +32,6 @@ Please report vulnerabilities via email to the maintainer. Do not open public is
 
 This project uses the **Blind Spot Protocol** for validation. All releases must pass:
 
-1.  `JSON_RECURSION_DOS` test.
-2.  `JSON_DUPLICATE_KEY_BYPASS` test.
-3.  `CONTEXT_WHIPLASH` test.
+1. `JSON_RECURSION_DOS` test.
+2. `JSON_DUPLICATE_KEY_BYPASS` test.
+3. `CONTEXT_WHIPLASH` test.
