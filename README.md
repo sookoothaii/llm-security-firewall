@@ -227,4 +227,4 @@ Copyright (c) 2025 Joerg Bollwahn
 ## Author
 
 Joerg Bollwahn
-Email: info@hakgal.org
+Email: <info@hakgal.org>
