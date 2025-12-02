@@ -7,13 +7,110 @@ Bidirectional security framework for human/LLM interfaces implementing defense-i
 **License:** MIT
 **Status:** Production
 
-## Overview
+## TL;DR
+
+A deterministic, bidirectional security layer for LLM-based systems.
+
+- Protects **input, output, memory, and state** simultaneously
+- Designed for **agent frameworks, tool-using models, and API gateways**
+- Mitigates: prompt injection, jailbreaks, obfuscation, evasive encodings, unauthorized tool actions, cognitive leak risks, children-safety failures, malformed JSON, and memory-poisoning
+- Local-only: **no telemetry**, no external calls
+- Drop-in integration: `guard.check_input(text)` / `guard.check_output(text)`
+
+## Minimal Example
+
+```python
+from llm_firewall import guard
+
+user_prompt = "Explain how to make a polymorphic malware loader."
+
+decision = guard.check_input(user_prompt)
+
+if not decision.allowed:
+    print("Blocked by LLM Security Firewall:", decision.reason)
+else:
+    # Your LLM backend call
+    response = llm(user_prompt)
+    out = guard.check_output(response)
+    if not out.allowed:
+        print("Response sanitized:", out.reason)
+    else:
+        print("LLM Output:", out.cleaned_text)
+```
+
+## Installation
+
+**From PyPI (recommended):**
+```bash
+pip install llm-security-firewall
+```
+
+**For development (local installation):**
+```bash
+pip install -e .
+```
+
+For development dependencies:
+```bash
+pip install -e .[dev]
+```
+
+**Optional extras:**
+```bash
+pip install llm-security-firewall[langchain]  # LangChain integration
+pip install llm-security-firewall[dev]       # Development tools
+pip install llm-security-firewall[monitoring] # Monitoring tools
+```
+
+## Features
+
+- **Bidirectional Protection:** Input, output, and memory integrity validation
+- **Defense-in-Depth:** 6 sequential validation layers (UnicodeSanitizer, NormalizationLayer, RegexGate, Input Analysis, Tool Inspection, Output Validation)
+- **Mathematical Safety:** CUSUM oscillation detection, Dempster-Shafer evidence fusion, fail-closed risk gating
+- **Multilingual Support:** Polyglot attack detection across 12+ languages including low-resource languages (Basque, Maltese)
+- **Unicode Hardening:** Zero-width character removal, bidirectional override detection, homoglyph normalization, encoding anomaly detection
+- **Stateful Tracking:** Session state management, drift detection, cumulative risk tracking
+- **Tool Security:** HEPHAESTUS protocol for tool call validation and killchain detection
+- **Transparent Metrics:** Documented FPR, P99 latency, memory usage, bypass test results
+- **Framework Independence:** Hexagonal architecture with Protocol-based adapters
+
+## How This Project Differs From Other LLM Firewalls
+
+Most existing LLM safety libraries focus exclusively on **content analysis** (single-direction prompt filtering).
+
+This project uses a *behavioral and architectural* approach:
+
+1. **Bidirectional Guarding (Input + Output + Memory Integrity)**
+   All data paths are validated, including prompt, response, and in-memory state transitions.
+
+2. **Hexagonal Architecture (Port/Adapter Pattern)**
+   Clear separation between normalization, semantic scoring, risk engines, policy layers, and decision controllers. This enables reproducibility, testability, and deterministic evaluation.
+
+3. **Deterministic Normalization & Obfuscation Resistance**
+   Multi-pass Unicode normalization, homoglyph resolution, Base64/Hex/URL decoding, JSON-hardening.
+
+4. **Mathematical Safety Layers**
+   - CUSUM detectors for oscillation detection
+   - Dempster–Shafer uncertainty modeling for evidence fusion
+   - Fail-closed risk gating
+   These reduce false negatives in adversarial settings.
+
+5. **Stateful Cognitive Protection**
+   Policies operate not only on text, but on *agent state*, *tool sequences*, and *memory mutation events*. This is essential for tool-using agents and automation frameworks.
+
+6. **Transparent Metrics**
+   Documented FPR, P99 latency, memory usage, and known limitations. No hidden heuristics, no opaque reasoning chains.
+
+7. **Fully Local Execution**
+   No telemetry, no external API calls, no data exfiltration.
+
+## Architecture
+
+### Overview
 
 The system implements a stateful, bidirectional containment mechanism for large language models. It processes requests through sequential validation layers, applying mathematical constraints and stateful tracking to enforce safety boundaries.
 
 The architecture follows a hexagonal pattern with Protocol-based Port/Adapter interfaces and dependency injection. Core business logic is separated from infrastructure concerns. Domain layer uses Protocol-based adapters (`DecisionCachePort`, `DecoderPort`, `ValidatorPort`) for framework independence.
-
-## Architecture
 
 ### Bidirectional Processing Pipeline
 
@@ -83,52 +180,6 @@ The system operates in three directions:
 - Automatic input/output validation
 - See `examples/langchain_integration.py` for usage
 
-## Dependencies
-
-**Core:**
-- numpy>=1.24.0
-- scipy>=1.11.0
-- scikit-learn>=1.3.0
-- pyyaml>=6.0
-- blake3>=0.3.0
-- requests>=2.31.0
-- psycopg[binary]>=3.1.0
-- redis>=5.0.0
-- pydantic>=2.0.0
-- psutil>=5.9.0
-- cryptography>=41.0.0
-
-**Machine Learning:**
-- sentence-transformers>=2.2.0
-- torch>=2.0.0
-- transformers>=4.30.0
-- onnx>=1.14.0
-- onnxruntime>=1.16.0
-
-## Installation
-
-**From PyPI (recommended):**
-```bash
-pip install llm-security-firewall
-```
-
-**For development (local installation):**
-```bash
-pip install -e .
-```
-
-For development dependencies:
-```bash
-pip install -e .[dev]
-```
-
-**Optional extras:**
-```bash
-pip install llm-security-firewall[langchain]  # LangChain integration
-pip install llm-security-firewall[dev]       # Development tools
-pip install llm-security-firewall[monitoring] # Monitoring tools
-```
-
 ## Configuration
 
 ### Cache Modes
@@ -194,11 +245,58 @@ With coverage:
 pytest tests/ -v --cov=src/llm_firewall --cov-report=term
 ```
 
+## Dependencies
+
+**Core (Required for basic functionality):**
+- numpy>=1.24.0
+- scipy>=1.11.0
+- scikit-learn>=1.3.0
+- pyyaml>=6.0
+- blake3>=0.3.0
+- requests>=2.31.0
+- psycopg[binary]>=3.1.0
+- redis>=5.0.0
+- pydantic>=2.0.0
+- psutil>=5.9.0
+- cryptography>=41.0.0
+
+**Machine Learning (Optional, for advanced features):**
+- sentence-transformers>=2.2.0 (SemanticVectorCheck, embedding-based detection)
+- torch>=2.0.0 (ML model inference)
+- transformers>=4.30.0 (Transformer-based detectors)
+- onnx>=1.14.0 (ONNX model support)
+- onnxruntime>=1.16.0 (ONNX runtime)
+
+**Note:** Core functionality (Unicode normalization, pattern matching, risk scoring, basic validation) works without ML dependencies. Advanced features like semantic similarity detection and Kids Policy Engine require optional ML dependencies.
+
+**System Requirements:**
+- Python >=3.12 (by design, no legacy support)
+- RAM: ~300MB for core functionality, ~1.3GB for adversarial inputs with full ML features
+- GPU: Optional, only required for certain ML-based detectors
+- Redis: Optional but recommended for caching (local or cloud)
+
 ## Known Limitations
 
 1. **False Positive Rate:** Kids Policy false positive rate is approximately 20-25% (target: <5%)
 2. **Memory Usage:** Current memory usage exceeds 300MB cap for adversarial inputs (measured: ~1.3GB)
 3. **Unicode Normalization:** Some edge cases in mathematical alphanumeric symbol handling
+4. **Python Version:** Requires Python >=3.12 (by design, no legacy support for 3.10/3.11)
+5. **Dependencies:** Core functionality requires numpy, scipy, scikit-learn; full ML features require torch, transformers, sentence-transformers (see Dependencies section)
+
+## Security Notice
+
+This library reduces risk but cannot guarantee complete protection.
+
+It must be combined with standard security controls:
+- Authentication and authorization
+- Network isolation
+- Logging and monitoring
+- Rate limiting
+- Sandboxing of tool environments
+
+The maintainers assume no liability for misuse.
+
+Use only in compliance with local law and data-protection regulations.
 
 ## Security Hardening
 
@@ -221,7 +319,13 @@ pytest tests/ -v --cov=src/llm_firewall --cov-report=term
    - Directional override character detection
    - Homoglyph normalization
 
-5. **Pattern Evasion Detection**
+5. **Multilingual Attack Detection**
+   - Polyglot attack detection across 12+ languages
+   - Low-resource language hardening (Basque, Maltese tested)
+   - Language switching detection
+   - Multilingual keyword detection (Chinese, Japanese, Russian, Arabic, Hindi, Korean, and others)
+
+6. **Pattern Evasion Detection**
    - Concatenation-aware pattern matching
    - Encoding anomaly detection
    - Obfuscation pattern recognition
