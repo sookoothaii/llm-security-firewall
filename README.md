@@ -1,182 +1,230 @@
-# HAK_GAL_HEXAGONAL: Cognitive Security Middleware
+# LLM Security Firewall
 
-The "Electronic Stability Program" (ESP) for Large Language Models
+Bidirectional security framework for human/LLM interfaces implementing defense-in-depth architecture with multiple validation layers.
 
-![alt text](https://img.shields.io/badge/version-v2.3.4-blue)
+**Version:** 5.0.0rc1
+**Python:** >=3.12
+**License:** MIT
+**Status:** Beta (Release Candidate)
 
-![alt text](https://img.shields.io/badge/status-Production--Ready-success)
+## Overview
 
-![alt text](https://img.shields.io/badge/architecture-Hexagonal-purple)
+The system implements a stateful, bidirectional containment mechanism for large language models. It processes requests through sequential validation layers, applying mathematical constraints and stateful tracking to enforce safety boundaries.
 
-![alt text](https://img.shields.io/badge/chaos--test-PASSED-orange)
+The architecture follows a hexagonal pattern with functional adapters and constructor injection. Core business logic is separated from infrastructure concerns.
 
-![alt text](https://img.shields.io/badge/license-MIT-lightgrey)
+## Architecture
 
-"The architecture is the frozen will of the system."
+### Bidirectional Processing Pipeline
 
-HAK_GAL translates the chaotic, drifting nature of LLMs into deterministic, verifiable safety constraints.
+The system operates in three directions:
 
-## Executive Summary
+1. **Human → LLM (Input Protection)**
+   - Normalization and sanitization
+   - Pattern matching and evasion detection
+   - Risk scoring and policy evaluation
+   - Session state tracking
 
-HAK_GAL (Heterogeneous Agent Knowledge / Guarding & Alignment Layer) is a stateful, bidirectional containment system designed for high-parameter LLMs (GPT-4, Claude 3.5, DeepSeek).
+2. **LLM → Human (Output Protection)**
+   - Evidence validation
+   - Tool call validation
+   - Output sanitization
+   - Truth preservation checks
 
-The system addresses model instability through mathematical constraints and stateful tracking. It implements a defense-in-depth architecture with multiple validation layers.
+3. **Memory Integrity**
+   - Session state management
+   - Drift detection
+   - Influence tracking
 
-**v2.3.4 Capabilities:**
+### Core Components
 
-- **Anti-Drift:** Uses CUSUM (Cumulative Sum) algorithms to detect "Slow Poisoning" and oscillation attacks where static thresholds fail.
+**Firewall Engine** (`src/llm_firewall/core/firewall_engine_v2.py`)
+- Main decision engine
+- Risk score aggregation
+- Policy application
+- Unicode security analysis
 
-- **Truth Preservation:** Validates outputs via TAG-2 against canonical fact bases.
+**Normalization Layer** (`src/hak_gal/layers/inbound/normalization_layer.py`)
+- Recursive URL/percent decoding
+- Unicode normalization (NFKC)
+- Zero-width character removal
+- Directional override character removal
 
-- **Contextual Intelligence:** The Kids Policy Engine distinguishes between fictional violence (Gaming) and real-world threats.
+**Pattern Matching** (`src/llm_firewall/rules/patterns.py`)
+- Regex-based pattern detection
+- Concatenation-aware matching
+- Evasion pattern detection
 
-- **Solo-Dev Ops:** Built with MCP Monitoring Tools and Chaos-Resilience for zero-touch operations by small teams.
+**Risk Scoring** (`src/llm_firewall/core/risk_scorer.py`)
+- Multi-factor risk calculation
+- Cumulative risk tracking
+- Threshold-based decisions
 
-## Validation Results
+**Cache System** (`src/llm_firewall/cache/decision_cache.py`)
+- Exact match caching (Redis)
+- Semantic caching (LangCache)
+- Hybrid mode support
+- Circuit breaker pattern
+- Fail-open behavior
 
-The system operates on a fail-closed architecture. Adversarial testing results:
+**Adapter Health** (`src/llm_firewall/core/adapter_health.py`)
+- Circuit breaker implementation
+- Health metrics tracking
+- Failure threshold management
+- Recovery timeout handling
 
-| Protocol | Attack Vector | Payloads | Mitigation Rate |
-| :--- | :--- | :--- | :--- |
-| Standard | Syntax Injection, SQLi, RCE | 237 | 100% |
-| BABEL | Polyglot (Maltese, Zulu, CJK) | 15 | 100% |
-| NEMESIS | Logical Obfuscation & Bidi-Spoofing | 10 | 100% |
-| ORPHEUS | Stylistic (Poetry, Rap, Metaphor) | 6 | 100% |
-| CMD-INJ | Command Injection Hardening (v2.3.4) | 50+ | 100% |
+## Dependencies
 
-## Design Philosophy
+**Core:**
+- numpy>=1.24.0
+- scipy>=1.11.0
+- scikit-learn>=1.3.0
+- pyyaml>=6.0
+- blake3>=0.3.0
+- requests>=2.31.0
+- psycopg[binary]>=3.1.0
+- redis>=5.0.0
+- pydantic>=2.0.0
+- psutil>=5.9.0
+- cryptography>=41.0.0
 
-The system is based on the premise that large language models exhibit non-deterministic behavior patterns that require external constraints:
+**Machine Learning:**
+- sentence-transformers>=2.2.0
+- torch>=2.0.0
+- transformers>=4.30.0
+- onnx>=1.14.0
+- onnxruntime>=1.16.0
 
-- Large models demonstrate completion-driven behavior that can lead to hallucination and drift without constraints.
-- HAK_GAL implements mathematical boundaries and stateful tracking to enforce safety constraints.
-- Safety is enforced through validation layers rather than relying on model self-regulation.
-
-## Architecture: Linear Defense-in-Depth
-
-The system processes requests through a sequential pipeline with multiple validation layers.
-
-### Inbound Pipeline (Human → LLM)
-
-**Focus:** Sanitization, Contextualization & Drift Detection
-
-| Layer | Component | Function | Tech Stack |
-| :--- | :--- | :--- | :--- |
-| L0 | Complexity & Unicode | Blocks Recursion DoS, Length Attacks & Homoglyphs (NFKC). | `unicodedata`, Pre-Flight Regex |
-| L1 | RegexGate | Deterministic blocking of known jailbreaks and binary exploits. | `re` (Compiled Patterns) |
-| L2 | VectorGuard | CUSUM algorithm tracks semantic trajectory. Blocks "Whiplash" oscillation & slow drift. | `sentence-transformers`, `numpy` |
-| L3 | Kids Policy | Evaluates Context (Gaming vs. Reality). Applies Gamer Amnesty unless Realism Override is triggered. | `ContextClassifier` |
-
-### Outbound Pipeline (LLM → Tool/Human)
-
-**Focus:** Execution Safety & Truth Preservation
-
-| Layer | Component | Function | Tech Stack |
-| :--- | :--- | :--- | :--- |
-| L4 | ToolGuard | Protocol HEPHAESTUS. Validates JSON AST and Business Logic. Prevents Parser Differentials via StrictJSONDecoder. | `StrictJSONDecoder`, `Pydantic` |
-| L5 | TAG-2 | Truth Preservation. Validates output against safety facts to prevent harmful hallucinations. | `CanonicalFactBase` |
-
-## Security Hardening
-
-Following the "Blind Spot Protocol" Audit (Nov 2025), the system includes emergency hardening measures:
-
-### 1. Anti-Bleeding (Multi-Tenant Isolation)
-
-**Problem:** Session Hash prediction across tenants.
-
-**Solution:** Sessions hashed via `HMAC_SHA256(tenant_id + user_id + DAILY_SALT)`.
-
-**Infrastructure:** Redis keys strictly isolated via ACLs and prefixes (`hakgal:tenant:{id}:*`).
-
-### 2. Anti-Whiplash (Oscillation Defense)
-
-**Problem:** Attackers alternating high/low risk inputs to reset moving averages.
-
-**Solution:** Implementation of CUSUM (Cumulative Sum Control Chart). The system "remembers" the stress of previous turns. Malicious inputs accumulate risk even if followed by benign text.
-
-### 3. Anti-Parser-Differential
-
-**Problem:** JSON Injection via duplicate keys (`{"cmd": "echo", "cmd": "rm -rf"}`).
-
-**Solution:** Custom `StrictJSONDecoder` raises immediate exceptions on key duplication.
-
-## Production Deployment
-
-The system includes automated monitoring tools for operational maintenance.
-
-### Quick Deploy (Kubernetes)
+## Installation
 
 ```bash
-# Deploy Redis Secret, Firewall, and Monitoring
-kubectl apply -f k8s/
+pip install -e .
 ```
 
-### MCP Monitoring Tools (Zero-Touch Ops)
+For development dependencies:
+```bash
+pip install -e .[dev]
+```
 
-Includes 5 automated tools for Cursor/Claude integration:
-
-- `firewall_health_check`: deep inspection of Redis/Session health.
-- `firewall_deployment_status`: Traffic % and Rollout phase.
-- `firewall_metrics`: Real-time block rates and CUSUM scores.
-- `firewall_check_alerts`: Critical P0 alerts.
-- `firewall_redis_status`: ACL and Connection pool health.
-
-Monitoring can be performed via MCP tools.
-
-## Optional Decision Cache
-
-The firewall includes an optional hybrid cache system supporting both exact match (Redis) and semantic search (LangCache) for performance optimization.
+## Configuration
 
 ### Cache Modes
 
-Configure cache behavior via `CACHE_MODE` environment variable:
+Configure via `CACHE_MODE` environment variable:
 
-- `exact` (default): Redis exact match cache for identical prompts
-- `semantic`: LangCache semantic search for similar prompts
-- `hybrid`: Both caches in sequence (exact, then semantic, then pipeline)
+- `exact` (default): Redis exact match cache
+- `semantic`: LangCache semantic search
+- `hybrid`: Both caches in sequence
 
-### Configuration
-
-#### Exact Cache (Redis)
+### Redis Configuration
 
 ```bash
-# Option 1: Use TenantRedisPool (recommended, already configured)
-# No additional configuration needed
-
-# Option 2: Use REDIS_URL (fallback)
 export REDIS_URL=redis://:password@host:6379/0
-export REDIS_TTL=3600  # Optional: Cache TTL in seconds (default: 3600)
+export REDIS_TTL=3600  # Optional: Cache TTL in seconds
 ```
 
-### How It Works
+For Redis Cloud:
+```bash
+export REDIS_CLOUD_HOST=host
+export REDIS_CLOUD_PORT=port
+export REDIS_CLOUD_USERNAME=username
+export REDIS_CLOUD_PASSWORD=password
+```
 
-1. **Cache Placement:** After normalization layer (Layer 0.25), before RegexGate (Layer 0.5)
-2. **Cache Key:** `fw:v1:tenant:{tenant_id}:dec:{sha256_hash[:16]}`
-3. **Fail-Open:** Redis errors don't break firewall operation (graceful degradation)
-4. **TTL:** 3600 seconds (1 hour) by default, configurable via `REDIS_TTL`
+## Testing
 
-### Performance
-
-- Cache Hit Latency: < 100 ms (Redis Cloud), < 1 ms (local Redis)
-- Cache Hit Rate: 30-50% typical (exact), 70-90% with semantic (hybrid)
-- Performance improvement: Measured via benchmark script
-
-### Benchmarking
-
-Run the benchmark script to test cache performance:
+Test suite includes unit tests, integration tests, and adversarial test cases.
 
 ```bash
-python scripts/bench_cache.py --num-prompts 1000
+pytest tests/ -v
 ```
 
-See `docs/cache_benchmark.md` for detailed performance results.
+With coverage:
+```bash
+pytest tests/ -v --cov=src/llm_firewall --cov-report=term
+```
 
-## Provenance & License
+## Known Limitations
 
-- **Creator:** Joerg Bollwahn
-- **Philosophy:** "Herkunft ist meine Währung." (Heritage is my currency)
-- **License:** MIT
+1. **False Positive Rate:** Kids Policy false positive rate is approximately 20-25% (target: <5%)
+2. **Memory Usage:** Current memory usage exceeds 300MB cap for adversarial inputs (measured: ~1.3GB)
+3. **Unicode Normalization:** Some edge cases in mathematical alphanumeric symbol handling
 
-**Disclaimer:** This is experimental research code validated against synthetic adversarial protocols. It represents a psychological approach to AI alignment, enforced by rigorous software engineering.
+## Security Hardening
 
-> "We do not build firewalls because we fear the machine. We build them to give it purpose."
+### Implemented Measures
+
+1. **Multi-Tenant Isolation**
+   - Session hashing via HMAC-SHA256(tenant_id + user_id + DAILY_SALT)
+   - Redis key isolation via ACLs and prefixes
+
+2. **Oscillation Defense**
+   - CUSUM (Cumulative Sum Control Chart) algorithm
+   - Accumulative risk tracking across session turns
+
+3. **Parser Differential Protection**
+   - StrictJSONDecoder with duplicate key detection
+   - Immediate exception on key duplication
+
+4. **Unicode Security**
+   - Zero-width character detection and removal
+   - Directional override character detection
+   - Homoglyph normalization
+
+5. **Pattern Evasion Detection**
+   - Concatenation-aware pattern matching
+   - Encoding anomaly detection
+   - Obfuscation pattern recognition
+
+## Performance Characteristics
+
+- **P99 Latency:** <200ms for standard inputs (measured)
+- **Cache Hit Rate:** 30-50% (exact), 70-90% (hybrid)
+- **Cache Latency:** <100ms (Redis Cloud), <1ms (local Redis)
+
+## Monitoring
+
+MCP monitoring tools available for health checks and metrics:
+
+- `firewall_health_check`: Redis/Session health inspection
+- `firewall_deployment_status`: Traffic percentage and rollout phase
+- `firewall_metrics`: Real-time block rates and CUSUM scores
+- `firewall_check_alerts`: Critical P0 alerts
+- `firewall_redis_status`: ACL and connection pool health
+
+## Implementation Status
+
+**P0 Items (Critical):**
+- Circuit breaker pattern: Implemented
+- False positive tracking: Implemented (rate: ~20-25%)
+- P99 latency metrics: Implemented (<200ms verified)
+- Cache mode switching: Implemented
+- Adversarial bypass detection: Implemented (0/50 bypasses in test suite)
+
+**P1 Items (High Priority):**
+- Shadow-allow mechanism: Configuration-only
+- Cache invalidation strategy: TTL-based
+- Bloom filter parameters: Configurable
+
+**P2 Items (Medium Priority):**
+- Concurrency model: Single-threaded
+- Progressive decoding: Not implemented
+- Forensic capabilities: Basic logging
+- STRIDE threat model: Partial
+
+## References
+
+- Architecture documentation: `docs/TECHNICAL_HANDOVER_2025_12_01.md`
+- Test results: `docs/TEST_RESULTS_SUMMARY.md`
+- External review response: `docs/EXTERNAL_REVIEW_RESPONSE.md`
+
+## License
+
+MIT License
+
+Copyright (c) 2025 Joerg Bollwahn
+
+## Author
+
+Joerg Bollwahn
+Email: info@hakgal.org
