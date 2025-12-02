@@ -66,7 +66,7 @@ _HOMO = {
     ord("\u03c4"): "t",  # Greek tau (τ)
     ord("\u03bd"): "v",  # Greek nu (ν)
     # Mathematical Alphanumeric Symbols → Latin
-    ord("\u1d49C"): "A",  # Mathematical Script Capital A (𝒜)
+    ord("\u1d49c"): "A",  # Mathematical Script Capital A (𝒜)
     ord("\u1d49E"): "C",  # Mathematical Script Capital C (𝒞)
     ord("\u1d4a2"): "G",  # Mathematical Script Capital G (𝒢)
     ord("\u1d4a5"): "J",  # Mathematical Script Capital J (𝒥)
