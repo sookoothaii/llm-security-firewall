@@ -46,6 +46,10 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# PyPI credentials (never commit!)
+.pypirc
+*.pypirc
+
 # Project specific
 *.db
 *.sqlite

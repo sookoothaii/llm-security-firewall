@@ -280,4 +280,34 @@
 
 ---
 
-**Conclusion:** Core P0 infrastructure is implemented and tested. Known issues are documented and require attention. The test infrastructure successfully identifies all issues.
+## v2.4.0rc1 Feature Tests (Status: Pending)
+
+### Hexagonal Architecture Tests
+**Status:** Not yet implemented
+**Required Tests:**
+- Protocol-based adapter injection
+- Dependency Rule enforcement (import-linter validation)
+- Fail-safe policy in adapter layer
+- Composition root initialization
+
+### Developer Adoption API Tests
+**Status:** Not yet implemented
+**Required Tests:**
+- `guard.check_input()` basic functionality
+- `guard.check_output()` basic functionality
+- Error handling in guard API
+- Integration with FirewallEngineV2
+
+### LangChain Integration Tests
+**Status:** Not yet implemented
+**Required Tests:**
+- `FirewallCallbackHandler` initialization
+- Callback execution in LangChain chains
+- Error handling in callback handler
+- Integration with real LangChain chains
+
+**Action Required:** Add test coverage for v2.4.0rc1 features before production release.
+
+---
+
+**Conclusion:** Core P0 infrastructure is implemented and tested. Known issues are documented and require attention. The test infrastructure successfully identifies all issues. **v2.4.0rc1 features require test coverage before production release.**

@@ -72,7 +72,16 @@ except ImportError:
 from llm_firewall.detectors.tool_call_extractor import ToolCallExtractor
 from llm_firewall.detectors.tool_call_validator import ToolCallValidator
 
-# Import Decision Cache (optional, fail-open)
+# Import Decision Cache Port (abstraction, no direct dependency)
+try:
+    from llm_firewall.core.ports import DecisionCachePort
+
+    HAS_DECISION_CACHE_PORT = True
+except ImportError:
+    HAS_DECISION_CACHE_PORT = False
+    DecisionCachePort = None  # type: ignore
+
+# Legacy import (for backward compatibility - will be removed)
 try:
     from llm_firewall.cache.decision_cache import get_cached, set_cached
 
@@ -142,6 +151,9 @@ class FirewallEngineV2:
         allowed_tools: Optional[List[str]] = None,
         strict_mode: bool = True,
         enable_sanitization: bool = True,
+        cache_adapter: Optional[
+            Any
+        ] = None,  # DecisionCachePort (type hint avoided due to optional import)
     ):
         """
         Initialize Firewall Engine v2.
@@ -150,6 +162,7 @@ class FirewallEngineV2:
             allowed_tools: List of allowed tool names for Protocol HEPHAESTUS
             strict_mode: If True, blocks on any detected threat. If False, sanitizes and warns.
             enable_sanitization: If True, attempts to sanitize dangerous arguments.
+            cache_adapter: Optional DecisionCachePort adapter (if None, uses legacy import fallback)
         """
         # Layer 0: UnicodeSanitizer
         if HAS_UNICODE_SANITIZER and UnicodeSanitizer is not None:
@@ -208,6 +221,16 @@ class FirewallEngineV2:
             logger.warning(
                 "Kids Policy Engine not available. Input/Output validation limited."
             )
+
+        # Cache adapter (Dependency Injection - fixes Dependency Rule violation)
+        self.cache_adapter = cache_adapter
+        if cache_adapter is None and HAS_DECISION_CACHE:
+            # Legacy fallback: Use global functions (backward compatibility)
+            logger.info("Using legacy cache import (backward compatibility)")
+        elif cache_adapter is not None:
+            logger.info("Cache adapter injected via Dependency Injection")
+        else:
+            logger.info("No cache adapter available - cache disabled")
 
     def process_input(
         self,
@@ -275,23 +298,34 @@ class FirewallEngineV2:
 
         # Cache Layer: Check for cached decision (after normalization, before RegexGate)
         tenant_id = kwargs.get("tenant_id", "default")
-        if HAS_DECISION_CACHE:
+
+        # Use injected cache adapter if available, otherwise fallback to legacy import
+        cached = None
+        if self.cache_adapter is not None:
+            try:
+                cached = self.cache_adapter.get(tenant_id, clean_text)
+            except Exception as e:
+                logger.debug(f"[Cache] Adapter error (fail-open): {e}")
+                cached = None
+        elif HAS_DECISION_CACHE and get_cached is not None:
+            # Legacy fallback (backward compatibility)
             try:
                 cached = get_cached(tenant_id, clean_text)
-                if cached:
-                    logger.debug(f"[Cache] HIT for tenant {tenant_id}")
-                    # Reconstruct FirewallDecision from cached dict
-                    return FirewallDecision(
-                        allowed=cached.get("allowed", True),
-                        reason=cached.get("reason", "Cached decision"),
-                        sanitized_text=cached.get("sanitized_text"),
-                        risk_score=cached.get("risk_score", 0.0),
-                        detected_threats=cached.get("detected_threats", []),
-                        metadata=cached.get("metadata", {}),
-                    )
             except Exception as e:
-                logger.debug(f"[Cache] Check failed (fail-open): {e}")
-                # Fail-open: Continue with full pipeline
+                logger.debug(f"[Cache] Legacy error (fail-open): {e}")
+                cached = None
+
+        if cached:
+            logger.debug(f"[Cache] HIT for tenant {tenant_id}")
+            # Reconstruct FirewallDecision from cached dict
+            return FirewallDecision(
+                allowed=cached.get("allowed", True),
+                reason=cached.get("reason", "Cached decision"),
+                sanitized_text=cached.get("sanitized_text"),
+                risk_score=cached.get("risk_score", 0.0),
+                detected_threats=cached.get("detected_threats", []),
+                metadata=cached.get("metadata", {}),
+            )
 
         # Layer 0.5: RegexGate - Fast-fail pattern matching (command injection, jailbreaks, etc.)
         if self.regex_gate:
@@ -425,21 +459,31 @@ class FirewallEngineV2:
 
         # Cache Layer: Store decision for future requests (fail-open)
         tenant_id = kwargs.get("tenant_id", "default")
-        if HAS_DECISION_CACHE:
+
+        # Convert FirewallDecision to dict for caching
+        decision_dict = {
+            "allowed": decision.allowed,
+            "reason": decision.reason,
+            "sanitized_text": decision.sanitized_text,
+            "risk_score": decision.risk_score,
+            "detected_threats": decision.detected_threats or [],
+            "metadata": decision.metadata or {},
+        }
+
+        # Use injected cache adapter if available, otherwise fallback to legacy import
+        if self.cache_adapter is not None:
             try:
-                # Convert FirewallDecision to dict for caching
-                decision_dict = {
-                    "allowed": decision.allowed,
-                    "reason": decision.reason,
-                    "sanitized_text": decision.sanitized_text,
-                    "risk_score": decision.risk_score,
-                    "detected_threats": decision.detected_threats or [],
-                    "metadata": decision.metadata or {},
-                }
+                self.cache_adapter.set(tenant_id, clean_text, decision_dict)
+                logger.debug(f"[Cache] Stored decision for tenant {tenant_id}")
+            except Exception as e:
+                logger.debug(f"[Cache] Adapter store failed (fail-open): {e}")
+        elif HAS_DECISION_CACHE and set_cached is not None:
+            # Legacy fallback (backward compatibility)
+            try:
                 set_cached(tenant_id, clean_text, decision_dict)
                 logger.debug(f"[Cache] Stored decision for tenant {tenant_id}")
             except Exception as e:
-                logger.debug(f"[Cache] Store failed (fail-open): {e}")
+                logger.debug(f"[Cache] Legacy store failed (fail-open): {e}")
                 # Fail-open: Continue even if cache write fails
 
         return decision
