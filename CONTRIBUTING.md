@@ -8,6 +8,7 @@ Thank you for your interest in contributing! This project follows scientific rig
 2. **Persona/Epistemik Separation** - Personality affects tone only, never security thresholds
 3. **Heritage Preservation** - Creator attribution required in all files
 4. **Privacy-First** - No personal data in repository, users provide their own databases
+5. **Dependency Rule** - Domain modules (`core/`) must NEVER import from infrastructure (`cache/`, `ui/`, external libraries). See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
 ## Getting Started
 

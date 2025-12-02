@@ -17,6 +17,9 @@ types-PyYAML>=6.0.0
 bandit>=1.7.0
 pip-audit>=2.7.0
 
+# Architecture enforcement (Dependency Rule)
+import-linter>=4.0.0
+
 # Pre-commit hooks
 pre-commit>=3.6.0
 markdownlint-cli>=0.38.0

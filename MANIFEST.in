@@ -1,0 +1,32 @@
+# Include essential files in package distribution
+include README.md
+include LICENSE
+include QUICKSTART.md
+include ARCHITECTURE.md
+include CONTRIBUTING.md
+include CHANGELOG.md
+
+# Include configuration files
+recursive-include config *.yaml
+recursive-include policies *.yaml
+
+# Include examples (for reference)
+recursive-include examples *.py
+
+# Include documentation
+recursive-include docs *.md
+
+# Include lexicons (required for runtime)
+recursive-include src/llm_firewall/lexicons *.json
+recursive-include src/llm_firewall/lexicons *.py
+recursive-include src/llm_firewall/lexicons_gpt5 *.json
+
+# Exclude development files
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .git*
+global-exclude .pytest_cache
+global-exclude .mypy_cache
+global-exclude *.egg-info
+global-exclude dist/
+global-exclude build/

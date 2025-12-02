@@ -4,9 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-security-firewall"
-version = "5.0.0rc1"
-description = "Bidirectional Security Framework for Human/LLM Interfaces - 9 Core + 27 Hardening Layers, 832/853 Tests (97.5% PASS), MyPy Clean, CI GREEN"
-authors = [{name = "Joerg Bollwahn", email = "info@hakgal.org"}]
+version = "2.4.0"
+description = "Cognitive Security Middleware - The 'Electronic Stability Program' (ESP) for Large Language Models. Bidirectional containment system with defense-in-depth architecture, stateful tracking, and mathematical safety constraints."
+authors = [{name = "Joerg Bollwahn", email = "sookoothaii@proton.me"}]
+maintainers = [{name = "Joerg Bollwahn", email = "sookoothaii@proton.me"}]
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.12"
@@ -56,6 +57,11 @@ dev = [
     "types-PyYAML>=6.0.0",
     "types-requests>=2.31.0",
 ]
+# LangChain integration (optional)
+# Install with: pip install llm-security-firewall[langchain]
+langchain = [
+    "langchain>=0.0.200",
+]
 monitoring = [
     "prometheus-client>=0.17.0",
 ]
@@ -88,6 +94,9 @@ Changelog = "https://github.com/sookoothaii/llm-security-firewall/blob/main/CHAN
 
 [project.scripts]
 llm-firewall = "llm_firewall.cli:main"
+
+[project.entry-points."llm_firewall"]
+guard = "llm_firewall.guard:guard"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -2,16 +2,16 @@
 
 Bidirectional security framework for human/LLM interfaces implementing defense-in-depth architecture with multiple validation layers.
 
-**Version:** 5.0.0rc1
+**Version:** 2.4.0
 **Python:** >=3.12
 **License:** MIT
-**Status:** Beta (Release Candidate)
+**Status:** Production
 
 ## Overview
 
 The system implements a stateful, bidirectional containment mechanism for large language models. It processes requests through sequential validation layers, applying mathematical constraints and stateful tracking to enforce safety boundaries.
 
-The architecture follows a hexagonal pattern with functional adapters and constructor injection. Core business logic is separated from infrastructure concerns.
+The architecture follows a hexagonal pattern with Protocol-based Port/Adapter interfaces and dependency injection. Core business logic is separated from infrastructure concerns. Domain layer uses Protocol-based adapters (`DecisionCachePort`, `DecoderPort`, `ValidatorPort`) for framework independence.
 
 ## Architecture
 
@@ -65,13 +65,23 @@ The system operates in three directions:
 - Semantic caching (LangCache)
 - Hybrid mode support
 - Circuit breaker pattern
-- Fail-open behavior
+- Fail-safe behavior (blocks on cache failure, prevents security bypass)
 
 **Adapter Health** (`src/llm_firewall/core/adapter_health.py`)
 - Circuit breaker implementation
 - Health metrics tracking
 - Failure threshold management
 - Recovery timeout handling
+
+**Developer Adoption API** (`src/llm_firewall/guard.py`)
+- Simple one-liner integration: `guard.check_input(text)`, `guard.check_output(text)`
+- Backward compatible with existing API
+- See `QUICKSTART.md` for 5-minute integration guide
+
+**LangChain Integration** (`src/llm_firewall/integrations/langchain/callbacks.py`)
+- `FirewallCallbackHandler` for LangChain chains
+- Automatic input/output validation
+- See `examples/langchain_integration.py` for usage
 
 ## Dependencies
 
@@ -97,6 +107,12 @@ The system operates in three directions:
 
 ## Installation
 
+**From PyPI (recommended):**
+```bash
+pip install llm-security-firewall
+```
+
+**For development (local installation):**
 ```bash
 pip install -e .
 ```
@@ -104,6 +120,13 @@ pip install -e .
 For development dependencies:
 ```bash
 pip install -e .[dev]
+```
+
+**Optional extras:**
+```bash
+pip install llm-security-firewall[langchain]  # LangChain integration
+pip install llm-security-firewall[dev]       # Development tools
+pip install llm-security-firewall[monitoring] # Monitoring tools
 ```
 
 ## Configuration
@@ -129,6 +152,33 @@ export REDIS_CLOUD_HOST=host
 export REDIS_CLOUD_PORT=port
 export REDIS_CLOUD_USERNAME=username
 export REDIS_CLOUD_PASSWORD=password
+```
+
+## Examples
+
+See the `examples/` directory for complete integration examples:
+
+- **`quickstart.py`** - Simplest possible integration using `guard.py` API (< 10 lines)
+- **`langchain_integration.py`** - LangChain integration with `FirewallCallbackHandler`
+- **`minimal_fastapi.py`** - FastAPI middleware integration
+- **`quickstart_fastapi.py`** - Full FastAPI example with input/output validation
+
+Run examples:
+```bash
+python examples/quickstart.py
+python examples/langchain_integration.py
+python examples/minimal_fastapi.py
+```
+
+**Quick Start (Developer API):**
+```python
+from llm_firewall import guard
+
+# One-liner input validation
+decision = guard.check_input("user input text")
+if decision.allowed:
+    # Process request
+    pass
 ```
 
 ## Testing
@@ -214,9 +264,11 @@ MCP monitoring tools available for health checks and metrics:
 
 ## References
 
-- Architecture documentation: `docs/TECHNICAL_HANDOVER_2025_12_01.md`
+- Architecture documentation: `docs/SESSION_HANDOVER_2025_12_01.md` (v2.4.0rc1)
+- Technical handover: `docs/TECHNICAL_HANDOVER_2025_12_01.md` (pre-v2.4.0rc1)
 - Test results: `docs/TEST_RESULTS_SUMMARY.md`
 - External review response: `docs/EXTERNAL_REVIEW_RESPONSE.md`
+- PyPI release report: `docs/PYPI_RELEASE_REPORT_2025_12_02.md`
 
 ## License
 
@@ -227,4 +279,4 @@ Copyright (c) 2025 Joerg Bollwahn
 ## Author
 
 Joerg Bollwahn
-Email: <info@hakgal.org>
+Email: <sookoothaii@proton.me>

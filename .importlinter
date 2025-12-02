@@ -1,0 +1,24 @@
+[importlinter]
+root_package = llm_firewall
+
+[contract:domain_no_infrastructure]
+name = Domain layer must not import from infrastructure
+type = forbidden
+source_modules =
+    llm_firewall.core
+    llm_firewall.detectors
+    llm_firewall.safety
+    hak_gal.core
+    hak_gal.layers
+forbidden_modules =
+    llm_firewall.cache.*
+    llm_firewall.ui.*
+    redis
+    requests
+    flask
+    fastapi
+    httpx
+ignore_imports =
+    llm_firewall.core.ports
+    typing
+    typing_extensions
