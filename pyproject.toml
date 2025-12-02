@@ -34,6 +34,7 @@ dependencies = [
     "redis>=5.0.0",  # Redis for per-tenant rate limiting and caching
     "pydantic>=2.0.0",  # Data validation for hak_gal.core.session_manager
     "psutil>=5.9.0",  # System utilities for performance tests
+    "cryptography>=41.0.0",  # AES-GCM encryption for log redaction
     # Multi-layer detection (Layer 15 + Kids Policy)
     # sentence-transformers: Layer B Semantic Guard (HYDRA-05 Fix) + Embedding detector
     "sentence-transformers>=2.2.0",
