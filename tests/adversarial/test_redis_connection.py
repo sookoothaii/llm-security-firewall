@@ -5,13 +5,13 @@ Run this to debug connection issues.
 
 import asyncio
 import os
-import sys
+import pytest
 
 try:
     import redis.asyncio as redis
 except ImportError:
-    print("ERROR: redis package not installed")
-    sys.exit(1)
+    # Skip this module if redis is not installed (for pytest collection)
+    pytestmark = pytest.mark.skip(reason="redis package not installed")
 
 
 async def test_connection():
