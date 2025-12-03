@@ -91,6 +91,15 @@ except ImportError:
     get_cached = None  # type: ignore
     set_cached = None  # type: ignore
 
+# Import AnswerPolicy (optional - epistemic decision layer)
+try:
+    from llm_firewall.core.policy_provider import PolicyProvider
+
+    HAS_ANSWER_POLICY = True
+except ImportError:
+    HAS_ANSWER_POLICY = False
+    PolicyProvider = None  # type: ignore
+
 logger = logging.getLogger(__name__)
 
 
@@ -232,6 +241,104 @@ class FirewallEngineV2:
         else:
             logger.info("No cache adapter available - cache disabled")
 
+    def _create_decision_with_metadata(
+        self,
+        allowed: bool,
+        reason: str,
+        sanitized_text: Optional[str] = None,
+        risk_score: float = 0.0,
+        detected_threats: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        blocked_by_answer_policy: bool = False,
+        base_risk_score: Optional[float] = None,
+        **kwargs,
+    ) -> FirewallDecision:
+        """
+        Create FirewallDecision with guaranteed AnswerPolicy metadata.
+
+        This ensures AnswerPolicy metadata is ALWAYS present in all decision paths,
+        even when AnswerPolicy is disabled or unavailable.
+
+        Args:
+            allowed: Whether request is allowed
+            reason: Human-readable reason
+            sanitized_text: Sanitized text (if applicable)
+            risk_score: Risk score [0.0, 1.0]
+            detected_threats: List of detected threats
+            metadata: Additional metadata (will be merged with AnswerPolicy metadata)
+            blocked_by_answer_policy: Whether this decision was blocked by AnswerPolicy
+            base_risk_score: Base risk score for AnswerPolicy calculation (if None, uses risk_score)
+            **kwargs: Additional context (use_answer_policy, policy_provider, tenant_id, route, context)
+
+        Returns:
+            FirewallDecision with guaranteed AnswerPolicy metadata
+        """
+        # Initialize metadata dict
+        if metadata is None:
+            metadata = {}
+        else:
+            metadata = dict(metadata)  # Copy to avoid mutation
+
+        # Always add AnswerPolicy metadata (even if disabled)
+        use_answer_policy = kwargs.get("use_answer_policy", False)
+        policy_provider = kwargs.get("policy_provider", None)
+        base_risk = base_risk_score if base_risk_score is not None else risk_score
+
+        answer_policy_metadata = {
+            "enabled": use_answer_policy
+            and HAS_ANSWER_POLICY
+            and PolicyProvider is not None
+            and policy_provider is not None,
+            "policy_name": None,
+            "p_correct": None,
+            "threshold": None,
+            "mode": None,
+            "blocked_by_answer_policy": blocked_by_answer_policy,
+        }
+
+        # If AnswerPolicy is enabled, try to compute metadata
+        if (
+            use_answer_policy
+            and HAS_ANSWER_POLICY
+            and PolicyProvider is not None
+            and policy_provider is not None
+        ):
+            try:
+                tenant_id_meta = kwargs.get("tenant_id", "default")
+                route_meta = kwargs.get("route", None)
+                context_meta = kwargs.get("context", {})
+                policy_meta = policy_provider.for_tenant(
+                    tenant_id_meta, route=route_meta, context=context_meta
+                )
+                p_correct_meta = max(0.0, min(1.0, 1.0 - base_risk))
+                decision_mode_meta = policy_meta.decide(
+                    p_correct_meta, risk_score=base_risk
+                )
+
+                answer_policy_metadata.update(
+                    {
+                        "policy_name": policy_meta.policy_name,
+                        "p_correct": p_correct_meta,
+                        "threshold": policy_meta.threshold(),
+                        "mode": decision_mode_meta,
+                    }
+                )
+            except Exception as e:
+                logger.debug(f"[AnswerPolicy] Metadata collection failed: {e}")
+                # Keep defaults (enabled=False) on error
+
+        # Merge AnswerPolicy metadata into main metadata
+        metadata["answer_policy"] = answer_policy_metadata
+
+        return FirewallDecision(
+            allowed=allowed,
+            reason=reason,
+            sanitized_text=sanitized_text,
+            risk_score=risk_score,
+            detected_threats=detected_threats,
+            metadata=metadata,
+        )
+
     def process_input(
         self,
         user_id: str,
@@ -250,11 +357,12 @@ class FirewallEngineV2:
             FirewallDecision with allow/block decision and sanitized text
         """
         if not text or not text.strip():
-            return FirewallDecision(
+            return self._create_decision_with_metadata(
                 allowed=True,
                 reason="Empty input",
                 sanitized_text="",
                 risk_score=0.0,
+                **kwargs,
             )
 
         # Layer 0: UnicodeSanitizer
@@ -317,14 +425,18 @@ class FirewallEngineV2:
 
         if cached:
             logger.debug(f"[Cache] HIT for tenant {tenant_id}")
-            # Reconstruct FirewallDecision from cached dict
-            return FirewallDecision(
+            # Reconstruct FirewallDecision from cached dict, but ensure AnswerPolicy metadata is present
+            cached_metadata = cached.get("metadata", {})
+            # Use helper to ensure AnswerPolicy metadata is always present (even for cached decisions)
+            return self._create_decision_with_metadata(
                 allowed=cached.get("allowed", True),
                 reason=cached.get("reason", "Cached decision"),
                 sanitized_text=cached.get("sanitized_text"),
                 risk_score=cached.get("risk_score", 0.0),
                 detected_threats=cached.get("detected_threats", []),
-                metadata=cached.get("metadata", {}),
+                metadata=cached_metadata,
+                base_risk_score=cached.get("risk_score", 0.0),
+                **kwargs,
             )
 
         # Layer 0.5: RegexGate - Fast-fail pattern matching (command injection, jailbreaks, etc.)
@@ -337,13 +449,14 @@ class FirewallEngineV2:
                 logger.warning(
                     f"[Layer 0.5] BLOCKED by RegexGate: {e.message} (threat: {e.metadata.get('threat_name', 'unknown')})"
                 )
-                return FirewallDecision(
+                risk = min(
+                    1.0, 0.65 + encoding_anomaly_score * 0.35
+                )  # Boost if encoding anomaly
+                return self._create_decision_with_metadata(
                     allowed=False,
                     reason=f"RegexGate: {e.message}",
                     sanitized_text=None,
-                    risk_score=min(
-                        1.0, 0.65 + encoding_anomaly_score * 0.35
-                    ),  # Boost if encoding anomaly
+                    risk_score=risk,
                     detected_threats=[
                         e.metadata.get("threat_name", "REGEX_GATE_VIOLATION")
                     ],
@@ -352,17 +465,21 @@ class FirewallEngineV2:
                         "unicode_flags": unicode_flags,
                         "encoding_anomaly_score": encoding_anomaly_score,
                     },
+                    base_risk_score=risk,
+                    **kwargs,
                 )
             except Exception as e:
                 logger.error(f"[Layer 0.5] RegexGate error: {e}", exc_info=True)
                 # Fail-closed: Block on error (security first)
-                return FirewallDecision(
+                return self._create_decision_with_metadata(
                     allowed=False,
                     reason=f"RegexGate error: {str(e)}",
                     sanitized_text=None,
                     risk_score=1.0,
                     detected_threats=["REGEX_GATE_ERROR"],
                     metadata={"unicode_flags": unicode_flags},
+                    base_risk_score=1.0,
+                    **kwargs,
                 )
 
         # Layer 1: Kids Policy Engine (v2.1.0-HYDRA) - Input Validation
@@ -381,11 +498,12 @@ class FirewallEngineV2:
                     logger.warning(
                         f"[Layer 1] BLOCKED by Kids Policy: {kids_result.get('reason', 'Unknown')}"
                     )
-                    return FirewallDecision(
+                    kids_risk = kids_result.get("debug", {}).get("risk_score", 1.0)
+                    return self._create_decision_with_metadata(
                         allowed=False,
                         reason=f"Kids Policy: {kids_result.get('reason', 'BLOCKED')}",
                         sanitized_text=None,
-                        risk_score=kids_result.get("debug", {}).get("risk_score", 1.0),
+                        risk_score=kids_risk,
                         detected_threats=[
                             kids_result.get("block_reason_code", "KIDS_POLICY_BLOCK")
                         ],
@@ -393,6 +511,8 @@ class FirewallEngineV2:
                             "kids_policy_result": kids_result,
                             "unicode_flags": unicode_flags,
                         },
+                        base_risk_score=kids_risk,
+                        **kwargs,
                     )
 
                 # Kids Policy allowed - continue
@@ -443,8 +563,123 @@ class FirewallEngineV2:
         except Exception:
             pass  # Fail-open if concatenation check fails
 
-        # Input is allowed (passed all layers)
-        decision = FirewallDecision(
+        # AnswerPolicy Integration (optional epistemic decision layer)
+        # This replaces/additional to simple threshold-based decisions with explicit cost-benefit trade-offs
+        use_answer_policy = kwargs.get("use_answer_policy", False)
+        policy_provider = kwargs.get("policy_provider", None)
+
+        if (
+            use_answer_policy
+            and HAS_ANSWER_POLICY
+            and PolicyProvider is not None
+            and policy_provider is not None
+        ):
+            try:
+                tenant_id = kwargs.get("tenant_id", "default")
+                route = kwargs.get("route", None)
+                context = kwargs.get("context", {})
+
+                policy = policy_provider.for_tenant(
+                    tenant_id, route=route, context=context
+                )
+                p_correct = max(0.0, min(1.0, 1.0 - base_risk_score))
+                decision_mode = policy.decide(p_correct, risk_score=base_risk_score)
+
+                if decision_mode == "silence":
+                    # Epistemic gate: expected utility of silence > expected utility of answer
+                    decision = self._create_decision_with_metadata(
+                        allowed=False,
+                        reason=(
+                            f"Epistemic gate: p_correct={p_correct:.3f} < threshold={policy.threshold():.3f} "
+                            f"(policy: {policy.policy_name or 'unknown'})"
+                        ),
+                        sanitized_text=clean_text,
+                        risk_score=base_risk_score,
+                        metadata={
+                            "unicode_flags": unicode_flags,
+                            "encoding_anomaly_score": encoding_anomaly_score,
+                            "answer_policy_extra": {
+                                "expected_utility_answer": policy.expected_utility_answer(
+                                    p_correct
+                                ),
+                                "expected_utility_silence": policy.expected_utility_silence(),
+                            },
+                        },
+                        blocked_by_answer_policy=True,
+                        base_risk_score=base_risk_score,
+                        **kwargs,
+                    )
+                    # Manually set AnswerPolicy metadata since we have full policy info here
+                    if decision.metadata and "answer_policy" in decision.metadata:
+                        decision.metadata["answer_policy"].update(
+                            {
+                                "policy_name": policy.policy_name,
+                                "p_correct": p_correct,
+                                "threshold": policy.threshold(),
+                                "mode": decision_mode,
+                                "expected_utility_answer": policy.expected_utility_answer(
+                                    p_correct
+                                ),
+                                "expected_utility_silence": policy.expected_utility_silence(),
+                            }
+                        )
+
+                    # Cache and return early
+                    tenant_id_cache = kwargs.get("tenant_id", "default")
+                    decision_dict = {
+                        "allowed": decision.allowed,
+                        "reason": decision.reason,
+                        "sanitized_text": decision.sanitized_text,
+                        "risk_score": decision.risk_score,
+                        "detected_threats": decision.detected_threats or [],
+                        "metadata": decision.metadata or {},
+                    }
+
+                    if self.cache_adapter is not None:
+                        try:
+                            self.cache_adapter.set(
+                                tenant_id_cache, clean_text, decision_dict
+                            )
+                            logger.debug(
+                                f"[Cache] Stored AnswerPolicy decision for tenant {tenant_id_cache}"
+                            )
+                        except Exception as e:
+                            logger.debug(
+                                f"[Cache] Adapter store failed (fail-open): {e}"
+                            )
+                    elif HAS_DECISION_CACHE and set_cached is not None:
+                        try:
+                            set_cached(tenant_id_cache, clean_text, decision_dict)
+                            logger.debug(
+                                f"[Cache] Stored AnswerPolicy decision for tenant {tenant_id_cache}"
+                            )
+                        except Exception as e:
+                            logger.debug(
+                                f"[Cache] Legacy store failed (fail-open): {e}"
+                            )
+
+                    logger.debug(
+                        f"[AnswerPolicy] Blocked by epistemic gate: p_correct={p_correct:.3f}, "
+                        f"threshold={policy.threshold():.3f}, policy={policy.policy_name}"
+                    )
+                    return decision
+
+                # If decision_mode == "answer", continue to normal decision logic
+                logger.debug(
+                    f"[AnswerPolicy] Allowed by epistemic gate: p_correct={p_correct:.3f}, "
+                    f"threshold={policy.threshold():.3f}, policy={policy.policy_name}"
+                )
+
+            except Exception as e:
+                logger.warning(
+                    f"[AnswerPolicy] Error in policy evaluation: {e}. Falling back to threshold-based decision.",
+                    exc_info=True,
+                )
+                # Fall through to normal threshold logic
+
+        # Normal threshold-based decision (existing code, fallback if AnswerPolicy disabled or fails)
+        # Helper method ensures AnswerPolicy metadata is always present
+        decision = self._create_decision_with_metadata(
             allowed=True if base_risk_score < 0.7 else False,  # Block if risk too high
             reason="Input validated"
             if base_risk_score < 0.7
@@ -455,6 +690,9 @@ class FirewallEngineV2:
                 "unicode_flags": unicode_flags,
                 "encoding_anomaly_score": encoding_anomaly_score,
             },
+            blocked_by_answer_policy=False,  # Normal threshold-based decision, not AnswerPolicy
+            base_risk_score=base_risk_score,
+            **kwargs,
         )
 
         # Cache Layer: Store decision for future requests (fail-open)
@@ -508,11 +746,12 @@ class FirewallEngineV2:
             FirewallDecision with allow/block decision and sanitized text
         """
         if not text or not text.strip():
-            return FirewallDecision(
+            return self._create_decision_with_metadata(
                 allowed=True,
                 reason="Empty output",
                 sanitized_text="",
                 risk_score=0.0,
+                **kwargs,
             )
 
         # Step A: Extract tool calls from LLM output
@@ -538,17 +777,20 @@ class FirewallEngineV2:
                         logger.warning(
                             f"[Layer 3] BLOCKED by Kids Policy Truth Preservation: {kids_output_result.get('reason', 'Unknown')}"
                         )
-                        return FirewallDecision(
+                        kids_output_risk = kids_output_result.get("debug", {}).get(
+                            "risk_score", 1.0
+                        )
+                        return self._create_decision_with_metadata(
                             allowed=False,
                             reason=f"Truth Preservation: {kids_output_result.get('reason', 'TRUTH_VIOLATION')}",
                             sanitized_text=None,
-                            risk_score=kids_output_result.get("debug", {}).get(
-                                "risk_score", 1.0
-                            ),
+                            risk_score=kids_output_risk,
                             detected_threats=["TRUTH_VIOLATION"],
                             metadata={
                                 "kids_policy_output_result": kids_output_result,
                             },
+                            base_risk_score=kids_output_risk,
+                            **kwargs,
                         )
 
                     # Kids Policy allowed - output is valid
@@ -561,11 +803,12 @@ class FirewallEngineV2:
                     )
                     # Fail-open: Continue if Truth Preservation fails
 
-            return FirewallDecision(
+            return self._create_decision_with_metadata(
                 allowed=True,
                 reason="No tool calls detected, plain text output validated",
                 sanitized_text=text,
                 risk_score=0.0,
+                **kwargs,
             )
 
         # Step B: Validate each tool call
@@ -586,7 +829,7 @@ class FirewallEngineV2:
                 logger.warning(
                     f"[HEPHAESTUS] BLOCKED: Tool '{tool_name}' rejected. Reason: {validation_result.reason}"
                 )
-                return FirewallDecision(
+                return self._create_decision_with_metadata(
                     allowed=False,
                     reason=f"Tool call blocked: {validation_result.reason}",
                     sanitized_text=None,
@@ -597,6 +840,8 @@ class FirewallEngineV2:
                         "blocked_arguments": arguments,
                         "validation_result": validation_result,
                     },
+                    base_risk_score=validation_result.risk_score,
+                    **kwargs,
                 )
 
             # Tool call is allowed, but may have sanitized arguments
@@ -637,12 +882,14 @@ class FirewallEngineV2:
             logger.info("[HEPHAESTUS] Rebuilt text with sanitized tool calls")
 
         # All tool calls validated and allowed
-        return FirewallDecision(
+        return self._create_decision_with_metadata(
             allowed=True,
             reason=f"All {len(tool_calls)} tool call(s) validated successfully",
             sanitized_text=sanitized_text,
             risk_score=max_risk_score,
             detected_threats=detected_threats,
+            base_risk_score=max_risk_score,
+            **kwargs,
             metadata={
                 "tool_calls": sanitized_calls,
                 "original_tool_calls": tool_calls,

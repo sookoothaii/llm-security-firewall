@@ -366,6 +366,34 @@ MCP monitoring tools available for health checks and metrics:
 - Forensic capabilities: Basic logging
 - STRIDE threat model: Partial
 
+## Evaluation & Benchmarks
+
+The Phase 2 evaluation pipeline provides self-contained, standard-library-only tools for evaluating AnswerPolicy effectiveness:
+
+- **ASR/FPR Metrics**: Attack Success Rate and False Positive Rate computation
+- **Multi-Policy Comparison**: Compare baseline, default, kids, and internal_debug policies
+- **Latency Measurement**: Optional per-request latency tracking
+- **Bootstrap Confidence Intervals**: Optional non-parametric CIs for ASR/FPR
+- **Dataset Validation**: Schema compliance, ASCII-only checks, statistics
+
+**Quick Start:**
+```bash
+python scripts/run_phase2_suite.py --config smoke_test_core
+```
+
+**Documentation:**
+- [AnswerPolicy Phase 2 Evaluation (v2.4.0) – Technical Handover](docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md) – Complete technical documentation
+- [AnswerPolicy Evaluation User Workflow](docs/ANSWER_POLICY_EVALUATION_PHASE2.md) – User guide
+
+**Evaluation Scope & Limitations:**
+- Current evaluation uses small sample sizes (20-200 items) suitable for local smoke tests
+- `p_correct` estimator is uncalibrated (heuristic-based, not probabilistic model)
+- Datasets use template-based generation, not real-world distributions
+- Block attribution is conservative (lower bound for AnswerPolicy contributions)
+- Bootstrap CIs are approximate indicators, not publication-grade statistics
+
+For production-grade evaluation with larger datasets and calibrated models, see Future Work in the technical handover document.
+
 ## References
 
 - Architecture documentation: `docs/SESSION_HANDOVER_2025_12_01.md` (v2.4.0rc1)
@@ -373,6 +401,7 @@ MCP monitoring tools available for health checks and metrics:
 - Test results: `docs/TEST_RESULTS_SUMMARY.md`
 - External review response: `docs/EXTERNAL_REVIEW_RESPONSE.md`
 - PyPI release report: `docs/PYPI_RELEASE_REPORT_2025_12_02.md`
+- AnswerPolicy Phase 2 Evaluation: `docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md` (v2.4.0)
 
 ## License
 

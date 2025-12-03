@@ -85,7 +85,7 @@ def check_input(
         text: User input text to validate
         user_id: User identifier (default: "default")
         tenant_id: Tenant identifier (default: "default")
-        **kwargs: Additional context (age_band, topic_id, etc.)
+        **kwargs: Additional context (age_band, topic_id, use_answer_policy, policy_provider, route, context, etc.)
 
     Returns:
         GuardResult with allowed flag, reason, and sanitized text
@@ -97,6 +97,17 @@ def check_input(
         ...     send_to_llm(result.sanitized_text or result.text)
         ... else:
         ...     return_error(result.reason)
+
+    Example with AnswerPolicy:
+        >>> from llm_firewall import guard
+        >>> from llm_firewall.core.policy_provider import get_default_provider
+        >>> provider = get_default_provider()
+        >>> result = guard.check_input(
+        ...     "user input",
+        ...     use_answer_policy=True,
+        ...     policy_provider=provider,
+        ...     tenant_id="my_tenant"
+        ... )
     """
     engine = _get_firewall_engine()
 
@@ -130,7 +141,7 @@ def check_output(text: str, user_id: str = "default", **kwargs) -> GuardResult:
     Args:
         text: LLM output text to validate
         user_id: User identifier (default: "default")
-        **kwargs: Additional context (tool_calls, sources, etc.)
+        **kwargs: Additional context (tool_calls, sources, use_answer_policy, policy_provider, tenant_id, route, context, etc.)
 
     Returns:
         GuardResult with allowed flag, reason, and sanitized text

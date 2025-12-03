@@ -115,6 +115,67 @@ class DecisionCacheAdapter(DecisionCachePort):
 
 ---
 
+## Epistemic Decision Layer (AnswerPolicy)
+
+**Purpose:** Utility-based decision making for "answer vs. silence" based on explicit cost-benefit trade-offs.
+
+**Mathematical Foundation:**
+```
+E[U(answer)] = p_correct * B - (1 - p_correct) * C
+E[U(silence)] = -A
+
+Answer if: p_correct >= (C - A) / (C + B)
+```
+
+Where:
+- `p_correct`: Estimated probability that answer is correct (currently: `1.0 - base_risk_score`, heuristic)
+- `B`: Benefit if answer is correct
+- `C`: Cost if answer is wrong
+- `A`: Cost of silence (block / no answer)
+
+**Architecture:**
+- **Core Module**: `src/llm_firewall/core/decision_policy.py` - `AnswerPolicy` class
+- **Provider Module**: `src/llm_firewall/core/policy_provider.py` - Per-tenant/route policy selection
+- **Configuration**: `config/answer_policy.yaml` - Policy definitions
+- **Integration**: `src/llm_firewall/core/firewall_engine_v2.py` - Optional gate after risk scoring
+
+**Design Decision:**
+AnswerPolicy acts as an **additional brake** (not pure utility optimization):
+- If `decision_mode == "silence"` → Block immediately
+- If `decision_mode == "answer"` → Continue to existing threshold logic (`base_risk_score < 0.7`)
+
+This preserves defense-in-depth and backward compatibility.
+
+**Usage:**
+```python
+from llm_firewall.core.firewall_engine_v2 import FirewallEngine
+from llm_firewall.core.policy_provider import get_default_provider
+
+engine = FirewallEngine()
+provider = get_default_provider()
+
+decision = engine.process_input(
+    text="user input",
+    tenant_id="tenant_kids",
+    use_answer_policy=True,
+    policy_provider=provider,
+)
+```
+
+**Metrics:**
+AnswerPolicy metadata is always logged in `FirewallDecision.metadata["answer_policy"]` (even when disabled) for offline analysis:
+- ASR (Attack Success Rate) per policy
+- FPR (False Positive Rate) per policy
+- Refusal/Block Rate
+- `p_correct` distribution histograms
+
+**Documentation:**
+- Integration Guide: `docs/ANSWER_POLICY_INTEGRATION.md`
+- Design Decisions: `docs/ANSWER_POLICY_DESIGN_DECISIONS.md`
+- Examples: `examples/answer_policy_example.py`
+
+---
+
 ## Testing Pattern
 
 **Domain Layer Tests:** Use mock adapters (no external dependencies).
