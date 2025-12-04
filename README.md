@@ -9,33 +9,34 @@ Bidirectional security framework for human/LLM interfaces implementing defense-i
 
 ## TL;DR
 
-A deterministic, bidirectional security layer for LLM-based systems.
+A bidirectional security layer for LLM-based systems. Validates input, output, and agent state transitions.
 
-- Protects **input, output, memory, and state** simultaneously
-- Designed for **agent frameworks, tool-using models, and API gateways**
-- Mitigates: prompt injection, jailbreaks, obfuscation, evasive encodings, unauthorized tool actions, cognitive leak risks, children-safety failures, malformed JSON, and memory-poisoning
-- Local-only: **no telemetry**, no external calls
-- Drop-in integration: `guard.check_input(text)` / `guard.check_output(text)`
+- Input, output, memory, and state validation
+- Supports agent frameworks, tool-using models, and API gateways
+- Detection: prompt injection, jailbreaks, obfuscation, evasive encodings, unauthorized tool actions, cognitive leak risks, children-safety failures, malformed JSON, memory-poisoning
+- Local execution: no telemetry, no external calls
+- API: `guard.check_input(text)` / `guard.check_output(text)`
 
 ## Minimal Example
 
 ```python
 from llm_firewall import guard
 
-user_prompt = "Explain how to make a polymorphic malware loader."
+# Example: Input validation. The v2.4.1 update reduced false positives for
+# benign educational queries matching the 'explain how...' pattern.
+user_prompt = "Explain how rain forms."
 
 decision = guard.check_input(user_prompt)
+print(f"Blocked: {not decision.allowed}, Reason: {decision.reason}")
 
-if not decision.allowed:
-    print("Blocked by LLM Security Firewall:", decision.reason)
-else:
-    # Your LLM backend call
+if decision.allowed:
+    # LLM backend call
     response = llm(user_prompt)
     out = guard.check_output(response)
     if not out.allowed:
-        print("Response sanitized:", out.reason)
+        print(f"Response sanitized: {out.reason}")
     else:
-        print("LLM Output:", out.cleaned_text)
+        print(f"LLM Output: {out.cleaned_text}")
 ```
 
 ## Installation
@@ -64,53 +65,32 @@ pip install llm-security-firewall[monitoring] # Monitoring tools
 
 ## Features
 
-- **Bidirectional Protection:** Input, output, and memory integrity validation
-- **Defense-in-Depth:** 6 sequential validation layers (UnicodeSanitizer, NormalizationLayer, RegexGate, Input Analysis, Tool Inspection, Output Validation)
-- **Mathematical Safety:** CUSUM oscillation detection, Dempster-Shafer evidence fusion, fail-closed risk gating
-- **Multilingual Support:** Polyglot attack detection across 12+ languages including low-resource languages (Basque, Maltese)
-- **Unicode Hardening:** Zero-width character removal, bidirectional override detection, homoglyph normalization, encoding anomaly detection
-- **Stateful Tracking:** Session state management, drift detection, cumulative risk tracking
-- **Tool Security:** HEPHAESTUS protocol for tool call validation and killchain detection
-- **Transparent Metrics:** Documented FPR, P99 latency, memory usage, bypass test results
-- **Framework Independence:** Hexagonal architecture with Protocol-based adapters
-
-## How This Project Differs From Other LLM Firewalls
-
-Most existing LLM safety libraries focus exclusively on **content analysis** (single-direction prompt filtering).
-
-This project uses a *behavioral and architectural* approach:
-
-1. **Bidirectional Guarding (Input + Output + Memory Integrity)**
-   All data paths are validated, including prompt, response, and in-memory state transitions.
-
-2. **Hexagonal Architecture (Port/Adapter Pattern)**
-   Clear separation between normalization, semantic scoring, risk engines, policy layers, and decision controllers. This enables reproducibility, testability, and deterministic evaluation.
-
-3. **Deterministic Normalization & Obfuscation Resistance**
-   Multi-pass Unicode normalization, homoglyph resolution, Base64/Hex/URL decoding, JSON-hardening.
-
-4. **Mathematical Safety Layers**
-   - CUSUM detectors for oscillation detection
-   - Dempster–Shafer uncertainty modeling for evidence fusion
-   - Fail-closed risk gating
-   These reduce false negatives in adversarial settings.
-
-5. **Stateful Cognitive Protection**
-   Policies operate not only on text, but on *agent state*, *tool sequences*, and *memory mutation events*. This is essential for tool-using agents and automation frameworks.
-
-6. **Transparent Metrics**
-   Documented FPR, P99 latency, memory usage, and known limitations. No hidden heuristics, no opaque reasoning chains.
-
-7. **Fully Local Execution**
-   No telemetry, no external API calls, no data exfiltration.
+- Bidirectional validation: Input, output, and memory integrity validation
+- Sequential validation layers: UnicodeSanitizer, NormalizationLayer, RegexGate, Input Analysis, Tool Inspection, Output Validation
+- Statistical methods: CUSUM for drift detection, Dempster-Shafer theory for evidence fusion, fail-closed risk gating
+- Multilingual detection: Polyglot attack detection across 12+ languages including low-resource languages (Basque, Maltese tested)
+- Unicode normalization: Zero-width character removal, bidirectional override detection, homoglyph normalization, encoding anomaly detection
+- Session state tracking: Session state management, drift detection, cumulative risk tracking
+- Tool call validation: HEPHAESTUS protocol for tool call validation and killchain detection
+- Published metrics: False Positive Rate (FPR), P99 latency, and memory usage documented in `/docs/`
+- Hexagonal architecture: Protocol-based adapters for framework independence
 
 ## Architecture
 
-### Overview
+### Architectural Approach
 
-The system implements a stateful, bidirectional containment mechanism for large language models. It processes requests through sequential validation layers, applying mathematical constraints and stateful tracking to enforce safety boundaries.
+The system implements a stateful, bidirectional containment mechanism for large language models. Requests are processed through sequential validation layers with mathematical constraints and stateful tracking.
 
-The architecture follows a hexagonal pattern with Protocol-based Port/Adapter interfaces and dependency injection. Core business logic is separated from infrastructure concerns. Domain layer uses Protocol-based adapters (`DecisionCachePort`, `DecoderPort`, `ValidatorPort`) for framework independence.
+**Architectural principles:**
+
+1. Bidirectional validation: All data paths validated (input, output, in-memory state transitions)
+2. Hexagonal architecture: Protocol-based Port/Adapter interfaces with dependency injection
+3. Domain separation: Core business logic separated from infrastructure concerns
+4. Framework independence: Domain layer uses Protocol-based adapters (`DecisionCachePort`, `DecoderPort`, `ValidatorPort`)
+5. Deterministic normalization: Multi-pass Unicode normalization, homoglyph resolution, Base64/Hex/URL decoding, JSON-hardening
+6. Statistical methods: CUSUM detectors for oscillation detection, Dempster-Shafer uncertainty modeling for evidence fusion, fail-closed risk gating
+7. Stateful protection: Policies operate on text, agent state, tool sequences, and memory mutation events
+8. Local execution: No telemetry, no external API calls, no data exfiltration
 
 ### Bidirectional Processing Pipeline
 
@@ -171,9 +151,9 @@ The system operates in three directions:
 - Recovery timeout handling
 
 **Developer Adoption API** (`src/llm_firewall/guard.py`)
-- Simple one-liner integration: `guard.check_input(text)`, `guard.check_output(text)`
+- API: `guard.check_input(text)`, `guard.check_output(text)`
 - Backward compatible with existing API
-- See `QUICKSTART.md` for 5-minute integration guide
+- Integration guide: `QUICKSTART.md`
 
 **LangChain Integration** (`src/llm_firewall/integrations/langchain/callbacks.py`)
 - `FirewallCallbackHandler` for LangChain chains
@@ -207,12 +187,12 @@ export REDIS_CLOUD_PASSWORD=password
 
 ## Examples
 
-See the `examples/` directory for complete integration examples:
+Integration examples in `examples/` directory:
 
-- **`quickstart.py`** - Simplest possible integration using `guard.py` API (< 10 lines)
-- **`langchain_integration.py`** - LangChain integration with `FirewallCallbackHandler`
-- **`minimal_fastapi.py`** - FastAPI middleware integration
-- **`quickstart_fastapi.py`** - Full FastAPI example with input/output validation
+- `quickstart.py` - Basic integration using `guard.py` API
+- `langchain_integration.py` - LangChain integration with `FirewallCallbackHandler`
+- `minimal_fastapi.py` - FastAPI middleware integration
+- `quickstart_fastapi.py` - FastAPI example with input/output validation
 
 Run examples:
 ```bash
@@ -221,11 +201,10 @@ python examples/langchain_integration.py
 python examples/minimal_fastapi.py
 ```
 
-**Quick Start (Developer API):**
+**Basic usage:**
 ```python
 from llm_firewall import guard
 
-# One-liner input validation
 decision = guard.check_input("user input text")
 if decision.allowed:
     # Process request
@@ -267,7 +246,7 @@ pytest tests/ -v --cov=src/llm_firewall --cov-report=term
 - onnx>=1.14.0 (ONNX model support)
 - onnxruntime>=1.16.0 (ONNX runtime)
 
-**Note:** Core functionality (Unicode normalization, pattern matching, risk scoring, basic validation) works without ML dependencies. Advanced features like semantic similarity detection and Kids Policy Engine require optional ML dependencies.
+**Note:** Core functionality (Unicode normalization, pattern matching, risk scoring, basic validation) operates without ML dependencies. Semantic similarity detection and Kids Policy Engine require optional ML dependencies.
 
 **System Requirements:**
 - Python >=3.12 (by design, no legacy support)
@@ -285,9 +264,9 @@ pytest tests/ -v --cov=src/llm_firewall --cov-report=term
 
 ## Security Notice
 
-This library reduces risk but cannot guarantee complete protection.
+This library reduces risk but does not guarantee complete protection.
 
-It must be combined with standard security controls:
+Required additional security controls:
 - Authentication and authorization
 - Network isolation
 - Logging and monitoring
@@ -332,9 +311,9 @@ Use only in compliance with local law and data-protection regulations.
 
 ## Performance Characteristics
 
-- **P99 Latency:** <200ms for standard inputs (measured)
-- **Cache Hit Rate:** 30-50% (exact), 70-90% (hybrid)
-- **Cache Latency:** <100ms (Redis Cloud), <1ms (local Redis)
+- P99 Latency: <200ms for standard inputs (measured)
+- Cache Hit Rate: 30-50% (exact), 70-90% (hybrid)
+- Cache Latency: <100ms (Redis Cloud), <1ms (local Redis)
 
 ## Monitoring
 
@@ -399,14 +378,14 @@ For production-grade evaluation with larger datasets and calibrated models, see 
 **Latest Version:** v2.4.1 (2025-12-04)
 
 **Kids Policy Performance:**
-- False Positive Rate: 5% (improved from 22% in v2.4.0)
+- False Positive Rate: 5% (target: <10%, met in v2.4.1)
 - Attack Success Rate: 40% (stable)
 - Hotfix Details: [DEPLOY_HOTFIX_2.4.1.md](runbooks/DEPLOY_HOTFIX_2.4.1.md)
 
 **Recent Changes:**
 - v2.4.1: UNSAFE_TOPIC false positive reduction (whitelist filter for benign educational queries)
-- All 17 UNSAFE_TOPIC false positives eliminated
-- FPR reduced by 77% (22% → 5%) with no security degradation
+- UNSAFE_TOPIC false positives: 17 eliminated (100% of identified cases)
+- FPR change: 22% → 5% (77% relative reduction), ASR unchanged
 
 ## References
 
