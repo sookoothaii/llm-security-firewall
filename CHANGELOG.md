@@ -8,9 +8,9 @@ All notable changes to the **HAK_GAL LLM Security Firewall** project will be doc
 
 ### Fixed
 
-- **Kritische False-Positive-Reduktion:** Whitelist-Filter für harmlose Bildungsinhalte im Kids-Policy Risk Scorer.
-- **Betroffen:** UNSAFE_TOPIC-Erkennung, die fälschlich einfache "Explain how..."-Fragen blockierte.
-- **Ergebnis:** FPR von 22% auf 5% reduziert (77% relative Verbesserung) bei stabiler ASR (40%).
+- False-Positive-Reduktion: Whitelist-Filter für harmlose Bildungsinhalte im Kids-Policy Risk Scorer.
+- Betroffen: UNSAFE_TOPIC-Erkennung, die fälschlich einfache "Explain how..."-Fragen blockierte.
+- Ergebnis: FPR von 22% auf 5% reduziert (77% relative Reduktion) bei stabiler ASR (40%).
 
 ### Technical Details
 
