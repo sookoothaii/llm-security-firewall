@@ -2,7 +2,7 @@
 
 Bidirectional security framework for human/LLM interfaces implementing defense-in-depth architecture with multiple validation layers.
 
-**Version:** 2.4.0
+**Version:** 2.4.1
 **Python:** >=3.12
 **License:** MIT
 **Status:** Production
