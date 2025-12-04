@@ -277,7 +277,7 @@ pytest tests/ -v --cov=src/llm_firewall --cov-report=term
 
 ## Known Limitations
 
-1. **False Positive Rate:** Kids Policy false positive rate is approximately 20-25% (target: <5%)
+1. **False Positive Rate:** Kids Policy false positive rate is 5% (target: <10%, met in v2.4.1)
 2. **Memory Usage:** Current memory usage exceeds 300MB cap for adversarial inputs (measured: ~1.3GB)
 3. **Unicode Normalization:** Some edge cases in mathematical alphanumeric symbol handling
 4. **Python Version:** Requires Python >=3.12 (by design, no legacy support for 3.10/3.11)
@@ -350,7 +350,7 @@ MCP monitoring tools available for health checks and metrics:
 
 **P0 Items (Critical):**
 - Circuit breaker pattern: Implemented
-- False positive tracking: Implemented (rate: ~20-25%)
+- False positive tracking: Implemented (rate: ~5% as of v2.4.1)
 - P99 latency metrics: Implemented (<200ms verified)
 - Cache mode switching: Implemented
 - Adversarial bypass detection: Implemented (0/50 bypasses in test suite)
@@ -382,7 +382,7 @@ python scripts/run_phase2_suite.py --config smoke_test_core
 ```
 
 **Documentation:**
-- [AnswerPolicy Phase 2 Evaluation (v2.4.0) – Technical Handover](docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md) – Complete technical documentation
+- [AnswerPolicy Phase 2 Evaluation (v2.4.1) – Technical Handover](docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md) – Complete technical documentation
 - [AnswerPolicy Evaluation User Workflow](docs/ANSWER_POLICY_EVALUATION_PHASE2.md) – User guide
 
 **Evaluation Scope & Limitations:**
@@ -401,7 +401,7 @@ For production-grade evaluation with larger datasets and calibrated models, see 
 - Test results: `docs/TEST_RESULTS_SUMMARY.md`
 - External review response: `docs/EXTERNAL_REVIEW_RESPONSE.md`
 - PyPI release report: `docs/PYPI_RELEASE_REPORT_2025_12_02.md`
-- AnswerPolicy Phase 2 Evaluation: `docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md` (v2.4.0)
+- AnswerPolicy Phase 2 Evaluation: `docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md` (v2.4.1)
 
 ## License
 
