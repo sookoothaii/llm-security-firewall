@@ -70,7 +70,7 @@ class DecisionCacheAdapter(DecisionCachePort):
 
         # Set up fail-safe fallback
         if fallback_adapter is None:
-            self.fallback_adapter = NullCacheAdapter()
+            self.fallback_adapter: DecisionCachePort = NullCacheAdapter()
         else:
             self.fallback_adapter = fallback_adapter
 

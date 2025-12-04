@@ -100,6 +100,21 @@ except ImportError:
     HAS_ANSWER_POLICY = False
     PolicyProvider = None  # type: ignore
 
+# Import Dempster-Shafer Fusion (optional - evidence-based p_correct)
+try:
+    from llm_firewall.fusion.dempster_shafer import (
+        DempsterShaferFusion,
+        EvidenceMass,
+        make_mass,
+    )
+
+    HAS_DEMPSTER_SHAFER = True
+except ImportError:
+    HAS_DEMPSTER_SHAFER = False
+    DempsterShaferFusion = None  # type: ignore
+    EvidenceMass = None  # type: ignore
+    make_mass = None  # type: ignore
+
 logger = logging.getLogger(__name__)
 
 
@@ -163,6 +178,16 @@ class FirewallEngineV2:
         cache_adapter: Optional[
             Any
         ] = None,  # DecisionCachePort (type hint avoided due to optional import)
+        dempster_shafer_fuser: Optional[Any] = None,  # DempsterShaferFusion (optional)
+        use_evidence_based_p_correct: bool = False,  # Enable evidence-based p_correct
+        p_correct_stretch_factor: float = 1.0,  # Stretch factor for p_correct distribution (1.0 = no stretch)
+        vector_guard: Optional[
+            Any
+        ] = None,  # VectorGuard instance (optional, for CUSUM evidence)
+        uncertainty_boost_factor: float = 0.0,  # Uncertainty boost for intermediate confidence values (0.0 = disabled)
+        use_optimized_mass_calibration: bool = False,  # Use optimized mass calibration (experimental)
+        p_correct_formula: str = "stretched",  # p_correct formula: 'stretched', 'weighted', 'plausibility', 'transformed'
+        p_correct_scale_method: str = "none",  # Scaling method: 'linear_shift', 'power_transform', 'simple_shift', 'none'
     ):
         """
         Initialize Firewall Engine v2.
@@ -241,6 +266,559 @@ class FirewallEngineV2:
         else:
             logger.info("No cache adapter available - cache disabled")
 
+        # Dempster-Shafer Fuser (optional - for evidence-based p_correct)
+        self.use_evidence_based_p_correct = use_evidence_based_p_correct
+        if (
+            use_evidence_based_p_correct
+            and HAS_DEMPSTER_SHAFER
+            and DempsterShaferFusion is not None
+        ):
+            self.dempster_shafer_fuser = dempster_shafer_fuser or DempsterShaferFusion()
+            logger.info("Dempster-Shafer Fusion enabled for evidence-based p_correct")
+        else:
+            self.dempster_shafer_fuser = None
+            if use_evidence_based_p_correct:
+                logger.warning(
+                    "Evidence-based p_correct requested but Dempster-Shafer not available. "
+                    "Falling back to heuristic."
+                )
+
+        # VectorGuard (optional - for CUSUM drift evidence)
+        self.vector_guard = (
+            vector_guard  # Can be injected or set via dependency injection
+        )
+
+        # p_correct stretch factor (for distribution calibration)
+        self.p_correct_stretch_factor = float(p_correct_stretch_factor)
+
+        # Uncertainty boost factor (for evidence calibration)
+        self.uncertainty_boost_factor = float(
+            uncertainty_boost_factor
+        )  # Evidence calibration parameter
+
+        # Optimized mass calibration (experimental)
+        self.use_optimized_mass_calibration = use_optimized_mass_calibration
+
+        # p_correct formula selection
+        valid_formulas = ["stretched", "weighted", "plausibility", "transformed"]
+        if p_correct_formula not in valid_formulas:
+            raise ValueError(
+                f"p_correct_formula must be one of {valid_formulas}, got {p_correct_formula}"
+            )
+        self.p_correct_formula = p_correct_formula
+
+        # p_correct scaling method
+        valid_scale_methods = [
+            "none",
+            "linear_shift",
+            "power_transform",
+            "simple_shift",
+        ]
+        if p_correct_scale_method not in valid_scale_methods:
+            raise ValueError(
+                f"p_correct_scale_method must be one of {valid_scale_methods}, got {p_correct_scale_method}"
+            )
+        self.p_correct_scale_method = p_correct_scale_method
+
+    def _get_cusum_evidence(
+        self, context: Optional[Dict[str, Any]] = None, user_id: Optional[str] = None
+    ) -> float:
+        """
+        Get CUSUM drift evidence from VectorGuard.
+
+        Attempts multiple access paths:
+        1. Direct VectorGuard instance (if injected)
+        2. VectorGuard from context
+        3. SessionManager lookup (if available)
+        4. Fallback: 0.0 (no drift assumed)
+
+        Args:
+            context: Optional request context (may contain vector_guard, session_id, etc.)
+            user_id: Optional user/session identifier for session-based lookup
+
+        Returns:
+            Normalized CUSUM drift score [0.0, 1.0] where 1.0 = maximum drift
+        """
+        vector_guard = None
+        session_id = None
+
+        # 1. Try direct instance variable (if injected via __init__ or setter)
+        if self.vector_guard is not None:
+            vector_guard = self.vector_guard
+
+        # 2. Try context dictionary
+        if vector_guard is None and context is not None:
+            vector_guard = context.get("vector_guard")
+            session_id = context.get("session_id") or context.get("user_id")
+
+        # 3. Try user_id as session_id
+        if session_id is None and user_id is not None:
+            session_id = user_id
+
+        # 4. If VectorGuard found, try to get CUSUM score
+        if vector_guard is not None:
+            try:
+                # Try multiple access patterns
+                cusum_score = None
+                cusum_threshold = 1.0  # Default normalization
+
+                # Pattern 1: Direct attribute access (SessionTrajectory)
+                if hasattr(vector_guard, "cusum_score"):
+                    cusum_score = vector_guard.cusum_score
+                    if hasattr(vector_guard, "cusum_threshold"):
+                        cusum_threshold = vector_guard.cusum_threshold
+
+                # Pattern 2: Session-based lookup (VectorGuard with _get_trajectory)
+                elif session_id is not None and hasattr(
+                    vector_guard, "_get_trajectory"
+                ):
+                    try:
+                        trajectory = vector_guard._get_trajectory(session_id)
+                        if hasattr(trajectory, "cusum_score"):
+                            cusum_score = trajectory.cusum_score
+                            if hasattr(trajectory, "cusum_threshold"):
+                                cusum_threshold = trajectory.cusum_threshold
+                    except Exception as e:
+                        logger.debug(
+                            f"[CUSUM] Failed to get trajectory for session {session_id}: {e}"
+                        )
+
+                # Pattern 3: Method call (if VectorGuard has get_cusum_score method)
+                elif hasattr(vector_guard, "get_cusum_score"):
+                    try:
+                        if session_id is not None:
+                            cusum_score = vector_guard.get_cusum_score(session_id)
+                        else:
+                            cusum_score = vector_guard.get_cusum_score()
+                    except Exception as e:
+                        logger.debug(f"[CUSUM] get_cusum_score() failed: {e}")
+
+                # Normalize score: cusum_score / cusum_threshold, clamped to [0, 1]
+                if cusum_score is not None:
+                    if cusum_threshold > 0:
+                        normalized = max(0.0, min(1.0, cusum_score / cusum_threshold))
+                    else:
+                        normalized = max(0.0, min(1.0, cusum_score))
+                    logger.debug(
+                        f"[CUSUM] Retrieved score: {cusum_score:.4f} / {cusum_threshold:.4f} = {normalized:.4f}"
+                    )
+                    return normalized
+
+            except Exception as e:
+                logger.debug(f"[CUSUM] Error accessing VectorGuard: {e}")
+
+        # Fallback: No CUSUM evidence available
+        return 0.0
+
+    def _compute_adaptive_ignorance(
+        self, confidence: float, evidence_type: str = "risk_scorer"
+    ) -> float:
+        """
+        Compute adaptive ignorance based on confidence value.
+
+        Higher ignorance for intermediate confidence values (uncertain cases),
+        lower ignorance for extreme values (clear cases).
+
+        Args:
+            confidence: Confidence score [0.0, 1.0]
+            evidence_type: Type of evidence (risk_scorer, cusum_drift, encoding_anomaly)
+
+        Returns:
+            Adaptive ignorance value [0.0, 1.0]
+        """
+        if evidence_type == "risk_scorer":
+            # Risk scorer: Higher ignorance for intermediate risks
+            if 0.4 < confidence < 0.6:
+                # High uncertainty for uncertain risks
+                return 0.5
+            elif 0.2 < confidence < 0.8:
+                # Moderate uncertainty
+                return 0.3
+            else:
+                # Low uncertainty for clear cases
+                return 0.2
+        elif evidence_type == "cusum_drift":
+            # CUSUM: Moderate uncertainty (drift detection is inherently uncertain)
+            if 0.3 < confidence < 0.7:
+                return 0.4
+            else:
+                return 0.25
+        else:
+            # Encoding anomaly: Lower uncertainty (more deterministic)
+            if 0.4 < confidence < 0.6:
+                return 0.3
+            else:
+                return 0.2
+
+    def _apply_uncertainty_boost(
+        self, confidence: float, boost_factor: Optional[float] = None
+    ) -> float:
+        """
+        Kontinuierliche Uncertainty Boost-Funktion.
+
+        Transformiert Confidence-Werte näher zu 0.5, ohne Diskontinuität.
+        Erhält Monotonie und Unterscheidungsfähigkeit für alle Werte.
+
+        Formula: boosted = 0.5 + (confidence - 0.5) * (1.0 - boost_factor)
+
+        Bei boost_factor=0.4:
+        - 0.0 → 0.2, 1.0 → 0.8 (Extreme werden gemildert)
+        - 0.5 → 0.5 (Mittelwert bleibt erhalten)
+        - 0.8 → 0.68, 0.2 → 0.32 (lineare Transformation)
+        - 0.4 → 0.44, 0.6 → 0.56 (Unterscheidung erhalten!)
+
+        Beispiel-Transformationen (boost_factor=0.4):
+        - confidence=0.0 → returns 0.2 (increased from 0.0)
+        - confidence=0.2 → returns 0.32 (increased from 0.2)
+        - confidence=0.4 → returns 0.44 (increased from 0.4, NOT 0.5!)
+        - confidence=0.5 → returns 0.5 (unchanged, maximum uncertainty)
+        - confidence=0.6 → returns 0.56 (decreased from 0.6, NOT 0.5!)
+        - confidence=0.8 → returns 0.68 (decreased from 0.8)
+        - confidence=1.0 → returns 0.8 (decreased from 1.0)
+
+        Args:
+            confidence: Confidence score [0.0, 1.0]
+            boost_factor: Boost factor [0.0, 1.0]. If None, uses self.uncertainty_boost_factor.
+
+        Returns:
+            Boosted confidence value [0.0, 1.0]
+        """
+        if boost_factor is None:
+            boost_factor = self.uncertainty_boost_factor
+
+        if boost_factor <= 0.0:
+            # No boost: return original confidence
+            return confidence
+
+        # Clamp boost_factor to valid range
+        boost_factor = max(0.0, min(1.0, boost_factor))
+
+        # Kontinuierliche lineare Transformation: Verschiebt alle Werte näher zu 0.5
+        # Formel: boosted = 0.5 + (confidence - 0.5) * (1.0 - boost_factor)
+        #
+        # Mathematische Eigenschaften:
+        # - Monoton: confidence1 < confidence2 → boosted1 < boosted2
+        # - Kontinuierlich: keine Sprünge
+        # - Symmetrisch: boost(0.5 + d) = 0.5 + boost_factor * d
+        # - Bei boost_factor=0.4: 0.4 → 0.44, 0.5 → 0.5, 0.6 → 0.56
+        boosted = 0.5 + (confidence - 0.5) * (1.0 - boost_factor)
+
+        # Sicherstellen, dass Werte im [0,1] Bereich bleiben
+        return max(0.0, min(1.0, boosted))
+
+    def _stretched_p_correct(self, belief_quarantine: float) -> float:
+        """
+        Apply stretch factor to p_correct to expand the sensitive range.
+
+        The stretch factor transforms the compressed Dempster-Shafer distribution
+        by applying a power function to belief_quarantine before computing p_correct.
+
+        Formula: p_correct = 1.0 - (belief_quarantine ^ (1.0 / stretch_factor))
+
+        Examples (stretch_factor=2.0):
+        - belief_quarantine=0.05 → stretched=0.2236 → p_correct=0.7764
+        - belief_quarantine=0.20 → stretched=0.4472 → p_correct=0.5528
+        - belief_quarantine=0.50 → stretched=0.7071 → p_correct=0.2929
+
+        Args:
+            belief_quarantine: Belief that item should be quarantined [0.0, 1.0]
+
+        Returns:
+            Stretched p_correct value [0.0, 1.0]
+        """
+        if self.p_correct_stretch_factor <= 1.0:
+            # No stretching: use linear formula
+            return max(0.0, min(1.0, 1.0 - belief_quarantine))
+
+        # Apply power transformation to expand sensitive range
+        # Higher stretch_factor = more expansion (more aggressive)
+        stretched_quarantine = belief_quarantine ** (
+            1.0 / self.p_correct_stretch_factor
+        )
+        p_correct = max(0.0, min(1.0, 1.0 - stretched_quarantine))
+
+        return p_correct
+
+    def _scale_p_correct_distribution(
+        self, p_correct_raw: float, method: str = "linear_shift"
+    ) -> float:
+        """
+        Skaliert die p_correct-Verteilung in den optimalen Bereich.
+
+        Aktuelle Verteilung (mit weighted-Formel): min=0.829, max=0.992, mean=0.939
+        Ziel-Verteilung: min≈0.3, max≈0.95, mean_redteam≈0.5, mean_benign≈0.7
+
+        Args:
+            p_correct_raw: Raw p_correct value from formula [0.0, 1.0]
+            method: Scaling method ('linear_shift', 'power_transform', 'none')
+
+        Returns:
+            Scaled p_correct value [0.0, 1.0]
+        """
+        if method == "none" or method is None:
+            return p_correct_raw
+
+        if method == "linear_shift":
+            # Einfache lineare Transformation: Verschiebt gesamte Verteilung nach unten
+            # Formel: scaled = (raw - current_min) * (target_range/current_range) + target_min
+            current_min = 0.8290
+            current_max = 0.9916
+            target_min = 0.30
+            target_max = 0.95
+
+            if p_correct_raw <= current_min:
+                return target_min
+            elif p_correct_raw >= current_max:
+                return target_max
+            else:
+                # Lineare Interpolation
+                scaled = target_min + (p_correct_raw - current_min) * (
+                    target_max - target_min
+                ) / (current_max - current_min)
+                return max(0.0, min(1.0, scaled))
+
+        elif method == "power_transform":
+            # Nicht-lineare Transformation: Behält relative Unterschiede bei
+            # Reduziert hohe Werte stärker als niedrige
+            power = 0.7
+            return max(0.0, min(1.0, p_correct_raw**power))
+
+        elif method == "simple_shift":
+            # Einfache Verschiebung: p_correct - 0.35 (empirisch kalibriert)
+            return max(0.0, min(1.0, p_correct_raw - 0.35))
+
+        else:
+            # Unknown method: return raw
+            return p_correct_raw
+
+    def _compute_evidence_based_p_correct(
+        self,
+        base_risk_score: float,
+        encoding_anomaly_score: float = 0.0,
+        context: Optional[Dict[str, Any]] = None,
+        user_id: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Compute p_correct using Dempster-Shafer evidence fusion.
+
+        Combines multiple evidence sources (risk score, CUSUM drift, encoding anomalies)
+        into a single p_correct estimate using Dempster-Shafer theory.
+
+        Args:
+            base_risk_score: Base risk score [0.0, 1.0]
+            encoding_anomaly_score: Encoding anomaly score [0.0, 1.0]
+            context: Optional request context
+
+        Returns:
+            Dictionary with:
+            - p_correct: Estimated correctness probability [0.0, 1.0]
+            - belief_quarantine: Belief that request should be quarantined
+            - plausibility_quarantine: Plausibility that request should be quarantined
+            - evidence_masses: Raw evidence masses for debugging
+            - combined_mass: Fused evidence mass
+        """
+        # Fallback to heuristic if evidence-based computation not available
+        if (
+            not self.use_evidence_based_p_correct
+            or self.dempster_shafer_fuser is None
+            or not HAS_DEMPSTER_SHAFER
+            or make_mass is None
+        ):
+            p_correct = max(0.0, min(1.0, 1.0 - base_risk_score))
+            return {
+                "p_correct": p_correct,
+                "belief_quarantine": base_risk_score,
+                "plausibility_quarantine": base_risk_score,
+                "evidence_masses": {
+                    "risk_scorer": base_risk_score,
+                    "cusum_drift": 0.0,
+                    "encoding_anomaly": encoding_anomaly_score,
+                },
+                "combined_mass": None,
+                "method": "heuristic",
+            }
+
+        # 1. Collect evidence sources
+        risk_score = float(base_risk_score)
+        cusum_drift = self._get_cusum_evidence(context=context, user_id=user_id)
+        encoding_anomaly = float(encoding_anomaly_score)
+
+        # 2. Convert evidence to promote confidence (invert scores)
+        # Higher scores = higher quarantine mass (invert for promote confidence)
+        risk_promote_confidence_raw = 1.0 - risk_score
+        cusum_promote_confidence_raw = 1.0 - cusum_drift
+        encoding_promote_confidence_raw = 1.0 - encoding_anomaly
+
+        # 3. Apply uncertainty boost (if enabled) to force more uncertainty for intermediate values
+        risk_promote_confidence = self._apply_uncertainty_boost(
+            risk_promote_confidence_raw
+        )
+        cusum_promote_confidence = self._apply_uncertainty_boost(
+            cusum_promote_confidence_raw
+        )
+        encoding_promote_confidence = self._apply_uncertainty_boost(
+            encoding_promote_confidence_raw
+        )
+
+        # Log evidence inputs for calibration analysis
+        evidence_values = {
+            "risk_confidence_raw": risk_promote_confidence_raw,
+            "risk_confidence_boosted": risk_promote_confidence,
+            "cusum_confidence_raw": cusum_promote_confidence_raw,
+            "cusum_confidence_boosted": cusum_promote_confidence,
+            "encoding_confidence_raw": encoding_promote_confidence_raw,
+            "encoding_confidence_boosted": encoding_promote_confidence,
+            "base_risk_score": risk_score,
+            "cusum_drift": cusum_drift,
+            "encoding_anomaly": encoding_anomaly,
+        }
+        logger.debug(f"[EvidenceFusion] Evidence inputs: {evidence_values}")
+
+        # 4. Convert evidence to EvidenceMass objects
+
+        # Adaptive ignorance: More uncertainty for intermediate confidence values
+        risk_ignorance = self._compute_adaptive_ignorance(
+            risk_promote_confidence, evidence_type="risk_scorer"
+        )
+        cusum_ignorance = self._compute_adaptive_ignorance(
+            cusum_promote_confidence, evidence_type="cusum_drift"
+        )
+        encoding_ignorance = self._compute_adaptive_ignorance(
+            encoding_promote_confidence, evidence_type="encoding_anomaly"
+        )
+
+        # Use optimized mass calibration if enabled (experimental)
+        use_optimized_mass = getattr(self, "use_optimized_mass_calibration", False)
+        if use_optimized_mass:
+            from llm_firewall.fusion.dempster_shafer import make_mass_optimized
+
+            risk_mass = make_mass_optimized(
+                confidence=risk_promote_confidence, evidence_type="risk_scorer"
+            )
+            cusum_mass = make_mass_optimized(
+                confidence=cusum_promote_confidence, evidence_type="cusum_drift"
+            )
+            encoding_mass = make_mass_optimized(
+                confidence=encoding_promote_confidence, evidence_type="encoding_anomaly"
+            )
+        else:
+            risk_mass = make_mass(
+                score=risk_promote_confidence, allow_ignorance=risk_ignorance
+            )
+            cusum_mass = make_mass(
+                score=cusum_promote_confidence, allow_ignorance=cusum_ignorance
+            )
+            encoding_mass = make_mass(
+                score=encoding_promote_confidence, allow_ignorance=encoding_ignorance
+            )
+
+        # Log evidence masses for calibration analysis
+        evidence_masses_log = {
+            "risk_mass": {
+                "promote": risk_mass.promote,
+                "quarantine": risk_mass.quarantine,
+                "unknown": risk_mass.unknown,
+            },
+            "cusum_mass": {
+                "promote": cusum_mass.promote,
+                "quarantine": cusum_mass.quarantine,
+                "unknown": cusum_mass.unknown,
+            },
+            "encoding_mass": {
+                "promote": encoding_mass.promote,
+                "quarantine": encoding_mass.quarantine,
+                "unknown": encoding_mass.unknown,
+            },
+        }
+        logger.debug(f"[EvidenceFusion] Evidence masses: {evidence_masses_log}")
+
+        # 5. Fuse evidence using Dempster-Shafer
+        masses = [risk_mass, cusum_mass, encoding_mass]
+        combined_mass = self.dempster_shafer_fuser.combine_masses(masses)
+
+        # Log fusion result for calibration analysis
+        fusion_result_log = {
+            "combined_mass": {
+                "promote": combined_mass.promote,
+                "quarantine": combined_mass.quarantine,
+                "unknown": combined_mass.unknown,
+            },
+        }
+        logger.debug(f"[EvidenceFusion] Fusion result: {fusion_result_log}")
+
+        # 6. Compute belief functions
+        belief_promote, belief_quarantine = self.dempster_shafer_fuser.compute_belief(
+            combined_mass
+        )
+
+        # Log belief functions for calibration analysis
+        logger.debug(
+            f"[EvidenceFusion] Belief functions: belief_promote={belief_promote:.4f}, "
+            f"belief_quarantine={belief_quarantine:.4f}"
+        )
+
+        # 7. Compute plausibility (belief + unknown mass) - needed for some formulas
+        plausibility_quarantine = belief_quarantine + combined_mass.unknown
+
+        # 8. Derive p_correct from belief
+        # Multiple formula options for testing
+        p_correct_formula = getattr(
+            self, "p_correct_formula", "stretched"
+        )  # 'stretched', 'weighted', 'plausibility', 'transformed'
+
+        if p_correct_formula == "weighted":
+            # Option B: Weighted combination (promote + 0.5 * unknown)
+            p_correct_raw = belief_promote + (combined_mass.unknown * 0.5)
+            # Apply scaling if enabled (shifts distribution down from min=0.829 to target min≈0.3)
+            p_correct = self._scale_p_correct_distribution(
+                p_correct_raw, method=self.p_correct_scale_method
+            )
+        elif p_correct_formula == "plausibility":
+            # Option C: Plausibility-based (1 - plausibility_quarantine)
+            p_correct = 1.0 - plausibility_quarantine
+        elif p_correct_formula == "transformed":
+            # Option D: Transformed (1 - belief_quarantine^0.7)
+            p_correct = 1.0 - (belief_quarantine**0.7)
+        else:
+            # Option A: Stretched (default, current implementation)
+            # p_correct = 1 - belief_quarantine (higher quarantine belief = lower p_correct)
+            # Apply stretch factor to expand the sensitive range
+            p_correct = self._stretched_p_correct(belief_quarantine)
+
+        # Log final p_correct for calibration analysis
+        logger.debug(
+            f"[EvidenceFusion] Final p_correct: {p_correct:.4f} (stretch_factor={self.p_correct_stretch_factor})"
+        )
+
+        return {
+            "p_correct": p_correct,
+            "belief_quarantine": belief_quarantine,
+            "plausibility_quarantine": plausibility_quarantine,
+            "evidence_masses": {
+                "risk_scorer": {
+                    "promote": risk_mass.promote,
+                    "quarantine": risk_mass.quarantine,
+                    "unknown": risk_mass.unknown,
+                },
+                "cusum_drift": {
+                    "promote": cusum_mass.promote,
+                    "quarantine": cusum_mass.quarantine,
+                    "unknown": cusum_mass.unknown,
+                },
+                "encoding_anomaly": {
+                    "promote": encoding_mass.promote,
+                    "quarantine": encoding_mass.quarantine,
+                    "unknown": encoding_mass.unknown,
+                },
+            },
+            "combined_mass": {
+                "promote": combined_mass.promote,
+                "quarantine": combined_mass.quarantine,
+                "unknown": combined_mass.unknown,
+            },
+            "method": "dempster_shafer",
+        }
+
     def _create_decision_with_metadata(
         self,
         allowed: bool,
@@ -310,7 +888,19 @@ class FirewallEngineV2:
                 policy_meta = policy_provider.for_tenant(
                     tenant_id_meta, route=route_meta, context=context_meta
                 )
-                p_correct_meta = max(0.0, min(1.0, 1.0 - base_risk))
+
+                # Compute p_correct using evidence fusion (if enabled) or heuristic
+                encoding_anomaly = (
+                    metadata.get("encoding_anomaly_score", 0.0) if metadata else 0.0
+                )
+                user_id_meta = kwargs.get("user_id") or context_meta.get("user_id")
+                evidence_result = self._compute_evidence_based_p_correct(
+                    base_risk_score=base_risk,
+                    encoding_anomaly_score=encoding_anomaly,
+                    context=context_meta,
+                    user_id=user_id_meta,
+                )
+                p_correct_meta = evidence_result["p_correct"]
                 decision_mode_meta = policy_meta.decide(
                     p_correct_meta, risk_score=base_risk
                 )
@@ -321,6 +911,14 @@ class FirewallEngineV2:
                         "p_correct": p_correct_meta,
                         "threshold": policy_meta.threshold(),
                         "mode": decision_mode_meta,
+                        # Extended metadata (if evidence-based)
+                        "belief_quarantine": evidence_result.get("belief_quarantine"),
+                        "plausibility_quarantine": evidence_result.get(
+                            "plausibility_quarantine"
+                        ),
+                        "evidence_masses": evidence_result.get("evidence_masses"),
+                        "combined_mass": evidence_result.get("combined_mass"),
+                        "p_correct_method": evidence_result.get("method", "heuristic"),
                     }
                 )
             except Exception as e:
@@ -582,7 +1180,38 @@ class FirewallEngineV2:
                 policy = policy_provider.for_tenant(
                     tenant_id, route=route, context=context
                 )
-                p_correct = max(0.0, min(1.0, 1.0 - base_risk_score))
+
+                # Compute p_correct using evidence fusion (if enabled) or heuristic
+                evidence_result = self._compute_evidence_based_p_correct(
+                    base_risk_score=base_risk_score,
+                    encoding_anomaly_score=encoding_anomaly_score,
+                    context=context,
+                    user_id=user_id,
+                )
+
+                # Adaptive threshold selection: Use evidence-optimized policy if evidence-based p_correct is enabled
+                # and policy is "kids" (which uses threshold 0.98 for heuristic, but needs 0.65 for evidence)
+                if (
+                    self.use_evidence_based_p_correct
+                    and policy.policy_name == "kids"
+                    and evidence_result.get("method") == "dempster_shafer"
+                ):
+                    # Switch to kids_evidence policy (threshold 0.65) for evidence-based fusion
+                    from llm_firewall.core.decision_policy import get_policy
+
+                    try:
+                        policy = get_policy("kids_evidence")
+                        logger.debug(
+                            f"[AnswerPolicy] Using adaptive threshold: switched from 'kids' to 'kids_evidence' "
+                            f"(threshold: {policy.threshold():.3f}) for evidence-based p_correct"
+                        )
+                    except KeyError:
+                        # Fallback: use original policy if kids_evidence not available
+                        logger.warning(
+                            "[AnswerPolicy] kids_evidence policy not found, using original 'kids' policy"
+                        )
+
+                p_correct = evidence_result["p_correct"]
                 decision_mode = policy.decide(p_correct, risk_score=base_risk_score)
 
                 if decision_mode == "silence":
@@ -621,6 +1250,20 @@ class FirewallEngineV2:
                                     p_correct
                                 ),
                                 "expected_utility_silence": policy.expected_utility_silence(),
+                                # Extended metadata (if evidence-based)
+                                "belief_quarantine": evidence_result.get(
+                                    "belief_quarantine"
+                                ),
+                                "plausibility_quarantine": evidence_result.get(
+                                    "plausibility_quarantine"
+                                ),
+                                "evidence_masses": evidence_result.get(
+                                    "evidence_masses"
+                                ),
+                                "combined_mass": evidence_result.get("combined_mass"),
+                                "p_correct_method": evidence_result.get(
+                                    "method", "heuristic"
+                                ),
                             }
                         )
 
