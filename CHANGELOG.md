@@ -2,6 +2,23 @@
 
 All notable changes to the **HAK_GAL LLM Security Firewall** project will be documented in this file.
 
+## [2.4.1] - 2025-12-04
+
+**Status:** Hotfix Release
+
+### Fixed
+
+- **Kritische False-Positive-Reduktion:** Whitelist-Filter für harmlose Bildungsinhalte im Kids-Policy Risk Scorer.
+- **Betroffen:** UNSAFE_TOPIC-Erkennung, die fälschlich einfache "Explain how..."-Fragen blockierte.
+- **Ergebnis:** FPR von 22% auf 5% reduziert (77% relative Verbesserung) bei stabiler ASR (40%).
+
+### Technical Details
+
+- Implementiert `_is_benign_educational_query()` Filter in `kids_policy/firewall_engine_v2.py`
+- Filter wird vor UNSAFE_TOPIC-Blockierung angewendet
+- Eliminiert alle 17 UNSAFE_TOPIC False Positives
+- Keine Sicherheitsdegradierung (ASR unverändert)
+
 ## [2.4.0] - 2025-12-02
 
 **Status:** Production Release

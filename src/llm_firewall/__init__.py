@@ -9,7 +9,7 @@ License: MIT
 Version: 5.0.0rc1
 """
 
-__version__ = "2.4.0"
+__version__ = "2.4.1"
 __author__ = "Joerg Bollwahn"
 
 # Simple Guard API (recommended for new code)
