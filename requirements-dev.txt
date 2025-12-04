@@ -21,8 +21,8 @@ pip-audit>=2.7.0
 import-linter>=2.7.0
 
 # Pre-commit hooks
+# Note: markdownlint-cli is a Node.js tool installed via pre-commit, not pip
 pre-commit>=3.6.0
-markdownlint-cli>=0.38.0
 yamllint>=1.33.0
 detect-secrets>=1.4.0
 shellcheck-py>=0.9.0.6
