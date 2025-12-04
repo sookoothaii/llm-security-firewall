@@ -394,6 +394,20 @@ python scripts/run_phase2_suite.py --config smoke_test_core
 
 For production-grade evaluation with larger datasets and calibrated models, see Future Work in the technical handover document.
 
+## System Status
+
+**Latest Version:** v2.4.1 (2025-12-04)
+
+**Kids Policy Performance:**
+- False Positive Rate: 5% (improved from 22% in v2.4.0)
+- Attack Success Rate: 40% (stable)
+- Hotfix Details: [DEPLOY_HOTFIX_2.4.1.md](runbooks/DEPLOY_HOTFIX_2.4.1.md)
+
+**Recent Changes:**
+- v2.4.1: UNSAFE_TOPIC false positive reduction (whitelist filter for benign educational queries)
+- All 17 UNSAFE_TOPIC false positives eliminated
+- FPR reduced by 77% (22% → 5%) with no security degradation
+
 ## References
 
 - Architecture documentation: `docs/SESSION_HANDOVER_2025_12_01.md` (v2.4.0rc1)
