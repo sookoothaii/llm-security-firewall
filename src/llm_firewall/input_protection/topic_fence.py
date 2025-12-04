@@ -7,9 +7,9 @@ Uses 3 diverse embedding models to detect adversarial vectors via uncertainty qu
 Inspired by Kimi k2's ensemble defense strategy.
 """
 
-from sentence_transformers import SentenceTransformer, util
+# LAZY LOADING: ML-Libraries werden erst bei Bedarf importiert
+# Dies reduziert die Baseline-Memory von ~1291 MB drastisch
 import numpy as np
-import torch
 from typing import List, Optional
 from itertools import combinations
 import logging
@@ -40,6 +40,10 @@ class TopicFence:
 
     def _initialize(self):
         """Load ensemble of 3 DIVERSE models (not 3x Mini)."""
+        # LAZY IMPORT: Load ML libraries only when needed
+        from sentence_transformers import SentenceTransformer
+        import torch
+
         logger.info("[EnsembleFence] Loading Neural Ensemble (3 DIVERSE Models)...")
         device = "cuda" if torch.cuda.is_available() else "cpu"
         logger.info(f"   Using device: {device}")
@@ -84,6 +88,8 @@ class TopicFence:
         except Exception as e:
             logger.error(f"Failed to load ensemble models: {e}")
             # Fallback to single model
+            from sentence_transformers import SentenceTransformer
+
             self.encoders = {
                 "mini": SentenceTransformer("all-MiniLM-L6-v2", device=device)
             }
@@ -172,6 +178,8 @@ class TopicFence:
             return False
 
         # 6. Standard-Check für sichere Fälle (Cosine Similarity)
+        from sentence_transformers import util
+
         scores = []
         for i, model in enumerate(self.models):
             emb = model.encode(user_input, convert_to_tensor=True)
@@ -210,6 +218,9 @@ class TopicFence:
             return None, 0.0
 
         # Use first model for consistency
+        from sentence_transformers import util
+        import torch
+
         model = self.models[0]
         user_embedding = model.encode(user_input, convert_to_tensor=True)
         topic_embeddings = model.encode(allowed_topics, convert_to_tensor=True)

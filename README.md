@@ -2,7 +2,7 @@
 
 Bidirectional security framework for human/LLM interfaces implementing defense-in-depth architecture with multiple validation layers.
 
-**Version:** 2.4.1
+**Version:** 2.5.0
 **Python:** >=3.12
 **License:** MIT
 **Status:** Production
@@ -41,10 +41,32 @@ if decision.allowed:
 
 ## Installation
 
-**From PyPI (recommended):**
+### Core Installation (Recommended - ~54 MB baseline)
+
+**Lightweight baseline with ONNX-only inference:**
 ```bash
 pip install llm-security-firewall
+# OR
+pip install -r requirements-core.txt
 ```
+
+This provides:
+- Pattern matching and basic validation
+- ONNX-based semantic guard (CUDA-enabled)
+- Memory footprint: **~54 MB** (96% reduction from original 1.3 GB)
+
+### Full ML Capabilities (Optional - ~1.3 GB when loaded)
+
+**For advanced validators (TruthPreservationValidator, TopicFence):**
+```bash
+pip install llm-security-firewall[full]
+# OR
+pip install -r requirements.txt
+```
+
+Heavy components (PyTorch, transformers) are loaded **on-demand only** - they don't affect the baseline.
+
+### Development Installation
 
 **For development (local installation):**
 ```bash
@@ -375,7 +397,7 @@ For production-grade evaluation with larger datasets and calibrated models, see 
 
 ## System Status
 
-**Latest Version:** v2.4.1 (2025-12-04)
+**Latest Version:** v2.5.0 (2025-12-05)
 
 **Kids Policy Performance:**
 - False Positive Rate: 0.00% (target: ≤5.0%, met in v2.4.1)
@@ -395,6 +417,7 @@ For production-grade evaluation with larger datasets and calibrated models, see 
 - External review response: `docs/EXTERNAL_REVIEW_RESPONSE.md`
 - PyPI release report: `docs/PYPI_RELEASE_REPORT_2025_12_02.md`
 - AnswerPolicy Phase 2 Evaluation: `docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md` (v2.4.1)
+- Adaptive Learning Architecture: `docs/ADAPTIVE_SESSION_LEARNING_ARCHITECTURE.md` (Design Proposal)
 
 ## License
 

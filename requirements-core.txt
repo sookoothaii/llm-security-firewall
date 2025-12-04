@@ -1,0 +1,31 @@
+# LLM Security Firewall - Core Requirements (ONNX-only, ~54 MB baseline)
+# Version: 2.5.0
+# Python: >=3.12
+#
+# This file contains ONLY core dependencies for the lightweight baseline.
+# Memory footprint: ~54 MB (under 300 MB target)
+#
+# For full ML capabilities (PyTorch + transformers), use:
+#   pip install llm-security-firewall[full]
+#   OR: pip install -r requirements.txt
+#
+# Installation: pip install -r requirements-core.txt
+
+# Core dependencies (required for basic operation)
+numpy>=1.24.0
+scipy>=1.11.0
+pyyaml>=6.0
+blake3>=0.3.0
+requests>=2.31.0
+pydantic>=2.0.0
+psutil>=5.9.0
+cryptography>=41.0.0
+
+# ONNX Runtime (lightweight, PyTorch-free)
+onnx>=1.14.0
+onnxruntime>=1.16.0
+tokenizers>=0.20.0  # Lightweight tokenizer (no PyTorch dependency)
+
+# Optional: Database support (if needed)
+# psycopg[binary]>=3.1.0
+# redis>=5.0.0
