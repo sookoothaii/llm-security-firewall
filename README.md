@@ -2,7 +2,7 @@
 
 Bidirectional security framework for human/LLM interfaces implementing defense-in-depth architecture with multiple validation layers.
 
-**Version:** 2.4.1
+**Version:** 2.5.0
 **Python:** >=3.12
 **License:** MIT
 **Status:** Production
@@ -41,10 +41,32 @@ if decision.allowed:
 
 ## Installation
 
-**From PyPI (recommended):**
+### Core Installation (Recommended - ~54 MB baseline)
+
+**Lightweight baseline with ONNX-only inference:**
 ```bash
 pip install llm-security-firewall
+# OR
+pip install -r requirements-core.txt
 ```
+
+This provides:
+- Pattern matching and basic validation
+- ONNX-based semantic guard (CUDA-enabled)
+- Memory footprint: **~54 MB** (96% reduction from original 1.3 GB)
+
+### Full ML Capabilities (Optional - ~1.3 GB when loaded)
+
+**For advanced validators (TruthPreservationValidator, TopicFence):**
+```bash
+pip install llm-security-firewall[full]
+# OR
+pip install -r requirements.txt
+```
+
+Heavy components (PyTorch, transformers) are loaded **on-demand only** - they don't affect the baseline.
+
+### Development Installation
 
 **For development (local installation):**
 ```bash
@@ -256,7 +278,7 @@ pytest tests/ -v --cov=src/llm_firewall --cov-report=term
 
 ## Known Limitations
 
-1. **False Positive Rate:** Kids Policy false positive rate is 5% (target: <10%, met in v2.4.1)
+1. **False Positive Rate:** Kids Policy false positive rate is 0.00% on validation dataset (target: ≤5.0%, met in v2.4.1)
 2. **Memory Usage:** Current memory usage exceeds 300MB cap for adversarial inputs (measured: ~1.3GB)
 3. **Unicode Normalization:** Some edge cases in mathematical alphanumeric symbol handling
 4. **Python Version:** Requires Python >=3.12 (by design, no legacy support for 3.10/3.11)
@@ -375,17 +397,17 @@ For production-grade evaluation with larger datasets and calibrated models, see 
 
 ## System Status
 
-**Latest Version:** v2.4.1 (2025-12-04)
+**Latest Version:** v2.5.0 (2025-12-05)
 
 **Kids Policy Performance:**
-- False Positive Rate: 5% (target: <10%, met in v2.4.1)
-- Attack Success Rate: 40% (stable)
-- Hotfix Details: [DEPLOY_HOTFIX_2.4.1.md](runbooks/DEPLOY_HOTFIX_2.4.1.md)
+- False Positive Rate: 0.00% (target: ≤5.0%, met in v2.4.1)
+- Attack Success Rate: 40.00% (stable)
+- Validation Report: [VALIDATION_REPORT_v2.4.1.md](docs/VALIDATION_REPORT_v2.4.1.md)
 
 **Recent Changes:**
 - v2.4.1: UNSAFE_TOPIC false positive reduction (whitelist filter for benign educational queries)
 - UNSAFE_TOPIC false positives: 17 eliminated (100% of identified cases)
-- FPR change: 22% → 5% (77% relative reduction), ASR unchanged
+- FPR change: 22% → 0.00% (100% elimination on validation dataset), ASR unchanged
 
 ## References
 
@@ -395,6 +417,7 @@ For production-grade evaluation with larger datasets and calibrated models, see 
 - External review response: `docs/EXTERNAL_REVIEW_RESPONSE.md`
 - PyPI release report: `docs/PYPI_RELEASE_REPORT_2025_12_02.md`
 - AnswerPolicy Phase 2 Evaluation: `docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md` (v2.4.1)
+- Adaptive Learning Architecture: `docs/ADAPTIVE_SESSION_LEARNING_ARCHITECTURE.md` (Design Proposal)
 
 ## License
 

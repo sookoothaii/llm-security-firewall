@@ -19,13 +19,15 @@ Date: 2025-11-03 (TAG-2 Micro-Patch)
 Previous: IC32A08 (TAG-1)
 """
 
+# LAZY LOADING: ML-Libraries werden erst bei Bedarf importiert
+# Dies reduziert die Baseline-Memory von ~1291 MB drastisch
 import hashlib
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 
 from .content_masker import ContentMasker
 from .bidirectional_nli import BidirectionalNLI
-from sentence_transformers import SentenceTransformer, util
+# sentence_transformers wird lazy in __init__ geladen
 
 
 @dataclass
@@ -81,6 +83,9 @@ class TruthPreservationValidatorV2_3:
         nli_model: str = "facebook/bart-large-mnli",
         embedder_model: str = "sentence-transformers/all-MiniLM-L6-v2",
     ):
+        # LAZY IMPORT: Load sentence-transformers only when validator is instantiated
+        from sentence_transformers import SentenceTransformer
+
         self.masker = ContentMasker()
         self.nli = BidirectionalNLI(nli_model=nli_model)
         self.sbert = SentenceTransformer(embedder_model)
@@ -263,6 +268,8 @@ class TruthPreservationValidatorV2_3:
                     if anchor_hit:
                         # Compute micro-SPS
                         fact_emb = self.sbert.encode(fact_text, convert_to_tensor=True)
+                        from sentence_transformers import util
+
                         content_emb = self.sbert.encode(
                             factual_content, convert_to_tensor=True
                         )
@@ -302,6 +309,8 @@ class TruthPreservationValidatorV2_3:
         masked = self.masker.get_masked_and_removed(factual_content)
         factual_content_masked = masked["factual"]
         bridges_removed = len(masked["removed"])
+
+        from sentence_transformers import util
 
         age_canonical_text = " ".join(age_canonical_facts)
         emb1 = self.sbert.encode(age_canonical_text, convert_to_tensor=True)

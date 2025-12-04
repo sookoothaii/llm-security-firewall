@@ -180,7 +180,18 @@ except ImportError:
     HAS_TOPIC_ROUTER = False
     TopicRouter = None  # type: ignore[misc,assignment]
 
-# Semantic Guard import (Layer 1-B)
+# Semantic Guard import (Layer 1-B) - ONNX first (speed priority, CUDA support), fallback to PyTorch
+try:
+    from .truth_preservation.validators.semantic_grooming_guard_onnx import (
+        SemanticGroomingGuardONNX,
+    )
+
+    HAS_SEMANTIC_GUARD_ONNX = True
+except ImportError:
+    HAS_SEMANTIC_GUARD_ONNX = False
+    SemanticGroomingGuardONNX = None  # type: ignore[misc,assignment]
+
+# Fallback to PyTorch version if ONNX not available
 try:
     from .truth_preservation.validators.semantic_grooming_guard import (
         SemanticGroomingGuard,
@@ -191,16 +202,10 @@ except ImportError:
     HAS_SEMANTIC_GUARD = False
     SemanticGroomingGuard = None  # type: ignore[misc,assignment]
 
-# Truth Preservation import (TAG-2)
-try:
-    from .truth_preservation.validators.truth_preservation_validator_v2_3 import (
-        TruthPreservationValidatorV2_3,
-    )
-
-    HAS_TRUTH_VALIDATOR = True
-except ImportError:
-    HAS_TRUTH_VALIDATOR = False
-    TruthPreservationValidatorV2_3 = None  # type: ignore[misc,assignment]
+# Truth Preservation import (TAG-2) - LAZY IMPORT to prevent transformers (362.7 MB) loading
+# The validator is loaded only when truth_validator property is accessed
+HAS_TRUTH_VALIDATOR = True  # Assume available, will fail gracefully if not
+TruthPreservationValidatorV2_3 = None  # Will be loaded lazily in @property
 
 # Meta Exploitation Guard import (HYDRA-13)
 try:
@@ -239,60 +244,20 @@ class HakGalFirewall_v2:
         # INITIALISIERUNG DER STACK-KOMPONENTEN
         self.sanitizer = UnicodeSanitizer(enable_emoji_demojize=True)  # L0: Demojizer
         self.skeptic = PersonaSkeptic()  # L1-A: Framing Detector
-
-        # Meta Exploitation Guard (HYDRA-13) - Fast Fail after PersonaSkeptic
-        # Typed as Optional[Any] to decouple from runtime import semantics
-        self.meta_guard: Optional[Any] = None
-        if HAS_META_GUARD and MetaExploitationGuard is not None:
-            try:
-                self.meta_guard = MetaExploitationGuard(
-                    max_nesting=1,
-                    unicode_allowed=False,
-                )
-                logger.info("MetaExploitationGuard initialized (HYDRA-13)")
-            except Exception as e:
-                logger.warning("MetaExploitationGuard initialization failed: %s", e)
-
         self.context = ContextClassifier()  # L1.5: Gamer Amnesty
-
-        # TopicRouter (Layer 1.5 - Fast Fail for unsafe topics)
-        self.topic_router: Optional[Any] = None
-        if HAS_TOPIC_ROUTER and TopicRouter is not None:
-            if topic_map_path is None:
-                base_path = Path(__file__).parent / "config"
-                topic_map_path = str(base_path / "topic_map_v1.yaml")
-            try:
-                self.topic_router = TopicRouter(topic_map_path, meta_guard=None)  # type: ignore[call-arg]
-                logger.info("TopicRouter initialized")
-            except Exception as e:
-                logger.warning("TopicRouter initialization failed: %s", e)
-
-        # Semantic Guard (Layer 1-B)
-        self.semantic: Optional[Any] = None
-        if HAS_SEMANTIC_GUARD and SemanticGroomingGuard is not None:
-            try:
-                self.semantic = SemanticGroomingGuard()  # type: ignore[call-arg]
-            except Exception as e:
-                logger.warning("SemanticGroomingGuard initialization failed: %s", e)
-        if self.semantic is None:
-            logger.warning(
-                "SemanticGroomingGuard not available. Using fallback heuristic."
-            )
-
         self.monitor = SessionMonitor()  # L4: Adaptive Memory
 
-        # Truth Preservation Validator (TAG-2) - Optional
-        self.truth_validator: Optional[Any] = None
-        if HAS_TRUTH_VALIDATOR and TruthPreservationValidatorV2_3 is not None:
-            try:
-                self.truth_validator = (
-                    TruthPreservationValidatorV2_3()  # type: ignore[call-arg]
-                )
-                logger.info("TruthPreservationValidator initialized (TAG-2)")
-            except Exception as e:
-                logger.warning(
-                    "TruthPreservationValidator initialization failed: %s", e
-                )
+        # LAZY LOADING: ML-Komponenten werden erst bei Bedarf geladen
+        # Dies reduziert die Initialisierungs-Kosten von ~482.8 MB auf minimal
+        self._component_cache: Dict[str, Any] = {}
+        self._topic_map_path = topic_map_path
+
+        # Lazy-Loading Monitoring: Track when heavy components are loaded
+        self._lazy_load_timestamps: Dict[str, float] = {}
+        self._lazy_load_enabled = True  # Can be disabled for testing
+
+        # Meta Exploitation Guard, TopicRouter, Semantic Guard, Truth Validator
+        # werden jetzt via @property lazy geladen (siehe unten)
 
         # Paths for TAG-2 configs
         base_path = Path(__file__).parent
@@ -311,7 +276,167 @@ class HakGalFirewall_v2:
         self.HARD_BLOCK_THRESHOLD = 0.95  # Sofortiger Block egal welcher Kontext
         self.CUMULATIVE_RISK_THRESHOLD = 0.8  # SessionMonitor Block-Schwelle (increased from 0.65 to reduce false positives)
 
-        logger.info("HAK_GAL v2.0 Engine initialized (Full Layer Integration)")
+        logger.info(
+            "HAK_GAL v2.0 Engine initialized (Full Layer Integration - Lazy Loading)"
+        )
+
+    @property
+    def meta_guard(self) -> Optional[Any]:
+        """
+        Lazy-loaded Meta Exploitation Guard (HYDRA-13).
+
+        Loaded only when first accessed to reduce initialization memory footprint.
+        """
+        if "meta_guard" not in self._component_cache:
+            if HAS_META_GUARD and MetaExploitationGuard is not None:
+                try:
+                    self._component_cache["meta_guard"] = MetaExploitationGuard(
+                        max_nesting=1,
+                        unicode_allowed=False,
+                    )
+                    if self._lazy_load_enabled:
+                        import time
+
+                        self._lazy_load_timestamps["meta_guard"] = time.time()
+                    logger.info("MetaExploitationGuard loaded (HYDRA-13)")
+                except Exception as e:
+                    logger.warning("MetaExploitationGuard initialization failed: %s", e)
+                    self._component_cache["meta_guard"] = None
+            else:
+                self._component_cache["meta_guard"] = None
+        return self._component_cache.get("meta_guard")
+
+    @property
+    def topic_router(self) -> Optional[Any]:
+        """
+        Lazy-loaded TopicRouter (Layer 1.5 - Fast Fail for unsafe topics).
+
+        Loaded only when first accessed to reduce initialization memory footprint.
+        """
+        if "topic_router" not in self._component_cache:
+            if HAS_TOPIC_ROUTER and TopicRouter is not None:
+                if self._topic_map_path is None:
+                    base_path = Path(__file__).parent / "config"
+                    topic_map_path = str(base_path / "topic_map_v1.yaml")
+                else:
+                    topic_map_path = self._topic_map_path
+                try:
+                    self._component_cache["topic_router"] = TopicRouter(
+                        topic_map_path,
+                        meta_guard=None,  # type: ignore[call-arg]
+                    )
+                    if self._lazy_load_enabled:
+                        import time
+
+                        self._lazy_load_timestamps["topic_router"] = time.time()
+                    logger.info("TopicRouter loaded")
+                except Exception as e:
+                    logger.warning("TopicRouter initialization failed: %s", e)
+                    self._component_cache["topic_router"] = None
+            else:
+                self._component_cache["topic_router"] = None
+        return self._component_cache.get("topic_router")
+
+    @property
+    def semantic(self) -> Optional[Any]:
+        """
+        Lazy-loaded Semantic Guard (Layer 1-B).
+
+        Priority: ONNX version (CUDA support, speed priority) -> PyTorch fallback.
+        Loaded only when first accessed to reduce initialization memory footprint.
+        """
+        if "semantic" not in self._component_cache:
+            # Try ONNX version first (CUDA support, speed priority)
+            if HAS_SEMANTIC_GUARD_ONNX and SemanticGroomingGuardONNX is not None:
+                try:
+                    onnx_guard = SemanticGroomingGuardONNX()
+                    # Check if ONNX guard is actually available (model loaded)
+                    if (
+                        hasattr(onnx_guard, "_is_available")
+                        and onnx_guard._is_available
+                    ):
+                        self._component_cache["semantic"] = onnx_guard
+                        if self._lazy_load_enabled:
+                            import time
+
+                            self._lazy_load_timestamps["semantic"] = time.time()
+                        logger.info(
+                            "SemanticGroomingGuardONNX loaded (Layer 1-B, CUDA-enabled)"
+                        )
+                    else:
+                        # ONNX not available, try PyTorch fallback
+                        logger.warning(
+                            "SemanticGroomingGuardONNX not available, trying PyTorch fallback..."
+                        )
+                        raise RuntimeError("ONNX guard not available")
+                except Exception as e:
+                    logger.warning(
+                        "SemanticGroomingGuardONNX initialization failed: %s", e
+                    )
+                    # Fall through to PyTorch fallback
+                    self._component_cache["semantic"] = None
+
+            # Fallback to PyTorch version if ONNX not available or failed
+            if (
+                "semantic" not in self._component_cache
+                or self._component_cache.get("semantic") is None
+            ):
+                if HAS_SEMANTIC_GUARD and SemanticGroomingGuard is not None:
+                    try:
+                        self._component_cache["semantic"] = SemanticGroomingGuard()  # type: ignore[call-arg]
+                        logger.info(
+                            "SemanticGroomingGuard loaded (Layer 1-B, PyTorch fallback)"
+                        )
+                    except Exception as e:
+                        logger.warning(
+                            "SemanticGroomingGuard initialization failed: %s", e
+                        )
+                        self._component_cache["semantic"] = None
+                else:
+                    self._component_cache["semantic"] = None
+                    logger.warning(
+                        "SemanticGroomingGuard not available. Using fallback heuristic."
+                    )
+        return self._component_cache.get("semantic")
+
+    @property
+    def truth_validator(self) -> Optional[Any]:
+        """
+        Lazy-loaded Truth Preservation Validator (TAG-2).
+
+        Loaded only when first accessed to reduce initialization memory footprint.
+        This loads BART-large-mnli (~1.5GB) + sentence-transformers (~200MB).
+        """
+        if "truth_validator" not in self._component_cache:
+            # LAZY IMPORT: Load TruthPreservationValidatorV2_3 only when needed
+            # This prevents transformers (362.7 MB) from loading at module import
+            try:
+                from .truth_preservation.validators.truth_preservation_validator_v2_3 import (
+                    TruthPreservationValidatorV2_3,
+                )
+
+                try:
+                    self._component_cache["truth_validator"] = (
+                        TruthPreservationValidatorV2_3()  # type: ignore[call-arg]
+                    )
+                    if self._lazy_load_enabled:
+                        import time
+
+                        self._lazy_load_timestamps["truth_validator"] = time.time()
+                    logger.info(
+                        "TruthPreservationValidator loaded (TAG-2) - Heavy component loaded on-demand"
+                    )
+                except Exception as e:
+                    logger.warning(
+                        "TruthPreservationValidator initialization failed: %s", e
+                    )
+                    self._component_cache["truth_validator"] = None
+            except ImportError:
+                logger.warning(
+                    "TruthPreservationValidator not available (transformers not installed)"
+                )
+                self._component_cache["truth_validator"] = None
+        return self._component_cache.get("truth_validator")
 
     def _get_semantic_risk_score(self, text: str) -> float:
         """
@@ -916,3 +1041,23 @@ class HakGalFirewall_v2:
             result["debug"]["tag2_skipped"] = "validation_exception"
 
         return result
+
+    def get_lazy_load_stats(self) -> Dict[str, Any]:
+        """
+        Get statistics about lazy-loaded components.
+
+        Returns information about which heavy components have been loaded
+        and when they were loaded. Useful for monitoring and debugging.
+
+        Returns:
+            Dictionary with:
+            - loaded_components: List of component names that have been loaded
+            - load_timestamps: Dict mapping component names to load timestamps
+            - total_loaded: Count of loaded components
+        """
+        return {
+            "loaded_components": list(self._component_cache.keys()),
+            "load_timestamps": self._lazy_load_timestamps.copy(),
+            "total_loaded": len(self._component_cache),
+            "monitoring_enabled": self._lazy_load_enabled,
+        }
