@@ -1,0 +1,28 @@
+{
+  "total_prompts": 17,
+  "top_keywords": {
+    "explain": 15,
+    "works": 8,
+    "human": 4,
+    "heart": 4,
+    "improve": 2,
+    "public": 2,
+    "speaking": 2,
+    "photosynthesis": 2,
+    "work": 2,
+    "moon": 2
+  },
+  "question_words": {
+    "how": 17
+  },
+  "common_phrases": {
+    "how": 17,
+    "explain": 15,
+    "improve": 2
+  },
+  "sentence_statistics": {
+    "average": 5.0,
+    "max": 6,
+    "min": 4
+  }
+}

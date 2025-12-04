@@ -1,427 +1,312 @@
+#!/usr/bin/env python3
 """
-AnswerPolicy Effectiveness Computation (ASR/FPR)
-================================================
+Computes AnswerPolicy effectiveness metrics with bootstrap confidence intervals.
 
-Computes Attack Success Rate (ASR) and False Positive Rate (FPR)
-for AnswerPolicy evaluation using labeled datasets.
-
-ASR = allowed_redteam / total_redteam
-FPR = blocked_benign / total_benign
-
-Usage:
-    python scripts/compute_answerpolicy_effectiveness.py \
-        --decisions logs/kids_mixed_small.jsonl \
-        --dataset datasets/mixed_small.jsonl
-
-    python scripts/compute_answerpolicy_effectiveness.py \
-        --decisions logs/kids_mixed_small.jsonl \
-        --dataset datasets/mixed_small.jsonl \
-        --output-md results/kids_effectiveness.md
-
-Author: Joerg Bollwahn
-Date: 2025-12-03
-License: MIT
+Provides statistical validation of ASR/FPR improvements.
 """
 
-import argparse
-import random
+import json
 import sys
+import argparse
+import statistics
+import random
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple
-
-# Import shared utilities
-from scripts.eval_utils import parse_jsonl, load_dataset
+from typing import List, Dict, Any, Tuple
 
 
-def compute_effectiveness(
-    decisions: List[Dict[str, Any]],
-    dataset_map: Optional[Dict[str, Dict[str, str]]] = None,
-) -> Dict[str, Any]:
-    """
-    Compute ASR/FPR effectiveness metrics.
+def load_decisions(log_path: Path) -> List[Dict[str, Any]]:
+    """Load decisions from JSONL file."""
+    decisions = []
+    with open(log_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                decisions.append(json.loads(line))
+    return decisions
 
-    Args:
-        decisions: List of decision dictionaries (must have item_id, item_type, allowed)
-        dataset_map: Optional dataset mapping (if None, uses item_type from decisions)
 
-    Returns:
-        Dictionary containing effectiveness metrics
-    """
-    # Initialize counters
-    redteam_total = 0
-    redteam_blocked = 0
-    redteam_allowed = 0
-    redteam_blocked_by_ap = 0
+def compute_metrics(decisions: List[Dict[str, Any]]) -> Dict[str, float]:
+    """Compute ASR and FPR metrics."""
+    redteam = [d for d in decisions if d.get("item_type") == "redteam"]
+    benign = [d for d in decisions if d.get("item_type") == "benign"]
 
-    benign_total = 0
-    benign_blocked = 0
-    benign_allowed = 0
-    benign_blocked_by_ap = 0
+    redteam_allowed = [d for d in redteam if d.get("allowed")]
+    benign_blocked = [d for d in benign if not d.get("allowed")]
 
-    # Track policy name
-    policy_name = None
-
-    for decision in decisions:
-        # Get item type (from decision or dataset)
-        item_id = decision.get("item_id")
-        item_type = decision.get("item_type")
-
-        # If item_type not in decision, try to get from dataset
-        if not item_type and dataset_map and item_id:
-            dataset_item = dataset_map.get(item_id)
-            if dataset_item:
-                item_type = dataset_item.get("type")
-
-        if not item_type:
-            continue  # Skip if we can't determine type
-
-        # Get AnswerPolicy metadata
-        metadata = decision.get("metadata", {})
-        ap_meta = metadata.get("answer_policy", {})
-        if not policy_name and ap_meta.get("policy_name"):
-            policy_name = ap_meta.get("policy_name")
-
-        blocked_by_ap = ap_meta.get("blocked_by_answer_policy", False)
-        allowed = decision.get("allowed", True)
-
-        # Count by type
-        if item_type == "redteam":
-            redteam_total += 1
-            if allowed:
-                redteam_allowed += 1
-            else:
-                redteam_blocked += 1
-                if blocked_by_ap:
-                    redteam_blocked_by_ap += 1
-        elif item_type == "benign":
-            benign_total += 1
-            if allowed:
-                benign_allowed += 1
-            else:
-                benign_blocked += 1
-                if blocked_by_ap:
-                    benign_blocked_by_ap += 1
-
-    # Compute metrics
-    asr = redteam_allowed / redteam_total if redteam_total > 0 else 0.0
-    fpr = benign_blocked / benign_total if benign_total > 0 else 0.0
+    asr = len(redteam_allowed) / len(redteam) if redteam else 0.0
+    fpr = len(benign_blocked) / len(benign) if benign else 0.0
 
     return {
-        "policy_name": policy_name or "unknown",
-        "total_items": redteam_total + benign_total,
-        "redteam": {
-            "total": redteam_total,
-            "blocked": redteam_blocked,
-            "allowed": redteam_allowed,
-            "blocked_by_answer_policy": redteam_blocked_by_ap,
-            "asr": asr,
-        },
-        "benign": {
-            "total": benign_total,
-            "blocked": benign_blocked,
-            "allowed": benign_allowed,
-            "blocked_by_answer_policy": benign_blocked_by_ap,
-            "fpr": fpr,
-        },
+        "asr": asr,
+        "fpr": fpr,
+        "redteam_total": len(redteam),
+        "redteam_allowed": len(redteam_allowed),
+        "benign_total": len(benign),
+        "benign_blocked": len(benign_blocked),
     }
 
 
 def bootstrap_confidence_interval(
-    successes: int,
-    total: int,
-    num_samples: int = 1000,
-    confidence: float = 0.95,
-    seed: Optional[int] = None,
-) -> Tuple[float, float]:
-    """
-    Compute bootstrap confidence interval for a proportion.
-
-    Args:
-        successes: Number of successes (e.g., allowed redteam items)
-        total: Total number of items
-        num_samples: Number of bootstrap samples (default: 1000)
-        confidence: Confidence level (default: 0.95 for 95% CI)
-        seed: Optional random seed for reproducibility
-
-    Returns:
-        Tuple of (lower_bound, upper_bound) for confidence interval
-
-    Note:
-        Returns (0.0, 0.0) if total is 0 or if all items are successes/failures.
-        Uses percentile method (no interpolation).
-    """
-    if total == 0:
-        return (0.0, 0.0)
-
-    if successes == 0 or successes == total:
-        # Edge case: all successes or all failures
-        # Bootstrap won't help here, return point estimate
-        p = successes / total
-        return (p, p)
-
-    if seed is not None:
-        random.seed(seed)
-
-    # Original proportion
-    p_original = successes / total
-
-    # Bootstrap samples
-    bootstrap_props = []
-    for _ in range(num_samples):
-        # Resample with replacement
-        sample_successes = sum(1 for _ in range(total) if random.random() < p_original)
-        bootstrap_props.append(sample_successes / total)
-
-    # Sort for percentile extraction
-    bootstrap_props.sort()
-
-    # Compute percentile bounds
-    alpha = 1.0 - confidence
-    lower_idx = int(num_samples * (alpha / 2))
-    upper_idx = int(num_samples * (1 - alpha / 2))
-
-    # Clamp indices
-    lower_idx = max(0, min(lower_idx, len(bootstrap_props) - 1))
-    upper_idx = max(0, min(upper_idx, len(bootstrap_props) - 1))
-
-    lower_bound = bootstrap_props[lower_idx]
-    upper_bound = bootstrap_props[upper_idx]
-
-    return (lower_bound, upper_bound)
-
-
-def compute_effectiveness_with_ci(
     decisions: List[Dict[str, Any]],
-    dataset_map: Optional[Dict[str, Dict[str, str]]] = None,
-    bootstrap_samples: int = 1000,
+    metric_func,
+    n_bootstrap: int = 1000,
     confidence: float = 0.95,
-    seed: Optional[int] = None,
+    seed: int = 42,
+) -> Tuple[float, float, float]:
+    """
+    Compute bootstrap confidence interval for a metric.
+
+    Returns:
+        (mean, lower_bound, upper_bound)
+    """
+    random.seed(seed)
+    n = len(decisions)
+    bootstrap_values = []
+
+    for _ in range(n_bootstrap):
+        # Resample with replacement
+        sample = random.choices(decisions, k=n)
+        value = metric_func(sample)
+        bootstrap_values.append(value)
+
+    bootstrap_values.sort()
+
+    # Compute confidence interval
+    alpha = 1.0 - confidence
+    lower_idx = int(n_bootstrap * alpha / 2)
+    upper_idx = int(n_bootstrap * (1 - alpha / 2))
+
+    mean = statistics.mean(bootstrap_values)
+    lower = bootstrap_values[lower_idx]
+    upper = bootstrap_values[upper_idx]
+
+    return mean, lower, upper
+
+
+def analyze_effectiveness(
+    evidence_log: Path, heuristic_log: Path, n_bootstrap: int = 1000, seed: int = 42
 ) -> Dict[str, Any]:
-    """
-    Compute ASR/FPR effectiveness metrics with bootstrap confidence intervals.
+    """Analyze effectiveness with bootstrap confidence intervals."""
 
-    Args:
-        decisions: List of decision dictionaries
-        dataset_map: Optional dataset mapping
-        bootstrap_samples: Number of bootstrap samples (default: 1000)
-        confidence: Confidence level (default: 0.95)
-        seed: Optional random seed for reproducibility
+    evidence_decisions = load_decisions(evidence_log)
+    heuristic_decisions = load_decisions(heuristic_log)
 
-    Returns:
-        Dictionary containing effectiveness metrics with confidence intervals
-    """
-    # Compute base metrics
-    metrics = compute_effectiveness(decisions, dataset_map)
+    # Compute point estimates
+    evidence_metrics = compute_metrics(evidence_decisions)
+    heuristic_metrics = compute_metrics(heuristic_decisions)
 
-    # Compute confidence intervals for ASR
-    rt = metrics["redteam"]
-    if rt["total"] > 0:
-        asr_ci = bootstrap_confidence_interval(
-            successes=rt["allowed"],
-            total=rt["total"],
-            num_samples=bootstrap_samples,
-            confidence=confidence,
-            seed=seed,
+    # Bootstrap confidence intervals
+    def asr_func(ds):
+        return compute_metrics(ds)["asr"]
+
+    def fpr_func(ds):
+        return compute_metrics(ds)["fpr"]
+
+    evidence_asr_mean, evidence_asr_lower, evidence_asr_upper = (
+        bootstrap_confidence_interval(
+            evidence_decisions, asr_func, n_bootstrap, seed=seed
         )
-        metrics["redteam"]["asr_ci_lower"] = asr_ci[0]
-        metrics["redteam"]["asr_ci_upper"] = asr_ci[1]
-    else:
-        metrics["redteam"]["asr_ci_lower"] = 0.0
-        metrics["redteam"]["asr_ci_upper"] = 0.0
-
-    # Compute confidence intervals for FPR
-    bg = metrics["benign"]
-    if bg["total"] > 0:
-        fpr_ci = bootstrap_confidence_interval(
-            successes=bg["blocked"],  # FPR = blocked / total
-            total=bg["total"],
-            num_samples=bootstrap_samples,
-            confidence=confidence,
-            seed=seed,
+    )
+    evidence_fpr_mean, evidence_fpr_lower, evidence_fpr_upper = (
+        bootstrap_confidence_interval(
+            evidence_decisions, fpr_func, n_bootstrap, seed=seed
         )
-        metrics["benign"]["fpr_ci_lower"] = fpr_ci[0]
-        metrics["benign"]["fpr_ci_upper"] = fpr_ci[1]
-    else:
-        metrics["benign"]["fpr_ci_lower"] = 0.0
-        metrics["benign"]["fpr_ci_upper"] = 0.0
-
-    return metrics
-
-
-def format_summary(metrics: Dict[str, Any]) -> str:
-    """
-    Format effectiveness summary as ASCII text.
-
-    Args:
-        metrics: Effectiveness metrics dictionary
-
-    Returns:
-        Formatted summary string
-    """
-    lines = []
-    lines.append("=" * 70)
-    lines.append("AnswerPolicy Effectiveness Summary")
-    lines.append("=" * 70)
-    lines.append(f"Policy: {metrics['policy_name']}")
-    lines.append(
-        f"Total items: {metrics['total_items']} (redteam={metrics['redteam']['total']}, benign={metrics['benign']['total']})"
     )
-    lines.append("")
-    lines.append("Redteam:")
-    lines.append(f"  blocked: {metrics['redteam']['blocked']}")
-    lines.append(f"  allowed: {metrics['redteam']['allowed']}")
-    asr_str = f"  ASR ~ {metrics['redteam']['asr']:.3f}"
-    if "asr_ci_lower" in metrics["redteam"]:
-        asr_str += f", 95% CI ~ [{metrics['redteam']['asr_ci_lower']:.3f}, {metrics['redteam']['asr_ci_upper']:.3f}]"
-    lines.append(asr_str)
-    lines.append("")
-    lines.append("Benign:")
-    lines.append(f"  blocked: {metrics['benign']['blocked']}")
-    lines.append(f"  allowed: {metrics['benign']['allowed']}")
-    fpr_str = f"  FPR ~ {metrics['benign']['fpr']:.3f}"
-    if "fpr_ci_lower" in metrics["benign"]:
-        fpr_str += f", 95% CI ~ [{metrics['benign']['fpr_ci_lower']:.3f}, {metrics['benign']['fpr_ci_upper']:.3f}]"
-    lines.append(fpr_str)
-    lines.append("")
-    lines.append("Blocks caused by AnswerPolicy:")
-    lines.append(f"  redteam: {metrics['redteam']['blocked_by_answer_policy']}")
-    lines.append(f"  benign: {metrics['benign']['blocked_by_answer_policy']}")
-    lines.append("=" * 70)
 
-    return "\n".join(lines)
-
-
-def format_markdown(metrics: Dict[str, Any]) -> str:
-    """
-    Format effectiveness summary as Markdown.
-
-    Args:
-        metrics: Effectiveness metrics dictionary
-
-    Returns:
-        Formatted Markdown string
-    """
-    lines = []
-    lines.append("# AnswerPolicy Effectiveness Summary")
-    lines.append("")
-    lines.append(f"**Policy:** {metrics['policy_name']}")
-    lines.append(
-        f"**Total items:** {metrics['total_items']} (redteam={metrics['redteam']['total']}, benign={metrics['benign']['total']})"
+    heuristic_asr_mean, heuristic_asr_lower, heuristic_asr_upper = (
+        bootstrap_confidence_interval(
+            heuristic_decisions, asr_func, n_bootstrap, seed=seed
+        )
     )
-    lines.append("")
-    lines.append("## Redteam")
-    lines.append("")
-    lines.append(f"- **Blocked:** {metrics['redteam']['blocked']}")
-    lines.append(f"- **Allowed:** {metrics['redteam']['allowed']}")
-    lines.append(f"- **ASR:** {metrics['redteam']['asr']:.3f}")
-    lines.append(
-        f"- **Blocked by AnswerPolicy:** {metrics['redteam']['blocked_by_answer_policy']}"
+    heuristic_fpr_mean, heuristic_fpr_lower, heuristic_fpr_upper = (
+        bootstrap_confidence_interval(
+            heuristic_decisions, fpr_func, n_bootstrap, seed=seed
+        )
     )
-    lines.append("")
-    lines.append("## Benign")
-    lines.append("")
-    lines.append(f"- **Blocked:** {metrics['benign']['blocked']}")
-    lines.append(f"- **Allowed:** {metrics['benign']['allowed']}")
-    lines.append(f"- **FPR:** {metrics['benign']['fpr']:.3f}")
-    lines.append(
-        f"- **Blocked by AnswerPolicy:** {metrics['benign']['blocked_by_answer_policy']}"
+
+    # Compute improvements
+    asr_improvement = evidence_metrics["asr"] - heuristic_metrics["asr"]
+    fpr_improvement = evidence_metrics["fpr"] - heuristic_metrics["fpr"]
+
+    # Statistical significance: CIs don't overlap
+    asr_significant = (evidence_asr_upper < heuristic_asr_lower) or (
+        evidence_asr_lower > heuristic_asr_upper
     )
-    lines.append("")
+    fpr_significant = (evidence_fpr_upper < heuristic_fpr_lower) or (
+        evidence_fpr_lower > heuristic_fpr_upper
+    )
 
-    return "\n".join(lines)
+    return {
+        "evidence": {
+            "asr": evidence_metrics["asr"],
+            "fpr": evidence_metrics["fpr"],
+            "asr_ci": (evidence_asr_lower, evidence_asr_upper),
+            "fpr_ci": (evidence_fpr_lower, evidence_fpr_upper),
+        },
+        "heuristic": {
+            "asr": heuristic_metrics["asr"],
+            "fpr": heuristic_metrics["fpr"],
+            "asr_ci": (heuristic_asr_lower, heuristic_asr_upper),
+            "fpr_ci": (heuristic_fpr_lower, heuristic_fpr_upper),
+        },
+        "improvement": {
+            "asr_absolute": asr_improvement,
+            "asr_relative": asr_improvement / heuristic_metrics["asr"]
+            if heuristic_metrics["asr"] > 0
+            else 0.0,
+            "fpr_absolute": fpr_improvement,
+            "fpr_relative": fpr_improvement / heuristic_metrics["fpr"]
+            if heuristic_metrics["fpr"] > 0
+            else 0.0,
+        },
+        "significance": {
+            "asr_significant": asr_significant,
+            "fpr_significant": fpr_significant,
+        },
+    }
 
 
-def main() -> int:
-    """Main entry point."""
+def main():
     parser = argparse.ArgumentParser(
-        description="Compute AnswerPolicy ASR/FPR effectiveness"
+        description="Compute AnswerPolicy effectiveness with bootstrap confidence intervals"
     )
     parser.add_argument(
         "--decisions",
         type=str,
         required=True,
-        help="Path to decisions JSONL file (from run_answerpolicy_experiment.py)",
+        help="Path to evidence-based decisions JSONL file",
     )
     parser.add_argument(
-        "--dataset",
+        "--heuristic",
         type=str,
-        default=None,
-        help="Path to original dataset JSONL file (optional, if item_type not in decisions)",
+        required=True,
+        help="Path to heuristic baseline decisions JSONL file",
+    )
+    parser.add_argument(
+        "--bootstrap",
+        type=int,
+        default=1000,
+        help="Number of bootstrap samples (default: 1000)",
+    )
+    parser.add_argument(
+        "--seed", type=int, default=42, help="Random seed for bootstrap (default: 42)"
     )
     parser.add_argument(
         "--output-md",
         type=str,
         default=None,
-        help="Path to output Markdown file (optional)",
-    )
-    parser.add_argument(
-        "--bootstrap",
-        type=int,
-        default=None,
-        metavar="N",
-        help="Compute bootstrap confidence intervals with N samples (optional, default: disabled)",
-    )
-    parser.add_argument(
-        "--confidence",
-        type=float,
-        default=0.95,
-        help="Confidence level for intervals (default: 0.95)",
-    )
-    parser.add_argument(
-        "--seed",
-        type=int,
-        default=None,
-        help="Random seed for bootstrap (optional, for reproducibility)",
+        help="Output markdown report path (optional)",
     )
 
     args = parser.parse_args()
 
-    decisions_path = Path(args.decisions)
-    if not decisions_path.exists():
-        print(f"Error: Decisions file not found: {decisions_path}", file=sys.stderr)
+    evidence_log = Path(args.decisions)
+    heuristic_log = Path(args.heuristic)
+
+    if not evidence_log.exists():
+        print(f"Error: Evidence log not found: {evidence_log}", file=sys.stderr)
         return 1
 
-    dataset_map = None
-    if args.dataset:
-        dataset_path = Path(args.dataset)
-        if not dataset_path.exists():
-            print(f"Warning: Dataset file not found: {dataset_path}", file=sys.stderr)
-        else:
-            dataset_map = load_dataset(dataset_path)
-
-    # Load decisions
-    decisions = parse_jsonl(decisions_path)
-
-    if not decisions:
-        print("Error: No decisions found in file", file=sys.stderr)
+    if not heuristic_log.exists():
+        print(f"Error: Heuristic log not found: {heuristic_log}", file=sys.stderr)
         return 1
 
-    # Compute effectiveness (with optional CI)
-    if args.bootstrap is not None:
-        metrics = compute_effectiveness_with_ci(
-            decisions,
-            dataset_map,
-            bootstrap_samples=args.bootstrap,
-            confidence=args.confidence,
-            seed=args.seed,
-        )
-    else:
-        metrics = compute_effectiveness(decisions, dataset_map)
+    results = analyze_effectiveness(
+        evidence_log, heuristic_log, n_bootstrap=args.bootstrap, seed=args.seed
+    )
 
-    # Print summary
-    summary = format_summary(metrics)
-    print(summary)
+    # Print results
+    print("=" * 80)
+    print("ANSWER POLICY EFFECTIVENESS ANALYSIS")
+    print("=" * 80)
+    print()
+    print(f"Bootstrap samples: {args.bootstrap}")
+    print("Confidence level: 95%")
+    print()
 
-    # Write Markdown if requested
+    print("=" * 80)
+    print("ATTACK SUCCESS RATE (ASR)")
+    print("=" * 80)
+    print(f"Evidence-based: {results['evidence']['asr']:.4f}")
+    print(
+        f"  95% CI: [{results['evidence']['asr_ci'][0]:.4f}, {results['evidence']['asr_ci'][1]:.4f}]"
+    )
+    print(f"Heuristic:      {results['heuristic']['asr']:.4f}")
+    print(
+        f"  95% CI: [{results['heuristic']['asr_ci'][0]:.4f}, {results['heuristic']['asr_ci'][1]:.4f}]"
+    )
+    print()
+    print(
+        f"Improvement: {results['improvement']['asr_absolute']:+.4f} ({results['improvement']['asr_relative'] * 100:+.1f}%)"
+    )
+    print(
+        f"Statistically significant: {'YES' if results['significance']['asr_significant'] else 'NO'}"
+    )
+    print()
+
+    print("=" * 80)
+    print("FALSE POSITIVE RATE (FPR)")
+    print("=" * 80)
+    print(f"Evidence-based: {results['evidence']['fpr']:.4f}")
+    print(
+        f"  95% CI: [{results['evidence']['fpr_ci'][0]:.4f}, {results['evidence']['fpr_ci'][1]:.4f}]"
+    )
+    print(f"Heuristic:      {results['heuristic']['fpr']:.4f}")
+    print(
+        f"  95% CI: [{results['heuristic']['fpr_ci'][0]:.4f}, {results['heuristic']['fpr_ci'][1]:.4f}]"
+    )
+    print()
+    print(
+        f"Improvement: {results['improvement']['fpr_absolute']:+.4f} ({results['improvement']['fpr_relative'] * 100:+.1f}%)"
+    )
+    print(
+        f"Statistically significant: {'YES' if results['significance']['fpr_significant'] else 'NO'}"
+    )
+    print()
+
+    # Write markdown report if requested
     if args.output_md:
         output_path = Path(args.output_md)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        md_content = format_markdown(metrics)
         with open(output_path, "w", encoding="utf-8") as f:
-            f.write(md_content)
+            f.write("# Answer Policy Effectiveness Analysis\n\n")
+            f.write(f"**Bootstrap samples:** {args.bootstrap}\n")
+            f.write("**Confidence level:** 95%\n\n")
 
-        print(f"\nMarkdown summary written to: {output_path}")
+            f.write("## Attack Success Rate (ASR)\n\n")
+            f.write("| Method | ASR | 95% CI |\n")
+            f.write("|--------|-----|--------|\n")
+            f.write(
+                f"| Evidence-based | {results['evidence']['asr']:.4f} | [{results['evidence']['asr_ci'][0]:.4f}, {results['evidence']['asr_ci'][1]:.4f}] |\n"
+            )
+            f.write(
+                f"| Heuristic | {results['heuristic']['asr']:.4f} | [{results['heuristic']['asr_ci'][0]:.4f}, {results['heuristic']['asr_ci'][1]:.4f}] |\n\n"
+            )
+            f.write(
+                f"**Improvement:** {results['improvement']['asr_absolute']:+.4f} ({results['improvement']['asr_relative'] * 100:+.1f}%)\n"
+            )
+            f.write(
+                f"**Statistically significant:** {'YES' if results['significance']['asr_significant'] else 'NO'}\n\n"
+            )
+
+            f.write("## False Positive Rate (FPR)\n\n")
+            f.write("| Method | FPR | 95% CI |\n")
+            f.write("|--------|-----|--------|\n")
+            f.write(
+                f"| Evidence-based | {results['evidence']['fpr']:.4f} | [{results['evidence']['fpr_ci'][0]:.4f}, {results['evidence']['fpr_ci'][1]:.4f}] |\n"
+            )
+            f.write(
+                f"| Heuristic | {results['heuristic']['fpr']:.4f} | [{results['heuristic']['fpr_ci'][0]:.4f}, {results['heuristic']['fpr_ci'][1]:.4f}] |\n\n"
+            )
+            f.write(
+                f"**Improvement:** {results['improvement']['fpr_absolute']:+.4f} ({results['improvement']['fpr_relative'] * 100:+.1f}%)\n"
+            )
+            f.write(
+                f"**Statistically significant:** {'YES' if results['significance']['fpr_significant'] else 'NO'}\n\n"
+            )
+
+        print(f"Markdown report written: {output_path}")
 
     return 0
 

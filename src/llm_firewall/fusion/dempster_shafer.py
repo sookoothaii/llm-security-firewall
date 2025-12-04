@@ -76,6 +76,58 @@ def make_mass(score: float, allow_ignorance: float = 0.0) -> EvidenceMass:
     return EvidenceMass(promote=p, quarantine=q, unknown=t)
 
 
+def make_mass_optimized(
+    confidence: float, evidence_type: str = "risk_scorer"
+) -> EvidenceMass:
+    """
+    Optimierte Mass-Kalibrierung für höhere p_correct-Werte.
+
+    Ziele:
+    - confidence=0.9 → quarantine≈0.1, promote≈0.8, unknown≈0.1
+    - confidence=0.5 → quarantine≈0.25, promote≈0.25, unknown≈0.5
+    - confidence=0.1 → quarantine≈0.8, promote≈0.1, unknown≈0.1
+
+    Args:
+        confidence: Confidence score [0,1]
+        evidence_type: Type of evidence (for type-specific tuning)
+
+    Returns:
+        Evidence mass with optimized calibration
+    """
+    c = float(confidence)
+    if not (0.0 <= c <= 1.0):
+        raise ValueError("confidence must be in [0,1]")
+
+    # Dynamische ignorance basierend auf confidence
+    if c > 0.8:
+        # Klare "promote"-Fälle: wenig Unsicherheit
+        allow_ignorance = 0.1
+        quarantine_weight = (1.0 - c) * 0.9  # 0.1 → 0.09
+        promote_weight = c * 0.9  # 0.9 → 0.81
+    elif c < 0.2:
+        # Klare "quarantine"-Fälle: wenig Unsicherheit
+        allow_ignorance = 0.1
+        quarantine_weight = (1.0 - c) * 0.9  # 0.9 → 0.81
+        promote_weight = c * 0.9  # 0.1 → 0.09
+    else:
+        # Unsichere Fälle: mehr Unsicherheit
+        allow_ignorance = 0.4
+        quarantine_weight = (1.0 - c) * 0.6  # 0.5 → 0.3
+        promote_weight = c * 0.6  # 0.5 → 0.3
+
+    # Normalisiere falls Summe != 1.0 (durch Rundung)
+    total = promote_weight + quarantine_weight + allow_ignorance
+    if abs(total - 1.0) > 1e-9:
+        scale = 1.0 / total
+        promote_weight *= scale
+        quarantine_weight *= scale
+        allow_ignorance *= scale
+
+    return EvidenceMass(
+        promote=promote_weight, quarantine=quarantine_weight, unknown=allow_ignorance
+    )
+
+
 def conflict(m1: EvidenceMass, m2: EvidenceMass) -> float:
     """
     Compute conflict mass K.

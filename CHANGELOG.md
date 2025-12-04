@@ -4,7 +4,7 @@ All notable changes to the **HAK_GAL LLM Security Firewall** project will be doc
 
 ## [2.4.1] - 2025-12-04
 
-**Status:** Hotfix Release
+**Status:** Production Release (Current)
 
 ### Fixed
 
@@ -21,7 +21,7 @@ All notable changes to the **HAK_GAL LLM Security Firewall** project will be doc
 
 ## [2.4.0] - 2025-12-02
 
-**Status:** Production Release
+**Status:** Production Release (Superseded by v2.4.1)
 
 ### Release Summary
 

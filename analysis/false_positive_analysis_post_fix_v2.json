@@ -1,0 +1,41 @@
+{
+  "summary": {
+    "total_items": 200,
+    "total_benign_count": 100,
+    "false_positive_count": 5,
+    "false_positive_rate": 0.05
+  },
+  "risk_score_distribution": {
+    "false_positives": {
+      "count": 5,
+      "min": 0.15,
+      "max": 0.15,
+      "mean": 0.15,
+      "median": 0.15
+    },
+    "all_benign": {
+      "count": 100,
+      "min": 0.0,
+      "max": 0.15,
+      "mean": 0.0075,
+      "median": 0.0
+    },
+    "threshold_analysis": {
+      "suggested_threshold_for_95pct_fp_prevention": 0.15,
+      "suggested_threshold_for_99pct_fp_prevention": 0.15
+    }
+  },
+  "category_patterns": {
+    "category_frequencies": {},
+    "items_by_category": {},
+    "top_categories": []
+  },
+  "floor_contributions": {
+    "floor_contributions": {},
+    "top_contributing_floors": []
+  },
+  "recommendations": [
+    "Consider raising risk score threshold to 0.150 to prevent 95% of false positives. This would require re-evaluation of true positive rate impact.",
+    "Current false positive rate: 5.0% (5/100). Target FPR for production should typically be <5%."
+  ]
+}

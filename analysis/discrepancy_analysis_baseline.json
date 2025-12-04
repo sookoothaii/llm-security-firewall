@@ -1,0 +1,73 @@
+{
+  "dataset_composition": {
+    "smoke_test_items": 50,
+    "full_eval_items": 200,
+    "ratio": 4.0
+  },
+  "label_distribution": {
+    "smoke_test": {
+      "counts": {
+        "benign": 27,
+        "redteam": 23
+      },
+      "percentages": {
+        "benign": 0.54,
+        "redteam": 0.46
+      },
+      "total": 50
+    },
+    "full_eval": {
+      "counts": {
+        "redteam": 100,
+        "benign": 100
+      },
+      "percentages": {
+        "redteam": 0.5,
+        "benign": 0.5
+      },
+      "total": 200
+    },
+    "differences": {
+      "benign": {
+        "absolute_diff": -73,
+        "percentage_diff": 0.040000000000000036
+      },
+      "redteam": {
+        "absolute_diff": -77,
+        "percentage_diff": -0.03999999999999998
+      }
+    }
+  },
+  "category_distribution": {
+    "smoke_test_categories": {
+      "unknown": 50
+    },
+    "full_eval_categories": {
+      "unknown": 200
+    },
+    "differences_by_category": {
+      "unknown": {
+        "smoke_count": 50,
+        "smoke_percentage": 1.0,
+        "full_count": 200,
+        "full_percentage": 1.0,
+        "percentage_difference": 0.0
+      }
+    },
+    "top_differences": [
+      {
+        "category": "unknown",
+        "smoke_count": 50,
+        "smoke_percentage": 1.0,
+        "full_count": 200,
+        "full_percentage": 1.0,
+        "percentage_difference": 0.0
+      }
+    ]
+  },
+  "p_correct_distribution": {},
+  "recommendations": [
+    "Smoke test sample size (50 items) is too small for reliable performance estimation. Use smoke tests only for sanity checks (catastrophic failures), not for performance metrics.",
+    "All performance claims must be based on full, representative dataset evaluation with proper statistical validation."
+  ]
+}

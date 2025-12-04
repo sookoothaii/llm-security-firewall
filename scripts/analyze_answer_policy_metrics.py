@@ -71,6 +71,174 @@ def extract_answer_policy_metadata(
     return metadata.get("answer_policy")
 
 
+def analyze_evidence_based_metrics(decisions: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Analyze extended metadata from evidence-based AnswerPolicy decisions.
+
+    Compares Dempster-Shafer vs. heuristic, analyzes CUSUM impact, and evidence correlations.
+
+    Args:
+        decisions: List of decision dictionaries
+
+    Returns:
+        Dictionary containing evidence-based analysis
+    """
+    # Filter decisions where Dempster-Shafer was used
+    ds_decisions = []
+    heuristic_decisions = []
+
+    for d in decisions:
+        ap_meta = d.get("metadata", {}).get("answer_policy", {})
+        method = ap_meta.get("p_correct_method", "heuristic")
+        if method == "dempster_shafer":
+            ds_decisions.append(d)
+        elif method == "heuristic":
+            heuristic_decisions.append(d)
+
+    if not ds_decisions:
+        return {
+            "evidence_based_count": 0,
+            "heuristic_count": len(heuristic_decisions),
+            "message": "No evidence-based decisions found in the log.",
+        }
+
+    # 1. p_correct Distribution Comparison
+    p_correct_ds = [d["metadata"]["answer_policy"]["p_correct"] for d in ds_decisions]
+    p_correct_heuristic_sim = []
+    for d in ds_decisions:
+        ap_meta = d["metadata"]["answer_policy"]
+        evidence_masses = ap_meta.get("evidence_masses", {})
+        # Try to extract risk_scorer from evidence_masses
+        if isinstance(evidence_masses, dict):
+            risk_scorer = evidence_masses.get("risk_scorer", {})
+            if isinstance(risk_scorer, dict):
+                # If it's a dict with promote/quarantine, use quarantine
+                risk_value = risk_scorer.get("quarantine", 0.0)
+            else:
+                risk_value = float(risk_scorer) if risk_scorer else 0.0
+        else:
+            risk_value = 0.0
+        # Simulate heuristic: p_correct = 1 - risk_score
+        p_correct_heuristic_sim.append(max(0.0, min(1.0, 1.0 - risk_value)))
+
+    # 2. CUSUM Influence Analysis
+    cusum_influenced = []
+    cusum_high_count = 0
+    for d in ds_decisions:
+        ap_meta = d["metadata"]["answer_policy"]
+        evidence_masses = ap_meta.get("evidence_masses", {})
+        if isinstance(evidence_masses, dict):
+            cusum_info = evidence_masses.get("cusum_drift", {})
+            if isinstance(cusum_info, dict):
+                cusum_quarantine = cusum_info.get("quarantine", 0.0)
+            else:
+                cusum_quarantine = float(cusum_info) if cusum_info else 0.0
+        else:
+            cusum_quarantine = 0.0
+
+        # Normalize: cusum_quarantine is already [0,1], but we check if > 0.5
+        if cusum_quarantine > 0.5:
+            cusum_high_count += 1
+            if ap_meta.get("mode") == "silence":
+                cusum_influenced.append(
+                    {
+                        "item_id": d.get("item_id"),
+                        "cusum_quarantine": cusum_quarantine,
+                        "belief_quarantine": ap_meta.get("belief_quarantine", 0.0),
+                        "p_correct": ap_meta.get("p_correct", 0.0),
+                    }
+                )
+
+    # 3. Evidence Correlation Analysis
+    silence_evidences = []
+    answer_evidences = []
+
+    for d in ds_decisions:
+        ap_meta = d["metadata"]["answer_policy"]
+        evidence_masses = ap_meta.get("evidence_masses", {})
+        mode = ap_meta.get("mode")
+
+        # Extract risk_scorer and cusum_drift values
+        risk_value = 0.0
+        cusum_value = 0.0
+
+        if isinstance(evidence_masses, dict):
+            risk_info = evidence_masses.get("risk_scorer", {})
+            if isinstance(risk_info, dict):
+                risk_value = risk_info.get("quarantine", 0.0)
+            else:
+                risk_value = float(risk_info) if risk_info else 0.0
+
+            cusum_info = evidence_masses.get("cusum_drift", {})
+            if isinstance(cusum_info, dict):
+                cusum_value = cusum_info.get("quarantine", 0.0)
+            else:
+                cusum_value = float(cusum_info) if cusum_info else 0.0
+
+        evidence_entry = {"risk_scorer": risk_value, "cusum_drift": cusum_value}
+
+        if mode == "silence":
+            silence_evidences.append(evidence_entry)
+        elif mode == "answer":
+            answer_evidences.append(evidence_entry)
+
+    def avg_evidence(ev_list, key):
+        """Helper to compute average evidence value."""
+        vals = [e.get(key, 0.0) for e in ev_list]
+        return mean(vals) if vals else 0.0
+
+    return {
+        "evidence_based_count": len(ds_decisions),
+        "heuristic_count": len(heuristic_decisions),
+        "p_correct_comparison": {
+            "dempster_shafer": {
+                "count": len(p_correct_ds),
+                "mean": mean(p_correct_ds) if p_correct_ds else None,
+                "min": min(p_correct_ds) if p_correct_ds else None,
+                "max": max(p_correct_ds) if p_correct_ds else None,
+            },
+            "heuristic_simulated": {
+                "count": len(p_correct_heuristic_sim),
+                "mean": mean(p_correct_heuristic_sim)
+                if p_correct_heuristic_sim
+                else None,
+                "min": min(p_correct_heuristic_sim)
+                if p_correct_heuristic_sim
+                else None,
+                "max": max(p_correct_heuristic_sim)
+                if p_correct_heuristic_sim
+                else None,
+            },
+        },
+        "cusum_analysis": {
+            "high_cusum_count": cusum_high_count,
+            "high_cusum_with_silence": len(cusum_influenced),
+            "avg_cusum_in_silence": mean(
+                [c["cusum_quarantine"] for c in cusum_influenced]
+            )
+            if cusum_influenced
+            else None,
+            "avg_belief_in_silence": mean(
+                [c["belief_quarantine"] for c in cusum_influenced]
+            )
+            if cusum_influenced
+            else None,
+        },
+        "evidence_correlations": {
+            "silence_decisions": {
+                "count": len(silence_evidences),
+                "avg_risk_scorer": avg_evidence(silence_evidences, "risk_scorer"),
+                "avg_cusum_drift": avg_evidence(silence_evidences, "cusum_drift"),
+            },
+            "answer_decisions": {
+                "count": len(answer_evidences),
+                "avg_risk_scorer": avg_evidence(answer_evidences, "risk_scorer"),
+                "avg_cusum_drift": avg_evidence(answer_evidences, "cusum_drift"),
+            },
+        },
+    }
+
+
 def analyze_decisions(decisions: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
     Analyze decisions and compute metrics.
@@ -250,6 +418,9 @@ def analyze_decisions(decisions: List[Dict[str, Any]]) -> Dict[str, Any]:
             "threshold_std": threshold_std,
         }
 
+    # Evidence-based analysis
+    evidence_metrics = analyze_evidence_based_metrics(decisions)
+
     return {
         "global": {
             "total": total,
@@ -260,6 +431,7 @@ def analyze_decisions(decisions: List[Dict[str, Any]]) -> Dict[str, Any]:
         "policies": policy_aggregates,
         "histogram": dict(histogram),
         "latency": latency_stats,
+        "evidence_based": evidence_metrics,
     }
 
 
@@ -330,6 +502,68 @@ def print_summary(metrics: Dict[str, Any]) -> None:
         print(f"  Max: {latency.get('max_ms', 0):.2f} ms")
         if latency.get("p95_ms") is not None:
             print(f"  95th percentile: {latency.get('p95_ms', 0):.2f} ms")
+
+    # Evidence-based analysis
+    evidence = metrics.get("evidence_based", {})
+    if evidence and evidence.get("evidence_based_count", 0) > 0:
+        print("\n" + "=" * 70)
+        print("Evidence-Based AnswerPolicy Analysis")
+        print("=" * 70)
+        print(f"\nEvidence-based decisions: {evidence.get('evidence_based_count', 0)}")
+        print(f"Heuristic decisions: {evidence.get('heuristic_count', 0)}")
+
+        # p_correct comparison
+        p_comp = evidence.get("p_correct_comparison", {})
+        if p_comp:
+            print("\n1. p_correct Distribution Comparison:")
+            ds_stats = p_comp.get("dempster_shafer", {})
+            heur_stats = p_comp.get("heuristic_simulated", {})
+            if ds_stats.get("count", 0) > 0:
+                print(f"   Dempster-Shafer (n={ds_stats['count']}):")
+                print(
+                    f"     avg={ds_stats.get('mean', 0):.3f}, "
+                    f"min={ds_stats.get('min', 0):.3f}, "
+                    f"max={ds_stats.get('max', 0):.3f}"
+                )
+            if heur_stats.get("count", 0) > 0:
+                print(f"   Heuristic (simulated, n={heur_stats['count']}):")
+                print(
+                    f"     avg={heur_stats.get('mean', 0):.3f}, "
+                    f"min={heur_stats.get('min', 0):.3f}, "
+                    f"max={heur_stats.get('max', 0):.3f}"
+                )
+
+        # CUSUM analysis
+        cusum = evidence.get("cusum_analysis", {})
+        if cusum:
+            print("\n2. CUSUM Influence Analysis:")
+            print(f"   Decisions with CUSUM > 0.5: {cusum.get('high_cusum_count', 0)}")
+            print(
+                f"   Of which resulted in 'silence': {cusum.get('high_cusum_with_silence', 0)}"
+            )
+            if cusum.get("avg_cusum_in_silence") is not None:
+                print(
+                    f"   Avg CUSUM score in these cases: {cusum['avg_cusum_in_silence']:.3f}"
+                )
+            if cusum.get("avg_belief_in_silence") is not None:
+                print(
+                    f"   Avg belief_quarantine in these cases: {cusum['avg_belief_in_silence']:.3f}"
+                )
+
+        # Evidence correlations
+        corr = evidence.get("evidence_correlations", {})
+        if corr:
+            print("\n3. Average Evidence Masses by Decision:")
+            silence = corr.get("silence_decisions", {})
+            answer = corr.get("answer_decisions", {})
+            if silence.get("count", 0) > 0:
+                print(f"   'silence' decisions (n={silence['count']}):")
+                print(f"     - risk_scorer: {silence.get('avg_risk_scorer', 0):.3f}")
+                print(f"     - cusum_drift: {silence.get('avg_cusum_drift', 0):.3f}")
+            if answer.get("count", 0) > 0:
+                print(f"   'answer' decisions (n={answer['count']}):")
+                print(f"     - risk_scorer: {answer.get('avg_risk_scorer', 0):.3f}")
+                print(f"     - cusum_drift: {answer.get('avg_cusum_drift', 0):.3f}")
 
     print("=" * 70)
 

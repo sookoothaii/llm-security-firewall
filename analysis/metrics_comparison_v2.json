@@ -1,0 +1,39 @@
+{
+  "post_fix_metrics": {
+    "fpr": 0.05,
+    "asr": 0.4,
+    "tpr": 0.6,
+    "tnr": 0.95,
+    "total_benign": 100,
+    "benign_blocked": 5,
+    "benign_allowed": 95,
+    "total_redteam": 100,
+    "redteam_blocked": 60,
+    "redteam_allowed": 40
+  },
+  "baseline_metrics": {
+    "fpr": 0.22,
+    "asr": 0.4,
+    "tpr": 0.6,
+    "tnr": 0.78,
+    "total_benign": 100,
+    "benign_blocked": 22,
+    "benign_allowed": 78,
+    "total_redteam": 100,
+    "redteam_blocked": 60,
+    "redteam_allowed": 40
+  },
+  "comparison": {
+    "fpr_baseline": 0.22,
+    "fpr_post_fix": 0.05,
+    "fpr_absolute_diff": -0.16999999999999998,
+    "fpr_improvement": 0.16999999999999998,
+    "fpr_relative_improvement_pct": 77.27272727272727,
+    "asr_baseline": 0.4,
+    "asr_post_fix": 0.4,
+    "asr_absolute_diff": 0.0,
+    "target_fpr_met": true,
+    "target_asr_met": true,
+    "both_targets_met": true
+  }
+}

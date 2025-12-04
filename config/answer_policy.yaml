@@ -1,0 +1,56 @@
+# AnswerPolicy Configuration
+# ==========================
+#
+# Epistemic decision layer configuration for LLM Security Firewall.
+# Defines cost-benefit trade-offs for answer vs. silence decisions.
+#
+# Format:
+#   policy_name:
+#     benefit_correct: <float>  # Benefit (B) if answer is correct
+#     cost_wrong: <float>       # Cost (C) if answer is wrong
+#     cost_silence: <float>     # Cost (A) of silence/block
+#
+# Threshold calculation:
+#   p_threshold = (C - A) / (C + B)
+#
+# Decision rule:
+#   Answer if: p_correct >= p_threshold
+#   Silence if: p_correct < p_threshold
+#
+# Where p_correct = 1.0 - risk_score (clamped to [0, 1])
+
+default:
+  benefit_correct: 1.0
+  cost_wrong: 5.0
+  cost_silence: 0.5
+  description: "Standard enterprise policy - moderate cost for wrong answers"
+
+kids:
+  benefit_correct: 1.0
+  cost_wrong: 50.0
+  cost_silence: 0.0
+  description: "Child safety policy - very high cost for wrong answers, silence is free"
+  # Threshold: (50 - 0) / (50 + 1) ≈ 0.98
+  # Only answers with p_correct >= 0.98
+
+internal_debug:
+  benefit_correct: 1.0
+  cost_wrong: 1.0
+  cost_silence: 2.0
+  description: "Internal research policy - low cost for wrong answers, high cost for silence"
+  # Threshold: (1 - 2) / (1 + 1) = -0.5 (clamped to 0.0)
+  # Always answers (for research/observation)
+
+strict:
+  benefit_correct: 1.0
+  cost_wrong: 20.0
+  cost_silence: 0.0
+  description: "Strict security policy - high cost for wrong answers"
+  # Threshold: (20 - 0) / (20 + 1) ≈ 0.95
+
+permissive:
+  benefit_correct: 1.0
+  cost_wrong: 2.0
+  cost_silence: 1.0
+  description: "Permissive policy - low cost for wrong answers, moderate cost for silence"
+  # Threshold: (2 - 1) / (2 + 1) ≈ 0.33

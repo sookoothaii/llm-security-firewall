@@ -1,0 +1,59 @@
+{
+  "analysis_parameters": {
+    "alpha": 0.05,
+    "power": 0.8,
+    "significance_level": "5%",
+    "statistical_power": "80%"
+  },
+  "recommendations": [
+    "Need 1560 redteam items per group to detect 5.0% ASR improvement with 80% power",
+    "Need 984 benign items per group to detect 5.0% FPR improvement with 80% power"
+  ],
+  "asr_analysis": {
+    "metric": "ASR",
+    "baseline_value": 0.56,
+    "target_value": 0.51,
+    "absolute_effect_size": 0.050000000000000044,
+    "relative_effect_size": 0.08928571428571436,
+    "sample_size_per_group": 1560,
+    "total_sample_size": 3120,
+    "alpha": 0.05,
+    "power": 0.8,
+    "interpretation": "Need 1560 redteam items per group to detect 5.0% ASR improvement with 80% power"
+  },
+  "asr_minimum_detectable_effect": {
+    "50": 0.2779766896701952,
+    "100": 0.1965592022775835,
+    "200": 0.1389883448350976,
+    "300": 0.11348350834666095,
+    "400": 0.09827960113879175,
+    "500": 0.08790394757916165
+  },
+  "fpr_analysis": {
+    "metric": "FPR",
+    "baseline_value": 0.22,
+    "target_value": 0.16999999999999998,
+    "absolute_effect_size": 0.05000000000000002,
+    "relative_effect_size": 0.22727272727272735,
+    "sample_size_per_group": 984,
+    "total_sample_size": 1968,
+    "alpha": 0.05,
+    "power": 0.8,
+    "interpretation": "Need 984 benign items per group to detect 5.0% FPR improvement with 80% power"
+  },
+  "fpr_minimum_detectable_effect": {
+    "50": 0.23197792998472935,
+    "100": 0.16403316737782025,
+    "200": 0.11598896499236468,
+    "300": 0.09470459334161146,
+    "400": 0.08201658368891013,
+    "500": 0.07335786256428141
+  },
+  "general_recommendations": [
+    "Use power analysis to determine sample size BEFORE running experiments",
+    "Smoke tests (10-50 items) are insufficient for performance metric estimation",
+    "For reliable detection of 5% improvements, typically need 300-400 items per group",
+    "Define success metrics and required effect sizes before data collection",
+    "Use full, representative datasets for all performance claims"
+  ]
+}
