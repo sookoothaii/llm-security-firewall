@@ -37,8 +37,9 @@ def main():
         print(f"ERROR: .importlinter config file not found at {config_file}")
         return 1
 
+    # Use python -m importlinter instead of import-linter CLI
     result = subprocess.run(
-        ["import-linter", "--config", str(config_file)],
+        [sys.executable, "-m", "importlinter", "--config", str(config_file)],
         cwd=project_root,
         capture_output=True,
         text=True,
