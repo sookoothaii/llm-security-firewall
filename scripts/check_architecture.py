@@ -14,7 +14,7 @@ Exit Codes:
 """
 
 import sys
-import subprocess
+import os
 from pathlib import Path
 
 
@@ -25,7 +25,7 @@ def main():
 
     # Check if import-linter is installed
     try:
-        import importlinter  # noqa: F401
+        from importlinter.cli import main as importlinter_main
     except ImportError:
         print("ERROR: import-linter not installed.")
         print("Install with: pip install import-linter")
@@ -37,21 +37,22 @@ def main():
         print(f"ERROR: .importlinter config file not found at {config_file}")
         return 1
 
-    # Use python -m importlinter instead of import-linter CLI
-    result = subprocess.run(
-        [sys.executable, "-m", "importlinter", "--config", str(config_file)],
-        cwd=project_root,
-        capture_output=True,
-        text=True,
-    )
+    # Call import-linter CLI directly
+    # Save original argv and cwd, then set up for import-linter
+    old_argv = sys.argv.copy()
+    old_cwd = os.getcwd()
 
-    # Print output
-    if result.stdout:
-        print(result.stdout)
-    if result.stderr:
-        print(result.stderr, file=sys.stderr)
+    try:
+        os.chdir(project_root)
+        sys.argv = ["import-linter", "--config", str(config_file)]
+        exit_code = importlinter_main()
+    except SystemExit as e:
+        exit_code = e.code if e.code is not None else 0
+    finally:
+        sys.argv = old_argv
+        os.chdir(old_cwd)
 
-    if result.returncode != 0:
+    if exit_code != 0:
         print("\n" + "=" * 80)
         print("DEPENDENCY RULE VIOLATION DETECTED")
         print("=" * 80)
@@ -68,7 +69,7 @@ def main():
         print("\nFix the violation and re-run this check.")
         print("=" * 80)
 
-    return result.returncode
+    return exit_code
 
 
 if __name__ == "__main__":
