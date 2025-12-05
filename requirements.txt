@@ -21,10 +21,9 @@ sqlalchemy>=2.0.0           # ORM Layer (REQUIRED for storage.py)
 psycopg[binary]>=3.1.0      # PostgreSQL (production)
 # sqlite3 is built-in to Python  # SQLite (development)
 
-# Multi-layer detection (NEW)
-sentence-transformers>=2.2.0    # Embedding detector (Layer B: Semantic Guard for Kids Policy HYDRA-05)
-torch>=2.0.0                    # Perplexity detector
-transformers>=4.30.0            # GPT-2 for perplexity
+# Multi-layer detection
+# NOTE: torch, sentence-transformers, transformers are in optional [full] dependencies
+# Install with: pip install llm-security-firewall[full] OR pip install -r requirements-gpu.txt
 onnx>=1.14.0                    # ONNX model format
 onnxruntime>=1.16.0             # ONNX inference (Layer 15 Crisis Detection + GuardNet)
 

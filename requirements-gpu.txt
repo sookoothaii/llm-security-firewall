@@ -1,0 +1,20 @@
+# LLM Security Firewall - GPU Requirements (for local development with CUDA)
+# Version: 2.5.0
+# Python: >=3.12
+#
+# This file contains GPU-specific dependencies (PyTorch with CUDA support).
+# For CI/CD, use requirements.txt (CPU-only or no PyTorch).
+# For production, use: pip install llm-security-firewall[full]
+#
+# Installation: pip install -r requirements-gpu.txt
+
+# Include base requirements
+-r requirements.txt
+
+# GPU-specific ML dependencies
+torch>=2.0.0                    # PyTorch with CUDA support (install from CUDA index)
+sentence-transformers>=2.2.0    # Embedding detector (requires torch)
+transformers>=4.30.0            # GPT-2 for perplexity (requires torch)
+
+# Note: For CPU-only installation, use:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
