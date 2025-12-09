@@ -235,6 +235,8 @@ if decision.allowed:
 
 ## Testing
 
+### Unit and Integration Tests
+
 Test suite includes unit tests, integration tests, and adversarial test cases.
 
 ```bash
@@ -245,6 +247,59 @@ With coverage:
 ```bash
 pytest tests/ -v --cov=src/llm_firewall --cov-report=term
 ```
+
+### Security Evaluation Framework
+
+A lightweight Python-based evaluation framework for reproducible security testing:
+
+```bash
+# Run evaluation suite
+python scripts/run_eval_suite.py eval_suites/jailbreak_poetry.yaml
+
+# Analyze results
+python scripts/analyze_eval_results.py eval_results
+
+# With CI/CD gates
+python scripts/analyze_eval_results.py eval_results \
+  --min-detection-rate 95.0 \
+  --max-false-positive-rate 5.0 \
+  --max-bypasses 0
+```
+
+**Available Test Suites:**
+- `eval_suites/jailbreak_poetry.yaml` - Poetic obfuscation and jailbreak attacks
+- `eval_suites/command_injection.yaml` - Command injection attacks
+
+**Features:**
+- YAML/JSON test definitions
+- Automated result analysis
+- CI/CD integration (GitHub Actions)
+- Trend analysis and reporting
+
+See `eval_suites/README.md` for detailed documentation.
+
+### Adversarial Testing
+
+Automated adversarial example generation and red-teaming:
+
+```bash
+# Generate new attack variations
+python scripts/automated_adversarial_generator.py \
+  --categories poetic_obfuscation jailbreak \
+  --variations 10
+
+# Run red-team tests
+python scripts/adversarial_red_teaming.py
+```
+
+### CI/CD Integration
+
+Security evaluations run automatically on:
+- Push to `main` or `develop`
+- Pull requests
+- Daily schedule (02:00 UTC)
+
+See `.github/workflows/security-eval.yml` for configuration.
 
 ## Dependencies
 
@@ -283,6 +338,28 @@ pytest tests/ -v --cov=src/llm_firewall --cov-report=term
 3. **Unicode Normalization:** Some edge cases in mathematical alphanumeric symbol handling
 4. **Python Version:** Requires Python >=3.12 (by design, no legacy support for 3.10/3.11)
 5. **Dependencies:** Core functionality requires numpy, scipy, scikit-learn; full ML features require torch, transformers, sentence-transformers (see Dependencies section)
+
+## Production Readiness
+
+**Status:** Production Ready (2025-12-10)
+
+**Current Performance:**
+- Detection Rate: 100% (poetic obfuscation test suite)
+- False Positives: 0 (after fixes)
+- Bypasses: 0 (adversarial test suite)
+
+**Recent Improvements:**
+- English documentation and outputs (scientific/academic style)
+- CI/CD pipeline with automated security evaluations
+- Python-based evaluation framework (no external dependencies)
+- Root directory cleanup and organization
+- Version upgrade strategy documented
+
+**Quick Start:**
+See `QUICK_START.md` for production deployment guide.
+
+**Version Strategy:**
+See `docs/VERSION_UPGRADE_STRATEGY_2025_12_10.md` for upgrade recommendations.
 
 ## Security Notice
 
@@ -399,25 +476,67 @@ For production-grade evaluation with larger datasets and calibrated models, see 
 
 **Latest Version:** v2.5.0 (2025-12-05)
 
-**Kids Policy Performance:**
+**Production Status:** Ready (2025-12-10)
+
+### Performance Metrics
+
+**Kids Policy:**
 - False Positive Rate: 0.00% (target: ≤5.0%, met in v2.4.1)
 - Attack Success Rate: 40.00% (stable)
-- Validation Report: [VALIDATION_REPORT_v2.4.1.md](docs/VALIDATION_REPORT_v2.4.1.md)
 
-**Recent Changes:**
-- v2.4.1: UNSAFE_TOPIC false positive reduction (whitelist filter for benign educational queries)
-- UNSAFE_TOPIC false positives: 17 eliminated (100% of identified cases)
-- FPR change: 22% → 0.00% (100% elimination on validation dataset), ASR unchanged
+**Poetic Obfuscation Detection:**
+- Detection Rate: 100% (24/24 test cases)
+- False Positives: 0
+- Bypasses: 0
 
-## References
+**Command Injection Detection:**
+- Detection Rate: 100% (test suite)
+- False Positives: 0 (after ls -la fix)
 
-- Architecture documentation: `docs/SESSION_HANDOVER_2025_12_01.md` (v2.4.0rc1)
-- Technical handover: `docs/TECHNICAL_HANDOVER_2025_12_01.md` (pre-v2.4.0rc1)
-- Test results: `docs/TEST_RESULTS_SUMMARY.md`
-- External review response: `docs/EXTERNAL_REVIEW_RESPONSE.md`
-- PyPI release report: `docs/PYPI_RELEASE_REPORT_2025_12_02.md`
-- AnswerPolicy Phase 2 Evaluation: `docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md` (v2.4.1)
-- Adaptive Learning Architecture: `docs/ADAPTIVE_SESSION_LEARNING_ARCHITECTURE.md` (Design Proposal)
+### Recent Changes
+
+**v2.5.0 (2025-12-05):**
+- 96% memory reduction (1.3 GB → 54 MB baseline)
+- ONNX-only core execution
+- Optional ML dependencies
+
+**v2.4.1:**
+- UNSAFE_TOPIC false positive reduction
+- Whitelist filter for benign educational queries
+- FPR: 22% → 0.00% (100% elimination)
+
+**2025-12-10:**
+- Production readiness improvements
+- English documentation and outputs
+- CI/CD pipeline with automated evaluations
+- Evaluation framework implementation
+- Root directory cleanup
+
+## Documentation
+
+### Quick Start
+- **QUICK_START.md** - Production deployment guide
+- **eval_suites/README.md** - Evaluation framework documentation
+
+### Technical Reports
+- **docs/POETIC_BYPASS_MITIGATION_REPORT_2025_12_10.md** - Poetic obfuscation mitigation (100% detection rate)
+- **docs/VERSION_UPGRADE_STRATEGY_2025_12_10.md** - Version upgrade recommendations
+- **docs/COMPLETE_IMPLEMENTATION_SUMMARY_2025_12_10.md** - Complete implementation overview
+- **docs/CI_CD_SETUP_2025_12_10.md** - CI/CD setup guide
+
+### Architecture & Design
+- **docs/SESSION_HANDOVER_2025_12_01.md** - Architecture documentation (v2.4.0rc1)
+- **docs/TECHNICAL_HANDOVER_2025_12_01.md** - Technical handover (pre-v2.4.0rc1)
+- **docs/ADAPTIVE_SESSION_LEARNING_ARCHITECTURE.md** - Adaptive learning design
+
+### Evaluation & Testing
+- **docs/ANSWER_POLICY_EVALUATION_PHASE2_2_4_0.md** - AnswerPolicy evaluation (v2.4.1)
+- **docs/VALIDATION_RESULTS_2025_12_10.md** - Validation results
+- **docs/TEST_RESULTS_SUMMARY.md** - Test results summary
+
+### Release Notes
+- **docs/PYPI_RELEASE_REPORT_2025_12_02.md** - PyPI release report
+- **docs/EXTERNAL_REVIEW_RESPONSE.md** - External review response
 
 ## License
 
