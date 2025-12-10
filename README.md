@@ -17,6 +17,20 @@ A bidirectional security layer for LLM-based systems. Validates input, output, a
 - Local execution: no telemetry, no external calls
 - API: `guard.check_input(text)` / `guard.check_output(text)`
 
+## Experimental: Code Intent Detection Module
+
+We are actively developing a specialized module for detecting malicious **code execution intents** (e.g., command injection, SQL injection) within natural language prompts.
+
+This experimental system extends the core firewall with:
+
+- A **hybrid detection pipeline** combining 10 rule-based validators, ML models (CNN & CodeBERT), and a pattern engine.
+- A standalone **FastAPI service** with a clean, hexagonal architecture.
+- **Production-ready APIs** (`/detect`, `/feedback`, `/health`) for easy integration.
+
+> **Status:** Active development in a feature branch. Code may be unstable.  
+> **Explore:** [`feature/code-intent-detection-standalone`](https://github.com/sookoothaii/llm-security-firewall/tree/feature/code-intent-detection-standalone)  
+> **Goal:** Future integration as an optional module or separate package.
+
 ## Minimal Example
 
 ```python
