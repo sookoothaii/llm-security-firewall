@@ -1,0 +1,4 @@
+"""
+Persuasion Service Composition Root
+"""
+

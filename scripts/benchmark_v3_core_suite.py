@@ -14,7 +14,7 @@ from typing import Dict, Any, List
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
-from llm_firewall.core.firewall_engine_v3 import FirewallEngineV3, FirewallConfig
+from llm_firewall.core.firewall_engine_v3 import FirewallEngineV3, FirewallConfig, EmergencyFixFirewallConfig
 
 
 def load_core_suite() -> List[Dict[str, Any]]:
@@ -50,15 +50,9 @@ def run_benchmark():
 
     # Initialize engine
     print("Initializing FirewallEngineV3...")
-    config = FirewallConfig(
-        enable_sanitization=True,
-        enable_normalization=True,
-        enable_regex_gate=True,
-        enable_exploit_detection=True,
-        enable_toxicity_detection=True,
-        enable_semantic_guard=True,
+    # EMERGENCY FIX: Verwende EmergencyFixFirewallConfig für FPR-Reduktion
+    config = EmergencyFixFirewallConfig(
         enable_kids_policy=False,  # Disable for benchmark
-        blocking_threshold=0.20,  # TUNED: Optimal threshold
     )
     engine = FirewallEngineV3(config)
     print(f"[OK] Engine initialized with {len(engine.input_layers)} input layers")

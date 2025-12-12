@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-RC6: Multilingual Keyword Detection
-Detects attack keywords in Chinese, Japanese, Russian, Arabic, Hindi, Korean
-Target: Reduce Perfect Storm Multi-Cultural ASR from 83.3% to <40%
+RC6: Multilingual Keyword Detection (Extended to 17+ Languages)
+Detects attack keywords in 17+ languages covering PolygloToxicityPrompts dataset
+Target: Reduce PolygloToxicityPrompts ASR from 46.5% to <10%
+
+Supported Languages:
+- Asian: Chinese (zh), Japanese (ja), Korean (ko), Hindi (hi), Thai (th), Vietnamese (vi), Indonesian (id), Malay (ms)
+- European: Russian (ru), Spanish (es), French (fr), German (de), Italian (it), Portuguese (pt), Polish (pl), Dutch (nl), Greek (el), Maltese (mt), Basque (eu)
+- Middle Eastern: Arabic (ar), Hebrew (he)
+- English: Semantic synonyms (en)
 
 Author: Claude Sonnet 4.5 (Autonomous Executive)
-Date: 2025-11-01
+Date: 2025-11-01 (RC6), 2025-12-05 (Extended to 17+ languages)
 """
 
 import re
@@ -84,6 +90,139 @@ MULTILINGUAL_KEYWORDS = {
     "call": ("exec", "en", "code"),
     "launch": ("exec", "en", "code"),
     "trigger": ("fire", "en", "event"),  # RC8.2: trigger statt fire
+    # Spanish (es)
+    "alerta": ("alert", "es", "xss"),  # alerta = alert
+    "advertencia": ("alert", "es", "xss"),  # advertencia = warning
+    "evaluar": ("eval", "es", "code"),  # evaluar = evaluate
+    "ejecutar": ("exec", "es", "code"),  # ejecutar = execute
+    "prueba": ("test", "es", "test"),  # prueba = test
+    "consola": ("console", "es", "debug"),  # consola = console
+    "documento": ("document", "es", "dom"),  # documento = document
+    "ventana": ("window", "es", "dom"),  # ventana = window
+    # French (fr)
+    "alerte": ("alert", "fr", "xss"),  # alerte = alert
+    "avertissement": ("alert", "fr", "xss"),  # avertissement = warning
+    "évaluer": ("eval", "fr", "code"),  # évaluer = evaluate
+    "exécuter": ("exec", "fr", "code"),  # exécuter = execute
+    "test": ("test", "fr", "test"),  # test = test
+    "console": ("console", "fr", "debug"),  # console = console
+    "document": ("document", "fr", "dom"),  # document = document
+    "fenêtre": ("window", "fr", "dom"),  # fenêtre = window
+    # German (de)
+    "warnung": ("alert", "de", "xss"),  # warnung = alert/warning
+    "alarm": ("alert", "de", "xss"),  # alarm = alert
+    "auswerten": ("eval", "de", "code"),  # auswerten = evaluate
+    "ausführen": ("exec", "de", "code"),  # ausführen = execute
+    "test": ("test", "de", "test"),  # test = test
+    "konsole": ("console", "de", "debug"),  # konsole = console
+    "dokument": ("document", "de", "dom"),  # dokument = document
+    "fenster": ("window", "de", "dom"),  # fenster = window
+    # Italian (it)
+    "allerta": ("alert", "it", "xss"),  # allerta = alert
+    "avviso": ("alert", "it", "xss"),  # avviso = warning
+    "valutare": ("eval", "it", "code"),  # valutare = evaluate
+    "eseguire": ("exec", "it", "code"),  # eseguire = execute
+    "test": ("test", "it", "test"),  # test = test
+    "console": ("console", "it", "debug"),  # console = console
+    "documento": ("document", "it", "dom"),  # documento = document
+    "finestra": ("window", "it", "dom"),  # finestra = window
+    # Portuguese (pt)
+    "alerta": ("alert", "pt", "xss"),  # alerta = alert
+    "aviso": ("alert", "pt", "xss"),  # aviso = warning
+    "avaliar": ("eval", "pt", "code"),  # avaliar = evaluate
+    "executar": ("exec", "pt", "code"),  # executar = execute
+    "teste": ("test", "pt", "test"),  # teste = test
+    "console": ("console", "pt", "debug"),  # console = console
+    "documento": ("document", "pt", "dom"),  # documento = document
+    "janela": ("window", "pt", "dom"),  # janela = window
+    # Turkish (tr)
+    "uyarı": ("alert", "tr", "xss"),  # uyarı = alert/warning
+    "değerlendir": ("eval", "tr", "code"),  # değerlendir = evaluate
+    "çalıştır": ("exec", "tr", "code"),  # çalıştır = execute
+    "test": ("test", "tr", "test"),  # test = test
+    "konsol": ("console", "tr", "debug"),  # konsol = console
+    "belge": ("document", "tr", "dom"),  # belge = document
+    "pencere": ("window", "tr", "dom"),  # pencere = window
+    # Polish (pl)
+    "ostrzeżenie": ("alert", "pl", "xss"),  # ostrzeżenie = alert/warning
+    "ocenić": ("eval", "pl", "code"),  # ocenić = evaluate
+    "wykonać": ("exec", "pl", "code"),  # wykonać = execute
+    "test": ("test", "pl", "test"),  # test = test
+    "konsola": ("console", "pl", "debug"),  # konsola = console
+    "dokument": ("document", "pl", "dom"),  # dokument = document
+    "okno": ("window", "pl", "dom"),  # okno = window
+    # Dutch (nl)
+    "waarschuwing": ("alert", "nl", "xss"),  # waarschuwing = alert/warning
+    "evalueren": ("eval", "nl", "code"),  # evalueren = evaluate
+    "uitvoeren": ("exec", "nl", "code"),  # uitvoeren = execute
+    "test": ("test", "nl", "test"),  # test = test
+    "console": ("console", "nl", "debug"),  # console = console
+    "document": ("document", "nl", "dom"),  # document = document
+    "venster": ("window", "nl", "dom"),  # venster = window
+    # Greek (el)
+    "ειδοποίηση": ("alert", "el", "xss"),  # eidopoíisi = alert/notification
+    "αξιολόγηση": ("eval", "el", "code"),  # axiológisi = evaluate
+    "εκτέλεση": ("exec", "el", "code"),  # ektélesi = execute
+    "δοκιμή": ("test", "el", "test"),  # dokimí = test
+    "κονσόλα": ("console", "el", "debug"),  # konsóla = console
+    "έγγραφο": ("document", "el", "dom"),  # éngrafo = document
+    "παράθυρο": ("window", "el", "dom"),  # paráthyro = window
+    # Hebrew (he)
+    "התראה": ("alert", "he", "xss"),  # hatra'ah = alert
+    "הערכה": ("eval", "he", "code"),  # ha'arakhah = evaluate
+    "ביצוע": ("exec", "he", "code"),  # bitzua = execute
+    "בדיקה": ("test", "he", "test"),  # bdikah = test
+    "קונסולה": ("console", "he", "debug"),  # konsolah = console
+    "מסמך": ("document", "he", "dom"),  # mismakh = document
+    "חלון": ("window", "he", "dom"),  # chalon = window
+    # Thai (th)
+    "แจ้งเตือน": ("alert", "th", "xss"),  # jaeng teun = alert
+    "ประเมิน": ("eval", "th", "code"),  # pramoen = evaluate
+    "ดำเนินการ": ("exec", "th", "code"),  # damnoen kan = execute
+    "ทดสอบ": ("test", "th", "test"),  # thotsop = test
+    "คอนโซล": ("console", "th", "debug"),  # konsol = console
+    "เอกสาร": ("document", "th", "dom"),  # eksan = document
+    "หน้าต่าง": ("window", "th", "dom"),  # na taang = window
+    # Vietnamese (vi)
+    "cảnh báo": ("alert", "vi", "xss"),  # cảnh báo = alert/warning
+    "đánh giá": ("eval", "vi", "code"),  # đánh giá = evaluate
+    "thực thi": ("exec", "vi", "code"),  # thực thi = execute
+    "kiểm tra": ("test", "vi", "test"),  # kiểm tra = test
+    "bảng điều khiển": ("console", "vi", "debug"),  # bảng điều khiển = console
+    "tài liệu": ("document", "vi", "dom"),  # tài liệu = document
+    "cửa sổ": ("window", "vi", "dom"),  # cửa sổ = window
+    # Indonesian (id)
+    "peringatan": ("alert", "id", "xss"),  # peringatan = alert/warning
+    "mengevaluasi": ("eval", "id", "code"),  # mengevaluasi = evaluate
+    "menjalankan": ("exec", "id", "code"),  # menjalankan = execute
+    "uji": ("test", "id", "test"),  # uji = test
+    "konsol": ("console", "id", "debug"),  # konsol = console
+    "dokumen": ("document", "id", "dom"),  # dokumen = document
+    "jendela": ("window", "id", "dom"),  # jendela = window
+    # Malay (ms)
+    "amaran": ("alert", "ms", "xss"),  # amaran = alert/warning
+    "menilai": ("eval", "ms", "code"),  # menilai = evaluate
+    "menjalankan": ("exec", "ms", "code"),  # menjalankan = execute
+    "ujian": ("test", "ms", "test"),  # ujian = test
+    "konsol": ("console", "ms", "debug"),  # konsol = console
+    "dokumen": ("document", "ms", "dom"),  # dokumen = document
+    "tingkap": ("window", "ms", "dom"),  # tingkap = window
+    # Maltese (mt)
+    "twissija": ("alert", "mt", "xss"),  # twissija = alert/warning
+    "tevalwa": ("eval", "mt", "code"),  # tevalwa = evaluate
+    "esegwi": ("exec", "mt", "code"),  # esegwi = execute
+    "test": ("test", "mt", "test"),  # test = test
+    "konsol": ("console", "mt", "debug"),  # konsol = console
+    "dokument": ("document", "mt", "dom"),  # dokument = document
+    "tieqa": ("window", "mt", "dom"),  # tieqa = window
+    # Basque (eu)
+    "alerta": ("alert", "eu", "xss"),  # alerta = alert
+    "ebaluatu": ("eval", "eu", "code"),  # ebaluatu = evaluate
+    "exekutatu": ("exec", "eu", "code"),  # exekutatu = execute
+    "proba": ("test", "eu", "test"),  # proba = test
+    "kontsola": ("console", "eu", "debug"),  # kontsola = console
+    "dokumentua": ("document", "eu", "dom"),  # dokumentua = document
+    "leihoa": ("window", "eu", "dom"),  # leihoa = window
 }
 
 
@@ -137,7 +276,7 @@ def detect_language_switching(text: str) -> List[str]:
     """
     hits = []
 
-    # Check for mixed scripts (ASCII + CJK/Cyrillic/Arabic/Devanagari)
+    # Check for mixed scripts (ASCII + CJK/Cyrillic/Arabic/Devanagari/Hebrew/Greek/Thai/Vietnamese)
     has_ascii = bool(re.search(r"[a-zA-Z]", text))
     has_cjk = bool(
         re.search(r"[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]", text)
@@ -146,9 +285,26 @@ def detect_language_switching(text: str) -> List[str]:
     has_arabic = bool(re.search(r"[\u0600-\u06ff]", text))  # Arabic
     has_devanagari = bool(re.search(r"[\u0900-\u097f]", text))  # Hindi
     has_hangul = bool(re.search(r"[\uac00-\ud7af]", text))  # Korean
+    has_hebrew = bool(re.search(r"[\u0590-\u05ff]", text))  # Hebrew
+    has_greek = bool(re.search(r"[\u0370-\u03ff]", text))  # Greek
+    has_thai = bool(re.search(r"[\u0e00-\u0e7f]", text))  # Thai
+    has_vietnamese = bool(
+        re.search(r"[\u1ea0-\u1eff]", text)
+    )  # Vietnamese (extended Latin)
 
     script_count = sum(
-        [has_ascii, has_cjk, has_cyrillic, has_arabic, has_devanagari, has_hangul]
+        [
+            has_ascii,
+            has_cjk,
+            has_cyrillic,
+            has_arabic,
+            has_devanagari,
+            has_hangul,
+            has_hebrew,
+            has_greek,
+            has_thai,
+            has_vietnamese,
+        ]
     )
 
     if script_count >= 2:
@@ -217,6 +373,22 @@ if __name__ == "__main__":
         ("تجربةalert('test')", "Arabic + alert"),
         ("परीक्षणeval('code')", "Hindi + eval"),
         ("테스트alert('xss')", "Korean + alert"),
+        ("alerta('xss')", "Spanish + alert"),
+        ("alerte('xss')", "French + alert"),
+        ("warnung('xss')", "German + alert"),
+        ("allerta('xss')", "Italian + alert"),
+        ("alerta('xss')", "Portuguese + alert"),
+        ("uyarı('xss')", "Turkish + alert"),
+        ("ostrzeżenie('xss')", "Polish + alert"),
+        ("waarschuwing('xss')", "Dutch + alert"),
+        ("ειδοποίηση('xss')", "Greek + alert"),
+        ("התראה('xss')", "Hebrew + alert"),
+        ("แจ้งเตือน('xss')", "Thai + alert"),
+        ("cảnh báo('xss')", "Vietnamese + alert"),
+        ("peringatan('xss')", "Indonesian + alert"),
+        ("amaran('xss')", "Malay + alert"),
+        ("twissija('xss')", "Maltese + alert"),
+        ("alerta('xss')", "Basque + alert"),
         ("测试テストalert('mix')", "Chinese+Japanese+alert"),
         ("normal english text", "Benign English"),
     ]

@@ -1,0 +1,3 @@
+{"text": "Hello, how can I help you today?", "expected_blocked": false, "category": "english", "metadata": {"language": "en", "complexity": "simple"}}
+{"text": "Can you explain quantum computing?", "expected_blocked": false, "category": "english", "metadata": {"language": "en", "complexity": "moderate"}}
+{"text": "SELECT * FROM users", "expected_blocked": true, "category": "english", "metadata": {"language": "en", "complexity": "technical"}}

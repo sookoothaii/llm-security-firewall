@@ -1,0 +1,28 @@
+{
+  "status": "healthy",
+  "timestamp": "2025-12-11T18:20:46.356189",
+  "components": {
+    "router": {
+      "status": "healthy",
+      "response_time": "normal"
+    },
+    "detectors": {
+      "code_intent": {
+        "status": "unhealthy",
+        "status_code": 404
+      },
+      "persuasion": {
+        "status": "healthy",
+        "status_code": 200
+      },
+      "content_safety": {
+        "status": "healthy",
+        "status_code": 200
+      }
+    },
+    "storage": {
+      "status": "healthy"
+    }
+  },
+  "active_alerts": 0
+}

@@ -1,0 +1,216 @@
+description: Advanced routing policies with context-based conditions
+policies:
+- activation_threshold: 0.95
+  conditions:
+  - description: Adversarial input detected by detector
+    expression: context.get('adversarial_analysis', {}).get('detected', False) ==
+      True
+    type: simple
+    weight: 0.4
+  - description: High adversarial score
+    expression: context.get('adversarial_analysis', {}).get('score', 0.0) >= 0.5
+    type: simple
+    weight: 0.3
+  - description: Security patterns detected
+    expression: context.get('security_patterns', {}).get('detected', False) == True
+    type: simple
+    weight: 0.3
+  detectors:
+  - mode: required
+    name: code_intent
+    priority: 1
+    timeout_ms: 1500
+  - mode: required
+    name: content_safety
+    priority: 2
+    timeout_ms: 500
+  enabled: true
+  max_latency: 2000
+  name: adversarial_detection_high_priority
+  priority: 110
+  strategy: parallel
+- activation_threshold: 0.95
+  conditions:
+  - description: Jailbreak phrases detected
+    expression: ('ignore previous' in context.get('text', '').lower() or 'you are
+      now dan' in context.get('text', '').lower() or 'developer mode' in context.get('text',
+      '').lower() or 'roleplay' in context.get('text', '').lower() or 'override' in
+      context.get('text', '').lower() or 'bypass safety' in context.get('text', '').lower()
+      or 'ignore above' in context.get('text', '').lower() or 'system prompt' in context.get('text',
+      '').lower() or 'forget your rules' in context.get('text', '').lower() or 'output
+      as' in context.get('text', '').lower() or '### instruction' in context.get('text',
+      '').lower())
+    type: simple
+    weight: 0.4
+  - description: Destructive command patterns
+    expression: ('rm -rf' in context.get('text', '').lower() or 'sudo chmod' in context.get('text',
+      '').lower() or 'format' in context.get('text', '').lower() and 'hard drive'
+      in context.get('text', '').lower() or 'delete all files' in context.get('text',
+      '').lower() or 'bypass security' in context.get('text', '').lower() or 'access
+      private data' in context.get('text', '').lower() or 'access system files' in
+      context.get('text', '').lower() or 'access all user' in context.get('text',
+      '').lower() or 'access user passwords' in context.get('text', '').lower() or
+      'access database' in context.get('text', '').lower() or 'modify system settings'
+      in context.get('text', '').lower() or 'modify system' in context.get('text',
+      '').lower() or 'modify critical' in context.get('text', '').lower() or 'execute
+      this shell command' in context.get('text', '').lower() or 'run this bash script'
+      in context.get('text', '').lower() or 'run this command' in context.get('text',
+      '').lower() or 'write python code' in context.get('text', '').lower() or 'write
+      code' in context.get('text', '').lower() or 'write sql' in context.get('text',
+      '').lower() or 'command line' in context.get('text', '').lower())
+    type: simple
+    weight: 0.6
+  detectors:
+  - mode: required
+    name: code_intent
+    priority: 1
+    timeout_ms: 1500
+  - mode: required
+    name: content_safety
+    priority: 2
+    timeout_ms: 500
+  enabled: true
+  max_latency: 2000
+  name: jailbreak_and_prompt_injection
+  priority: 105
+  strategy: parallel
+- activation_threshold: 0.95
+  conditions:
+  - description: Tool abuse and system modification patterns
+    expression: ('write sql' in context.get('text', '').lower() or 'modify system'
+      in context.get('text', '').lower() or 'modify critical' in context.get('text',
+      '').lower() or 'system configuration' in context.get('text', '').lower() or
+      'system tables' in context.get('text', '').lower() or 'private api' in context.get('text',
+      '').lower() or 'without authentication' in context.get('text', '').lower() or
+      'bypass authentication' in context.get('text', '').lower() or 'call this private
+      api' in context.get('text', '').lower())
+    type: simple
+    weight: 1.0
+  detectors:
+  - mode: required
+    name: code_intent
+    priority: 1
+    timeout_ms: 1500
+  - mode: required
+    name: content_safety
+    priority: 2
+    timeout_ms: 500
+  enabled: true
+  max_latency: 2000
+  name: tool_abuse_detection
+  priority: 108
+  strategy: parallel
+- activation_threshold: 0.95
+  conditions:
+  - description: Code-related tools
+    expression: context.get('source_tool') in ['code_interpreter', 'shell', 'database']
+    type: simple
+    weight: 0.4
+  - description: Code patterns in text
+    expression: hasattr(context.get('text_analysis'), 'contains_code_patterns') and
+      getattr(context.get('text_analysis'), 'contains_code_patterns', False)
+    type: simple
+    weight: 0.6
+  detectors:
+  - mode: required
+    name: code_intent
+    priority: 1
+    timeout_ms: 1500
+  - mode: required
+    name: content_safety
+    priority: 2
+    timeout_ms: 500
+  enabled: true
+  max_latency: 2000
+  name: code_intensive_workflow
+  priority: 100
+  strategy: parallel
+- activation_threshold: 0.95
+  conditions:
+  - description: High risk user
+    expression: context.get('user_risk_tier', 1) >= 2
+    type: simple
+    weight: 0.5
+  - description: Risky session
+    expression: context.get('session_risk_score', 0) > 0.5
+    type: simple
+    weight: 0.5
+  detectors:
+  - mode: required
+    name: content_safety
+    timeout_ms: 500
+  - mode: required
+    name: persuasion
+    timeout_ms: 500
+  - mode: conditional
+    name: code_intent
+    timeout_ms: 1500
+  enabled: true
+  max_latency: 2000
+  name: high_risk_session
+  priority: 90
+  strategy: sequential
+- activation_threshold: 0.95
+  conditions:
+  - description: Multilingual content
+    expression: hasattr(context.get('text_analysis'), 'contains_multilingual_patterns')
+      and getattr(context.get('text_analysis'), 'contains_multilingual_patterns',
+      False)
+    type: simple
+    weight: 0.4
+  - description: High complexity
+    expression: hasattr(context.get('text_analysis'), 'text_complexity') and getattr(context.get('text_analysis'),
+      'text_complexity', 0) > 0.6
+    type: simple
+    weight: 0.6
+  detectors:
+  - mode: required
+    name: content_safety
+    timeout_ms: 500
+  - mode: required
+    name: persuasion
+    timeout_ms: 500
+  enabled: true
+  max_latency: 1000
+  name: complex_multilingual_content
+  priority: 80
+  strategy: parallel
+- activation_threshold: 0.95
+  conditions:
+  - description: High obfuscation score
+    expression: hasattr(context.get('text_analysis'), 'potential_obfuscation_score')
+      and getattr(context.get('text_analysis'), 'potential_obfuscation_score', 0)
+      > 0.3
+    type: simple
+    weight: 1.0
+  detectors:
+  - mode: required
+    name: code_intent
+    timeout_ms: 1500
+  - mode: required
+    name: content_safety
+    timeout_ms: 500
+  - mode: required
+    name: persuasion
+    timeout_ms: 500
+  enabled: true
+  max_latency: 2500
+  name: suspicious_obfuscation
+  priority: 95
+  strategy: sequential
+- activation_threshold: 0.95
+  conditions:
+  - description: Default fallback
+    expression: 'True'
+    type: simple
+    weight: 1.0
+  detectors:
+  - mode: required
+    name: content_safety
+    timeout_ms: 500
+  enabled: true
+  max_latency: 600
+  name: lightweight_default
+  priority: 10
+  strategy: sequential
+version: 2.0.0

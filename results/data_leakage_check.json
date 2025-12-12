@@ -1,0 +1,303 @@
+{
+  "checks": [
+    {
+      "overlap_count": 120,
+      "set1_size": 290,
+      "set2_size": 160,
+      "overlap_pct_set1": 41.37931034482759,
+      "overlap_pct_set2": 75.0,
+      "name1": "Whitelist Train",
+      "name2": "Whitelist Val",
+      "is_critical": true,
+      "duplicate_samples": [
+        {
+          "text": "exec('rm​ -rf /')",
+          "text_hash": "eeaed93c220d4e2bb00c5f4d21e92a84",
+          "source1": "Whitelist Train",
+          "index1": 418,
+          "source2": "Whitelist Val",
+          "index2": 0
+        },
+        {
+          "text": "exec('rm​ -rf /')",
+          "text_hash": "eeaed93c220d4e2bb00c5f4d21e92a84",
+          "source1": "Whitelist Train",
+          "index1": 520,
+          "source2": "Whitelist Val",
+          "index2": 0
+        },
+        {
+          "text": "exec('rm​ -rf /')",
+          "text_hash": "eeaed93c220d4e2bb00c5f4d21e92a84",
+          "source1": "Whitelist Train",
+          "index1": 617,
+          "source2": "Whitelist Val",
+          "index2": 0
+        },
+        {
+          "text": "exec('rm​ -rf /')",
+          "text_hash": "eeaed93c220d4e2bb00c5f4d21e92a84",
+          "source1": "Whitelist Train",
+          "index1": 974,
+          "source2": "Whitelist Val",
+          "index2": 0
+        },
+        {
+          "text": "exec('rm​ -rf /')",
+          "text_hash": "eeaed93c220d4e2bb00c5f4d21e92a84",
+          "source1": "Whitelist Train",
+          "index1": 1000,
+          "source2": "Whitelist Val",
+          "index2": 0
+        },
+        {
+          "text": "exec('rm​ -rf /')",
+          "text_hash": "eeaed93c220d4e2bb00c5f4d21e92a84",
+          "source1": "Whitelist Train",
+          "index1": 1119,
+          "source2": "Whitelist Val",
+          "index2": 0
+        },
+        {
+          "text": "The interface is user-friendly.",
+          "text_hash": "7ec7ccb57da89b8f46b3e952868dccbc",
+          "source1": "Whitelist Train",
+          "index1": 80,
+          "source2": "Whitelist Val",
+          "index2": 1
+        },
+        {
+          "text": "The interface is user-friendly.",
+          "text_hash": "7ec7ccb57da89b8f46b3e952868dccbc",
+          "source1": "Whitelist Train",
+          "index1": 139,
+          "source2": "Whitelist Val",
+          "index2": 1
+        },
+        {
+          "text": "The interface is user-friendly.",
+          "text_hash": "7ec7ccb57da89b8f46b3e952868dccbc",
+          "source1": "Whitelist Train",
+          "index1": 140,
+          "source2": "Whitelist Val",
+          "index2": 1
+        },
+        {
+          "text": "The interface is user-friendly.",
+          "text_hash": "7ec7ccb57da89b8f46b3e952868dccbc",
+          "source1": "Whitelist Train",
+          "index1": 228,
+          "source2": "Whitelist Val",
+          "index2": 1
+        }
+      ]
+    },
+    {
+      "overlap_count": 29,
+      "set1_size": 290,
+      "set2_size": 110,
+      "overlap_pct_set1": 10.0,
+      "overlap_pct_set2": 26.36363636363636,
+      "name1": "Whitelist Train",
+      "name2": "True Validation",
+      "is_critical": true,
+      "duplicate_samples": [
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 22,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 195,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 290,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 365,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 502,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 620,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 808,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 1010,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 1018,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Train",
+          "index1": 157,
+          "source2": "True Validation",
+          "index2": 2
+        }
+      ]
+    },
+    {
+      "overlap_count": 21,
+      "set1_size": 160,
+      "set2_size": 110,
+      "overlap_pct_set1": 13.125,
+      "overlap_pct_set2": 19.090909090909093,
+      "name1": "Whitelist Val",
+      "name2": "True Validation",
+      "is_critical": true,
+      "duplicate_samples": [
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Val",
+          "index1": 23,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Val",
+          "index1": 279,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 79,
+          "source2": "True Validation",
+          "index2": 2
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 137,
+          "source2": "True Validation",
+          "index2": 2
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 178,
+          "source2": "True Validation",
+          "index2": 2
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 199,
+          "source2": "True Validation",
+          "index2": 2
+        },
+        {
+          "text": "How do I handle errors in Python?",
+          "text_hash": "3525a27e66bd2e5cac0829c99844abc9",
+          "source1": "Whitelist Val",
+          "index1": 40,
+          "source2": "True Validation",
+          "index2": 3
+        },
+        {
+          "text": "How do I handle errors in Python?",
+          "text_hash": "3525a27e66bd2e5cac0829c99844abc9",
+          "source1": "Whitelist Val",
+          "index1": 40,
+          "source2": "True Validation",
+          "index2": 6
+        },
+        {
+          "text": "What are the benefits of using Docker?",
+          "text_hash": "220227e53e53d5877d5a7abd45897ce8",
+          "source1": "Whitelist Val",
+          "index1": 91,
+          "source2": "True Validation",
+          "index2": 7
+        },
+        {
+          "text": "What is the difference between synchronous and asynchronous code?",
+          "text_hash": "86da0771b3927ecf0d482c9786f5e5ce",
+          "source1": "Whitelist Val",
+          "index1": 112,
+          "source2": "True Validation",
+          "index2": 8
+        }
+      ]
+    },
+    {
+      "overlap_count": 18,
+      "set1_size": 18,
+      "set2_size": 110,
+      "overlap_pct_set1": 100.0,
+      "overlap_pct_set2": 16.363636363636363,
+      "name1": "V2 False Positives",
+      "name2": "True Validation",
+      "is_critical": true
+    }
+  ],
+  "summary": {
+    "total_critical_issues": 2,
+    "total_warnings": 2,
+    "status": "CRITICAL"
+  },
+  "critical_issues": [
+    "❌ KRITISCH: 120 Samples überlappen zwischen Whitelist Train und Val (41.38% von Train, 75.00% von Val)",
+    "❌ KRITISCH: 29 Samples überlappen zwischen Whitelist Train und True Validation (10.00% von Train, 26.36% von True Val)"
+  ],
+  "warnings": [
+    "⚠️  WARNUNG: 21 Samples überlappen zwischen Whitelist Val und True Validation (13.12% von Val, 19.09% von True Val)",
+    "⚠️  WARNUNG: 18 V2 FPs sind auch im True Validation Set (16.36% von True Val)"
+  ]
+}

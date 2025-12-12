@@ -58,10 +58,14 @@ class EmbeddingJailbreakDetector:
         # Lazy import to avoid dependency issues
         try:
             from sentence_transformers import SentenceTransformer
-
-            self.model = SentenceTransformer(model_name)
+            
+            # REQUIRE GPU (CPU COMPLETELY DISABLED)
+            from llm_firewall.core.gpu_enforcement import require_gpu
+            device = require_gpu()  # Raises error if GPU not available (CPU disabled)
+            
+            self.model = SentenceTransformer(model_name, device=device)
             self.available = True
-            logger.info(f"Embedding detector initialized with {model_name}")
+            logger.info(f"Embedding detector initialized with {model_name} on device: {device} (CPU disabled)")
         except ImportError:
             logger.warning("sentence-transformers not available, detector disabled")
             self.model = None

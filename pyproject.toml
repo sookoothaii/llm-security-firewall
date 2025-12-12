@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "llm-security-firewall"
 version = "2.5.0"
-description = "Cognitive Security Middleware - The 'Electronic Stability Program' (ESP) for Large Language Models. Bidirectional containment system with defense-in-depth architecture (6 validation layers), stateful tracking, and mathematical safety constraints. Validated against Unicode/encoding attacks, pattern evasion, multilingual/polyglot attacks (12+ languages including Basque, Maltese), and memory/session attacks. Protocol-based hexagonal architecture with LangChain integration."
+description = "Bidirectional validation system for large language model interfaces. Implements defense-in-depth architecture with sequential validation layers, stateful tracking, and rule-based safety constraints. Validated against Unicode/encoding attacks, pattern evasion, multilingual/polyglot attacks (12+ languages including Basque, Maltese), and memory/session attacks. Protocol-based hexagonal architecture with LangChain integration."
 authors = [{name = "Joerg Bollwahn", email = "sookoothaii@proton.me"}]
 maintainers = [{name = "Joerg Bollwahn", email = "sookoothaii@proton.me"}]
 readme = "README.md"
@@ -26,7 +26,8 @@ classifiers = [
 
 dependencies = [
     # Core dependencies (required for basic operation - ~54 MB baseline)
-    "numpy>=1.24.0",
+    # CRITICAL: NumPy must be <2.0 for compatibility with scipy and sklearn
+    "numpy>=1.24.0,<2.0.0",
     "scipy>=1.11.0",
     "pyyaml>=6.0",
     "blake3>=0.3.0",
@@ -69,10 +70,17 @@ database = [
 dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
-    "ruff>=0.1.0",
-    "mypy>=1.7.0",
+    "ruff>=0.7.0",
+    "mypy>=1.11.0",
     "types-PyYAML>=6.0.0",
     "types-requests>=2.31.0",
+    "bandit>=1.7.0",
+    "pip-audit>=2.7.0",
+    "import-linter>=2.7.0",
+    "pre-commit>=3.6.0",
+    "yamllint>=1.33.0",
+    "detect-secrets>=1.4.0",
+    "shellcheck-py>=0.9.0.6",
 ]
 # LangChain integration (optional)
 # Install with: pip install llm-security-firewall[langchain]
@@ -86,18 +94,18 @@ monitoring = [
 # Optional Plugins ("Niemand muss aber jeder darf")
 personality = [
     "psycopg3>=3.2.12",
-    "numpy>=1.24.0",
+    "numpy>=1.24.0,<2.0.0",
 ]
 biometrics = [
     "psycopg3>=3.2.12",
     "scikit-learn>=1.3.0",
     "pandas>=2.0.0",
-    "numpy>=1.24.0",
+    "numpy>=1.24.0,<2.0.0",
 ]
 care = [
     "psycopg3>=3.2.12",
     "prometheus-client>=0.17.0",
-    "numpy>=1.24.0",
+    "numpy>=1.24.0,<2.0.0",
 ]
 # Legacy full (includes all plugins)
 full-all = [

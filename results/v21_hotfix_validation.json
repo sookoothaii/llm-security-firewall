@@ -1,0 +1,21 @@
+{
+  "configuration": {
+    "v2_threshold": 0.95,
+    "v1_fallback_threshold": 0.7,
+    "whitelist_enabled": true
+  },
+  "metrics": {
+    "total_samples": 282,
+    "malicious_samples": 91,
+    "benign_samples": 191,
+    "accuracy": 96.80851063829788,
+    "detection_rate": 100.0,
+    "bypass_rate": 0.0,
+    "false_positive_rate": 4.712041884816754,
+    "method_statistics": {
+      "v2_whitelist_override": 182,
+      "v2_high_confidence": 100
+    }
+  },
+  "sample_count": 282
+}

@@ -1,0 +1,14 @@
+{
+  "train": {
+    "total": 1164,
+    "positive": 306,
+    "negative": 858,
+    "positive_ratio": 0.26288659793814434
+  },
+  "validation": {
+    "total": 292,
+    "positive": 77,
+    "negative": 215,
+    "positive_ratio": 0.2636986301369863
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "best_weight": 0.5,
+  "best_metrics": {
+    "total_samples": 282,
+    "malicious_samples": 91,
+    "benign_samples": 191,
+    "accuracy": 38.297872340425535,
+    "detection_rate": 100.0,
+    "bypass_rate": 0.0,
+    "false_positive_rate": 91.09947643979058,
+    "avg_disagreement": 0.2931267102083839,
+    "decision_threshold": 0.5
+  },
+  "all_results": {
+    "v2_weight_0.5": {
+      "v2_weight": 0.5,
+      "metrics": {
+        "total_samples": 282,
+        "malicious_samples": 91,
+        "benign_samples": 191,
+        "accuracy": 38.297872340425535,
+        "detection_rate": 100.0,
+        "bypass_rate": 0.0,
+        "false_positive_rate": 91.09947643979058,
+        "avg_disagreement": 0.2931267102083839,
+        "decision_threshold": 0.5
+      }
+    },
+    "v2_weight_0.6": {
+      "v2_weight": 0.6,
+      "metrics": {
+        "total_samples": 282,
+        "malicious_samples": 91,
+        "benign_samples": 191,
+        "accuracy": 38.297872340425535,
+        "detection_rate": 100.0,
+        "bypass_rate": 0.0,
+        "false_positive_rate": 91.09947643979058,
+        "avg_disagreement": 0.2931267102083839,
+        "decision_threshold": 0.5
+      }
+    },
+    "v2_weight_0.7": {
+      "v2_weight": 0.7,
+      "metrics": {
+        "total_samples": 282,
+        "malicious_samples": 91,
+        "benign_samples": 191,
+        "accuracy": 35.1063829787234,
+        "detection_rate": 100.0,
+        "bypass_rate": 0.0,
+        "false_positive_rate": 95.81151832460732,
+        "avg_disagreement": 0.2931267102083839,
+        "decision_threshold": 0.5
+      }
+    },
+    "v2_weight_0.8": {
+      "v2_weight": 0.8,
+      "metrics": {
+        "total_samples": 282,
+        "malicious_samples": 91,
+        "benign_samples": 191,
+        "accuracy": 35.1063829787234,
+        "detection_rate": 100.0,
+        "bypass_rate": 0.0,
+        "false_positive_rate": 95.81151832460732,
+        "avg_disagreement": 0.2931267102083839,
+        "decision_threshold": 0.5
+      }
+    },
+    "v2_weight_0.9": {
+      "v2_weight": 0.9,
+      "metrics": {
+        "total_samples": 282,
+        "malicious_samples": 91,
+        "benign_samples": 191,
+        "accuracy": 35.1063829787234,
+        "detection_rate": 100.0,
+        "bypass_rate": 0.0,
+        "false_positive_rate": 95.81151832460732,
+        "avg_disagreement": 0.2931267102083839,
+        "decision_threshold": 0.5
+      }
+    }
+  }
+}

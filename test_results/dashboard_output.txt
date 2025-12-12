@@ -1,0 +1,32 @@
+{
+  "overview": {
+    "status": "healthy",
+    "total_requests": 1,
+    "active_alerts": 0
+  },
+  "performance": {
+    "router_latency_ms": 0,
+    "detector_calls": 0,
+    "error_rate": 0
+  },
+  "components": {
+    "router": {
+      "status": "healthy",
+      "error_rate": 0,
+      "requests": 1
+    },
+    "learning": {
+      "status": "unknown",
+      "message": "No recent learning data"
+    },
+    "storage": {
+      "status": "healthy",
+      "message": "Storage assumed healthy"
+    },
+    "policies": {
+      "status": "unknown",
+      "message": "No recent policy evaluations"
+    }
+  },
+  "recent_alerts": []
+}

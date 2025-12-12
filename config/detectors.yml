@@ -1,0 +1,149 @@
+# Detector Registry - LLM Firewall Battle Plan
+# ============================================
+# 
+# Central registry for specialized detector microservices.
+# Each detector is versioned independently and can be deployed as a separate service.
+#
+# Key Properties:
+# - Stable API contract
+# - Versioned independently
+# - Circuit breakers + timeouts
+# - Own scaling policies
+#
+# Last Updated: 2025-12-07
+# Status: Phase 1 - Foundation
+
+detectors:
+  # Code-Intent Detector (Cybercrime/Intrusion Detection)
+  # Detects malicious code intent, SQL injection, RCE attempts
+  code_intent:
+    version: "1.0.0"
+    endpoint: "http://localhost:8001/v1/detect"  # Development endpoint
+    cost_class: "moderate"  # Options: low, moderate, high
+    timeout_ms: 40
+    categories: ["cybercrime", "intrusion"]
+    error_policy: "fail_closed_on_high_risk"  # Options: fail_open, fail_closed, fail_closed_on_high_risk
+    circuit_breaker:
+      failure_threshold: 5
+      recovery_timeout_ms: 30000
+      half_open_max_calls: 3
+    enabled: true  # Enabled for testing
+    description: "Detects malicious code intent using CodeBERT and static analysis"
+    
+  # Persuasion/Misinformation Detector
+  # Detects persuasive rhetoric, framing techniques, disinformation
+  persuasion_misinfo:
+    version: "1.0.0"
+    endpoint: "http://localhost:8002/v1/detect"  # Development endpoint
+    cost_class: "moderate"
+    timeout_ms: 35
+    categories: ["misinformation", "disinformation"]
+    error_policy: "fail_open"  # Fail-open for most tenants (non-critical)
+    circuit_breaker:
+      failure_threshold: 5
+      recovery_timeout_ms: 30000
+      half_open_max_calls: 3
+    enabled: true  # Enabled for testing
+    description: "Detects persuasive rhetoric and misinformation patterns using LLM judges"
+    
+  # Content Safety Detector (Jailbreak & Policy Violations)
+  # Detects jailbreak attempts, content safety violations, policy circumvention
+  content_safety:
+    version: "1.0.0"
+    endpoint: "http://localhost:8003/v1/detect"  # Development endpoint
+    cost_class: "low"  # Rule-based, fast
+    timeout_ms: 30
+    categories: ["jailbreak", "content_safety", "policy_violation"]
+    error_policy: "fail_open"  # Fail-open for availability (safety-first)
+    circuit_breaker:
+      failure_threshold: 5
+      recovery_timeout_ms: 30000
+      half_open_max_calls: 3
+    enabled: true  # Enabled for production
+    shadow_mode: false  # Active detection
+    description: "Detects jailbreak attempts, content safety violations, and policy circumvention using rule-based patterns"
+    
+  # Safety Judge Detector (Optional, Experimental)
+  # General-purpose safety classifier (Llama Guard, Nemotron)
+  safety_judge:
+    version: "1.0.0"
+    endpoint: "http://safety-judge.svc:8080/v1/detect"
+    cost_class: "high"
+    timeout_ms: 50
+    categories: ["general_safety"]
+    error_policy: "fail_open"  # Experimental - fail-open
+    circuit_breaker:
+      failure_threshold: 3
+      recovery_timeout_ms: 60000
+      half_open_max_calls: 2
+    enabled: false  # Experimental - shadow mode only
+    shadow_mode: true  # Run in shadow mode (async, no blocking)
+    description: "General-purpose safety classifier for high-value traffic (experimental)"
+
+# Detector Invocation Strategy
+invocation_strategy:
+  # When to call detectors
+  code_intent:
+    # Call when: high-risk tools + cyber score > threshold
+    trigger_conditions:
+      - risk_score > 0.5
+      - detected_tool: ["vm_shell", "code_executor", "database_query"]
+      - category_match: ["cybercrime", "intrusion"]
+    sync: true  # Sync for critical tenants
+    fallback_policy: "block_on_timeout"  # Block on timeout for critical tenants
+    
+  persuasion_misinfo:
+    # Call when: health/finance topics + risk > threshold
+    trigger_conditions:
+      - risk_score > 0.4
+      - topic_match: ["health", "finance", "politics"]
+      - category_match: ["misinformation", "disinformation"]
+    sync: true  # Sync for regulated tenants
+    fallback_policy: "fail_open"  # Fail-open for most tenants
+    
+  content_safety:
+    # Call when: always (parallel with code_intent for comprehensive coverage)
+    trigger_conditions:
+      - always: true  # Always check for jailbreaks and content safety
+    sync: true  # Sync for all tenants
+    fallback_policy: "fail_open"  # Fail-open for availability
+    parallel_with: ["code_intent"]  # Run parallel with code_intent
+    
+  safety_judge:
+    # Call when: experimental, high-value traffic
+    trigger_conditions:
+      - risk_score > 0.6
+      - experimental_flag: true
+    sync: false  # Async (shadow mode)
+    fallback_policy: "none"  # No fallback needed (shadow mode)
+
+# Global Detector Settings
+global_settings:
+  max_parallel_detectors: 2  # Maximum parallel detector calls (code_intent + content_safety)
+  default_timeout_ms: 50
+  cache_enabled: true
+  cache_ttl_seconds: 300  # 5 minutes
+  retry_enabled: false  # No retries by default (fail-fast)
+  retry_max_attempts: 1
+  
+# Decision Logic Configuration
+decision_logic:
+  combination_strategy: "conservative"  # OR-Operation: one detector blocks = BLOCK
+  minimum_confidence: 0.70  # Minimum confidence for BLOCK decision
+  context_weights:
+    code_discussion:
+      code_intent_weight: 0.8
+      content_safety_weight: 0.2
+    general_chat:
+      code_intent_weight: 0.3
+      content_safety_weight: 0.7
+  thresholds:
+    code_intent:
+      default: 0.55
+      high_risk_tool: 0.45
+      low_risk_context: 0.65
+    content_safety:
+      default: 0.60
+      jailbreak: 0.55
+      safety_violation: 0.65
+      documentary_context: 0.75  # Higher for documentary/research contexts

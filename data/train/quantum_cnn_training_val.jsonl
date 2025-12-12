@@ -1,0 +1,300 @@
+{"text": "echo ''", "label": 1, "category": "privilege_escalation"}
+{"text": " || echo success", "label": 1, "category": "sql_comment_bypass"}
+{"text": "ping -c 3 google.com", "label": 0, "category": "benign_shell"}
+{"text": "exec( // bypass", "label": 1, "category": "code_execution"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": "system(", "label": 1, "category": "system_call"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": ";\nTRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "python -c \"/dev/tcp\"", "label": 1, "category": "tcp_redirection"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "python -c \"rm -rf\"", "label": 1, "category": "destructive_file_operation"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "category": "benign_sql"}
+{"text": "POPEN(", "label": 1, "category": "process_execution"}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "category": "benign_sql"}
+{"text": "cmd /c shell_exec", "label": 1, "category": "shell_execution"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "'; -- && echo success", "label": 1, "category": "sql_comment_injection"}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "echo ''; --'", "label": 1, "category": "sql_comment_injection"}
+{"text": "..\\ <!-- bypass", "label": 1, "category": "path_traversal_windows"}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "category": "benign_sql"}
+{"text": "UNION\tSELECT", "label": 1, "category": "sql_injection"}
+{"text": " REM bypass", "label": 1, "category": "privilege_escalation"}
+{"text": "ls  -R", "label": 0, "category": "benign_shell"}
+{"text": "echo $HOME", "label": 0, "category": "benign_shell"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": ";\nsystem(", "label": 1, "category": "system_call"}
+{"text": "echo '../'", "label": 1, "category": "path_traversal"}
+{"text": "", "label": 1, "category": "sql_time_based"}
+{"text": "exec()", "label": 1, "category": "ransomware_pattern"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": " && echo success", "label": 1, "category": "keylogger_installation"}
+{"text": "/*\n", "label": 1, "category": "keylogger_installation"}
+{"text": "import json", "label": 0, "category": "benign_python"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "DROP\nTABLE", "label": 1, "category": "sql_destructive"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": " -- bypass", "label": 1, "category": "sql_time_based"}
+{"text": "REM\nrm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "/*\ncurl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "echo 'DROP TABLE'", "label": 1, "category": "sql_destructive"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": "# ", "label": 1, "category": "network_scanning"}
+{"text": "CHMOD 777", "label": 1, "category": "permission_escalation"}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "category": "benign_hard"}
+{"text": "uptime", "label": 0, "category": "benign_shell"}
+{"text": "chmod%20777", "label": 1, "category": "permission_escalation"}
+{"text": "ls  -la", "label": 0, "category": "benign_shell"}
+{"text": "import os", "label": 0, "category": "benign_python"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "perl -e 'eval('", "label": 1, "category": "code_execution"}
+{"text": "free -m", "label": 0, "category": "benign_shell"}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "cmd /c exec(", "label": 1, "category": "code_execution"}
+{"text": "/ETC/SHADOW", "label": 1, "category": "sensitive_file_access"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "category": "benign_python"}
+{"text": "bash -i || echo success", "label": 1, "category": "interactive_shell"}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "category": "benign_hard"}
+{"text": "/etc/passwd // bypass", "label": 1, "category": "sensitive_file_access"}
+{"text": "find  .  -name  '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "<!-- ../", "label": 1, "category": "path_traversal"}
+{"text": "sh -c \"eval(\"", "label": 1, "category": "code_execution"}
+{"text": "/dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "Drop table", "label": 1, "category": "sql_destructive"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": "//\n/dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "python -c \"\"", "label": 1, "category": "ransomware_pattern"}
+{"text": "/*\nrm -rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "python -c \"shell_exec\"", "label": 1, "category": "shell_execution"}
+{"text": "wc -l file.txt", "label": 0, "category": "benign_shell"}
+{"text": "wget%20http%3A//", "label": 1, "category": "remote_code_fetch"}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "eval(DELETE FROM)", "label": 1, "category": "sql_deletion"}
+{"text": "cmd /c nc -e", "label": 1, "category": "reverse_shell"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "; DELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": " <!-- bypass", "label": 1, "category": "sql_time_based"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "// ", "label": 1, "category": "credential_dumping"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "echo ''", "label": 1, "category": "keylogger_installation"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "# /etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "//\n", "label": 1, "category": "reverse_shell"}
+{"text": "; ..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "ping  -c  3  google.com", "label": 0, "category": "benign_shell"}
+{"text": "tree  -L  2", "label": 0, "category": "benign_shell"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "/*\n..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "system( && echo success", "label": 1, "category": "system_call"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "grep  'pattern'  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "result = code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "rm -rf # bypass", "label": 1, "category": "destructive_file_operation"}
+{"text": "python -c \"system(\"", "label": 1, "category": "system_call"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": "REM\nTRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "UNION SELECT && echo success", "label": 1, "category": "sql_injection"}
+{"text": "wget  --spider  https://example.com", "label": 0, "category": "benign_shell"}
+{"text": "REM nc -e", "label": 1, "category": "reverse_shell"}
+{"text": "UPDATE products SET price = 99.99 WHERE id = 123", "label": 0, "category": "benign_sql"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": " ; echo success", "label": 1, "category": "ransomware_pattern"}
+{"text": "; ", "label": 1, "category": "privilege_escalation"}
+{"text": "# echo 'Hello World'", "label": 0, "category": "benign_shell"}
+{"text": "free  -m", "label": 0, "category": "benign_shell"}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "category": "benign_python"}
+{"text": "REM\n", "label": 1, "category": "sql_time_based"}
+{"text": "'; -- REM bypass", "label": 1, "category": "sql_comment_injection"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "sh -c \"TRUNCATE\"", "label": 1, "category": "sql_truncation"}
+{"text": "#\ncurl http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "head  -n  10  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "What  is  the  weather  today?", "label": 0, "category": "benign_text"}
+{"text": "/*\n", "label": 1, "category": "sql_union_injection"}
+{"text": "// eval(", "label": 1, "category": "code_execution"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "<!-- TRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "-- ", "label": 1, "category": "privilege_escalation"}
+{"text": "cat  README.md", "label": 0, "category": "benign_shell"}
+{"text": "-- ", "label": 1, "category": "keylogger_installation"}
+{"text": "--\nTRUNCATE", "label": 1, "category": "sql_truncation"}
+{"text": "What  time  is  it?", "label": 0, "category": "benign_text"}
+{"text": "/etc/shadow ; echo success", "label": 1, "category": "sensitive_file_access"}
+{"text": " # bypass", "label": 1, "category": "sql_time_based"}
+{"text": "find  .  -name  '*.py'", "label": 0, "category": "benign_shell"}
+{"text": "sh -c \"\"", "label": 1, "category": "sql_union_injection"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "passthru -- bypass", "label": 1, "category": "passthru_execution"}
+{"text": ";\n", "label": 1, "category": "ransomware_pattern"}
+{"text": "PASSTHRU", "label": 1, "category": "passthru_execution"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": "text  =  'hello  world'.title()", "label": 0, "category": "benign_python"}
+{"text": "How  can  I  improve  my  code?", "label": 0, "category": "benign_text"}
+{"text": "How  do  I  install  Python?", "label": 0, "category": "benign_text"}
+{"text": "# head -n 10 file.txt", "label": 0, "category": "benign_shell"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "# passthru", "label": 1, "category": "passthru_execution"}
+{"text": "What  does  this  error  mean?", "label": 0, "category": "benign_text"}
+{"text": "rm -rf /tmp && echo done", "label": 1, "category": "destructive_file_operation"}
+{"text": "';--", "label": 1, "category": "sql_comment_injection"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "category": "benign_sql"}
+{"text": "pwd", "label": 0, "category": "benign_shell"}
+{"text": "date", "label": 0, "category": "benign_shell"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "TRUNCATE <!-- bypass", "label": 1, "category": "sql_truncation"}
+{"text": "x = 1 + 2", "label": 0, "category": "benign_python"}
+{"text": "node -e \"UNION SELECT\"", "label": 1, "category": "sql_injection"}
+{"text": "How  can  I  improve  my  code?", "label": 0, "category": "benign_text"}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "category": "benign_hard"}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "drop table", "label": 1, "category": "sql_destructive"}
+{"text": "<!-- nc -e", "label": 1, "category": "reverse_shell"}
+{"text": "node -e \"\"", "label": 1, "category": "network_scanning"}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "category": "benign_python"}
+{"text": "# cat README.md", "label": 0, "category": "benign_shell"}
+{"text": "bash -c 'UNION SELECT'", "label": 1, "category": "sql_injection"}
+{"text": "chmod 777 || echo success", "label": 1, "category": "permission_escalation"}
+{"text": "#\neval(", "label": 1, "category": "code_execution"}
+{"text": "echo  $HOME", "label": 0, "category": "benign_shell"}
+{"text": " <!-- bypass", "label": 1, "category": "privilege_escalation"}
+{"text": "<!--\n../", "label": 1, "category": "path_traversal"}
+{"text": "<!-- ", "label": 1, "category": "network_scanning"}
+{"text": "words  =  'hello  world'.split()", "label": 0, "category": "benign_python"}
+{"text": "import  math", "label": 0, "category": "benign_python"}
+{"text": "sh -c \"chmod 777\"", "label": 1, "category": "permission_escalation"}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "category": "benign_python"}
+{"text": "name  =  'John  Doe'", "label": 0, "category": "benign_python"}
+{"text": "exec( && echo success", "label": 1, "category": "code_execution"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "system( // bypass", "label": 1, "category": "system_call"}
+{"text": "Can  you  review  my  code?", "label": 0, "category": "benign_text"}
+{"text": "'; -- // bypass", "label": 1, "category": "sql_comment_injection"}
+{"text": "# ..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "SELECT name, email FROM users", "label": 0, "category": "benign_sql"}
+{"text": " REM bypass", "label": 1, "category": "sql_time_based"}
+{"text": "..\\ || echo success", "label": 1, "category": "path_traversal_windows"}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "category": "benign_hard"}
+{"text": "sh -c \"DROP TABLE\"", "label": 1, "category": "sql_destructive"}
+{"text": "<!-- exec(", "label": 1, "category": "code_execution"}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "category": "benign_python"}
+{"text": "cmd /c ", "label": 1, "category": "privilege_escalation"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "category": "benign_sql"}
+{"text": "truncate", "label": 1, "category": "sql_truncation"}
+{"text": "df  -h", "label": 0, "category": "benign_shell"}
+{"text": "';  --", "label": 1, "category": "sql_comment_injection"}
+{"text": "python -c \"/etc/shadow\"", "label": 1, "category": "sensitive_file_access"}
+{"text": "ruby -e \"exec(\"", "label": 1, "category": "code_execution"}
+{"text": "popen( # bypass", "label": 1, "category": "process_execution"}
+{"text": "perl -e '/etc/shadow'", "label": 1, "category": "sensitive_file_access"}
+{"text": "// /etc/shadow", "label": 1, "category": "sensitive_file_access"}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "category": "benign_python"}
+{"text": "# uname -a", "label": 0, "category": "benign_shell"}
+{"text": "eval%28", "label": 1, "category": "code_execution"}
+{"text": "INSERT INTO users (name, email) VALUES ('John', 'john@example.com')", "label": 0, "category": "benign_sql"}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "category": "benign_hard"}
+{"text": "/etc/passwd ", "label": 1, "category": "sensitive_file_access"}
+{"text": "What  time  is  it?", "label": 0, "category": "benign_text"}
+{"text": "", "label": 1, "category": "sql_comment_bypass"}
+{"text": "import  json", "label": 0, "category": "benign_python"}
+{"text": "for  item  in  items:  process(item)", "label": 0, "category": "benign_python"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": "/dev/tcp || echo success", "label": 1, "category": "tcp_redirection"}
+{"text": "x  =  1  +  2", "label": 0, "category": "benign_python"}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "category": "benign_python"}
+{"text": "/*\nbash -i", "label": 1, "category": "interactive_shell"}
+{"text": "", "label": 1, "category": "keylogger_installation"}
+{"text": "powershell -Command \"exec(\"", "label": 1, "category": "code_execution"}
+{"text": "code = executor.compile('print(1)')", "label": 0, "category": "benign_hard"}
+{"text": " /* bypass", "label": 1, "category": "credential_dumping"}
+{"text": "", "label": 1, "category": "network_scanning"}
+{"text": "# tail -f log.txt", "label": 0, "category": "benign_shell"}
+{"text": "dir", "label": 0, "category": "benign_shell"}
+{"text": "/*\n", "label": 1, "category": "sql_comment_bypass"}
+{"text": " /* bypass", "label": 1, "category": "keylogger_installation"}
+{"text": "SYSTEM(", "label": 1, "category": "system_call"}
+{"text": " <!-- bypass", "label": 1, "category": "credential_dumping"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": "<!--\n", "label": 1, "category": "ransomware_pattern"}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "category": "benign_hard"}
+{"text": "dir", "label": 0, "category": "benign_shell"}
+{"text": "# ", "label": 1, "category": "keylogger_installation"}
+{"text": "uniq  file.txt", "label": 0, "category": "benign_shell"}
+{"text": "//\n..\\", "label": 1, "category": "path_traversal_windows"}
+{"text": "How  does  this  function  work?", "label": 0, "category": "benign_text"}
+{"text": "curl http:// # bypass", "label": 1, "category": "remote_code_fetch"}
+{"text": "tail  -f  log.txt", "label": 0, "category": "benign_shell"}
+{"text": ";\nshell_exec", "label": 1, "category": "shell_execution"}
+{"text": "ls  -lh", "label": 0, "category": "benign_shell"}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "category": "benign_hard"}
+{"text": "python -c \"DELETE FROM\"", "label": 1, "category": "sql_deletion"}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "category": "benign_sql"}
+{"text": "result  =  system_check.is_healthy()", "label": 0, "category": "benign_hard"}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "category": "benign_python"}
+{"text": "echo 'bash -i'", "label": 1, "category": "interactive_shell"}
+{"text": "Please  explain  this  code", "label": 0, "category": "benign_text"}
+{"text": "def  hello():  return  'world'", "label": 0, "category": "benign_python"}
+{"text": " && echo success", "label": 1, "category": "sql_comment_bypass"}
+{"text": "DELETE FROM sessions;", "label": 1, "category": "sql_deletion"}
+{"text": "-- /dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "whoami", "label": 0, "category": "benign_shell"}
+{"text": "; wget http://", "label": 1, "category": "remote_code_fetch"}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "category": "benign_hard"}
+{"text": "exec(DROP TABLE)", "label": 1, "category": "sql_destructive"}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "category": "benign_hard"}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "category": "benign_text"}
+{"text": "output = safe_eval('1+1')", "label": 0, "category": "benign_hard"}
+{"text": "for item in items: process(item)", "label": 0, "category": "benign_python"}
+{"text": "'; -- <!-- bypass", "label": 1, "category": "sql_comment_injection"}
+{"text": "chmod 777 # bypass", "label": 1, "category": "permission_escalation"}
+{"text": "ps  aux", "label": 0, "category": "benign_shell"}
+{"text": "/dev/tcp <!-- bypass", "label": 1, "category": "tcp_redirection"}
+{"text": "python -c \"\"", "label": 1, "category": "credential_dumping"}
+{"text": "//\nshell_exec", "label": 1, "category": "shell_execution"}
+{"text": "rm\n-rf", "label": 1, "category": "destructive_file_operation"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}
+{"text": ";\nexec(", "label": 1, "category": "code_execution"}
+{"text": "eval(passthru)", "label": 1, "category": "passthru_execution"}
+{"text": " // bypass", "label": 1, "category": "keylogger_installation"}
+{"text": "// /dev/tcp", "label": 1, "category": "tcp_redirection"}
+{"text": "#\nbash -i", "label": 1, "category": "interactive_shell"}
+{"text": "curl http:// REM bypass", "label": 1, "category": "remote_code_fetch"}
+{"text": "bash -i | echo success", "label": 1, "category": "interactive_shell"}
+{"text": "python -c \"\"", "label": 1, "category": "sql_comment_bypass"}
+{"text": "import  os", "label": 0, "category": "benign_python"}
+{"text": "--\n../", "label": 1, "category": "path_traversal"}
+{"text": "DELETE%20FROM", "label": 1, "category": "sql_deletion"}
+{"text": "shell_exec REM bypass", "label": 1, "category": "shell_execution"}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "category": "benign_hard"}
+{"text": "<!-- DELETE FROM", "label": 1, "category": "sql_deletion"}
+{"text": "from  datetime  import  datetime", "label": 0, "category": "benign_python"}
+{"text": "# date", "label": 0, "category": "benign_shell"}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "category": "benign_python"}

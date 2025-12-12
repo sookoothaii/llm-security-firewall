@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "total_samples": 10,
+    "documentation_detected": 8,
+    "score_adjustments": 6,
+    "context_working": 0,
+    "context_types": {
+      "is_documentation": 8,
+      "is_markdown": 8,
+      "is_code": 9
+    }
+  },
+  "detailed_results": [
+    {
+      "prompt_preview": "**Status:** ✅ FRAMEWORK IMPLEMENTED & VALIDATED  \n**Code:** 250 lines production...",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": false,
+        "has_technical_terms": true,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.85,
+      "adjusted_score": 0.7,
+      "score_adjustment_applied": true,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "**Key Insight from GPT-5:**\n> Binary grading rewards confident guessing instead ...",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": true,
+        "has_technical_terms": false,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.85,
+      "adjusted_score": 0.7,
+      "score_adjustment_applied": true,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "**Features:**\n- Confidence threshold (default 0.70)\n- Partial credit for abstent...",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": true,
+        "has_technical_terms": false,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.85,
+      "adjusted_score": 0.7,
+      "score_adjustment_applied": true,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "```\nDataset: 130 claims (70 true, 60 false)\nConfidence: 1.0 (all Wolfram-verifie...",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": true,
+        "has_technical_terms": false,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.0,
+      "adjusted_score": 0.0,
+      "score_adjustment_applied": false,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "Optimal Threshold: 0.50\nCoverage: 100.0%\nPrecision: 53.8%\nECE: 0.4615\nBrier: 0.4...",
+      "context_detected": {
+        "is_documentation": false,
+        "is_markdown": false,
+        "is_code": true,
+        "has_technical_terms": false,
+        "confidence": 0.2
+      },
+      "original_semantic_score": 0.0,
+      "adjusted_score": 0.0,
+      "score_adjustment_applied": false,
+      "threshold_used": 0.75,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "**Note:** Current dataset has uniform confidence (1.0), so abstention has no eff...",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": true,
+        "has_technical_terms": false,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.85,
+      "adjusted_score": 0.7,
+      "score_adjustment_applied": true,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "```python\nfrom services.abstention_calibrator import AbstentionCalibrator",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": true,
+        "has_technical_terms": true,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.0,
+      "adjusted_score": 0.0,
+      "score_adjustment_applied": false,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "# During fact verification:\nconfidence = verify_fact(claim)  # Returns 0.0-1.0",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": true,
+        "has_technical_terms": false,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.85,
+      "adjusted_score": 0.7,
+      "score_adjustment_applied": true,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "if confidence < 0.70:\n    # ABSTAIN\n    result = {\n        \"status\": \"abstained\"...",
+      "context_detected": {
+        "is_documentation": false,
+        "is_markdown": false,
+        "is_code": true,
+        "has_technical_terms": false,
+        "confidence": 0.2
+      },
+      "original_semantic_score": 0.0,
+      "adjusted_score": 0.0,
+      "score_adjustment_applied": false,
+      "threshold_used": 0.75,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    },
+    {
+      "prompt_preview": "```python\n# Coverage: % of questions answered\ncoverage = answered / (answered + ...",
+      "context_detected": {
+        "is_documentation": true,
+        "is_markdown": true,
+        "is_code": true,
+        "has_technical_terms": true,
+        "confidence": 0.8
+      },
+      "original_semantic_score": 0.85,
+      "adjusted_score": 0.7,
+      "score_adjustment_applied": true,
+      "threshold_used": 0.9,
+      "would_block_original": false,
+      "would_block_adjusted": false,
+      "context_aware_working": false
+    }
+  ]
+}

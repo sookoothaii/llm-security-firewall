@@ -1,0 +1,138 @@
+# Policy Configuration - LLM Firewall Battle Plan
+# ================================================
+#
+# Risk thresholds and policy rules for Two-Ring Defense System.
+#
+# Inner Ring: Fast, cheap, in-process checks (5-15ms p95)
+# Outer Ring: Specialized detectors (20-40ms when invoked)
+#
+# Last Updated: 2025-12-07
+# Status: Phase 1 - Foundation
+
+# Risk Thresholds by Category
+risk_thresholds:
+  # Cybercrime/Intrusion
+  cybercrime:
+    low: 0.2
+    medium: 0.5
+    high: 0.75
+    critical: 0.9
+    # Detector invocation threshold
+    detector_threshold: 0.5  # Call code-intent detector when risk > 0.5
+    
+  # Misinformation/Disinformation
+  misinformation:
+    low: 0.2
+    medium: 0.4
+    high: 0.7
+    critical: 0.85
+    # Detector invocation threshold
+    detector_threshold: 0.4  # Call persuasion-misinfo detector when risk > 0.4
+    
+  # General Safety Categories
+  weapons:
+    low: 0.2
+    medium: 0.5
+    high: 0.75
+    critical: 0.9
+    detector_threshold: 0.6
+    
+  self_harm:
+    low: 0.15
+    medium: 0.4
+    high: 0.7
+    critical: 0.9
+    detector_threshold: 0.4
+    
+  copyright_violation:
+    low: 0.3
+    medium: 0.6
+    high: 0.85
+    critical: 0.95
+    detector_threshold: 0.6  # Usually caught by inner ring, but can use detector for edge cases
+
+# Inner Ring Configuration (Firewall Core)
+inner_ring:
+  # Latency budget: 5-15ms p95
+  max_latency_ms: 15
+  components:
+    - normalization
+    - aho_corasick_patterns
+    - regex_patterns
+    - simple_classifiers
+    - topic_detection
+    - session_tracking
+    - basic_risk_scoring
+  
+  # Fast-fail thresholds (immediate blocking)
+  fast_fail_thresholds:
+    explicit_threats: 0.9  # Block immediately
+    command_injection: 0.85
+    jailbreak_patterns: 0.8
+    
+# Outer Ring Configuration (Detector Microservices)
+outer_ring:
+  # Latency budget: 20-40ms when invoked
+  max_latency_ms: 40
+  invocation_strategy: "conditional"  # Only call when inner ring flags risk
+  
+  # Gating logic: Only call detectors when:
+  gating_conditions:
+    min_risk_score: 0.4  # Minimum risk to invoke detectors
+    category_match: true  # Must match detector categories
+    tool_risk_profile: true  # Check tool risk profiles
+    
+# Tool Risk Profiles
+tool_risk_profiles:
+  # High-risk tools that require detector validation
+  vm_shell:
+    risk_class: "high"
+    require_detectors: ["code_intent"]
+    hard_block_patterns: ["rm -rf", "nc -e", "bash -c", "eval"]
+    
+  code_executor:
+    risk_class: "high"
+    require_detectors: ["code_intent"]
+    hard_block_patterns: ["exec(", "eval(", "__import__"]
+    
+  database_query:
+    risk_class: "medium"
+    require_detectors: ["code_intent"]  # For SQL injection detection
+    hard_block_patterns: ["DROP TABLE", "DELETE FROM", "TRUNCATE"]
+    
+  file_system:
+    risk_class: "medium"
+    require_detectors: []
+    hard_block_patterns: ["/etc/passwd", "/etc/shadow", "C:\\Windows\\System32"]
+    
+  network_request:
+    risk_class: "low"
+    require_detectors: []
+    hard_block_patterns: []
+
+# Tenant-Specific Policies
+tenant_policies:
+  # Regulated tenants (healthcare, finance) get stricter checking
+  regulated:
+    misinformation:
+      detector_threshold: 0.3  # Lower threshold (more strict)
+      sync_detectors: true  # Sync detector calls (no async)
+      
+  # Development environments get more logging, less blocking
+  development:
+    blocking_threshold_multiplier: 1.5  # 1.5x higher threshold (less blocking)
+    enable_detector_logging: true
+    shadow_mode: true  # Run detectors in shadow mode
+    
+  # Default tenant policy
+  default:
+    blocking_threshold_multiplier: 1.0
+    enable_detector_logging: false
+    shadow_mode: false
+
+# Performance Targets
+performance_targets:
+  firewall_latency_p95_ms: 40  # Total firewall latency (inner + outer ring)
+  inner_ring_latency_p95_ms: 15
+  detector_cache_hit_rate: 0.6  # >60% cache hit rate
+  circuit_breaker_trip_rate: 0.01  # <1% circuit breaker trips

@@ -12,7 +12,8 @@
 # Installation: pip install -r requirements-core.txt
 
 # Core dependencies (required for basic operation)
-numpy>=1.24.0
+# CRITICAL: NumPy must be <2.0 for compatibility with scipy and sklearn
+numpy>=1.24.0,<2.0.0
 scipy>=1.11.0
 pyyaml>=6.0
 blake3>=0.3.0

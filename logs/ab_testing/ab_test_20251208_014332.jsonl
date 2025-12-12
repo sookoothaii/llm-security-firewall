@@ -1,0 +1,3 @@
+{"timestamp": "2025-12-08T01:43:40.018281", "detector_type": "classical", "inference_time_ms": 7428.258419036865, "confidence_score": 0.0, "risk_score": 0.0, "final_verdict": "error", "text_hash": "bbd140a040ef6842", "matched_patterns": [], "error": null}
+{"timestamp": "2025-12-08T01:43:47.452810", "detector_type": "classical", "inference_time_ms": 7419.145107269287, "confidence_score": 0.0, "risk_score": 0.0, "final_verdict": "error", "text_hash": "47c4976e88c8a081", "matched_patterns": [], "error": null}
+{"timestamp": "2025-12-08T01:43:54.870810", "detector_type": "classical", "inference_time_ms": 7415.194749832153, "confidence_score": 0.0, "risk_score": 0.0, "final_verdict": "error", "text_hash": "6ac686f686e0932a", "matched_patterns": [], "error": null}

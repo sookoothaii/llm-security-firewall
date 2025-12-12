@@ -1,0 +1,39 @@
+{
+  "v2_1_hotfix": {
+    "model_name": "V2.1 Hotfix",
+    "accuracy": 0.9680851063829787,
+    "benign_accuracy": 0.9528795811518325,
+    "malicious_accuracy": 1.0,
+    "whitelist_recall": 0.0,
+    "fpr": 0.04712041884816754,
+    "bypass_rate": 0.0,
+    "false_positives": 9,
+    "false_negatives": 0,
+    "whitelist_overrides": 0,
+    "total_samples": 282,
+    "benign_samples": 191,
+    "malicious_samples": 91,
+    "whitelist_samples": 0
+  },
+  "v2_1_enhanced": {
+    "model_name": "V2.1 Enhanced",
+    "accuracy": 1.0,
+    "benign_accuracy": 1.0,
+    "malicious_accuracy": 1.0,
+    "whitelist_recall": 0.0,
+    "fpr": 0.0,
+    "bypass_rate": 0.0,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "whitelist_overrides": 9,
+    "total_samples": 282,
+    "benign_samples": 191,
+    "malicious_samples": 91,
+    "whitelist_samples": 0
+  },
+  "comparison": {
+    "fpr_improvement": 0.04712041884816754,
+    "whitelist_recall_improvement": 0.0,
+    "whitelist_overrides": 9
+  }
+}

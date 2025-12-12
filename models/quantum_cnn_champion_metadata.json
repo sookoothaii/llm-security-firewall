@@ -1,0 +1,22 @@
+{
+  "epoch": 6,
+  "val_loss": 0.22127852079115415,
+  "val_fnr": 0.02,
+  "hyperparameters": {
+    "vocab_size": 10000,
+    "embedding_dim": 128,
+    "hidden_dims": [
+      256,
+      128,
+      64
+    ],
+    "kernel_sizes": [
+      3,
+      5,
+      7
+    ],
+    "dropout": 0.5
+  },
+  "model_parameters": 2003778,
+  "source_checkpoint": "models/quantum_cnn_trained/best_model.pt"
+}

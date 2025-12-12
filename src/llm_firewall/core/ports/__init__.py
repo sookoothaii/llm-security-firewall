@@ -126,3 +126,18 @@ class ValidatorPort(Protocol):
 
 
 __all__ = ["DecisionCachePort", "DecoderPort", "ValidatorPort"]
+
+# Code Intent Detection Ports (extended)
+from .code_intent import (
+    CodeIntentDetectorPort,
+    BenignValidatorPort,
+    IntentClassifierPort,
+    ClassificationResult,
+)
+
+__all__.extend([
+    "CodeIntentDetectorPort",
+    "BenignValidatorPort",
+    "IntentClassifierPort",
+    "ClassificationResult",
+])

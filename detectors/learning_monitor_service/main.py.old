@@ -1,0 +1,375 @@
+#!/usr/bin/env python3
+"""
+Learning Monitor Service - Optionaler separater Service für erweiterte Monitoring-Features
+================================================================================
+
+Optionaler Service für erweiterte Learning-Monitoring-Features:
+- Live Dashboard mit WebSocket-Updates
+- Alert-System für kritische Loss-Werte
+- History-Tracking über mehrere Services
+- Multi-Service-Monitoring (Code-Intent, Persuasion, etc.)
+
+Dieser Service ist OPTIONAL - die Basis-API bleibt in 8001.
+
+Creator: HAK_GAL (Joerg Bollwahn)
+Date: 2025-12-09
+"""
+
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
+from typing import List, Dict, Optional
+import requests
+import json
+import asyncio
+from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
+
+app = FastAPI(
+    title="Learning Monitor Service",
+    description="Optionaler Service für erweiterte Learning-Monitoring-Features",
+    version="1.0.0"
+)
+
+# CORS für Dashboard-Zugriff
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Konfiguration: Welche Services überwachen?
+MONITORED_SERVICES = {
+    "code_intent": {
+        "name": "Code-Intent Detector",
+        "url": "http://localhost:8001",
+        "enabled": True
+    },
+    "persuasion": {
+        "name": "Persuasion Detector",
+        "url": "http://localhost:8002",
+        "enabled": False  # Noch nicht implementiert
+    },
+    "content_safety": {
+        "name": "Content-Safety Detector",
+        "url": "http://localhost:8003",
+        "enabled": False  # Noch nicht implementiert
+    }
+}
+
+# WebSocket Connections für Live-Updates
+active_connections: List[WebSocket] = []
+
+# Alert-Konfiguration
+ALERT_THRESHOLDS = {
+    "loss_critical": 0.25,
+    "loss_warning": 0.15,
+    "buffer_full": 0.95,  # 95% Buffer-Auslastung
+    "no_updates_hours": 24  # Keine Updates seit X Stunden
+}
+
+# History-Tracking
+learning_history: List[Dict] = []
+MAX_HISTORY_SIZE = 1000
+
+
+class LearningMonitor:
+    """Monitor für Learning-Progress über mehrere Services."""
+    
+    def __init__(self):
+        self.last_checks = {}
+        self.alerts = []
+    
+    def check_service(self, service_id: str, service_config: Dict) -> Optional[Dict]:
+        """Prüfe einen Service auf Learning-Status."""
+        if not service_config.get("enabled"):
+            return None
+        
+        url = service_config["url"]
+        try:
+            # Prüfe ob Service erreichbar
+            health_response = requests.get(f"{url}/health", timeout=2)
+            if health_response.status_code != 200:
+                return {
+                    "service_id": service_id,
+                    "status": "unhealthy",
+                    "error": f"Health check failed: {health_response.status_code}"
+                }
+            
+            # Hole Feedback-Stats (falls verfügbar)
+            try:
+                stats_response = requests.get(f"{url}/feedback/stats", timeout=2)
+                if stats_response.status_code == 200:
+                    stats = stats_response.json()
+                    return {
+                        "service_id": service_id,
+                        "service_name": service_config["name"],
+                        "status": "healthy",
+                        "feedback_enabled": stats.get("enabled", False),
+                        "buffer_size": stats.get("buffer_size", 0),
+                        "max_size": stats.get("max_size", 0),
+                        "online_learning": stats.get("online_learning", {}),
+                        "statistics": stats.get("statistics", {})
+                    }
+                else:
+                    # Service hat keine Feedback-API
+                    return {
+                        "service_id": service_id,
+                        "service_name": service_config["name"],
+                        "status": "healthy",
+                        "feedback_enabled": False,
+                        "message": "Feedback API not available"
+                    }
+            except requests.exceptions.RequestException:
+                # Feedback-API nicht verfügbar (normal für Services ohne Learning)
+                return {
+                    "service_id": service_id,
+                    "service_name": service_config["name"],
+                    "status": "healthy",
+                    "feedback_enabled": False,
+                    "message": "Feedback API not available"
+                }
+        
+        except requests.exceptions.RequestException as e:
+            return {
+                "service_id": service_id,
+                "service_name": service_config["name"],
+                "status": "unreachable",
+                "error": str(e)
+            }
+    
+    def check_all_services(self) -> Dict:
+        """Prüfe alle konfigurierten Services."""
+        results = {}
+        for service_id, service_config in MONITORED_SERVICES.items():
+            result = self.check_service(service_id, service_config)
+            if result:
+                results[service_id] = result
+        
+        return results
+    
+    def analyze_alerts(self, service_results: Dict) -> List[Dict]:
+        """Analysiere Service-Ergebnisse auf Alerts."""
+        alerts = []
+        
+        for service_id, result in service_results.items():
+            if result.get("status") != "healthy":
+                alerts.append({
+                    "severity": "critical",
+                    "service": service_id,
+                    "type": "service_unhealthy",
+                    "message": f"Service {result.get('service_name', service_id)} is {result.get('status')}",
+                    "timestamp": datetime.now().isoformat()
+                })
+                continue
+            
+            if not result.get("feedback_enabled"):
+                continue
+            
+            online_learning = result.get("online_learning", {})
+            if online_learning.get("running"):
+                learner_stats = online_learning.get("learner_stats", {})
+                avg_loss = learner_stats.get("average_loss", 0.0)
+                updates = learner_stats.get("updates", 0)
+                
+                # Loss-Alerts
+                if avg_loss > ALERT_THRESHOLDS["loss_critical"]:
+                    alerts.append({
+                        "severity": "critical",
+                        "service": service_id,
+                        "type": "loss_critical",
+                        "message": f"Critical loss: {avg_loss:.4f} > {ALERT_THRESHOLDS['loss_critical']}",
+                        "value": avg_loss,
+                        "timestamp": datetime.now().isoformat()
+                    })
+                elif avg_loss > ALERT_THRESHOLDS["loss_warning"]:
+                    alerts.append({
+                        "severity": "warning",
+                        "service": service_id,
+                        "type": "loss_warning",
+                        "message": f"High loss: {avg_loss:.4f} > {ALERT_THRESHOLDS['loss_warning']}",
+                        "value": avg_loss,
+                        "timestamp": datetime.now().isoformat()
+                    })
+                
+                # Buffer-Full Alert
+                buffer_size = result.get("buffer_size", 0)
+                max_size = result.get("max_size", 10000)
+                if max_size > 0 and (buffer_size / max_size) > ALERT_THRESHOLDS["buffer_full"]:
+                    alerts.append({
+                        "severity": "warning",
+                        "service": service_id,
+                        "type": "buffer_full",
+                        "message": f"Buffer nearly full: {buffer_size}/{max_size} ({buffer_size/max_size*100:.1f}%)",
+                        "timestamp": datetime.now().isoformat()
+                    })
+        
+        return alerts
+
+
+monitor = LearningMonitor()
+
+
+@app.get("/")
+async def root():
+    """Root endpoint mit Service-Info."""
+    return {
+        "service": "learning_monitor",
+        "version": "1.0.0",
+        "description": "Optionaler Service für erweiterte Learning-Monitoring-Features",
+        "endpoints": {
+            "/health": "Health check",
+            "/status": "Status aller überwachten Services",
+            "/alerts": "Aktuelle Alerts",
+            "/history": "Learning-History",
+            "/dashboard": "HTML Dashboard",
+            "/ws": "WebSocket für Live-Updates"
+        }
+    }
+
+
+@app.get("/health")
+async def health_check():
+    """Health check."""
+    return {
+        "status": "healthy",
+        "service": "learning_monitor",
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.get("/status")
+async def get_status():
+    """Status aller überwachten Services."""
+    results = monitor.check_all_services()
+    alerts = monitor.analyze_alerts(results)
+    
+    return {
+        "timestamp": datetime.now().isoformat(),
+        "services": results,
+        "alerts": alerts,
+        "alert_count": len(alerts)
+    }
+
+
+@app.get("/alerts")
+async def get_alerts():
+    """Aktuelle Alerts."""
+    results = monitor.check_all_services()
+    alerts = monitor.analyze_alerts(results)
+    
+    return {
+        "timestamp": datetime.now().isoformat(),
+        "alerts": alerts,
+        "count": len(alerts),
+        "critical": len([a for a in alerts if a["severity"] == "critical"]),
+        "warning": len([a for a in alerts if a["severity"] == "warning"])
+    }
+
+
+@app.get("/history")
+async def get_history(limit: int = 100):
+    """Learning-History."""
+    return {
+        "timestamp": datetime.now().isoformat(),
+        "history": learning_history[-limit:],
+        "total": len(learning_history)
+    }
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    """WebSocket für Live-Updates."""
+    await websocket.accept()
+    active_connections.append(websocket)
+    
+    try:
+        while True:
+            # Sende Status-Updates alle 5 Sekunden
+            results = monitor.check_all_services()
+            alerts = monitor.analyze_alerts(results)
+            
+            update = {
+                "timestamp": datetime.now().isoformat(),
+                "services": results,
+                "alerts": alerts
+            }
+            
+            await websocket.send_json(update)
+            await asyncio.sleep(5)
+    
+    except WebSocketDisconnect:
+        active_connections.remove(websocket)
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard():
+    """Einfaches HTML Dashboard."""
+    html = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Learning Monitor Dashboard</title>
+        <meta charset="utf-8">
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+            .service { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .status-healthy { color: green; }
+            .status-unhealthy { color: red; }
+            .alert { padding: 10px; margin: 5px 0; border-radius: 3px; }
+            .alert-critical { background: #fee; border-left: 4px solid red; }
+            .alert-warning { background: #ffe; border-left: 4px solid orange; }
+            h1 { color: #333; }
+            #status { margin-top: 20px; }
+        </style>
+    </head>
+    <body>
+        <h1>🛡️ Learning Monitor Dashboard</h1>
+        <div id="status">Lade...</div>
+        
+        <script>
+            const ws = new WebSocket('ws://localhost:8004/ws');
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                let html = '<h2>Services</h2>';
+                
+                for (const [id, service] of Object.entries(data.services)) {
+                    html += `<div class="service">
+                        <h3>${service.service_name || id}</h3>
+                        <p>Status: <span class="status-${service.status}">${service.status}</span></p>
+                        ${service.feedback_enabled ? `
+                            <p>Buffer: ${service.buffer_size}/${service.max_size}</p>
+                            ${service.online_learning?.running ? `
+                                <p>Updates: ${service.online_learning.learner_stats?.updates || 0}</p>
+                                <p>Loss: ${service.online_learning.learner_stats?.average_loss?.toFixed(4) || 'N/A'}</p>
+                            ` : '<p>Online Learning: Disabled</p>'}
+                        ` : '<p>Feedback: Not available</p>'}
+                    </div>`;
+                }
+                
+                if (data.alerts.length > 0) {
+                    html += '<h2>Alerts</h2>';
+                    data.alerts.forEach(alert => {
+                        html += `<div class="alert alert-${alert.severity}">
+                            <strong>${alert.severity.toUpperCase()}</strong>: ${alert.message}
+                        </div>`;
+                    });
+                }
+                
+                document.getElementById('status').innerHTML = html;
+            };
+        </script>
+    </body>
+    </html>
+    """
+    return html
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8004)
+

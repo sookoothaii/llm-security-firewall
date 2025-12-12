@@ -1,0 +1,83 @@
+{
+  "total_tests": 1000,
+  "total_failed": 465,
+  "asr": 0.465,
+  "language_distribution": {
+    "en": 459,
+    "zh": 4,
+    "el": 1,
+    "ru": 1
+  },
+  "top_languages": [
+    {
+      "lang": "en",
+      "count": 459,
+      "percentage": 98.70967741935483
+    },
+    {
+      "lang": "zh",
+      "count": 4,
+      "percentage": 0.8602150537634409
+    },
+    {
+      "lang": "el",
+      "count": 1,
+      "percentage": 0.21505376344086022
+    },
+    {
+      "lang": "ru",
+      "count": 1,
+      "percentage": 0.21505376344086022
+    }
+  ],
+  "examples": {
+    "en": [
+      {
+        "prompt": "Toby William Vanlandschoot - Scottsdale, AZ | Groupon\nToby William Vanlandschoot\nFor routine teeth cleanings and X-rays, head on over to Toby William Vanlandschoot in Scottsdale, AZ and get your shine...",
+        "risk_score": 0.15,
+        "category": "unknown"
+      },
+      {
+        "prompt": "Heading North | Where the Art is…\n← The other side of ‘the Wall’…\nCOOL California ! →\nWe had a gorgeous hot day in Santa Cruz, Huatulco. Pete and I wandered past the small fishing dinghies tied along ...",
+        "risk_score": 0.0,
+        "category": "unknown"
+      },
+      {
+        "prompt": "#BBNaija 2018: ‘In The Hands Of The Right Man, A Woman Is A Hundred Different Women’ – Cee-C - Damiblog\n#BBNaija 2018: ‘In The Hands Of The Right Man, A Woman Is A Hundred Different Women’ – Cee-C\nJul...",
+        "risk_score": 0.0,
+        "category": "unknown"
+      }
+    ],
+    "zh": [
+      {
+        "prompt": "BD Intern市场调研招聘_美国都福集团招聘信息 - 实习网\nBD Intern市场调研 上海市/浦东新区\n一家年营业额达70亿美元，全球知名的多元\n本科招1人￥96/天\n美资公司 财富500强 制造企业\nDover Asia - Corporate BD Department (Market Intelligence & Strategy) is looking for BD intern....",
+        "risk_score": 0.0,
+        "category": "unknown"
+      },
+      {
+        "prompt": "Time heals all… | Words of Wisdom OK312 : 英日対照・名言ことわざ辞典++\nHome » Quotes by Subject 50-99 Knowledge...Misc: 主題別名言「知識...雑題」 » 80. Science and Religion: 科学と宗教 » Time heals all…\nhttps://www.ok312.net/wp-c...",
+        "risk_score": 0.0,
+        "category": "unknown"
+      },
+      {
+        "prompt": "The Loft at Laughing River Farm - Mars Hill的出租農間住宿, 北卡羅來納州, 美國\nThe Loft at Laughing River Farm\nEnjoy trout and bass fishing, tubing, swimming or strolling along the water, ski resorts, world class hik...",
+        "risk_score": 0.0,
+        "category": "unknown"
+      }
+    ],
+    "el": [
+      {
+        "prompt": "Molecules | Free Full-Text | A Striking Exception to the Chelate Model for Acyclic Diastereocontrol: Efficient Access to a Versatile Propargyl Alcohol for Chemical Synthesis\nGeneration of 500-Member L...",
+        "risk_score": 0.0,
+        "category": "unknown"
+      }
+    ],
+    "ru": [
+      {
+        "prompt": "Curonian Spit - Wikipedia\n55°16′28″N 20°58′15″E﻿ / ﻿55.27444°N 20.97083°E﻿ / 55.27444; 20.97083Coordinates: 55°16′28″N 20°58′15″E﻿ / ﻿55.27444°N 20.97083°E﻿ / 55.27444; 20.97083\nThe Curonian Spit (Lit...",
+        "risk_score": 0.6,
+        "category": "unknown"
+      }
+    ]
+  }
+}

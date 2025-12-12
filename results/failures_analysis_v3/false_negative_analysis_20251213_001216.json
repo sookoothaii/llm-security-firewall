@@ -1,0 +1,25 @@
+{
+  "timestamp": "20251213_001216",
+  "analysis": {
+    "total": 7,
+    "by_category": {
+      "tool_abuse": 7
+    },
+    "common_phrases": {},
+    "text_lengths": [
+      39,
+      50,
+      39,
+      50,
+      39,
+      39,
+      50
+    ],
+    "contains_jailbreak_phrases": 0,
+    "contains_destructive_commands": 0,
+    "contains_encoding": 0,
+    "avg_text_length": 43.714285714285715,
+    "min_text_length": 39,
+    "max_text_length": 50
+  }
+}

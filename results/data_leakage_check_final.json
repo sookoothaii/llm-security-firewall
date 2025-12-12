@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "overlap_count": 0,
+      "set1_size": 263,
+      "set2_size": 67,
+      "overlap_pct_set1": 0.0,
+      "overlap_pct_set2": 0.0,
+      "name1": "Whitelist Train",
+      "name2": "Whitelist Val",
+      "is_critical": false
+    },
+    {
+      "overlap_count": 0,
+      "set1_size": 263,
+      "set2_size": 81,
+      "overlap_pct_set1": 0.0,
+      "overlap_pct_set2": 0.0,
+      "name1": "Whitelist Train",
+      "name2": "True Validation",
+      "is_critical": false
+    },
+    {
+      "overlap_count": 0,
+      "set1_size": 67,
+      "set2_size": 81,
+      "overlap_pct_set1": 0.0,
+      "overlap_pct_set2": 0.0,
+      "name1": "Whitelist Val",
+      "name2": "True Validation",
+      "is_critical": false
+    },
+    {
+      "overlap_count": 0,
+      "set1_size": 18,
+      "set2_size": 81,
+      "overlap_pct_set1": 0.0,
+      "overlap_pct_set2": 0.0,
+      "name1": "V2 False Positives",
+      "name2": "True Validation",
+      "is_critical": false
+    }
+  ],
+  "summary": {
+    "total_critical_issues": 0,
+    "total_warnings": 0,
+    "status": "OK"
+  },
+  "critical_issues": [],
+  "warnings": []
+}

@@ -26,10 +26,28 @@ HAS_TRANSFORMERS = False
 HAS_TORCH = False
 try:
     import torch
+    import os
 
     HAS_TORCH = True
+    
+    # CRITICAL: Enforce GPU at module import time
+    # This ensures GPU is required before any initialization happens
+    if not torch.cuda.is_available():
+        raise RuntimeError(
+            "[MLToxicityScanner] FATAL: CUDA is not available. "
+            "GPU is REQUIRED - CPU is COMPLETELY DISABLED. "
+            "Please ensure CUDA is installed and available."
+        )
+    # Force GPU environment variables
+    os.environ['TORCH_DEVICE'] = 'cuda'
+    if 'CUDA_VISIBLE_DEVICES' not in os.environ:
+        os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+    logger.info(f"[MLToxicityScanner] GPU enforcement: CUDA available, device will be cuda")
 except ImportError:
     pass
+except RuntimeError:
+    # GPU not available - re-raise
+    raise
 
 try:
     from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
@@ -85,11 +103,15 @@ class MultilingualToxicityScanner:
         self.pipeline = None
         self.is_loaded = False
 
-        # Auto-detect device
+        # Auto-detect device - REQUIRE GPU (CPU COMPLETELY DISABLED)
         if self.device is None and HAS_TORCH:
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
+            from llm_firewall.core.gpu_enforcement import require_gpu
+            self.device = require_gpu()  # Raises error if GPU not available (CPU disabled)
+            self.logger.info(f"[MLToxicity] Using device: {self.device} (CPU disabled)")
         elif self.device is None:
-            self.device = "cpu"
+            # Fallback: require GPU
+            from llm_firewall.core.gpu_enforcement import require_gpu
+            self.device = require_gpu()  # Raises error if GPU not available (CPU disabled)
 
         # Try to load model
         self._load_model()
@@ -101,6 +123,21 @@ class MultilingualToxicityScanner:
         Returns:
             True if model loaded successfully, False otherwise
         """
+        # CRITICAL: Verify GPU is required before loading model
+        if self.device != "cuda":
+            raise RuntimeError(
+                f"[MLToxicity] FATAL: Device is '{self.device}' but GPU (cuda) is REQUIRED. "
+                "CPU is COMPLETELY DISABLED. This should never happen - GPU enforcement failed!"
+            )
+        
+        # Double-check CUDA is available
+        import torch
+        if not torch.cuda.is_available():
+            raise RuntimeError(
+                "[MLToxicity] FATAL: CUDA is not available but device is set to 'cuda'. "
+                "GPU is REQUIRED - CPU is COMPLETELY DISABLED."
+            )
+        
         if not HAS_TRANSFORMERS:
             logger.warning(
                 "[MLToxicity] transformers library not available. "
@@ -120,19 +157,37 @@ class MultilingualToxicityScanner:
                 continue
 
             try:
-                logger.info(f"[MLToxicity] Attempting to load model: {candidate}")
+                logger.info(f"[MLToxicity] Attempting to load model: {candidate} on GPU (device=0)")
 
-                # Try to load as pipeline (easiest)
+                # Try to load as pipeline (easiest) - ALWAYS use GPU (device=0)
                 try:
+                    import torch
+                    
+                    # CRITICAL: device=0 alone is NOT enough - must explicitly move to CUDA
                     self.pipeline = pipeline(
                         "text-classification",
                         model=candidate,
-                        device=0 if self.device == "cuda" else -1,
+                        device=0,  # This should work but sometimes doesn't
                         return_all_scores=True,
                     )
+                    
+                    # FORCE model to CUDA explicitly (device=0 parameter is unreliable)
+                    if self.pipeline.model is not None:
+                        self.pipeline.model = self.pipeline.model.to('cuda:0')
+                        self.pipeline.model.eval()
+                    
+                    # VERIFY: Check actual device of model parameters
+                    model_device = next(self.pipeline.model.parameters()).device
+                    if model_device.type != 'cuda':
+                        raise RuntimeError(
+                            f"[MLToxicity] FATAL: Model on {model_device.type} instead of cuda after explicit .to('cuda:0'). "
+                            f"GPU enforcement FAILED. Check CUDA installation."
+                        )
+                    
                     self.model_name = candidate
                     self.is_loaded = True
-                    logger.info(f"[MLToxicity] Successfully loaded model: {candidate}")
+                    logger.info(f"[MLToxicity] Model {candidate} VERIFIED on GPU: {model_device}")
+                    
                     return True
                 except Exception as e:
                     logger.debug(f"[MLToxicity] Pipeline load failed: {e}")
@@ -214,6 +269,155 @@ class MultilingualToxicityScanner:
             "metadata": {"error": "No detection method available"},
         }
 
+    def scan_batch(self, texts: list[str], batch_size: int = 32) -> list[Dict[str, Any]]:
+        """
+        Scan multiple texts for toxicity using ML model with batching.
+        
+        OPTIMIZED FOR GPU: Uses batching to maximize GPU throughput.
+        With 16GB VRAM, batch_size=32 is safe, can go higher (64-128) for more speed.
+
+        Args:
+            texts: List of texts to scan
+            batch_size: Number of texts to process per batch (default 32)
+
+        Returns:
+            List of result dictionaries (same format as scan())
+        """
+        if not texts:
+            return []
+        
+        # Filter empty texts and track indices
+        text_map = []  # (index, text)
+        for i, text in enumerate(texts):
+            if text and text.strip():
+                text_map.append((i, text))
+        
+        # Initialize results with empty defaults
+        results = [
+            {
+                "is_toxic": False,
+                "confidence": 0.0,
+                "signals": [],
+                "method": "none",
+                "metadata": {},
+            }
+            for _ in texts
+        ]
+        
+        if not text_map:
+            return results
+        
+        # Try ML model first (with batching)
+        if self.is_loaded and self.pipeline:
+            try:
+                # Extract just the texts for batch processing
+                batch_texts = [text for _, text in text_map]
+                
+                # Process in batches using HuggingFace pipeline batching
+                # This is MUCH faster on GPU than sequential processing
+                batch_results = self.pipeline(
+                    batch_texts,
+                    truncation=True,
+                    max_length=512,
+                    batch_size=batch_size,
+                )
+                
+                # Parse batch results
+                for (original_idx, _), batch_result in zip(text_map, batch_results):
+                    parsed = self._parse_ml_result(batch_result)
+                    if parsed:
+                        results[original_idx] = parsed
+                
+                return results
+                
+            except Exception as e:
+                logger.warning(f"[MLToxicity] Batch ML scan failed: {e}. Falling back to sequential.")
+        
+        # Fallback: sequential scanning
+        for original_idx, text in text_map:
+            results[original_idx] = self.scan(text)
+        
+        return results
+
+    def _parse_ml_result(self, results: Any) -> Optional[Dict[str, Any]]:
+        """
+        Parse ML pipeline results into standardized format.
+        
+        Args:
+            results: Raw results from pipeline
+            
+        Returns:
+            Parsed result dictionary or None if parsing failed
+        """
+        try:
+            toxicity_score = 0.0
+            signals = []
+
+            if isinstance(results, list) and len(results) > 0:
+                # Handle different output formats
+                if isinstance(results[0], dict):
+                    # Single result dict
+                    if "label" in results[0]:
+                        label = results[0]["label"].lower()
+                        score = results[0].get("score", 0.0)
+
+                        # CRITICAL: Check for toxic labels (but NOT non-toxic)
+                        if (
+                            ("toxic" in label and "non-toxic" not in label)
+                            or "hate" in label
+                            or "offensive" in label
+                        ):
+                            toxicity_score = score
+                            signals.append(f"ml_toxicity_{label}")
+                        elif "non-toxic" in label:
+                            # Non-toxic: use inverse score (1.0 - score) for toxicity
+                            toxicity_score = 1.0 - score
+                            if toxicity_score > 0.0:
+                                signals.append("ml_toxicity_non-toxic_inverted")
+                    elif "score" in results[0]:
+                        toxicity_score = results[0]["score"]
+                        signals.append("ml_toxicity_detected")
+                elif isinstance(results[0], list):
+                    # Multiple scores (return_all_scores=True)
+                    # Find the toxic label (not non-toxic)
+                    for item in results[0]:
+                        if isinstance(item, dict):
+                            label = item.get("label", "").lower()
+                            score = item.get("score", 0.0)
+
+                            # CRITICAL: Check for toxic labels (but NOT non-toxic)
+                            if (
+                                ("toxic" in label and "non-toxic" not in label)
+                                or "hate" in label
+                                or "offensive" in label
+                            ):
+                                if score > toxicity_score:
+                                    toxicity_score = score
+                                signals.append(f"ml_toxicity_{label}")
+                            elif "non-toxic" in label:
+                                # Non-toxic: use inverse score (1.0 - score) for toxicity
+                                non_toxic_score = 1.0 - score
+                                if non_toxic_score > toxicity_score:
+                                    toxicity_score = non_toxic_score
+                                signals.append("ml_toxicity_non-toxic_inverted")
+
+            is_toxic = toxicity_score >= self.threshold
+
+            return {
+                "is_toxic": is_toxic,
+                "confidence": toxicity_score,
+                "signals": signals if is_toxic else [],
+                "method": "ml",
+                "metadata": {
+                    "model": self.model_name,
+                    "threshold": self.threshold,
+                    "raw_results": results,
+                },
+            }
+        except Exception as e:
+            logger.debug(f"[MLToxicity] Result parsing error: {e}")
+            return None
+
     def _scan_ml(self, text: str) -> Optional[Dict[str, Any]]:
         """
         Scan using ML model (pipeline or manual).
@@ -228,72 +432,7 @@ class MultilingualToxicityScanner:
             # Use pipeline (easiest)
             try:
                 results = self.pipeline(text, truncation=True, max_length=512)
-
-                # Parse results (format depends on model)
-                toxicity_score = 0.0
-                signals = []
-
-                if isinstance(results, list) and len(results) > 0:
-                    # Handle different output formats
-                    if isinstance(results[0], dict):
-                        # Single result dict
-                        if "label" in results[0]:
-                            label = results[0]["label"].lower()
-                            score = results[0].get("score", 0.0)
-
-                            # CRITICAL: Check for toxic labels (but NOT non-toxic)
-                            if (
-                                ("toxic" in label and "non-toxic" not in label)
-                                or "hate" in label
-                                or "offensive" in label
-                            ):
-                                toxicity_score = score
-                                signals.append(f"ml_toxicity_{label}")
-                            elif "non-toxic" in label:
-                                # Non-toxic: use inverse score (1.0 - score) for toxicity
-                                toxicity_score = 1.0 - score
-                                if toxicity_score > 0.0:
-                                    signals.append("ml_toxicity_non-toxic_inverted")
-                        elif "score" in results[0]:
-                            toxicity_score = results[0]["score"]
-                            signals.append("ml_toxicity_detected")
-                    elif isinstance(results[0], list):
-                        # Multiple scores (return_all_scores=True)
-                        # Find the toxic label (not non-toxic)
-                        for item in results[0]:
-                            if isinstance(item, dict):
-                                label = item.get("label", "").lower()
-                                score = item.get("score", 0.0)
-
-                                # CRITICAL: Check for toxic labels (but NOT non-toxic)
-                                if (
-                                    ("toxic" in label and "non-toxic" not in label)
-                                    or "hate" in label
-                                    or "offensive" in label
-                                ):
-                                    if score > toxicity_score:
-                                        toxicity_score = score
-                                    signals.append(f"ml_toxicity_{label}")
-                                elif "non-toxic" in label:
-                                    # Non-toxic: use inverse score (1.0 - score) for toxicity
-                                    non_toxic_score = 1.0 - score
-                                    if non_toxic_score > toxicity_score:
-                                        toxicity_score = non_toxic_score
-                                    signals.append("ml_toxicity_non-toxic_inverted")
-
-                is_toxic = toxicity_score >= self.threshold
-
-                return {
-                    "is_toxic": is_toxic,
-                    "confidence": toxicity_score,
-                    "signals": signals if is_toxic else [],
-                    "method": "ml",
-                    "metadata": {
-                        "model": self.model_name,
-                        "threshold": self.threshold,
-                        "raw_results": results,
-                    },
-                }
+                return self._parse_ml_result(results)
             except Exception as e:
                 logger.debug(f"[MLToxicity] Pipeline scan error: {e}")
                 return None
@@ -402,7 +541,7 @@ def get_scanner(
 
     Args:
         model_name: Model name (only used on first call)
-        device: Device (only used on first call)
+        device: Device (only used on first call) - if None, GPU will be enforced
         use_fallback: Use fallback (only used on first call)
         threshold: Threshold (only used on first call)
 
@@ -411,13 +550,39 @@ def get_scanner(
     """
     global _global_scanner
 
+    # CRITICAL: If scanner exists but is on CPU, reset it and recreate with GPU
+    if _global_scanner is not None:
+        if _global_scanner.device == "cpu":
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning("[get_scanner] Scanner was initialized with CPU - resetting and recreating with GPU")
+            _global_scanner = None
+    
     if _global_scanner is None:
+        # If device not specified, enforce GPU usage (CPU COMPLETELY DISABLED)
+        if device is None:
+            from llm_firewall.core.gpu_enforcement import require_gpu
+            device = require_gpu()  # Raises error if GPU not available (CPU disabled)
+        elif device.lower() == "cpu":
+            # CPU explicitly requested - reject it
+            raise RuntimeError(
+                "[get_scanner] CPU usage is COMPLETELY DISABLED. "
+                "GPU is required. Please ensure CUDA is available."
+            )
+        
         _global_scanner = MultilingualToxicityScanner(
             model_name=model_name,
             device=device,
             use_fallback=use_fallback,
             threshold=threshold,
         )
+        
+        # Verify device after initialization
+        if _global_scanner.device != "cuda":
+            raise RuntimeError(
+                f"[get_scanner] Scanner initialized with {_global_scanner.device} instead of cuda. "
+                "GPU enforcement failed!"
+            )
 
     return _global_scanner
 

@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-12-11T18:11:44.130901",
+  "total_tests": 4,
+  "passed": 1,
+  "failed": 3,
+  "total_duration": 49.56451681899489,
+  "results": [
+    {
+      "suite_name": "load_test",
+      "passed": false,
+      "duration": 31.985000000000582,
+      "output": "Results saved to test_results\\load_test_20251212_011126.json",
+      "error": null
+    },
+    {
+      "suite_name": "resilience_test",
+      "passed": true,
+      "duration": 11.281000000002678,
+      "output": "Results saved to test_results\\resilience_test_20251212_011137.json",
+      "error": null
+    },
+    {
+      "suite_name": "security_test",
+      "passed": false,
+      "duration": 6.296999999991385,
+      "output": "Results saved to test_results\\security_test_20251212_011144.json",
+      "error": null
+    },
+    {
+      "suite_name": "monitoring_test",
+      "passed": false,
+      "duration": 0.0015168190002441406,
+      "output": "",
+      "error": "[WinError 2] Das System kann die angegebene Datei nicht finden"
+    }
+  ]
+}

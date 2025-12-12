@@ -1,0 +1,40 @@
+{
+  "v1_metrics": {
+    "total_samples": 282,
+    "malicious_samples": 91,
+    "benign_samples": 191,
+    "accuracy": 62.056737588652474,
+    "detection_rate": 94.5054945054945,
+    "bypass_rate": 5.494505494505503,
+    "false_positive_rate": 53.403141361256544
+  },
+  "v2_calibrated_metrics": {
+    "total_samples": 282,
+    "malicious_samples": 91,
+    "benign_samples": 191,
+    "accuracy": 35.1063829787234,
+    "detection_rate": 100.0,
+    "bypass_rate": 0.0,
+    "false_positive_rate": 95.81151832460732
+  },
+  "ensemble_metrics": {
+    "total_samples": 282,
+    "malicious_samples": 91,
+    "benign_samples": 191,
+    "accuracy": 38.297872340425535,
+    "detection_rate": 100.0,
+    "bypass_rate": 0.0,
+    "false_positive_rate": 91.09947643979058,
+    "avg_disagreement": 0.2740139126090716,
+    "decision_modes": {
+      "v2_high_confidence_malicious": 265,
+      "v2_high_confidence_benign": 8,
+      "v1_fallback": 9
+    }
+  },
+  "improvements": {
+    "fpr_vs_v1": -37.696335078534034,
+    "fpr_vs_v2": 4.712041884816742,
+    "bypass_vs_v1": 5.494505494505503
+  }
+}

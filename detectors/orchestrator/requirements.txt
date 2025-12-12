@@ -1,0 +1,10 @@
+fastapi>=0.104.0
+uvicorn>=0.24.0
+aiohttp>=3.9.0
+pydantic>=2.5.0
+pyyaml>=6.0
+
+# Phase 5.2: Intelligence (optional dependencies)
+textstat>=0.7.3; platform_system != "Windows"  # Text analysis (may have issues on Windows)
+# language-tool-python>=2.7.1  # Language and grammar analysis (optional, can be slow)
+

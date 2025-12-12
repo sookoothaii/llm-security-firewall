@@ -1,0 +1,20 @@
+{
+  "train": {
+    "total": 263,
+    "positive": 142,
+    "negative": 121,
+    "positive_ratio": 0.5399239543726235
+  },
+  "validation": {
+    "total": 67,
+    "positive": 36,
+    "negative": 31,
+    "positive_ratio": 0.5373134328358209
+  },
+  "deduplication": {
+    "original_positives": 178,
+    "unique_positives": 178,
+    "original_negatives": 152,
+    "unique_negatives": 152
+  }
+}

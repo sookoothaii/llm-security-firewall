@@ -1,0 +1,29 @@
+================================================================================
+A/B TEST REPORT: Quantum vs Classical
+================================================================================
+Total Requests: 16
+
+QUANTUM MODEL:
+  Requests: 8
+  Errors: 0
+  Block Rate: 62.50%
+  Mean Latency: 2408.40ms
+  P95 Latency: 2447.10ms
+  Mean Confidence: 0.298
+
+CLASSICAL MODEL:
+  Requests: 8
+  Errors: 0
+  Block Rate: 62.50%
+  Mean Latency: 2431.16ms
+  P95 Latency: 2497.97ms
+  Mean Confidence: 0.298
+
+COMPARISON:
+  Latency Improvement: 0.9%
+  Mean Latency Diff: 22.77ms
+  P95 Latency Diff: 50.87ms
+  Confidence Diff: 0.000
+  Block Rate Diff: 0.00%
+
+================================================================================

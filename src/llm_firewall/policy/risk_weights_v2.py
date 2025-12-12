@@ -70,6 +70,16 @@ STRONG_SIGNALS = {
     "multilingual_high_density": 2.5,  # Multiple multilingual keywords (deliberate)
     "language_switching_detected": 1.6,  # Mixed scripts (ASCII + CJK/Cyrillic/etc)
     "language_switching_high_complexity": 2.0,  # ≥3 different scripts mixed
+    # Multilingual Toxicity Detection
+    "toxicity_detected": 1.8,  # General toxicity detected
+    "toxicity_high_severity": 2.5,  # High-severity toxic content
+    "toxicity_medium_severity": 2.0,  # Medium-severity toxic content
+    "toxicity_low_severity": 1.5,  # Low-severity toxic content
+    "toxicity_threat": 2.2,  # Threatening language
+    "toxicity_hate": 2.3,  # Hate speech
+    "toxicity_discrimination": 2.3,  # Discriminatory language
+    "toxicity_very_high_density": 2.8,  # Very high density of toxic terms
+    "toxicity_high_density": 2.2,  # High density of toxic terms
     "exec_verb_gated": 1.7,  # RC8.1: system/execute/run/invoke/launch as function call (gated to avoid FPR)
     # Fuzzy Function Call Detection (fullwidth/gap-resistant)
     "fuzzy_call:alert": 2.0,  # STRONG-

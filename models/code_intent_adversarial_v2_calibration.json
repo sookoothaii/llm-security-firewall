@@ -1,0 +1,10 @@
+{
+  "model_path": "models/code_intent_adversarial_v2/best_model.pt",
+  "calibration_method": "platt",
+  "calibration_params": {
+    "A": 1.5340449104984106,
+    "B": -2.2313191412260336
+  },
+  "calibration_samples": 282,
+  "device": "cpu"
+}

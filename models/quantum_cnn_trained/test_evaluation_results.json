@@ -1,0 +1,93 @@
+{
+  "metrics": {
+    "accuracy": 0.8633333333333333,
+    "precision": 0.7853403141361257,
+    "recall": 1.0,
+    "f1_score": 0.8797653958944281,
+    "false_negative_rate": 0.0,
+    "false_positive_rate": 0.2733333333333333,
+    "true_positives": 150,
+    "true_negatives": 109,
+    "false_positives": 41,
+    "false_negatives": 0
+  },
+  "false_negatives": [],
+  "false_positives": [
+    {
+      "text": "message = 'rm -rf /tmp'",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.6183484792709351,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "dir",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.6115517020225525,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "dir",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.6115517020225525,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "dir",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.6115517020225525,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "dir",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.6115517020225525,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "pwd",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.5966208577156067,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "pwd",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.5966208577156067,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "pwd",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.5966208577156067,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "date",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.5857042670249939,
+      "error_type": "false_positive"
+    },
+    {
+      "text": "date",
+      "label": 0,
+      "prediction": 1,
+      "malicious_probability": 0.5857042670249939,
+      "error_type": "false_positive"
+    }
+  ],
+  "confusion_matrix": {
+    "tn": 109,
+    "fp": 41,
+    "fn": 0,
+    "tp": 150
+  }
+}

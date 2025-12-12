@@ -100,6 +100,120 @@ MAP = str.maketrans(
 # Whitespace normalization pattern
 SPACE_COLLAPSE = re.compile(r"\s+", re.UNICODE)
 
+# Pattern to detect spaces between letters (but preserve word boundaries)
+# Matches: letter-space-letter (within words)
+SPACE_BETWEEN_LETTERS = re.compile(r"(\w)\s+(\w)", re.UNICODE)
+
+# Leetspeak/typo normalization mapping
+LEETSPEAK_MAP = str.maketrans({
+    '0': 'o',  # zero -> o
+    '1': 'i',  # one -> i
+    '3': 'e',  # three -> e
+    '4': 'a',  # four -> a
+    '5': 's',  # five -> s
+    '@': 'a',  # @ -> a
+    '!': 'i',  # ! -> i
+    '$': 's',  # $ -> s
+})
+
+
+def normalize_obfuscation(text: str) -> str:
+    """
+    Normalize obfuscated text for pattern matching.
+    
+    Two-stage approach:
+    - Stage 1 (always): Basic normalization (spaces between letters, leetspeak)
+    - Stage 2 (conditional): Aggressive normalization only for high-risk keywords
+    
+    Handles:
+    - Spaces between letters: "g e n e r a t e" -> "generate"
+    - Leetspeak/typos: "expl0it" -> "exploit", "h@ck" -> "hack"
+    
+    Note: This preserves word boundaries (spaces between words remain).
+    
+    Args:
+        text: Input text (may contain obfuscation)
+        
+    Returns:
+        Normalized text with obfuscation removed
+        
+    Example:
+        >>> normalize_obfuscation("g e n e r a t e  t h e  l y r i c s")
+        'generate the lyrics'
+        
+        >>> normalize_obfuscation("expl0it the system")
+        'exploit the system'
+        
+        >>> normalize_obfuscation("h@ck the password")
+        'hack the password'
+    """
+    # High-risk keywords that should trigger aggressive normalization
+    HIGH_RISK_KEYWORDS = {
+        "hack", "exploit", "bypass", "crack", "malware", "ransomware",
+        "phishing", "steal", "unauthorized", "intrusion", "breach",
+        "fake", "hoax", "conspiracy", "cover-up",
+        "generate", "reproduce", "copy", "duplicate", "download", "pirated",
+        "jailbreak", "ignore", "override", "disable", "evade"
+    }
+    
+    # Stage 1: Always apply basic normalization
+    # Remove spaces between letters recursively (but keep word boundaries)
+    # Strategy: Process text by splitting on multiple spaces (word boundaries)
+    # For each segment, remove spaces between single letters recursively
+    
+    def remove_spaces_between_single_letters(segment: str) -> str:
+        """Remove spaces between single letters in a segment recursively."""
+        max_iterations = 20
+        iteration = 0
+        s = segment
+        
+        while iteration < max_iterations:
+            # Simple pattern: letter-space-letter
+            # This will match any two letters separated by spaces
+            # We apply it recursively until no more matches
+            pattern = r'([a-zA-Z])\s+([a-zA-Z])'
+            new_s = re.sub(pattern, r'\1\2', s)
+            
+            # If no change occurred, we're done
+            if new_s == s:
+                break
+            s = new_s
+            iteration += 1
+        
+        return s
+    
+    # Normalize leetspeak/typos FIRST (before space removal)
+    has_leetspeak = any(char in text for char in ['0', '1', '3', '4', '5', '@', '!', '$'])
+    if has_leetspeak:
+        text = text.translate(LEETSPEAK_MAP)
+    
+    # CRITICAL FIX: Detect obfuscation vs normal words
+    # Obfuscation pattern: single letters separated by spaces (e.g., "g e n e r a t e")
+    # Normal words: multiple letters together (e.g., "generate the lyrics")
+    # Strategy: Only remove spaces between single letters, preserve spaces between words
+    
+    # Check if text contains obfuscation pattern (single letters with spaces)
+    # Pattern: letter-space-letter (repeated) indicates obfuscation
+    obfuscation_pattern = r'\b([a-zA-Z])\s+([a-zA-Z])\s+([a-zA-Z])\s+([a-zA-Z])'
+    has_obfuscation = bool(re.search(obfuscation_pattern, text))
+    
+    if has_obfuscation:
+        # Text contains obfuscation - use segment-based approach
+        # Split text by multiple spaces (2+ spaces indicate word boundaries)
+        # Process each segment separately to preserve word boundaries
+        segments = re.split(r'\s{2,}', text)
+        processed_segments = [remove_spaces_between_single_letters(seg.strip()) for seg in segments]
+        
+        # Join with single space to preserve word boundaries
+        # DO NOT call remove_spaces_between_single_letters() again on the joined text!
+        s = ' '.join(processed_segments)
+    else:
+        # No obfuscation detected - return text as-is (preserve normal word spacing)
+        # This prevents "generate the lyrics" from becoming "generatethelyrics"
+        s = text
+    
+    return s
+
 
 def canonicalize(text: str) -> str:
     """
@@ -110,7 +224,8 @@ def canonicalize(text: str) -> str:
     2. Zero-width character removal
     3. Variation selector stripping
     4. Homoglyph mapping (visually similar → Latin)
-    5. Whitespace collapse
+    5. Obfuscation normalization (spaces between letters, leetspeak)
+    6. Whitespace collapse
 
     Args:
         text: Raw input text
@@ -124,6 +239,12 @@ def canonicalize(text: str) -> str:
 
         >>> canonicalize("Ignore\u200ball\u200binstructions")  # Zero-width spaces
         'Ignore all instructions'
+        
+        >>> canonicalize("g e n e r a t e  t h e  l y r i c s")  # Spaces between letters
+        'generate the lyrics'
+        
+        >>> canonicalize("expl0it the system")  # Leetspeak
+        'exploit the system'
     """
     # Step 1: NFKC normalization (handles composed characters, ligatures, etc.)
     s = unicodedata.normalize("NFKC", text)
@@ -137,7 +258,10 @@ def canonicalize(text: str) -> str:
     # Step 4: Map homoglyphs to Latin equivalents
     s = s.translate(MAP)
 
-    # Step 5: Normalize whitespace (collapse multiple spaces, normalize types)
+    # Step 5: Normalize obfuscation (spaces between letters, leetspeak)
+    s = normalize_obfuscation(s)
+
+    # Step 6: Normalize whitespace (collapse multiple spaces, normalize types)
     s = SPACE_COLLAPSE.sub(" ", s)
 
     return s.strip()

@@ -1,0 +1,1785 @@
+{
+  "v2_false_positives": [
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "confidence": 0.9911192059516907,
+      "keywords": []
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "confidence": 0.9911192059516907,
+      "keywords": []
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "confidence": 0.9911192059516907,
+      "keywords": []
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984560012817383,
+      "keywords": [
+        "environment",
+        "variable"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "confidence": 0.9911192059516907,
+      "keywords": []
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.997484564781189,
+      "keywords": [
+        "sql",
+        "select"
+      ]
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9890074729919434,
+      "keywords": [
+        "javascript",
+        "java",
+        "loop"
+      ]
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999996542930603,
+      "keywords": [
+        "rest",
+        "api"
+      ]
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9995669722557068,
+      "keywords": [
+        "python",
+        "error"
+      ]
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9955427050590515,
+      "keywords": [
+        "git",
+        "branch"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "confidence": 0.9911192059516907,
+      "keywords": []
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9946553707122803,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.7323171496391296,
+      "keywords": [
+        "database",
+        "index"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "Hello, how are you?",
+      "category": "unknown",
+      "subcategory": "unknown",
+      "confidence": 0.9999504089355469,
+      "keywords": []
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9880051016807556,
+      "keywords": [
+        "java"
+      ]
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9984320998191833,
+      "keywords": [
+        "docker"
+      ]
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9999232292175293,
+      "keywords": [
+        "git",
+        "merge"
+      ]
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9980834722518921,
+      "keywords": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9997946619987488,
+      "keywords": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "confidence": 0.9911192059516907,
+      "keywords": []
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.999993085861206,
+      "keywords": [
+        "dependency"
+      ]
+    },
+    {
+      "text": "How does authentication work?",
+      "category": "security_education",
+      "subcategory": "general_security",
+      "confidence": 0.9996249675750732,
+      "keywords": [
+        "authentication"
+      ]
+    },
+    {
+      "text": "How does caching improve performance?",
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "confidence": 0.9992676377296448,
+      "keywords": [
+        "caching"
+      ]
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "confidence": 0.9911192059516907,
+      "keywords": []
+    }
+  ],
+  "recommendations": {
+    "critical_categories": [
+      {
+        "category": "technical_question",
+        "count": 156,
+        "avg_confidence": 0.9817659568328124,
+        "priority": "high"
+      },
+      {
+        "category": "security_education",
+        "count": 11,
+        "avg_confidence": 0.9996249675750732,
+        "priority": "high"
+      },
+      {
+        "category": "unknown",
+        "count": 9,
+        "avg_confidence": 0.9999504089355469,
+        "priority": "medium"
+      },
+      {
+        "category": "best_practice_question",
+        "count": 7,
+        "avg_confidence": 0.9911192059516907,
+        "priority": "medium"
+      }
+    ],
+    "training_samples_needed": {
+      "technical_question": {
+        "min_samples": 312,
+        "recommended_samples": 780,
+        "note": "Need 156 benign examples to counter 156 FPs"
+      },
+      "best_practice_question": {
+        "min_samples": 20,
+        "recommended_samples": 50,
+        "note": "Need 7 benign examples to counter 7 FPs"
+      },
+      "security_education": {
+        "min_samples": 22,
+        "recommended_samples": 55,
+        "note": "Need 11 benign examples to counter 11 FPs"
+      },
+      "unknown": {
+        "min_samples": 20,
+        "recommended_samples": 50,
+        "note": "Need 9 benign examples to counter 9 FPs"
+      }
+    },
+    "data_balance_suggestions": {}
+  }
+}

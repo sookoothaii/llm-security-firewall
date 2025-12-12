@@ -42,11 +42,11 @@ class TopicFence:
         """Load ensemble of 3 DIVERSE models (not 3x Mini)."""
         # LAZY IMPORT: Load ML libraries only when needed
         from sentence_transformers import SentenceTransformer
-        import torch
-
         logger.info("[EnsembleFence] Loading Neural Ensemble (3 DIVERSE Models)...")
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        logger.info(f"   Using device: {device}")
+        # REQUIRE GPU (CPU COMPLETELY DISABLED)
+        from llm_firewall.core.gpu_enforcement import require_gpu
+        device = require_gpu()  # Raises error if GPU not available (CPU disabled)
+        logger.info(f"   Using device: {device} (CPU disabled)")
 
         try:
             # FIX: 3 DIVERSE Architekturen (nicht 3x Mini)

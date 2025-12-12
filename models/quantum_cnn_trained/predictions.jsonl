@@ -1,0 +1,300 @@
+{"text": "echo ''", "label": 1, "prediction": 1, "probability": 0.6823416948318481}
+{"text": " || echo success", "label": 1, "prediction": 1, "probability": 0.7176740765571594}
+{"text": "ping -c 3 google.com", "label": 0, "prediction": 1, "probability": 0.5668778419494629}
+{"text": "exec( // bypass", "label": 1, "prediction": 1, "probability": 0.7254185080528259}
+{"text": "whoami", "label": 0, "prediction": 1, "probability": 0.5669939517974854}
+{"text": "system(", "label": 1, "prediction": 1, "probability": 0.6707431674003601}
+{"text": "ps  aux", "label": 0, "prediction": 1, "probability": 0.537431538105011}
+{"text": ";\nTRUNCATE", "label": 1, "prediction": 1, "probability": 0.7242129445075989}
+{"text": "python -c \"/dev/tcp\"", "label": 1, "prediction": 1, "probability": 0.7220351099967957}
+{"text": "How  do  I  install  Python?", "label": 0, "prediction": 0, "probability": 0.41424497961997986}
+{"text": "python -c \"rm -rf\"", "label": 1, "prediction": 1, "probability": 0.7403510808944702}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "prediction": 0, "probability": 0.3488360047340393}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "prediction": 0, "probability": 0.3488360047340393}
+{"text": "SELECT  u.name,  o.total  FROM  users  u  JOIN  orders  o  ON  u.id  =  o.user_id", "label": 0, "prediction": 0, "probability": 0.20239312946796417}
+{"text": "POPEN(", "label": 1, "prediction": 1, "probability": 0.6943825483322144}
+{"text": "INSERT  INTO  logs  (message,  timestamp)  VALUES  ('info',  NOW())", "label": 0, "prediction": 0, "probability": 0.29646873474121094}
+{"text": "cmd /c shell_exec", "label": 1, "prediction": 1, "probability": 0.7169519066810608}
+{"text": "What  does  this  error  mean?", "label": 0, "prediction": 0, "probability": 0.3610925078392029}
+{"text": "# uname -a", "label": 0, "prediction": 1, "probability": 0.5534783005714417}
+{"text": "'; -- && echo success", "label": 1, "prediction": 1, "probability": 0.7389947772026062}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "prediction": 0, "probability": 0.4280953109264374}
+{"text": "echo ''; --'", "label": 1, "prediction": 1, "probability": 0.7048039436340332}
+{"text": "..\\ <!-- bypass", "label": 1, "prediction": 1, "probability": 0.720617949962616}
+{"text": "SELECT  name,  email  FROM  users", "label": 0, "prediction": 0, "probability": 0.4524786174297333}
+{"text": "UNION\tSELECT", "label": 1, "prediction": 1, "probability": 0.7169455289840698}
+{"text": " REM bypass", "label": 1, "prediction": 1, "probability": 0.7101466059684753}
+{"text": "ls  -R", "label": 0, "prediction": 1, "probability": 0.5550830364227295}
+{"text": "echo $HOME", "label": 0, "prediction": 1, "probability": 0.5479872226715088}
+{"text": "import  os", "label": 0, "prediction": 1, "probability": 0.5487024188041687}
+{"text": ";\nsystem(", "label": 1, "prediction": 1, "probability": 0.6790233254432678}
+{"text": "echo '../'", "label": 1, "prediction": 1, "probability": 0.6821572184562683}
+{"text": "", "label": 1, "prediction": 1, "probability": 0.6334364414215088}
+{"text": "exec()", "label": 1, "prediction": 1, "probability": 0.6808070540428162}
+{"text": "whoami", "label": 0, "prediction": 1, "probability": 0.5669939517974854}
+{"text": " && echo success", "label": 1, "prediction": 1, "probability": 0.7162256240844727}
+{"text": "/*\n", "label": 1, "prediction": 1, "probability": 0.6831499934196472}
+{"text": "import json", "label": 0, "prediction": 1, "probability": 0.5927797555923462}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "prediction": 0, "probability": 0.27051523327827454}
+{"text": "date", "label": 0, "prediction": 1, "probability": 0.5857042670249939}
+{"text": "DROP\nTABLE", "label": 1, "prediction": 1, "probability": 0.7220334410667419}
+{"text": "whoami", "label": 0, "prediction": 1, "probability": 0.5669939517974854}
+{"text": " -- bypass", "label": 1, "prediction": 1, "probability": 0.7087548971176147}
+{"text": "REM\nrm -rf", "label": 1, "prediction": 1, "probability": 0.7097721099853516}
+{"text": "/*\ncurl http://", "label": 1, "prediction": 1, "probability": 0.733722448348999}
+{"text": "echo 'DROP TABLE'", "label": 1, "prediction": 1, "probability": 0.7198703289031982}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "prediction": 0, "probability": 0.27051523327827454}
+{"text": "tail  -f  log.txt", "label": 0, "prediction": 0, "probability": 0.45654046535491943}
+{"text": "# ", "label": 1, "prediction": 1, "probability": 0.6721534729003906}
+{"text": "CHMOD 777", "label": 1, "prediction": 1, "probability": 0.7026883959770203}
+{"text": "example_code  =  'bash  -i  >&  /dev/tcp/...'", "label": 0, "prediction": 0, "probability": 0.3998773992061615}
+{"text": "uptime", "label": 0, "prediction": 1, "probability": 0.5728302001953125}
+{"text": "chmod%20777", "label": 1, "prediction": 1, "probability": 0.7219629883766174}
+{"text": "ls  -la", "label": 0, "prediction": 1, "probability": 0.5250214338302612}
+{"text": "import os", "label": 0, "prediction": 1, "probability": 0.6211362481117249}
+{"text": "df  -h", "label": 0, "prediction": 1, "probability": 0.5569680333137512}
+{"text": "Can  you  review  my  code?", "label": 0, "prediction": 0, "probability": 0.41279780864715576}
+{"text": "def  hello():  return  'world'", "label": 0, "prediction": 0, "probability": 0.42259204387664795}
+{"text": "import  os", "label": 0, "prediction": 1, "probability": 0.5487024188041687}
+{"text": "perl -e 'eval('", "label": 1, "prediction": 1, "probability": 0.7046709060668945}
+{"text": "free -m", "label": 0, "prediction": 1, "probability": 0.6047641038894653}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "prediction": 0, "probability": 0.38410693407058716}
+{"text": "uniq  file.txt", "label": 0, "prediction": 0, "probability": 0.47992148995399475}
+{"text": "cmd /c exec(", "label": 1, "prediction": 1, "probability": 0.7139304876327515}
+{"text": "/ETC/SHADOW", "label": 1, "prediction": 1, "probability": 0.7163233160972595}
+{"text": "Please  explain  this  code", "label": 0, "prediction": 0, "probability": 0.41997408866882324}
+{"text": "for  i  in  range(10):  print(i)", "label": 0, "prediction": 0, "probability": 0.39318451285362244}
+{"text": "bash -i || echo success", "label": 1, "prediction": 1, "probability": 0.7413552403450012}
+{"text": "value  =  math_eval('sqrt(16)')", "label": 0, "prediction": 0, "probability": 0.4280953109264374}
+{"text": "/etc/passwd // bypass", "label": 1, "prediction": 1, "probability": 0.7396923303604126}
+{"text": "find  .  -name  '*.py'", "label": 0, "prediction": 0, "probability": 0.44784802198410034}
+{"text": "<!-- ../", "label": 1, "prediction": 1, "probability": 0.7026346921920776}
+{"text": "sh -c \"eval(\"", "label": 1, "prediction": 1, "probability": 0.7319563031196594}
+{"text": "/dev/tcp", "label": 1, "prediction": 1, "probability": 0.6738684177398682}
+{"text": "Please  explain  this  code", "label": 0, "prediction": 0, "probability": 0.41997408866882324}
+{"text": "Drop table", "label": 1, "prediction": 1, "probability": 0.6628323197364807}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "prediction": 0, "probability": 0.41375887393951416}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "prediction": 0, "probability": 0.34218141436576843}
+{"text": "//\n/dev/tcp", "label": 1, "prediction": 1, "probability": 0.698645293712616}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "prediction": 0, "probability": 0.48345473408699036}
+{"text": "python -c \"\"", "label": 1, "prediction": 1, "probability": 0.7137615084648132}
+{"text": "/*\nrm -rf", "label": 1, "prediction": 1, "probability": 0.70977383852005}
+{"text": "python -c \"shell_exec\"", "label": 1, "prediction": 1, "probability": 0.7441497445106506}
+{"text": "wc -l file.txt", "label": 0, "prediction": 1, "probability": 0.5084612965583801}
+{"text": "wget%20http%3A//", "label": 1, "prediction": 1, "probability": 0.7235608100891113}
+{"text": "code  =  executor.compile('print(1)')", "label": 0, "prediction": 0, "probability": 0.380107045173645}
+{"text": "# tail -f log.txt", "label": 0, "prediction": 1, "probability": 0.50063157081604}
+{"text": "eval(DELETE FROM)", "label": 1, "prediction": 1, "probability": 0.7254944443702698}
+{"text": "cmd /c nc -e", "label": 1, "prediction": 1, "probability": 0.6949530243873596}
+{"text": "# head -n 10 file.txt", "label": 0, "prediction": 0, "probability": 0.4540260434150696}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "prediction": 0, "probability": 0.48345473408699036}
+{"text": "from  datetime  import  datetime", "label": 0, "prediction": 0, "probability": 0.3866075873374939}
+{"text": "; DELETE FROM", "label": 1, "prediction": 1, "probability": 0.705625593662262}
+{"text": " <!-- bypass", "label": 1, "prediction": 1, "probability": 0.712985098361969}
+{"text": "uniq  file.txt", "label": 0, "prediction": 0, "probability": 0.47992148995399475}
+{"text": "// ", "label": 1, "prediction": 1, "probability": 0.6921059489250183}
+{"text": "from  datetime  import  datetime", "label": 0, "prediction": 0, "probability": 0.3866075873374939}
+{"text": "echo ''", "label": 1, "prediction": 1, "probability": 0.6823416948318481}
+{"text": "# uname -a", "label": 0, "prediction": 1, "probability": 0.5534783005714417}
+{"text": "# /etc/shadow", "label": 1, "prediction": 1, "probability": 0.7239506244659424}
+{"text": "//\n", "label": 1, "prediction": 1, "probability": 0.6895867586135864}
+{"text": "; ..\\", "label": 1, "prediction": 1, "probability": 0.6985124349594116}
+{"text": "ping  -c  3  google.com", "label": 0, "prediction": 0, "probability": 0.45136821269989014}
+{"text": "tree  -L  2", "label": 0, "prediction": 1, "probability": 0.5089210271835327}
+{"text": "What  does  this  error  mean?", "label": 0, "prediction": 0, "probability": 0.3610925078392029}
+{"text": "/*\n..\\", "label": 1, "prediction": 1, "probability": 0.7133948802947998}
+{"text": "system( && echo success", "label": 1, "prediction": 1, "probability": 0.7333524823188782}
+{"text": "name  =  'John  Doe'", "label": 0, "prediction": 0, "probability": 0.4834825098514557}
+{"text": "import  json", "label": 0, "prediction": 1, "probability": 0.5436611175537109}
+{"text": "grep  'pattern'  file.txt", "label": 0, "prediction": 0, "probability": 0.4055110812187195}
+{"text": "result = code_executor.run('safe_code')", "label": 0, "prediction": 0, "probability": 0.4142793118953705}
+{"text": "rm -rf # bypass", "label": 1, "prediction": 1, "probability": 0.728565514087677}
+{"text": "python -c \"system(\"", "label": 1, "prediction": 1, "probability": 0.723446249961853}
+{"text": "whoami", "label": 0, "prediction": 1, "probability": 0.5669939517974854}
+{"text": "REM\nTRUNCATE", "label": 1, "prediction": 1, "probability": 0.7328287959098816}
+{"text": "UNION SELECT && echo success", "label": 1, "prediction": 1, "probability": 0.7483139038085938}
+{"text": "wget  --spider  https://example.com", "label": 0, "prediction": 0, "probability": 0.4118492305278778}
+{"text": "REM nc -e", "label": 1, "prediction": 1, "probability": 0.6862574219703674}
+{"text": "UPDATE products SET price = 99.99 WHERE id = 123", "label": 0, "prediction": 1, "probability": 0.5643317699432373}
+{"text": "name  =  'John  Doe'", "label": 0, "prediction": 0, "probability": 0.4834825098514557}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "prediction": 0, "probability": 0.3597720265388489}
+{"text": " ; echo success", "label": 1, "prediction": 1, "probability": 0.7117747664451599}
+{"text": "; ", "label": 1, "prediction": 1, "probability": 0.6815788745880127}
+{"text": "# echo 'Hello World'", "label": 0, "prediction": 1, "probability": 0.5046954154968262}
+{"text": "free  -m", "label": 0, "prediction": 1, "probability": 0.5313348174095154}
+{"text": "def  factorial(n):  return  1  if  n  <=  1  else  n  *  factorial(n-1)", "label": 0, "prediction": 0, "probability": 0.23171140253543854}
+{"text": "REM\n", "label": 1, "prediction": 1, "probability": 0.6743922829627991}
+{"text": "'; -- REM bypass", "label": 1, "prediction": 1, "probability": 0.7250354290008545}
+{"text": "How  do  I  install  Python?", "label": 0, "prediction": 0, "probability": 0.41424497961997986}
+{"text": "sh -c \"TRUNCATE\"", "label": 1, "prediction": 1, "probability": 0.7362017631530762}
+{"text": "#\ncurl http://", "label": 1, "prediction": 1, "probability": 0.7261521220207214}
+{"text": "What  does  this  error  mean?", "label": 0, "prediction": 0, "probability": 0.3610925078392029}
+{"text": "head  -n  10  file.txt", "label": 0, "prediction": 0, "probability": 0.4160630404949188}
+{"text": "x  =  1  +  2", "label": 0, "prediction": 1, "probability": 0.5003507137298584}
+{"text": "What  is  the  weather  today?", "label": 0, "prediction": 0, "probability": 0.38042715191841125}
+{"text": "/*\n", "label": 1, "prediction": 1, "probability": 0.6831499934196472}
+{"text": "// eval(", "label": 1, "prediction": 1, "probability": 0.7013736367225647}
+{"text": "ps  aux", "label": 0, "prediction": 1, "probability": 0.537431538105011}
+{"text": "text  =  'hello  world'.title()", "label": 0, "prediction": 0, "probability": 0.41514527797698975}
+{"text": "<!-- TRUNCATE", "label": 1, "prediction": 1, "probability": 0.7297151684761047}
+{"text": "-- ", "label": 1, "prediction": 1, "probability": 0.6947011351585388}
+{"text": "cat  README.md", "label": 0, "prediction": 0, "probability": 0.4830118715763092}
+{"text": "-- ", "label": 1, "prediction": 1, "probability": 0.6947011351585388}
+{"text": "--\nTRUNCATE", "label": 1, "prediction": 1, "probability": 0.7291971445083618}
+{"text": "What  time  is  it?", "label": 0, "prediction": 0, "probability": 0.4339790344238281}
+{"text": "/etc/shadow ; echo success", "label": 1, "prediction": 1, "probability": 0.7492077350616455}
+{"text": " # bypass", "label": 1, "prediction": 1, "probability": 0.7030755281448364}
+{"text": "find  .  -name  '*.py'", "label": 0, "prediction": 0, "probability": 0.44784802198410034}
+{"text": "sh -c \"\"", "label": 1, "prediction": 1, "probability": 0.7018271088600159}
+{"text": "import  math", "label": 0, "prediction": 0, "probability": 0.4990403354167938}
+{"text": "passthru -- bypass", "label": 1, "prediction": 1, "probability": 0.7334837913513184}
+{"text": ";\n", "label": 1, "prediction": 1, "probability": 0.673029899597168}
+{"text": "PASSTHRU", "label": 1, "prediction": 1, "probability": 0.6886191368103027}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "prediction": 0, "probability": 0.3597720265388489}
+{"text": "text  =  'hello  world'.title()", "label": 0, "prediction": 0, "probability": 0.41514527797698975}
+{"text": "How  can  I  improve  my  code?", "label": 0, "prediction": 0, "probability": 0.3835701048374176}
+{"text": "How  do  I  install  Python?", "label": 0, "prediction": 0, "probability": 0.41424497961997986}
+{"text": "# head -n 10 file.txt", "label": 0, "prediction": 0, "probability": 0.4540260434150696}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "prediction": 0, "probability": 0.39954522252082825}
+{"text": "# passthru", "label": 1, "prediction": 1, "probability": 0.6944973468780518}
+{"text": "What  does  this  error  mean?", "label": 0, "prediction": 0, "probability": 0.3610925078392029}
+{"text": "rm -rf /tmp && echo done", "label": 1, "prediction": 1, "probability": 0.7104386687278748}
+{"text": "';--", "label": 1, "prediction": 1, "probability": 0.6948226094245911}
+{"text": "df  -h", "label": 0, "prediction": 1, "probability": 0.5569680333137512}
+{"text": "How  does  this  function  work?", "label": 0, "prediction": 0, "probability": 0.3849346935749054}
+{"text": "SELECT  *  FROM  products  WHERE  price  >  100", "label": 0, "prediction": 0, "probability": 0.3488360047340393}
+{"text": "pwd", "label": 0, "prediction": 1, "probability": 0.5966208577156067}
+{"text": "date", "label": 0, "prediction": 1, "probability": 0.5857042670249939}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "prediction": 0, "probability": 0.48345473408699036}
+{"text": "TRUNCATE <!-- bypass", "label": 1, "prediction": 1, "probability": 0.744398832321167}
+{"text": "x = 1 + 2", "label": 0, "prediction": 1, "probability": 0.5993160605430603}
+{"text": "node -e \"UNION SELECT\"", "label": 1, "prediction": 1, "probability": 0.7445946931838989}
+{"text": "How  can  I  improve  my  code?", "label": 0, "prediction": 0, "probability": 0.3835701048374176}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "prediction": 0, "probability": 0.4774649143218994}
+{"text": "INSERT  INTO  users  (name,  email)  VALUES  ('John',  'john@example.com')", "label": 0, "prediction": 0, "probability": 0.27051523327827454}
+{"text": "drop table", "label": 1, "prediction": 1, "probability": 0.6580194234848022}
+{"text": "<!-- nc -e", "label": 1, "prediction": 1, "probability": 0.6958049535751343}
+{"text": "node -e \"\"", "label": 1, "prediction": 1, "probability": 0.7086451053619385}
+{"text": "numbers  =  [1,  2,  3,  4,  5]", "label": 0, "prediction": 0, "probability": 0.3918861448764801}
+{"text": "# cat README.md", "label": 0, "prediction": 0, "probability": 0.4936179518699646}
+{"text": "bash -c 'UNION SELECT'", "label": 1, "prediction": 1, "probability": 0.7239749431610107}
+{"text": "chmod 777 || echo success", "label": 1, "prediction": 1, "probability": 0.7501463890075684}
+{"text": "#\neval(", "label": 1, "prediction": 1, "probability": 0.7046228647232056}
+{"text": "echo  $HOME", "label": 0, "prediction": 1, "probability": 0.5243613719940186}
+{"text": " <!-- bypass", "label": 1, "prediction": 1, "probability": 0.712985098361969}
+{"text": "<!--\n../", "label": 1, "prediction": 1, "probability": 0.7103196382522583}
+{"text": "<!-- ", "label": 1, "prediction": 1, "probability": 0.7033292055130005}
+{"text": "words  =  'hello  world'.split()", "label": 0, "prediction": 0, "probability": 0.39495420455932617}
+{"text": "import  math", "label": 0, "prediction": 0, "probability": 0.4990403354167938}
+{"text": "sh -c \"chmod 777\"", "label": 1, "prediction": 1, "probability": 0.7380439043045044}
+{"text": "result  =  'test'.replace('t',  'T')", "label": 0, "prediction": 0, "probability": 0.398356556892395}
+{"text": "name  =  'John  Doe'", "label": 0, "prediction": 0, "probability": 0.4834825098514557}
+{"text": "exec( && echo success", "label": 1, "prediction": 1, "probability": 0.7367871999740601}
+{"text": "# date", "label": 0, "prediction": 1, "probability": 0.5683034062385559}
+{"text": "# uname -a", "label": 0, "prediction": 1, "probability": 0.5534783005714417}
+{"text": "system( // bypass", "label": 1, "prediction": 1, "probability": 0.7203103303909302}
+{"text": "Can  you  review  my  code?", "label": 0, "prediction": 0, "probability": 0.41279780864715576}
+{"text": "'; -- // bypass", "label": 1, "prediction": 1, "probability": 0.7246491312980652}
+{"text": "# ..\\", "label": 1, "prediction": 1, "probability": 0.6945316195487976}
+{"text": "SELECT name, email FROM users", "label": 0, "prediction": 1, "probability": 0.64857017993927}
+{"text": " REM bypass", "label": 1, "prediction": 1, "probability": 0.7101466059684753}
+{"text": "..\\ || echo success", "label": 1, "prediction": 1, "probability": 0.7318630218505859}
+{"text": "//  This  function  calls  exec(),  but  with  sanitized  input", "label": 0, "prediction": 0, "probability": 0.2820340692996979}
+{"text": "sh -c \"DROP TABLE\"", "label": 1, "prediction": 1, "probability": 0.73125159740448}
+{"text": "<!-- exec(", "label": 1, "prediction": 1, "probability": 0.708731472492218}
+{"text": "text  =  'Hello  World'.upper()", "label": 0, "prediction": 0, "probability": 0.39954522252082825}
+{"text": "cmd /c ", "label": 1, "prediction": 1, "probability": 0.7019386887550354}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "prediction": 0, "probability": 0.3769158124923706}
+{"text": "SELECT  *  FROM  users  WHERE  id  =  1", "label": 0, "prediction": 0, "probability": 0.38410693407058716}
+{"text": "truncate", "label": 1, "prediction": 1, "probability": 0.6329635977745056}
+{"text": "df  -h", "label": 0, "prediction": 1, "probability": 0.5569680333137512}
+{"text": "';  --", "label": 1, "prediction": 1, "probability": 0.6452049612998962}
+{"text": "python -c \"/etc/shadow\"", "label": 1, "prediction": 1, "probability": 0.7501749396324158}
+{"text": "ruby -e \"exec(\"", "label": 1, "prediction": 1, "probability": 0.7280504703521729}
+{"text": "popen( # bypass", "label": 1, "prediction": 1, "probability": 0.7223542928695679}
+{"text": "perl -e '/etc/shadow'", "label": 1, "prediction": 1, "probability": 0.7373854517936707}
+{"text": "// /etc/shadow", "label": 1, "prediction": 1, "probability": 0.7315357327461243}
+{"text": "def  calculate_sum(a,  b):  return  a  +  b", "label": 0, "prediction": 0, "probability": 0.34218141436576843}
+{"text": "# uname -a", "label": 0, "prediction": 1, "probability": 0.5534783005714417}
+{"text": "eval%28", "label": 1, "prediction": 1, "probability": 0.6925739049911499}
+{"text": "INSERT INTO users (name, email) VALUES ('John', 'john@example.com')", "label": 0, "prediction": 0, "probability": 0.49455854296684265}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "prediction": 0, "probability": 0.4774649143218994}
+{"text": "/etc/passwd ", "label": 1, "prediction": 1, "probability": 0.7045426964759827}
+{"text": "What  time  is  it?", "label": 0, "prediction": 0, "probability": 0.4339790344238281}
+{"text": "", "label": 1, "prediction": 1, "probability": 0.6334364414215088}
+{"text": "import  json", "label": 0, "prediction": 1, "probability": 0.5436611175537109}
+{"text": "for  item  in  items:  process(item)", "label": 0, "prediction": 0, "probability": 0.41850659251213074}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "prediction": 0, "probability": 0.3597720265388489}
+{"text": "/dev/tcp || echo success", "label": 1, "prediction": 1, "probability": 0.7424653768539429}
+{"text": "x  =  1  +  2", "label": 0, "prediction": 1, "probability": 0.5003507137298584}
+{"text": "while  count  <  10:  count  +=  1", "label": 0, "prediction": 0, "probability": 0.39362281560897827}
+{"text": "/*\nbash -i", "label": 1, "prediction": 1, "probability": 0.7198156714439392}
+{"text": "", "label": 1, "prediction": 1, "probability": 0.6334364414215088}
+{"text": "powershell -Command \"exec(\"", "label": 1, "prediction": 1, "probability": 0.7615893483161926}
+{"text": "code = executor.compile('print(1)')", "label": 0, "prediction": 0, "probability": 0.4264986515045166}
+{"text": " /* bypass", "label": 1, "prediction": 1, "probability": 0.7055287957191467}
+{"text": "", "label": 1, "prediction": 1, "probability": 0.6334364414215088}
+{"text": "# tail -f log.txt", "label": 0, "prediction": 1, "probability": 0.50063157081604}
+{"text": "dir", "label": 0, "prediction": 1, "probability": 0.6115517020225525}
+{"text": "/*\n", "label": 1, "prediction": 1, "probability": 0.6831499934196472}
+{"text": " /* bypass", "label": 1, "prediction": 1, "probability": 0.7055287957191467}
+{"text": "SYSTEM(", "label": 1, "prediction": 1, "probability": 0.6914288401603699}
+{"text": " <!-- bypass", "label": 1, "prediction": 1, "probability": 0.712985098361969}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "prediction": 0, "probability": 0.41375887393951416}
+{"text": "<!--\n", "label": 1, "prediction": 1, "probability": 0.694593071937561}
+{"text": "#  TODO:  Remove  debug  line:  system('ls')", "label": 0, "prediction": 0, "probability": 0.3769158124923706}
+{"text": "dir", "label": 0, "prediction": 1, "probability": 0.6115517020225525}
+{"text": "# ", "label": 1, "prediction": 1, "probability": 0.6721534729003906}
+{"text": "uniq  file.txt", "label": 0, "prediction": 0, "probability": 0.47992148995399475}
+{"text": "//\n..\\", "label": 1, "prediction": 1, "probability": 0.7192398309707642}
+{"text": "How  does  this  function  work?", "label": 0, "prediction": 0, "probability": 0.3849346935749054}
+{"text": "curl http:// # bypass", "label": 1, "prediction": 1, "probability": 0.7444998621940613}
+{"text": "tail  -f  log.txt", "label": 0, "prediction": 0, "probability": 0.45654046535491943}
+{"text": ";\nshell_exec", "label": 1, "prediction": 1, "probability": 0.7085553407669067}
+{"text": "ls  -lh", "label": 0, "prediction": 1, "probability": 0.5290825366973877}
+{"text": "result  =  code_executor.run('safe_code')", "label": 0, "prediction": 0, "probability": 0.37102600932121277}
+{"text": "python -c \"DELETE FROM\"", "label": 1, "prediction": 1, "probability": 0.7452094554901123}
+{"text": "UPDATE  products  SET  price  =  99.99  WHERE  id  =  123", "label": 0, "prediction": 0, "probability": 0.301055908203125}
+{"text": "result  =  system_check.is_healthy()", "label": 0, "prediction": 0, "probability": 0.40324345231056213}
+{"text": "items  =  [x  for  x  in  range(10)]", "label": 0, "prediction": 0, "probability": 0.3597720265388489}
+{"text": "echo 'bash -i'", "label": 1, "prediction": 1, "probability": 0.7119696140289307}
+{"text": "Please  explain  this  code", "label": 0, "prediction": 0, "probability": 0.41997408866882324}
+{"text": "def  hello():  return  'world'", "label": 0, "prediction": 0, "probability": 0.42259204387664795}
+{"text": " && echo success", "label": 1, "prediction": 1, "probability": 0.7162256240844727}
+{"text": "DELETE FROM sessions;", "label": 1, "prediction": 1, "probability": 0.7392987012863159}
+{"text": "-- /dev/tcp", "label": 1, "prediction": 1, "probability": 0.6854307055473328}
+{"text": "whoami", "label": 0, "prediction": 1, "probability": 0.5669939517974854}
+{"text": "; wget http://", "label": 1, "prediction": 1, "probability": 0.7309433817863464}
+{"text": "output  =  safe_eval('1+1')", "label": 0, "prediction": 0, "probability": 0.48345473408699036}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "prediction": 0, "probability": 0.31297290325164795}
+{"text": "message  =  'rm  -rf  /tmp'", "label": 0, "prediction": 0, "probability": 0.4774649143218994}
+{"text": "exec(DROP TABLE)", "label": 1, "prediction": 1, "probability": 0.7199278473854065}
+{"text": "#  Note:  This  uses  eval()  internally,  but  it's  safe", "label": 0, "prediction": 0, "probability": 0.31297290325164795}
+{"text": "What  is  the  difference  between  X  and  Y?", "label": 0, "prediction": 0, "probability": 0.3061152398586273}
+{"text": "output = safe_eval('1+1')", "label": 0, "prediction": 1, "probability": 0.5457914471626282}
+{"text": "for item in items: process(item)", "label": 0, "prediction": 1, "probability": 0.5233586430549622}
+{"text": "'; -- <!-- bypass", "label": 1, "prediction": 1, "probability": 0.7288567423820496}
+{"text": "chmod 777 # bypass", "label": 1, "prediction": 1, "probability": 0.7330455780029297}
+{"text": "ps  aux", "label": 0, "prediction": 1, "probability": 0.537431538105011}
+{"text": "/dev/tcp <!-- bypass", "label": 1, "prediction": 1, "probability": 0.7284262180328369}
+{"text": "python -c \"\"", "label": 1, "prediction": 1, "probability": 0.7137615084648132}
+{"text": "//\nshell_exec", "label": 1, "prediction": 1, "probability": 0.7155916094779968}
+{"text": "rm\n-rf", "label": 1, "prediction": 1, "probability": 0.6897508502006531}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "prediction": 0, "probability": 0.41375887393951416}
+{"text": ";\nexec(", "label": 1, "prediction": 1, "probability": 0.7005138993263245}
+{"text": "eval(passthru)", "label": 1, "prediction": 1, "probability": 0.7176445722579956}
+{"text": " // bypass", "label": 1, "prediction": 1, "probability": 0.7073777914047241}
+{"text": "// /dev/tcp", "label": 1, "prediction": 1, "probability": 0.6830196380615234}
+{"text": "#\nbash -i", "label": 1, "prediction": 1, "probability": 0.7093013525009155}
+{"text": "curl http:// REM bypass", "label": 1, "prediction": 1, "probability": 0.7463682293891907}
+{"text": "bash -i | echo success", "label": 1, "prediction": 1, "probability": 0.7335353493690491}
+{"text": "python -c \"\"", "label": 1, "prediction": 1, "probability": 0.7137615084648132}
+{"text": "import  os", "label": 0, "prediction": 1, "probability": 0.5487024188041687}
+{"text": "--\n../", "label": 1, "prediction": 1, "probability": 0.7020598649978638}
+{"text": "DELETE%20FROM", "label": 1, "prediction": 1, "probability": 0.7104364633560181}
+{"text": "shell_exec REM bypass", "label": 1, "prediction": 1, "probability": 0.7405747771263123}
+{"text": "status  =  system_info.get_uptime()", "label": 0, "prediction": 0, "probability": 0.421199232339859}
+{"text": "<!-- DELETE FROM", "label": 1, "prediction": 1, "probability": 0.7168788313865662}
+{"text": "from  datetime  import  datetime", "label": 0, "prediction": 0, "probability": 0.38660794496536255}
+{"text": "# date", "label": 0, "prediction": 1, "probability": 0.5682977437973022}
+{"text": "data  =  json.load(open('data.json'))", "label": 0, "prediction": 0, "probability": 0.4137607514858246}

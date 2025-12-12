@@ -1,0 +1,11 @@
+
+policies:
+  - name: test_policy
+    conditions:
+      - field: source_tool
+        operator: equals
+        value: general
+    detectors:
+      - name: content_safety
+        mode: required
+        timeout_ms: 1000

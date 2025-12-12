@@ -1,0 +1,62 @@
+{
+  "summary": {
+    "router": {
+      "5min_requests": 1,
+      "5min_avg_latency": 0,
+      "error_rate": 0
+    },
+    "detectors": {
+      "total_calls": 0,
+      "avg_latency": 0
+    },
+    "learning": {
+      "optimizations": 0,
+      "impact": 0
+    },
+    "policies": {
+      "evaluations": 0
+    }
+  },
+  "health": {
+    "status": "healthy",
+    "components": {
+      "router": {
+        "status": "healthy",
+        "error_rate": 0,
+        "requests": 1
+      },
+      "learning": {
+        "status": "unknown",
+        "message": "No recent learning data"
+      },
+      "storage": {
+        "status": "healthy",
+        "message": "Storage assumed healthy"
+      },
+      "policies": {
+        "status": "unknown",
+        "message": "No recent policy evaluations"
+      }
+    },
+    "timestamp": "2025-12-11T18:20:47.419328",
+    "metrics_summary": {
+      "router": {
+        "5min_requests": 1,
+        "5min_avg_latency": 0,
+        "error_rate": 0
+      },
+      "detectors": {
+        "total_calls": 0,
+        "avg_latency": 0
+      },
+      "learning": {
+        "optimizations": 0,
+        "impact": 0
+      },
+      "policies": {
+        "evaluations": 0
+      }
+    }
+  },
+  "timestamp": "2025-12-11T18:20:47.419328"
+}

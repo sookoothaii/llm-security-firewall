@@ -1,0 +1,133 @@
+# Online Learning Configuration
+# ==============================
+# Automatisiertes Training für LLM Security Firewall
+#
+# Creator: HAK_GAL (Joerg Bollwahn)
+# Date: 2025-12-09
+# Status: Production Ready
+
+automatic_training:
+  enabled: true
+  # Cron-Schedule: Alle 6 Stunden
+  # Format: minute hour day month weekday
+  schedule: "0 */6 * * *"  # Alle 6 Stunden (00:00, 06:00, 12:00, 18:00)
+  
+  # Training-Parameter
+  min_samples: 50           # Mindestanzahl Samples für Training
+  max_samples_per_training: 1000  # Max Samples pro Training-Run
+  validation_split: 0.2     # 20% für Validation
+  
+  # Performance-Parameter
+  batch_size: 32
+  learning_rate: 1e-5
+  epochs: 3                 # Anzahl Epochen pro Training
+  early_stopping_patience: 5  # Early Stopping nach 5 Epochen ohne Verbesserung
+
+retraining_triggers:
+  # Automatisches Retraining bei Performance-Drop
+  performance_drop: 0.05    # 5% Performance-Verlust → Retrain
+  new_category_samples: 10  # 10 neue Samples in neuer Kategorie → Retrain
+  false_positive_rate: 0.10  # FPR >10% → Retrain
+  
+  # Manuelle Trigger
+  manual_trigger: false     # Manuelles Retraining aktivieren
+
+model_management:
+  # Versionierung
+  versioning: true
+  keep_last_versions: 5     # Behalte letzten 5 Model-Versionen
+  production_validation_required: true  # Validierung vor Production-Deployment
+  
+  # Model-Pfade
+  model_dir: "models/quantum_cnn_trained"
+  backup_dir: "models/backups"
+  
+  # Rollback-Parameter
+  auto_rollback_on_degradation: true
+  rollback_threshold: 0.03  # 3% Performance-Verlust → Rollback
+
+monitoring:
+  # Dashboard-Integration
+  dashboard_enabled: true
+  dashboard_update_interval: 3600  # Update alle 60 Minuten (in Sekunden)
+  
+  # Alerting
+  alerts_enabled: true
+  alert_channels:
+    - "log"      # Log-Datei
+    # - "email"  # Email (optional)
+    # - "slack"  # Slack (optional)
+  
+  # Metriken-Tracking
+  track_training_metrics: true
+  track_inference_metrics: true
+  track_feedback_metrics: true
+
+feedback_collection:
+  # Buffer-Konfiguration
+  buffer_size: 10000
+  priority_distribution:
+    critical: 0.4   # 40% Critical Priority
+    high: 0.3       # 30% High Priority
+    medium: 0.2     # 20% Medium Priority
+    low: 0.1        # 10% Low Priority
+  
+  # Collection-Parameter
+  real_time_collection: true
+  retention_policy: "ring_buffer"  # FIFO wenn voll
+
+label_generation:
+  # Label-Strategie
+  strategy: "adaptive"  # Options: final_score, rule_score, soft_labels, adaptive
+  
+  # Adaptive Strategy Parameter
+  adaptive:
+    use_final_score: true
+    use_rule_score: true
+    use_ml_score: true
+    confidence_threshold: 0.7  # Nur Samples mit >70% Confidence
+
+performance_targets:
+  # Ziel-Metriken
+  block_rate_target: 0.85      # 85% Block-Rate Ziel
+  false_positive_rate_target: 0.05  # 5% FPR Ziel (max)
+  
+  # Kategorie-spezifische Ziele
+  category_targets:
+    mathematical: 1.0
+    multilingual: 1.0
+    obfuscation: 1.0
+    command_injection: 1.0
+    creative: 0.85
+    sql_injection: 0.95
+    benign: 0.05  # FPR Ziel
+
+# SLA-Definition
+sla:
+  block_rate:
+    acceptable: 0.75  # >75% akzeptabel
+    target: 0.85      # >85% Ziel
+  
+  false_positive_rate:
+    acceptable: 0.15  # <15% akzeptabel
+    target: 0.05     # <5% Ziel
+  
+  response_time:
+    p95: 0.1         # 100ms p95 (95. Perzentil)
+
+# Eskalationsplan
+escalation:
+  high_fpr:
+    threshold: 0.20   # FPR >20% für 1h
+    action: "benign_whitelist_review"
+    duration_hours: 1
+  
+  low_block_rate:
+    threshold: 0.70   # Block-Rate <70% für 1h
+    action: "attack_wave_or_system_error_check"
+    duration_hours: 1
+  
+  training_failure:
+    action: "manual_review_required"
+    retry_attempts: 3
+

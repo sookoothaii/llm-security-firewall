@@ -1,0 +1,16 @@
+{
+  "train": {
+    "malicious": 225,
+    "benign_total": 208,
+    "benign_whitelist": 146,
+    "benign_non_whitelist": 62,
+    "whitelist_ratio": 0.7019230769230769
+  },
+  "validation": {
+    "malicious": 57,
+    "benign_total": 52,
+    "benign_whitelist": 37,
+    "benign_non_whitelist": 15,
+    "whitelist_ratio": 0.7115384615384616
+  }
+}

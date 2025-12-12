@@ -1,0 +1,28 @@
+# HELP router_requests_total Total number of routing requests
+# TYPE router_requests_total counter
+router_requests_total{,outcome="success",source_tool="general"} 5
+# HELP risk_score_distribution Risk score distribution
+# TYPE risk_score_distribution histogram
+risk_score_distribution_bucket{le="0.0"} 0
+risk_score_distribution_bucket{le="0.25"} 5
+risk_score_distribution_bucket{le="0.5"} 5
+risk_score_distribution_bucket{le="0.75"} 5
+risk_score_distribution_bucket{le="0.9"} 5
+risk_score_distribution_bucket{le="1.0"} 5
+risk_score_distribution_bucket{le="+Inf"} 5
+risk_score_distribution_sum{} 0.75
+risk_score_distribution_count{} 5
+# HELP router_analyze_and_route_total Total analyze and route operations
+# TYPE router_analyze_and_route_total counter
+router_analyze_and_route_total{,source_tool="general",text_length="4"} 5
+# HELP router_analyze_and_route_latency_seconds Analyze and route latency
+# TYPE router_analyze_and_route_latency_seconds histogram
+router_analyze_and_route_latency_seconds_bucket{le="0.01",source_tool="general",text_length="4"} 5
+router_analyze_and_route_latency_seconds_bucket{le="0.05",source_tool="general",text_length="4"} 5
+router_analyze_and_route_latency_seconds_bucket{le="0.1",source_tool="general",text_length="4"} 5
+router_analyze_and_route_latency_seconds_bucket{le="0.2",source_tool="general",text_length="4"} 5
+router_analyze_and_route_latency_seconds_bucket{le="0.5",source_tool="general",text_length="4"} 5
+router_analyze_and_route_latency_seconds_bucket{le="1.0",source_tool="general",text_length="4"} 5
+router_analyze_and_route_latency_seconds_bucket{le="+Inf",source_tool="general",text_length="4"} 5
+router_analyze_and_route_latency_seconds_sum{,source_tool="general",text_length="4"} 0.00914764404296875
+router_analyze_and_route_latency_seconds_count{,source_tool="general",text_length="4"} 5

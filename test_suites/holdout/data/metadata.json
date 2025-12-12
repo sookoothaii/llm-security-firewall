@@ -1,0 +1,9 @@
+{
+  "creation_date": "2025-12-12",
+  "total_samples": 470,
+  "source_files": [
+    "core_suite.jsonl",
+    "combined_suite.jsonl"
+  ],
+  "purpose": "Holdout test set from existing core suites"
+}

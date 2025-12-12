@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-12-12T18:19:26.466813",
+  "fp_analysis_summary": {
+    "v1_fp_count": 102,
+    "v2_fp_count": 183,
+    "v2_specific_fp_count": 81,
+    "v1_fpr": 53.403141361256544,
+    "v2_fpr": 95.81151832460732
+  },
+  "dataset_info": {
+    "train_samples": 364,
+    "val_samples": 92,
+    "train_malicious": 182,
+    "train_benign": 182,
+    "val_malicious": 46,
+    "val_benign": 46,
+    "train_path": "data\\adversarial_training\\v3_preparation\\code_intent_train_v3.jsonl",
+    "val_path": "data\\adversarial_training\\v3_preparation\\code_intent_val_v3.jsonl"
+  },
+  "recommendations": {
+    "critical_categories": [
+      {
+        "category": "technical_question",
+        "count": 156,
+        "avg_confidence": 0.9817659568328124,
+        "priority": "high"
+      },
+      {
+        "category": "security_education",
+        "count": 11,
+        "avg_confidence": 0.9996249675750732,
+        "priority": "high"
+      },
+      {
+        "category": "unknown",
+        "count": 9,
+        "avg_confidence": 0.9999504089355469,
+        "priority": "medium"
+      },
+      {
+        "category": "best_practice_question",
+        "count": 7,
+        "avg_confidence": 0.9911192059516907,
+        "priority": "medium"
+      }
+    ],
+    "training_samples_needed": {
+      "technical_question": {
+        "min_samples": 312,
+        "recommended_samples": 780,
+        "note": "Need 156 benign examples to counter 156 FPs"
+      },
+      "best_practice_question": {
+        "min_samples": 20,
+        "recommended_samples": 50,
+        "note": "Need 7 benign examples to counter 7 FPs"
+      },
+      "security_education": {
+        "min_samples": 22,
+        "recommended_samples": 55,
+        "note": "Need 11 benign examples to counter 11 FPs"
+      },
+      "unknown": {
+        "min_samples": 20,
+        "recommended_samples": 50,
+        "note": "Need 9 benign examples to counter 9 FPs"
+      }
+    },
+    "data_balance_suggestions": {}
+  }
+}

@@ -1,0 +1,16 @@
+﻿================================================
+LLM SECURITY FIREWALL - BENCHMARK SUMMARY
+================================================
+Date: 2025-12-06 00:36:08
+Duration: 6.5 minutes
+
+RESULTS:
+HarmBench: PASSED (ASR: 15.70%) - Blocked: 0, Allowed: 143
+AdvBench: PASSED (ASR: 30.38%) - Blocked: 1, Allowed: 158
+RealToxicityPrompts: PASSED (ASR: 15.10%) - Blocked: 0, Allowed: 151
+DoNotAnswer: PASSED (ASR: 9.80%) - Blocked: 1, Allowed: 92
+PolygloToxicityPrompts: PASSED (ASR: 33.30%) - Blocked: 6, Allowed: 333
+ToxiGen: PASSED (ASR: 6.80%) - Blocked: 0, Allowed: 68
+HH-RLHF: PASSED (ASR: 33.10%) - Blocked: 1, Allowed: 331
+
+================================================

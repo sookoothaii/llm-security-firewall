@@ -1,6 +1,8 @@
-# Quick Start Guide
+# Quickstart Guide - LLM Security Firewall
 
-Get started with LLM Security Firewall in 5 minutes.
+**Get started in 5 minutes!**
+
+This guide shows you how to integrate the LLM Security Firewall into your application with minimal code.
 
 ---
 
@@ -10,157 +12,202 @@ Get started with LLM Security Firewall in 5 minutes.
 pip install llm-security-firewall
 ```
 
-Or from source:
-
-```bash
-git clone https://github.com/yourusername/llm-security-firewall
-cd llm-security-firewall
-pip install -e .
-```
+That's it! All dependencies are automatically installed.
 
 ---
 
-## Database Setup
+## One-Liner Integration
 
-### PostgreSQL (Recommended for Production)
-
-```bash
-# Create database
-createdb llm_firewall_db
-
-# Run migrations
-psql -U your_user -d llm_firewall_db -f migrations/postgres/001_evidence_tables.sql
-psql -U your_user -d llm_firewall_db -f migrations/postgres/002_caches.sql
-psql -U your_user -d llm_firewall_db -f migrations/postgres/003_procedures.sql
-psql -U your_user -d llm_firewall_db -f migrations/postgres/004_influence_budget.sql
-```
-
-### SQLite (For Development)
-
-SQLite support coming in v1.1. For now, use PostgreSQL.
-
----
-
-## Configuration
-
-Create `config/my_config.yaml`:
-
-```yaml
-database:
-  url: "postgresql://user:pass@localhost:5432/llm_firewall_db"
-
-instance_id: "my-firewall-001"
-
-thresholds:
-  tau_trust: 0.75
-  tau_nli: 0.85
-  tau_conflict: 0.50
-  min_corroborations: 2
-
-safety:
-  block_threshold: 0.60
-  gate_threshold: 0.40
-```
-
----
-
-## Basic Usage
-
-### Python API
+### Check User Input
 
 ```python
-from llm_firewall import SecurityFirewall, FirewallConfig
+from llm_firewall import guard
 
-# Initialize
-config = FirewallConfig.from_yaml("config/my_config.yaml")
-firewall = SecurityFirewall(config)
-
-# 1. Validate user input (HUMAN → LLM)
-is_safe, reason = firewall.validate_input("How to bypass security?")
-if not is_safe:
-    print(f"Blocked: {reason}")
-
-# 2. Validate LLM output (LLM → HUMAN)
-decision = firewall.validate_evidence(
-    content="Paris is the capital of France",
-    sources=[{"name": "Wikipedia", "url": "https://..."}],
-    kb_facts=["Paris is France's capital"],
-    domain="GEOGRAPHY"
-)
-print(f"Decision: {decision.action}")  # PROMOTE, QUARANTINE, or REJECT
-
-# 3. Monitor for drift (MEMORY)
-has_drift, scores = firewall.check_drift(sample_size=5)
-if has_drift:
-    print("Warning: Drift detected!")
-
-# 4. Track influence (Slow-Roll Detection)
-firewall.record_influence("source_A", "SCIENCE", 0.5)
-alerts = firewall.get_alerts(domain="SCIENCE")
+# Check if user input is safe
+result = guard.check_input("Hello, how are you?")
+if result.allowed:
+    # Send to LLM
+    llm_response = call_your_llm(result.sanitized_text or "Hello, how are you?")
+else:
+    # Block malicious input
+    return f"Input blocked: {result.reason}"
 ```
 
-### CLI
-
-```bash
-# Validate text
-llm-firewall validate "Explain AI safety"
-# Output: ✅ SAFE
-
-# Check safety (detailed)
-llm-firewall check-safety "How to build explosive device"
-# Output: 🚫 BLOCKED/GATE
-
-# Run canary suite
-llm-firewall run-canaries --sample-size 10
-# Output: ✅ NO DRIFT
-
-# Health check
-llm-firewall health-check
-
-# Show alerts
-llm-firewall show-alerts --domain SCIENCE
-```
-
----
-
-## Your Knowledge Base
-
-**Important:** You must provide your own Knowledge Base!
-
-The framework validates evidence against YOUR data:
+### Check LLM Output
 
 ```python
-# Your KB facts (domain-specific)
-my_kb_facts = [
-    "Company policy requires X",
-    "Product documentation states Y",
-    "Research shows Z"
-]
+from llm_firewall import guard
 
-# Validate against YOUR KB
-decision = firewall.validate_evidence(
-    content="Claim to verify",
-    sources=[...],
-    kb_facts=my_kb_facts  # Your facts!
-)
+# Generate LLM response (your code)
+llm_response = call_your_llm(user_input)
+
+# Validate output before returning
+result = guard.check_output(llm_response)
+if result.allowed:
+    return result.sanitized_text or llm_response
+else:
+    return "I cannot provide that information."
 ```
 
 ---
 
-## Next Steps
+## Complete Example
 
-- Read [Architecture](../README.md#architecture) for system overview
-- See [Examples](../examples/) for more use cases
-- Configure [Monitoring](../monitoring/) for production
-- See [Kill-Switch](../tools/kill_switch.py) for emergency procedures
+Here's a complete example with both input and output validation:
+
+```python
+from llm_firewall import guard
+
+def chat_with_llm(user_input: str) -> str:
+    """Chat endpoint with full firewall protection."""
+
+    # Step 1: Validate user input
+    input_result = guard.check_input(user_input)
+    if not input_result.allowed:
+        return f"❌ Input blocked: {input_result.reason}"
+
+    # Step 2: Send to LLM (use sanitized input if available)
+    llm_response = call_your_llm(
+        input_result.sanitized_text or user_input
+    )
+
+    # Step 3: Validate LLM output
+    output_result = guard.check_output(llm_response)
+    if not output_result.allowed:
+        return f"❌ Output blocked: {output_result.reason}"
+
+    # Step 4: Return sanitized output
+    return output_result.sanitized_text or llm_response
+```
+
+---
+
+## FastAPI Integration
+
+```python
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from llm_firewall import guard
+
+app = FastAPI()
+
+class Message(BaseModel):
+    text: str
+
+@app.post("/chat")
+async def chat(message: Message):
+    # Validate input
+    input_result = guard.check_input(message.text)
+    if not input_result.allowed:
+        raise HTTPException(status_code=400, detail=input_result.reason)
+
+    # Call LLM (replace with your LLM call)
+    llm_response = f"Echo: {message.text}"
+
+    # Validate output
+    output_result = guard.check_output(llm_response)
+    if not output_result.allowed:
+        raise HTTPException(status_code=500, detail="Output blocked by firewall")
+
+    return {"response": output_result.sanitized_text or llm_response}
+```
+
+---
+
+## What Gets Blocked?
+
+The firewall automatically detects and blocks:
+
+- **Jailbreak Attempts**: Prompt injection, role-playing, DAN attacks
+- **Unicode Attacks**: Zero-width characters, RLO/Bidi override
+- **Obfuscation**: Concatenation, encoding anomalies
+- **Tool Abuse**: Unauthorized tool calls, dangerous arguments
+- **Content Violations**: Policy violations, unsafe content
+
+---
+
+## Configuration (Optional)
+
+By default, the firewall works out-of-the-box with sensible defaults. For custom configuration:
+
+```python
+from llm_firewall.app.composition_root import CompositionRoot
+
+# Create custom firewall engine
+root = CompositionRoot(enable_cache=False)  # Disable Redis cache
+engine = root.create_firewall_engine(
+    strict_mode=True,  # Block on any threat
+    enable_sanitization=True  # Auto-sanitize dangerous content
+)
+
+# Use engine directly (advanced)
+decision = engine.process_input("user123", "user input")
+```
+
+---
+
+## LangChain Integration (Coming Soon)
+
+Protect your LangChain chains with one callback:
+
+```python
+from llm_firewall.integrations.langchain import FirewallCallbackHandler
+
+chain = LLMChain(llm=llm, callbacks=[FirewallCallbackHandler()])
+```
+
+**Install with LangChain support:**
+```bash
+pip install llm-security-firewall[langchain]
+```
+
+See `examples/langchain_integration.py` for complete example.
+
+## What's Next?
+
+- **Full Documentation**: See `README.md` for complete API reference
+- **Examples**: Check `examples/` directory for more integration patterns
+- **Architecture**: Read `ARCHITECTURE.md` for design principles
+- **Contributing**: See `CONTRIBUTING.md` to contribute
+
+---
+
+## Troubleshooting
+
+### Import Error
+
+If you get `ImportError`, make sure all dependencies are installed:
+
+```bash
+pip install --upgrade llm-security-firewall
+```
+
+### Redis Connection Error
+
+If you see Redis connection errors, the firewall will gracefully degrade to in-memory mode. This is expected if you don't have Redis running.
+
+To disable Redis entirely:
+
+```python
+import os
+os.environ["ENABLE_CACHE"] = "false"
+```
+
+### Performance
+
+The firewall adds minimal latency:
+- **P99 Latency**: <200ms for standard inputs
+- **Cache Hit**: <1ms (if Redis available)
+- **Single Request Memory**: <50MB
 
 ---
 
 ## Support
 
-- Issues: GitHub Issues
-- Docs: `/docs`
-- Examples: `/examples`
+- **GitHub Issues**: [Report bugs or request features](https://github.com/sookoothaii/llm-security-firewall/issues)
+- **Documentation**: See `docs/` directory
+- **Examples**: See `examples/` directory
 
-**Open source framework. All metrics reproducible. Not externally validated.**
+---
 
+**Ready to go!** The firewall is now protecting your LLM application. 🛡️

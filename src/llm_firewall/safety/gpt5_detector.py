@@ -209,9 +209,10 @@ class GPT5Detector:
 
         except Exception as e:
             logger.error(f"GPT5Detector error: {e}", exc_info=True)
+            # Fail-closed: Return maximum risk score on component failure
             return {
-                "risk_score": 0.0,
-                "reason": f"GPT5Detector error: {e}",
-                "blocked": False,
-                "details": {"error": str(e)},
+                "risk_score": 1.0,
+                "reason": f"GPT5Detector internal failure: {e}",
+                "blocked": True,
+                "details": {"error": str(e), "fail_closed": True},
             }

@@ -1,0 +1,26 @@
+# SERVICES STARTEN
+
+# Terminal 1 - Code Intent:
+cd detectors\code_intent_service
+pip install -r requirements.txt
+uvicorn main:app --port 8001
+
+# Terminal 2 - Persuasion:
+cd detectors\persuasion_service
+pip install -r requirements.txt
+uvicorn main:app --port 8002
+
+# HEALTH CHECK
+curl http://localhost:8001/health
+curl http://localhost:8002/health
+
+# SERVICES TESTEN
+cd detectors
+python test_client.py
+
+# INTEGRATION TESTEN
+cd detectors
+python test_integration.py
+
+# SERVICES STOPPEN (PowerShell)
+Get-Process | Where-Object {$_.ProcessName -like "*python*"} | Stop-Process -Force

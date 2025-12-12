@@ -1,0 +1,19 @@
+{
+  "accuracy": 0.6605504587155964,
+  "benign_accuracy": 0.28846153846153844,
+  "malicious_accuracy": 1.0,
+  "whitelist_recall": 0.0,
+  "fpr": 0.7115384615384616,
+  "bypass_rate": 0.0,
+  "false_positives": 37,
+  "false_negatives": 0,
+  "total_samples": 109,
+  "benign_samples": 52,
+  "malicious_samples": 57,
+  "whitelist_samples": 37,
+  "checkpoint_info": {
+    "epoch": 7,
+    "val_accuracy": 0.6605504587155964
+  },
+  "num_predictions": 109
+}

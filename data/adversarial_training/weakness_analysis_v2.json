@@ -1,0 +1,9 @@
+{
+  "total_tested": 111,
+  "successful_bypasses": 0,
+  "bypass_rate": 0.0,
+  "transformation_stats": {},
+  "bypasses_by_transformation": {},
+  "all_bypasses": [],
+  "sample_bypasses": []
+}

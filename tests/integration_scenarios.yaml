@@ -1,0 +1,160 @@
+# Integration Test Scenarios - Orchestrator Service
+# ==================================================
+#
+# YAML-basierte Test-Szenarien für Integrationstests.
+
+scenarios:
+  - name: "Happy Path - Normal Request"
+    description: "Standard-Anfrage ohne Risiko"
+    steps:
+      - request:
+          endpoint: "/api/v1/route-and-detect"
+          method: POST
+          body:
+            text: "Explain quantum computing"
+            context:
+              source_tool: "general"
+              user_risk_tier: 1
+        expected:
+          status: 200
+          response_time: "< 100ms"
+          detectors: ["content_safety"]
+          final_decision: false
+          risk_score: "< 0.3"
+
+  - name: "High Risk Code"
+    description: "Gefährlicher Code sollte blockiert werden"
+    steps:
+      - request:
+          endpoint: "/api/v1/route-and-detect"
+          method: POST
+          body:
+            text: "system('format C:')"
+            context:
+              source_tool: "code_interpreter"
+              user_risk_tier: 3
+        expected:
+          status: 200
+          detectors: ["code_intent", "content_safety"]
+          final_decision: true
+          risk_score: "> 0.5"
+
+  - name: "SQL Injection Detection"
+    description: "SQL Injection sollte erkannt werden"
+    steps:
+      - request:
+          endpoint: "/api/v1/route-and-detect"
+          method: POST
+          body:
+            text: "SELECT * FROM users; DROP TABLE users;"
+            context:
+              source_tool: "general"
+              user_risk_tier: 1
+        expected:
+          status: 200
+          final_decision: true
+          risk_score: "> 0.5"
+
+  - name: "XSS Detection"
+    description: "XSS-Angriffe sollten erkannt werden"
+    steps:
+      - request:
+          endpoint: "/api/v1/route-and-detect"
+          method: POST
+          body:
+            text: "<script>alert('xss')</script>"
+            context:
+              source_tool: "general"
+              user_risk_tier: 1
+        expected:
+          status: 200
+          final_decision: true
+          risk_score: "> 0.5"
+
+  - name: "Multilingual Attack"
+    description: "Mehrsprachige Angriffe sollten erkannt werden"
+    steps:
+      - request:
+          endpoint: "/api/v1/route-and-detect"
+          method: POST
+          body:
+            text: "混合语言攻击测试"
+            context:
+              source_tool: "general"
+              user_risk_tier: 1
+        expected:
+          status: 200
+          # Kann benign sein, je nach Inhalt
+          risk_score: ">= 0.0"
+
+  - name: "Feedback Loop"
+    description: "Feedback-Submission sollte funktionieren"
+    steps:
+      - request:
+          endpoint: "/api/v1/route-and-detect"
+          method: POST
+          body:
+            text: "test request"
+            context:
+              source_tool: "general"
+              user_risk_tier: 1
+        expected:
+          status: 200
+      - request:
+          endpoint: "/api/v1/learning/feedback"
+          method: POST
+          body:
+            request_id: "test_123"
+            correct_decision: true
+            feedback_type: "human"
+        expected:
+          status: 200
+          expected_impact: "policy_adjustment"
+
+  - name: "Learning Metrics"
+    description: "Learning-Metriken sollten verfügbar sein"
+    steps:
+      - request:
+          endpoint: "/api/v1/learning/metrics"
+          method: GET
+        expected:
+          status: 200
+          fields: ["total_feedback", "false_positives", "false_negatives"]
+
+  - name: "Monitoring Health Check"
+    description: "Health-Check sollte System-Status liefern"
+    steps:
+      - request:
+          endpoint: "/api/v1/health"
+          method: GET
+        expected:
+          status: 200
+          fields: ["status", "components", "timestamp"]
+
+  - name: "Monitoring Metrics"
+    description: "Metriken-Endpoint sollte Prometheus-Format liefern"
+    steps:
+      - request:
+          endpoint: "/api/v1/metrics"
+          method: GET
+        expected:
+          status: 200
+          content_type: "text/plain"
+          contains: ["router_requests_total", "detector_calls_total"]
+
+  - name: "Concurrent Requests"
+    description: "Mehrere gleichzeitige Requests sollten funktionieren"
+    steps:
+      - concurrent_requests:
+          count: 10
+          endpoint: "/api/v1/route-and-detect"
+          method: POST
+          body:
+            text: "concurrent test"
+            context:
+              source_tool: "general"
+              user_risk_tier: 1
+        expected:
+          all_status: 200
+          max_response_time: "< 500ms"
+

@@ -82,7 +82,7 @@ RC9_FPR3_COMPLETION_REPORT.md
 # Local documentation (not for GitHub)
 CONSOLIDATION_*.md
 SESSION_*.md
-HANDOVER_*.md
+*HANDOVER*.md
 TECHNICAL_HANDOVER_*.md
 STATUS.md
 PERSUASION_FILTER_*.md
@@ -100,6 +100,23 @@ SECURITY_CLEANUP.md
 GO_NO_GO_REPORT.md
 FINAL_GO_NO_GO.md
 DECISION_CACHE_IMPLEMENTATION.md
+
+# Session/Phase documentation (internal)
+*_COMPLETE*.md
+*_RESULTS*.md
+*_STATUS*.md
+*_REPORT*.md
+*_FINDINGS*.md
+*_ANALYSIS*.md
+*_FIX*.md
+*_DEBUG*.md
+PHASE_*.md
+BATTLE*.md
+BYPASS*.md
+
+# Dated documentation (temporary)
+*_2025_*.md
+*_2024_*.md
 
 # Temporary test/benchmark files
 perfect_storm_*.json
@@ -122,6 +139,28 @@ test_compare_mock.json
 docs/cache_benchmark.md
 docs/*_benchmark*.md
 
+# Test results in root (should be in results/ or test_results/)
+*_results_*.json
+*_bypass_*.json
+*_red_team_*.json
+*_test_*.json
+*_challenge_*.json
+*_validation_*.json
+traffic_generator*.json
+traffic_generator*.log
+
+# Temporary German documentation
+PROBLEM_*.md
+TEST_*.md
+*_ZUSAMMENFASSUNG.md
+*_ERGEBNISSE.md
+*_GELOEST.md
+
+# Temporary service/git documentation
+START_SERVICES_*.md
+GIT_PUSH_*.md
+test_api_direct.py
+
 # Local test scripts with credentials (not for GitHub)
 scripts/test_langcache_connection.py
 scripts/test_langcache_sdk.py
@@ -136,3 +175,9 @@ models/**/*.pt
 models/**/*.pth
 models/**/*.h5
 models/**/*.ckpt
+
+# Embedded git repositories (use submodules if needed)
+datasets/advbench/
+datasets/polyglotoxicityprompts/
+misc/polyglo-toxicity-prompts/
+tests/benchmarks/harmbench/

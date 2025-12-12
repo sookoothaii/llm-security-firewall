@@ -1,0 +1,9 @@
+{
+  "model_path": "models/code_intent_adversarial_v2/best_model.pt",
+  "calibration_method": "temperature",
+  "calibration_params": {
+    "temperature": 1.9098542928695679
+  },
+  "calibration_samples": 282,
+  "device": "cpu"
+}
