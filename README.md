@@ -1,42 +1,95 @@
-# Code Intent Detection Module
+# LLM Security Firewall - Microservices Architecture
 
 **Branch:** `feature/code-intent-detection-standalone`  
 **Parent Project:** [LLM Security Firewall v2.5.0](https://github.com/sookoothaii/llm-security-firewall)  
-**Status:** Development branch for experimental standalone module
+**Status:** Development branch with microservices architecture  
+**Architecture:** Hexagonal Architecture with Self-Learning Capabilities
 
 > **Development Branch Notice**  
-> This is an active development branch for evolving the Code Intent Detection system. Code here may be unstable. For production use, see the main project or future releases.
+> This branch contains a microservices-based implementation of the LLM Security Firewall with specialized detector services and self-learning capabilities. Code here may be unstable. For production use, see the main project or future releases.
 
 ## Overview
 
-This module provides specialized detection of malicious code execution intents in LLM interactions. It implements a hybrid approach combining 10 rule-based validators, machine learning models (CNN, CodeBERT), and a pattern-based rule engine.
+The LLM Security Firewall is a comprehensive security system for protecting LLM interactions from malicious inputs. This implementation uses a microservices architecture with specialized detector services, an orchestrator for request routing, and self-learning capabilities for continuous improvement.
 
-The system operates as a standalone FastAPI service with a clean hexagonal architecture and can be integrated into larger security frameworks. It does not guarantee complete protection and should be used as part of a broader security strategy.
+The system operates as multiple independent FastAPI services with clean hexagonal architecture and can be integrated into larger security frameworks. It does not guarantee complete protection and should be used as part of a broader security strategy.
+
+## Microservices Architecture
+
+The system consists of 5 microservices:
+
+| Service | Port | Purpose | Status |
+|---------|------|---------|--------|
+| **Code Intent Service** | 8000 | Detects malicious code execution intents | Production-ready |
+| **Orchestrator Service** | 8001 | Routes requests, aggregates results, manages self-learning | Production-ready |
+| **Persuasion Detector** | 8002 | Detects persuasion and manipulation attempts | Production-ready |
+| **Content Safety Detector** | 8003 | Content safety and policy enforcement | Production-ready |
+| **Learning Monitor Service** | 8004 | Advanced monitoring dashboard (optional) | Optional |
 
 ## Architecture
 
-The module implements a clean, hexagonal architecture with clear separation of concerns:
+### Microservices Architecture
 
-**Domain Layer** (`detectors/code_intent_service/domain/`)
+All services implement a clean hexagonal architecture with clear separation of concerns:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Client Applications                      │
+└───────────────────────┬─────────────────────────────────────┘
+                        │
+                        ▼
+            ┌───────────────────────┐
+            │  Orchestrator Service │  Port 8001
+            │  (Route & Aggregate)   │
+            └───────┬───────────────┘
+                    │
+        ┌───────────┼───────────┐
+        │           │           │
+        ▼           ▼           ▼
+┌───────────┐ ┌───────────┐ ┌───────────┐
+│ Code      │ │ Persuasion│ │ Content   │
+│ Intent    │ │ Detector  │ │ Safety    │
+│ Port 8000 │ │ Port 8002 │ │ Port 8003 │
+└───────────┘ └───────────┘ └───────────┘
+        │
+        ▼
+┌───────────────────────┐
+│ Learning Monitor      │  Port 8004 (Optional)
+│ (Dashboard & Alerts)  │
+└───────────────────────┘
+```
+
+### Hexagonal Architecture Layers
+
+Each service follows the same architectural pattern:
+
+**Domain Layer** (`domain/`)
 - Entities: `DetectionResult`, `FeedbackSample`
-- Value Objects: `RiskScore`
-- Ports/Protocols: `DetectionServicePort`, `RuleEnginePort`, `BenignValidatorPort`
+- Value Objects: `RiskScore`, `ServiceStatus`, `Alert`
+- Ports/Protocols: Service-specific ports (e.g., `DetectionServicePort`, `ServiceMonitorPort`)
 
-**Application Layer** (`detectors/code_intent_service/application/`)
-- Services: `DetectionServiceImpl` (orchestrates validators, ML, rules)
-- Use Cases: Hybrid decision logic with adaptive scoring
+**Application Layer** (`application/`)
+- Services: Business logic orchestration
+- Use Cases: Application-specific workflows
 
-**Infrastructure Layer** (`detectors/code_intent_service/infrastructure/`)
-- Validators: 10 specialized benign validators (QuestionContext, Greeting, etc.)
-- ML Adapters: CNN, CodeBERT, and Rule-based fallback classifiers
-- Rule Engine: Pattern matching with 15+ detection patterns
-- Repositories: Redis (cache), PostgreSQL (persistent), Hybrid feedback storage
+**Infrastructure Layer** (`infrastructure/`)
+- Adapters: ML models, rule engines, repositories
+- Configuration: Environment-based settings
+- Composition Root: Dependency injection
 
-**API Layer** (`detectors/code_intent_service/api/`)
-- Controllers: FastAPI REST endpoints (`/detect`, `/feedback`, `/health`)
-- Documentation: Automatic OpenAPI/Swagger UI at `/docs`
+**API Layer** (`api/`)
+- Controllers: FastAPI REST endpoints
+- Routes: Request routing and validation
+- Documentation: Automatic OpenAPI/Swagger UI
 
-## Installation
+### Shared Components
+
+All services use shared components from `detectors/shared/`:
+- Shared domain models
+- Shared API middleware
+- Shared infrastructure patterns
+
+## Quick Start
 
 ### Prerequisites
 
@@ -44,23 +97,62 @@ The module implements a clean, hexagonal architecture with clear separation of c
 - Redis (optional, for caching and feedback storage)
 - PostgreSQL (optional, for persistent feedback storage)
 
-### Setup
+### Installation
 
 ```bash
-# Clone and navigate to the repository root
+# Clone repository
 git clone -b feature/code-intent-detection-standalone \
   https://github.com/sookoothaii/llm-security-firewall.git
 cd llm-security-firewall
 
-# Install dependencies for the code intent service
+# Install dependencies for all services
 pip install -r detectors/code_intent_service/requirements.txt
+pip install -r detectors/orchestrator/requirements.txt  # If available
+```
 
-# Setup environment
+### Starting Services
+
+**1. Code Intent Service (Port 8000)**
+```bash
 cd detectors/code_intent_service
 python setup_env_complete.py
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8000
+```
 
-# Start the API server
-python -m uvicorn api.main:app --reload --port 8000
+**2. Orchestrator Service (Port 8001)**
+```bash
+cd detectors/orchestrator
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8001
+```
+
+**3. Persuasion Detector (Port 8002)**
+```bash
+cd detectors/persuasion_service
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8002
+```
+
+**4. Content Safety Detector (Port 8003)**
+```bash
+cd detectors/content_safety_service
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8003
+```
+
+**5. Learning Monitor Service (Port 8004, Optional)**
+```bash
+cd detectors/learning_monitor_service
+python api/main.py
+# Or: uvicorn api.main:app --host 0.0.0.0 --port 8004
+```
+
+### Service Verification
+
+```bash
+# Check all services
+curl http://localhost:8000/api/v1/health  # Code Intent
+curl http://localhost:8001/api/v1/health  # Orchestrator
+curl http://localhost:8002/api/v1/health  # Persuasion
+curl http://localhost:8003/api/v1/health  # Content Safety
+curl http://localhost:8004/health         # Learning Monitor
 ```
 
 ### Environment Configuration
@@ -74,29 +166,80 @@ Key environment variables (see `detectors/code_intent_service/ENV_SETUP.md` for 
 
 ## API Usage
 
-### Detection Endpoint
+### Primary Endpoint: Orchestrator Service
+
+The Orchestrator Service (Port 8001) is the main entry point for all detection requests:
 
 ```python
 import requests
 
 response = requests.post(
-    "http://localhost:8000/api/v1/detect",
-    json={"text": "user input text"}
+    "http://localhost:8001/api/v1/route-and-detect",
+    json={
+        "text": "user input text",
+        "context": {},
+        "source_tool": "test",
+        "user_risk_tier": 1,
+        "session_risk_score": 0.0
+    }
 )
 result = response.json()
+# Returns: {"blocked": bool, "risk_score": float, "detector_results": {...}}
 ```
 
-### Health Check
+### Direct Detector Access
+
+You can also access individual detector services directly:
+
+**Code Intent Service (Port 8000)**
+```python
+response = requests.post(
+    "http://localhost:8000/api/v1/detect",
+    json={"text": "user input text", "context": {}, ...}
+)
+```
+
+### Self-Learning: Feedback Submission
+
+Submit false negatives for automatic learning:
+
+```python
+# Submit false negative to Code Intent Service
+response = requests.post(
+    "http://localhost:8000/api/v1/feedback/submit",
+    json={
+        "text": "malicious code that was missed",
+        "correct_label": 1,  # 1 = malicious
+        "original_prediction": 0.3,
+        "feedback_type": "false_negative"
+    }
+)
+
+# Or submit via Orchestrator (recommended)
+response = requests.post(
+    "http://localhost:8001/api/v1/feedback/submit",
+    json={...}
+)
+```
+
+### Learning Metrics
+
+Check self-learning statistics:
 
 ```bash
-curl http://localhost:8000/api/v1/health
+# Orchestrator learning metrics
+curl http://localhost:8001/api/v1/learning/metrics
+
+# Code Intent feedback stats
+curl http://localhost:8000/api/v1/feedback/stats
 ```
 
 ### API Documentation
 
 Interactive API documentation available at:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+- Code Intent: `http://localhost:8000/docs`
+- Orchestrator: `http://localhost:8001/docs`
+- Learning Monitor Dashboard: `http://localhost:8004/dashboard`
 
 ## Detection Methods
 
@@ -135,16 +278,33 @@ The system includes 10 specialized benign validators:
 
 ## Performance Characteristics
 
+### Individual Services
+
+| Service | Latency | Memory | Notes |
+|---------|---------|--------|-------|
+| **Code Intent** | <50ms | ~150 MB | Without ML models (+500-800 MB with models) |
+| **Orchestrator** | <100ms | ~100 MB | Includes aggregation overhead |
+| **Persuasion** | <30ms | ~80 MB | Rule-based detection |
+| **Content Safety** | <30ms | ~80 MB | Policy enforcement |
+| **Learning Monitor** | <10ms | ~50 MB | Dashboard and monitoring |
+
+### End-to-End Performance
+
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Detection Latency** | <50ms | Complete pipeline (10 validators + ML + rules) |
-| **API Response Time** | <100ms | Including network overhead |
-| **Memory Baseline** | ~150 MB | Without ML models loaded |
-| **ML Model Memory** | +500-800 MB | Per model when loaded (CodeBERT/CNN) |
-| **Redis Operations** | <5ms | Feedback caching and session management |
-| **PostgreSQL Operations** | <15ms | Persistent feedback storage |
+| **Orchestrator Request** | <150ms | Full pipeline (routing + detection + aggregation) |
+| **Feedback Submission** | <10ms | In-memory, <20ms with PostgreSQL |
+| **Learning Metrics Query** | <5ms | In-memory aggregation |
+| **WebSocket Updates** | 5s interval | Configurable in Learning Monitor |
 
-Note: Measurements from test environment. Actual performance may vary based on hardware and configuration.
+### Resource Usage
+
+- **Total Memory (All Services):** ~460 MB baseline, +500-800 MB with ML models
+- **Redis Operations:** <5ms (caching and feedback storage)
+- **PostgreSQL Operations:** <15ms (persistent feedback storage)
+- **Network Overhead:** <10ms per service call
+
+Note: Measurements from test environment. Actual performance may vary based on hardware, network latency, and configuration.
 
 ## Known Limitations
 
@@ -156,7 +316,13 @@ Note: Measurements from test environment. Actual performance may vary based on h
 
 4. **Feedback Collection:** Requires Redis or PostgreSQL for persistent storage. Memory-only mode is available for development.
 
-5. **Online Learning:** Online learning feature is experimental and requires model fine-tuning capabilities.
+5. **Online Learning:** Online learning feature is experimental and requires model fine-tuning capabilities. Background learning thread runs automatically if enabled.
+
+6. **Service Dependencies:** Orchestrator requires all detector services to be running for full functionality. Individual services can operate independently.
+
+7. **Learning Monitor:** Optional service. Core learning functionality works without it (via Orchestrator API).
+
+8. **Scalability:** Current implementation is single-instance. Horizontal scaling requires shared state (Redis/PostgreSQL) for feedback repositories.
 
 ## Testing
 
@@ -188,11 +354,62 @@ python detectors/code_intent_service/scripts/test_feedback_integration.py
 python detectors/code_intent_service/test_block_rate.py
 ```
 
+## Self-Learning System
+
+The firewall includes an integrated self-learning system:
+
+1. **Feedback Collection:** False negatives and false positives are collected via `/api/v1/feedback/submit`
+2. **Policy Optimization:** The Orchestrator's `AdaptivePolicyOptimizer` automatically adjusts:
+   - Detection thresholds
+   - Detector selection
+   - Execution strategy (sequential/parallel)
+   - Timeouts
+3. **Learning Metrics:** Monitor learning progress via `/api/v1/learning/metrics` (Orchestrator) or `/api/v1/feedback/stats` (Code Intent)
+
+**Documentation:** See `docs/SELF_LEARNING_HANDOVER.md` for detailed technical documentation.
+
+## Service Details
+
+### Code Intent Service (Port 8000)
+
+Specialized detection of malicious code execution intents:
+- 10 rule-based benign validators
+- ML models: CNN, CodeBERT
+- Pattern-based rule engine
+- Feedback collection and online learning
+
+**Documentation:** `detectors/code_intent_service/README.md`
+
+### Orchestrator Service (Port 8001)
+
+Central routing and aggregation service:
+- Routes requests to appropriate detectors
+- Aggregates detection results
+- Manages self-learning and policy optimization
+- Provides unified API interface
+
+**Documentation:** `docs/SELF_LEARNING_HANDOVER.md`
+
+### Learning Monitor Service (Port 8004, Optional)
+
+Advanced monitoring dashboard:
+- Real-time service status monitoring
+- WebSocket-based live updates
+- Alert generation
+- Historical tracking
+
+**Documentation:** `detectors/learning_monitor_service/HANDOVER.md`
+
 ## Relationship to Parent Project
 
-This module originated from the LLM Security Firewall as a specialized subsystem for detecting malicious code execution intents. While it shares architectural principles (hexagonal design, protocol-based adapters), it focuses specifically on code intent detection rather than general LLM security.
+This microservices implementation originated from the LLM Security Firewall as an evolution of the monolithic architecture. While it shares architectural principles (hexagonal design, protocol-based adapters), it provides:
 
-The module maintains compatibility with the parent project's architecture patterns but operates as an independent service.
+- **Better Scalability:** Independent scaling of detector services
+- **Self-Learning:** Automatic policy optimization based on feedback
+- **Modularity:** Each service can be developed and deployed independently
+- **Monitoring:** Optional advanced monitoring dashboard
+
+The services maintain compatibility with the parent project's architecture patterns while operating as independent microservices that can be integrated into larger security ecosystems.
 
 ## Future Evolution
 

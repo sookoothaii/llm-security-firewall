@@ -66,6 +66,27 @@ python setup_env_complete.py
 
 # Start the API server
 python -m uvicorn api.main:app --reload --port 8000
+
+# Or use the PowerShell startup script
+.\start_api.ps1
+```
+
+### Startup Verification
+
+After starting the service, verify it's running:
+
+```bash
+# Health check
+curl http://localhost:8000/api/v1/health
+
+# Service info
+curl http://localhost:8000/
+```
+
+The service performs automatic warm-up on startup:
+- Detection service initialization
+- Warm-up test detection
+- Online learning thread start (if enabled)
 ```
 
 ### Environment Configuration
@@ -77,6 +98,10 @@ Key configuration variables:
 - `DETECTION_USE_CODEBERT`: Enable CodeBERT model (default: true)
 - `DETECTION_ENABLE_RULE_ENGINE`: Enable rule-based detection (default: true)
 - `DETECTION_FEEDBACK_REPOSITORY_TYPE`: Repository type (memory, redis, postgres, hybrid)
+- `DETECTION_ENABLE_FEEDBACK_COLLECTION`: Enable feedback collection (default: true)
+- `DETECTION_ENABLE_ONLINE_LEARNING`: Enable online learning background thread (default: false)
+- `DETECTION_ONLINE_LEARNING_INTERVAL`: Learning cycle interval in seconds (default: 30)
+- `DETECTION_FEEDBACK_BUFFER_SIZE`: Maximum feedback samples in buffer (default: 1000)
 
 ## API Usage
 
@@ -87,15 +112,58 @@ import requests
 
 response = requests.post(
     "http://localhost:8000/api/v1/detect",
-    json={"text": "user input text"}
+    json={
+        "text": "user input text",
+        "context": {},
+        "source_tool": "test",
+        "user_risk_tier": 1,
+        "session_risk_score": 0.0
+    }
 )
 result = response.json()
+# Returns: {"blocked": bool, "risk_score": float, "detector_results": {...}}
 ```
 
 ### Health Check
 
 ```bash
+# Basic health check
 curl http://localhost:8000/api/v1/health
+
+# Repository health checks
+curl http://localhost:8000/api/v1/health/repositories
+curl http://localhost:8000/api/v1/health/redis
+curl http://localhost:8000/api/v1/health/postgres
+```
+
+### Feedback Endpoints
+
+```python
+# Get feedback statistics
+response = requests.get("http://localhost:8000/api/v1/feedback/stats")
+stats = response.json()
+# Returns: total_samples, blocked_samples, false_positives, false_negatives, etc.
+
+# Submit false negative feedback
+response = requests.post(
+    "http://localhost:8000/api/v1/feedback/submit",
+    json={
+        "text": "malicious code that was missed",
+        "correct_label": 1,  # 1 = malicious, 0 = benign
+        "original_prediction": 0.3,  # Original risk score
+        "feedback_type": "false_negative",
+        "metadata": {"source": "manual_review"}
+    }
+)
+
+# Get false negatives for retraining
+response = requests.get("http://localhost:8000/api/v1/feedback/false-negatives?limit=1000")
+
+# Get false positives for retraining
+response = requests.get("http://localhost:8000/api/v1/feedback/false-positives?limit=1000")
+
+# Get high-risk samples
+response = requests.get("http://localhost:8000/api/v1/feedback/high-risk?threshold=0.7&limit=100")
 ```
 
 ### API Documentation
@@ -103,6 +171,7 @@ curl http://localhost:8000/api/v1/health
 Interactive API documentation available at:
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
+- OpenAPI JSON: `http://localhost:8000/openapi.json`
 
 ## Detection Methods
 
@@ -149,6 +218,8 @@ The system includes 10 specialized benign validators:
 | **ML Model Memory** | +500-800 MB | Per model when loaded (CodeBERT/CNN) |
 | **Redis Operations** | <5ms | Feedback caching and session management |
 | **PostgreSQL Operations** | <15ms | Persistent feedback storage |
+| **Feedback Submission** | <10ms | In-memory or Redis, <20ms with PostgreSQL |
+| **Online Learning Cycle** | 5-30 seconds | Background thread, configurable interval |
 
 Note: Measurements from test environment. Actual performance may vary based on hardware and configuration.
 
@@ -162,7 +233,9 @@ Note: Measurements from test environment. Actual performance may vary based on h
 
 4. **Feedback Collection:** Requires Redis or PostgreSQL for persistent storage. Memory-only mode is available for development.
 
-5. **Online Learning:** Online learning feature is experimental and requires model fine-tuning capabilities.
+5. **Online Learning:** Online learning feature is experimental and requires model fine-tuning capabilities. Background learning thread runs automatically if enabled via `DETECTION_ENABLE_ONLINE_LEARNING=true`.
+
+6. **Integration with Orchestrator:** This service integrates with the Orchestrator Service (Port 8001) for self-learning capabilities. False negatives can be automatically submitted to the Orchestrator's learning system via `/api/v1/feedback/submit` endpoint.
 
 ## Testing
 
@@ -194,11 +267,36 @@ python scripts/test_feedback_integration.py
 python test_block_rate.py
 ```
 
+## Integration with LLM Security Firewall
+
+This service is part of the LLM Security Firewall microservices architecture:
+
+- **Code Intent Service (Port 8000):** This service - specialized code intent detection
+- **Orchestrator Service (Port 8001):** Routes requests, aggregates detector results, manages self-learning
+- **Persuasion Detector (Port 8002):** Detects persuasion and manipulation attempts
+- **Content Safety Detector (Port 8003):** Content safety and policy enforcement
+- **Learning Monitor Service (Port 8004, optional):** Advanced monitoring dashboard
+
+### Self-Learning Integration
+
+The service integrates with the Orchestrator's self-learning system:
+
+1. **False Negative Submission:** When a false negative is detected, submit feedback via `/api/v1/feedback/submit`
+2. **Automatic Learning:** The Orchestrator (Port 8001) collects feedback and optimizes detection policies
+3. **Policy Updates:** Detection thresholds and strategies are automatically adjusted based on feedback
+
+### Shared Components
+
+The service uses shared components from `detectors/shared/`:
+- Shared domain models (RiskScore, DetectionResult)
+- Shared API middleware (LoggingMiddleware, ErrorHandlerMiddleware)
+- Shared infrastructure patterns (BaseCompositionRoot)
+
 ## Relationship to Parent Project
 
 This module originated from the LLM Security Firewall as a specialized subsystem for detecting malicious code execution intents. While it shares architectural principles (hexagonal design, protocol-based adapters), it focuses specifically on code intent detection rather than general LLM security.
 
-The module maintains compatibility with the parent project's architecture patterns but operates as an independent service.
+The module maintains compatibility with the parent project's architecture patterns but operates as an independent service that can be integrated into the larger firewall ecosystem.
 
 ## Future Evolution
 
