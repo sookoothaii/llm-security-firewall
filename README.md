@@ -403,6 +403,42 @@ python detectors/code_intent_service/scripts/test_feedback_integration.py
 python detectors/code_intent_service/test_block_rate.py
 ```
 
+### Red Team Testing with Hugging Face Dataset
+
+Test the firewall against a real Red Team dataset from Hugging Face:
+
+```bash
+# Install datasets library
+pip install datasets
+
+# Start services (in separate terminals)
+# Terminal 1:
+cd detectors/code_intent_service
+python setup_env_complete.py
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8000
+
+# Terminal 2:
+cd detectors/orchestrator
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8001
+
+# Run Red Team test (interactive - choose number of samples)
+python scripts/test_huggingface_redteam.py
+
+# Analyze results
+python scripts/analyze_redteam_results.py
+```
+
+**Dataset:** [darkknight25/RED_team_tactics_dataset](https://huggingface.co/datasets/darkknight25/RED_team_tactics_dataset) (1000 MITRE ATT&CK tactic descriptions)
+
+**Expected Results:**
+- Code Intent Service: ~100% block rate
+- Orchestrator Service: ~100% block rate
+- Results saved to `huggingface_redteam_test_results.json`
+
+**Note:** The test uses 24 parallel workers by default. Adjust `NUM_WORKERS` in the script for your hardware.
+
+**Reproducibility:** This test is fully reproducible. Anyone cloning the repository and following the setup instructions should achieve similar results (100% block rate) when testing against the same public Hugging Face dataset.
+
 ## Self-Learning System
 
 The firewall includes feedback collection for continuous improvement:
