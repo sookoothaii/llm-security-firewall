@@ -2,17 +2,17 @@
 
 **Branch:** `feature/code-intent-detection-standalone`  
 **Parent Project:** [LLM Security Firewall v2.5.0](https://github.com/sookoothaii/llm-security-firewall)  
-**Status:** Development branch with microservices architecture  
-**Architecture:** Hexagonal Architecture with Self-Learning Capabilities
+**Status:** Beta - Development branch for controlled environments  
+**Architecture:** Hexagonal Architecture with Defense-in-Depth
 
-> **Development Branch Notice**  
-> This branch contains a microservices-based implementation of the LLM Security Firewall with specialized detector services and self-learning capabilities. Code here may be unstable. For production use, see the main project or future releases.
+> **Beta Notice**  
+> This branch contains a microservices-based implementation of the LLM Security Firewall. While functional and tested, it is classified as **Beta** (Development Status 4 per PyPI). Suitable for controlled environments with additional security layers. Not recommended as sole protection in high-risk production deployments.
 
 ## Overview
 
-The LLM Security Firewall is a comprehensive security system for protecting LLM interactions from malicious inputs. This implementation uses a microservices architecture with specialized detector services, an orchestrator for request routing, and self-learning capabilities for continuous improvement.
+The LLM Security Firewall is a **risk reduction** system for protecting LLM interactions from malicious inputs. This implementation uses a microservices architecture with specialized detector services, an orchestrator for request routing, and feedback collection for continuous improvement.
 
-The system operates as multiple independent FastAPI services with clean hexagonal architecture and can be integrated into larger security frameworks. It does not guarantee complete protection and should be used as part of a broader security strategy.
+**Important:** This system provides defense-in-depth and reduces attack surface but **cannot guarantee complete protection against prompt injection**. As noted by [NCSC](https://www.computerweekly.com/news/366636155/NCSC-warns-of-confusion-over-true-nature-of-AI-prompt-injection) and [OWASP](https://genai.owasp.org/llmrisk/llm01-prompt-injection/), LLMs inherently cannot fully separate instructions from data, making complete mitigation impossible. Use as part of a comprehensive security strategy.
 
 ## Microservices Architecture
 
@@ -20,11 +20,57 @@ The system consists of 5 microservices:
 
 | Service | Port | Purpose | Status |
 |---------|------|---------|--------|
-| **Code Intent Service** | 8000 | Detects malicious code execution intents | Production-ready |
-| **Orchestrator Service** | 8001 | Routes requests, aggregates results, manages self-learning | Production-ready |
-| **Persuasion Detector** | 8002 | Detects persuasion and manipulation attempts | Production-ready |
-| **Content Safety Detector** | 8003 | Content safety and policy enforcement | Production-ready |
-| **Learning Monitor Service** | 8004 | Advanced monitoring dashboard (optional) | Optional |
+| **Code Intent Service** | 8000 | Detects malicious code execution intents | Beta |
+| **Orchestrator Service** | 8001 | Routes requests, aggregates results, collects feedback | Beta |
+| **Persuasion Detector** | 8002 | Detects persuasion and manipulation attempts | Beta |
+| **Content Safety Detector** | 8003 | Content safety and policy enforcement | Beta |
+| **Learning Monitor Service** | 8004 | Advanced monitoring dashboard | Optional |
+
+## Threat Model and Security Claims
+
+### What This System Does
+
+This firewall provides **risk reduction** through multiple detection layers:
+
+- **Input validation:** Pattern-based and ML-based detection of malicious prompts
+- **Output validation:** Content safety checks on LLM responses
+- **Tool/Action validation:** Inspection of tool calls before execution
+- **Stateful tracking:** Session-level risk aggregation
+
+### Attacker Capabilities Assumed
+
+- Can craft adversarial prompts (jailbreaks, prompt injection, obfuscation)
+- May have knowledge of detection patterns
+- Cannot directly modify system code or bypass network controls
+
+### Protected Assets
+
+- LLM backend from receiving malicious instructions
+- Users from harmful/manipulative responses
+- Downstream systems from unauthorized tool execution
+
+### Non-Goals (What We Do NOT Claim)
+
+- **Complete protection against prompt injection** - impossible by design (NCSC/OWASP)
+- **Zero false positives** - current FPR is ~3.4% on validation sets
+- **Protection against model-level attacks** - adversarial examples, model extraction
+- **Protection against insider threats** - assumes trusted operators
+
+### Assumptions
+
+- Network isolation prevents direct backend access
+- Operators configure appropriate thresholds for their risk tolerance
+- Feedback submission is from authenticated/trusted sources (see Self-Learning Risks)
+- System is one layer in defense-in-depth, not sole protection
+
+### Evaluation Context
+
+Detection metrics (TPR, FPR) are measured on internal test suites:
+- **Adversarial suite:** 70 crafted attack samples
+- **Holdout set:** 470 mixed samples (270 malicious, 200 benign)
+- **Segmented tests:** Multilingual coverage (EN, DE, mixed)
+
+**Limitations:** These are regression gates, not guarantees of real-world performance. Adaptive attackers, novel attack vectors, and distribution shift may reduce effectiveness. No external baseline comparison (e.g., vs. LLM-Guard) has been performed yet.
 
 ## Architecture
 
@@ -299,30 +345,33 @@ The system includes 10 specialized benign validators:
 
 ### Resource Usage
 
-- **Total Memory (All Services):** ~460 MB baseline, +500-800 MB with ML models
-- **Redis Operations:** <5ms (caching and feedback storage)
-- **PostgreSQL Operations:** <15ms (persistent feedback storage)
-- **Network Overhead:** <10ms per service call
+| Resource | Value | Notes |
+|----------|-------|-------|
+| **Total Runtime Memory** | ~460 MB | All 5 services, rule-based mode |
+| **With ML Models** | +500-800 MB | CNN + CodeBERT loaded |
+| **PyPI Wheel Size** | ~528 KB | Core package only |
+| **Redis Operations** | <5ms | Caching and feedback |
+| **PostgreSQL Operations** | <15ms | Persistent storage |
 
-Note: Measurements from test environment. Actual performance may vary based on hardware, network latency, and configuration.
+Note: Measurements from test environment (Windows 10, Python 3.12). Actual performance varies with hardware and configuration.
 
 ## Known Limitations
 
-1. **False Positive Rate:** Current FPR is 3.4% on validation dataset (1000 tests). Target is ≤5.0% for production use. Remaining false positives primarily in creative benign examples and comparison queries.
+1. **No Complete Protection:** Prompt injection cannot be fully mitigated by design. This is risk reduction, not a guarantee.
 
-2. **Detection Coverage:** Pattern-based detection may miss novel attack vectors. ML models require training data and may not generalize to all attack types.
+2. **False Positive Rate:** Current FPR is ~3.4% on internal validation (1000 tests). Target is ≤5.0%. Creative/benign edge cases may trigger false positives.
 
-3. **Model Dependencies:** ML-based detection requires torch and transformers. System can operate in rule-based mode without ML dependencies.
+3. **Detection Coverage:** Pattern-based detection may miss novel attack vectors. ML models may not generalize to unseen attack types or new languages.
 
-4. **Feedback Collection:** Requires Redis or PostgreSQL for persistent storage. Memory-only mode is available for development.
+4. **No External Baseline:** No comparison against established frameworks (LLM-Guard, LlamaFirewall) has been performed. Metrics are internal regression gates only.
 
-5. **Online Learning:** Online learning feature is experimental and requires model fine-tuning capabilities. Background learning thread runs automatically if enabled.
+5. **Self-Learning Risks:** Feedback pipeline is an attack vector (see Self-Learning Risks section). Production use requires hardening.
 
-6. **Service Dependencies:** Orchestrator requires all detector services to be running for full functionality. Individual services can operate independently.
+6. **Model Dependencies:** ML-based detection requires torch/transformers (~500-800 MB). Rule-based mode works without ML.
 
-7. **Learning Monitor:** Optional service. Core learning functionality works without it (via Orchestrator API).
+7. **Single-Instance:** Current implementation is single-instance. Horizontal scaling requires shared state (Redis/PostgreSQL).
 
-8. **Scalability:** Current implementation is single-instance. Horizontal scaling requires shared state (Redis/PostgreSQL) for feedback repositories.
+8. **Microservices Overhead:** 5 services require operational discipline: API contracts, timeouts, fail-closed policies, observability. New failure modes possible.
 
 ## Testing
 
@@ -356,17 +405,35 @@ python detectors/code_intent_service/test_block_rate.py
 
 ## Self-Learning System
 
-The firewall includes an integrated self-learning system:
+The firewall includes feedback collection for continuous improvement:
 
 1. **Feedback Collection:** False negatives and false positives are collected via `/api/v1/feedback/submit`
-2. **Policy Optimization:** The Orchestrator's `AdaptivePolicyOptimizer` automatically adjusts:
-   - Detection thresholds
-   - Detector selection
-   - Execution strategy (sequential/parallel)
-   - Timeouts
-3. **Learning Metrics:** Monitor learning progress via `/api/v1/learning/metrics` (Orchestrator) or `/api/v1/feedback/stats` (Code Intent)
+2. **Policy Optimization:** The Orchestrator's `AdaptivePolicyOptimizer` can adjust detection thresholds based on feedback
+3. **Learning Metrics:** Monitor feedback via `/api/v1/learning/metrics` (Orchestrator) or `/api/v1/feedback/stats` (Code Intent)
 
-**Documentation:** See `docs/SELF_LEARNING_HANDOVER.md` for detailed technical documentation.
+**Documentation:** See `docs/SELF_LEARNING_GUIDE.md` for detailed technical documentation.
+
+### Self-Learning Risks
+
+**Warning:** Online learning in security products is inherently risky. The feedback pipeline is an attack vector:
+
+| Risk | Description | Mitigation Required |
+|------|-------------|---------------------|
+| **Feedback Poisoning** | Attacker submits false feedback to lower thresholds | Authenticate feedback sources, rate limiting |
+| **Distribution Gaming** | Flood benign samples to shift baseline | Quarantine/review before applying |
+| **Threshold Degradation** | Automatic lowering of guardrails | **Never auto-lower thresholds** (default policy) |
+
+**Current Implementation:**
+- Feedback is stored but **not automatically applied** to detection thresholds
+- Policy optimization requires manual trigger (`POST /api/v1/learning/trigger-optimization`)
+- No signed feedback verification (recommended for production)
+- No offline retraining pipeline (feedback is for analysis, not automatic model updates)
+
+**Production Hardening Required:**
+- Implement signed/authenticated feedback submission
+- Add rate limiting per source
+- Implement review queue before any threshold changes
+- Default policy: "never lower guardrails automatically"
 
 ## Service Details
 
@@ -423,15 +490,20 @@ The current branch structure allows for experimentation and development without 
 
 ## Security Notice
 
-This library reduces risk but does not guarantee complete protection. It should be used as part of a comprehensive security strategy including:
+**This library provides risk reduction, not complete protection.**
 
-- Authentication and authorization
-- Network isolation
-- Logging and monitoring
-- Rate limiting
-- Sandboxing of execution environments
+Per [OWASP LLM Top 10](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) and [NCSC guidance](https://www.computerweekly.com/news/366636155/NCSC-warns-of-confusion-over-true-nature-of-AI-prompt-injection), prompt injection cannot be fully mitigated because LLMs cannot cleanly separate instructions from data.
 
-The maintainers assume no liability for misuse. Use only in compliance with local law and data-protection regulations.
+**Use as part of defense-in-depth:**
+
+- Authentication and authorization (who can submit prompts)
+- Network isolation (LLM backend not directly accessible)
+- Logging and monitoring (detect anomalies)
+- Rate limiting (prevent abuse)
+- Sandboxing (limit blast radius of successful attacks)
+- Human review for high-risk actions
+
+**The maintainers assume no liability for security incidents. This software is provided "as is" without warranty. Use only in compliance with local law and data-protection regulations.**
 
 ## License
 
